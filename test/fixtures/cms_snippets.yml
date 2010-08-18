@@ -1,0 +1,3 @@
+default:
+  label: default_snippet
+  content: snippet content
