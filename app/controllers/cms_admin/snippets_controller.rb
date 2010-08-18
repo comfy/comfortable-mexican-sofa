@@ -18,21 +18,21 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def create
     @cms_snippet.save!
-    redirect_to [:cms_admin, :snippets], :notice => 'Snippet created'
+    redirect_to({ :action => :edit, :id => @cms_snippet }, :notice => 'Snippet created')
   rescue ActiveRecord::RecordInvalid
     render :action => :new
   end
 
   def update
     @cms_snippet.update_attributes!(params[:cms_snippet])
-    redirect_to [:cms_admin, :snippets], :notice => 'Snippet updated'
+    redirect_to({ :action => :edit, :id => @cms_snippet }, :notice => 'Snippet updated')
   rescue ActiveRecord::RecordInvalid
     render :action => :edit
   end
 
   def destroy
     @cms_snippet.destroy
-    redirect_to [:cms_admin, :snippets], :notice => 'Snippet removed'
+    redirect_to({ :action => :index }, :notice => 'Snippet removed')
   end
 
 protected

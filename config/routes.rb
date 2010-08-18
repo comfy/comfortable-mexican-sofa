@@ -1,6 +1,7 @@
 ComfortableMexicanSofa::Application.routes.draw do
   
   namespace :cms_admin, :path => 'cms-admin' do
+    match '/', :to => redirect('/cms-admin/pages')
     resources :layouts, :pages, :snippets, :assets
   end
   
