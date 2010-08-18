@@ -12,5 +12,9 @@ class CmsSnippet < ActiveRecord::Base
   def self.content_for(label)
     (s = find_by_label(label)) ? s.content : ''
   end
+  
+  # -- Scopes ---------------------------------------------------------------
+  
+  default_scope :order => 'label'
     
 end

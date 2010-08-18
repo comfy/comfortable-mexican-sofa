@@ -1,7 +1,7 @@
 class CmsContentController < ApplicationController
   
   def show
-    render :text => 'Hello World!'
+    render :inline => '<h1>Hello World!</h1>'
   end
   
 end
