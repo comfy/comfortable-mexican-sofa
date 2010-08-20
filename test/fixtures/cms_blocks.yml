@@ -1,0 +1,37 @@
+default_block_header:
+  cms_page: default
+  label: header
+  content_string: /block:header/
+
+default_page_block_default:
+  cms_page: default
+  label: default
+  content_text: /page_block:default/
+  
+default_page_block_footer:
+  cms_page: default
+  label: footer
+  content_text: /page_block:footer/
+  
+complex_page_block_header:
+  cms_page: complex
+  label: header
+  content_string: /block:header/
+
+complex_page_block_left_column:
+  cms_page: complex
+  label: left_column
+  content_text: |-
+    /page_block:left_column/ {{ cms_snippet:complex_snippet }}
+
+complex_page_block_right_column:
+  cms_page: complex
+  label: right_column
+  content_text: |-
+    /page_block:right_column/ {{ cms_partial:complex_page/example }}
+  
+complex_page_block_footer:
+  cms_page: complex
+  label: footer
+  content_text: /page_block:footer/
+

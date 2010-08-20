@@ -1,10 +1,47 @@
-ComfortableMexicanSofa::Application.routes.draw do
-  
-  namespace :cms_admin, :path => 'cms-admin' do
-    match '/', :to => redirect('/cms-admin/pages')
-    resources :layouts, :pages, :snippets, :assets
+Rails.application.routes.draw do
+  scope '/cms-admin', :module => 'cms_admin', :as => 'cms_admin'  do
+    match '/', :to => "base#index"
+    resources :layouts do
+      collection do
+        put :reorder
+      end
+
+      member do
+        match :toggle
+        match :children
+      end
+    end
+
+    resources :pages do
+      collection do
+        put :reorder
+      end
+
+      member do
+        match :toggle
+        match :form_blocks
+      end
+    end
+
+    resources :snippets do
+      collection do
+        put :reorder
+      end
+    end
+
+    resources :sites
+
+    resources :categories do
+      member do
+        match :toggle
+        match :children
+      end
+    end
   end
   
-  # Catch-all route
-  match '*path' => 'cms_content#show', :via => :get
+  controller :cms_content do
+    match '/sitemap.xml', :to => :sitemap
+    match '*path', :to => :show
+    root :to => :show
+  end
 end

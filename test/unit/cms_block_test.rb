@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class CmsBlockTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  
+  def test_fixtures_validity
+    CmsBlock.all.each do |block|
+      assert block.valid?
+    end
   end
+  
 end

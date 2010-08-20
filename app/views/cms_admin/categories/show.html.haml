@@ -1,0 +1,14 @@
+%h2= "Category: #{@cms_category.label}"
+- @cms_category.records.each_pair do |model_sym,records|
+  - model_type = model_sym.to_s
+  - content_for :head do
+    = stylesheet_link_tag model_type unless model_type == "cms_pages"
+    -# This requires that plugins have standardized names, like "cms_attachments.sass"
+
+  %h3
+    = "#{model_type[4..-1].humanize} (#{records.length})"
+
+  - records.each do |record|
+    = link_to record.label, {:controller => model_type[4..-1], :action => :edit, :id => record.to_param}, :class => model_type[4..-1].singularize
+  - if records.empty?
+    %p No #{model_type[4..-1]} in this category

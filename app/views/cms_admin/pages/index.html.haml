@@ -1,0 +1,21 @@
+= link_to 'Add New Page', new_cms_admin_page_path, :class => 'top_button'
+
+%h2 Pages
+= render :partial => 'cms_admin/flash_message'
+- if (@sites)
+  - @sites.each do |site|
+    %h3= h(site.label)
+    %ul.tree_structure.sortable
+      - if (@cms_pages[site.id])
+        = render(:partial => 'tree_branch', :collection => @cms_pages[site.id])
+      - else
+        %li.empty_state
+          No pages defined.
+
+  - if (@cms_pages[nil])
+    %h3 Default Site
+    %ul.tree_structure.sortable
+      = render(:partial => 'tree_branch', :collection => @cms_pages[nil])
+- else
+  %ul.tree_structure.sortable
+    = render(:partial => 'tree_branch', :collection => @cms_pages)

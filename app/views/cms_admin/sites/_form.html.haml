@@ -1,0 +1,10 @@
+%h2= @site.new_record? ? "New Site" : "Editing \"#{@site.label}\""
+= render :partial => 'cms_admin/flash_message'
+= f.error_messages
+.form_element_group.horizontal
+  = f.text_field :label, :label => "Site Name"
+  = f.text_field :hostname, :label => "Hostname"
+.submit
+  = f.submit 'Save All Changes', :onclick => 'this.f.target = ""'
+  or 
+  = link_to 'Return to List', cms_admin_sites_path

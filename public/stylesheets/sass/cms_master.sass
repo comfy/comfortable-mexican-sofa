@@ -1,0 +1,514 @@
+// -------------------------------------------------------------------- Reset
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  font-size: 100%
+  vertical-align: baseline
+  background: transparent
+  font-weight: normal
+body
+  line-height: 1
+ol, ul
+  list-style: none
+blockquote, q
+  quotes: none
+blockquote:before, blockquote:after, q:before, q:after
+  content: ''
+  content: none
+*:focus
+  outline: 0
+ins
+  text-decoration: none
+del
+  text-decoration: line-through
+table
+  border-collapse: collapse
+  border-spacing: 0
+caption, th
+  text-align: left
+
+// --------------------------------------------------------------- Typography
+body
+  font: 13px Arial, Verdana, clean, sans-serif
+  _font-size: small
+  _font: x-small
+table
+  font-size: inherit 
+  th
+    font-weight: bold
+pre, code 
+  font: 115% monospace
+  _font-size: 100%
+
+p
+  font: 12px/15px Arial, sans-serif
+  color: #000
+
+h1, h2, h3
+  margin: 0.8em 0em
+
+h2
+  font: bold 25px/30px Arial, sans-serif
+  color: #000
+  
+h3
+  font: bold 18px/24px Arial, sans-serif
+  color: #000
+  
+// ------------------------------------------------------------------- Common
+
+a
+  color: #26A9E0
+  text-decoration: none
+
+a:hover
+  text-decoration: none
+  border-bottom: 1px dotted #26A9E0
+
+a.button
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+  background-color: #7CAE00
+  padding: 5px 8px
+  font: 10px/20px Arial, sans-serif
+  color: #fff
+  text-transform: uppercase
+  letter-spacing: 1px
+  
+a.button:hover
+  background-color: #629700
+  border: 0px
+  
+a.big_button
+  float: left
+  padding: 0px 15px
+  font: bold 14px/33px Arial, sans-serif
+  color: #fff
+  -moz-border-radius: 7px
+  -webkit-border-radius: 7px
+  background: url("/images/cms/bg-button-green-34.gif") top
+  display: block
+  text-decoration: none
+  height: 34px
+  
+a.big_button:hover
+  background-position: 0 -34px
+  border: 0px
+  
+a.top_button
+  float: right
+  padding: 0px 15px
+  margin-top: -35px
+  font: bold 14px/33px Arial, sans-serif
+  color: #fff
+  -moz-border-radius: 0px 0px 7px 7px
+  -webkit-border-bottom-left-radius: 7px
+  -webkit-border-bottom-right-radius: 7px
+  background: url("/images/cms/bg-button-green-34.gif") top
+  display: block
+  text-decoration: none
+  height: 34px
+
+a.top_button:hover
+  background-position: 0 -34px
+  border: 0px
+  
+.filter_form
+  float: right
+  margin-bottom: 15px
+  
+// ---------------------------------------------------------------- Structure
+
+body
+  background: #fff url('/images/cms/background.png') top left repeat-y
+  .content_wrapper
+    width: 1195px
+    .left_column
+      width: 205px 
+      float: left
+      .header
+        text-align: center
+        width: 150px
+        margin: 15px auto
+        h1
+          padding: 0px
+          margin: 0px
+          display: none
+        a
+          font-size: 0px
+          line-height: 0px
+          color: #fff
+          text-decoration: none
+        a:hover
+          border: 0px
+      
+    .content_column
+      width: 990px
+      float: left
+      .flash.notice
+        padding: 6px
+        background-color: #c7e03d
+        color: #000
+        margin: 15px 0px
+        font-size: 14px
+      .center_column
+        padding: 30px
+        float: left
+        width: 680px
+        #form_blocks
+          float: left
+          width: 100%
+          label
+            font: bold 16px/24px Arial, sans-serif
+            color: #000
+            text-transform: none
+            letter-spacing: 0px
+      .right_column
+        float: right
+        width: 250px
+        .form_element_group
+          padding: 30px 20px 20px 20px
+        .form_element_group + .form_element_group
+          border-top: 3px solid #E6E7E8
+          padding-top: 13px
+        h2
+          font: bold 18px/24px Arial, sans-serif
+          color: #000
+          margin-bottom: 10px
+          
+  .footer
+    display: none
+    padding: 15px
+    color: #fff
+    a
+      color: #fff
+    
+// -------------------------------------------------------------- Left Column
+.left_column
+  ul
+    margin-bottom: 5px
+    padding: 5px 0px
+    li
+      margin: 6px 0px
+      a
+        display: block
+        font: bold 14px/34px Arial, sans-serif
+        color: #58595B
+        margin-left: 5px
+        padding-left: 35px
+        text-decoration: none
+        
+      a.active, a:hover
+        color: #fff
+        height: 34px
+        background-color: #231F20
+        -moz-border-radius: 7px 0px 0px 7px
+        -webkit-border-top-left-radius: 7px
+        -webkit-border-bottom-left-radius: 7px
+        border: 0px
+        
+
+// ----------------------------------------------------------- Tree Structure
+ul.closed
+  display: none
+  
+ul.tree_structure
+  background-color: #fff
+  padding: 25px
+  margin-top: 15px
+  box-shadow: 0px 2px 8px #ddd
+  -moz-box-shadow: 0px 2px 8px #ddd
+  -webkit-box-shadow: 0px 2px 8px #ddd
+  
+  li
+    margin-left: 25px
+  li + li, li > ul
+    border-top: 1px solid #eee
+  
+  a.tree_toggle
+    margin-top: 5px
+    width: 20px
+    height: 28px
+    float: left
+    margin-left: -35px
+    font: bold 14px/25px Arial, sans-serif
+    background: url(/images/cms/arrow_bottom.gif) right center no-repeat
+    padding-right: 15px
+    color: #ccc
+    text-align: right
+    text-decoration: none
+  a.tree_toggle.closed
+    background-image: url(/images/cms/arrow_right.gif)
+  a.tree_toggle:hover
+    border: 0px
+    color: #000
+    
+  .item
+    padding: 7px 0px 7px 35px
+    overflow: hidden
+    
+    .icon
+      margin-left: -30px
+      float: left
+      width: 28px
+      height: 28px
+      background: url(/images/cms/icon_draft.gif)
+      .dragger
+        width: 28px
+        height: 28px
+        cursor: move
+      .dragger:hover
+        background: url(/images/cms/icon_move.gif)
+    
+    a.label
+      font-size: 14px
+      color: #000
+    a.label:hover
+      border-bottom: 1px dotted #000
+    .url
+      font-size: 10px
+      
+    .action_links
+      visibility: hidden
+      font-size: 10px
+      
+    table.details
+      font-size: 10px
+      margin: 5px 15px
+      border-left: 3px solid #ccc
+      th
+        padding: 0px 5px 0px 10px
+        font-weight: normal
+      
+  .item:hover
+    background-color: #ebf5fc
+    .action_links
+      visibility: visible
+
+// ---------------------------------------------------------- Formatted Table
+table.formatted
+  margin-bottom: 15px
+  background-color: #fff
+  border: 10px solid #fff
+  box-shadow: 0px 2px 8px #ddd
+  -moz-box-shadow: 0px 2px 8px #ddd
+  -webkit-box-shadow: 0px 2px 8px #ddd
+ 
+  th, td
+    padding: 10px
+    vertical-align: top
+    white-space: nowrap
+    a.label
+      color: black
+      font-size: 14px
+    a.slug
+      font-size: 10px
+
+  th
+    background-color: #eee
+    font-size: 10px
+    text-transform: uppercase
+    border-bottom: 1px solid #444
+  td.main, th.main
+    width: 100%
+    white-space: normal
+  tr
+    border-bottom: 1px solid #eee
+    
+// -------------------------------------------------------------------- Forms
+.form_element_group
+  margin-top: 10px
+
+
+.form_element
+  margin-bottom: 10px
+  overflow: hidden
+  .label
+    height: 22px
+    font: 10px/22px Arial, sans-serif
+    color: #000
+    text-transform: uppercase
+    letter-spacing: 1px
+  .value
+    .field_with_errors
+      display: inline
+    input, select, textarea
+      width: 97%
+      border: 1px solid #ccc
+      padding: 3px
+    input[type=checkbox]
+      width: auto
+      border: 0
+      float: left
+      margin: 1px 4px 0px 0px
+      
+    .codemirror
+      background-color: #fff
+      border: 1px inset #e5e5e5
+  .value.narrow
+    input, select, textarea
+      width: 80%
+  .fieldWithErrors label
+    color: #9E0B0F
+  .errors
+    color: #9E0B0F
+    margin: 3px 0px
+  .select
+    .label
+      label
+        line-height: 20px
+.form_element.large
+  label
+    font-size: 16px
+    line-height: 26px
+  .value
+    input
+      font-size: 16px
+.form_element.time_select_element, .form_element.date_select_element, .form_element.check_box_element, .form_element.radio_button_element
+  select, input
+    width: auto
+
+.form_element.submit_element
+  input
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    background-color: #7CAE00
+    padding: 5px 8px
+    font: 10px/20px Arial, sans-serif
+    color: #fff
+    text-transform: uppercase
+    letter-spacing: 1px
+    border: none
+        
+.form_element_group.vertical
+  float: left
+  width: 50%
+  .form_element
+    .label
+      text-align: right
+      width: 40px
+      float: left
+    .value
+      float: left
+      width: 80%
+      margin-left: 10px
+      select
+        width: 100%
+      input[type=text]
+        width: 100%
+.vertical + .vertical
+  .form_element
+    .label
+      width: 100px
+    .value
+      width: 60%
+
+.form_element_group.publishing
+  .form_element .field
+    input
+      width: 200px
+
+.form_element_group.categories
+  .label
+    border-bottom: 2px solid #fff
+    padding-bottom: 5px
+    margin-bottom: 5px
+  ul#root_categories 
+    margin-bottom: 10px
+    li li
+      padding-left: 15px
+    input
+      width: auto
+  #new_category
+    input, select
+      margin-bottom: 5px
+    input.submit_button
+      width: auto
+
+
+.submit
+  float: left
+  line-height: 30px
+  .submit_element
+    margin: 5px 5px 5px 0px
+    float: left
+form
+  .errorExplanation
+    background-color: #9E0B0F
+    padding: 10px
+    color: #fff
+    font-size: 12px
+    h2
+      margin: 0.1em 0em
+      font-size: 16px
+    h2, p
+      color: #fff
+    ul
+      margin: 10px 10px 0px 10px
+
+.form_element_group.advanced
+  display: none
+// --------------------------------------------------------------- Pagination
+.pagination
+  margin-bottom: 15px
+  float: right
+  a, span
+    background: #404040
+    color: #fff
+    padding: 2px 5px
+    font-size: 11px
+    -moz-border-radius: 2px
+  a:hover
+    text-decoration: none
+  span.disabled
+    display: none
+  span.current
+    background-color: #999
+    
+// ------------------------------------------------------------------ Layouts
+#cms_admin_layouts_index
+  .icon
+    background-image: url(/images/cms/icon_layout.gif)
+
+// -------------------------------------------------------------------- Pages
+#cms_admin_pages_index
+  .icon.published
+    background-image: url(/images/cms/icon_regular.gif)
+    
+// ----------------------------------------------------------------- Snippets
+#cms_admin_snippets_index
+  .icon
+    width: 28px
+    height: 28px
+    background: url(/images/cms/icon_snippet.gif)
+// --------------------------------------------------------------- Categories
+#cms_admin_categories_index
+  .icon
+    background-image: url(/images/cms/icon_category.gif)
+  .categorizations
+    font-size: 10px
+#cms_admin_categories_show
+  h3
+    font-size: 12px
+    text-transform: uppercase
+    border-bottom: 1px solid #ccc
+    color: #ccc
+    margin-bottom: 15px
+    clear: both
+  .pages
+    margin-bottom: 15px
+    overflow: hidden
+  a.page
+    width: 150px
+    float: left
+    height: 30px
+    padding-left: 35px
+    font: 14px/30px Georgia, serif
+    color: #000
+    margin: 0px 5px 5px 0px
+    background: url(/images/cms/icon_regular.gif) left center no-repeat
+  a:hover
+    border-bottom: 0px
+

@@ -1,0 +1,25 @@
+- page ||= details
+
+%table{:class => 'details', :id => "page_details_#{page.id}", :style => 'display: none'}
+  
+  - if page.redirect_to_page
+    %tr 
+      %th Redirecting To:
+      %td
+        = link_to page.redirect_to_page.label, cms_admin_page_path(page.redirect_to_page)
+        = "(#{link_to page.redirect_to_page.full_path, page.redirect_to_page.full_path})"
+  
+  - if page.redirected_from_page
+    %tr 
+      %th Redirected From:
+      %td
+        = link_to page.redirected_from_page.label, cms_admin_page_path(page.redirected_from_page)
+        = "(#{link_to page.redirected_from_page.full_path, page.redirected_from_page.full_path})"
+      
+  - if page.cms_layout
+    %tr
+      %th Layout:
+      %td= link_to page.cms_layout.label, edit_cms_admin_layout_path(page.cms_layout)
+    %tr
+      %th Blocks:
+      %td= page.cms_blocks.collect(&:label).join(', ')

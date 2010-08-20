@@ -1,0 +1,9 @@
+- category ||= toggle_link
+
+- if category.children.count > 0
+
+  - if session[:cms_category_tree] && session[:cms_category_tree].member?(category.id.to_s)
+    = link_to_remote category.children.count, :url => {:action => 'children', :id => category.id, :state => 'open'}, :loading => "$('category_#{category.id}_children').show()", :html => {:id => "category_#{category.id}_link", :class => 'tree_toggle open'}
+    
+  - else
+    = link_to_remote category.children.count, :url => {:action => 'children', :id => category.id, :state => 'closed'}, :loading => "$('category_#{category.id}_children').show()", :html => {:id => "category_#{category.id}_link", :class => 'tree_toggle closed'}

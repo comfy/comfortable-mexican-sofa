@@ -1,0 +1,30 @@
+- layout = tree_branch
+- children = layout.children
+
+%li[layout]
+  - if children.size > 0
+    = link_to_toggle(layout, children.size)
+    
+  .item
+    .icon
+      - if layout.siblings.size > 0 
+        .dragger
+        
+    = link_to layout.label, edit_cms_admin_layout_path(layout), :class => 'label'
+    
+    %span.action_links
+      [
+      = link_to_function 'Toggle Details', "", :class => 'details_toggle'
+      |
+      - if layout.is_extendable?
+        = link_to 'Add Child Layout', new_cms_admin_layout_path(:parent_id => layout.id)
+        |
+      = link_to 'Edit', edit_cms_admin_layout_path(layout)
+      |
+      = link_to 'Remove', cms_admin_layout_path(layout), :method => 'delete', :confirm => 'Are you sure you want to remove this layout?'
+      ]
+    = render :partial => 'details', :object => layout
+
+  - if children.size > 0
+    %ul{:id => dom_id(layout, :children), :class => "sortable #{tree_state(layout)}"}
+      = render :partial => 'tree_branch', :collection => children

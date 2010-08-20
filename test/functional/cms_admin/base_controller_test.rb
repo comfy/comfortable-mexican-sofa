@@ -1,8 +1,15 @@
-require 'test_helper'
+require  File.dirname(__FILE__) + '/../../test_helper'
 
 class CmsAdmin::BaseControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  
+  def setup
+    http_auth
   end
+  
+  def test_index
+    get :index
+    assert_redirected_to cms_admin_pages_path
+  end
+  
+  
 end

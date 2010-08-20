@@ -1,0 +1,19 @@
+= link_to 'Add New Snippet', new_cms_admin_snippet_path, :class => 'top_button'
+
+%h2 Snippets
+= render :partial => 'cms_admin/flash_message'
+%table.formatted
+  - if @cms_snippets.blank?
+    %tr
+      %td No Snippets Defined
+  - @cms_snippets.each do |snippet|
+    %tr
+      %td
+        .icon
+      %td.main
+        = link_to snippet.label.titleize, edit_cms_admin_snippet_path(snippet), :class => 'label'
+        %br/
+        = link_to snippet.label, edit_cms_admin_snippet_path(snippet), :class => 'slug'
+      %td.action_links
+        = link_to 'Edit', edit_cms_admin_snippet_path(snippet), :class => 'button'
+        = link_to 'Remove', cms_admin_snippet_path(snippet), :class => 'button', :method => 'delete', :confirm => 'Are you sure you want to remove this snippet?'
