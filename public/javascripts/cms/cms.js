@@ -43,8 +43,7 @@ $.CMS = function(){
     // Datepicker
     $('input[data-datepicker]').datepicker({dateFormat : 'yy-mm-dd'});
 
-    // Add Category Subform
-    $.CMS.category_subform_submit();
+
   }); // End $(document).ready()
 
 
@@ -59,45 +58,6 @@ $.CMS = function(){
       }
       str = str.replace(/[^a-zA-Z0-9 -]/g, '').replace(/\s+/g, '-').toLowerCase();
       return str;
-    },
-    toggle_category_selections: function(obj) {
-      if (obj.checked == true){
-        $(obj).parents("ul#root_categories li")
-          .children("div.form_element")
-          .find("input[type=checkbox]")
-          .each(function() {
-            this.checked = true;
-          });
-      } else {
-        // NOT WORKING
-        $(obj).parent().parent().parent().find("input[type=checkbox]").each(function() {
-          this.checked = false;
-        });
-      }
-    },
-    category_subform_submit: function(){
-      $('#new_category input[type=button]').bind('click.cms', function() {
-        var currently_selected = [];
-        $.post(
-          '/cms-admin/categories.js',
-          $("#new_category [name^=cms_category]")
-            .add("input[name=item_type]")
-            .add("input[name='authenticity_token']")
-            .serialize(),
-          function(data) {
-            $("#cms_category_label").val("").focus();
-            $.CMS.category_subform_submit();
-          }
-        );
-        return false;
-      })
-
-      $('#new_category input[name^=cms_category]').bind('keypress.cms', function(event) {
-        if (event.keyCode == '13') {
-          event.preventDefault();
-          $('#new_category input[type=button]').trigger('click.cms');
-        }
-      })
     }
   }
 }();

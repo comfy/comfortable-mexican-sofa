@@ -28,13 +28,6 @@ Rails.application.routes.draw do
         put :reorder
       end
     end
-
-    resources :categories do
-      member do
-        match :toggle
-        match :children
-      end
-    end
   end
   
   controller :cms_content do

@@ -1,7 +1,0 @@
-- if @cms_category.valid?
-  - if @cms_category.parent.blank?
-    =raw '$("#root_categories").append("' + (render :partial => 'category', :locals => { :category => @cms_category, :item_type => params[:item_type] }).gsub(/\n/,'').gsub(/"/,'\\"') + '");'
-  - else
-    =raw '$("#' + dom_id(@cms_category.parent) + '").append("' + (render :partial => 'category', :locals => { :category => @cms_category, :item_type => params[:item_type] }).gsub(/\n/,'').gsub(/"/,'\\"') + '");'
-
-=raw '$("#new_category").replaceWith("' + (render :partial => 'cms_admin/categories/new', :locals => {:item_type => params[:item_type]}).gsub(/\n/,'').gsub(/"/,'\\"') + '");'

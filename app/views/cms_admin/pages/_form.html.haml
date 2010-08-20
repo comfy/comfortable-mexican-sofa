@@ -7,8 +7,6 @@
   .form_element_group
     %h2 W3C Validation
     = link_to 'Check Validation', 'http://validator.w3.org/check?uri=http://'+request.host+@cms_page.full_path, :target => "_new"
-
-  = render :partial => 'cms_admin/categories/category_subform', :locals => { :item => @cms_page }
       
 %h2= @cms_page.new_record? ? "New Page" : "Editing \"#{@cms_page.label}\""
 = render :partial => 'cms_admin/flash_message'

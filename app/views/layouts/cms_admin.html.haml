@@ -27,7 +27,6 @@
           %li= active_link_to 'Layouts', cms_admin_layouts_path
           %li= active_link_to 'Pages', cms_admin_pages_path, :active => {:when => [['cms_admin/pages'], %w(index new edit create update)]}
           %li= active_link_to 'Snippets', cms_admin_snippets_path
-          %li= active_link_to 'Categories', cms_admin_categories_path
         
         - if (tabs = ComfortableMexicanSofa::Config.extension_tabs)
           %ul.secondary

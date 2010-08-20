@@ -384,21 +384,6 @@ table.formatted {
 .form_element_group.publishing .form_element .field input {
   width: 200px; }
 
-.form_element_group.categories .label {
-  border-bottom: 2px solid white;
-  padding-bottom: 5px;
-  margin-bottom: 5px; }
-.form_element_group.categories ul#root_categories {
-  margin-bottom: 10px; }
-  .form_element_group.categories ul#root_categories li li {
-    padding-left: 15px; }
-  .form_element_group.categories ul#root_categories input {
-    width: auto; }
-.form_element_group.categories #new_category input, .form_element_group.categories #new_category select {
-  margin-bottom: 5px; }
-.form_element_group.categories #new_category input.submit_button {
-  width: auto; }
-
 .submit {
   float: left;
   line-height: 30px; }
@@ -448,30 +433,3 @@ form .errorExplanation {
   width: 28px;
   height: 28px;
   background: url(/images/cms/icon_snippet.gif); }
-
-#cms_admin_categories_index .icon {
-  background-image: url(/images/cms/icon_category.gif); }
-#cms_admin_categories_index .categorizations {
-  font-size: 10px; }
-
-#cms_admin_categories_show h3 {
-  font-size: 12px;
-  text-transform: uppercase;
-  border-bottom: 1px solid #cccccc;
-  color: #cccccc;
-  margin-bottom: 15px;
-  clear: both; }
-#cms_admin_categories_show .pages {
-  margin-bottom: 15px;
-  overflow: hidden; }
-#cms_admin_categories_show a.page {
-  width: 150px;
-  float: left;
-  height: 30px;
-  padding-left: 35px;
-  font: 14px/30px Georgia, serif;
-  color: black;
-  margin: 0px 5px 5px 0px;
-  background: url(/images/cms/icon_regular.gif) left center no-repeat; }
-#cms_admin_categories_show a:hover {
-  border-bottom: 0px; }

@@ -1,7 +1,6 @@
 %w(
   cms_rails_extensions
   cms_acts_as_tree
-  acts_as_categorized
   cms_tag
   cms_tags/block
   cms_tags/page_block

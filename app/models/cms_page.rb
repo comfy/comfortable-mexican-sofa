@@ -11,7 +11,6 @@ class CmsPage < ActiveRecord::Base
   # -- AR Extensions --------------------------------------------------------
   
   acts_as_tree :counter_cache => :children_count
-  acts_as_categorized
   
   # -- Properties -----------------------------------------------------------
   

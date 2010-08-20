@@ -1,9 +1,0 @@
-= link_to 'Add New Category', new_cms_admin_category_path, :class => 'top_button'
-
-%h2 Categories
-= render :partial => 'cms_admin/flash_message'
-- if @cms_categories.empty?
-  No Categories have been created yet
-- else
-  %ul.tree_structure.sortable
-    = render :partial => 'tree_branch', :collection => @cms_categories
