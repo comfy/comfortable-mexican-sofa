@@ -31,7 +31,6 @@ module ComfortableMexicanSofa
     cattr_accessor_with_default :cms_title
     cattr_accessor_with_default :additional_cms_tabs, { }
     cattr_accessor_with_default :extension_tabs, { }
-    cattr_accessor_with_default :multiple_sites, false
     cattr_accessor_with_default :logo_path, '/images/cms/default-logo.png'
   end
 

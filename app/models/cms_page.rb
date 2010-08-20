@@ -18,8 +18,7 @@ class CmsPage < ActiveRecord::Base
   attr_accessor :rendered_content
   
   # -- Relationships --------------------------------------------------------
-  
-  belongs_to  :cms_site
+
   belongs_to  :cms_layout
   has_many    :cms_blocks,
     :dependent    => :destroy
@@ -45,15 +44,13 @@ class CmsPage < ActiveRecord::Base
     :if => :slug_required?
   
   validates :full_path,
-    :uniqueness => { :scope => :cms_site_id }
+    :uniqueness => true
   
   validate :validate_redirect_to
   
   # -- AR Callbacks ---------------------------------------------------------
 
   before_validation :assign_full_path
-
-  before_save :assign_site
 
   before_update :update_counter_cache
 
@@ -115,7 +112,7 @@ class CmsPage < ActiveRecord::Base
   end
   
   def pages_for_select(page = nil, level = 0, exclude_self = false)
-    page ||= self.cms_site ? self.cms_site.cms_pages.root : CmsPage.root
+    page ||= CmsPage.root
     
     return [] if !page || (page == self && exclude_self)
     out = [["#{". . " * level} #{page.label}", page.id]]
@@ -135,20 +132,12 @@ class CmsPage < ActiveRecord::Base
     "/#{read_attribute(:full_path)}"
   end
   
-  def full_path_with_site
-    (self.cms_site ? "http://#{self.cms_site.hostname}" : '') + full_path
-  end
-  
   def cms_block_content(label, content)
     self.cms_blocks.select{|b| b.label.to_s == label.to_s}.first.try(content)
   end
   
   def slug_required?
-    if (self.cms_site_id?)
-      return !self.site_root?
-    else
-      return (self != CmsPage.root or CmsPage.count == 0)
-    end
+    return (self != CmsPage.root or CmsPage.count == 0)
   end
 
   def published_status
@@ -158,12 +147,6 @@ class CmsPage < ActiveRecord::Base
 protected
   def assign_full_path
     self.full_path = (self.ancestors.reverse.collect{ |p| p.slug }.reject { |p| p.blank? } + [ self.slug ]).join('/')
-  end
-  
-  def assign_site
-    return if (self.cms_site_id.present?)
-    
-    self.cms_site_id = (self.parent and self.parent.cms_site_id)
   end
 
   def validate_redirect_to

@@ -29,8 +29,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sites
-
     resources :categories do
       member do
         match :toggle

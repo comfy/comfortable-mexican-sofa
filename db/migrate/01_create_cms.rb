@@ -1,15 +1,7 @@
 class CreateCms < ActiveRecord::Migration
   def self.up
-    create_table :cms_sites do |t|
-      t.string :label
-      t.string :hostname
-    end
-    
-    add_index :cms_sites, :label
-    add_index :cms_sites, :hostname, :unique => true
-    
+        
     create_table :cms_layouts do |t|
-      t.integer :cms_site_id
       t.integer :parent_id
       t.string  :label
       t.text    :content
@@ -25,7 +17,6 @@ class CreateCms < ActiveRecord::Migration
     execute "INSERT INTO cms_layouts (id, label, app_layout, content) VALUES (1, 'Default Layout', 'application', '{{cms_page_block:default:text}}')"
     
     create_table :cms_pages do |t|
-      t.integer   :cms_site_id
       t.integer   :cms_layout_id
       t.integer   :parent_id
       t.integer   :redirect_to_page_id
@@ -36,11 +27,10 @@ class CreateCms < ActiveRecord::Migration
       t.integer   :position,          :null => false, :default => 0
       t.boolean   :published,         :null => false, :default => true
       t.boolean   :excluded_from_nav, :null => false, :default => false
-      t.boolean   :site_root,         :null => false, :default => false
       t.timestamps
     end
     add_index :cms_pages, [:parent_id, :slug]
-    add_index :cms_pages, [ :cms_site_id, :full_path ], :unique => true
+    add_index :cms_pages, :full_path , :unique => true
     add_index :cms_pages, [:published, :full_path]
     add_index :cms_pages, [:excluded_from_nav, :parent_id]
 
@@ -98,7 +88,6 @@ class CreateCms < ActiveRecord::Migration
     drop_table :cms_pages
     drop_table :cms_snippets
     drop_table :cms_blocks
-    drop_table :cms_sites
     drop_table :cms_categories
     drop_table :cms_page_categorizations
   end

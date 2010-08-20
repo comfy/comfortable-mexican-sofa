@@ -6,12 +6,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   before_filter :build_page, :only => [ :new, :create ]
   
   def index
-    if (ComfortableMexicanSofa::Config.multiple_sites)
-      @sites = CmsSite.all
-      @cms_pages = CmsPage.roots.group_by(&:cms_site_id)
-    else
-      params[:root] ? @cms_pages = CmsPage.find(params[:root]).children : @cms_pages = CmsPage.roots
-    end
+    params[:root] ? @cms_pages = CmsPage.find(params[:root]).children : @cms_pages = CmsPage.roots
   end
   
   def toggle
@@ -82,8 +77,6 @@ protected
     
     @cms_page = CmsPage.new(params[:cms_page])
 
-    if (@cms_page.parent ||= @parent_page)
-      @cms_page.cms_site = @cms_page.parent.cms_site
-    end
+    @cms_page.parent ||= @parent_page
   end
 end

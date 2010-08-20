@@ -6,10 +6,7 @@
   
   .form_element_group
     %h2 W3C Validation
-    - if (ComfortableMexicanSofa::Config.multiple_sites)
-      = link_to 'Check Validation', 'http://validator.w3.org/check?uri='+@cms_page.full_path_with_site, :target => "_new"
-    - else
-      = link_to 'Check Validation', 'http://validator.w3.org/check?uri=http://'+request.host+@cms_page.full_path, :target => "_new"
+    = link_to 'Check Validation', 'http://validator.w3.org/check?uri=http://'+request.host+@cms_page.full_path, :target => "_new"
 
   = render :partial => 'cms_admin/categories/category_subform', :locals => { :item => @cms_page }
       
