@@ -8,14 +8,16 @@ class CmsPage < ActiveRecord::Base
     end
   end
   
+  # -- AR Extensions --------------------------------------------------------
+  
+  acts_as_tree :counter_cache => :children_count
+  acts_as_categorized
+  
   # -- Properties -----------------------------------------------------------
   
   attr_accessor :rendered_content
   
   # -- Relationships --------------------------------------------------------
-
-  acts_as_tree :counter_cache => :children_count
-  acts_as_categorized
   
   belongs_to  :cms_site
   belongs_to  :cms_layout
@@ -30,18 +32,20 @@ class CmsPage < ActiveRecord::Base
   
   #-- Validations -----------------------------------------------------------
 
-  validates_presence_of   :cms_layout_id,
+  validates :cms_layout_id,
+    :presence => true,
     :unless => lambda{|p| p.redirect_to_page}
-  validates_presence_of   :label
+  
+  validates :label,
+    :presence => true
 
-  validates_presence_of   :slug,
+  validates :slug,
+    :presence => true,
+    :format => { :with => /^\w[a-z0-9_-]*$/i },
     :if => :slug_required?
-  validates_format_of     :slug,
-    :if => :slug_required?,
-    :with   => /^\w[a-z0-9_-]*$/i
-
-  validates_uniqueness_of :full_path,
-    :scope => :cms_site_id
+  
+  validates :full_path,
+    :uniqueness => { :scope => :cms_site_id }
   
   validate :validate_redirect_to
   
@@ -58,11 +62,11 @@ class CmsPage < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
 
   default_scope :order => 'position ASC'
-  scope :published,
-    :conditions => { :published => true }
-  scope :nav_visible,
-    :conditions => { :excluded_from_nav => false }
-    
+  
+  scope :published, where(:published => true)
+  
+  scope :nav_visible, where(:excluded_from_nav => false)
+
   # -- Class Methods --------------------------------------------------------
 
   def self.[](slug)

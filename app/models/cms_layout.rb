@@ -1,14 +1,20 @@
 class CmsLayout < ActiveRecord::Base
   
+  # -- AR Extensions --------------------------------------------------------
+  
+  acts_as_tree :counter_cache => :children_count
+  
   # -- Relationships --------------------------------------------------------
 
-  acts_as_tree :counter_cache => :children_count
-  has_many :cms_pages, :dependent => :nullify
+  has_many :cms_pages,
+    :dependent => :nullify
   
   # -- Validations ----------------------------------------------------------
+  
+  validates :label,
+    :presence => true,
+    :uniqueness => true
 
-  validates_presence_of :label
-  validates_uniqueness_of :label
   validate :validate_block_presence,
            :validate_proper_relationship
   
@@ -21,8 +27,7 @@ class CmsLayout < ActiveRecord::Base
 
   default_scope :order => 'position ASC'
 
-  scope :extendable,
-    :conditions => { :is_extendable => true }
+  scope :extendable, where(:is_extendable => true)
   
   # -- Class Methods --------------------------------------------------------
   

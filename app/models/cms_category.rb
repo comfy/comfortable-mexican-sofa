@@ -1,20 +1,31 @@
 class CmsCategory < ActiveRecord::Base
   
-  # -- Relationships --------------------------------------------------------
+  # -- AR Extensions --------------------------------------------------------
+  
   acts_as_tree :counter_cache => :children_count
   
-  has_many :cms_page_categorizations,       :dependent => :destroy
+  # -- Relationships --------------------------------------------------------
   
-  has_many :cms_pages,        :through => :cms_page_categorizations
+  has_many :cms_page_categorizations, 
+    :dependent => :destroy
+  
+  has_many :cms_pages, 
+    :through => :cms_page_categorizations
   
   # -- Validations ----------------------------------------------------------
-  validates_presence_of :slug, :label
-  validates_uniqueness_of :slug, :scope => :parent_id
-  
+
+  validates :slug,
+    :presence => true,
+    :uniqueness => { :scope => :parent_id }
+  validates :label,
+    :presence => true
+    
   # -- Named Scopes ---------------------------------------------------------
+
   default_scope :order => 'label'
   
   # -- Callbacks ------------------------------------------------------------
+
   before_validation :set_slug_if_blank
   
   # -- Class Methods --------------------------------------------------------

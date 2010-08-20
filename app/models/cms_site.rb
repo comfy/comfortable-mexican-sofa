@@ -13,12 +13,14 @@ class CmsSite < ActiveRecord::Base
     :reject_if => proc { |attributes| attributes['hostname'].blank? }
   
   # -- Validations ----------------------------------------------------------
+  
+  validates :label,
+    :presence => true,
+    :uniqueness => true
 
-  validates_presence_of :label
-  validates_uniqueness_of :label
-
-  validates_presence_of :hostname
-  validates_uniqueness_of :hostname
+  validates :hostname,
+    :presence => true,
+    :uniqueness => true
   
   # -- Scopes ---------------------------------------------------------------
 
