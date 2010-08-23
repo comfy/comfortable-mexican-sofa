@@ -1,0 +1,6 @@
+default: &page
+  cms_layout: default
+  label: Default Page
+  slug:
+  full_path: '/'
+  

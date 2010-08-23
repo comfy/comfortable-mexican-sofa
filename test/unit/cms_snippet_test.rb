@@ -1,10 +1,8 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class CmsSnippetTest < ActiveSupport::TestCase
   
-  # -- Class Methods --------------------------------------------------------
-  
-  test "get snippet content" do
+  def test_method_content
     assert_equal cms_snippets(:default).content, CmsSnippet.content_for('default_snippet')
     assert_equal '', CmsSnippet.content_for('nonexistent_snippet')
   end
