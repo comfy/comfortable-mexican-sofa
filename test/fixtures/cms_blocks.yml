@@ -1,23 +1,5 @@
 default_page_text:
   cms_page: default
-  type: CmsBlockPageText
+  type: CmsTag::PageText
   label: content
-  content_text: page_text_content
-    
-default_page_string:
-  cms_page: default
-  type: CmsBlockPageString
-  label: title
-  content_string: page_string_content
-  
-default_field_text:
-  cms_page: default
-  type: CmsBlockFieldText
-  label: keywords
-  content_text: field_text_content
-  
-default_field_string:
-  cms_page: default
-  type: CmsBlockFieldString
-  label: meta
-  content_string: field_text_content
+  content_text: default_page_text_content

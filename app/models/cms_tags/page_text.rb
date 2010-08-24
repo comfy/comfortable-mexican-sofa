@@ -11,4 +11,12 @@ class CmsTag::PageText < CmsBlock
     self.class.regex_tag_signature(label)
   end
   
+  def content
+    read_attribute(:content_text)
+  end
+  
+  def render
+    content
+  end
+  
 end
