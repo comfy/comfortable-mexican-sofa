@@ -3,4 +3,5 @@ default: &layout
   content: |-
     <cms:page:content/>
     <cms:page:title:string/>
+    <cms:page:number:integer/>
 

@@ -6,7 +6,8 @@ class CmsPageTest < ActiveSupport::TestCase
     page = cms_pages(:default)
     assert_equal [
       'default_page_text_content',
-      'default_page_string_content'
+      'default_page_string_content',
+      '1'
     ].join("\n"), page.content
   end
   

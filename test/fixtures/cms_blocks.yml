@@ -9,3 +9,9 @@ default_page_string:
   type: CmsTag::PageString
   label: title
   content_string: default_page_string_content
+  
+default_page_integer:
+  cms_page: default
+  type: CmsTag::PageInteger
+  label: number
+  content_integer: 1

@@ -14,9 +14,9 @@ class PageTextTest < ActiveSupport::TestCase
       assert_match cms_blocks(:default_page_text).regex_tag_signature, tag
     end
     
-    assert_no_match CmsTag::PageText.regex_tag_signature, '<cms:page:header:string>'
-    assert_no_match CmsTag::PageText.regex_tag_signature('something'), '<cms:page:header:text/>'
-    assert_no_match CmsTag::PageText.regex_tag_signature, '<cms_page:header>'
+    assert_no_match CmsTag::PageText.regex_tag_signature, '<cms:page:content:not_text>'
+    assert_no_match CmsTag::PageText.regex_tag_signature('content'), '<cms:page:not_content:text/>'
+    assert_no_match CmsTag::PageText.regex_tag_signature, '<cms_page:not_valid_tag>'
   end
   
   def test_initialization_of_content_objects

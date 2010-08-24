@@ -8,7 +8,7 @@ class CmsPage < ActiveRecord::Base
   def content
     content = cms_layout.content.dup
     cms_blocks.each do |block|
-      content.gsub!(block.regex_tag_signature, block.render)
+      content.gsub!(block.regex_tag_signature, block.render.to_s)
     end
     content
   end
