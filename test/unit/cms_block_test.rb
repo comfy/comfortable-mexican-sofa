@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CmsPageContentTest < ActiveSupport::TestCase
+class CmsBlockTest < ActiveSupport::TestCase
   
   def test_something
     flunk

@@ -1,4 +1,4 @@
-class CmsPageTextContent < CmsPageContent
+class CmsPageText < CmsBlock
   
   # -- Class Methods --------------------------------------------------------
   # will match tags with this format:
@@ -12,6 +12,14 @@ class CmsPageTextContent < CmsPageContent
   # -- Instance Methods -----------------------------------------------------
   def regex_tag_signature
     self.class.regex_tag_signature(label)
+  end
+  
+  def content
+    read_attribute(:content_text)
+  end
+  
+  def render
+    content
   end
   
 end

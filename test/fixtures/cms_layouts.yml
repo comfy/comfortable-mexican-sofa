@@ -1,10 +1,4 @@
 default: &layout
   label: Default Layout
   content: |-
-    <html>
-      <cms:page:header/>
-      <div class='content'>
-        <cms:page:content>
-      </div>
-      <cms:page:footer>
-    </html>
+    <cms:page:content>

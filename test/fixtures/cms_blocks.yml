@@ -1,6 +1,6 @@
 default: &page_content
   cms_page: default
-  type: CmsPageTextContent
+  type: CmsPageText
   label: content
   content_text: Text Content
   content_string:

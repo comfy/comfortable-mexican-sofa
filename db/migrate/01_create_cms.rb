@@ -14,12 +14,13 @@ class CreateCms < ActiveRecord::Migration
       t.string  :label
       t.string  :slug
       t.string  :full_path
+      t.text    :content
       t.timestamps
     end
     add_index :cms_pages, :full_path
     
-    # -- Page Content --------------------------------------------------------
-    create_table :cms_page_contents do |t|
+    # -- Page Blocks --------------------------------------------------------
+    create_table :cms_blocks do |t|
       t.string  :type
       t.integer :cms_page_id
       t.string  :label
@@ -28,7 +29,7 @@ class CreateCms < ActiveRecord::Migration
       t.integer :content_integer
       t.timestamps
     end
-    add_index :cms_page_contents, [:cms_page_id, :type, :label]
+    add_index :cms_blocks, [:cms_page_id, :type, :label]
     
     # -- Snippets -----------------------------------------------------------
     create_table :cms_snippets do |t|
