@@ -1,14 +1,23 @@
-default: &page_block
+default_page_text:
   cms_page: default
-  type: CmsPageText
+  type: CmsBlockPageText
   label: content
-  content_text: Text Content
-  content_string:
-  content_integer:
+  content_text: page_text_content
     
-string:
-  <<: *page_block
-  type: CmsPageString
+default_page_string:
+  cms_page: default
+  type: CmsBlockPageString
   label: title
-  content_text:
-  content_string: String Content
+  content_string: page_string_content
+  
+default_field_text:
+  cms_page: default
+  type: CmsBlockFieldText
+  label: keywords
+  content_text: field_text_content
+  
+default_field_string:
+  cms_page: default
+  type: CmsBlockFieldString
+  label: meta
+  content_string: field_text_content

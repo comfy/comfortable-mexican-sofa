@@ -1,0 +1,3 @@
+class CmsTag::PageDateTime
+  
+end
