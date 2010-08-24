@@ -15,8 +15,4 @@ class CmsTag::PageText < CmsBlock
     read_attribute(:content_text)
   end
   
-  def render
-    content
-  end
-  
 end

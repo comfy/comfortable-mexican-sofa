@@ -33,7 +33,7 @@ module CmsTag
     
     # Content that is used during page rendering
     def render
-      ''
+      content
     end
   end
   

@@ -3,3 +3,4 @@ default: &layout
   content: |-
     <cms:page:content/>
     <cms:page:title:string/>
+

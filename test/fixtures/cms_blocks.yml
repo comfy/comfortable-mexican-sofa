@@ -3,3 +3,9 @@ default_page_text:
   type: CmsTag::PageText
   label: content
   content_text: default_page_text_content
+  
+default_page_string:
+  cms_page: default
+  type: CmsTag::PageString
+  label: title
+  content_string: default_page_string_content

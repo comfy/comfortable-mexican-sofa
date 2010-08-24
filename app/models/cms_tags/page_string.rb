@@ -1,4 +1,4 @@
-class CmsTag::PageString
+class CmsTag::PageString < CmsBlock
   
   include CmsTag
   
@@ -9,6 +9,10 @@ class CmsTag::PageString
   
   def regex_tag_signature
     self.class.regex_tag_signature(label)
+  end
+  
+  def content
+    read_attribute(:content_string)
   end
   
 end
