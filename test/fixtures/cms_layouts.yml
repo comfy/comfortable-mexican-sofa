@@ -1,4 +1,5 @@
 default: &layout
   label: Default Layout
   content: |-
-    <cms:page:content>
+    <cms:page:content/>
+    <cms:page:title:string/>

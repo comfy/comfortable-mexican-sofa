@@ -1,7 +1,14 @@
-default: &page_content
+default: &page_block
   cms_page: default
   type: CmsPageText
   label: content
   content_text: Text Content
   content_string:
   content_integer:
+    
+string:
+  <<: *page_block
+  type: CmsPageString
+  label: title
+  content_text:
+  content_string: String Content

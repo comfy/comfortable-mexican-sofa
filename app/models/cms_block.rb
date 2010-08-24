@@ -21,4 +21,9 @@ class CmsBlock < ActiveRecord::Base
     end
   end
   
+  # -- Instance Methods -----------------------------------------------------
+  def regex_tag_signature
+    self.class.regex_tag_signature(label)
+  end
+  
 end
