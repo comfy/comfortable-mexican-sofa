@@ -61,6 +61,7 @@ GEM
       rake (>= 0.8.3)
       thor (~> 0.14.0)
     rake (0.8.7)
+    redgreen (1.2.2)
     sqlite3-ruby (1.2.5)
     thor (0.14.0)
     treetop (1.4.8)
@@ -74,4 +75,5 @@ DEPENDENCIES
   active_link_to
   haml
   rails (= 3.0.0.rc)
+  redgreen
   sqlite3-ruby

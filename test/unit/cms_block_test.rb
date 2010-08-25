@@ -1,11 +1,9 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class CmsBlockTest < ActiveSupport::TestCase
   
-  def test_fixtures_validity
-    CmsBlock.all.each do |block|
-      assert block.valid?
-    end
+  def test_something
+    flunk
   end
   
 end
