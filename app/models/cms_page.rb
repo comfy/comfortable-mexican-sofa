@@ -5,15 +5,17 @@ class CmsPage < ActiveRecord::Base
   has_many :cms_blocks, :dependent => :destroy
   
   # -- Instance Methods -----------------------------------------------------
-  def content
-   # 
+  def render_content
+    CmsTag.initialize_tags(layout_content, :cms_page => self).each do |tag|
+      layout_content.gsub!(tag.regex_tag_signature){ tag.render }
+    end
+    return layout_content
   end
   
-  # Initilizing tags based on layout content. If not found in the database,
-  # blank ones will be initilized.
-  def initialize_tags
-    content = cms_layout.content.dup
-    raise CmsTag.tag_classes.inspect
+protected
+  
+  def layout_content
+    @layout_content ||= cms_layout.content.dup
   end
   
 end

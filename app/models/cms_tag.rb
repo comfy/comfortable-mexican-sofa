@@ -21,9 +21,15 @@ module CmsTag
     end
     
     # Initializing tag objects for a particular Tag type
-    def initialize_tag_objects(content = '')
+    # pass :cms_page => cms_page to initialize them in context of a page
+    def initialize_tag_objects(content = '', options = {})
       content.scan(regex_tag_signature).flatten.collect do |label|
-        self.new(:label => label)
+        # if tag extends CmsBlock, initialize it based on data in the db
+        if self.superclass == CmsBlock && (cms_page = options[:cms_page]) && cms_page.is_a?(CmsPage)
+          cms_page.cms_blocks.find_by_label(label) || self.new(:label => label, :cms_page => cms_page)
+        else
+          self.new(:label => label)
+        end
       end
     end
   end
@@ -48,16 +54,18 @@ module CmsTag
   end
   
 private
-
+  
   # scans for cms tags inside given content
   def self.find_cms_tags(content = '')
-    content.scan(/<\s*cms:.+\s*\/?>/).flatten
+    content.scan(/<\s*#{TAG_PREFIX}:.+\s*\/?>/).flatten
   end
   
-  def self.initialize_tags(content = '')
+  # Scans provided content and initializes Tag objects based
+  # on their tag signature
+  def self.initialize_tags(content = '', options = {})
     find_cms_tags(content).collect do |tag_signature|
       tag_classes.collect do |tag_class|
-        tag_class.initialize_tag_objects(tag_signature)
+        tag_class.initialize_tag_objects(tag_signature, options)
       end
     end.flatten.compact
   end
@@ -69,6 +77,7 @@ private
     @@tag_classes << tag
   end
   
+  # A list of registered Tag classes
   def self.tag_classes
     @@tag_classes ||= []
   end

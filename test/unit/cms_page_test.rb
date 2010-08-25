@@ -8,12 +8,14 @@ class CmsPageTest < ActiveSupport::TestCase
       'default_page_text_content',
       'default_page_string_content',
       '1'
-    ].join("\n"), page.content
+    ].join("\n"), page.render_content
   end
   
-  def test_blocks_initialization
+  def test_method_layout_content
     page = cms_pages(:default)
-    page.initialize_tags
+    assert_equal page.cms_layout.content, (content = page.send(:layout_content))
+    content = 'new content'
+    assert_not_equal page.cms_layout.content, content
   end
   
 end
