@@ -11,4 +11,9 @@ class CmsPageTest < ActiveSupport::TestCase
     ].join("\n"), page.content
   end
   
+  def test_blocks_initialization
+    page = cms_pages(:default)
+    page.initialize_tags
+  end
+  
 end

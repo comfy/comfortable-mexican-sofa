@@ -6,11 +6,14 @@ class CmsPage < ActiveRecord::Base
   
   # -- Instance Methods -----------------------------------------------------
   def content
+   # 
+  end
+  
+  # Initilizing tags based on layout content. If not found in the database,
+  # blank ones will be initilized.
+  def initialize_tags
     content = cms_layout.content.dup
-    cms_blocks.each do |block|
-      content.gsub!(block.regex_tag_signature, block.render.to_s)
-    end
-    content
+    raise CmsTag.tag_classes.inspect
   end
   
 end

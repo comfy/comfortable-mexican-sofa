@@ -1,4 +1,14 @@
+# This module provides all Tag classes with neccessary methods.
+# Example class that will behave as a Tag:
+#   class MySpecialTag
+#     include CmsTag
+#     ...
+#   end
 module CmsTag
+  
+  # All tags must follow this format:
+  #   <cms:*>
+  TAG_PREFIX = 'cms'
   
   module ClassMethods
     # Regex that is used to match tags in the content
@@ -39,19 +49,33 @@ module CmsTag
   
 private
 
+  # scans for cms tags inside given content
+  def self.find_cms_tags(content = '')
+    content.scan(/<\s*cms:.+\s*\/?>/).flatten
+  end
+  
+  def self.initialize_tags(content = '')
+    find_cms_tags(content).collect do |tag_signature|
+      tag_classes.collect do |tag_class|
+        tag_class.initialize_tag_objects(tag_signature)
+      end
+    end.flatten.compact
+  end
+  
   def self.included(tag)
     tag.send(:include, CmsTag::InstanceMethods)
     tag.send(:extend, CmsTag::ClassMethods)
-    @@tag_instances ||= []
-    @@tag_instances << tag
+    @@tag_classes ||= []
+    @@tag_classes << tag
   end
   
-  def self.tag_instances
-    @@tag_instances
+  def self.tag_classes
+    @@tag_classes ||= []
   end
 end
 
-# Loading all cms_tags
-Dir.glob(File.join(File.dirname(__FILE__), 'cms_tags', '*.rb')).each do |tag|
+# Loading all cms_tags. Need to do this manually so CmsTag module is aware
+# about all defined tags.
+Dir.glob(File.join(File.dirname(__FILE__), 'cms_tag', '*.rb')).each do |tag|
   require tag
 end
