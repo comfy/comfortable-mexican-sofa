@@ -26,7 +26,11 @@ module CmsTag
       content.scan(regex_tag_signature).flatten.collect do |label|
         # if tag extends CmsBlock, initialize it based on data in the db
         if self.superclass == CmsBlock && (cms_page = options[:cms_page]) && cms_page.is_a?(CmsPage)
-          cms_page.cms_blocks.find_by_label(label) || self.new(:label => label, :cms_page => cms_page)
+          cms_page.cms_blocks << (cms_block = 
+            cms_page.cms_blocks.find_by_label(label) ||
+            self.new(:label => label)
+          )
+          cms_block
         else
           self.new(:label => label)
         end
@@ -61,7 +65,9 @@ private
   end
   
   # Scans provided content and initializes Tag objects based
-  # on their tag signature
+  # on their tag signature.
+  # Pass :cms_page => @cms_page to initialize tag objects based on the page context.
+  # Pass :cms_blocks_only => true to initialize CmsBlock subclasses
   def self.initialize_tags(content = '', options = {})
     find_cms_tags(content).collect do |tag_signature|
       tag_classes.collect do |tag_class|
@@ -81,10 +87,4 @@ private
   def self.tag_classes
     @@tag_classes ||= []
   end
-end
-
-# Loading all cms_tags. Need to do this manually so CmsTag module is aware
-# about all defined tags.
-Dir.glob(File.join(File.dirname(__FILE__), 'cms_tag', '*.rb')).each do |tag|
-  require tag
 end
