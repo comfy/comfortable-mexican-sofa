@@ -1,5 +1,7 @@
 class CmsContentController < ApplicationController
 
-  # TODO
+  def render_page
+    # TODO
+  end
 
 end
