@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Comfortable Mexican Sofa</title>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag :cms %>
+    <%= javascript_include_tag :cms %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <div class='body_wrapper'>
+      <div class='left_column'>
+        <%= yield :left_column %>
+      </div>
+      <div class='center_column'>
+        <%= yield %>
+      </div>
+      <div class='right_column'>
+        <%= yield :right_column %>
+      </div>
+    </div>
+  </body>
+</html>

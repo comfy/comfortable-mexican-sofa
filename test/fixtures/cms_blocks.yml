@@ -1,37 +1,17 @@
-default_block_header:
+default_page_text:
   cms_page: default
-  label: header
-  content_string: /block:header/
-
-default_page_block_default:
+  type: CmsTag::PageText
+  label: content
+  content_text: default_page_text_content
+  
+default_page_string:
   cms_page: default
-  label: default
-  content_text: /page_block:default/
+  type: CmsTag::PageString
+  label: title
+  content_string: default_page_string_content
   
-default_page_block_footer:
+default_page_integer:
   cms_page: default
-  label: footer
-  content_text: /page_block:footer/
-  
-complex_page_block_header:
-  cms_page: complex
-  label: header
-  content_string: /block:header/
-
-complex_page_block_left_column:
-  cms_page: complex
-  label: left_column
-  content_text: |-
-    /page_block:left_column/ {{ cms_snippet:complex_snippet }}
-
-complex_page_block_right_column:
-  cms_page: complex
-  label: right_column
-  content_text: |-
-    /page_block:right_column/ {{ cms_partial:complex_page/example }}
-  
-complex_page_block_footer:
-  cms_page: complex
-  label: footer
-  content_text: /page_block:footer/
-
+  type: CmsTag::PageInteger
+  label: number
+  content_integer: 1

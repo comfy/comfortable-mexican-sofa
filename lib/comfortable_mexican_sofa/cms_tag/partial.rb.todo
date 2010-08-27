@@ -1,0 +1,3 @@
+class CmsTag::Partial
+  
+end

@@ -1,41 +1,6 @@
-default:
+default: &layout
   label: Default Layout
-  parent: 
-  children_count: 1
-  position: 0
-  is_extendable: 1
   content: |-
-    {{ cms_block:header:string }}{{ cms_page_block:default:text }}{{ cms_page_block:footer:text }}
-  
-nested:
-  label: Nested Layout
-  parent: default
-  content: |-
-    {{ cms_page_block:left_column:text }}{{ cms_page_block:right_column:text }}{{ cms_snippet:complex_snippet }}
-    
-identical_tags:
-  label: Layout with identical tags
-  position: 1
-  content: |-
-    This is a layout that has tags that share same signature
-    Techincally we need to report that there's only one tag
-    We don't really care how many times it's mentioned
-    {{ cms_block:my_block_1:text }}
-    {{ cms_block:my_block_1:string }}
-    and another set
-    {{ cms_block:my_block_2:integer }}
-    {{ cms_block:my_block_2:string }}
-    and a proper, singular one
-    {{ cms_block:my_block_3:boolean}}
-    
-all_included_tags:
-  label: Layout with all tags
-  position: 2
-  content: |-
-    Block: {{ cms_block:test_block:string }} 
-    PageBlock: {{ cms_page_block:test_page_block:string }}
-    Snippet: {{ cms_snippet:test_snippet }}
-    Partial: {{ cms_partial:content/test_partial }}
-    Helper: {{ cms_helper:test_helper }}
-    Fake: {{ cms_fake:not_real:whatever }}
-  
+    <cms:page:content/>
+    <cms:page:title:string/>
+    <cms:page:number:integer/>

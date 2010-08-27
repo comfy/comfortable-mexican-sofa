@@ -1,11 +1,11 @@
 :type can be 'string', 'text', ('rich_text', 'datetime')
 
-{{ cms:page:default }}
+< cms:page:default >
 
-{{ cms:page:label:type }}   # page content that gets rendered
-{{ cms:field:label:type }}  # page content that not rendered, but accessible via @cms_page object
-{{ cms:snippet:label }}     # snippet content that gets rendered
-{{ cms:partial:path }}      # interface to Rails partial
+< cms:page:label:type >   # page content that gets rendered
+< cms:field:label:type >  # page content that not rendered, but accessible via @cms_page object
+< cms:snippet:label >     # snippet content that gets rendered
+< cms:partial:path >      # interface to Rails partial
 
 ??? pages need to be aware of tags inside of them
 
@@ -17,29 +17,29 @@ Example:
 --------
 parent layout:
     
-    {{ cms:field:css }}
-    {{ cms:field:meta_keywords }}
-    {{ cms:field:google_tracking }}
+    <cms:field:css/>
+    <cms:field:meta_keywords/>
+    <cms:field:google_tracking/>
     
-    {{ cms:page:header }}
-    {{ cms:page:content }} <- child layout content goes here
-    {{ cms:page:footer }}
+    <cms:page:header>
+    <cms:page:content>   <- child layout content goes here
+    <cms:page:footer>
     
 child layout
     
-    {{ cms:page:left }}
-    {{ cms:page:image:file }}
-    {{ cms:page:right }}
+    <cms:page:left>
+    <cms:page:image:file>
+    <cms:page:right>
     
-
 Repeatable partials:
 --------------------
+Stored as a serialized array data
 
-    {{ cms:group:person:blah }}
-    {{ cms:group:car:something }}
-    {{ cms:group:person:meh }}
-
-
+    <cms:group:person>
+      <person:name:string/>
+      <person:bio/>
+    </cms:group:person>
+    
 -- Person ---
 Blah: [      ]
 Meh:  [      ]
@@ -52,12 +52,12 @@ Something: [     ]
 
 File Upload Field
 -----------------
-{{ cms:page:avatar:file }}
+< cms:page:avatar:file >
 !!! this allows uploading of files and attaches them to an Asset system. Content stores ID of the asset.
 
 
-{{ cms:group:person:face:file }}   <- this will make many files, how to link???
-{{ cms:group:person:name }}
+< cms:group:person:face:file >   <- this will make many files, how to link???
+< cms:group:person:name >
 
 
 STI?? [ merging CmsTag class with CmsPageContent AR class ]
@@ -74,9 +74,22 @@ CmsFieldStringContent < CmsPageContent
 
 IRB Escaping
 ------------
-{{ cms:partial:blsh}} -> "<%= render blah %>" <-------- this is OK
+< cms:partial:blsh> -> "<%= render blah %>" <-------- this is OK
 <%= blah %>                                   <-------- this is NOT OK
 
 
 Can run irb escaping after pages and snippets are expanded.
 Partials are injected later and should not be escaped.
+
+
+Rendering Process
+-----------------
+Layout
+  => Form
+    -> render form, with possible db content
+    -> save form
+  => Page
+    -> get defined tags
+    -> replace tags with content from db
+
+Page

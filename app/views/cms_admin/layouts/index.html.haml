@@ -1,5 +1,0 @@
-= link_to 'Add New Layout', new_cms_admin_layout_path, :class => 'top_button'
-%h2 Layouts
-= render :partial => 'cms_admin/flash_message'
-%ul.tree_structure.sortable
-  = render(:partial => 'tree_branch', :collection => @cms_layouts)
