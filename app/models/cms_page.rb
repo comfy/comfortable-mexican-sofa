@@ -4,6 +4,13 @@ class CmsPage < ActiveRecord::Base
   belongs_to :cms_layout
   has_many :cms_blocks, :dependent => :destroy
   
+  # -- Validations ----------------------------------------------------------
+  validates :label,
+    :presence => true
+  validates :slug,
+    :presence => true,
+    :format   => /^\w[a-z0-9_-]*$/i
+  
   # -- Instance Methods -----------------------------------------------------
   def render_content
     content = cms_layout.content.dup
