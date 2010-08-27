@@ -34,7 +34,6 @@ GEM
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    haml (3.0.17)
     i18n (0.4.1)
     mail (2.2.5)
       activesupport (>= 2.3.6)
@@ -72,8 +71,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_link_to
-  haml
+  active_link_to (>= 0.0.6)
   rails (= 3.0.0.rc)
   redgreen
   sqlite3-ruby

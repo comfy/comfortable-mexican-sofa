@@ -11,11 +11,4 @@ class CmsPageTest < ActiveSupport::TestCase
     ].join("\n"), page.render_content
   end
   
-  def test_method_layout_content
-    page = cms_pages(:default)
-    assert_equal page.cms_layout.content, (content = page.send(:layout_content))
-    content = 'new content'
-    assert_not_equal page.cms_layout.content, content
-  end
-  
 end
