@@ -1,0 +1,12 @@
+<div id='assets_list'>
+  <% cms_assets = CmsAsset.all %>
+  <% if cms_assets.present? %>
+    <% cms_assets.in_groups_of(3).each do |row| %>
+      <div class='assets'>
+        <%= render :partial => 'cms_admin/assets/asset', :collection => row.compact %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No assets found.</p>
+  <% end %>
+</div>

@@ -1,5 +1,5 @@
 class CmsAdmin::BaseController < ApplicationController
-
+  before_filter :register_asset_expansions
   before_filter :authenticate
 
   layout 'cms_admin'
@@ -20,11 +20,6 @@ class CmsAdmin::BaseController < ApplicationController
     end
   end
 
-  def js_helper_installed?(name, library = nil)
-    File.exists?(File.expand_path("public/javascripts/#{name}/#{library||name}.js", Rails.root))
-  end
-  helper_method :js_helper_installed?
-
 protected
 
   def authenticate
@@ -32,6 +27,17 @@ protected
       username == ComfortableMexicanSofa::Config.http_auth_username && 
       password == ComfortableMexicanSofa::Config.http_auth_password
     end if ComfortableMexicanSofa::Config.http_auth_enabled
+  end
+  
+  def register_asset_expansions
+    js_includes = ['jquery', 'jquery-ui', 'rails', 'cms'].collect{|f| ['cms', f].join('/')}
+    js_includes += ['tiny_mce/jquery.tinymce', 'tiny_mce/tiny_mce', 'codemirror/codemirror', 'plupload/plupload.full.min' ].collect{|f| ['cms/3rdparty', f].join('/')}
+    js_includes += ['rteditor', 'syntax_highlighter', 'uploader'].collect{|f| ['cms', f].join('/')}
+    css_includes = %w(cms_master jquery-ui).collect{|f| ['cms', f].join('/')}
+    
+    
+    ActionView::Helpers::AssetTagHelper.register_javascript_expansion :cms => js_includes
+    ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => css_includes
   end
 
 end

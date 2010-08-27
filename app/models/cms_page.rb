@@ -27,6 +27,8 @@ class CmsPage < ActiveRecord::Base
   has_one :redirected_from_page,
     :class_name   => 'CmsPage',
     :foreign_key  => :redirect_to_page_id
+  has_many :cms_assets,
+    :dependent => :destroy
   
   #-- Validations -----------------------------------------------------------
 

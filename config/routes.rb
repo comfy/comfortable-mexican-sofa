@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         put :reorder
       end
     end
+    
+    resources :assets
   end
   
   controller :cms_content do

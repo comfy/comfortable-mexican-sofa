@@ -8,7 +8,8 @@ gem 'rails', '3.0.0.rc'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'haml'
 gem 'active_link_to'
-
+gem 'paperclip'
+gem 'mime-types', :require => 'mime/types'
 # Use unicorn as the web server
 # gem 'unicorn'
 

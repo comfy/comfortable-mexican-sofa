@@ -1,0 +1,15 @@
+<div class='asset' id="<%= dom_id(asset) %>">
+  <div class='thumb'>
+    <% if asset.image? %>
+      <%= image_tag(asset.file.url(:thumb)) %>
+    <% else %>
+      <%= image_tag("cms/file_types/#{asset.file_content_type.gsub('/', '_')}.gif") %>
+    <% end %>
+    <%= link_to 'delete', cms_admin_asset_path(asset), :method => :delete, :remote => true %>
+  </div>
+  <div class='name'>
+    <%= asset.file_file_name %>
+  </div>
+</div>
+
+      

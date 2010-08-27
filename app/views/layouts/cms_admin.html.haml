@@ -3,16 +3,9 @@
   %head
     %title= application_name
     = csrf_meta_tag
-    = stylesheet_link_tag 'cms_master'
-    = stylesheet_link_tag 'jquery_ui'
-    = javascript_include_tag 'cms/jquery', 'cms/jquery-ui', 'cms/cms'
-    = javascript_include_tag 'cms/rails'
-
-    - if js_helper_installed?('ckeditor')
-      = javascript_include_tag 'ckeditor/ckeditor', 'ckeditor/adapters/jquery', 'cms/rteditor'
-    - if js_helper_installed?('codemirror')
-      = javascript_include_tag 'codemirror/codemirror', 'cms/codemirror'
-
+    = stylesheet_link_tag :cms
+    = javascript_include_tag :cms
+    
     = yield :head
     
   %body{ :id => "#{params[:controller]}_#{params[:action]}".idify }

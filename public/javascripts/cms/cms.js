@@ -40,10 +40,6 @@ $.CMS = function(){
       $.ajax({url: ['/cms-admin/pages', page_id, 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
     })
 
-    // Datepicker
-    $('input[data-datepicker]').datepicker({dateFormat : 'yy-mm-dd'});
-
-
   }); // End $(document).ready()
 
 

@@ -3,10 +3,15 @@
     %h2 Publishing Options
     = f.check_box :published, :label => 'Is Published?'
     = f.check_box :excluded_from_nav, :label => 'Exclude from Navigation?'
-  
-  .form_element_group
-    %h2 W3C Validation
-    = link_to 'Check Validation', 'http://validator.w3.org/check?uri=http://'+request.host+@cms_page.full_path, :target => "_new"
+
+  .form_element_group.assets
+    %h2
+      Assets
+      = link_to 'select files', '#', :id => 'pickfiles', :class => 'button'
+    
+    = render :partial => 'cms_admin/assets/index'
+    = render :partial => 'cms_admin/assets/uploader'
+    
       
 %h2= @cms_page.new_record? ? "New Page" : "Editing \"#{@cms_page.label}\""
 = render :partial => 'cms_admin/flash_message'

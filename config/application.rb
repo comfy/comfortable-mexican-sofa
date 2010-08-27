@@ -31,7 +31,6 @@ module ComfortableMexicanSofa
     # config.i18n.default_locale = :de
 
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
