@@ -5,3 +5,7 @@
 <% @cms_page.cms_blocks.each do |block| %>
   <%= form.cms_block_field(block) %>
 <% end %>
+
+<h2>Assets</h2>
+<%= render :partial => 'cms_admin/assets/uploader' %>
+<%= render :partial => 'cms_admin/assets/index' %>

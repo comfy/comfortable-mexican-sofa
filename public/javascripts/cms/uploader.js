@@ -12,7 +12,7 @@ $.CMS.Uploader = function(){
       	browse_button: 'pickfiles',
       	unique_names: true, 
       	multipart: true,  
-        multipart_params: { authenticity_token: auth_token },
+        multipart_params: { authenticity_token: auth_token, format: 'json' },
       	url: '/cms-admin/assets'
       });
 
@@ -35,7 +35,7 @@ $.CMS.Uploader = function(){
     	});
     	
     	uploader.bind('FileUploaded', function(up, file, response){
-    	  alert(response);
+    	  $.get('/cms-admin/assets')
     	  $('#'+file.id).fadeOut(4000);
     	})
   	}

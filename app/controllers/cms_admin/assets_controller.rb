@@ -3,13 +3,14 @@ class CmsAdmin::AssetsController < CmsAdmin::BaseController
     :only => :destroy
   
   def index
+    render :update do |page|
+       page << "$('#assets_list').html(\"#{ escape_javascript(render(:partial => 'cms_admin/assets/index')) }\")"
+    end
   end
   
   def create
     @cms_asset = CmsAsset.create!(:uploaded_file => params[:file])
-    render :update do |page|
-       page << "$('#assets_list').html(\"#{ escape_javascript(render(:partial => 'cms_admin/assets/index')) }\")"
-    end
+    render :nothing => true
   end
   
   def destroy
