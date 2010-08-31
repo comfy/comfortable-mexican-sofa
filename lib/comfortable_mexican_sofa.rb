@@ -1,8 +1,8 @@
-require File.join(File.dirname(__FILE__), 'comfortable_mexican_sofa', 'cms_form_builder')
+require File.expand_path('comfortable_mexican_sofa/cms_form_builder', File.dirname(__FILE__))
+require File.expand_path('../app/models/cms_block', File.dirname(__FILE__))
+require File.expand_path('comfortable_mexican_sofa/cms_tag', File.dirname(__FILE__))
 
-require File.join(File.dirname(__FILE__), '..', 'app', 'models', 'cms_block')
-require File.join(File.dirname(__FILE__), 'comfortable_mexican_sofa', 'cms_tag')
-Dir.glob(File.join(File.dirname(__FILE__), 'comfortable_mexican_sofa', 'cms_tag', '*.rb')).each do |tag| 
+Dir.glob(File.expand_path('comfortable_mexican_sofa/cms_tag/*.rb', File.dirname(__FILE__))).each do |tag| 
   require tag
 end
 
