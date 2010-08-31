@@ -2,8 +2,8 @@ require File.expand_path('comfortable_mexican_sofa/cms_form_builder', File.dirna
 require File.expand_path('../app/models/cms_block', File.dirname(__FILE__))
 require File.expand_path('comfortable_mexican_sofa/cms_tag', File.dirname(__FILE__))
 
-Dir.glob(File.expand_path('comfortable_mexican_sofa/cms_tag/*.rb', File.dirname(__FILE__))).each do |tag| 
-  require tag
+Dir.glob(File.expand_path('comfortable_mexican_sofa/cms_tag/*.rb', File.dirname(__FILE__))).each do |tag_path| 
+  require tag_path
 end
 
 module ComfortableMexicanSofa

@@ -14,7 +14,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:cms_layout)
     assert_template :new
-    assert_select 'form[action=/cms_admin/layouts]'
+    assert_select 'form[action=/cms-admin/layouts]'
   end
   
   def test_get_edit
@@ -22,7 +22,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:cms_layout)
     assert_template :edit
-    assert_select "form[action=/cms_admin/layouts/#{cms_layouts(:default).id}]"
+    assert_select "form[action=/cms-admin/layouts/#{cms_layouts(:default).id}]"
   end
   
   def test_get_edit_failure

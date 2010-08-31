@@ -14,7 +14,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:cms_page)
     assert_template :new
-    assert_select 'form[action=/cms_admin/pages]'
+    assert_select 'form[action=/cms-admin/pages]'
   end
   
   def test_get_edit
@@ -26,11 +26,11 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_creation
-    assert_difference 'CmsPage.count' do
-      post :create, :cms_page => {
-        :label => 'New Page'
-      }
-    end
+    # assert_difference 'CmsPage.count' do
+    #   post :create, :cms_page => {
+    #     :label => 'New Page'
+    #   }
+    # end
     flunk
   end
   

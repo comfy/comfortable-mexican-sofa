@@ -19,7 +19,7 @@ class PageStringTest < ActiveSupport::TestCase
   
   def test_initialization_of_content_objects
     content = cms_layouts(:default).content
-    block = CmsTag::PageString.initialize_tag_objects(content).first
+    block = CmsTag::PageString.initialize_tag_objects(nil, content).first
     assert_equal CmsTag::PageString, block.class
   end
   

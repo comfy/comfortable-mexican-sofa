@@ -21,7 +21,7 @@ class PageTextTest < ActiveSupport::TestCase
   
   def test_initialization_of_content_objects
     content = cms_layouts(:default).content
-    block = CmsTag::PageText.initialize_tag_objects(content).first
+    block = CmsTag::PageText.initialize_tag_objects(nil, content).first
     assert_equal CmsTag::PageText, block.class
   end
   

@@ -19,7 +19,7 @@ class PageIntegerTest < ActiveSupport::TestCase
   
   def test_initialization_of_content_objects
     content = cms_layouts(:default).content
-    block = CmsTag::PageInteger.initialize_tag_objects(content).first
+    block = CmsTag::PageInteger.initialize_tag_objects(nil, content).first
     assert_equal CmsTag::PageInteger, block.class
   end
   
