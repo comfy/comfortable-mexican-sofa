@@ -1,5 +1,3 @@
-require 'action_view/helpers/form_helper'
-
 class CmsFormBuilder < ActionView::Helpers::FormBuilder
   
   helpers = field_helpers -

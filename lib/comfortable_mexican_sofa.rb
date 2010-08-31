@@ -1,6 +1,11 @@
-require File.expand_path('comfortable_mexican_sofa/cms_form_builder', File.dirname(__FILE__))
-require File.expand_path('../app/models/cms_block', File.dirname(__FILE__))
-require File.expand_path('comfortable_mexican_sofa/cms_tag', File.dirname(__FILE__))
+%w(
+  comfortable_mexican_sofa/cms_form_builder
+  comfortable_mexican_sofa/cms_acts_as_tree
+  ../app/models/cms_block
+  comfortable_mexican_sofa/cms_tag
+).each do |path|
+  require File.expand_path(path, File.dirname(__FILE__))
+end
 
 Dir.glob(File.expand_path('comfortable_mexican_sofa/cms_tag/*.rb', File.dirname(__FILE__))).each do |tag_path| 
   require tag_path
