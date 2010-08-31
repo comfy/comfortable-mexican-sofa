@@ -46,9 +46,12 @@ module CmsTag
       nil
     end
     
-    # Content that gets returned by the instance of the tag
+    def content=(value)
+      nil
+    end
+    
     def content
-      ''
+      nil
     end
     
     # Content that is used during page rendering

@@ -1,7 +1,6 @@
 <%= form.text_field :label %>
 <%= form.text_field :slug %>
 
-
-
-<%= debug @cms_page.cms_layout.content %>
-<%= debug @cms_page.cms_blocks %>
+<% @cms_page.cms_blocks.each do |block| %>
+  <%= form.cms_block_field(block) %>
+<% end %>
