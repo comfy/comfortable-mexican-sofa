@@ -21,14 +21,18 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     flash[:notice] = 'Page saved'
     redirect_to :action => :edit, :id => @cms_page
   rescue ActiveRecord::RecordInvalid
-    render :action => :edit
+    render :action => :new
   end
-
+  
+  def update
+    # TODO
+  end
+  
 protected
-
+  
   def build_cms_page
     @cms_page = CmsPage.new(params[:cms_page])
-    @cms_page.cms_layout = CmsLayout.first
+    @cms_page.cms_layout ||= CmsLayout.first
     @cms_page.initialize_tags
   end
   
@@ -39,5 +43,5 @@ protected
     flash[:error] = 'Page not found'
     redirect_to :action => :index
   end
-
+  
 end

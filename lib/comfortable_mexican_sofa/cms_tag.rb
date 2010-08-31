@@ -21,16 +21,10 @@ module CmsTag
     end
     
     # Initializing tag objects for a particular Tag type
-    # pass :cms_page => cms_page to initialize them in context of a page
-    def initialize_tag_objects(content = '', options = {})
-      content.scan(regex_tag_signature).flatten.collect do |label|
-        # if tag extends CmsBlock, initialize it based on data in the db
-        if self.superclass == CmsBlock && (cms_page = options[:cms_page]) && cms_page.is_a?(CmsPage)
-          cms_page.cms_blocks << (cms_block = 
-            cms_page.cms_blocks.find_by_label(label) ||
-            self.new(:label => label)
-          )
-          cms_block
+    def initialize_tag_objects(cms_page = nil, content = '')
+      content.to_s.scan(regex_tag_signature).flatten.collect do |label|
+        if self.superclass == CmsBlock && cms_page
+          cms_page.cms_blocks.detect{|b| b.label == label} || self.new(:label => label)
         else
           self.new(:label => label)
         end
@@ -64,19 +58,24 @@ private
   
   # scans for cms tags inside given content
   def self.find_cms_tags(content = '')
-    content.scan(/<\s*#{TAG_PREFIX}:.+\s*\/?>/).flatten
+    content.to_s.scan(/<\s*#{TAG_PREFIX}:.+\s*\/?>/).flatten
   end
   
   # Scans provided content and initializes Tag objects based
   # on their tag signature.
-  # Pass :cms_page => @cms_page to initialize tag objects based on the page context.
-  # Pass :cms_blocks_only => true to initialize CmsBlock subclasses
-  def self.initialize_tags(content = '', options = {})
-    find_cms_tags(content).collect do |tag_signature|
+  def self.initialize_tags(cms_page = nil, content = '')
+    # content is set based on the cms_page layout content
+    content = cms_page.cms_layout.try(:content) if cms_page
+    
+    cms_tags = find_cms_tags(content).collect do |tag_signature|
       tag_classes.collect do |tag_class|
-        tag_class.initialize_tag_objects(tag_signature, options)
+        tag_class.initialize_tag_objects(cms_page, tag_signature)
       end
     end.flatten.compact
+    
+    # Initializing cms_blocks for the passed cms_page
+    cms_page.cms_blocks = cms_tags.select{|t| t.class.superclass == CmsBlock} if cms_page
+    return cms_tags
   end
   
   def self.included(tag)

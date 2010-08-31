@@ -26,7 +26,7 @@ class CmsPage < ActiveRecord::Base
   # Returns an array of tag objects, at the same time populates #cms_blocks
   # of the current page
   def initialize_tags
-    CmsTag.initialize_tags(cms_layout.content, :cms_page => self)
+    CmsTag.initialize_tags(self)
   end
   
 end
