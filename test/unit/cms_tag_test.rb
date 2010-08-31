@@ -13,7 +13,7 @@ class CmsTagTest < ActiveSupport::TestCase
   
   def test_initialize_tags
     content = cms_layouts(:default).content
-    tags = CmsTag.initialize_tags(content)
+    tags = CmsTag.initialize_tags(nil, content)
     assert_equal 3, tags.size
     assert_equal 3, (cms_blocks = tags.select{|t| t.class.superclass == CmsBlock}).count
     cms_blocks.each do |block|
@@ -22,8 +22,12 @@ class CmsTagTest < ActiveSupport::TestCase
   end
   
   def test_initialize_tags_for_a_page
-    content = cms_layouts(:default).content
-    tags = CmsTag.initialize_tags(content, :cms_page => cms_pages(:default))
+    @cms_page = CmsPage.new
+    @cms_page.cms_layout ||= CmsLayout.first
+    tags = @cms_page.initialize_tags
+    
+    
+    # tags = CmsTag.initialize_tags(cms_pages(:default))
     assert_equal 3, tags.size
     assert_equal 3, (cms_blocks = tags.select{|t| t.class.superclass == CmsBlock}).count
     cms_blocks.each do |block|

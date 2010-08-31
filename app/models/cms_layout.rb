@@ -9,5 +9,10 @@ class CmsLayout < ActiveRecord::Base
     :uniqueness => true
   validates :content,
     :presence   => true
+    
+  # -- Class Methods --------------------------------------------------------
+  def self.options_for_select
+    CmsLayout.all(:select => 'id, label').collect { |l| [ l.label, l.id ] }
+  end
   
 end
