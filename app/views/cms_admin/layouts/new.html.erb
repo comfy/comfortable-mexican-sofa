@@ -1,6 +1,6 @@
 <h1> New Layout </h1>
 
-<%= form_for @cms_layout, :url => {:action => :create} do |form| %>
-  <%= render :partial => form %>
+<%= cms_form_for @cms_layout, :url => {:action => :create} do |form| %>
+  <%= render :partial => 'form', :object => form %>
   <%= form.submit 'Create Layout' %>
 <% end %>
