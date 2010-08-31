@@ -28,13 +28,7 @@ $.CMS = function(){
         }
       })
     });
-
-    // Show/Hide Advanced
-    $('a#more_options').bind('click.cms', function() {
-      $(this).text(($(this).text() == 'Show more') ? 'Show less' : 'Show more');
-      $('.advanced').toggle();
-    })
-
+    
     // Load Page Blocks on layout change
     $('select#cms_page_cms_layout_id').bind('change.cms', function() {
       $.ajax({url: ['/cms-admin/pages', page_id, 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})

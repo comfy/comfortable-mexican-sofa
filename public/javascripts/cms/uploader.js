@@ -34,8 +34,8 @@ $.CMS.Uploader = function(){
     	  alert(err.file.name+": "+err.message)
     	});
     	
-    	uploader.bind('FileUploaded', function(up, file){
-    	  $.get('/cms-admin/assets');
+    	uploader.bind('FileUploaded', function(up, file, response){
+    	  alert(response);
     	  $('#'+file.id).fadeOut(4000);
     	})
   	}
