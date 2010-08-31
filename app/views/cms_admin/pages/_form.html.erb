@@ -1,6 +1,6 @@
 <%= form.select :cms_layout_id, CmsLayout.options_for_select, {} %>
-<%= form.text_field :label %>
-<%= form.text_field :slug %>
+<%= form.text_field :label, :id => 'slugify' %>
+<%= form.text_field :slug, :id => 'slug' %>
 
 <% @cms_page.cms_blocks.each do |block| %>
   <%= form.cms_block_field(block) %>
