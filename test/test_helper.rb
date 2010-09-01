@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   fixtures :all
+  include ActionDispatch::TestProcess
   
   # Example usage:
   #   assert_has_errors_on( @record, [:field_1, :field_2] )

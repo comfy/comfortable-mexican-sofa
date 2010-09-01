@@ -7,11 +7,14 @@ class CmsAdmin::AssetsController < CmsAdmin::BaseController
   
   def create
     @cms_asset = CmsAsset.create!(:uploaded_file => params[:file])
-    render(:partial => 'cms_admin/assets/asset', :object => @cms_asset)
+    respond_to do |format|  
+      format.js { render(:partial => 'cms_admin/assets/asset', :object => @cms_asset) }
+    end
   end
   
   def destroy
     @cms_asset.destroy
+    format.js
   end
 
 protected
