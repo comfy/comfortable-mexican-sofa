@@ -21,9 +21,12 @@ class CmsPage < ActiveRecord::Base
   validates :cms_layout,
     :presence   => true
   validates :full_path,
+    :presence   => true,
     :uniqueness => true
   
   # -- Instance Methods -----------------------------------------------------
+  # Scans through the content defined in the layout and replaces tag signatures
+  # with content defined in cms_blocks, or whatever tag's render method does
   def render_content
     content = cms_layout.content.dup
     initialize_tags.each do |tag|
@@ -32,16 +35,16 @@ class CmsPage < ActiveRecord::Base
     return content
   end
   
-  # Returns an array of tag objects, at the same time populates #cms_blocks
+  # Returns an array of tag objects, at the same time populates cms_blocks
   # of the current page
   def initialize_tags
     CmsTag.initialize_tags(self)
   end
   
 protected
-
+  
   def assign_full_path
-    self.full_path = (self.ancestors.reverse.collect{ |p| p.slug }.reject{ |p| p.blank? } + [self.slug]).join('/')
+    self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
   end
   
   def sync_child_pages
