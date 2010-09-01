@@ -50,16 +50,26 @@ class CmsPageTest < ActiveSupport::TestCase
     page_1 = CmsPage.create!(new_params(:parent => page, :slug => 'test-page-1'))
     page_2 = CmsPage.create!(new_params(:parent => page, :slug => 'test-page-2'))
     page_3 = CmsPage.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
+    page_4 = CmsPage.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
     assert_equal '/child-page/test-page-1', page_1.full_path
     assert_equal '/child-page/test-page-2', page_2.full_path
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
+    assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
     
     page.update_attributes!(:slug => 'updated-page')
     assert_equal '/updated-page', page.full_path
-    page_1.reload; page_2.reload; page_3.reload
+    page_1.reload; page_2.reload; page_3.reload; page_4.reload
     assert_equal '/updated-page/test-page-1', page_1.full_path
     assert_equal '/updated-page/test-page-2', page_2.full_path
     assert_equal '/updated-page/test-page-2/test-page-3', page_3.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    
+    page_2.update_attributes!(:parent => page_1)
+    page_1.reload; page_2.reload; page_3.reload; page_4.reload
+    assert_equal '/updated-page/test-page-1', page_1.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2', page_2.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_3.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
   end
   
   def test_initialize_tags
