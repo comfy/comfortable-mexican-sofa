@@ -29,7 +29,9 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
   end
   
   # Helper method for all block tags. You can define your own method based
-  # on tag type.
+  # on tag type. Example:
+  #   tag.type = CmsTag::MyAwesomeTag
+  #   def my_awesome_tag ... end
   def cms_block_field(block, *args)
     block_method = block.type.split('::').last.underscore.downcase
     return send(block_method, block) if self.respond_to? block_method

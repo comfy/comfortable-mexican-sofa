@@ -10,6 +10,7 @@ nested:
   label: Nested Layout
   parent:
   content: |-
+    <cms:page:header/>
     <cms:page:content/>
     
 child:
