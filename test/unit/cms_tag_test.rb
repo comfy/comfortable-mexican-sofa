@@ -21,13 +21,20 @@ class CmsTagTest < ActiveSupport::TestCase
     end
   end
   
-  def test_initialize_tags_for_a_page
+  def test_initialize_tags_for_a_saved_page
     tags = CmsTag.initialize_tags(cms_pages(:default))
     assert_equal 3, tags.size
     assert_equal 3, (cms_blocks = tags.select{|t| t.class.superclass == CmsBlock}).count
     cms_blocks.each do |block|
       assert !block.content.blank?
     end
+  end
+  
+  def test_initialize_tags_for_initialized_page
+    page = CmsPage.new
+    assert_equal 0, CmsTag.initialize_tags(page).size
+    page.cms_layout = cms_layouts(:default)
+    assert_equal 3, CmsTag.initialize_tags(page).size
   end
   
 end

@@ -26,9 +26,24 @@ class CmsPage < ActiveRecord::Base
   validates :cms_layout,
     :presence   => true
   validates :full_path,
+    :presence   => true,
     :uniqueness => true
   
+  # -- Class Methods --------------------------------------------------------
+  # Tree-like structure for pages
+  def self.options_for_select(cms_page = nil, current_page = nil, depth = 0, spacer = '. . ')
+    return [] if (current_page ||= CmsPage.root) == cms_page
+    
+    out = [[ "#{spacer*depth}#{current_page.label}", current_page.id ]]
+    current_page.children.each do |child|
+      out += options_for_select(cms_page, child, depth + 1, spacer)
+    end
+    return out.compact
+  end
+  
   # -- Instance Methods -----------------------------------------------------
+  # Scans through the content defined in the layout and replaces tag signatures
+  # with content defined in cms_blocks, or whatever tag's render method does
   def render_content
     content = cms_layout.content.dup
     initialize_tags.each do |tag|
@@ -37,18 +52,19 @@ class CmsPage < ActiveRecord::Base
     return content
   end
   
-  # Returns an array of tag objects, at the same time populates #cms_blocks
+  # Returns an array of tag objects, at the same time populates cms_blocks
   # of the current page
   def initialize_tags
     CmsTag.initialize_tags(self)
   end
   
 protected
-
+  
   def assign_full_path
-    self.full_path = (self.ancestors.reverse.collect{ |p| p.slug }.reject{ |p| p.blank? } + [self.slug]).join('/')
+    self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
   end
   
+  # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
   end
