@@ -1,6 +1,20 @@
-default: &layout
+default:
   label: Default Layout
+  parent:
   content: |-
     <cms:page:content/>
     <cms:page:title:string/>
     <cms:page:number:integer/>
+    
+nested:
+  label: Nested Layout
+  parent:
+  content: |-
+    <cms:page:content/>
+    
+child:
+  label: Child Layout
+  parent: nested
+  content: |-
+    <cms:page:left_column>
+    <cms:page:right_column>

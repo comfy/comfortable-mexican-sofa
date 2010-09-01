@@ -4,11 +4,14 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|
+      t.integer :parent_id
       t.string  :label
       t.text    :content
+      t.integer :position, :null => false, :default => 0
       t.timestamps
     end
     add_index :cms_layouts, :label
+    add_index :cms_layouts, [:parent_id, :position]
     
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|
@@ -56,6 +59,7 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_assets, :cms_page_id
+    
   end
   
   def self.down
