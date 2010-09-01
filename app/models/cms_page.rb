@@ -24,6 +24,18 @@ class CmsPage < ActiveRecord::Base
     :presence   => true,
     :uniqueness => true
   
+  # -- Class Methods --------------------------------------------------------
+  # Tree-like structure for pages
+  def self.options_for_select(cms_page = nil, current_page = nil, depth = 0, spacer = '. . ')
+    return [] if (current_page ||= CmsPage.root) == cms_page
+    
+    out = [[ "#{spacer*depth}#{current_page.label}", current_page.id ]]
+    current_page.children.each do |child|
+      out += options_for_select(cms_page, child, depth + 1, spacer)
+    end
+    return out.compact
+  end
+  
   # -- Instance Methods -----------------------------------------------------
   # Scans through the content defined in the layout and replaces tag signatures
   # with content defined in cms_blocks, or whatever tag's render method does
@@ -47,6 +59,7 @@ protected
     self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
   end
   
+  # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
   end

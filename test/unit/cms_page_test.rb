@@ -123,6 +123,18 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 0, page_2.children_count
   end
   
+  def test_cascading_destroy
+    assert_difference 'CmsPage.count', -2 do
+      cms_pages(:default).destroy
+    end
+  end
+  
+  def test_options_for_select
+    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select.collect{|t| t.first }
+    assert_equal ['Default Page'], CmsPage.options_for_select(cms_pages(:child)).collect{|t| t.first }
+    assert_equal [], CmsPage.options_for_select(cms_pages(:default))
+  end
+  
 protected
 
   def new_params(options = {})
