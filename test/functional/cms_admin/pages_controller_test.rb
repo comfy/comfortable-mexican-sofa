@@ -17,6 +17,10 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select 'form[action=/cms-admin/pages]'
   end
   
+  def test_get_new_as_child_page
+    flunk
+  end
+  
   def test_get_edit
     flunk
   end

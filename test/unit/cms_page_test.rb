@@ -139,7 +139,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
 protected
-
+  
   def new_params(options = {})
     {
       :label      => 'Test Page',
