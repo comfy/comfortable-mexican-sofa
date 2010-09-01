@@ -8,19 +8,22 @@ class CreateCms < ActiveRecord::Migration
       t.text    :content
       t.timestamps
     end
-    add_index :cms_layouts, :parent_id
     add_index :cms_layouts, :label
     
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|
       t.integer :cms_layout_id
+      t.integer :parent_id
       t.string  :label
       t.string  :slug
       t.string  :full_path
       t.text    :content
+      t.integer :position,        :null => false, :default => 0
+      t.integer :children_count,  :null => false, :default => 0
       t.timestamps
     end
     add_index :cms_pages, :full_path
+    add_index :cms_pages, [:parent_id, :position]
     
     # -- Page Blocks --------------------------------------------------------
     create_table :cms_blocks do |t|
@@ -43,7 +46,8 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_snippets, :label, :unique => true
-
+    
+    # -- Assets -------------------------------------------------------------
     create_table :cms_assets do |t|
       t.string  :cms_page_id
       t.string  :file_file_name
