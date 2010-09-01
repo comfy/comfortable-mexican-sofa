@@ -8,11 +8,12 @@ $.CMS.Uploader = function(){
       auth_token = $("meta[name=csrf-token]").attr('content');
       
       var uploader = new plupload.Uploader({
+        container: 'upload_container',
+        browse_button: 'pickfiles',
       	runtimes: 'html5,html4',
-      	browse_button: 'pickfiles',
       	unique_names: true, 
       	multipart: true,  
-        multipart_params: { authenticity_token: auth_token, format: 'json' },
+        multipart_params: { authenticity_token: auth_token, format: 'js' },
       	url: '/cms-admin/assets'
       });
 
@@ -35,8 +36,10 @@ $.CMS.Uploader = function(){
     	});
     	
     	uploader.bind('FileUploaded', function(up, file, response){
-    	  $.get('/cms-admin/assets')
-    	  $('#'+file.id).fadeOut(4000);
+    	  $('#assets_list').append(response.response);
+    	  $('#'+file.id).fadeOut(4000, function() {
+          $('#'+file.id).remove();
+    	  });
     	})
   	}
   }
