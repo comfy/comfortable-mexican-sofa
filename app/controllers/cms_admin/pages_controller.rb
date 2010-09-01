@@ -1,5 +1,4 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
-  
   before_filter :build_cms_page, :only => [:new]
   before_filter :load_cms_page, :only => [:edit]
   

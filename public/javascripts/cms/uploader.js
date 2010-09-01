@@ -1,12 +1,11 @@
 $.CMS.Uploader = function(){
   $(document).ready(function() {
-    $.CMS.Uploader.init();    
+    $.CMS.Uploader.init();
   });
   
   return {
     init: function() {
       auth_token = $("meta[name=csrf-token]").attr('content');
-      
       var uploader = new plupload.Uploader({
         container: 'upload_container',
         browse_button: 'pickfiles',

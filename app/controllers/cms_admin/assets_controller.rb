@@ -14,7 +14,6 @@ class CmsAdmin::AssetsController < CmsAdmin::BaseController
   
   def destroy
     @cms_asset.destroy
-    format.js
   end
 
 protected

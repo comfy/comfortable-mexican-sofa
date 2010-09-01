@@ -1,10 +1,15 @@
 class CmsPage < ActiveRecord::Base
   
+  # -- AR Extensions --------------------------------------------------------
   acts_as_tree :counter_cache => :children_count
-  
+
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_layout
-  has_many :cms_blocks, :dependent => :destroy
+  has_many :cms_blocks,
+    :dependent => :destroy
+  has_many :cms_assets,
+    :dependent => :destroy
+  
   accepts_nested_attributes_for :cms_blocks
   
   # -- Callbacks ------------------------------------------------------------
