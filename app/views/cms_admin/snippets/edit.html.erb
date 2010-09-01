@@ -1,0 +1,6 @@
+<h1> Editing Snippet </h1>
+
+<%= cms_form_for @cms_snippet, :url => {:action => :update} do |form| %>
+  <%= render :partial => 'form', :object => form %>
+  <%= form.submit 'Update Snippet' %>
+<% end %>
