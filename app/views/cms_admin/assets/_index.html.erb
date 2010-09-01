@@ -4,3 +4,8 @@
     <%= render :partial => 'cms_admin/assets/asset', :collection => cms_assets %>
   <% end %>
 </div>
+
+<div id='upload_container'>
+  <div id='filelist'></div>
+  <%= link_to 'select files', '#', :id => 'pickfiles', :class => 'button' %>
+</div>
