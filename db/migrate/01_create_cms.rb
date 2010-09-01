@@ -52,7 +52,7 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Assets -------------------------------------------------------------
     create_table :cms_assets do |t|
-      t.string  :cms_page_id
+      t.integer  :cms_page_id
       t.string  :file_file_name
       t.string  :file_content_type
       t.integer :file_file_size

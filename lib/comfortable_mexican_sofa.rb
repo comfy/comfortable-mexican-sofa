@@ -26,3 +26,5 @@ css_includes =  ['cms_master', 'jquery-ui'].collect{|f| ['cms', f].join('/')}
 
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion :cms => js_includes
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => css_includes
+
+FILE_ICONS = Dir.glob(File.expand_path('public/images/cms/file_icons/*.png', Rails.root)).collect{|f| f.split('/').last.gsub('.png', '')}

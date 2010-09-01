@@ -4,8 +4,5 @@
 </div>
 
 <div id='assets_list'>
-  <% cms_assets = CmsAsset.all %>
-  <% if cms_assets.present? %>
-    <%= render :partial => 'cms_admin/assets/asset', :collection => cms_assets %>
-  <% end %>
+  <%= render :partial => 'cms_admin/assets/asset', :collection => CmsAsset.all %>
 </div>
