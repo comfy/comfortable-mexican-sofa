@@ -4,6 +4,7 @@
 #     include CmsTag
 #     ...
 #   end
+# Tags have parent/child relationship that is used during rendering process
 module CmsTag
   
   # All tags must follow this format:
@@ -33,6 +34,13 @@ module CmsTag
   end
   
   module InstanceMethods
+    
+    attr_accessor :parent
+    
+    def identifier
+      "#{self.class.name.underscore}_#{self.label}"
+    end
+    
     # Regex that is used to identify instance of the tag
     # Example:
     #   /<\s*?cms:page:tag_label\/?>/

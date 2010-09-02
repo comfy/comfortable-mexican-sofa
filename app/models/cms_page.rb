@@ -43,6 +43,7 @@ class CmsPage < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   # Scans through the content defined in the layout and replaces tag signatures
   # with content defined in cms_blocks, or whatever tag's render method does
+  # TODO: This is incomplete, need to implement tag tree rendering
   def render_content
     content = cms_layout.content.dup
     initialize_tags.each do |tag|
