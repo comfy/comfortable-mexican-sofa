@@ -3,7 +3,5 @@
 <%= link_to 'Create New Layout', new_cms_admin_layout_path %>
 
 <ul>
-  <% @cms_layouts.each do |layout| %>
-    <%= render :partial => 'tree_branch', :object => layout %>
-  <% end %>
+  <%= render :partial => 'tree_branch', :collection => @cms_layouts %>
 </ul>

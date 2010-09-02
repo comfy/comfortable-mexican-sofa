@@ -1,6 +1,6 @@
 $.CMS = function(){
   var current_path = window.location.pathname;
-
+  
   $(document).ready(function(){
     // Slugify
     $('input#slugify').bind('keyup.cms', function() {
@@ -31,7 +31,7 @@ $.CMS = function(){
     
     // Load Page Blocks on layout change
     $('select#cms_page_cms_layout_id').bind('change.cms', function() {
-      $.ajax({url: ['/cms-admin/pages', page_id, 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
+      $.ajax({url: ['/cms-admin/pages', cms_page_id, 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
     })
 
   }); // End $(document).ready()

@@ -1,0 +1,5 @@
+<div id='form_blocks'>
+  <% @cms_page.cms_blocks.each do |block| %>
+    <%= cms_block_field(block) %>
+  <% end %>
+</div>

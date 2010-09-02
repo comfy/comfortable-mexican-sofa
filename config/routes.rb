@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   
   namespace :cms_admin, :path => 'cms-admin', :except => :show do
     resources :layouts
-    resources :pages
+    resources :pages do
+      member do 
+        match :form_blocks
+      end
+    end
     resources :snippets
     resources :assets
   end

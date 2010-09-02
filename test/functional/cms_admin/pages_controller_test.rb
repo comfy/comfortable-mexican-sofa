@@ -54,4 +54,26 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     flunk
   end
   
+  def test_get_form_blocks
+    xhr :get, :form_blocks, :id => cms_pages(:default), :layout_id => cms_layouts(:nested).id
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_equal 2, assigns(:cms_page).cms_blocks.size
+    assert_template 'form_blocks'
+    
+    xhr :get, :form_blocks, :id => cms_pages(:default), :layout_id => cms_layouts(:default).id
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_equal 3, assigns(:cms_page).cms_blocks.size
+    assert_template 'form_blocks'
+  end
+  
+  def test_get_form_blocks_for_new_page
+    xhr :get, :form_blocks, :id => 0, :layout_id => cms_layouts(:default).id
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_equal 3, assigns(:cms_page).cms_blocks.size
+    assert_template 'form_blocks'
+  end
+  
 end

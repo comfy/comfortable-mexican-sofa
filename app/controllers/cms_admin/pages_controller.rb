@@ -27,6 +27,12 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     # TODO
   end
   
+  def form_blocks
+    @cms_page = CmsPage.find_by_id(params[:id]) || CmsPage.new
+    @cms_page.cms_layout = CmsLayout.find_by_id(params[:layout_id])
+    @cms_page.initialize_tags
+  end
+  
 protected
   
   def build_cms_page

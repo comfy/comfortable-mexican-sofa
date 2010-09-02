@@ -1,10 +1,14 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+    var cms_page_id = <%= @cms_page.new_record?? 0 : @cms_page.id %>;
+  </script>
+<% end %>
+
 <%= form.select :cms_layout_id, CmsLayout.options_for_select, {} %>
 <%= form.text_field :label, :id => 'slugify' %>
 <%= form.text_field :slug, :id => 'slug' %>
 
-<% @cms_page.cms_blocks.each do |block| %>
-  <%= form.cms_block_field(block) %>
-<% end %>
+<%= render :partial => 'form_blocks' %>
 
 <h2>Assets</h2>
 <%= render :partial => 'cms_admin/assets/index' %>
