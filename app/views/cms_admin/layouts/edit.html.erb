@@ -1,6 +1,6 @@
 <h1> Editing Layout </h1>
 
-<%= form_for @cms_layout, :url => {:action => :update} do |form| %>
-  <%= render :partial => form %>
+<%= cms_form_for @cms_layout, :url => {:action => :update} do |form| %>
+  <%= render :partial => 'form', :object => form %>
   <%= form.submit 'Update Layout' %>
 <% end %>

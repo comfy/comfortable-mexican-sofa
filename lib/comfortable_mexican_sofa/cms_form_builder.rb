@@ -1,7 +1,8 @@
 class CmsFormBuilder < ActionView::Helpers::FormBuilder
   
   helpers = field_helpers -
-    %w(hidden_field fields_for)
+    %w(hidden_field fields_for) +
+    %w(select)
     
   helpers.each do |name|
     class_eval %Q^

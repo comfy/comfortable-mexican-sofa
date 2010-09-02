@@ -1,0 +1,10 @@
+<li>
+  <%= link_to tree_branch.label, edit_cms_admin_layout_path(tree_branch) %>
+  <% if tree_branch.children.count > 0 %>
+    <ul>
+      <% tree_branch.children.each do |child| %>
+        <%= render :partial => 'tree_branch', :object => child %>
+      <% end %>
+    </ul>
+  <% end %>
+</li>

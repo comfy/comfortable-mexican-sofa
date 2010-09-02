@@ -4,7 +4,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   before_filter :load_cms_layout,   :only => [:edit, :update, :destroy]
   
   def index
-    @cms_layouts = CmsLayout
+    @cms_layouts = CmsLayout.roots
   end
   
   def new

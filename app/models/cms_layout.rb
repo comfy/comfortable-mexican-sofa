@@ -28,7 +28,7 @@ class CmsLayout < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is <cms:page:content> If parent layout has this tag
   # defined its content will be merged. If no such tag found, parent content
-  # is ignored
+  # is ignored.
   def content
     if parent
       c = parent.content.gsub CmsTag::PageText.regex_tag_signature('content'), read_attribute(:content)
