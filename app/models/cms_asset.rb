@@ -22,8 +22,10 @@ class CmsAsset < ActiveRecord::Base
   end
   
   def uploaded_file=(data)
-    data.content_type = MIME::Types.type_for(data.original_filename).to_s
-    self.file = data
+    if data.present?
+      data.content_type = MIME::Types.type_for(data.original_filename).to_s
+      self.file = data
+    end
   end
   
   def icon

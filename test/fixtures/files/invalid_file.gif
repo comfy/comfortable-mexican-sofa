@@ -1,0 +1,9 @@
+STDOUT.sync = true
+
+c = 0
+loop do
+ # print "\r%s" % %w[ / - \\ | ][(c +=1) % 4]
+ # print "\r%s" % ['o.o', 'o.O', 'O.O', 'O.o'][(c +=1) % 4]
+
+ select(nil, nil, nil, 0.2)
+end

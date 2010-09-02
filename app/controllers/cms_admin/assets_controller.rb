@@ -6,9 +6,11 @@ class CmsAdmin::AssetsController < CmsAdmin::BaseController
   end
   
   def create
-    @cms_asset = CmsAsset.create!(:uploaded_file => params[:file])
-    respond_to do |format|  
-      format.js { render(:partial => 'cms_admin/assets/asset', :object => @cms_asset) }
+    @cms_asset = CmsAsset.new(:uploaded_file => params[:file])
+    if @cms_asset.save
+      render(:partial => 'cms_admin/assets/asset', :object => @cms_asset)
+    else
+      render :nothing => true
     end
   end
   
