@@ -18,7 +18,11 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_as_child_page
-    flunk
+    get :new, :parent_id => cms_pages(:default)
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_equal cms_pages(:default), assigns(:cms_page).parent
+    assert_template :new
   end
   
   def test_get_edit
