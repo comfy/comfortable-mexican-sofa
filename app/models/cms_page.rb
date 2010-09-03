@@ -52,11 +52,19 @@ class CmsPage < ActiveRecord::Base
     return content
   end
   
-  # Returns an array of tag objects, at the same time populates cms_blocks
-  # of the current page
-  def initialize_tags
-    CmsTag.initialize_tags(self)
+  # Initilize tags the moment layout gets assigned. This way there's no need to
+  # call initialize tags manually. Need to do this on both association and 
+  # foreign id assignments.
+  def cms_layout_id=(value)
+    write_attribute(:cms_layout_id, value)
+    self.cms_layout_with_tag_initialization = CmsLayout.find_by_id(value)
   end
+  
+  def cms_layout_with_tag_initialization=(value)
+    self.cms_layout_without_tag_initialization = value
+    self.initialize_tags
+  end
+  alias_method_chain :cms_layout=, :tag_initialization
   
 protected
   
@@ -67,6 +75,12 @@ protected
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
+  end
+  
+  # Returns an array of tag objects, at the same time populates cms_blocks
+  # of the current page
+  def initialize_tags
+    CmsTag.initialize_tags(self)
   end
   
 end

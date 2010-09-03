@@ -73,7 +73,17 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_initialize_tags
-    assert_equal 3, cms_pages(:default).initialize_tags.size
+    page = CmsPage.new
+    assert_equal 0, page.cms_blocks.size
+    
+    page.cms_layout = cms_layouts(:default)
+    assert_equal 3, page.cms_blocks.size
+    
+    page.cms_layout_id = '999999'
+    assert_equal 0, page.cms_blocks.size
+    
+    page.cms_layout_id = cms_layouts(:default).id
+    assert_equal 3, page.cms_blocks.size
   end
   
   def test_render_content_for_saved_page

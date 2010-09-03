@@ -66,19 +66,56 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_creation_failure
     assert_no_difference ['CmsPage.count', 'CmsBlock.count'] do
-      post :create, :cms_page => {}
+      post :create, :cms_page => {
+        :cms_layout_id  => cms_layouts(:default).id,
+        :cms_blocks_attributes => [
+          { :label    => 'content',
+            :type     => 'CmsTag::PageText',
+            :content  => 'content content' },
+          { :label    => 'title',
+            :type     => 'CmsTag::PageString',
+            :content  => 'title content' },
+          { :label    => 'number',
+            :type     => 'CmsTag::PageInteger',
+            :content  => '999' }
+        ]
+      }
       assert_response :success
-      assert assigns(:cms_page)
+      page = assigns(:cms_page)
+      assert_equal 3, page.cms_blocks.size
+      assert_equal ['content content', 'title content', 999], page.cms_blocks.collect{|b| b.content}
       assert_template :new
     end
   end
   
   def test_creation_with_faked_blocks
-    flunk
-  end
-  
-  def test_creation_persisting_blocks
-    flunk
+    assert_difference 'CmsPage.count' do
+      assert_difference 'CmsBlock.count', 3 do
+        post :create, :cms_page => {
+          :label          => 'Test Page',
+          :slug           => 'test-page',
+          :parent_id      => cms_pages(:default).id,
+          :cms_layout_id  => cms_layouts(:default).id,
+          :cms_blocks_attributes => [
+            { :label    => 'content',
+              :type     => 'CmsTag::PageText',
+              :content  => 'content content' },
+            { :label    => 'title',
+              :type     => 'CmsTag::PageString',
+              :content  => 'title content' },
+            { :label    => 'number',
+              :type     => 'CmsTag::PageInteger',
+              :content  => '999' },
+            { :label    => 'bogus',
+              :type     => 'CmsTag::PageText',
+              :content  => 'not defined in the layout'}
+          ]
+        }
+        assert_response :redirect
+        assert_redirected_to :action => :edit, :id => CmsPage.last
+        assert_equal 'Page saved', flash[:notice]
+      end
+    end
   end
   
   def test_update
@@ -104,7 +141,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:cms_page)
     assert_equal 3, assigns(:cms_page).cms_blocks.size
-    assert_template form_blocks
+    assert_template :form_blocks
   end
   
   def test_get_form_blocks_for_new_page
