@@ -1,9 +1,10 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
-  before_filter :build_cms_page, :only => [:new, :create]
-  before_filter :load_cms_page, :only => [:edit]
+  
+  before_filter :build_cms_page,  :only => [:new, :create]
+  before_filter :load_cms_page,   :only => [:edit, :update, :destroy]
   
   def index
-    @cms_pages = CmsPage
+    @cms_page = CmsPage.root
   end
   
   def new
@@ -23,7 +24,17 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
   
   def update
-    # TODO
+    @cms_page.update_attributes!(params[:cms_page])
+    flash[:notice] = 'Page updated'
+    redirect_to :action => :edit, :id => @cms_page
+  rescue ActiveRecord::RecordInvalid
+    render :action => :edit
+  end
+  
+  def destroy
+    @cms_page.destroy
+    flash[:notice] = 'Page deleted'
+    redirect_to :action => :index
   end
   
   def form_blocks

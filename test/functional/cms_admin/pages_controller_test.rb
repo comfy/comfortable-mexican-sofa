@@ -5,7 +5,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_index
     get :index
     assert_response :success
-    assert assigns(:cms_pages)
+    assert assigns(:cms_page)
     assert_template :index
   end
   
@@ -13,6 +13,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert assigns(:cms_page)
+    assert_equal 3, assigns(:cms_page).cms_blocks.size
     assert_template :new
     assert_select 'form[action=/cms-admin/pages]'
   end
@@ -123,15 +124,61 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_update
-    flunk
+    page = cms_pages(:default)
+    assert_no_difference 'CmsBlock.count' do
+      put :update, :id => page, :cms_page => {
+        :label => 'Updated Label'
+      }
+      page.reload
+      assert_response :redirect
+      assert_redirected_to :action => :edit, :id => page
+      assert_equal 'Page updated', flash[:notice]
+      assert_equal 'Updated Label', page.label
+    end
+  end
+  
+  def test_update_with_layout_change
+    page = cms_pages(:default)
+    assert_difference 'CmsBlock.count', -1 do
+      put :update, :id => page, :cms_page => {
+        :label => 'Updated Label',
+        :cms_layout_id => cms_layouts(:nested).id,
+        :cms_blocks_attributes => [
+          { :label    => 'content',
+            :type     => 'CmsTag::PageText',
+            :content  => 'content content' },
+          { :label    => 'header',
+            :type     => 'CmsTag::PageText',
+            :content  => 'header content' }
+        ]
+      }
+      page.reload
+      assert_response :redirect
+      assert_redirected_to :action => :edit, :id => page
+      assert_equal 'Page updated', flash[:notice]
+      assert_equal 'Updated Label', page.label
+      assert_equal ['content content', 'header content'], page.cms_blocks.collect{|b| b.content}
+    end
   end
   
   def test_update_failure
-    flunk
+    put :update, :id => cms_pages(:default), :cms_page => {
+      :label => ''
+    }
+    assert_response :success
+    assert_template :edit
+    assert assigns(:cms_page)
   end
   
   def test_destroy
-    flunk
+    assert_difference 'CmsPage.count', -2 do
+      assert_difference 'CmsBlock.count', -3 do
+        delete :destroy, :id => cms_pages(:default)
+        assert_response :redirect
+        assert_redirected_to :action => :index
+        assert_equal 'Page deleted', flash[:notice]
+      end
+    end
   end
   
   def test_get_form_blocks
