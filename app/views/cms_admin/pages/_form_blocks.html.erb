@@ -1,5 +1,5 @@
 <div id='form_blocks'>
-  <% @cms_page.cms_blocks.each do |block| %>
-    <%= cms_block_field(block) %>
+  <% @cms_page.cms_tags.each do |tag| %>
+    <%= cms_tag_field(tag) %>
   <% end %>
 </div>

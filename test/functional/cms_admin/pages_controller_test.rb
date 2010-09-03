@@ -146,7 +146,8 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         :cms_blocks_attributes => [
           { :label    => 'content',
             :type     => 'CmsTag::PageText',
-            :content  => 'content content' },
+            :content  => 'content content',
+            :id       => cms_blocks(:default_page_text).id },
           { :label    => 'header',
             :type     => 'CmsTag::PageText',
             :content  => 'header content' }

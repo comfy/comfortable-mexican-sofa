@@ -2,7 +2,9 @@ class CmsPage < ActiveRecord::Base
   
   # -- AR Extensions --------------------------------------------------------
   acts_as_tree :counter_cache => :children_count
-
+  
+  attr_writer :cms_tags
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_layout
   has_many :cms_blocks,
@@ -59,14 +61,25 @@ class CmsPage < ActiveRecord::Base
     write_attribute(:cms_layout_id, value)
     self.cms_layout_with_tag_initialization = CmsLayout.find_by_id(value)
   end
-  
+   
   def cms_layout_with_tag_initialization=(value)
     self.cms_layout_without_tag_initialization = value
     self.initialize_tags
   end
   alias_method_chain :cms_layout=, :tag_initialization
   
+  # Accessor to get tags
+  def cms_tags
+    @cms_tags ||= self.initialize_tags
+  end
+  
 protected
+  
+  # Returns an array of tag objects, at the same time populates cms_blocks
+  # of the current page
+  def initialize_tags
+    CmsTag.initialize_tags(self)
+  end
   
   def assign_full_path
     self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
@@ -75,12 +88,6 @@ protected
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
-  end
-  
-  # Returns an array of tag objects, at the same time populates cms_blocks
-  # of the current page
-  def initialize_tags
-    CmsTag.initialize_tags(self)
   end
   
 end

@@ -9,11 +9,11 @@ module CmsHelper
   # on tag type. Example:
   #   tag.type = CmsTag::MyAwesomeTag
   #   def my_awesome_tag ... end
-  def cms_block_field(block, *args)
-    block_method = block.type.split('::').last.underscore.downcase
-    return send(block_method, block) if self.respond_to? block_method
+  def cms_tag_field(tag, *args)
+    tag_method = tag.type.split('::').last.underscore.downcase
+    return send(tag_method, block) if self.respond_to? tag_method
     
-    form_method = case block
+    form_method = case tag
     when CmsTag::PageText
       :text_area_tag
     when CmsTag::PageString
@@ -23,12 +23,13 @@ module CmsHelper
     end
     
     %(
-      <div class='form_element #{block_method}_element'>
-        <div class='label'>#{block.label.to_s.titleize}</div>
+      <div class='form_element #{tag_method}_element'>
+        <div class='label'>#{tag.label.to_s.titleize}</div>
         <div class='value'>
-          #{send(form_method, 'cms_page[cms_blocks_attributes][][content]', block.content)}
-          #{hidden_field_tag('cms_page[cms_blocks_attributes][][label]', block.label)}
-          #{hidden_field_tag('cms_page[cms_blocks_attributes][][type]', block.type)}
+          #{send(form_method, 'cms_page[cms_blocks_attributes][][content]', tag.content)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][label]', tag.label)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][type]', tag.type)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][id]', tag.id) unless tag.new_record?}
         </div>
       </div>
     ).html_safe

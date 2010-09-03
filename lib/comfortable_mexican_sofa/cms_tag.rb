@@ -25,6 +25,7 @@ module CmsTag
     def initialize_tag_objects(cms_page = nil, content = '')
       content.to_s.scan(regex_tag_signature).flatten.collect do |label|
         if self.superclass == CmsBlock && cms_page
+          cms_page.reload unless cms_page.new_record?
           cms_page.cms_blocks.detect{|b| b.label == label} || self.new(:label => label)
         else
           self.new(:label => label)
@@ -82,7 +83,8 @@ private
     end.flatten.compact
     
     # Initializing cms_blocks for the passed cms_page
-    cms_page.cms_blocks = cms_tags.select{|t| t.class.superclass == CmsBlock} if cms_page
+    cms_page.cms_tags = cms_tags.select{|t| t.class.superclass == CmsBlock} if cms_page
+    
     return cms_tags
   end
   
