@@ -1,10 +1,4 @@
-<% content_for :head do %>
-  <script type="text/javascript" charset="utf-8">
-    var cms_page_id = <%= @cms_page.new_record?? 0 : @cms_page.id %>;
-  </script>
-<% end %>
-
-<%= form.select :cms_layout_id, CmsLayout.options_for_select, {} %>
+<%= form.select :cms_layout_id, CmsLayout.options_for_select, {}, 'data-page-id' => @cms_page.id.to_i %>
 <%= form.text_field :label, :id => 'slugify' %>
 <%= form.text_field :slug, :id => 'slug' %>
 
