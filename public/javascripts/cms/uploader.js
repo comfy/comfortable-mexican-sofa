@@ -13,7 +13,7 @@ $.CMS.Uploader = function(){
       	unique_names: true, 
       	multipart: true,  
         multipart_params: { authenticity_token: auth_token, format: 'js' },
-      	url: '/cms-admin/assets'
+      	url: '/cms-admin/uploads'
       });
 
     	uploader.init();
@@ -35,7 +35,7 @@ $.CMS.Uploader = function(){
     	});
     	
     	uploader.bind('FileUploaded', function(up, file, response){
-    	  $('#assets_list').append(response.response);
+    	  $('#uploads_list').append(response.response);
     	  $('#'+file.id).fadeOut(4000, function() {
           $('#'+file.id).remove();
     	  });

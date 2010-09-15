@@ -3,6 +3,6 @@
   <%= link_to 'select files', '#', :id => 'pickfiles', :class => 'button' %>
 </div>
 
-<div id='assets_list'>
-  <%= render :partial => 'cms_admin/assets/asset', :collection => CmsAsset.all %>
+<div id='uploads_list'>
+  <%= render :partial => 'cms_admin/uploads/upload', :collection => CmsUpload.all %>
 </div>

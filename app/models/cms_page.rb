@@ -9,8 +9,6 @@ class CmsPage < ActiveRecord::Base
   belongs_to :cms_layout
   has_many :cms_blocks,
     :dependent => :destroy
-  has_many :cms_assets,
-    :dependent => :destroy
   
   accepts_nested_attributes_for :cms_blocks
   
