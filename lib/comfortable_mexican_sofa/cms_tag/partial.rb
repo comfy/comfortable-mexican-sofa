@@ -1,22 +1,18 @@
-class CmsTag::PageText < CmsBlock
+class CmsTag::Partial
   
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
     label ||= /\w+/
-    /<\s*?cms:page:(#{label}):?(?:text)?\s*?\/?>/
+    /<\s*?#{TAG_PREFIX}:partial:(#{label})\s*?\/?>/
   end
   
   def regex_tag_signature
     self.class.regex_tag_signature(label)
   end
   
-  def content=(value)
-    write_attribute(:content_text, value)
-  end
-  
   def content
-    read_attribute(:content_text)
+    "partial #{label}"
   end
   
 end

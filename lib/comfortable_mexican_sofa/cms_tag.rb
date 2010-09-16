@@ -4,12 +4,7 @@
 #     include CmsTag
 #     ...
 #   end
-# Tags have parent/child relationship that is used during rendering process
 module CmsTag
-  
-  # All tags must follow this format:
-  #   <cms:*>
-  TAG_PREFIX = 'cms'
   
   module ClassMethods
     # Regex that is used to match tags in the content
@@ -21,15 +16,11 @@ module CmsTag
       nil
     end
     
-    # Initializing tag objects for a particular Tag type
-    def initialize_tag_objects(cms_page = nil, content = '')
-      content.to_s.scan(regex_tag_signature).flatten.collect do |label|
-        if self.superclass == CmsBlock && cms_page
-          cms_page.reload unless cms_page.new_record?
-          cms_page.cms_blocks.detect{|b| b.label == label} || self.new(:label => label)
-        else
-          self.new(:label => label)
-        end
+    # Initializing tag object for a particular Tag type
+    # First capture group in the regex is the tag label
+    def initialize_tag(cms_page, tag_signature)
+      if match = tag_signature.match(regex_tag_signature)
+        self.new(:label => match[1])
       end
     end
   end
@@ -65,27 +56,24 @@ module CmsTag
   
 private
   
-  # scans for cms tags inside given content
-  def self.find_cms_tags(content = '')
-    content.to_s.scan(/<\s*#{TAG_PREFIX}:.+\s*\/?>/).flatten
+  # Initializes a tag. It's handled by one of the tag classes
+  def self.initialize_tag(cms_page, tag_signature)
+    tag_classes.find{ |c| c.initialize_tag(cms_page, tag_signature) }
   end
   
-  # Scans provided content and initializes Tag objects based
-  # on their tag signature.
-  def self.initialize_tags(cms_page = nil, content = '')
-    # content is set based on the cms_page layout content
-    content = cms_page.cms_layout.try(:content) if cms_page
-    
-    cms_tags = find_cms_tags(content).collect do |tag_signature|
-      tag_classes.collect do |tag_class|
-        tag_class.initialize_tag_objects(cms_page, tag_signature)
+  # Scanning provided content and splitting it into [tag, text] tuples.
+  # Tags are processed further and their content is expanded in the same way
+  def self.process_content(cms_page, content = '')
+    tokens = content.to_s.scan(/(<\s*cms:\w+:\w+\s*\/?>)|((?:[^<]|\<(?!\s*cms:\w+:\w+\s*\/?>))+)/)
+    tokens.collect do |tag_signature, text|
+      if tag_signature
+        if tag = self.initialize_tag(tag_signature)
+          self.process_content(tag.content)
+        end
+      else
+        text
       end
-    end.flatten.compact
-    
-    # Initializing cms_blocks for the passed cms_page
-    cms_page.cms_tags = cms_tags.select{|t| t.class.superclass == CmsBlock} if cms_page
-    
-    return cms_tags
+    end
   end
   
   def self.included(tag)

@@ -74,20 +74,16 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_initialize_tags
     page = CmsPage.new
-    page.initialize_tags
-    assert_equal 0, page.cms_blocks.size
+    assert_equal 0, page.cms_tags.size
     
     page.cms_layout = cms_layouts(:default)
-    page.initialize_tags
-    assert_equal 3, page.cms_blocks.size
+    assert_equal 3, page.cms_tags.size
     
     page.cms_layout_id = '999999'
-    page.initialize_tags
-    assert_equal 0, page.cms_blocks.size
+    assert_equal 0, page.cms_tags.size
     
     page.cms_layout_id = cms_layouts(:default).id
-    page.initialize_tags
-    assert_equal 3, page.cms_blocks.size
+    assert_equal 3, page.cms_tags.size
   end
   
   def test_render_content_for_saved_page
@@ -103,10 +99,13 @@ class CmsPageTest < ActiveSupport::TestCase
     page = CmsPage.new(new_params)
     assert page.render_content.blank?
     
-    assert_equal 3, page.cms_blocks.size
-    page.cms_blocks.each_with_index do |block, i|
-      block.content = "content_#{i}"
+    page.initialize_tags
+    assert_equal 3, page.cms_tags.size
+    
+    page.cms_tags.each_with_index do |tag, i|
+      tag.content = "content_#{i}"
     end
+    
     assert_equal [
       'content_0',
       'content_1',
