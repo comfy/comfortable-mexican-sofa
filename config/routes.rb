@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
     end
     resources :snippets
-    resources :assets
+    resources :uploads
   end
   
   match '*cms_path', :to => 'cms_content#render_page', :via => :get

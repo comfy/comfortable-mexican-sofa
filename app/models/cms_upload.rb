@@ -1,4 +1,4 @@
-class CmsAsset < ActiveRecord::Base
+class CmsUpload < ActiveRecord::Base
 
   # -- AR Extensions --------------------------------------------------------
   
