@@ -3,10 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CmsTagTest < ActiveSupport::TestCase
   
   def test_initialization_and_rendering
-   content = 'a <cms:page:tag_1> b <cms:page:tag_2> c'
-   raise CmsTag.process_content(content).to_yaml
-   
-    
+    page = cms_pages(:default)
+    raise page.process_content.to_yaml
   end
   
   def test_method_find_cms_tags

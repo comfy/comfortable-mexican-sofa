@@ -2,6 +2,7 @@
   comfortable_mexican_sofa/cms_form_builder
   comfortable_mexican_sofa/cms_acts_as_tree
   ../app/models/cms_block
+  ../app/models/cms_snippet
   comfortable_mexican_sofa/cms_tag
 ).each do |path|
   require File.expand_path(path, File.dirname(__FILE__))

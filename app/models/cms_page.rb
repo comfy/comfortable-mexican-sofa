@@ -47,13 +47,9 @@ class CmsPage < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
-  # Scans through the content defined in the layout and replaces tag signatures
-  # with content defined in cms_blocks, or whatever tag's render method does
-  # TODO: This is incomplete, need to implement tag tree rendering
-  def initialize_content
-    layout_content = cms_layout.content.dup
-    raise CmsTag.tag_classes.inspect
-    
+  # Processing content will return rendered content and all tag that were used.
+  def process_content
+    CmsTag.process_content(self, cms_layout.content.dup)
   end
   
   # Initilize tags the moment layout gets assigned. This way there's no need to
@@ -72,23 +68,23 @@ class CmsPage < ActiveRecord::Base
   
   # Returns an array of tag objects, at the same time populates cms_blocks
   # of the current page
-  def initialize_tags
-    CmsTag.initialize_tags(self)
-  end
+  # def initialize_tags
+  #  CmsTag.initialize_tags(self)
+  # end
   
   # Converting object from cms_tags collection into cms_blocks
   # TODO: Explicitely calling it. Can't really put it into a callback
-  def assign_cms_blocks!
-    self.cms_tags.each do |tag|
-      if block = self.cms_blocks.find_by_label(tag.label)
-        block.type    = tag.type
-        block.content = tag.content
-        block.save!
-      else
-        self.cms_blocks.create!(:label => tag.label, :type => tag.type, :content => tag.content)
-      end
-    end
-  end
+  # def assign_cms_blocks!
+  #   self.cms_tags.each do |tag|
+  #     if block = self.cms_blocks.find_by_label(tag.label)
+  #       block.type    = tag.type
+  #       block.content = tag.content
+  #       block.save!
+  #     else
+  #       self.cms_blocks.create!(:label => tag.label, :type => tag.type, :content => tag.content)
+  #     end
+  #   end
+  # end
   
 protected
   

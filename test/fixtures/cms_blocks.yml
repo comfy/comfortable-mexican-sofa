@@ -1,17 +1,14 @@
+default_field_text:
+  cms_page: default
+  type: CmsTag::FieldText
+  label: default_field_text
+  content_text: default_field_text_content
+
 default_page_text:
   cms_page: default
   type: CmsTag::PageText
-  label: content
-  content_text: default_page_text_content
-  
-default_page_string:
-  cms_page: default
-  type: CmsTag::PageString
-  label: title
-  content_string: default_page_string_content
-  
-default_page_integer:
-  cms_page: default
-  type: CmsTag::PageInteger
-  label: number
-  content_integer: 1
+  label: default_page_text
+  content_text: |-
+    default_page_text_content_a
+    <cms:snippet:default_snippet>
+    default_page_text_content_b

@@ -2,9 +2,12 @@ default:
   label: Default Layout
   parent:
   content: |-
-    <cms:page:content/>
-    <cms:page:title:string/>
-    <cms:page:number:integer/>
+    <cms:field:default_field_text:text>
+    content_a
+    <cms:page:default_page_text:text>
+    content_b
+    <cms:snippet:default_snippet>
+    content_c
     
 nested:
   label: Nested Layout
