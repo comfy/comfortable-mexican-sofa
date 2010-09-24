@@ -12,8 +12,6 @@ class CmsPage < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_layout
-  has_many :cms_uploads,
-    :dependent  => :destroy
   has_many :cms_blocks,
     :dependent  => :destroy
   accepts_nested_attributes_for :cms_blocks

@@ -143,7 +143,6 @@ class CmsTagTest < ActiveSupport::TestCase
     tag_1 = CmsTag::PageText.new(:label => 'new_text', :content => 'content')
     tag_2 = CmsTag::FieldText.new(:label => 'new_text', :content => 'content')
     tag_3 = CmsTag::PageText.new(:label => 'new_text', :content => 'other content')
-    
     assert_not_equal tag_1, tag_2
     assert_equal tag_1, tag_3
   end

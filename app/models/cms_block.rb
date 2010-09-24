@@ -21,8 +21,8 @@ class CmsBlock < ActiveRecord::Base
     alias_method_chain :new, :cast
     
     def initialize_or_find(cms_page, label)
-      cms_page.cms_blocks.detect{ |b| b.label == label } ||
-      self.new(:label => label, :type => self.name, :cms_page => cms_page)
+      cms_page.cms_blocks.detect{ |b| b.label == label.to_s } ||
+      self.new(:label => label.to_s, :type => self.name, :cms_page => cms_page)
     end
   end
   

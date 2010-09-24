@@ -38,7 +38,7 @@ module CmsTag
       "#{self.class.name.underscore}_#{self.label}"
     end
     
-    # Equality check. Content doesn't matter. Signature does.
+    # Equality check. Content doesn't matter. Tag identifier does.
     def ==(tag)
       self.identifier == tag.identifier
     end
@@ -67,7 +67,6 @@ module CmsTag
     def render
       content
     end
-    
   end
   
 private
