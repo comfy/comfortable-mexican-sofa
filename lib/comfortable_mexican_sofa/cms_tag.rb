@@ -25,7 +25,9 @@ module CmsTag
         if self.respond_to?(:initialize_or_find)
           self.initialize_or_find(cms_page, match[1])
         else
-          self.new(:label => match[1])
+          tag = self.new
+          tag.label = match[1]
+          tag
         end
       end
     end
@@ -65,7 +67,7 @@ module CmsTag
     # Content that is used during page rendering. Outputting existing content
     # as a default.
     def render
-      content
+      content.to_s
     end
   end
   

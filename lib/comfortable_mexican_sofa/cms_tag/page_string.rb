@@ -1,10 +1,10 @@
-class CmsTag::PageText < CmsBlock
+class CmsTag::PageString < CmsBlock
   
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
     label ||= /\w+/
-    /<\s*cms:page:(#{label}):?(?:text)?\s*\/?>/
+    /<\s*cms:page:(#{label}):string\s*\/?>/
   end
   
   def regex_tag_signature
@@ -12,11 +12,11 @@ class CmsTag::PageText < CmsBlock
   end
   
   def content=(value)
-    write_attribute(:content_text, value)
+    write_attribute(:content_string, value)
   end
   
   def content
-    read_attribute(:content_text)
+    read_attribute(:content_string)
   end
   
 end

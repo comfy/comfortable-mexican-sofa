@@ -2,32 +2,34 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class PageIntegerTest < ActiveSupport::TestCase
   
-  def test_regex_tag_signature
+  def test_initialize_tag
     %w(
-      <cms:page:number:integer/>
-      <cms:page:number:integer>
-    ).each do |tag|
-      assert_match CmsTag::PageInteger.regex_tag_signature, tag
-      assert_match CmsTag::PageInteger.regex_tag_signature('number'), tag
-      assert_match cms_blocks(:default_page_integer).regex_tag_signature, tag
+      <cms:page:content:integer/>
+      <cms:page:content:integer>
+    ).each do |tag_signature|
+      assert tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), tag_signature)
+      assert_equal 'content', tag.label
     end
-    
-    assert_no_match CmsTag::PageInteger.regex_tag_signature, '<cms:page:number:not_integer>'
-    assert_no_match CmsTag::PageInteger.regex_tag_signature('something'), '<cms:page:not_number:number/>'
-    assert_no_match CmsTag::PageInteger.regex_tag_signature, '<cms_page:not_valid_tag>'
   end
   
-  def test_initialization_of_content_objects
-    content = cms_layouts(:default).content
-    block = CmsTag::PageInteger.initialize_tag_objects(nil, content).first
-    assert_equal CmsTag::PageInteger, block.class
+  def test_initialize_tag_failure
+    %w(
+      <cms:page:content:not_integer/>
+      <cms:page:content/>
+      <cms:not_page:content/>
+      not_a_tag
+    ).each do |tag_signature|
+      assert_nil CmsTag::PageInteger.initialize_tag(cms_pages(:default), tag_signature)
+    end
   end
   
-  def test_method_content
-    block = cms_blocks(:default_page_integer)
-    assert_equal CmsTag::PageInteger, block.class
-    assert_equal block.read_attribute(:content_integer), block.content
-    assert_equal block.content, block.render
+  def test_content_and_render
+    tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), "<cms:page:content:integer>")
+    assert tag.content.blank?
+    tag.content = '5'
+    assert_equal 5, tag.content
+    assert_equal 5, tag.read_attribute(:content_integer)
+    assert_equal '5', tag.render
   end
   
 end

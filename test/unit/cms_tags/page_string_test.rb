@@ -2,32 +2,34 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class PageStringTest < ActiveSupport::TestCase
   
-  def test_regex_tag_signature
+  def test_initialize_tag
     %w(
-      <cms:page:title:string/>
-      <cms:page:title:string>
-    ).each do |tag|
-      assert_match CmsTag::PageString.regex_tag_signature, tag
-      assert_match CmsTag::PageString.regex_tag_signature('title'), tag
-      assert_match cms_blocks(:default_page_string).regex_tag_signature, tag
+      <cms:page:content:string/>
+      <cms:page:content:string>
+    ).each do |tag_signature|
+      assert tag = CmsTag::PageString.initialize_tag(cms_pages(:default), tag_signature)
+      assert_equal 'content', tag.label
     end
-    
-    assert_no_match CmsTag::PageString.regex_tag_signature, '<cms:page:title:not_string>'
-    assert_no_match CmsTag::PageString.regex_tag_signature('title'), '<cms:page:not_title:string/>'
-    assert_no_match CmsTag::PageString.regex_tag_signature, '<cms_page:not_valid_tag>'
   end
   
-  def test_initialization_of_content_objects
-    content = cms_layouts(:default).content
-    block = CmsTag::PageString.initialize_tag_objects(nil, content).first
-    assert_equal CmsTag::PageString, block.class
+  def test_initialize_tag_failure
+    %w(
+      <cms:page:content:not_string/>
+      <cms:page:content/>
+      <cms:not_page:content/>
+      not_a_tag
+    ).each do |tag_signature|
+      assert_nil CmsTag::PageString.initialize_tag(cms_pages(:default), tag_signature)
+    end
   end
   
-  def test_method_content
-    block = cms_blocks(:default_page_string)
-    assert_equal CmsTag::PageString, block.class
-    assert_equal block.read_attribute(:content_string), block.content
-    assert_equal block.content, block.render
+  def test_content_and_render
+    tag = CmsTag::PageString.initialize_tag(cms_pages(:default), "<cms:page:content:string>")
+    assert tag.content.blank?
+    tag.content = 'test_content'
+    assert_equal 'test_content', tag.content
+    assert_equal 'test_content', tag.read_attribute(:content_string)
+    assert_equal 'test_content', tag.render
   end
   
 end

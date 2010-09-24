@@ -1,10 +1,12 @@
 class CmsTag::Partial
   
+  attr_accessor :label
+  
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
-    label ||= /\w+/
-    /<\s*?#{TAG_PREFIX}:partial:(#{label})\s*?\/?>/
+    label ||= /[\w\/]+/
+    /<\s*cms:partial:(#{label})\s*\/?>/
   end
   
   def regex_tag_signature
@@ -12,7 +14,7 @@ class CmsTag::Partial
   end
   
   def content
-    "partial #{label}"
+    "<%= render :partial => '#{label}' %>"
   end
   
 end

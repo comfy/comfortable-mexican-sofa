@@ -1,10 +1,10 @@
-class CmsTag::PageInteger < CmsBlock
+class CmsTag::FieldString < CmsBlock
   
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
     label ||= /\w+/
-    /<\s*?#{TAG_PREFIX}:page:(#{label}):integer\s*?\/?>/
+    /<\s*cms:field:(#{label}):?(?:string)?\s*\/?>/
   end
   
   def regex_tag_signature
@@ -12,11 +12,15 @@ class CmsTag::PageInteger < CmsBlock
   end
   
   def content=(value)
-    write_attribute(:content_integer, value)
+    write_attribute(:content_string, value)
   end
   
   def content
-    read_attribute(:content_integer)
+    read_attribute(:content_string)
+  end
+  
+  def render
+    ''
   end
   
 end
