@@ -72,47 +72,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
   end
   
-  def test_initialize_tags
-    page = CmsPage.new
-    assert_equal 0, page.cms_tags.size
-    
-    page.cms_layout = cms_layouts(:default)
-    assert_equal 3, page.cms_tags.size
-    
-    page.cms_layout_id = '999999'
-    assert_equal 0, page.cms_tags.size
-    
-    page.cms_layout_id = cms_layouts(:default).id
-    assert_equal 3, page.cms_tags.size
-  end
-  
-  def test_render_content_for_saved_page
-    page = cms_pages(:default)
-    assert_equal [
-      'default_page_text_content',
-      'default_page_string_content',
-      '1'
-    ].join("\n"), page.render_content
-  end
-  
-  def test_render_content_for_initialized_page
-    page = CmsPage.new(new_params)
-    assert page.render_content.blank?
-    
-    page.initialize_tags
-    assert_equal 3, page.cms_tags.size
-    
-    page.cms_tags.each_with_index do |tag, i|
-      tag.content = "content_#{i}"
-    end
-    
-    assert_equal [
-      'content_0',
-      'content_1',
-      '0'
-    ].join("\n"), page.render_content
-  end
-  
   def test_children_count_updating
     page_1 = cms_pages(:default)
     page_2 = cms_pages(:child)
