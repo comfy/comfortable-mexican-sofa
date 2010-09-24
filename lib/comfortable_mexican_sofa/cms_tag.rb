@@ -43,7 +43,7 @@ module CmsTag
       self.identifier == tag.identifier
     end
     
-    # Ancestors of this tag constructed during rendering process
+    # Ancestors of this tag constructed during rendering process.
     def ancestors
       node, nodes = self, []
       nodes << node = node.parent while node.parent
