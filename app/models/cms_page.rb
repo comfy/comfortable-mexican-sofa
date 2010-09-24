@@ -45,13 +45,20 @@ class CmsPage < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
-  # Processing content will return rendered content and all tags that were used.
+  # Processing content will return rendered content and will populate 
+  # self.cms_tags with instances of CmsTag
   def content
     cms_layout ? CmsTag.process_content(self, cms_layout.content.dup) : ''
   end
   
   def cms_tags
     @cms_tags ||= []
+  end
+  
+  # A subset of cms_tags for form rendering
+  def block_cms_tags
+    self.content if cms_tags.blank?
+    cms_tags.select{ |t| t.class.superclass == CmsBlock }.uniq
   end
   
 protected

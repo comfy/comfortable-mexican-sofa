@@ -11,6 +11,9 @@
   <body>
     <div class='body_wrapper'>
       <div class='left_column'>
+        <%= active_link_to 'Layouts', cms_admin_layouts_path %>
+        <%= active_link_to 'Pages', cms_admin_pages_path %>
+        <%= active_link_to 'Snippets', cms_admin_snippets_path %>
         <%= yield :left_column %>
       </div>
       <div class='center_column'>

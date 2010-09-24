@@ -13,9 +13,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal 3, assigns(:cms_page).cms_blocks.size
+    assert_equal cms_layouts(:default), assigns(:cms_page).cms_layout
+    assert_equal 2, assigns(:cms_page).block_cms_tags.size
+    
     assert_template :new
     assert_select 'form[action=/cms-admin/pages]'
+    # assert_select "input[name='cms_page[cms_blocks_attributes][][label]']", 2
+    # assert_select "input[name='cms_page[cms_blocks_attributes][][type]']", 2
   end
   
   def test_get_new_as_child_page

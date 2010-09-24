@@ -46,8 +46,8 @@ protected
   
   def build_cms_page
     @cms_page = CmsPage.new(params[:cms_page])
-    @cms_page.parent ||= CmsPage.find_by_id(params[:parent_id])
-    @cms_page.cms_layout ||= CmsLayout.first
+    @cms_page.parent ||= (CmsPage.find_by_id(params[:parent_id]) || CmsPage.root)
+    @cms_page.cms_layout ||= (@cms_page.parent && @cms_page.parent.cms_layout || CmsLayout.first)
   end
   
   def load_cms_page

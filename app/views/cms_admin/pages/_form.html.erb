@@ -4,5 +4,8 @@
 
 <%= render :partial => 'form_blocks' %>
 
-<h2>Uploads</h2>
-<%= render :partial => 'cms_admin/uploads/index' %>
+
+<% content_for :right_column do %>
+  <h2>Uploads</h2>
+  <%= render :partial => 'cms_admin/uploads/index' %>
+<% end %>

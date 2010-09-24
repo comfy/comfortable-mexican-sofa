@@ -32,7 +32,7 @@ module CmsHelper
           #{hidden_field_tag('cms_page[cms_blocks_attributes][][id]', tag.id) unless tag.new_record?}
         </div>
       </div>
-    ).html_safe
+    ).html_safe if form_method
   end
   
 end
