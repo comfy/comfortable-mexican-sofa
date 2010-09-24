@@ -20,6 +20,12 @@ class ActiveSupport::TestCase
       end
     end
   end
+  
+  # Small method that allows for better formatting in tests
+  def rendered_content_formatter(string)
+    string.gsub(/^[ ]+/, '')
+  end
+  
 end
 
 class ActionController::TestCase

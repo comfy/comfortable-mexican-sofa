@@ -3,11 +3,11 @@ default:
   parent:
   content: |-
     <cms:field:default_field_text:text>
-    content_a
+    layout_content_a
     <cms:page:default_page_text:text>
-    content_b
-    <cms:snippet:default_snippet>
-    content_c
+    layout_content_b
+    <cms:snippet:default>
+    layout_content_c
     
 nested:
   label: Nested Layout

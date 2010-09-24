@@ -3,11 +3,11 @@ Default Test Application Data Structure
 Layout
 ------
     <cms:field:default_field:text>
-    content_a
+    layout_content_a
     <cms:page:default_page:text>
-    content_b
+    layout_content_b
     <cms:snippet:default_snippet>
-    content_c
+    layout_content_c
 Page
 ----
 ### CmsBlock::FieldText

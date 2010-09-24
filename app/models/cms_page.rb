@@ -12,7 +12,7 @@ class CmsPage < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_layout
-  has_many :cms_assets,
+  has_many :cms_uploads,
     :dependent  => :destroy
   has_many :cms_blocks,
     :dependent  => :destroy
@@ -47,44 +47,14 @@ class CmsPage < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
-  # Processing content will return rendered content and all tag that were used.
-  def process_content
-    CmsTag.process_content(self, cms_layout.content.dup)
+  # Processing content will return rendered content and all tags that were used.
+  def content
+    cms_layout ? CmsTag.process_content(self, cms_layout.content.dup) : ''
   end
   
-  # Initilize tags the moment layout gets assigned. This way there's no need to
-  # call initialize tags manually. Need to do this on both association and 
-  # foreign id assignments.
-  # def cms_layout_id=(value)
-  #   write_attribute(:cms_layout_id, value)
-  #   self.cms_layout_with_tag_initialization = CmsLayout.find_by_id(value)
-  # end
-  #  
-  # def cms_layout_with_tag_initialization=(value)
-  #   self.cms_layout_without_tag_initialization = value
-  #   self.initialize_tags
-  # end
-  # alias_method_chain :cms_layout=, :tag_initialization
-  
-  # Returns an array of tag objects, at the same time populates cms_blocks
-  # of the current page
-  # def initialize_tags
-  #  CmsTag.initialize_tags(self)
-  # end
-  
-  # Converting object from cms_tags collection into cms_blocks
-  # TODO: Explicitely calling it. Can't really put it into a callback
-  # def assign_cms_blocks!
-  #   self.cms_tags.each do |tag|
-  #     if block = self.cms_blocks.find_by_label(tag.label)
-  #       block.type    = tag.type
-  #       block.content = tag.content
-  #       block.save!
-  #     else
-  #       self.cms_blocks.create!(:label => tag.label, :type => tag.type, :content => tag.content)
-  #     end
-  #   end
-  # end
+  def cms_tags
+    @cms_tags ||= []
+  end
   
 protected
   

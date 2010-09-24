@@ -6,6 +6,8 @@
 #   end
 module CmsTag
   
+  attr_accessor :parent
+  
   module ClassMethods
     # Regex that is used to match tags in the content
     # Example:
@@ -31,6 +33,23 @@ module CmsTag
   
   module InstanceMethods
     
+    # String indentifier of the tag
+    def identifier
+      "#{self.class.name.underscore}_#{self.label}"
+    end
+    
+    # Equality check. Content doesn't matter. Signature does.
+    def ==(tag)
+      self.identifier == tag.identifier
+    end
+    
+    # Ancestors of this tag constructed during rendering process
+    def ancestors
+      node, nodes = self, []
+      nodes << node = node.parent while node.parent
+      nodes
+    end
+    
     # Regex that is used to identify instance of the tag
     # Example:
     #   /<\s*?cms:page:tag_label\/?>/
@@ -38,18 +57,17 @@ module CmsTag
       nil
     end
     
-    def content=(value)
-      nil
-    end
-    
+    # Content that is accociated with Tag instance.
     def content
       nil
     end
     
-    # Content that is used during page rendering
+    # Content that is used during page rendering. Outputting existing content
+    # as a default.
     def render
       content
     end
+    
   end
   
 private
@@ -62,13 +80,18 @@ private
   end
   
   # Scanning provided content and splitting it into [tag, text] tuples.
-  # Tags are processed further and their content is expanded in the same way
-  def self.process_content(cms_page, content = '')
+  # Tags are processed further and their content is expanded in the same way.
+  # Tags are defined in the parent tags are ignored and not rendered.
+  def self.process_content(cms_page, content = '', parent_tag = nil)
     tokens = content.to_s.scan(/(<\s*cms:\w+:\w+(?::\w+)?\s*\/?>)|((?:[^<]|\<(?!\s*cms:\w+:\w+(?::\w+)?\s*\/?>))+)/)
     tokens.collect do |tag_signature, text|
       if tag_signature
         if tag = self.initialize_tag(cms_page, tag_signature)
-          self.process_content(cms_page, tag.render)
+          tag.parent = parent_tag if parent_tag
+          unless tag.ancestors.member?(tag)
+            cms_page.cms_tags << tag
+            self.process_content(cms_page, tag.render, tag)
+          end
         end
       else
         text
