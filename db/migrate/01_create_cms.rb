@@ -7,6 +7,8 @@ class CreateCms < ActiveRecord::Migration
       t.integer :parent_id
       t.string  :label
       t.text    :content
+      t.text    :css
+      t.text    :js
       t.integer :position, :null => false, :default => 0
       t.timestamps
     end

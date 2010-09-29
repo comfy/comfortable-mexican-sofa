@@ -1,5 +1,4 @@
 default:
-  id: 1
   label: Default Layout
   parent:
   content: |-
@@ -9,6 +8,13 @@ default:
     layout_content_b
     <cms:snippet:default>
     layout_content_c
+  css: |-
+    body { background-color: red }
+    p { color: #fff }
+  js: |-
+    $(document).ready(function() {
+      alert('O HAI THAR');
+    })
     
 nested:
   label: Nested Layout

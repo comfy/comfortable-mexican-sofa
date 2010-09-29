@@ -1,3 +1,5 @@
 <%= form.text_field :label, :label => 'Layout Name' %>
 <%= form.select :parent_id, CmsLayout.options_for_select(@cms_layout), :include_blank => true, :label => 'Parent Layout' %>
 <%= form.text_area :content %>
+<%= form.text_area :css %>
+<%= form.text_area :js %>
