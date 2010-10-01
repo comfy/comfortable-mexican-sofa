@@ -1,21 +1,19 @@
 class CmsContentController < ApplicationController
-  before_filter :load_cms_page
+  
+  before_filter :load_cms_page,   :only => :render_html
+  before_filter :load_cms_layout, :only => [:render_css, :render_js]
     
-  def render_page
+  def render_html
     # TODO
-    render :text => 'found'
+    render :inline => @cms_page.content
   end
   
   def render_css
-    send_data @cms_page.cms_layout.merged_css,
-      :filename => 'styles.css',
-      :type => 'text/css'
+    render :text => @cms_layout.merged_css, :content_type => 'text/css'
   end
   
   def render_js
-    send_data @cms_page.cms_layout.merged_js,
-      :filename => 'jscript.js',
-      :type => 'text/javascript'
+    render :text => @cms_layout.merged_js, :content_type => 'text/javascript'
   end
 
 protected
@@ -24,6 +22,12 @@ protected
     @cms_page = CmsPage.find_by_full_path!("/#{params[:cms_path]}")
   rescue ActiveRecord::RecordNotFound
     render :text => 'Page not found', :status => 404
+  end
+  
+  def load_cms_layout
+    @cms_layout = CmsLayout.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render :nothing => true, :status => 404
   end
   
 end

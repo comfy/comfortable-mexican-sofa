@@ -15,12 +15,3 @@ child:
   full_path: '/child-page'
   children_count: 0
   position: 0
-
-with_nested_layout:
-  parent: default
-  cms_layout: child
-  label: Page with nested layout
-  slug: 'with-nested_layout'
-  full_path: '/with-nested_layout'
-  children_count: 0
-  position: 0

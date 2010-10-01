@@ -39,13 +39,11 @@ class CmsLayout < ActiveRecord::Base
   end
   
   def merged_css
-    delimeter = '\n/* -------------------- */\n'
-    self.ancestors.inject([self.css]){|result, l| result << l.css}.join(delimeter)
+    self.parent ? self.parent.merged_css + self.css : self.css.to_s
   end
   
   def merged_js
-    delimeter = '\n// --------------------\n'
-    self.ancestors.inject([self.js]){|result, l| result << l.js}.join(delimeter)
+    self.parent ? self.parent.merged_js + self.js : self.js.to_s
   end
   
 end

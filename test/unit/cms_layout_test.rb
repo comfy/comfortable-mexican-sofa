@@ -32,12 +32,12 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_merged_css
-    merged_css = [cms_layouts(:child).css, cms_layouts(:nested).css].join('\n/* -------------------- */\n') 
+    merged_css = cms_layouts(:nested).css + cms_layouts(:child).css
     assert_equal merged_css, cms_layouts(:child).merged_css
   end
   
   def test_merged_js
-    merged_js = [cms_layouts(:child).js, cms_layouts(:nested).js].join('\n// --------------------\n') 
+    merged_js = cms_layouts(:nested).js + cms_layouts(:child).js
     assert_equal merged_js, cms_layouts(:child).merged_js
   end
   
