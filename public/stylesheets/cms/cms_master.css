@@ -1,5 +1,6 @@
 .form_element {
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 10px; }
   .form_element .label {
     float: left;
     width: 100px;
