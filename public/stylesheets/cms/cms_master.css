@@ -1,0 +1,10 @@
+form {}
+  .form_element {
+    overflow: hidden; }
+    .form_element .label {
+      float: left;
+      width: 100px;
+      margin-right: 10px; }
+    .form_element .value {
+      float: left;
+      width: 400px; }

@@ -1,6 +1,6 @@
 $.CMS.Uploader = function(){
   $(document).ready(function() {
-    $.CMS.Uploader.init();
+    if($('#upload_container').get(0)) $.CMS.Uploader.init();
   });
   
   return {
