@@ -30,4 +30,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout.reload
     assert_equal "<cms:page:left_column>\n<cms:page:right_column>", layout.content
   end
+  
+  def test_merged_css
+    merged_css = [cms_layouts(:child).css, cms_layouts(:nested).css].join('\n/* -------------------- */\n') 
+    assert_equal merged_css, cms_layouts(:child).merged_css
+  end
+  
+  def test_merged_js
+    merged_js = [cms_layouts(:child).js, cms_layouts(:nested).js].join('\n// --------------------\n') 
+    assert_equal merged_js, cms_layouts(:child).merged_js
+  end
+  
 end

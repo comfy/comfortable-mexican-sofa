@@ -14,7 +14,7 @@ default:
     p { color: #fff }
   js: |-
     $(document).ready(function() {
-      alert('O HAI THAR');
+      alert('hi');
     })
     
 nested:
@@ -23,6 +23,12 @@ nested:
   content: |-
     <cms:page:header/>
     <cms:page:content/>
+  css: |-
+    body { background-color: red }
+  js: |-
+    $(document).ready(function() {
+      alert('hi');
+    })
     
 child:
   label: Child Layout
@@ -30,3 +36,10 @@ child:
   content: |-
     <cms:page:left_column>
     <cms:page:right_column>
+  css: |-
+    body { p: #fff }
+  js: |-
+    js: |-
+      $(document).ready(function() {
+        alert('sup');
+      })

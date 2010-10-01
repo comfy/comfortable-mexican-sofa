@@ -11,11 +11,10 @@ Rails.application.routes.draw do
     resources :uploads
   end
   
-  scope :path => '/layouts/:id', :controller => :cms_content do
-    get 'styles.css' => :render_css
-    get 'jscript.js' => :render_js
+  scope :controller => :cms_content, :path => '(*cms_path)' do
+    get '/styles.css' => :render_css
+    get '/jscript.js' => :render_js
+    get '/'          => :render_page
   end
   
-  get '*cms_path' => 'cms_content#render_page'
-
 end

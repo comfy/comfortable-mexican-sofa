@@ -1,7 +1,6 @@
 <%= form.select :cms_layout_id, CmsLayout.options_for_select, {}, 'data-page-id' => @cms_page.id.to_i %>
 <%= form.text_field :label, :id => 'slugify' %>
 <%= form.text_field :slug, :id => 'slug' %>
-
 <%= render :partial => 'form_blocks' %>
 
 
