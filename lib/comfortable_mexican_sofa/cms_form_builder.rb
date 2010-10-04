@@ -29,4 +29,36 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   
+  def page_text(tag)
+    raise 'yey'
+  end
+  
+  def page_string(tag)
+    raise 'yey'
+  end
+  
+  # Capturing all calls of cms_tag_* type. For those we'll try to render
+  # a form element. Everything else can trigger MethodNotFound error.
+  def method_missing(method_name, *args)
+    if m = method_name.to_s.match(/^cms_tag_(\w+)$/)
+      send(m[1], args) if respond_to?(m[1])
+    else
+      super
+    end
+  end
+  
+  def tag_field(tag)
+    %(
+      <div class='form_element #{tag_method}_element'>
+        <div class='label'>#{tag.label.to_s.titleize}</div>
+        <div class='value'>
+          #{send(form_method, 'cms_page[cms_blocks_attributes][][content]', tag.content)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][label]', tag.label)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][type]', tag.type)}
+          #{hidden_field_tag('cms_page[cms_blocks_attributes][][id]', tag.id) unless tag.new_record?}
+        </div>
+      </div>
+    )
+  end
+  
 end

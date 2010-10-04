@@ -51,14 +51,10 @@ class CmsPage < ActiveRecord::Base
     cms_layout ? CmsTag.process_content(self, cms_layout.content.dup) : ''
   end
   
-  def cms_tags
+  # Array of cms_tags for a page. Content generation is called if forced.
+  def cms_tags(force = false)
+    self.content if force
     @cms_tags ||= []
-  end
-  
-  # A subset of cms_tags for form rendering
-  def block_cms_tags
-    self.content if cms_tags.blank?
-    cms_tags.select{ |t| t.class.superclass == CmsBlock }.uniq
   end
   
 protected

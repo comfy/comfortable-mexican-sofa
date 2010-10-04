@@ -1,5 +1,7 @@
 <div id='form_blocks'>
-  <% @cms_page.block_cms_tags.each do |tag| %>
-    <%= cms_tag_field(tag) %>
+  <%= fields_for :cms_blocks, :builder => CmsFormBuilder do |cms_blocks| %>
+    <% @cms_page.cms_tags(true).each do |tag| %>
+      <%= cms_blocks.send(tag.class.to_s.underscore.downcase.idify, tag)%>
+    <% end %>
   <% end %>
 </div>

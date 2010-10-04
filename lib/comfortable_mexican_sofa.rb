@@ -1,4 +1,5 @@
 %w(
+  comfortable_mexican_sofa/cms_rails_extensions
   comfortable_mexican_sofa/cms_form_builder
   comfortable_mexican_sofa/cms_acts_as_tree
   ../app/models/cms_block
