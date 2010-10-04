@@ -18,8 +18,70 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     
     assert_template :new
     assert_select 'form[action=/cms-admin/pages]'
-    # assert_select "input[name='cms_page[cms_blocks_attributes][][label]']", 2
-    # assert_select "input[name='cms_page[cms_blocks_attributes][][type]']", 2
+  end
+  
+  def test_get_new_with_field_datetime
+    cms_layouts(:default).update_attribute(:content, '<cms:field:test_label:datetime>')
+    get :new
+    assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldDateTime']"
+  end
+  
+  def test_get_new_with_field_integer
+    cms_layouts(:default).update_attribute(:content, '<cms:field:test_label:integer>')
+    get :new
+    assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldInteger']"
+  end
+  
+  def test_get_new_with_field_string
+    cms_layouts(:default).update_attribute(:content, '<cms:field:test_label>')
+    get :new
+    assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldString']"
+  end
+  
+  def test_get_new_with_field_text
+    cms_layouts(:default).update_attribute(:content, '<cms:field:test_label:text>')
+    get :new
+    assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldText']"
+  end
+  
+  def test_get_new_with_page_datetime
+    cms_layouts(:default).update_attribute(:content, '<cms:page:test_label:datetime>')
+    get :new
+    assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageDateTime']"
+  end
+  
+  def test_get_new_with_page_integer
+    cms_layouts(:default).update_attribute(:content, '<cms:page:test_label:integer>')
+    get :new
+    assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageInteger']"
+  end
+  
+  def test_get_new_with_page_string
+    cms_layouts(:default).update_attribute(:content, '<cms:page:test_label:string>')
+    get :new
+    assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageString']"
+  end
+  
+  def test_get_new_with_page_text
+    cms_layouts(:default).update_attribute(:content, '<cms:page:test_label>')
+    get :new
+    assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageText']"
   end
   
   def test_get_new_as_child_page

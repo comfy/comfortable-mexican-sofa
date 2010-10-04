@@ -8,11 +8,20 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  def test_render_page_not_found
+    flunk 'TODO'
+  end
+  
   def test_render_css
     get :render_css, :id => cms_layouts(:default)
     assert_response :success
     assert_match %r{text\/css}, @response.headers["Content-Type"]
     assert_equal cms_layouts(:default).css, @response.body
+  end
+  
+  def test_render_css_not_found
+    get :render_css, :id => 'bogus'
+    assert_response 404
   end
   
   def test_render_js
@@ -22,9 +31,7 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_equal cms_layouts(:default).js, @response.body
   end
   
-  def test_render_css_and_js_for_nonexistent_layout
-    get :render_css, :id => 'bogus'
-    assert_response 404
+  def test_render_js_not_found
     get :render_js, :id => 'bogus'
     assert_response 404
   end

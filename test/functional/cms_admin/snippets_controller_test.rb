@@ -49,7 +49,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     put :update, :id => snippet, :cms_snippet => {:label => ''}
     assert_response :success
     assert_template 'edit'
-    assert_equal 'default_snippet', snippet.label
+    assert_equal 'default', snippet.label
   end
   
   def test_destroy
