@@ -29,36 +29,69 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   
-  def page_text(tag)
-    raise 'yey'
+  # -- Tag Field Fields -----------------------------------------------------
+  def default_tag_field(tag, options = {})
+    label     = options[:label] || tag.label.to_s.titleize
+    css_class = options[:css_class] || tag.class.to_s.underscore.downcase.idify
+    
+    options[:content_field_method] ||= :text_field_tag
+    field = 
+      options[:field] || 
+      @template.send(options[:content_field_method], 'cms_page[cms_blocks_attributes][][content]', tag.content, :id => nil)
+    
+    %(
+      <div class='form_element #{css_class}'>
+        <div class='label'>#{label}</div>
+        <div class='value'>
+          #{field}
+          #{@template.hidden_field_tag('cms_page[cms_blocks_attributes][][label]', tag.label)}
+          #{@template.hidden_field_tag('cms_page[cms_blocks_attributes][][type]', tag.type)}
+          #{@template.hidden_field_tag('cms_page[cms_blocks_attributes][][id]', tag.id) unless tag.new_record?}
+        </div>
+      </div>
+    ).html_safe
+  end
+  
+  def field_date_time(tag)
+    default_tag_field(tag, :content_field_method => :datetime_field_tag)
+  end
+  
+  def field_integer(tag)
+    default_tag_field(tag, :content_field_method => :number_field_tag)
+  end
+  
+  def field_string(tag)
+    default_tag_field(tag)
+  end
+  
+  def field_text(tag)
+    default_tag_field(tag, :content_field_method => :text_area_tag)
+  end
+  
+  def page_date_time(tag)
+    default_tag_field(tag, :content_field_method => :datetime_field_tag)
+  end
+  
+  def page_integer(tag)
+    default_tag_field(tag, :content_field_method => :number_field_tag)
   end
   
   def page_string(tag)
-    raise 'yey'
+    default_tag_field(tag)
+  end
+  
+  def page_text(tag)
+    default_tag_field(tag, :content_field_method => :text_area_tag)
   end
   
   # Capturing all calls of cms_tag_* type. For those we'll try to render
   # a form element. Everything else can trigger MethodNotFound error.
   def method_missing(method_name, *args)
     if m = method_name.to_s.match(/^cms_tag_(\w+)$/)
-      send(m[1], args) if respond_to?(m[1])
+      send(m[1], *args) if respond_to?(m[1])
     else
       super
     end
-  end
-  
-  def tag_field(tag)
-    %(
-      <div class='form_element #{tag_method}_element'>
-        <div class='label'>#{tag.label.to_s.titleize}</div>
-        <div class='value'>
-          #{send(form_method, 'cms_page[cms_blocks_attributes][][content]', tag.content)}
-          #{hidden_field_tag('cms_page[cms_blocks_attributes][][label]', tag.label)}
-          #{hidden_field_tag('cms_page[cms_blocks_attributes][][type]', tag.type)}
-          #{hidden_field_tag('cms_page[cms_blocks_attributes][][id]', tag.id) unless tag.new_record?}
-        </div>
-      </div>
-    )
   end
   
 end

@@ -110,14 +110,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(page).collect{|t| t.first }
   end
   
-  def test_block_cms_tags
-    page = cms_pages(:default)
-    assert_equal 2, page.block_cms_tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.block_cms_tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.block_cms_tags[1].identifier
-    assert_equal 4, page.cms_tags.size
-  end
-  
 protected
   
   def new_params(options = {})
