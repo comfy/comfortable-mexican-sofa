@@ -4,5 +4,3 @@
   <%= render :partial => 'form', :object => form %>
   <%= form.submit 'Update Page' %>
 <% end %>
-
-<%= debug @cms_page.cms_blocks.collect{|b| [b.id, b.type, b.label, b.content]} %>

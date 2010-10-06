@@ -1,0 +1,119 @@
+/* -- Containers --------------------------------------------------------- */
+html, body {
+  height: 100%;
+  background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
+}
+.body_wrapper {
+  height: 100%;
+}
+.left_column {
+  width: 200px;
+  float: left;
+}
+.center_column {
+  margin: 0px 200px;
+  min-height: 100%;
+  background-color: #ececec;
+  box-shadow: inset 0px 0px 3px #000;
+  -moz-box-shadow: inset 0px 0px 3px #000;
+}
+.center_column_content {
+  padding: 25px;
+}
+.right_column {
+  width: 200px;
+  float: right;
+}
+.right_column_content {
+  padding: 25px;
+  width: 150px;
+  position: fixed;
+}
+.left_column_content {
+  padding: 25px 0px 25px 25px;
+  width: 175px;
+  position: fixed;
+}
+.left_column_content a {
+  display: block;
+  background-color: #fff;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+  font: 18px/30px Georgia, serif;
+  color: #1C1F22;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px ;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  opacity: 0.8;
+}
+.left_column_content a:hover,
+.left_column_content a.active {
+  opacity: 1;
+}
+
+/* -- Common Elements ---------------------------------------------------- */
+.big_button {
+  float: right;
+  padding: 6px 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+.big_button span {
+  color: #fff;
+}
+
+/* -- Forms -------------------------------------------------------------- */
+.form_element {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.form_element .label {
+  width: 137px;
+  float: left;
+  text-align: right;
+  font: 15px/21px Georgia, serif;
+  text-shadow: #fff 1px 1px;
+  padding-right: 10px;
+  background-color: #e0e0e0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px ;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-right: 3px solid #bbb;
+}
+.form_element .value {
+  margin-left: 160px;
+}
+.form_element .value input,
+.form_element .value textarea,
+.form_element .value select {
+  width: 99%;
+}
+.form_element .value textarea {
+  height: 300px;
+}
+.form_element.submit_element {
+  margin-left: 160px;
+}
+.page_form_extras {
+  margin-bottom: 25px;
+}
+
+.form_element.cms_tag_field_datetime .label,
+.form_element.cms_tag_field_integer .label,
+.form_element.cms_tag_field_string .label,
+.form_element.cms_tag_field_text .label {
+  border-color: #48699C;
+}
+.form_element.cms_tag_page_datetime .label,
+.form_element.cms_tag_page_integer .label,
+.form_element.cms_tag_page_string .label,
+.form_element.cms_tag_page_text .label {
+  border-color: #3F7300;
+}
+ 

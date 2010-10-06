@@ -29,6 +29,16 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   
+  def submit(value, options = {}, &block)
+    extra_content = @template.capture(&block) if block_given?
+    cancel_link ||= options[:cancel_url] ? ' or ' + options.delete(:cancel_url) : ''
+    %(
+      <div class='form_element submit_element'>
+        #{super(value, options)} #{extra_content} #{cancel_link}
+      </div>
+    ).html_safe
+  end
+  
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, options = {})
     label     = options[:label] || tag.label.to_s.titleize

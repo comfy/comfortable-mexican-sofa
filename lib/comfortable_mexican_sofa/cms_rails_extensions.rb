@@ -13,6 +13,11 @@ module CmsViewHelpers
     form_for(record_or_name_or_array, *(args << options.merge(:builder => CmsFormBuilder)), &proc)
   end
   
+  # Wrapper for <span>
+  def span_tag(*args)
+    content_tag(:span, *args)
+  end
+  
   # Rails 3.0 doesn't have this helper defined
   def datetime_field_tag(name, value = nil, options = {})
     text_field_tag(name, value, options.stringify_keys.update('type' => 'datetime'))

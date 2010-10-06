@@ -11,16 +11,22 @@
   <body>
     <div class='body_wrapper'>
       <div class='left_column'>
-        <%= active_link_to 'Layouts', cms_admin_layouts_path %>
-        <%= active_link_to 'Pages', cms_admin_pages_path %>
-        <%= active_link_to 'Snippets', cms_admin_snippets_path %>
-        <%= yield :left_column %>
-      </div>
-      <div class='center_column'>
-        <%= yield %>
+        <div class='left_column_content'>
+          <%= active_link_to 'Layouts', cms_admin_layouts_path %>
+          <%= active_link_to 'Pages', cms_admin_pages_path %>
+          <%= active_link_to 'Snippets', cms_admin_snippets_path %>
+          <%= yield :left_column %>
+        </div>
       </div>
       <div class='right_column'>
-        <%= yield :right_column %>
+        <div class='right_column_content'>
+          <%= yield :right_column %>
+        </div>
+      </div>
+      <div class='center_column'>
+        <div class='center_column_content'>
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>

@@ -1,0 +1,16 @@
+body {
+  font: 13px Arial, sans-serif;
+}
+
+h1 {
+  font: bold 25px/25px Georgia, serif;
+  margin-bottom: 25px;
+  padding-bottom: 5px;
+  color: #1C1F22;
+  text-shadow: #fff 1px 1px;
+  border-bottom: 2px groove #ccc;
+}
+
+a {
+  text-decoration: none;
+}
