@@ -19,9 +19,7 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     %(
       <div class='form_element #{type}_element'>
         <div class='label'>#{label_for(field, options)}</div>
-        <div class='value'>
-          #{yield}
-        </div>
+        <div class='value'>#{yield}</div>
       </div>
     ).html_safe
   end
