@@ -19,7 +19,9 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     %(
       <div class='form_element #{type}_element'>
         <div class='label'>#{label_for(field, options)}</div>
-        <div class='value'>#{yield}</div>
+        <div class='value'>
+          #{yield}
+        </div>
       </div>
     ).html_safe
   end
@@ -27,6 +29,12 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
   def label_for(field, options)
     label = options.delete(:label) || field.to_s.titleize.capitalize
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
+  end
+  
+  def error_message(message = nil)
+    return if @object.errors.blank?
+    message ||= 'Failed to save. Please correct marked fields.'
+    "<div class='form_error'>#{message}</div>".html_safe
   end
   
   def submit(value, options = {}, &block)

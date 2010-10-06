@@ -92,7 +92,13 @@ html, body {
 .form_element .value input,
 .form_element .value textarea,
 .form_element .value select {
-  width: 99%;
+  width: 98%;
+}
+.form_element .value input,
+.form_element .value textarea {
+  border: 1px solid #ccc;
+  padding: 2px;
+  font-family: 'Courier New', Courier, monospace;
 }
 .form_element .value textarea {
   height: 300px;
@@ -103,7 +109,6 @@ html, body {
 .page_form_extras {
   margin-bottom: 25px;
 }
-
 .form_element.cms_tag_field_datetime .label,
 .form_element.cms_tag_field_integer .label,
 .form_element.cms_tag_field_string .label,
@@ -116,4 +121,15 @@ html, body {
 .form_element.cms_tag_page_text .label {
   border-color: #3F7300;
 }
- 
+.form_error {
+  background-color: #9e0b0f;
+  font-size: 14px;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.form_element .value .field_with_errors input,
+.form_element .value .field_with_errors textarea {
+  border-color: #9e0b0f;
+}
