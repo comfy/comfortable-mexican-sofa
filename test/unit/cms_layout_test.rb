@@ -20,6 +20,10 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal ['Default Layout'], CmsLayout.options_for_select(cms_layouts(:nested)).collect{|t| t.first}
   end
   
+  def test_app_layouts_for_select
+    assert_equal ['cms_admin.html.erb'], CmsLayout.app_layouts_for_select
+  end
+  
   def test_merged_content
     parent_layout = cms_layouts(:nested)
     layout = cms_layouts(:child)

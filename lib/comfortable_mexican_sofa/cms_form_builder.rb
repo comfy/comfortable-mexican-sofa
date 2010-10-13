@@ -25,7 +25,7 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def label_for(field, options)
-    label = options.delete(:label) || field.to_s.titleize.capitalize
+    label = options.delete(:label) || field.to_s.titleize.capitalize_all
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   

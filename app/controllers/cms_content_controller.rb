@@ -4,8 +4,8 @@ class CmsContentController < ApplicationController
   before_filter :load_cms_layout, :only => [:render_css, :render_js]
     
   def render_html
-    # TODO
-    render :inline => @cms_page.content
+    layout = @cms_page.cms_layout.app_layout.blank?? false : @cms_page.cms_layout.app_layout
+    render :inline => @cms_page.content, :layout => layout
   end
   
   def render_css

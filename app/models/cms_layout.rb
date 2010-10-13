@@ -25,6 +25,14 @@ class CmsLayout < ActiveRecord::Base
     return out.compact
   end
   
+  # List of available application layouts
+  def self.app_layouts_for_select
+    Dir.glob(File.expand_path('app/views/layouts/*.html.*', Rails.root)).collect do |filename|
+      match = filename.match(/\w*.html.\w*$/)
+      match && match[0]
+    end.compact
+  end
+  
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is <cms:page:content> If parent layout has this tag
   # defined its content will be merged. If no such tag found, parent content
@@ -45,5 +53,4 @@ class CmsLayout < ActiveRecord::Base
   def merged_js
     self.parent ? self.parent.merged_js + self.js : self.js.to_s
   end
-  
 end

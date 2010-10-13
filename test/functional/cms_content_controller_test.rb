@@ -6,10 +6,28 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_html, :cms_path => ''
     assert_equal assigns(:cms_page), cms_pages(:default)
     assert_response :success
+    assert_equal rendered_content_formatter(
+      '
+      layout_content_a
+      default_page_text_content_a
+      default_snippet_content
+      default_page_text_content_b
+      layout_content_b
+      default_snippet_content
+      layout_content_c'
+    ), @response.body
+  end
+  
+  def test_render_page_with_app_layout
+    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
+    get :render_html, :cms_path => ''
+    assert_response :success
+    assert_select 'body[id=cms_admin]'
   end
   
   def test_render_page_not_found
-    flunk 'TODO'
+    get :render_html, :cms_path => 'doesnotexist'
+    assert_response 404
   end
   
   def test_render_css

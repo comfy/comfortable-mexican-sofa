@@ -5,7 +5,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_index
     get :index
     assert_response :success
-    assert assigns(:cms_page)
+    assert assigns(:cms_pages)
     assert_template :index
   end
   

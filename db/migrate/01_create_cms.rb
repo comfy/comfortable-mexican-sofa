@@ -5,6 +5,7 @@ class CreateCms < ActiveRecord::Migration
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|
       t.integer :parent_id
+      t.string  :app_layout
       t.string  :label
       t.text    :content
       t.text    :css

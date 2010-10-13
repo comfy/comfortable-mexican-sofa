@@ -4,7 +4,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   before_filter :load_cms_page,   :only => [:edit, :update, :destroy]
   
   def index
-    @cms_page = CmsPage.root
+    @cms_pages = [CmsPage.root].compact
   end
   
   def new
