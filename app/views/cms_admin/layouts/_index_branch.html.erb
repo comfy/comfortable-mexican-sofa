@@ -1,0 +1,24 @@
+<% cms_layout ||= index_branch %>
+
+<li id='cms_layout_<%= cms_layout.id %>'>
+  <div class='item'>
+    <div class='icon'>
+      <% if cms_layout.siblings.size > 0 %>
+        <div class='dragger'></div>
+      <% end %>
+    </div>
+    <div class='action_links'>
+      <%= link_to 'Add Child Layout', new_cms_admin_layout_path(:parent_id => cms_layout.id) %>
+      <%= link_to 'Edit', edit_cms_admin_layout_path(cms_layout) %>
+      <%= link_to 'Delete', cms_admin_layout_path(cms_layout), :method => :delete, :confirm => 'Are you sure?' %>
+    </div>
+    <div class='label'>
+      <%= link_to cms_layout.label, edit_cms_admin_layout_path(cms_layout) %>
+    </div>
+  </div>
+  <% if cms_layout.children.present? %>
+    <ul>
+      <%= render :partial => 'index_branch', :collection => cms_layout.children %>
+    </ul>
+  <% end %>
+</li>

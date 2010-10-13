@@ -41,7 +41,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       }
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => CmsLayout.last
-      assert_equal 'Layout successfully created', flash[:notice]
+      assert_equal 'Layout created', flash[:notice]
     end
   end
   
@@ -50,6 +50,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       post :create, :cms_layout => { }
       assert_response :success
       assert_template :new
+      assert_equal 'Failed to create layout', flash[:error]
     end
   end
   
@@ -61,7 +62,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => layout
-    assert_equal 'Layout successfully updated', flash[:notice]
+    assert_equal 'Layout updated', flash[:notice]
     layout.reload
     assert_equal 'New Label', layout.label
     assert_equal 'New Content', layout.content
@@ -76,6 +77,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_template :edit
     layout.reload
     assert_not_equal '', layout.label
+    assert_equal 'Failed to update layout', flash[:error]
   end
   
   def test_destroy

@@ -20,15 +20,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal ['Default Layout'], CmsLayout.options_for_select(cms_layouts(:nested)).collect{|t| t.first}
   end
   
-  def test_content
+  def test_merged_content
     parent_layout = cms_layouts(:nested)
     layout = cms_layouts(:child)
-    assert_equal "<cms:page:header/>\n<cms:page:left_column>\n<cms:page:right_column>", layout.content
-    assert_equal "<cms:page:left_column>\n<cms:page:right_column>", layout.read_attribute(:content)
+    assert_equal "<cms:page:header/>\n<cms:page:left_column>\n<cms:page:right_column>", layout.merged_content
+    assert_equal "<cms:page:left_column>\n<cms:page:right_column>", layout.content
     
     parent_layout.update_attribute(:content, '<cms:page:whatever/>')
     layout.reload
-    assert_equal "<cms:page:left_column>\n<cms:page:right_column>", layout.content
+    assert_equal "<cms:page:left_column>\n<cms:page:right_column>", layout.merged_content
   end
   
   def test_merged_css

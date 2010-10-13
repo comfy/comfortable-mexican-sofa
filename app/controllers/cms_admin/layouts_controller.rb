@@ -17,17 +17,19 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   
   def create
     @cms_layout.save!
-    flash[:notice] = 'Layout successfully created'
+    flash[:notice] = 'Layout created'
     redirect_to :action => :edit, :id => @cms_layout
   rescue ActiveRecord::RecordInvalid
+    flash.now[:error] = 'Failed to create layout'
     render :action => :new
   end
   
   def update
     @cms_layout.update_attributes!(params[:cms_layout])
-    flash[:notice] = 'Layout successfully updated'
+    flash[:notice] = 'Layout updated'
     redirect_to :action => :edit, :id => @cms_layout
   rescue ActiveRecord::RecordInvalid
+    flash.now[:error] = 'Failed to update layout'
     render :action => :edit
   end
   
@@ -41,6 +43,7 @@ protected
   
   def build_cms_layout
     @cms_layout = CmsLayout.new(params[:cms_layout])
+    @cms_layout.parent ||= CmsLayout.find_by_id(params[:parent_id])
   end
   
   def load_cms_layout

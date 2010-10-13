@@ -43,7 +43,7 @@ class CmsPage < ActiveRecord::Base
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
   def content
-    cms_layout ? CmsTag.process_content(self, cms_layout.content.dup) : ''
+    cms_layout ? CmsTag.process_content(self, cms_layout.merged_content) : ''
   end
   
   # Array of cms_tags for a page. Content generation is called if forced.
