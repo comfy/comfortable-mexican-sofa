@@ -1,8 +1,3 @@
-# CmsPage has two collections: cms_tags and cms_blocks
-# These are two different collections for the same type of objects. 
-# cms_tags derived from Layout content, cms_blocks are tags (subclasses of CmsBlock)
-# that are stored in the database for a particular page
-
 class CmsPage < ActiveRecord::Base
   
   # -- AR Extensions --------------------------------------------------------
@@ -52,6 +47,7 @@ class CmsPage < ActiveRecord::Base
   end
   
   # Array of cms_tags for a page. Content generation is called if forced.
+  # These also include initialized cms_blocks if present
   def cms_tags(force = false)
     self.content if force
     @cms_tags ||= []

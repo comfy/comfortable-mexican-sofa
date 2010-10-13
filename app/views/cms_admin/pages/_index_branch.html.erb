@@ -1,0 +1,27 @@
+<% cms_page ||= index_branch %>
+
+<li id='cms_page_<%= cms_page.id %>'>
+  <div class='item'>
+    <div class='icon'>
+      <% if cms_page.siblings.size > 0 %>
+        <div class='dragger'></div>
+      <% end %>
+    </div>
+    <div class='action_links'>
+      <%= link_to 'Add Child Page', new_cms_admin_page_path(:parent_id => cms_page.id) %>
+      <%= link_to 'Edit', edit_cms_admin_page_path(cms_page) %>
+      <%= link_to 'Delete', cms_admin_page_path(cms_page), :method => :delete, :confirm => 'Are you sure?' %>
+    </div>
+    <div class='label'>
+      <%= link_to cms_page.label, edit_cms_admin_page_path(cms_page) %>
+      <div class='url'>
+        <%= link_to cms_page.full_path, cms_page.full_path %>
+      </div>
+    </div>
+  </div>
+  <% if cms_page.children.present? %>
+    <ul>
+      <%= render :partial => 'index_branch', :collection => cms_page.children %>
+    </ul>
+  <% end %>
+</li>

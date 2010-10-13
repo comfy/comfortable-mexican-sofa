@@ -1,4 +1,6 @@
 <%= link_to span_tag('Create New Page'), new_cms_admin_page_path, :class => 'big_button' %>
 <h1>Pages</h1>
 
-<%= debug @cms_page %>
+<ul class='tree'>
+  <%= render :partial => 'index_branch', :collection => [@cms_page] %>
+</ul>
