@@ -90,6 +90,7 @@ Gem::Specification.new do |s|
      "lib/comfortable_mexican_sofa/cms_tag/page_text.rb",
      "lib/comfortable_mexican_sofa/cms_tag/partial.rb",
      "lib/comfortable_mexican_sofa/cms_tag/snippet.rb",
+     "lib/generators/README",
      "lib/generators/cms_generator.rb",
      "public/404.html",
      "public/422.html",
