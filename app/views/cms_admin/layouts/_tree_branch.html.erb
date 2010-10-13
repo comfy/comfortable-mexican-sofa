@@ -1,8 +1,0 @@
-<li>
-  <%= link_to tree_branch.label, edit_cms_admin_layout_path(tree_branch) %>
-  <% if tree_branch.children.count > 0 %>
-    <ul>
-      <%= render :partial => 'tree_branch', :object => tree_branch.children %>
-    </ul>
-  <% end %>
-</li>
