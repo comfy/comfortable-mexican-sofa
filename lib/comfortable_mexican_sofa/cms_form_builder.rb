@@ -29,12 +29,6 @@ class CmsFormBuilder < ActionView::Helpers::FormBuilder
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   
-  def error_message(message = nil)
-    return if @object.errors.blank?
-    message ||= 'Failed to save. Please correct marked fields.'
-    "<div class='form_error'>#{message}</div>".html_safe
-  end
-  
   def submit(value, options = {}, &block)
     extra_content = @template.capture(&block) if block_given?
     cancel_link ||= options[:cancel_url] ? ' or ' + options.delete(:cancel_url) : ''

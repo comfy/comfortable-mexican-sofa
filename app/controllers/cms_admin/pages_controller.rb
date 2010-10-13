@@ -20,6 +20,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     flash[:notice] = 'Page saved'
     redirect_to :action => :edit, :id => @cms_page
   rescue ActiveRecord::RecordInvalid
+    flash.now[:error] = 'Failed to create page'
     render :action => :new
   end
   
@@ -28,6 +29,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     flash[:notice] = 'Page updated'
     redirect_to :action => :edit, :id => @cms_page
   rescue ActiveRecord::RecordInvalid
+    flash.now[:error] = 'Failed to update page'
     render :action => :edit
   end
   

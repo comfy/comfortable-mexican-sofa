@@ -53,6 +53,16 @@ html, body {
 }
 
 /* -- Common Elements ---------------------------------------------------- */
+.flash {
+  text-align: center;
+  line-height: 25px;
+  color: #fff;
+  background-color: #066B12;
+  margin: 0px 2px;
+}
+.flash.error {
+  background-color: #9e0b0f;
+}
 .big_button {
   float: right;
   padding: 6px 10px;

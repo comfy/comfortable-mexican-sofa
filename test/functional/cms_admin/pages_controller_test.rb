@@ -155,6 +155,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_equal 3, page.cms_blocks.size
       assert_equal ['content content', 'title content', 999], page.cms_blocks.collect{|b| b.content}
       assert_template :new
+      assert_equal 'Failed to create page', flash[:error]
     end
   end
   
@@ -204,6 +205,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit
     assert assigns(:cms_page)
+    assert_equal 'Failed to update page', flash[:error]
   end
   
   def test_destroy
