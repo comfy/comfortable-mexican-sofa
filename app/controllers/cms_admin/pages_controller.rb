@@ -54,6 +54,7 @@ protected
   
   def load_cms_page
     @cms_page = CmsPage.find(params[:id])
+    @cms_page.cms_layout ||= (@cms_page.parent && @cms_page.parent.cms_layout || CmsLayout.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Page not found'
     redirect_to :action => :index

@@ -107,6 +107,15 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_equal 'Page not found', flash[:error]
   end
   
+  def test_get_edit_with_blank_layout
+    page = cms_pages(:default)
+    page.update_attribute(:cms_layout_id, nil)
+    get :edit, :id => page
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_equal cms_layouts(:default), assigns(:cms_page).cms_layout
+  end
+  
   def test_creation
     assert_difference 'CmsPage.count' do
       assert_difference 'CmsBlock.count', 3 do
