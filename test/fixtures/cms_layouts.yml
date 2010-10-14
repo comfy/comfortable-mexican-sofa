@@ -1,4 +1,5 @@
 default:
+  cms_site: default
   id: 1
   label: Default Layout
   parent:
@@ -18,6 +19,7 @@ default:
     })
     
 nested:
+  cms_site: default
   label: Nested Layout
   parent:
   content: |-
@@ -31,6 +33,7 @@ nested:
     })
     
 child:
+  cms_site: default
   label: Child Layout
   parent: nested
   content: |-

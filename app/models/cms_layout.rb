@@ -3,6 +3,7 @@ class CmsLayout < ActiveRecord::Base
   acts_as_tree
   
   # -- Relationships --------------------------------------------------------
+  belongs_to :cms_site
   has_many :cms_pages, :dependent => :nullify
   
   # -- Validations ----------------------------------------------------------

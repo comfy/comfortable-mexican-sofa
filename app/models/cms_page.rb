@@ -6,6 +6,7 @@ class CmsPage < ActiveRecord::Base
   attr_accessor :cms_tags
   
   # -- Relationships --------------------------------------------------------
+  belongs_to :cms_site
   belongs_to :cms_layout
   has_many :cms_blocks,
     :dependent  => :destroy

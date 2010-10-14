@@ -7,7 +7,7 @@ class CmsUpload < ActiveRecord::Base
   before_post_process :image?
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :cms_page
+  belongs_to :cms_site
   
   # -- Validations ----------------------------------------------------------
   validates_attachment_presence :file 

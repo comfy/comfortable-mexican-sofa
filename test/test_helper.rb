@@ -11,7 +11,6 @@ class ActiveSupport::TestCase
     ComfortableMexicanSofa.configure do |config|
       config.cms_title      = 'ComfortableMexicanSofa'
       config.authentication = 'CmsHttpAuthentication'
-      config.multiple_sites = false
     end
   end
   

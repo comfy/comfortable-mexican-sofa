@@ -1,4 +1,5 @@
 default:
+  cms_site: default
   parent:
   cms_layout_id: 1
   label: Default Page
@@ -8,6 +9,7 @@ default:
   position: 0
   
 child:
+  cms_site: default
   parent: default
   cms_layout_id: 1
   label: Child Page
