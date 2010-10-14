@@ -1,5 +1,9 @@
-[ 'comfortable_mexican_sofa/cms_engine',
-  'comfortable_mexican_sofa/cms_configuration',
+# Loading engine only if this is not a standalone installation
+unless defined? ComfortableMexicanSofa::Application
+  require File.expand_path('comfortable_mexican_sofa/cms_engine', File.dirname(__FILE__))
+end
+
+[ 'comfortable_mexican_sofa/cms_configuration',
   'comfortable_mexican_sofa/cms_http_authentication',
   'comfortable_mexican_sofa/cms_rails_extensions',
   'comfortable_mexican_sofa/cms_form_builder',

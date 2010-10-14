@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   namespace :cms_admin, :path => 'cms-admin', :except => :show do
+    resources :sites
     resources :layouts
     resources :pages do
       member do 
