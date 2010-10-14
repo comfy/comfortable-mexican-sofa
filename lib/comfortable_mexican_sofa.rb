@@ -1,3 +1,7 @@
+if defined?(Rails) && Rails::VERSION::MAJOR == 3
+  require File.expand_path('comfortable_mexican_sofa/cms_engine', File.dirname(__FILE__))
+end
+
 [ 'comfortable_mexican_sofa/cms_rails_extensions',
   'comfortable_mexican_sofa/cms_form_builder',
   'comfortable_mexican_sofa/cms_acts_as_tree',
