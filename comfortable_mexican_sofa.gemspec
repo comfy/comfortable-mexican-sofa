@@ -77,6 +77,7 @@ Gem::Specification.new do |s|
      "doc/README_FOR_APP",
      "lib/comfortable_mexican_sofa.rb",
      "lib/comfortable_mexican_sofa/cms_acts_as_tree.rb",
+     "lib/comfortable_mexican_sofa/cms_engine.rb",
      "lib/comfortable_mexican_sofa/cms_form_builder.rb",
      "lib/comfortable_mexican_sofa/cms_rails_extensions.rb",
      "lib/comfortable_mexican_sofa/cms_tag.rb",
