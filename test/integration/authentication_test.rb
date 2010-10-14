@@ -24,5 +24,4 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     get '/cms-admin/pages', {}, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64('newuser:newpass')}"}
     assert_response :success
   end
-  
 end

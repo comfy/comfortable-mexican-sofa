@@ -30,6 +30,24 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_response 404
   end
   
+  def test_render_page_not_found_with_custom_404
+    CmsPage.create!(
+      :label          => '404',
+      :slug           => '404',
+      :parent_id      => cms_pages(:default).id,
+      :cms_layout_id  => cms_layouts(:default).id,
+      :cms_blocks_attributes => [
+        { :label    => 'default_page_text',
+          :type     => 'CmsTag::PageText',
+          :content  => 'custom 404 page content' }
+      ]
+    )
+    get :render_html, :cms_path => 'doesnotexist'
+    assert_response 404
+    assert assigns(:cms_page)
+    assert_match /custom 404 page content/, @response.body
+  end
+  
   def test_render_css
     get :render_css, :id => cms_layouts(:default)
     assert_response :success
