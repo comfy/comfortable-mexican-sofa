@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -64,12 +64,8 @@ Gem::Specification.new do |s|
      "config/environments/development.rb",
      "config/environments/production.rb",
      "config/environments/test.rb",
-     "config/initializers/backtrace_silencers.rb",
-     "config/initializers/inflections.rb",
      "config/initializers/mime_types.rb",
      "config/initializers/paperclip.rb",
-     "config/initializers/secret_token.rb",
-     "config/initializers/session_store.rb",
      "config/locales/en.yml",
      "config/routes.rb",
      "db/migrate/01_create_cms.rb",
