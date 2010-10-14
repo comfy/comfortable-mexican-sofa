@@ -10,7 +10,7 @@ class ActiveSupport::TestCase
     # resetting default configuration
     ComfortableMexicanSofa.configure do |config|
       config.cms_title      = 'ComfortableMexicanSofa'
-      config.authentication = 'CmsAuthentication'
+      config.authentication = 'CmsHttpAuthentication'
       config.multiple_sites = false
     end
   end
@@ -34,13 +34,10 @@ class ActiveSupport::TestCase
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
-  
 end
 
 class ActionController::TestCase
-  
-  def http_auth
+  def setup
     @request.env['HTTP_AUTHORIZATION'] = "Basic #{Base64.encode64('username:password')}"
   end
-  
 end

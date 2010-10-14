@@ -5,7 +5,7 @@ class CmsConfigurationTest < ActiveSupport::TestCase
   def test_configuration_presense
     assert config = ComfortableMexicanSofa.configuration
     assert_equal 'ComfortableMexicanSofa', config.cms_title
-    assert_equal 'CmsAuthentication', config.authentication
+    assert_equal 'CmsHttpAuthentication', config.authentication
     assert_equal false, config.multiple_sites
   end
   

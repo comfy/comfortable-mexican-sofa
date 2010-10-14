@@ -12,7 +12,7 @@ class ComfortableMexicanSofa::Configuration
   # Configuration defaults
   def initialize
     @cms_title      = 'ComfortableMexicanSofa'
-    @authentication = 'CmsAuthentication'
+    @authentication = 'CmsHttpAuthentication'
     @multiple_sites = false
   end
   

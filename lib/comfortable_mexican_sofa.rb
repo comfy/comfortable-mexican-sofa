@@ -1,8 +1,6 @@
-if defined?(Rails) && Rails::VERSION::MAJOR == 3
-  require File.expand_path('comfortable_mexican_sofa/cms_engine', File.dirname(__FILE__))
-end
-
-[ 'comfortable_mexican_sofa/cms_configuration',
+[ 'comfortable_mexican_sofa/cms_engine',
+  'comfortable_mexican_sofa/cms_configuration',
+  'comfortable_mexican_sofa/cms_http_authentication',
   'comfortable_mexican_sofa/cms_rails_extensions',
   'comfortable_mexican_sofa/cms_form_builder',
   'comfortable_mexican_sofa/cms_acts_as_tree',
@@ -40,9 +38,7 @@ module ComfortableMexicanSofa
     # Modify CMS configuration
     # Example:
     #   ComfortableMexicanSofa.configure do |config|
-    #     config.authentication = :http_auth
-    #     config.http_auth_user = 'username'
-    #     config.http_auth_pass = 'password'
+    #     config.cms_title = 'Comfortable Mexican Sofa'
     #   end
     def configure
       yield configuration

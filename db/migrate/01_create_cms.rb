@@ -43,7 +43,6 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_blocks, [:cms_page_id, :type, :label]
-    # TODO: index this
     
     # -- Snippets -----------------------------------------------------------
     create_table :cms_snippets do |t|
@@ -60,7 +59,6 @@ class CreateCms < ActiveRecord::Migration
       t.integer :file_file_size
       t.timestamps
     end
-    
   end
   
   def self.down
