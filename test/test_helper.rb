@@ -6,6 +6,15 @@ class ActiveSupport::TestCase
   fixtures :all
   include ActionDispatch::TestProcess
   
+  def setup
+    # resetting default configuration
+    ComfortableMexicanSofa.configure do |config|
+      config.cms_title      = 'ComfortableMexicanSofa'
+      config.authentication = 'CmsAuthentication'
+      config.multiple_sites = false
+    end
+  end
+  
   # Example usage:
   #   assert_has_errors_on( @record, [:field_1, :field_2] )
   #   assert_has_errors_on( @record, {:field_1 => 'Message1', :field_2 => 'Message 2'} )

@@ -9,6 +9,10 @@ class CmsGenerator < Rails::Generators::Base
     migration_template 'db/migrate/01_create_cms.rb', 'db/migrate/create_cms.rb'
   end
   
+  def generate_initialization
+    copy_file 'config/initializers/comfortable_mexican_sofa.rb', 'config/initializers/comfortable_mexican_sofa.rb'
+  end
+  
   def generate_public_assets
     directory 'public/stylesheets/comfortable_mexican_sofa', 'public/stylesheets/comfortable_mexican_sofa'
     directory 'public/javascripts/comfortable_mexican_sofa', 'public/javascripts/comfortable_mexican_sofa'

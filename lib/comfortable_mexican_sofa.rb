@@ -2,7 +2,8 @@ if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require File.expand_path('comfortable_mexican_sofa/cms_engine', File.dirname(__FILE__))
 end
 
-[ 'comfortable_mexican_sofa/cms_rails_extensions',
+[ 'comfortable_mexican_sofa/cms_configuration',
+  'comfortable_mexican_sofa/cms_rails_extensions',
   'comfortable_mexican_sofa/cms_form_builder',
   'comfortable_mexican_sofa/cms_acts_as_tree',
   '../app/models/cms_block',
@@ -34,6 +35,25 @@ FILE_ICONS = Dir.glob(File.expand_path('public/images/cms/file_icons/*.png', Rai
 
 module ComfortableMexicanSofa
   
-  # TODO
+  class << self
+    
+    # Modify CMS configuration
+    # Example:
+    #   ComfortableMexicanSofa.configure do |config|
+    #     config.authentication = :http_auth
+    #     config.http_auth_user = 'username'
+    #     config.http_auth_pass = 'password'
+    #   end
+    def configure
+      yield configuration
+    end
+    
+    # Accessor for ComfortableMexicanSofa::Configuration
+    def configuration
+      @configuration ||= Configuration.new
+    end
+    alias :config :configuration
+    
+  end
   
 end
