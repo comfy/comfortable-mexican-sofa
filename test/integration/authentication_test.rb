@@ -11,7 +11,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_with_authorized_access
-    get '/cms-admin/pages', {}, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64('username:password')}"}
+    http_auth :get, '/cms-admin/pages'
     assert_response :success
   end
   
@@ -19,9 +19,9 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_equal 'CmsHttpAuthentication', ComfortableMexicanSofa.config.authentication
     CmsHttpAuthentication.username = 'newuser'
     CmsHttpAuthentication.password = 'newpass'
-    get '/cms-admin/pages', {}, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64('username:password')}"}
+    http_auth :get, '/cms-admin/pages'
     assert_response :unauthorized
-    get '/cms-admin/pages', {}, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64('newuser:newpass')}"}
+    http_auth :get, '/cms-admin/pages', {}, 'newuser', 'newpass'
     assert_response :success
   end
 end

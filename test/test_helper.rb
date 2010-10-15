@@ -40,3 +40,14 @@ class ActionController::TestCase
     @request.env['HTTP_AUTHORIZATION'] = "Basic #{Base64.encode64('username:password')}"
   end
 end
+
+class ActionDispatch::IntegrationTest
+  
+  def setup
+    host! 'test.host'
+  end
+  
+  def http_auth(method, path, options = {}, username = 'username', password = 'password')
+    send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
+  end
+end

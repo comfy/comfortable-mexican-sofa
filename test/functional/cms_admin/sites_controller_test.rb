@@ -13,6 +13,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert assigns(:cms_site)
+    assert_equal 'test.host', assigns(:cms_site).hostname
     assert_template :new
     assert_select 'form[action=/cms-admin/sites]'
   end

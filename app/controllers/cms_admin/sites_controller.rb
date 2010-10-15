@@ -1,5 +1,7 @@
 class CmsAdmin::SitesController < CmsAdmin::BaseController
   
+  skip_before_filter :load_admin_cms_site
+  
   before_filter :build_cms_site,  :only => [:new, :create]
   before_filter :load_cms_site,   :only => [:edit, :update, :destroy]
   
@@ -43,6 +45,7 @@ protected
   
   def build_cms_site
     @cms_site = CmsSite.new(params[:cms_site])
+    @cms_site.hostname ||= request.host.downcase
   end
   
   def load_cms_site
