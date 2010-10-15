@@ -1,5 +1,6 @@
 class CmsContentController < ApplicationController
   
+  before_filter :load_cms_site
   before_filter :load_cms_page,   :only => :render_html
   before_filter :load_cms_layout, :only => [:render_css, :render_js]
     
@@ -18,10 +19,16 @@ class CmsContentController < ApplicationController
 
 protected
   
-  def load_cms_page
-    @cms_page = CmsPage.find_by_full_path!("/#{params[:cms_path]}")
+  def load_cms_site
+    @cms_site = CmsSite.find_by_hostname!(request.host.downcase)
   rescue ActiveRecord::RecordNotFound
-    if @cms_page = CmsPage.find_by_full_path('/404')
+    render :text => 'Site is not found', :status => 404
+  end
+  
+  def load_cms_page
+    @cms_page = @cms_site.cms_pages.find_by_full_path!("/#{params[:cms_path]}")
+  rescue ActiveRecord::RecordNotFound
+    if @cms_page = @cms_site.cms_pages.find_by_full_path('/404')
       render_html(404)
     else
       render :text => 'Page not found', :status => 404
@@ -29,7 +36,7 @@ protected
   end
   
   def load_cms_layout
-    @cms_layout = CmsLayout.find(params[:id])
+    @cms_layout = @cms_site.cms_layouts.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true, :status => 404
   end

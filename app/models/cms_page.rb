@@ -17,6 +17,8 @@ class CmsPage < ActiveRecord::Base
   after_save        :sync_child_pages
   
   # -- Validations ----------------------------------------------------------
+  validates :cms_site_id, 
+    :presence   => true
   validates :label,
     :presence   => true
   validates :slug,
@@ -27,7 +29,7 @@ class CmsPage < ActiveRecord::Base
     :presence   => true
   validates :full_path,
     :presence   => true,
-    :uniqueness => true
+    :uniqueness => { :scope => :cms_site_id }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

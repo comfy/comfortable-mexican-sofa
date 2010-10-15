@@ -1,7 +1,7 @@
 default:
   cms_site: default
   parent:
-  cms_layout_id: 1
+  cms_layout: default
   label: Default Page
   slug:
   full_path: '/'
@@ -11,7 +11,7 @@ default:
 child:
   cms_site: default
   parent: default
-  cms_layout_id: 1
+  cms_layout: default
   label: Child Page
   slug: 'child-page'
   full_path: '/child-page'

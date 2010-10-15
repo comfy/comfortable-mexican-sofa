@@ -113,7 +113,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :edit, :id => page
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal cms_layouts(:default), assigns(:cms_page).cms_layout
+    assert assigns(:cms_page).cms_layout
   end
   
   def test_creation

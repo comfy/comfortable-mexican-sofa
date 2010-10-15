@@ -31,7 +31,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_not_found_with_custom_404
-    CmsPage.create!(
+    cms_sites(:default).cms_pages.create!(
       :label          => '404',
       :slug           => '404',
       :parent_id      => cms_pages(:default).id,

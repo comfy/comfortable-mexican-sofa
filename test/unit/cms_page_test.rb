@@ -29,28 +29,28 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_initialization_of_full_path
     page = CmsPage.new(new_params)
     assert page.invalid?
-    assert_has_errors_on page, :full_path
+    assert_has_errors_on page, :cms_site_id
     
-    page = CmsPage.new(new_params(:parent => cms_pages(:default)))
+    page = cms_sites(:default).cms_pages.new(new_params(:parent => cms_pages(:default)))
     assert page.valid?
     assert_equal '/test-page', page.full_path
     
-    page = CmsPage.new(new_params(:parent => cms_pages(:child)))
+    page = cms_sites(:default).cms_pages.new(new_params(:parent => cms_pages(:child)))
     assert page.valid?
     assert_equal '/child-page/test-page', page.full_path
     
     CmsPage.destroy_all
-    page = CmsPage.new(new_params)
+    page = cms_sites(:default).cms_pages.new(new_params)
     assert page.valid?
     assert_equal '/', page.full_path
   end
   
   def test_sync_child_pages
     page = cms_pages(:child)
-    page_1 = CmsPage.create!(new_params(:parent => page, :slug => 'test-page-1'))
-    page_2 = CmsPage.create!(new_params(:parent => page, :slug => 'test-page-2'))
-    page_3 = CmsPage.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
-    page_4 = CmsPage.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
+    page_1 = cms_sites(:default).cms_pages.create!(new_params(:parent => page, :slug => 'test-page-1'))
+    page_2 = cms_sites(:default).cms_pages.create!(new_params(:parent => page, :slug => 'test-page-2'))
+    page_3 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
+    page_4 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
     assert_equal '/child-page/test-page-1', page_1.full_path
     assert_equal '/child-page/test-page-2', page_2.full_path
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
@@ -78,7 +78,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, page_1.children_count
     assert_equal 0, page_2.children_count
     
-    page_3 = CmsPage.create!(new_params(:parent => page_2))
+    page_3 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_2))
     page_1.reload; page_2.reload
     assert_equal 1, page_1.children_count
     assert_equal 1, page_2.children_count

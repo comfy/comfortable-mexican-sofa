@@ -23,6 +23,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   def test_new_with_cast_via_page_nested_attributes
     assert_difference ['CmsPage.count', 'CmsBlock.count'] do
       page = CmsPage.create!(
+        :cms_site   => cms_sites(:default),
         :cms_layout => cms_layouts(:default),
         :label      => 'test page',
         :slug       => 'test_page',

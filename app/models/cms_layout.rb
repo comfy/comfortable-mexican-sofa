@@ -7,10 +7,9 @@ class CmsLayout < ActiveRecord::Base
   has_many :cms_pages, :dependent => :nullify
   
   # -- Validations ----------------------------------------------------------
-  validates :label,
-    :presence   => true
-  validates :content,
-    :presence   => true
+  validates :cms_site_id, :presence => true
+  validates :label,       :presence => true
+  validates :content,     :presence => true
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts

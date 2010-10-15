@@ -1,6 +1,5 @@
 default:
   cms_site: default
-  id: 1
   label: Default Layout
   parent:
   content: |-
