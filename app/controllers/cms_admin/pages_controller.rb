@@ -47,10 +47,9 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 protected
   
   def build_cms_page
-    @cms_page = CmsPage.new(params[:cms_page])
+    @cms_page = @cms_site.cms_pages.new(params[:cms_page])
     @cms_page.parent ||= (CmsPage.find_by_id(params[:parent_id]) || @cms_site.cms_pages.root)
     @cms_page.cms_layout ||= (@cms_page.parent && @cms_page.parent.cms_layout || @cms_site.cms_layouts.first)
-    @cms_page.cms_site = @cms_site
   end
   
   def load_cms_page

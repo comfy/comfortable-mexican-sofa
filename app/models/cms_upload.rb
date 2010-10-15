@@ -10,6 +10,8 @@ class CmsUpload < ActiveRecord::Base
   belongs_to :cms_site
   
   # -- Validations ----------------------------------------------------------
+  validates :cms_site_id,
+    :presence   => true
   validates_attachment_presence :file 
   
   # -- Instance Methods -----------------------------------------------------

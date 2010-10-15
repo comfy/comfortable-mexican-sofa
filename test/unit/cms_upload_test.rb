@@ -11,20 +11,21 @@ class CmsUploadTest < ActiveSupport::TestCase
   end
   
   def test_create
-    assert_difference 'CmsUpload.count', 2 do
-      upload = CmsUpload.create(:file => fixture_file_upload('files/valid_image.jpg', 'image/jpeg'))
-      assert upload.image?
-      upload = CmsUpload.create(:uploaded_file => fixture_file_upload('files/valid_image.jpg'))
+    assert_difference 'CmsUpload.count' do
+      upload = cms_sites(:default).cms_uploads.create(
+        :uploaded_file => fixture_file_upload('files/valid_image.jpg')
+      )
       assert upload.image?
     end
   end
   
   def test_create_fails_on_invalid_file
     assert_no_difference 'CmsUpload.count' do
-      upload = CmsUpload.create(:file => fixture_file_upload('files/invalid_file.gif', 'image/gif'))
+      upload = cms_sites(:default).cms_uploads.create(
+        :file => fixture_file_upload('files/invalid_file.gif', 'image/gif')
+      )
       assert upload.errors.present?
       assert_has_errors_on upload, :file
     end
   end
-  
 end

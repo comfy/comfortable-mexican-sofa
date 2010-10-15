@@ -42,9 +42,8 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 protected
   
   def build_cms_layout
-    @cms_layout = CmsLayout.new(params[:cms_layout])
+    @cms_layout = @cms_site.cms_layouts.new(params[:cms_layout])
     @cms_layout.parent ||= CmsLayout.find_by_id(params[:parent_id])
-    @cms_layout.cms_site = @cms_site
   end
   
   def load_cms_layout
