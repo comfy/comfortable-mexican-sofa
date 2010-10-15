@@ -1,0 +1,6 @@
+<h1> Editing Site </h1>
+
+<%= cms_form_for @cms_site, :url => {:action => :update} do |form| %>
+  <%= render :partial => 'form', :object => form %>
+  <%= form.submit 'Update Site' %>
+<% end %>
