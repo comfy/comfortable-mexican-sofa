@@ -6,6 +6,7 @@ end
 [ 'comfortable_mexican_sofa/configuration',
   'comfortable_mexican_sofa/http_auth',
   'comfortable_mexican_sofa/rails_extensions',
+  'comfortable_mexican_sofa/controller_methods',
   'comfortable_mexican_sofa/view_methods',
   'comfortable_mexican_sofa/form_builder',
   'comfortable_mexican_sofa/acts_as_tree',
