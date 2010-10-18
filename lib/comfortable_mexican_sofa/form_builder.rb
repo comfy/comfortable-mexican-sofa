@@ -1,4 +1,4 @@
-class CmsFormBuilder < ActionView::Helpers::FormBuilder
+class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   helpers = field_helpers -
     %w(hidden_field fields_for) +

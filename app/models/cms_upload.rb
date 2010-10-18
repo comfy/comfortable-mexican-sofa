@@ -27,12 +27,7 @@ class CmsUpload < ActiveRecord::Base
   end
   
   def icon
-    if self.image?
-      self.file.url(:thumb)
-    else
-      ext = self.file_file_name.split('.').last
-      FILE_ICONS.include?(ext) ? "cms/file_icons/#{ext}.png" : "cms/file_icons/_blank.png"
-    end
+    self.image?? self.file.url(:thumb) : 'TODO'
   end
   
 end

@@ -5,7 +5,7 @@ require 'active_link_to'
 require 'mime/types'
 
 module ComfortableMexicanSofa
-  class CMSEngine < ::Rails::Engine
+  class Engine < ::Rails::Engine
     
   end
 end

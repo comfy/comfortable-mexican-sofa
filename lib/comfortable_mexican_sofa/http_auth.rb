@@ -1,5 +1,4 @@
-module CmsHttpAuthentication
-  
+module ComfortableMexicanSofa::HttpAuth
   # Set username and password in config/initializers/comfortable_mexican_sofa.rb
   # Like this:
   #   CmsHttpAuthentication.username = 'myname'

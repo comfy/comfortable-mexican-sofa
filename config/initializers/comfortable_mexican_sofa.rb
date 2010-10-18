@@ -2,9 +2,9 @@
 
 ComfortableMexicanSofa.configure do |config|
   config.cms_title      = 'ComfortableMexicanSofa'
-  config.authentication = 'CmsHttpAuthentication'
+  config.authentication = 'ComfortableMexicanSofa::HttpAuth'
 end
 
 # Credentials for CmsHttpAuthentication
-CmsHttpAuthentication.username = 'username'
-CmsHttpAuthentication.password = 'password'
+ComfortableMexicanSofa::HttpAuth.username = 'username'
+ComfortableMexicanSofa::HttpAuth.password = 'password'

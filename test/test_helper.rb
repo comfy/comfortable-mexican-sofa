@@ -10,10 +10,10 @@ class ActiveSupport::TestCase
     # resetting default configuration
     ComfortableMexicanSofa.configure do |config|
       config.cms_title      = 'ComfortableMexicanSofa'
-      config.authentication = 'CmsHttpAuthentication'
+      config.authentication = 'ComfortableMexicanSofa::HttpAuth'
     end
-    CmsHttpAuthentication.username = 'username'
-    CmsHttpAuthentication.password = 'password'
+    ComfortableMexicanSofa::HttpAuth.username = 'username'
+    ComfortableMexicanSofa::HttpAuth.password = 'password'
   end
   
   # Example usage:
@@ -47,8 +47,8 @@ class ActionDispatch::IntegrationTest
   
   def setup
     host! 'test.host'
-    CmsHttpAuthentication.username = 'username'
-    CmsHttpAuthentication.password = 'password'
+    ComfortableMexicanSofa::HttpAuth.username = 'username'
+    ComfortableMexicanSofa::HttpAuth.password = 'password'
   end
   
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
