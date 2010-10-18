@@ -21,6 +21,18 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert site.valid?
   end
   
+  def test_cascading_destroy
+    assert_difference 'CmsSite.count', -1 do
+      assert_difference 'CmsLayout.count', -3 do
+        assert_difference 'CmsPage.count', -2 do
+          assert_difference 'CmsSnippet.count', -1 do
+            cms_sites(:default).destroy
+          end
+        end
+      end
+    end
+  end
+  
   def test_options_for_select
     assert_equal 1, CmsSite.options_for_select.size
     assert_equal 'Default Site (test.host)', CmsSite.options_for_select[0][0]

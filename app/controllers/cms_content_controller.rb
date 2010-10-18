@@ -22,7 +22,7 @@ protected
   def load_cms_site
     @cms_site = CmsSite.find_by_hostname!(request.host.downcase)
   rescue ActiveRecord::RecordNotFound
-    render :text => 'Site is not found', :status => 404
+    render :text => 'Site Not Found', :status => 404
   end
   
   def load_cms_page
@@ -31,7 +31,7 @@ protected
     if @cms_page = @cms_site.cms_pages.find_by_full_path('/404')
       render_html(404)
     else
-      render :text => 'Page not found', :status => 404
+      render :text => 'Page Not Found', :status => 404
     end
   end
   

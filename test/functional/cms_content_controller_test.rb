@@ -15,7 +15,7 @@ class CmsContentControllerTest < ActionController::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), @response.body
+    ), response.body
   end
   
   def test_render_page_with_app_layout
@@ -28,6 +28,7 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_page_not_found
     get :render_html, :cms_path => 'doesnotexist'
     assert_response 404
+    assert_equal 'Page Not Found', response.body
   end
   
   def test_render_page_not_found_with_custom_404
@@ -45,14 +46,14 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_html, :cms_path => 'doesnotexist'
     assert_response 404
     assert assigns(:cms_page)
-    assert_match /custom 404 page content/, @response.body
+    assert_match /custom 404 page content/, response.body
   end
   
   def test_render_css
     get :render_css, :id => cms_layouts(:default)
     assert_response :success
-    assert_match %r{text\/css}, @response.headers["Content-Type"]
-    assert_equal cms_layouts(:default).css, @response.body
+    assert_match %r{text\/css}, response.headers["Content-Type"]
+    assert_equal cms_layouts(:default).css, response.body
   end
   
   def test_render_css_not_found
@@ -63,8 +64,8 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_js
     get :render_js, :id => cms_layouts(:default)
     assert_response :success
-    assert_match %r{text\/javascript}, @response.headers["Content-Type"]
-    assert_equal cms_layouts(:default).js, @response.body
+    assert_match %r{text\/javascript}, response.headers["Content-Type"]
+    assert_equal cms_layouts(:default).js, response.body
   end
   
   def test_render_js_not_found

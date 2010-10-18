@@ -40,7 +40,9 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
         :content  => 'Test Content'
       }
       assert_response :redirect
-      assert_redirected_to :action => :edit, :id => CmsLayout.last
+      layout = CmsLayout.last
+      assert_equal cms_sites(:default), layout.cms_site
+      assert_redirected_to :action => :edit, :id => layout
       assert_equal 'Layout created', flash[:notice]
     end
   end

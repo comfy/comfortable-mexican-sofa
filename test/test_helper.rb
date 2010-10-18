@@ -12,6 +12,8 @@ class ActiveSupport::TestCase
       config.cms_title      = 'ComfortableMexicanSofa'
       config.authentication = 'CmsHttpAuthentication'
     end
+    CmsHttpAuthentication.username = 'username'
+    CmsHttpAuthentication.password = 'password'
   end
   
   # Example usage:
@@ -45,6 +47,8 @@ class ActionDispatch::IntegrationTest
   
   def setup
     host! 'test.host'
+    CmsHttpAuthentication.username = 'username'
+    CmsHttpAuthentication.password = 'password'
   end
   
   def http_auth(method, path, options = {}, username = 'username', password = 'password')

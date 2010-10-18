@@ -40,7 +40,9 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
         :content  => 'Test Content'
       }
       assert_response :redirect
-      assert_redirected_to :action => :edit, :id => CmsSnippet.last
+      snippet = CmsSnippet.last
+      assert_equal cms_sites(:default), snippet.cms_site
+      assert_redirected_to :action => :edit, :id => snippet
       assert_equal 'Snippet created', flash[:notice]
     end
   end
