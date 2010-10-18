@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
   
   namespace :cms_admin, :path => 'cms-admin', :except => :show do
-    resources :sites
-    resources :layouts
+    get '/' => redirect('/cms-admin/pages')
     resources :pages do
       member do 
         match :form_blocks
       end
     end
+    resources :sites
+    resources :layouts
     resources :snippets
     resources :uploads
   end
