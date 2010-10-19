@@ -144,23 +144,23 @@ html, body {
   border-color: #9e0b0f;
 }
 
-/* -- Tree Listings ------------------------------------------------------ */
-ul.tree li .item {
+/* -- Listings ----------------------------------------------------------- */
+ul.list li .item {
   overflow: hidden;
   padding: 5px;
   border-bottom: 1px solid #fff;
 }
-ul.tree li .icon {
+ul.list li .icon {
   width: 28px;
   height: 28px;
   background: url(/images/comfortable_mexican_sofa/icon_regular.gif);
   float: left;
 }
-ul.tree li .action_links {
+ul.list li .action_links {
   float: right;
   opacity: 0.1;
 }
-ul.tree .action_links a {
+ul.list .action_links a {
   margin-left: 3px;
   float: left;
   background-color: #272A2D;
@@ -171,24 +171,22 @@ ul.tree .action_links a {
   border-radius: 3px;
   -moz-border-radius: 3px;
 }
-ul.tree li .label {
+ul.list li .label {
   margin-left: 35px;
   font: 16px/18px Georgia, serif;
   color: #1C1F22;
 }
-ul.tree li .label .url {
+ul.list li .label .sublabel {
   margin-left: 15px;
   font: 11px/14px Arial, sans-serif;
   color: #1C1F22;
 }
-
-ul.tree li ul {
+ul.list li ul {
   margin-left: 30px;
 }
-
-ul.tree li .item:hover {
+ul.list li .item:hover {
   background-color: #fff;
 }
-ul.tree li .item:hover .action_links {
+ul.list li .item:hover .action_links {
   opacity: 1;
 }

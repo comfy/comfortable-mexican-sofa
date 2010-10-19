@@ -1,4 +1,22 @@
 <%= link_to span_tag('Create New Site'), new_cms_admin_site_path, :class => 'big_button' %>
 <h1>Sites</h1>
 
-<%= debug @cms_sites %>
+<ul class='list'>
+  <% @cms_sites.each do |cms_site| %>
+    <li id='cms_site_<%= cms_site.id %>'>
+      <div class='item'>
+        <div class='icon'></div>
+        <div class='action_links'>
+          <%= link_to 'Edit', edit_cms_admin_site_path(cms_site) %>
+          <%= link_to 'Delete', cms_admin_site_path(cms_site), :method => :delete, :confirm => 'Are you sure?' %>
+        </div>
+        <div class='label'>
+          <%= link_to cms_site.label, edit_cms_admin_site_path(cms_site) %>
+          <div class='sublabel'>
+            <%= link_to cms_site.hostname, "http://#{cms_site.hostname}/cms-admin" %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

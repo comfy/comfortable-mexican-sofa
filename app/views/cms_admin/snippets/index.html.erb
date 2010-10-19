@@ -1,12 +1,22 @@
 <%= link_to span_tag('Create New Snippet'), new_cms_admin_snippet_path, :class => 'big_button' %>
 <h1>Snippets</h1>
 
-<table class='list'>
-  <% @cms_snippets.each do |snippet| %>
-    <tr>
-      <td class='main'>
-        <%= link_to snippet.label, edit_cms_admin_snippet_path(snippet)%>
-      </td>
-    </tr>
+<ul class='list'>
+  <% @cms_snippets.each do |cms_snippet| %>
+    <li id='cms_snippet_<%= cms_snippet.id %>'>
+      <div class='item'>
+        <div class='icon'></div>
+        <div class='action_links'>
+          <%= link_to 'Edit', edit_cms_admin_snippet_path(cms_snippet) %>
+          <%= link_to 'Delete', cms_admin_snippet_path(cms_snippet), :method => :delete, :confirm => 'Are you sure?' %>
+        </div>
+        <div class='label'>
+          <%= link_to cms_snippet.label, edit_cms_admin_snippet_path(cms_snippet) %>
+          <div class='sublabel'>
+            <%= link_to cms_snippet.slug, edit_cms_admin_snippet_path(cms_snippet) %>
+          </div>
+        </div>
+      </div>
+    </li>
   <% end %>
-</table>
+</ul>

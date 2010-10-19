@@ -1,6 +1,6 @@
 <%= link_to span_tag('Create New Layout'), new_cms_admin_layout_path, :class => 'big_button' %>
 <h1>Layouts</h1>
 
-<ul class='tree'>
+<ul class='list'>
   <%= render :partial => 'index_branch', :collection => @cms_layouts %>
 </ul>
