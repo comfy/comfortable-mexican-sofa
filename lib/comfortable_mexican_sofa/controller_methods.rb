@@ -18,7 +18,7 @@ module ComfortableMexicanSofa::ControllerMethods
   # Now you can render cms_page simply by calling:
   #   render :cms_page => '/path/to/page'
   # This way application controllers can use CMS content while populating
-  # instance varaibles that can be used in partials (that are included by
+  # instance variables that can be used in partials (that are included by
   # by the cms page and/or layout)
   def render_with_cms(options = {}, locals = {}, &block)
     if path = options.delete(:cms_page)

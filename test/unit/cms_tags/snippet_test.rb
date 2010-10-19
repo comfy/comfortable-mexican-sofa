@@ -8,7 +8,7 @@ class SnippetTest < ActiveSupport::TestCase
       <cms:snippet:label>
     ).each do |tag_signature|
       assert tag = CmsTag::Snippet.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'label', tag.label
+      assert_equal 'label', tag.slug
     end
   end
   

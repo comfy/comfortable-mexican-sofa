@@ -36,7 +36,8 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   def test_creation
     assert_difference 'CmsSnippet.count' do
       post :create, :cms_snippet => {
-        :label    => 'Test-Snippet',
+        :label    => 'Test Snippet',
+        :slug     => 'test-snippet',
         :content  => 'Test Content'
       }
       assert_response :redirect

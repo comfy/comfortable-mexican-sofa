@@ -12,7 +12,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = CmsSnippet.new
     snippet.save
     assert snippet.invalid?
-    assert_has_errors_on snippet, :label
+    assert_has_errors_on snippet, [:label, :slug]
   end
   
   def test_method_content

@@ -1,3 +1,12 @@
+<%= link_to span_tag('Create New Snippet'), new_cms_admin_snippet_path, :class => 'big_button' %>
 <h1>Snippets</h1>
 
-<%= debug @cms_snippets %>
+<table class='list'>
+  <% @cms_snippets.each do |snippet| %>
+    <tr>
+      <td class='main'>
+        <%= link_to snippet.label, edit_cms_admin_snippet_path(snippet)%>
+      </td>
+    </tr>
+  <% end %>
+</table>
