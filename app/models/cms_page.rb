@@ -8,6 +8,8 @@ class CmsPage < ActiveRecord::Base
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_site
   belongs_to :cms_layout
+  belongs_to :target_page,
+    :class_name => 'CmsPage'
   has_many :cms_blocks,
     :dependent  => :destroy
   accepts_nested_attributes_for :cms_blocks
@@ -30,14 +32,15 @@ class CmsPage < ActiveRecord::Base
   validates :full_path,
     :presence   => true,
     :uniqueness => { :scope => :cms_site_id }
+  validate :validate_target_page
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages
-  def self.options_for_select(cms_site, cms_page = nil, current_page = nil, depth = 0, spacer = '. . ')
-    return [] if (current_page ||= cms_site.cms_pages.root) == cms_page || !current_page
+  def self.options_for_select(cms_site, cms_page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
+    return [] if (current_page ||= cms_site.cms_pages.root) == cms_page && exclude_self || !current_page
     out = [[ "#{spacer*depth}#{current_page.label}", current_page.id ]]
     current_page.children.each do |child|
-      out += options_for_select(cms_site, cms_page, child, depth + 1, spacer)
+      out += options_for_select(cms_site, cms_page, child, depth + 1, exclude_self, spacer)
     end
     return out.compact
   end
@@ -60,6 +63,14 @@ protected
   
   def assign_full_path
     self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
+  end
+  
+  def validate_target_page
+    return unless self.target_page
+    p = self
+    while p.target_page do
+      return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
+    end
   end
   
   # Forcing re-saves for child pages so they can update full_paths

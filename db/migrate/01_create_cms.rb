@@ -28,6 +28,7 @@ class CreateCms < ActiveRecord::Migration
       t.integer :cms_site_id
       t.integer :cms_layout_id
       t.integer :parent_id
+      t.integer :target_page_id
       t.string  :label
       t.string  :slug
       t.string  :full_path

@@ -27,6 +27,7 @@ protected
   
   def load_cms_page
     @cms_page = @cms_site.cms_pages.find_by_full_path!("/#{params[:cms_path]}")
+    return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
   rescue ActiveRecord::RecordNotFound
     if @cms_page = @cms_site.cms_pages.find_by_full_path('/404')
       render_html(404)

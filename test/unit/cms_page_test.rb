@@ -26,6 +26,16 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, :parent_id
   end
   
+  def test_validation_of_target_page
+    page = cms_pages(:child)
+    page.target_page = cms_pages(:default)
+    page.save!
+    assert_equal cms_pages(:default), page.target_page
+    page.target_page = page
+    assert page.invalid?
+    assert_has_errors_on page, :target_page_id
+  end
+  
   def test_initialization_of_full_path
     page = CmsPage.new(new_params)
     assert page.invalid?

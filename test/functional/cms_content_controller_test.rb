@@ -49,6 +49,14 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_match /custom 404 page content/, response.body
   end
   
+  def test_render_page_with_redirect
+    cms_pages(:child).update_attribute(:target_page, cms_pages(:default))
+    assert_equal cms_pages(:default), cms_pages(:child).target_page
+    get :render_html, :cms_path => 'child-page'
+    assert_response :redirect
+    assert_redirected_to '/'
+  end
+  
   def test_render_css
     get :render_css, :id => cms_layouts(:default)
     assert_response :success

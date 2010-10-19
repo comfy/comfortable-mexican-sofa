@@ -1,6 +1,7 @@
 default:
   cms_site: default
   parent:
+  target_page:
   cms_layout: default
   label: Default Page
   slug:
@@ -11,6 +12,7 @@ default:
 child:
   cms_site: default
   parent: default
+  target_page:
   cms_layout: default
   label: Child Page
   slug: 'child-page'
