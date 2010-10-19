@@ -15,9 +15,9 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_options_for_select
-    assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'], CmsLayout.options_for_select.collect{|t| t.first}
-    assert_equal ['Default Layout', 'Nested Layout'], CmsLayout.options_for_select(cms_layouts(:child)).collect{|t| t.first}
-    assert_equal ['Default Layout'], CmsLayout.options_for_select(cms_layouts(:nested)).collect{|t| t.first}
+    assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'], CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
+    assert_equal ['Default Layout', 'Nested Layout'], CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:child)).collect{|t| t.first}
+    assert_equal ['Default Layout'], CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:nested)).collect{|t| t.first}
   end
   
   def test_app_layouts_for_select

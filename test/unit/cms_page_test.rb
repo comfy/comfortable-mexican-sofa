@@ -102,12 +102,12 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_options_for_select
-    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select.collect{|t| t.first }
-    assert_equal ['Default Page'], CmsPage.options_for_select(cms_pages(:child)).collect{|t| t.first }
-    assert_equal [], CmsPage.options_for_select(cms_pages(:default))
+    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(cms_sites(:default)).collect{|t| t.first }
+    assert_equal ['Default Page'], CmsPage.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
+    assert_equal [], CmsPage.options_for_select(cms_sites(:default), cms_pages(:default))
     
     page = CmsPage.new(new_params(:parent => cms_pages(:default)))
-    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(page).collect{|t| t.first }
+    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(cms_sites(:default), page).collect{|t| t.first }
   end
   
 protected

@@ -13,13 +13,13 @@ class CmsLayout < ActiveRecord::Base
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
-  def self.options_for_select(cms_layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
+  def self.options_for_select(cms_site, cms_layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
     out = []
-    [current_layout || CmsLayout.roots].flatten.each do |layout|
+    [current_layout || cms_site.cms_layouts.roots].flatten.each do |layout|
       next if cms_layout == layout
       out << [ "#{spacer*depth}#{layout.label}", layout.id ]
       layout.children.each do |child|
-        out += options_for_select(cms_layout, child, depth + 1, spacer)
+        out += options_for_select(cms_site, cms_layout, child, depth + 1, spacer)
       end
     end
     return out.compact

@@ -2,8 +2,8 @@
 
 <div class='page_form_extras'>
   <%= form.text_field :slug, :id => 'slug' %>
-  <%= form.select :cms_layout_id, CmsLayout.options_for_select, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
-  <%= form.select :parent_id, CmsPage.options_for_select(@cms_page) %>
+  <%= form.select :cms_layout_id, CmsLayout.options_for_select(@cms_site), {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
+  <%= form.select :parent_id, CmsPage.options_for_select(@cms_site, @cms_page) %>
 </div>
 
 <%= render :partial => 'form_blocks' %>
