@@ -45,4 +45,21 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal merged_js, cms_layouts(:child).merged_js
   end
   
+  def test_load_from_file
+    assert !CmsLayout.load_from_file(cms_sites(:default), 'default')
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    
+    assert !CmsLayout.load_from_file(cms_sites(:default), 'bogus')
+    
+    assert layout = CmsLayout.load_from_file(cms_sites(:default), 'default')
+    assert_equal 'Default Layout', layout.label
+    assert_equal '<html><cms:page:content/></html>', layout.content
+    
+    assert layout = CmsLayout.load_from_file(cms_sites(:default), 'nested')
+    assert_equal 'Nested Layout', layout.label
+    assert_equal '<div><cms:page:content/></div>', layout.content
+    assert_equal '<html><div><cms:page:content/></div></html>', layout.merged_content
+  end
+  
 end

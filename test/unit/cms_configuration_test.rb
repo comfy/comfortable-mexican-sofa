@@ -6,6 +6,7 @@ class CmsConfigurationTest < ActiveSupport::TestCase
     assert config = ComfortableMexicanSofa.configuration
     assert_equal 'ComfortableMexicanSofa', config.cms_title
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.authentication
+    assert_equal nil, config.seed_data_path
   end
   
   def test_initialization_overrides

@@ -26,7 +26,12 @@ protected
   end
   
   def load_cms_page
-    @cms_page = @cms_site.cms_pages.find_by_full_path!("/#{params[:cms_path]}")
+    # Attempting to load seed page
+    if ComfortableMexicanSofa.configuration.seed_data_path
+      @cms_page = CmsPage.load_from_file(@cms_site, "/#{params[:cms_path]}")
+    end
+    
+    @cms_page ||= @cms_site.cms_pages.find_by_full_path!("/#{params[:cms_path]}")
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
   rescue ActiveRecord::RecordNotFound
     if @cms_page = @cms_site.cms_pages.find_by_full_path('/404')

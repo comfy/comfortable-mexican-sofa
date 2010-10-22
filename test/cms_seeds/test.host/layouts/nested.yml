@@ -1,0 +1,3 @@
+label: Nested Layout
+parent: default
+content: <div><cms:page:content/></div>

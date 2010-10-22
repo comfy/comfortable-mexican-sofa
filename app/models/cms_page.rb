@@ -45,6 +45,20 @@ class CmsPage < ActiveRecord::Base
     return out.compact
   end
   
+  # Attempting to initialize page object from yaml file that is found in config.seed_data_path
+  # This file defines all attributes of the page plus all the block information
+  def self.load_from_file(site, url)
+    return nil if ComfortableMexicanSofa.config.seed_data_path.blank?
+    url = (url == '/')? '/index' : url.to_s.chomp('/')
+    file_path = "#{ComfortableMexicanSofa.config.seed_data_path}/#{site.hostname}/pages#{url}.yml"
+    return nil unless File.exists?(file_path)
+    attributes              = YAML.load_file(file_path).symbolize_keys!
+    attributes[:cms_layout] = CmsLayout.load_from_file(site, attributes[:cms_layout])
+    attributes[:parent]     = CmsPage.load_from_file(site, attributes[:parent])
+    attributes[:cms_site]   = site
+    new(attributes)
+  end
+  
   # -- Instance Methods -----------------------------------------------------
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag

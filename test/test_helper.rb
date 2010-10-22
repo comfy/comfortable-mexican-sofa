@@ -11,6 +11,7 @@ class ActiveSupport::TestCase
     ComfortableMexicanSofa.configure do |config|
       config.cms_title      = 'ComfortableMexicanSofa'
       config.authentication = 'ComfortableMexicanSofa::HttpAuth'
+      config.seed_data_path = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

@@ -6,14 +6,15 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication to access cms-admin area
   attr_accessor :authentication
   
-  # Enable cms to manage multiple sites
-  attr_accessor :multiple_sites
+  # Location of YAML files that can be used to render pages instead of pulling
+  # data from the database. Not active if not specified.
+  attr_accessor :seed_data_path
   
   # Configuration defaults
   def initialize
-    @cms_title      = 'ComfortableMexicanSofa'
-    @authentication = 'CmsHttpAuthentication'
-    @multiple_sites = false
+    @cms_title        = 'ComfortableMexicanSofa'
+    @authentication   = 'ComfortableMexicanSofa::HttpAuth'
+    @seed_data_path   = nil
   end
   
 end

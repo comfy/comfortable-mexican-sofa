@@ -19,7 +19,19 @@ class CmsSnippet < ActiveRecord::Base
   end
   
   def self.initialize_or_find(cms_page, slug)
-    find_by_slug(slug) || new(:slug => slug)
+    if ComfortableMexicanSofa.configuration.seed_data_path
+      s = CmsTag::Snippet.load_from_file(cms_page.cms_site, slug)
+    end
+    s || find_by_slug(slug) || new(:slug => slug)
+  end
+  
+  # Attempting to initialize snippet object from yaml file that is found in config.seed_data_path
+  def self.load_from_file(site, name)
+    return nil if ComfortableMexicanSofa.config.seed_data_path.blank?
+    file_path = "#{ComfortableMexicanSofa.config.seed_data_path}/#{site.hostname}/snippets/#{name}.yml"
+    return nil unless File.exists?(file_path)
+    attributes = YAML.load_file(file_path).symbolize_keys!
+    new(attributes)
   end
   
 end

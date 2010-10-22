@@ -112,12 +112,41 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_options_for_select
-    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(cms_sites(:default)).collect{|t| t.first }
-    assert_equal ['Default Page'], CmsPage.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
-    assert_equal [], CmsPage.options_for_select(cms_sites(:default), cms_pages(:default))
+    assert_equal ['Default Page', '. . Child Page'], 
+      CmsPage.options_for_select(cms_sites(:default)).collect{|t| t.first }
+    assert_equal ['Default Page'], 
+      CmsPage.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
+    assert_equal [], 
+      CmsPage.options_for_select(cms_sites(:default), cms_pages(:default))
     
     page = CmsPage.new(new_params(:parent => cms_pages(:default)))
-    assert_equal ['Default Page', '. . Child Page'], CmsPage.options_for_select(cms_sites(:default), page).collect{|t| t.first }
+    assert_equal ['Default Page', '. . Child Page'],
+      CmsPage.options_for_select(cms_sites(:default), page).collect{|t| t.first }
+  end
+  
+  def test_load_from_file
+    assert !CmsPage.load_from_file(cms_sites(:default), '/')
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    
+    assert !CmsPage.load_from_file(cms_sites(:default), '/bogus')
+    
+    assert page = CmsPage.load_from_file(cms_sites(:default), '/')
+    assert_equal 'Default Page', page.label
+    assert_equal 1, page.cms_blocks.size
+    assert page.cms_layout
+    assert_equal '<html>Default Page Content</html>', page.content
+    
+    assert page = CmsPage.load_from_file(cms_sites(:default), '/child')
+    assert_equal 1, page.cms_blocks.size
+    assert page.cms_layout
+    assert_equal '<html>Child Page Content</html>', page.content
+    
+    assert page = CmsPage.load_from_file(cms_sites(:default), '/child/subchild')
+    assert_equal 1, page.cms_blocks.size
+    assert page.cms_layout
+    assert_equal 'Nested Layout', page.cms_layout.label
+    assert_equal '<html><div>Sub Child Page Content Content for Default Snippet</div></html>', page.content
   end
   
 protected

@@ -33,6 +33,17 @@ class CmsLayout < ActiveRecord::Base
     end.compact
   end
   
+  # Attempting to initialize layout object from yaml file that is found in config.seed_data_path
+  def self.load_from_file(site, name)
+    return nil if ComfortableMexicanSofa.config.seed_data_path.blank?
+    file_path = "#{ComfortableMexicanSofa.config.seed_data_path}/#{site.hostname}/layouts/#{name}.yml"
+    return nil unless File.exists?(file_path)
+    attributes            = YAML.load_file(file_path).symbolize_keys!
+    attributes[:parent]   = CmsLayout.load_from_file(site, attributes[:parent])
+    attributes[:cms_site] = site
+    new(attributes)
+  end
+  
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is <cms:page:content> If parent layout has this tag
   # defined its content will be merged. If no such tag found, parent content
