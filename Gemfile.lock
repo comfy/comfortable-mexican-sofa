@@ -87,5 +87,5 @@ DEPENDENCIES
   jeweler (>= 1.4.0)
   mime-types
   paperclip (>= 2.3.3)
-  rails (= 3.0.0)
+  rails (>= 3.0.0)
   sqlite3-ruby
