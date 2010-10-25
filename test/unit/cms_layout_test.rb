@@ -11,13 +11,16 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_validations
     layout = CmsLayout.create
     assert layout.errors.present?
-    assert_has_errors_on layout, [:label, :content]
+    assert_has_errors_on layout, [:label, :slug, :content]
   end
   
   def test_options_for_select
-    assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'], CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
-    assert_equal ['Default Layout', 'Nested Layout'], CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:child)).collect{|t| t.first}
-    assert_equal ['Default Layout'], CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:nested)).collect{|t| t.first}
+    assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
+      CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
+    assert_equal ['Default Layout', 'Nested Layout'],
+      CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:child)).collect{|t| t.first}
+    assert_equal ['Default Layout'],
+      CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:nested)).collect{|t| t.first}
   end
   
   def test_app_layouts_for_select
@@ -36,13 +39,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_merged_css
-    merged_css = cms_layouts(:nested).css + cms_layouts(:child).css
-    assert_equal merged_css, cms_layouts(:child).merged_css
+    assert_equal "nested_css\nchild_css", cms_layouts(:child).merged_css
   end
   
   def test_merged_js
-    merged_js = cms_layouts(:nested).js + cms_layouts(:child).js
-    assert_equal merged_js, cms_layouts(:child).merged_js
+    assert_equal "nested_js\nchild_js", cms_layouts(:child).merged_js
   end
   
   def test_load_from_file

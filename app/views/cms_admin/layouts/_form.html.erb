@@ -1,4 +1,5 @@
-<%= form.text_field :label, :label => 'Layout Name' %>
+<%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
+<%= form.text_field :slug, :id => 'slug' %>
 <%= form.select :parent_id, CmsLayout.options_for_select(@cms_site, @cms_layout), :include_blank => true %>
 <%= form.select :app_layout, CmsLayout.app_layouts_for_select, :include_blank => true %>
 <%= form.text_area :content %>

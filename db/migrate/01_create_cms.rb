@@ -14,14 +14,15 @@ class CreateCms < ActiveRecord::Migration
       t.integer :parent_id
       t.string  :app_layout
       t.string  :label
+      t.string  :slug
       t.text    :content
       t.text    :css
       t.text    :js
       t.integer :position, :null => false, :default => 0
       t.timestamps
     end
-    add_index :cms_layouts, [:cms_site_id, :label]
     add_index :cms_layouts, [:parent_id, :position]
+    add_index :cms_layouts, [:cms_site_id, :slug], :unique => true
     
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|

@@ -1,6 +1,7 @@
 default:
   cms_site: default
   label: Default Layout
+  slug: default
   parent:
   content: |-
     <cms:field:default_field_text:text>
@@ -9,39 +10,27 @@ default:
     layout_content_b
     <cms:snippet:default>
     layout_content_c
-  css: |-
-    body { background-color: red }
-    p { color: #fff }
-  js: |-
-    $(document).ready(function() {
-      alert('hi');
-    })
+  css: default_css
+  js: default_js
     
 nested:
   cms_site: default
   label: Nested Layout
+  slug: nested
   parent:
   content: |-
     <cms:page:header/>
     <cms:page:content/>
-  css: |-
-    body { background-color: red }
-  js: |-
-    $(document).ready(function() {
-      alert('hi');
-    })
+  css: nested_css
+  js: nested_js
     
 child:
   cms_site: default
   label: Child Layout
+  slug: child
   parent: nested
   content: |-
     <cms:page:left_column>
     <cms:page:right_column>
-  css: |-
-    body { p: #fff }
-  js: |-
-    js: |-
-      $(document).ready(function() {
-        alert('sup');
-      })
+  css: child_css
+  js: child_js

@@ -7,9 +7,16 @@ class CmsLayout < ActiveRecord::Base
   has_many :cms_pages, :dependent => :nullify
   
   # -- Validations ----------------------------------------------------------
-  validates :cms_site_id, :presence => true
-  validates :label,       :presence => true
-  validates :content,     :presence => true
+  validates :cms_site_id,
+    :presence   => true
+  validates :label,
+    :presence   => true
+  validates :slug,
+    :presence   => true,
+    :uniqueness => { :scope => :cms_site_id },
+    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+  validates :content,
+    :presence   => true
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -58,10 +65,10 @@ class CmsLayout < ActiveRecord::Base
   end
   
   def merged_css
-    self.parent ? self.parent.merged_css + self.css : self.css.to_s
+    self.parent ? [self.parent.merged_css, self.css].join("\n") : self.css.to_s
   end
   
   def merged_js
-    self.parent ? self.parent.merged_js + self.js : self.js.to_s
+    self.parent ? [self.parent.merged_js, self.js].join("\n") : self.js.to_s
   end
 end

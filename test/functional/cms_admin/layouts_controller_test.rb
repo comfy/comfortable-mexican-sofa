@@ -37,6 +37,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_difference 'CmsLayout.count' do
       post :create, :cms_layout => {
         :label    => 'Test Layout',
+        :slug     => 'test',
         :content  => 'Test Content'
       }
       assert_response :redirect

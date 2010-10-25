@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.2"
+  s.version = "1.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2010-10-19}
+  s.date = %q{2010-10-25}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -85,6 +85,7 @@ Gem::Specification.new do |s|
      "lib/comfortable_mexican_sofa/cms_tag/field_integer.rb",
      "lib/comfortable_mexican_sofa/cms_tag/field_string.rb",
      "lib/comfortable_mexican_sofa/cms_tag/field_text.rb",
+     "lib/comfortable_mexican_sofa/cms_tag/helper.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_datetime.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_integer.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_string.rb",
@@ -120,7 +121,12 @@ Gem::Specification.new do |s|
      "public/stylesheets/comfortable_mexican_sofa/structure.css",
      "public/stylesheets/comfortable_mexican_sofa/typography.css",
      "script/rails",
-     "test/fixtures/README.md",
+     "test/cms_seeds/test.host/layouts/default.yml",
+     "test/cms_seeds/test.host/layouts/nested.yml",
+     "test/cms_seeds/test.host/pages/child.yml",
+     "test/cms_seeds/test.host/pages/child/subchild.yml",
+     "test/cms_seeds/test.host/pages/index.yml",
+     "test/cms_seeds/test.host/snippets/default.yml",
      "test/fixtures/cms_blocks.yml",
      "test/fixtures/cms_layouts.yml",
      "test/fixtures/cms_pages.yml",
@@ -136,6 +142,7 @@ Gem::Specification.new do |s|
      "test/functional/cms_admin/uploads_controller_test.rb",
      "test/functional/cms_content_controller_test.rb",
      "test/integration/authentication_test.rb",
+     "test/integration/render_cms_seed_test.rb",
      "test/integration/render_cms_test.rb",
      "test/integration/sites_test.rb",
      "test/test_helper.rb",
@@ -150,14 +157,14 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/field_integer_test.rb",
      "test/unit/cms_tags/field_string_test.rb",
      "test/unit/cms_tags/field_text_test.rb",
+     "test/unit/cms_tags/helper_test.rb",
      "test/unit/cms_tags/page_datetime_test.rb",
      "test/unit/cms_tags/page_integer_test.rb",
      "test/unit/cms_tags/page_string_test.rb",
      "test/unit/cms_tags/page_text_test.rb",
      "test/unit/cms_tags/partial_test.rb",
      "test/unit/cms_tags/snippet_test.rb",
-     "test/unit/cms_upload_test.rb",
-     "tmp/restart.txt"
+     "test/unit/cms_upload_test.rb"
   ]
   s.homepage = %q{http://github.com/theworkinggroup/comfortable-mexican-sofa}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -172,6 +179,7 @@ Gem::Specification.new do |s|
      "test/functional/cms_admin/uploads_controller_test.rb",
      "test/functional/cms_content_controller_test.rb",
      "test/integration/authentication_test.rb",
+     "test/integration/render_cms_seed_test.rb",
      "test/integration/render_cms_test.rb",
      "test/integration/sites_test.rb",
      "test/test_helper.rb",
@@ -186,6 +194,7 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/field_integer_test.rb",
      "test/unit/cms_tags/field_string_test.rb",
      "test/unit/cms_tags/field_text_test.rb",
+     "test/unit/cms_tags/helper_test.rb",
      "test/unit/cms_tags/page_datetime_test.rb",
      "test/unit/cms_tags/page_integer_test.rb",
      "test/unit/cms_tags/page_string_test.rb",
