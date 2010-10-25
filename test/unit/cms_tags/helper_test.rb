@@ -21,7 +21,7 @@ class HelperTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render
-    tag = CmsTag::Helper.initialize_tag(cms_pages(:default), "<cms:helper:method_name>")
+    tag = CmsTag::Helper.initialize_tag(cms_pages(:default), "<cms:helper:method_name/>")
     assert_equal "<%= method_name %>", tag.content
     assert_equal "<%= method_name %>", tag.render
   end
