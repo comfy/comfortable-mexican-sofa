@@ -6,7 +6,8 @@
 #   end
 module CmsTag
   
-  attr_accessor :parent
+  attr_accessor :params,
+                :parent
   
   module ClassMethods
     # Regex that is used to match tags in the content
@@ -26,7 +27,8 @@ module CmsTag
           self.initialize_or_find(cms_page, match[1])
         else
           tag = self.new
-          tag.label = match[1]
+          tag.label   = match[1]
+          tag.params  = match[2]
           tag
         end
       end
