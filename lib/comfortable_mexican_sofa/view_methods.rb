@@ -14,6 +14,11 @@ module ComfortableMexicanSofa::ViewMethods
   def datetime_field_tag(name, value = nil, options = {})
     text_field_tag(name, value, options.stringify_keys.update('type' => 'datetime'))
   end
+  
+  # Injects some content somewhere inside cms admin area
+  def hook(name)
+    ComfortableMexicanSofa::ViewHooks.render(name, self)
+  end
 end
 
 ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods

@@ -160,9 +160,12 @@ ul.list li .action_links {
   float: right;
   opacity: 0.1;
 }
-ul.list .action_links a {
+table.formatted td.action_links a {
+  opacity: 0.1;
+}
+ul.list .action_links a,
+table.formatted td.action_links a {
   margin-left: 3px;
-  float: left;
   background-color: #272A2D;
   color: #fff;
   padding: 3px 5px;
@@ -171,10 +174,14 @@ ul.list .action_links a {
   border-radius: 3px;
   -moz-border-radius: 3px;
 }
-ul.list li .label {
+ul.list li .label,
+table.formatted td .label {
   margin-left: 35px;
   font: 16px/18px Georgia, serif;
   color: #1C1F22;
+}
+table.formatted td .label {
+  margin-left: 0px;
 }
 ul.list li .label .sublabel {
   margin-left: 15px;
@@ -184,9 +191,23 @@ ul.list li .label .sublabel {
 ul.list li ul {
   margin-left: 30px;
 }
-ul.list li .item:hover {
+ul.list li .item:hover,
+table.formatted tr:hover td {
   background-color: #fff;
 }
-ul.list li .item:hover .action_links {
+ul.list li .item:hover .action_links,
+table.formatted tr:hover td.action_links a {
   opacity: 1;
+}
+table.formatted th,
+table.formatted td {
+  white-space: nowrap;
+  vertical-align: top;
+  padding: 5px;
+  border-bottom: 1px solid #fff;
+}
+table.formatted th.main,
+table.formatted td.main {
+  width: 100%;
+  white-space: normal;
 }
