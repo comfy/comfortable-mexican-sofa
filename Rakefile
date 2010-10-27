@@ -16,9 +16,9 @@ begin
     gem.email       = 'oleg@theworkinggroup.ca'
     gem.homepage    = 'http://github.com/theworkinggroup/comfortable-mexican-sofa'
     gem.authors     = ['Oleg Khabarov', 'The Working Group Inc']
-    gem.add_dependency('rails',           '>=3.0.0')
+    gem.add_dependency('rails',           '>=3.0.1')
     gem.add_dependency('active_link_to',  '>=0.0.6')
-    gem.add_dependency('paperclip',       '>=2.3.3')
+    gem.add_dependency('paperclip',       '>=2.3.5')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

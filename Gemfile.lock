@@ -47,7 +47,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
-    paperclip (2.3.4)
+    paperclip (2.3.5)
       activerecord
       activesupport
     polyglot (0.3.1)
@@ -85,6 +85,6 @@ DEPENDENCIES
   active_link_to (>= 0.0.6)
   jeweler (>= 1.4.0)
   mime-types
-  paperclip (>= 2.3.3)
+  paperclip (>= 2.3.5)
   rails (>= 3.0.1)
   sqlite3-ruby
