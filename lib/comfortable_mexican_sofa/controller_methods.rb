@@ -23,11 +23,13 @@ module ComfortableMexicanSofa::ControllerMethods
   def render_with_cms(options = {}, locals = {}, &block)
     if path = options.delete(:cms_page)
       site = CmsSite.find_by_hostname(request.host.downcase)
-      page = site && site.cms_pages.find_by_full_path(path)
+      page = CmsPage.load_from_file(site, path) if site && ComfortableMexicanSofa.configuration.seed_data_path
+      page ||= site && site.cms_pages.find_by_full_path(path)
       if page
         cms_app_layout = page.cms_layout.try(:app_layout)
         options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
         options[:inline] = page.content
+        @cms_page = page
         render_without_cms(options, locals, &block)
       else
         raise ActionView::MissingTemplate.new([path], path, "CMS page not found", nil)
