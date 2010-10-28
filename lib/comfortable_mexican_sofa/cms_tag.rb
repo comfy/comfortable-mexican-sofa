@@ -6,7 +6,7 @@
 #   end
 module CmsTag
   
-  TOKENIZER_REGEX = /(<\s*cms:(?:.*?)\s*\/?>)|((?:[^<]|\<(?!\s*cms:(?:.*?)\s*\/?>))+)/
+  TOKENIZER_REGEX = /(<\s*cms:.*?\/?>)|((?:[^<]|\<(?!\s*cms:.*?\/?>))+)/
   
   attr_accessor :params,
                 :parent
