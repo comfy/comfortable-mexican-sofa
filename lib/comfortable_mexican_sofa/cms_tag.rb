@@ -6,6 +6,8 @@
 #   end
 module CmsTag
   
+  TOKENIZER_REGEX = /(<\s*cms:(?:.*?)\s*\/?>)|((?:[^<]|\<(?!\s*cms:(?:.*?)\s*\/?>))+)/
+  
   attr_accessor :params,
                 :parent
   
@@ -81,7 +83,7 @@ private
   # Tags are processed further and their content is expanded in the same way.
   # Tags are defined in the parent tags are ignored and not rendered.
   def self.process_content(cms_page, content = '', parent_tag = nil)
-    tokens = content.to_s.scan(/(<\s*cms:\w+:\w+(?::.+)?\s*\/?>)|((?:[^<]|\<(?!\s*cms:\w+:\w+(?::.+)?\s*\/?>))+)/)
+    tokens = content.to_s.scan(TOKENIZER_REGEX)
     tokens.collect do |tag_signature, text|
       if tag_signature
         if tag = self.initialize_tag(cms_page, tag_signature)
