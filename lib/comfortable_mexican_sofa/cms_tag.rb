@@ -6,7 +6,7 @@
 #   end
 module CmsTag
   
-  TOKENIZER_REGEX = /(<\s*cms:.*?\/?>)|((?:[^<]|\<(?!\s*cms:.*?\/?>))+)/
+  TOKENIZER_REGEX = /(\{\s*cms:.*?\})|((?:[^\{]|\{(?!\s*cms:.*?\}))+)/
   
   attr_accessor :params,
                 :parent
@@ -14,9 +14,9 @@ module CmsTag
   module ClassMethods
     # Regex that is used to match tags in the content
     # Example:
-    #   /<\s*?cms:page:(\w+)\/?>/
+    #   /\{\s*?cms:page:(\w+)\}/
     # will match tags like these:
-    #   <cms:page:my_label/>
+    #   {cms:page:my_label}
     def regex_tag_signature
       nil
     end
@@ -53,7 +53,7 @@ module CmsTag
     
     # Regex that is used to identify instance of the tag
     # Example:
-    #   /<\s*?cms:page:tag_label\/?>/
+    #   /<\{\s*?cms:page:tag_label\}/
     def regex_tag_signature
       nil
     end

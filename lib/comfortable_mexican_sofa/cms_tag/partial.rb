@@ -6,7 +6,7 @@ class CmsTag::Partial
   
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\/]+/
-    /<\s*cms:partial:(#{label}):?(.*?)\s*\/?>/
+    /\{\s*cms:partial:(#{label}):?(.*?)\s*\}/
   end
   
   def regex_tag_signature
