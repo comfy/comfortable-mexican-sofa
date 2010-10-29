@@ -87,7 +87,8 @@ are tags that map to your view helpers methods
 are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
 
     { cms:partial:path/to/partial }     # gets translated to <%= render :partial => 'path/to/partial' %>
-    { cms:partial:path/to/partial:x:y } # gets translated to <%= render :partial => 'path/to/partial', :locals => { :param_1 => 'x', :param_2 => 'y'} %>
+    { cms:partial:path/to/partial:x:y } # gets translated to <%= render :partial => 'path/to/partial', 
+                                        # :locals => { :param_1 => 'x', :param_2 => 'y'} %>
 
 You don't have to define entire html layout, however. You can simply re-use your application one. Page content will be yielded into it like any normal view.
 
