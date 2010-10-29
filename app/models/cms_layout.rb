@@ -36,7 +36,8 @@ class CmsLayout < ActiveRecord::Base
   def self.app_layouts_for_select
     Dir.glob(File.expand_path('app/views/layouts/*.html.*', Rails.root)).collect do |filename|
       match = filename.match(/\w*.html.\w*$/)
-      match && match[0]
+      app_layout = match && match[0]
+      app_layout[0...1] == '_' ? nil : app_layout
     end.compact
   end
   
