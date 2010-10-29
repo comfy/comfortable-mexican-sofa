@@ -45,7 +45,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       post :create, :cms_layout => {
         :label    => 'Test Layout',
         :slug     => 'test',
-        :content  => 'Test Content'
+        :content  => 'Test {cms:page:content}'
       }
       assert_response :redirect
       layout = CmsLayout.last
@@ -68,14 +68,14 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
       :label    => 'New Label',
-      :content  => 'New Content'
+      :content  => 'New {cms:page:content}'
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => layout
     assert_equal 'Layout updated', flash[:notice]
     layout.reload
     assert_equal 'New Label', layout.label
-    assert_equal 'New Content', layout.content
+    assert_equal 'New {cms:page:content}', layout.content
   end
   
   def test_update_failure

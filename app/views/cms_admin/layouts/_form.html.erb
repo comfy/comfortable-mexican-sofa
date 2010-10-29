@@ -1,7 +1,11 @@
 <%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
 <%= form.text_field :slug, :id => 'slug' %>
-<%= form.select :parent_id, CmsLayout.options_for_select(@cms_site, @cms_layout), :include_blank => true %>
-<%= form.select :app_layout, CmsLayout.app_layouts_for_select, :include_blank => true %>
+<% if (options = CmsLayout.options_for_select(@cms_site, @cms_layout)).present? %>
+  <%= form.select :parent_id, [['---- Select Parent Layout ----', nil]] + options %>
+<% end %>
+<% if (options = CmsLayout.app_layouts_for_select).present? %>
+  <%= form.select :app_layout, [['---- Select Application Layout ----', nil]] + options %>
+<% end %>
 <%= form.text_area :content %>
 <%= form.text_area :css %>
 <%= form.text_area :js %>

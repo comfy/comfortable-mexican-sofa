@@ -18,6 +18,8 @@ class CmsLayout < ActiveRecord::Base
   validates :content,
     :presence   => true
     
+  validate :content_tag_presence
+    
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(cms_site, cms_layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
@@ -37,7 +39,7 @@ class CmsLayout < ActiveRecord::Base
     Dir.glob(File.expand_path('app/views/layouts/*.html.*', Rails.root)).collect do |filename|
       match = filename.match(/\w*.html.\w*$/)
       app_layout = match && match[0]
-      app_layout[0...1] == '_' ? nil : app_layout
+      app_layout.to_s[0...1] == '_' ? nil : app_layout
     end.compact
   end
   
@@ -72,4 +74,14 @@ class CmsLayout < ActiveRecord::Base
   def merged_js
     self.parent ? [self.parent.merged_js, self.js].join("\n") : self.js.to_s
   end
+  
+protected
+  
+  def content_tag_presence
+    CmsTag.process_content((test_page = CmsPage.new), content)
+    if test_page.cms_tags.select{|t| t.class.superclass == CmsBlock}.blank?
+      self.errors.add(:content, 'No cms page tags defined')
+    end
+  end
+  
 end

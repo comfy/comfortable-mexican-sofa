@@ -1,10 +1,18 @@
 <%= form.text_field :label, :id => (@cms_page.new_record?? 'slugify' : nil) %>
 
 <div class='page_form_extras'>
-  <%= form.text_field :slug, :id => 'slug' %>
-  <%= form.select :cms_layout_id, CmsLayout.options_for_select(@cms_site), {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
-  <%= form.select :parent_id, CmsPage.options_for_select(@cms_site, @cms_page) %>
-  <%= form.select :target_page_id, CmsPage.options_for_select(@cms_site, @cms_page, nil, 0, false), :include_blank => true, :label => 'Redirect To Page' %>
+  <% unless @cms_site.cms_pages.count == 0 || @cms_site.cms_pages.root == @cms_page%>
+    <%= form.text_field :slug, :id => 'slug' %>
+  <% end %>
+  <% if (options = CmsLayout.options_for_select(@cms_site)).present? %>
+    <%= form.select :cms_layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
+  <% end %>
+  <% if (options = CmsPage.options_for_select(@cms_site, @cms_page)).present? %>
+    <%= form.select :parent_id, options %>
+  <% end %>
+  <% if (options = CmsPage.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
+    <%= form.select :target_page_id, options, :include_blank => true, :label => 'Redirect To Page' %>
+  <% end %>
 </div>
 
 <%= render :partial => 'form_blocks' %>

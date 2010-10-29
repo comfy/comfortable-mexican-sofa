@@ -38,7 +38,8 @@ class CmsPage < ActiveRecord::Base
   # Tree-like structure for pages
   def self.options_for_select(cms_site, cms_page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
     return [] if (current_page ||= cms_site.cms_pages.root) == cms_page && exclude_self || !current_page
-    out = [[ "#{spacer*depth}#{current_page.label}", current_page.id ]]
+    out = []
+    out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == cms_page
     current_page.children.each do |child|
       out += options_for_select(cms_site, cms_page, child, depth + 1, exclude_self, spacer)
     end

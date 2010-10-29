@@ -14,6 +14,28 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_has_errors_on layout, [:label, :slug, :content]
   end
   
+  def test_validation_of_tag_presence
+    layout = CmsLayout.create(:content => 'some text')
+    assert_has_errors_on layout, :content
+    
+    layout = CmsLayout.create(:content => '{cms:snippet:blah}')
+    assert_has_errors_on layout, :content
+    
+    layout = cms_sites(:default).cms_layouts.new(
+      :label    => 'test',
+      :slug     => 'test',
+      :content  => '{cms:page:blah}'
+    )
+    assert layout.valid?
+    
+    layout = cms_sites(:default).cms_layouts.new(
+      :label    => 'test',
+      :slug     => 'test',
+      :content  => '{cms:field:blah}'
+    )
+    assert layout.valid?
+  end
+  
   def test_options_for_select
     assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
       CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
