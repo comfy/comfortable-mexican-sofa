@@ -98,20 +98,20 @@ So there's your layout and the `{cms:page:content}` defines a place where render
 
 <dl>
   <dt><em>{ cms:helper:method_name }</em></dt>
-  <dd>gets translated to <%= method_name() %></dd>
+  <dd>gets translated to method_name( )</dd>
   
   <dt><em>{ cms:helper:method_name:value_a:value_b }</em></dt>
-  <dd>gets translated to <%= method_name('value_a', 'value_b') %></dd>
+  <dd>gets translated to method_name('value_a', 'value_b')</dd>
 </dl>
 
 **Partials** are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
 
 <dl>
   <dt><em>{ cms:partial:path/to/partial }</em></dt>
-  <dd>gets translated to <%= render :partial => 'path/to/partial' %></dd>
+  <dd>gets translated to render :partial => 'path/to/partial'</dd>
   
   <dt><em>{ cms:partial:path/to/partial:value_a:value_b }</em></dt>
-  <dd>gets translated to <%= render :partial => 'path/to/partial', :locals => { :param_1 => 'value_a', :param_2 => 'value_b'} %></dd>
+  <dd>gets translated to render :partial => 'path/to/partial', :locals => { :param_1 => 'value_a', :param_2 => 'value_b'}</dd>
 </dl>
 
 You don't have to define entire html layout, however. You can simply re-use your application one. Page content will be yielded into it like any normal view.
