@@ -3,7 +3,9 @@ Comfortable Mexican Sofa (CMS)
 
 What is this?
 -------------
-Comfortable Mexican Sofa is a Content Management System with an obnoxious name. Also it's a Rails 3 Engine. This means that you can use it as a stand-alone application and also as an Engine for your existing application.
+ComfortableMexicanSofa is a micro CMS implemented as a Rails 3.* engine. This CMS is not a full-blown application like RadiantCMS. It's more like the ComatoseCMS, only more modern and infinitely more powerful and flexible. ComfortableMexicanSofa can function as a stand-alone installation, but it's designed to be used as an extension to your Rails application. If you have any (static) content that needs to be managed this CMS will handle it. 
+
+This CMS also allows high level of integration. You can easily use page content anywhere within your app, and even use page content as renderable templates from inside your controllers. You may also reuse CMS's admin interface for your own admin backend.
 
 Installation
 ------------
@@ -13,7 +15,7 @@ TODO: Need to create some sort of setup, so you can simply run:
     
     $ comfortable_mexican_sofa my_new_app
     
-### As a Rails Engine
+### Engine
 Add gem definition to your Gemfile:
     
     config.gem 'comfortable_mexican_sofa'
