@@ -4,6 +4,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   before_filter :load_cms_page,   :only => [:edit, :update, :destroy]
   
   def index
+    return redirect_to :action => :new if @cms_site.cms_pages.count == 0
     @cms_pages = [@cms_site.cms_pages.root].compact
   end
   

@@ -4,6 +4,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   before_filter :load_cms_snippet,  :only => [:edit, :update, :destroy]
   
   def index
+    return redirect_to :action => :new if @cms_site.cms_snippets.count == 0
     @cms_snippets = @cms_site.cms_snippets.all(:order => 'label')
   end
   

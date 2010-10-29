@@ -9,6 +9,13 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_template :index
   end
   
+  def test_get_index_with_no_sites
+    CmsSite.delete_all
+    get :index
+    assert_response :redirect
+    assert_redirected_to :action => :new
+  end
+  
   def test_get_new
     get :new
     assert_response :success

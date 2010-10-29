@@ -14,12 +14,6 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_cms_admin_site_path
   end
   
-  def test_get_admin_sites_index_with_no_site
-    CmsSite.delete_all
-    http_auth :get, cms_admin_sites_path
-    assert_response :success
-  end
-  
   def test_get_public_page_for_non_existent_site
     host! 'bogus.host'
     get '/'

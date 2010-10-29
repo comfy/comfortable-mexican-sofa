@@ -6,6 +6,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   before_filter :load_cms_site,   :only => [:edit, :update, :destroy]
   
   def index
+    return redirect_to :action => :new if CmsSite.count == 0
     @cms_sites = CmsSite.all
   end
   

@@ -4,6 +4,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   before_filter :load_cms_layout,   :only => [:edit, :update, :destroy]
   
   def index
+    return redirect_to :action => :new if @cms_site.cms_layouts.count == 0
     @cms_layouts = @cms_site.cms_layouts.roots
   end
   
