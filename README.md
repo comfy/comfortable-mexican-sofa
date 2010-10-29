@@ -55,7 +55,8 @@ Before creating pages and populating them with content we need to create a layou
     
 So there's your layout and the `{cms:page:content}` defines a place where renderable `content` will go. There's just a handful of tags that you can use.
 
-**Page Blocks** are pieces of content that will be output on the page:
+#### Page Blocks
+pieces of content that will be output on the page:
 
 <dl>
   <dt><em>{ cms:page:some_label:text }</em></dt>
@@ -71,7 +72,8 @@ So there's your layout and the `{cms:page:content}` defines a place where render
   <dd>a number field</dd>
 </dl>
 
-**Page Fields** are pieces of content that are not rendered. They are useful for hidden values you want to use inside your app. `@cms_page` instance variable is available when you need to access field values.
+#### Page Fields
+pieces of content that are not rendered. They are useful for hidden values you want to use inside your app. `@cms_page` instance variable is available when you need to access field values.
 
 <dl>
   <dt><em>{ cms:field:some_label:text }</em></dt>
@@ -87,14 +89,16 @@ So there's your layout and the `{cms:page:content}` defines a place where render
   <dd>a number field</dd>
 </dl>
 
-**Snippets** bits of reusable content that can be used in pages and layouts
+#### Snippets
+bits of reusable content that can be used in pages and layouts
 
 <dl>
   <dt><em>{ cms:snippet:snippet_slug }</em></dt>
   <dd></dd>
 </dl>
 
-**Helpers** are tags that map to your view helpers methods
+#### Helpers
+are tags that map to your view helpers methods
 
 <dl>
   <dt><em>{ cms:helper:method_name }</em></dt>
@@ -104,7 +108,8 @@ So there's your layout and the `{cms:page:content}` defines a place where render
   <dd>gets translated to method_name('value_a', 'value_b')</dd>
 </dl>
 
-**Partials** are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
+#### Partials
+are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
 
 <dl>
   <dt><em>{ cms:partial:path/to/partial }</em></dt>
