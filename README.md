@@ -9,13 +9,6 @@ This CMS also allows high level of integration. You can easily use page content 
 
 Installation
 ------------
-
-### Stand-alone
-TODO: Need to create some sort of setup, so you can simply run:
-    
-    $ comfortable_mexican_sofa my_new_app
-    
-### Engine
 Add gem definition to your Gemfile:
     
     config.gem 'comfortable_mexican_sofa'
@@ -39,7 +32,6 @@ At this point you should have database structure created, some assets copied to 
     
 Usage
 -----
-
 Now you should be able to navigate to http://yoursite/cms-admin
 
 ### Step 1: Create Site
@@ -51,46 +43,46 @@ Before creating pages and populating them with content we need to create a layou
     <html>
       <body>
         <h1>My Awesome Site</h1>
-        { cms:page:content }
+        {{ cms:page:content }}
       </body>
     </html>
     
-So there's your layout and the `{cms:page:content}` defines a place where renderable `content` will go. There's just a handful of tags that you can use.
+So there's your layout and the `{{cms:page:content}}` defines a place where renderable `content` will go. There's just a handful of tags that you can use.
 
 #### Page Blocks
 pieces of content that will be output on the page:
     
-    { cms:page:some_label:text }      # will render a text area during page creation
-                                      # alternatively you may use: { cms:page:some_label }
-    { cms:page:some_label:string }    # will render a text field during page creation
-    { cms:page:some_label:datetime }  # datetime select widget
-    { cms:page:some_label:integer }   # a number field
+    {{ cms:page:some_label:text }}      # will render a text area during page creation
+                                        # alternatively you may use: {{ cms:page:some_label }}
+    {{ cms:page:some_label:string }}    # will render a text field during page creation
+    {{ cms:page:some_label:datetime }}  # datetime select widget
+    {{ cms:page:some_label:integer }}   # a number field
 
 #### Page Fields
 pieces of content that are not rendered. They are useful for hidden values you want to use inside your app. `@cms_page` instance variable is available when you need to access field values.
 
-    { cms:field:some_label:text }     # text area for the page creation form</dd>
-    { cms:field:some_label:string }   # same as { cms:field:some_label }, this is a text field
-    { cms:field:some_label:datetime } # datetime
-    { cms:field:some_label:integer }  # a number field
+    {{ cms:field:some_label:text }}     # text area for the page creation form
+    {{ cms:field:some_label:string }}   # same as {{ cms:field:some_label }}, this is a text field
+    {{ cms:field:some_label:datetime }} # datetime
+    {{ cms:field:some_label:integer }}  # a number field
 
 #### Snippets
 bits of reusable content that can be used in pages and layouts
     
-    { cms:snippet:snippet_slug }
+    {{ cms:snippet:snippet_slug }}
     
 #### Helpers
 are tags that map to your view helpers methods
     
-    { cms:helper:method_name }        # gets translated to <%= method_name( ) %>
-    { cms:helper:method_name:x:y:z }  # gets translated to <%= method_name('x', 'y', 'z') %>
+    {{ cms:helper:method_name }}        # gets translated to <%= method_name( ) %>
+    {{ cms:helper:method_name:x:y:z }}  # gets translated to <%= method_name('x', 'y', 'z') %>
     
 #### Partials
 are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
-
-    { cms:partial:path/to/partial }     # gets translated to <%= render :partial => 'path/to/partial' %>
-    { cms:partial:path/to/partial:x:y } # gets translated to <%= render :partial => 'path/to/partial', 
-                                        # :locals => { :param_1 => 'x', :param_2 => 'y'} %>
+    
+    {{ cms:partial:path/to/partial }}     # gets translated to <%= render :partial => 'path/to/partial' %>
+    {{ cms:partial:path/to/partial:x:y }} # gets translated to <%= render :partial => 'path/to/partial', 
+                                          # :locals => { :param_1 => 'x', :param_2 => 'y'} %>
 
 You don't have to define entire html layout, however. You can simply re-use your application one. Page content will be yielded into it like any normal view.
 

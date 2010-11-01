@@ -1,2 +1,2 @@
 label: Default Layout
-content: <html>{cms:page:content}</html>
+content: <html>{{cms:page:content}}</html>

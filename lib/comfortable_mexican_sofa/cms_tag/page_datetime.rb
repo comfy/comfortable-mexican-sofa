@@ -4,7 +4,7 @@ class CmsTag::PageDateTime < CmsBlock
   
   def self.regex_tag_signature(label = nil)
     label ||= /\w+/
-    /\{\s*cms:page:(#{label}):datetime\s*\}/
+    /\{\{\s*cms:page:(#{label}):datetime\s*\}\}/
   end
   
   def regex_tag_signature

@@ -4,7 +4,7 @@ class CmsTag::FieldText < CmsBlock
   
   def self.regex_tag_signature(label = nil)
     label ||= /\w+/
-    /\{\s*cms:field:(#{label}):?(?:text)?\s*?\}/
+    /\{\{\s*cms:field:(#{label}):?(?:text)?\s*?\}\}/
   end
   
   def regex_tag_signature

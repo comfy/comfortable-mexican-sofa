@@ -5,42 +5,42 @@ class CmsTagTest < ActiveSupport::TestCase
   def test_tokenizer_regex
     regex = CmsTag::TOKENIZER_REGEX
     
-    tokens = 'content<{cms:some_tag content'.scan(regex)
+    tokens = 'content<{{cms:some_tag content'.scan(regex)
     assert_equal nil, tokens[0][0]
-    assert_equal 'content<{cms:some_tag content', tokens[0][1]
+    assert_equal 'content<{{cms:some_tag content', tokens[0][1]
     
-    tokens = 'content<{cms some_tag}>content'.scan(regex)
+    tokens = 'content<{{cms some_tag}}>content'.scan(regex)
     assert_equal nil, tokens[0][0]
-    assert_equal 'content<{cms some_tag}>content', tokens[0][1]
+    assert_equal 'content<{{cms some_tag}}>content', tokens[0][1]
     
-    tokens = 'content<{cms:some_tag}>content'.scan(regex)
+    tokens = 'content<{{cms:some_tag}}>content'.scan(regex)
     assert_equal nil,                     tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal '{cms:some_tag}',        tokens[1][0]
+    assert_equal '{{cms:some_tag}}',      tokens[1][0]
     assert_equal nil,                     tokens[1][1]
     assert_equal nil,                     tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
-    tokens = 'content<{cms:type:label}>content'.scan(regex)
+    tokens = 'content<{{cms:type:label}}>content'.scan(regex)
     assert_equal nil,                     tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal '{cms:type:label}',      tokens[1][0]
+    assert_equal '{{cms:type:label}}',    tokens[1][0]
     assert_equal nil,                     tokens[1][1]
     assert_equal nil,                     tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
-    tokens = 'content<{cms:type:label }>content'.scan(regex)
+    tokens = 'content<{{cms:type:label }}>content'.scan(regex)
     assert_equal nil,                     tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal '{cms:type:label }',    tokens[1][0]
+    assert_equal '{{cms:type:label }}',   tokens[1][0]
     assert_equal nil,                     tokens[1][1]
     assert_equal nil,                     tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
-    tokens = 'content<{ cms:type:la/b el }>content'.scan(regex)
+    tokens = 'content<{{ cms:type:la/b el }}>content'.scan(regex)
     assert_equal nil,                     tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal '{ cms:type:la/b el }',  tokens[1][0]
+    assert_equal '{{ cms:type:la/b el }}',tokens[1][0]
     assert_equal nil,                     tokens[1][1]
     assert_equal nil,                     tokens[2][0]
     assert_equal '>content',              tokens[2][1]
@@ -115,7 +115,7 @@ class CmsTagTest < ActiveSupport::TestCase
       },
       {
         :label    => 'default_page_text',
-        :content  => "new_default_page_text_content\n{cms:snippet:default}",
+        :content  => "new_default_page_text_content\n{{cms:snippet:default}}",
         :type     => 'CmsTag::PageText'
       },
       {
@@ -146,7 +146,7 @@ class CmsTagTest < ActiveSupport::TestCase
   
   def test_content_with_repeated_tags
     page = cms_pages(:default)
-    page.cms_layout.content << "\n{cms:page:default_page_text:text}"
+    page.cms_layout.content << "\n{{cms:page:default_page_text:text}}"
     page.cms_layout.save!
     
     assert_equal rendered_content_formatter(
@@ -177,7 +177,7 @@ class CmsTagTest < ActiveSupport::TestCase
   def test_content_with_cyclical_tags
     page = cms_pages(:default)
     snippet = cms_snippets(:default)
-    snippet.update_attribute(:content, "infinite {cms:page:default} loop")
+    snippet.update_attribute(:content, "infinite {{cms:page:default}} loop")
     assert_equal rendered_content_formatter(
       '
       layout_content_a

@@ -10,5 +10,5 @@ default_page_text:
   label: default_page_text
   content_text: |-
     default_page_text_content_a
-    {cms:snippet:default}
+    {{cms:snippet:default}}
     default_page_text_content_b

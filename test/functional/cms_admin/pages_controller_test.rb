@@ -27,7 +27,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_field_datetime
-    cms_layouts(:default).update_attribute(:content, '{cms:field:test_label:datetime}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:datetime}}')
     get :new
     assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -35,7 +35,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_field_integer
-    cms_layouts(:default).update_attribute(:content, '{cms:field:test_label:integer}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:integer}}')
     get :new
     assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -43,7 +43,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_field_string
-    cms_layouts(:default).update_attribute(:content, '{cms:field:test_label}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label}}')
     get :new
     assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -51,7 +51,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_field_text
-    cms_layouts(:default).update_attribute(:content, '{cms:field:test_label:text}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:text}}')
     get :new
     assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -59,7 +59,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_datetime
-    cms_layouts(:default).update_attribute(:content, '{cms:page:test_label:datetime}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:datetime}}')
     get :new
     assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -67,7 +67,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_integer
-    cms_layouts(:default).update_attribute(:content, '{cms:page:test_label:integer}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:integer}}')
     get :new
     assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -75,7 +75,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_string
-    cms_layouts(:default).update_attribute(:content, '{cms:page:test_label:string}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:string}}')
     get :new
     assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
@@ -83,7 +83,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_text
-    cms_layouts(:default).update_attribute(:content, '{cms:page:test_label}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label}}')
     get :new
     assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
