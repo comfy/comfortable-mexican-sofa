@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag :cms %>
     <%= javascript_include_tag :cms %>
     <%= yield :head %>
+    <%= cms_hook :html_head %>
   </head>
   <body id='cms_admin'>
     <div class='body_wrapper'>
