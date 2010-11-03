@@ -5,13 +5,25 @@ class CmsTagTest < ActiveSupport::TestCase
   def test_tokenizer_regex
     regex = CmsTag::TOKENIZER_REGEX
     
+    tokens = 'text { text } text'.scan(regex)
+    assert_equal nil,                   tokens[0][0]
+    assert_equal 'text { text } text',  tokens[0][1]
+    
     tokens = 'content<{{cms:some_tag content'.scan(regex)
-    assert_equal nil, tokens[0][0]
-    assert_equal 'content<{{cms:some_tag content', tokens[0][1]
+    assert_equal nil,                     tokens[0][0]
+    assert_equal 'content<',              tokens[0][1]
+    assert_equal nil,                     tokens[1][0]
+    assert_equal '{{',                    tokens[1][1]
+    assert_equal nil,                     tokens[2][0]
+    assert_equal 'cms:some_tag content',  tokens[2][1]
     
     tokens = 'content<{{cms some_tag}}>content'.scan(regex)
-    assert_equal nil, tokens[0][0]
-    assert_equal 'content<{{cms some_tag}}>content', tokens[0][1]
+    assert_equal nil,                     tokens[0][0]
+    assert_equal 'content<',              tokens[0][1]
+    assert_equal nil,                     tokens[1][0]
+    assert_equal '{{',                    tokens[1][1]
+    assert_equal nil,                     tokens[2][0]
+    assert_equal 'cms some_tag}}>content',tokens[2][1]
     
     tokens = 'content<{{cms:some_tag}}>content'.scan(regex)
     assert_equal nil,                     tokens[0][0]

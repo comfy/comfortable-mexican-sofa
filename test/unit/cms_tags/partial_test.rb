@@ -32,6 +32,10 @@ class PartialTest < ActiveSupport::TestCase
     assert_equal "<%= render :partial => 'path/to/partial' %>", tag.content
     assert_equal "<%= render :partial => 'path/to/partial' %>", tag.render
     
+    tag = CmsTag::Partial.initialize_tag(cms_pages(:default), '{{cms:partial:path/to/partial:param1}}')
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1'} %>", tag.content
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1'} %>", tag.render
+    
     tag = CmsTag::Partial.initialize_tag(cms_pages(:default), '{{cms:partial:path/to/partial:param1:param2}}')
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1', :param_2 => 'param2'} %>", tag.content
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1', :param_2 => 'param2'} %>", tag.render
