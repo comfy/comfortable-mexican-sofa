@@ -58,7 +58,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_css
-    get :render_css, :id => cms_layouts(:default)
+    get :render_css, :id => cms_layouts(:default).slug
     assert_response :success
     assert_match %r{text\/css}, response.headers["Content-Type"]
     assert_equal cms_layouts(:default).css, response.body
@@ -70,7 +70,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_js
-    get :render_js, :id => cms_layouts(:default)
+    get :render_js, :id => cms_layouts(:default).slug
     assert_response :success
     assert_match %r{text\/javascript}, response.headers["Content-Type"]
     assert_equal cms_layouts(:default).js, response.body

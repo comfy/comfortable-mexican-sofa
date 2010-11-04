@@ -16,7 +16,7 @@ class CmsContentController < ApplicationController
   def render_js
     render :text => @cms_layout.merged_js, :content_type => 'text/javascript'
   end
-
+  
 protected
   
   def load_cms_site
@@ -26,15 +26,11 @@ protected
   end
   
   def load_cms_page
-    # Attempting to load seed page
-    if ComfortableMexicanSofa.configuration.seed_data_path
-      @cms_page = CmsPage.load_from_file(@cms_site, "/#{params[:cms_path]}")
-    end
-    
-    @cms_page ||= @cms_site.cms_pages.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = CmsPage.load_for_full_path!(@cms_site, "/#{params[:cms_path]}")
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
+    
   rescue ActiveRecord::RecordNotFound
-    if @cms_page = @cms_site.cms_pages.find_by_full_path('/404')
+    if @cms_page = CmsPage.load_for_full_path(@cms_site, '/404')
       render_html(404)
     else
       render :text => 'Page Not Found', :status => 404
@@ -42,7 +38,7 @@ protected
   end
   
   def load_cms_layout
-    @cms_layout = @cms_site.cms_layouts.find(params[:id])
+    @cms_layout = CmsLayout.load_for_slug!(@cms_site, params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true, :status => 404
   end

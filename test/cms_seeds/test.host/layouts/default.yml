@@ -1,2 +1,3 @@
 label: Default Layout
+slug: default
 content: <html>{{cms:page:content}}</html>

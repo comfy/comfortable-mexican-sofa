@@ -149,6 +149,31 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '<html><div>Sub Child Page Content Content for Default Snippet</div></html>', page.content
   end
   
+  def test_load_for_full_path
+    assert page = CmsPage.load_for_full_path!(cms_sites(:default), '/')
+    assert !page.new_record?
+    db_content = page.content
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert page = CmsPage.load_for_full_path!(cms_sites(:default), '/')
+    assert page.new_record?
+    file_content = page.content
+    assert_not_equal db_content, file_content
+  end
+  
+  def test_load_for_full_path_exceptions
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsPage with path: /invalid_page cannot be found' do
+      CmsPage.load_for_full_path!(cms_sites(:default), '/invalid_page')
+    end
+    assert !CmsPage.load_for_full_path(cms_sites(:default), '/invalid_page')
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsPage with path: /invalid_page cannot be found' do
+      CmsPage.load_for_full_path!(cms_sites(:default), '/invalid_page')
+    end
+    assert !CmsPage.load_for_full_path(cms_sites(:default), '/invalid_page')
+  end
+  
 protected
   
   def new_params(options = {})

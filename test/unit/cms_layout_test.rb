@@ -85,4 +85,29 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal '<html><div>{{cms:page:content}}</div></html>', layout.merged_content
   end
   
+  def test_load_for_slug
+    assert layout = CmsLayout.load_for_slug!(cms_sites(:default), 'default')
+    assert !layout.new_record?
+    db_content = layout.content
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert layout = CmsLayout.load_for_slug!(cms_sites(:default), 'default')
+    assert layout.new_record?
+    file_content = layout.content
+    assert_not_equal db_content, file_content
+  end
+  
+  def test_load_for_slug_exceptions
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsLayout with slug: not_found cannot be found' do
+      CmsLayout.load_for_slug!(cms_sites(:default), 'not_found')
+    end
+    assert !CmsLayout.load_for_slug(cms_sites(:default), 'not_found')
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsLayout with slug: not_found cannot be found' do
+      CmsLayout.load_for_slug!(cms_sites(:default), 'not_found')
+    end
+    assert !CmsLayout.load_for_slug(cms_sites(:default), 'not_found')
+  end
+  
 end
