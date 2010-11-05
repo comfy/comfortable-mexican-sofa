@@ -20,9 +20,10 @@ class CmsSnippet < ActiveRecord::Base
   
   def self.initialize_or_find(cms_page, slug)
     if ComfortableMexicanSofa.configuration.seed_data_path
-      s = CmsTag::Snippet.load_from_file(cms_page.cms_site, slug)
-    end
-    s || find_by_slug(slug) || new(:slug => slug)
+      CmsTag::Snippet.load_from_file(cms_page.cms_site, slug)
+    else
+      find_by_slug(slug)
+    end || new(:slug => slug)
   end
   
   # Attempting to initialize snippet object from yaml file that is found in config.seed_data_path
