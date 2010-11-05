@@ -58,13 +58,4 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     end
   end
   
-  def test_get_seed_data_page
-    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
-    
-    get '/seed_data_page'
-    assert_response :success
-    assert assigns(:cms_page)
-    assert assigns(:cms_page).new_record?
-  end
-  
 end

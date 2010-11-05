@@ -69,6 +69,7 @@ class ActionDispatch::IntegrationTest
   
   def setup
     host! 'test.host'
+    ComfortableMexicanSofa.config.seed_data_path = nil
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
   end

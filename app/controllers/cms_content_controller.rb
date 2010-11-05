@@ -10,11 +10,11 @@ class CmsContentController < ApplicationController
   end
   
   def render_css
-    render :text => @cms_layout.merged_css, :content_type => 'text/css'
+    render :text => @cms_layout.css, :content_type => 'text/css'
   end
   
   def render_js
-    render :text => @cms_layout.merged_js, :content_type => 'text/javascript'
+    render :text => @cms_layout.js, :content_type => 'text/javascript'
   end
   
 protected
