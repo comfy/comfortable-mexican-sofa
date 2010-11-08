@@ -19,11 +19,7 @@ class CmsSnippet < ActiveRecord::Base
   end
   
   def self.initialize_or_find(cms_page, slug)
-    if ComfortableMexicanSofa.configuration.seed_data_path
-      CmsTag::Snippet.load_from_file(cms_page.cms_site, slug)
-    else
-      find_by_slug(slug)
-    end || new(:slug => slug)
+    load_for_slug(cms_page.cms_site, slug) || new(:slug => slug)
   end
   
   # Attempting to initialize snippet object from yaml file that is found in config.seed_data_path
@@ -33,6 +29,26 @@ class CmsSnippet < ActiveRecord::Base
     return nil unless File.exists?(file_path)
     attributes = YAML.load_file(file_path).symbolize_keys!
     new(attributes)
+  end
+  
+  # Wrapper around load_from_file and find_by_slug
+  # returns layout object if loaded / found
+  def self.load_for_slug!(site, slug)
+    if ComfortableMexicanSofa.configuration.seed_data_path
+      load_from_file(site, slug)
+    else
+      # FIX: This a bit odd... Snippet is used as a tag, so sometimes there's no site scope
+      # being passed. So we're enforcing this only if it's found. Need to review.
+      conditions = site ? {:conditions => {:cms_site_id => site.id}} : {}
+      find_by_slug(slug, conditions)
+    end || raise(ActiveRecord::RecordNotFound, "CmsSnippet with slug: #{slug} cannot be found")
+  end
+  
+  # Non-blowing-up version of the method above
+  def self.load_for_slug(site, slug)
+    load_for_slug!(site, slug) 
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
   
 end

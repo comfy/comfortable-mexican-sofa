@@ -32,4 +32,29 @@ class CmsSnippetTest < ActiveSupport::TestCase
     assert_equal 'Content for Default Snippet', snippet.content
   end
   
+  def test_load_for_slug
+    assert snippet = CmsSnippet.load_for_slug!(cms_sites(:default), 'default')
+    assert !snippet.new_record?
+    db_content = snippet.content
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert snippet = CmsSnippet.load_for_slug!(cms_sites(:default), 'default')
+    assert snippet.new_record?
+    file_content = snippet.content
+    assert_not_equal db_content, file_content
+  end
+  
+  def test_load_for_slug_exceptions
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsSnippet with slug: not_found cannot be found' do
+      CmsSnippet.load_for_slug!(cms_sites(:default), 'not_found')
+    end
+    assert !CmsSnippet.load_for_slug(cms_sites(:default), 'not_found')
+    
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsSnippet with slug: not_found cannot be found' do
+      CmsSnippet.load_for_slug!(cms_sites(:default), 'not_found')
+    end
+    assert !CmsSnippet.load_for_slug(cms_sites(:default), 'not_found')
+  end
+  
 end

@@ -15,6 +15,13 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, [:cms_layout, :slug, :label]
   end
   
+  def test_validation_of_parent_presence
+    page = cms_sites(:default).cms_pages.new(new_params)
+    assert !page.parent
+    assert page.valid?, page.errors.full_messages
+    assert_equal cms_pages(:default), page.parent
+  end
+  
   def test_validation_of_parent_relationship
     page = cms_pages(:default)
     assert !page.parent
@@ -172,6 +179,15 @@ class CmsPageTest < ActiveSupport::TestCase
       CmsPage.load_for_full_path!(cms_sites(:default), '/invalid_page')
     end
     assert !CmsPage.load_for_full_path(cms_sites(:default), '/invalid_page')
+  end
+  
+  def test_cms_blocks_attributes_accessor
+    page = cms_pages(:default)
+    assert_equal page.cms_blocks.count, page.cms_blocks_attributes.size
+    assert_equal 'CmsTag::FieldText', page.cms_blocks_attributes.first[:type]
+    assert_equal 'default_field_text', page.cms_blocks_attributes.first[:label]
+    assert_equal 'default_field_text_content', page.cms_blocks_attributes.first[:content]
+    assert page.cms_blocks_attributes.first[:id]
   end
   
 protected

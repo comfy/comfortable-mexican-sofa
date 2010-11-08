@@ -1,7 +1,8 @@
 label: Default Page
 parent:
 cms_layout: default
-slug: 
+full_path: /
+slug:
 cms_blocks_attributes:
   - 
     label: content

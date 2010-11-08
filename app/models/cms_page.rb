@@ -15,7 +15,8 @@ class CmsPage < ActiveRecord::Base
   accepts_nested_attributes_for :cms_blocks
   
   # -- Callbacks ------------------------------------------------------------
-  before_validation :assign_full_path
+  before_validation :assign_parent,
+                    :assign_full_path
   after_save        :sync_child_pages
   
   # -- Validations ----------------------------------------------------------
@@ -78,6 +79,19 @@ class CmsPage < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
+  # Transforms existing cms_block information into a hash that can be used
+  # during form processing. That's the only way to modify cms_blocks.
+  def cms_blocks_attributes
+    self.cms_blocks.inject([]) do |arr, block|
+      block_attr = {}
+      block_attr[:type]     = block.class.name
+      block_attr[:label]    = block.label
+      block_attr[:content]  = block.content
+      block_attr[:id]       = block.id
+      arr << block_attr
+    end
+  end
+  
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
   def content
@@ -92,6 +106,10 @@ class CmsPage < ActiveRecord::Base
   end
   
 protected
+  
+  def assign_parent
+    self.parent ||= CmsPage.root unless self == CmsPage.root || CmsPage.count == 0
+  end
   
   def assign_full_path
     self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
