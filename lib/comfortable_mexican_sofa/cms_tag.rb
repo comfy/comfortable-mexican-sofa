@@ -9,7 +9,8 @@ module CmsTag
   TOKENIZER_REGEX = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
   
   attr_accessor :params,
-                :parent
+                :parent,
+                :record_id
   
   module ClassMethods
     # Regex that is used to match tags in the content

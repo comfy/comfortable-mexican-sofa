@@ -29,7 +29,6 @@ class FieldDateTimeTest < ActiveSupport::TestCase
     time = 2.days.ago
     tag.content = time
     assert_equal time, tag.content
-    assert_equal time, tag.read_attribute(:content_datetime)
     assert_equal '', tag.render
   end
   

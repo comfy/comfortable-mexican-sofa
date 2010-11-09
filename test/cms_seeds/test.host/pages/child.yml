@@ -6,6 +6,5 @@ slug: child
 cms_blocks_attributes:
   - 
     label: content
-    type: CmsTag::PageText
     content: |-
       Child Page Content

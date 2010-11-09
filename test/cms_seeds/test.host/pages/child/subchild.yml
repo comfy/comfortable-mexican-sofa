@@ -6,6 +6,5 @@ slug: subchild
 cms_blocks_attributes:
   - 
     label: content
-    type: CmsTag::PageText
     content: |-
       Sub Child Page Content {{cms:snippet:default}}

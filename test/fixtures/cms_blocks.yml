@@ -1,14 +1,12 @@
 default_field_text:
   cms_page: default
-  type: CmsTag::FieldText
   label: default_field_text
-  content_text: default_field_text_content
+  content: default_field_text_content
 
 default_page_text:
   cms_page: default
-  type: CmsTag::PageText
   label: default_page_text
-  content_text: |-
+  content: |-
     default_page_text_content_a
     {{cms:snippet:default}}
     default_page_text_content_b

@@ -1,7 +1,5 @@
 class CmsTag::Snippet < CmsSnippet
   
-  attr_accessor :label
-  
   include CmsTag
   
   def identifier

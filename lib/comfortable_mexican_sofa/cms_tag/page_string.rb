@@ -12,11 +12,11 @@ class CmsTag::PageString < CmsBlock
   end
   
   def content=(value)
-    write_attribute(:content_string, value)
+    write_attribute(:content, value)
   end
   
   def content
-    read_attribute(:content_string)
+    read_attribute(:content)
   end
   
 end

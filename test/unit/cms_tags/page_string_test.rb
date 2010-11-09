@@ -28,7 +28,6 @@ class PageStringTest < ActiveSupport::TestCase
     assert tag.content.blank?
     tag.content = 'test_content'
     assert_equal 'test_content', tag.content
-    assert_equal 'test_content', tag.read_attribute(:content_string)
     assert_equal 'test_content', tag.render
   end
   

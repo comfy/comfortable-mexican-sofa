@@ -12,11 +12,11 @@ class CmsTag::FieldDateTime < CmsBlock
   end
   
   def content=(value)
-    write_attribute(:content_datetime, value)
+    write_attribute(:content, value)
   end
   
   def content
-    read_attribute(:content_datetime)
+    read_attribute(:content)
   end
   
   def render

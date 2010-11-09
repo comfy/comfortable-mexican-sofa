@@ -43,16 +43,12 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Page Blocks --------------------------------------------------------
     create_table :cms_blocks do |t|
-      t.string    :type
       t.integer   :cms_page_id
       t.string    :label
-      t.string    :content_string
-      t.text      :content_text
-      t.integer   :content_integer
-      t.datetime  :content_datetime
+      t.text      :content
       t.timestamps
     end
-    add_index :cms_blocks, [:cms_page_id, :type, :label]
+    add_index :cms_blocks, [:cms_page_id, :label]
     
     # -- Snippets -----------------------------------------------------------
     create_table :cms_snippets do |t|

@@ -31,7 +31,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldDateTime']"
   end
   
   def test_get_new_with_field_integer
@@ -39,7 +38,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldInteger']"
   end
   
   def test_get_new_with_field_string
@@ -47,7 +45,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldString']"
   end
   
   def test_get_new_with_field_text
@@ -55,7 +52,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::FieldText']"
   end
   
   def test_get_new_with_page_datetime
@@ -63,7 +59,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='datetime'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageDateTime']"
   end
   
   def test_get_new_with_page_integer
@@ -71,7 +66,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='number'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageInteger']"
   end
   
   def test_get_new_with_page_string
@@ -79,7 +73,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "input[type='text'][name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageString']"
   end
   
   def test_get_new_with_page_text
@@ -87,7 +80,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
-    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][type]'][value='CmsTag::PageText']"
   end
   
   def test_get_new_as_child_page
@@ -105,6 +97,8 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert assigns(:cms_page)
     assert_template :edit
     assert_select "form[action=/cms-admin/pages/#{page.id}]"
+    assert_select "input[name='cms_page[cms_blocks_attributes][][id]'][value='#{cms_blocks(:default_field_text).id}']"
+    assert_select "input[name='cms_page[cms_blocks_attributes][][id]'][value='#{cms_blocks(:default_field_text).id}']"
   end
   
   def test_get_edit_failure
@@ -133,13 +127,10 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
           :cms_layout_id  => cms_layouts(:default).id,
           :cms_blocks_attributes => [
             { :label    => 'content',
-              :type     => 'CmsTag::PageText',
               :content  => 'content content' },
             { :label    => 'title',
-              :type     => 'CmsTag::PageString',
               :content  => 'title content' },
             { :label    => 'number',
-              :type     => 'CmsTag::PageInteger',
               :content  => '999' }
           ]
         }
@@ -158,20 +149,17 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         :cms_layout_id  => cms_layouts(:default).id,
         :cms_blocks_attributes => [
           { :label    => 'content',
-            :type     => 'CmsTag::PageText',
             :content  => 'content content' },
           { :label    => 'title',
-            :type     => 'CmsTag::PageString',
             :content  => 'title content' },
           { :label    => 'number',
-            :type     => 'CmsTag::PageInteger',
             :content  => '999' }
         ]
       }
       assert_response :success
       page = assigns(:cms_page)
       assert_equal 3, page.cms_blocks.size
-      assert_equal ['content content', 'title content', 999], page.cms_blocks.collect{|b| b.content}
+      assert_equal ['content content', 'title content', '999'], page.cms_blocks.collect{|b| b.content}
       assert_template :new
       assert_equal 'Failed to create page', flash[:error]
     end
@@ -199,11 +187,9 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         :cms_layout_id => cms_layouts(:nested).id,
         :cms_blocks_attributes => [
           { :label    => 'content',
-            :type     => 'CmsTag::PageText',
             :content  => 'new_page_text_content',
             :id       => cms_blocks(:default_page_text).id },
           { :label    => 'header',
-            :type     => 'CmsTag::PageString',
             :content  => 'new_page_string_content' }
         ]
       }
@@ -212,7 +198,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_redirected_to :action => :edit, :id => page
       assert_equal 'Page updated', flash[:notice]
       assert_equal 'Updated Label', page.label
-      assert_equal ['default_field_text_content', 'new_page_string_content', 'new_page_text_content'], page.cms_blocks.collect{|b| b.content}
+      assert_equal ['new_page_text_content', 'default_field_text_content', 'new_page_string_content'], page.cms_blocks.collect{|b| b.content}
     end
   end
   

@@ -27,8 +27,7 @@ class PageIntegerTest < ActiveSupport::TestCase
     tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), '{{cms:page:content:integer}}')
     assert tag.content.blank?
     tag.content = '5'
-    assert_equal 5, tag.content
-    assert_equal 5, tag.read_attribute(:content_integer)
+    assert_equal '5', tag.content
     assert_equal '5', tag.render
   end
   

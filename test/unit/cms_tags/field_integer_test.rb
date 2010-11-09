@@ -27,8 +27,7 @@ class FieldIntegerTest < ActiveSupport::TestCase
     tag = CmsTag::FieldInteger.initialize_tag(cms_pages(:default), '{{cms:field:content:integer}}')
     assert tag.content.blank?
     tag.content = '5'
-    assert_equal 5, tag.content
-    assert_equal 5, tag.read_attribute(:content_integer)
+    assert_equal '5', tag.content
     assert_equal '', tag.render
   end
   

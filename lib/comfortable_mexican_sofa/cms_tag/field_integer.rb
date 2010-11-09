@@ -12,11 +12,11 @@ class CmsTag::FieldInteger < CmsBlock
   end
   
   def content=(value)
-    write_attribute(:content_integer, value)
+    write_attribute(:content, value)
   end
   
   def content
-    read_attribute(:content_integer)
+    read_attribute(:content)
   end
   
   def render

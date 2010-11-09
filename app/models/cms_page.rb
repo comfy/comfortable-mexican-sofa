@@ -84,7 +84,6 @@ class CmsPage < ActiveRecord::Base
   def cms_blocks_attributes
     self.cms_blocks.inject([]) do |arr, block|
       block_attr = {}
-      block_attr[:type]     = block.class.name
       block_attr[:label]    = block.label
       block_attr[:content]  = block.content
       block_attr[:id]       = block.id
