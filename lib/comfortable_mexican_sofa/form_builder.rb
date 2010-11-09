@@ -42,7 +42,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, options = {})
     label     = options[:label] || tag.label.to_s.titleize
-    css_class = options[:css_class] || tag.class.to_s.underscore.downcase.idify
+    css_class = options[:css_class] || tag.class.name.underscore.downcase.idify
     
     options[:content_field_method] ||= :text_field_tag
     field = 

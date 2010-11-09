@@ -95,6 +95,7 @@ class CmsPage < ActiveRecord::Base
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
   def content
+    self.cms_tags = [] # resetting
     cms_layout ? CmsTag.process_content(self, cms_layout.merged_content) : ''
   end
   

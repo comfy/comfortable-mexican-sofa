@@ -202,4 +202,30 @@ class CmsTagTest < ActiveSupport::TestCase
     ), page.content
     assert_equal 6, page.cms_tags.size
   end
+  
+  def test_tag_initialization_for_existing_blocks_with_different_type
+    layout = cms_layouts(:default)
+    page = cms_pages(:default)
+    
+    assert page.content
+    assert_equal 4, page.cms_tags.size
+    assert tag = page.cms_tags.first
+    assert !tag.new_record?
+    assert_equal 'CmsTag::FieldText', tag.class.name
+    assert_equal 'CmsTag::FieldText', tag.type
+    assert_equal 'default_field_text', tag.label
+    assert_equal 'default_field_text_content', tag.content
+    
+    layout.update_attribute(:content, '{{cms:page:default_field_text:string}}')
+    page.reload
+    assert page.content
+    assert_equal 1, page.cms_tags.size
+    assert tag = page.cms_tags.first
+    assert !tag.new_record?
+    assert_equal 'CmsTag::FieldText', tag.class.name
+    assert_equal 'CmsTag::PageString', tag.type
+    assert_equal 'default_field_text', tag.label
+    assert_equal 'default_field_text_content', tag.content
+  end
+  
 end

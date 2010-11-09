@@ -258,4 +258,5 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:cms_page).cms_tags.size
     assert_template :form_blocks
   end
+  
 end

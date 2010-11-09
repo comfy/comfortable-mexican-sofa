@@ -7,7 +7,7 @@ namespace :comfortable_mexican_sofa do
         abort('ComfortableMexicanSofa.config.seed_data_path is not set. Where are those yaml files?') 
       end
       if !(@site = CmsSite.find_by_hostname(args[:hostname]))
-        abort("Can't find site with HOSTNAME '#{args[:site]}'")
+        abort("Can't find site with HOSTNAME '#{args[:hostname]}'")
       end
       puts "Starting import into #{@site.label} (#{@site.hostname})..."
     end
@@ -29,7 +29,7 @@ namespace :comfortable_mexican_sofa do
             layout.parent = (parent rescue nil)
             should_write    = true
             existing_layout = nil
-          
+            
             if existing_layout = @site.cms_layouts.find_by_slug(layout.slug)
               print "Found layout in database with slug: #{layout.slug}. Overwrite? (yN): "
               should_write = ($stdin.gets.to_s.strip.downcase == 'y')
