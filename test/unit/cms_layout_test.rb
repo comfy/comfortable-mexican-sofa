@@ -49,15 +49,22 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal ['cms_admin.html.erb'], CmsLayout.app_layouts_for_select
   end
   
-  def test_merged_content
+  def test_merged_content_with_same_child_content
     parent_layout = cms_layouts(:nested)
-    layout = cms_layouts(:child)
-    assert_equal "{{cms:page:header}}\n{{cms:page:left_column}}\n{{cms:page:right_column}}", layout.merged_content
-    assert_equal "{{cms:page:left_column}}\n{{cms:page:right_column}}", layout.content
+    assert_equal "{{cms:page:header}}\n{{cms:page:content}}", parent_layout.content
+    assert_equal "{{cms:page:header}}\n{{cms:page:content}}", parent_layout.merged_content
+    
+    child_layout = cms_layouts(:child)
+    assert_equal parent_layout, child_layout.parent
+    assert_equal "{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.content
+    assert_equal "{{cms:page:header}}\n{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.merged_content
+    
+    child_layout.update_attribute(:content, '{{cms:page:content}}')
+    assert_equal "{{cms:page:header}}\n{{cms:page:content}}", child_layout.merged_content
     
     parent_layout.update_attribute(:content, '{{cms:page:whatever}}')
-    layout.reload
-    assert_equal "{{cms:page:left_column}}\n{{cms:page:right_column}}", layout.merged_content
+    child_layout.reload
+    assert_equal '{{cms:page:content}}', child_layout.merged_content
   end
   
   def test_merged_css
