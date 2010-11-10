@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  namespace :cms_admin, :path => 'cms-admin', :except => :show do
-    get '/' => redirect('/cms-admin/pages')
+  namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
+    get '/' => redirect("/#{ComfortableMexicanSofa.config.admin_route_prefix}/pages")
     resources :pages do
       member do 
         match :form_blocks

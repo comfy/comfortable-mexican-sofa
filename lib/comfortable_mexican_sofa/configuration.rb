@@ -10,11 +10,16 @@ class ComfortableMexicanSofa::Configuration
   # data from the database. Not active if not specified.
   attr_accessor :seed_data_path
   
+  # Default url to access admin area is http://yourhost/cms-admin/ 
+  # You can change 'cms-admin' to 'admin', for example.
+  attr_accessor :admin_route_prefix
+  
   # Configuration defaults
   def initialize
-    @cms_title        = 'ComfortableMexicanSofa'
-    @authentication   = 'ComfortableMexicanSofa::HttpAuth'
-    @seed_data_path   = nil
+    @cms_title          = 'ComfortableMexicanSofa'
+    @authentication     = 'ComfortableMexicanSofa::HttpAuth'
+    @seed_data_path     = nil
+    @admin_route_prefix = 'cms-admin'
   end
   
 end
