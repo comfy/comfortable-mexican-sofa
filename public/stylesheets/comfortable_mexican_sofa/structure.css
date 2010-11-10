@@ -199,6 +199,13 @@ ul.list li .item:hover .action_links,
 table.formatted tr:hover td.action_links a {
   opacity: 1;
 }
+table.formatted th {
+  background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
+  color: #ececec;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
 table.formatted th,
 table.formatted td {
   white-space: nowrap;
@@ -210,4 +217,23 @@ table.formatted th.main,
 table.formatted td.main {
   width: 100%;
   white-space: normal;
+}
+.pagination {
+  margin: 10px 0px;
+}
+.pagination span,
+.pagination em,
+.pagination a {
+  padding: 2px 5px;
+  margin-right: 2px;
+  background-color: #fff;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.pagination span {
+  color: #ececec;
+}
+.pagination em {
+  background-color: #1C1F22;
+  color: #fff;
 }

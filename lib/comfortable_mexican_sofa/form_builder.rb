@@ -24,6 +24,16 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     ).html_safe
   end
   
+  def simple_field(label = nil, content = nil, &block)
+    content ||= @template.capture(&block) if block_given?
+    %(
+      <div class='form_element'>
+        <div class='label'>#{label}</div>
+        <div class='value'>#{content}</div>
+      </div>
+    ).html_safe
+  end
+  
   def label_for(field, options)
     label = options.delete(:label) || field.to_s.titleize.capitalize_all
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
