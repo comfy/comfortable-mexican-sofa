@@ -94,10 +94,9 @@ Save a page, and it will be accessible from the public side.
 
 Working with fixtures
 ---------------------
-
-### Setting up Fixtures
 During development it's often more convenient to work with files that can be source controlled, versus putting content in the database and then manage database dump. Thankfully Sofa makes working with fixtures easy.
 
+### Setting up Fixtures
 First of all you need to set a path where fixture files will be found:
     
     # in config/initializers/comfortable_mexican_sofa.rb
@@ -143,9 +142,18 @@ If you need to pull down database content into fixtures it's done as follows:
     
 During import/export it will prompt you if there are any files/database entries that are going to be overwritten
 
+Admin Area Integration
+----------------------
+Sofa has a wonderful admin area. Why would you want to make your own layout, styling and so on if you can reuse what CMS has. 
 
+You can easily make your controllers use layouts and CMS authentication like this:
 
-
-
-
-
+    class Admin::UsersController < CmsAdmin::BaseController
+      # ...
+    end
+    
+To add your own tabs to the admin area you can use hooks:
+    
+    # in config/initializers/comfortable_mexican_sofa.rb
+    ComfortableMexicanSofa::ViewHooks.add(:navigation, '/path/to/view/partial')
+    ComfortableMexicanSofa::ViewHooks.add(:html_head, '/path/to/view/partial')
