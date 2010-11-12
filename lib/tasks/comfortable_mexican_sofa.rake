@@ -46,7 +46,7 @@ namespace :comfortable_mexican_sofa do
             existing_layout = nil
             
             if existing_layout = @site.cms_layouts.find_by_slug(layout.slug)
-              print "Found layout in database with slug: #{layout.slug}. Overwrite? (yN): "
+              print "Found layout in database with slug: #{layout.slug}. Overwrite? (y/N): "
               should_write = ($stdin.gets.to_s.strip.downcase == 'y')
             end
             if should_write
@@ -86,7 +86,7 @@ namespace :comfortable_mexican_sofa do
             existing_page = nil
             
             if existing_page = @site.cms_pages.find_by_full_path(page.full_path)
-              print "Found page in database with full_path: #{page.full_path}. Overwrite? (yN): "
+              print "Found page in database with full_path: #{page.full_path}. Overwrite? (y/N): "
               should_write = ($stdin.gets.to_s.strip.downcase == 'y')
             end
             
@@ -128,7 +128,7 @@ namespace :comfortable_mexican_sofa do
           should_write      = true
           existing_snippet  = nil
           if existing_snippet = @site.cms_snippets.find_by_slug(snippet.slug)
-            print "Found snippet in database with slug: #{snippet.slug}. Overwrite? (yN): "
+            print "Found snippet in database with slug: #{snippet.slug}. Overwrite? (y/N): "
             should_write = ($stdin.gets.to_s.strip.downcase == 'y')
           end
           if should_write
@@ -187,7 +187,7 @@ namespace :comfortable_mexican_sofa do
         should_write = true
         file_path = File.join(@seed_path, 'layouts', "#{layout.slug}.yml")
         if File.exists?(file_path)
-          print "Found layout fixture: #{file_path} Overwrite? (yN): "
+          print "Found layout fixture: #{file_path} Overwrite? (y/N): "
           should_write = ($stdin.gets.to_s.strip.downcase == 'y')
         end
         if should_write
@@ -216,7 +216,7 @@ namespace :comfortable_mexican_sofa do
         file_path = File.join(@seed_path, 'pages', "#{page_path}/#{page_name}.yml")
         
         if File.exists?(file_path)
-          print "Found page fixture: #{file_path} Overwrite? (yN): "
+          print "Found page fixture: #{file_path} Overwrite? (y/N): "
           should_write = ($stdin.gets.to_s.strip.downcase == 'y')
         end
         if should_write
@@ -244,7 +244,7 @@ namespace :comfortable_mexican_sofa do
         should_write = true
         file_path = File.join(@seed_path, 'snippets', "#{snippet.slug}.yml")
         if File.exists?(file_path)
-          print "Found snippet fixture: #{file_path} Overwrite? (yN): "
+          print "Found snippet fixture: #{file_path} Overwrite? (y/N): "
           should_write = ($stdin.gets.to_s.strip.downcase == 'y')
         end
         if should_write

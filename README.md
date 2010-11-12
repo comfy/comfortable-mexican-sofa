@@ -30,6 +30,8 @@ At this point you should have database structure created, some assets copied to 
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
     
+For a full list of available configuration options and their defaults take a peek in here: [configuration.rb](http://https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/lib/comfortable_mexican_sofa/configuration.rb)
+    
 Usage
 -----
 Now you should be able to navigate to http://yoursite/cms-admin
@@ -48,6 +50,8 @@ Before creating pages and populating them with content we need to create a layou
     </html>
     
 So there's your layout and the `{{cms:page:content}}` defines a place where renderable `content` will go. There's just a handful of tags that you can use.
+
+Layout may also be linked to the `application layout`. As a result cms page content will end up inside `<%= yeild %>` of your application layout.
 
 #### Page Blocks
 pieces of content that will be output on the page:
@@ -84,10 +88,64 @@ are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
     {{ cms:partial:path/to/partial:x:y }} # gets translated to <%= render :partial => 'path/to/partial', 
                                           # :locals => { :param_1 => 'x', :param_2 => 'y'} %>
 
-You don't have to define entire html layout, however. You can simply re-use your application one. Page content will be yielded into it like any normal view.
-
-TODO: more stuff
-
 ### Step 3: Create Page
+Now you're ready to create a page. Based on how you defined your layout, you should have form inputs ready to be populated.
+Save a page, and it will be accessible from the public side.
 
-TODO: You pres butan page is created. Yay!
+Working with fixtures
+---------------------
+
+### Setting up Fixtures
+During development it's often more convenient to work with files that can be source controlled, versus putting content in the database and then manage database dump. Thankfully Sofa makes working with fixtures easy.
+
+First of all you need to set a path where fixture files will be found:
+    
+    # in config/initializers/comfortable_mexican_sofa.rb
+    if Rails.env.development? || Rails.env.test?
+      ComfortableMexicanSofa.config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
+    end
+    
+This is an example of the file/folder structure for fixtures:
+    
+    your-site.local/
+      - layouts/
+        - default_layout.yml
+      - pages
+        - index.yml
+        - help.yml
+        - help/
+          - more_help.yml
+      - snippets
+        - random_snippet.yml
+    
+Then it's a matter of populating the content. Few rules to remember:
+  
+- root page is always index.yml
+- sections of the page are defined by cms\_block\_attributes
+- parent pages are identified by full_path (slug for layouts)
+- folder structure reflects tree structure of the site
+
+Example fixture files for a [layout](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/layouts/nested.yml), [page](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/pages/child/subchild.yml) and [snippet](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/snippets/default.yml)
+
+**Note:** If ComfortableMexicanSofa.config.seed\_data\_path is set no content is loaded from database. Only fixture files are used.
+
+### Importing fixtures into database
+Now that you have all those fixture files, how do we get them into database? Easy:
+
+    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com PATH=/path/to/fixtures
+    
+PATH is optional if seed\_data\_path configuration option is set.
+
+### Exporting database data into fixtures
+If you need to pull down database content into fixtures it's done as follows:
+    
+    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local PATH=/path/to/fixtures
+    
+During import/export it will prompt you if there are any files/database entries that are going to be overwritten
+
+
+
+
+
+
+
