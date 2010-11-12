@@ -20,6 +20,10 @@ namespace :comfortable_mexican_sofa do
       if !(@site = CmsSite.find_by_hostname(args[:to]))
         abort "TO is not properly set. Cannot find site with hostname '#{args[:to]}'"
       end
+      
+      # a small hack to ensure that #load_from_file looks in the right directory
+      @site.hostname = args[:from]
+      
       puts "Starting import into #{@site.label} (#{@site.hostname}) from '#{@seed_path}'"
     end
     
@@ -30,8 +34,8 @@ namespace :comfortable_mexican_sofa do
       layouts = Dir.glob(File.expand_path('layouts/*.yml', @seed_path)).collect do |layout_file_path|
         attributes = YAML.load_file(layout_file_path).symbolize_keys!
         @site.cms_layouts.load_from_file(@site, attributes[:slug])
-      end
-      CmsPage.connection.transaction do
+      end.compact
+      CmsLayout.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
         # so we cycle them until there nothing left to save
         while layouts.present?
@@ -69,7 +73,7 @@ namespace :comfortable_mexican_sofa do
       pages = Dir.glob(File.expand_path('pages/**/*.yml', @seed_path)).collect do |page_file_path|
         attributes = YAML.load_file(page_file_path).symbolize_keys!
         @site.cms_pages.load_from_file(@site, attributes[:full_path])
-      end
+      end.compact
       CmsPage.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
         # so we cycle them until there nothing left to save
@@ -118,7 +122,7 @@ namespace :comfortable_mexican_sofa do
       snippets = Dir.glob(File.expand_path('snippets/*.yml', @seed_path)).collect do |snippet_file_path|
         attributes = YAML.load_file(snippet_file_path).symbolize_keys!
         @site.cms_snippets.load_from_file(@site, attributes[:slug])
-      end
+      end.compact
       CmsSnippet.connection.transaction do
         snippets.each do |snippet|
           should_write      = true
