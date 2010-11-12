@@ -92,6 +92,13 @@ are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
 Now you're ready to create a page. Based on how you defined your layout, you should have form inputs ready to be populated.
 Save a page, and it will be accessible from the public side.
 
+Integrating CMS with your app
+-----------------------------
+Unlike most CMS solutions, Sofa is here only to help. Your application is more important. There are few useful ways you can use CMS functionality from your application.
+
+* When CMS renders a page, you automatically have access to `@cms_page` variable.
+* CMS can take over the rendering of views for your application. For example, http://your-app.local/books hits books\_controller#index and if you don't have a view setup CMS will try to serve a page with '/books' path. You can even force your controller to render a particular page like this: `render :cms_page => '/books'`
+
 Working with fixtures
 ---------------------
 During development it's often more convenient to work with files that can be source controlled, versus putting content in the database and then manage database dump. Thankfully Sofa makes working with fixtures easy.
