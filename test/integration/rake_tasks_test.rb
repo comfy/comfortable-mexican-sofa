@@ -14,8 +14,10 @@ class RakeTasksTest < ActionDispatch::IntegrationTest
     
     assert_difference 'CmsLayout.count', 2 do
       capture_rake_output{ 
-        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(:hostname => 'test.host')
-        Rake.application['comfortable_mexican_sofa:import:layouts'].execute(:hostname => 'test.host')
+        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(
+          :from => 'test.host', :to => 'test.host' )
+        Rake.application['comfortable_mexican_sofa:import:layouts'].execute(
+          :from => 'test.host', :to => 'test.host' )
       }
     end
   end
@@ -26,8 +28,10 @@ class RakeTasksTest < ActionDispatch::IntegrationTest
     
     assert_difference ['CmsPage.count', 'CmsBlock.count'], 3 do
       capture_rake_output{ 
-        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(:hostname => 'test.host')
-        Rake.application['comfortable_mexican_sofa:import:pages'].execute(:hostname => 'test.host')
+        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(
+          :from => 'test.host', :to => 'test.host' )
+        Rake.application['comfortable_mexican_sofa:import:pages'].execute(
+          :from => 'test.host', :to => 'test.host' )
       }
     end
   end
@@ -38,8 +42,10 @@ class RakeTasksTest < ActionDispatch::IntegrationTest
     
     assert_difference 'CmsSnippet.count', 1 do
       capture_rake_output{ 
-        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(:hostname => 'test.host')
-        Rake.application['comfortable_mexican_sofa:import:snippets'].execute(:hostname => 'test.host')
+        Rake.application['comfortable_mexican_sofa:import:check_for_requirements'].execute(
+          :from => 'test.host', :to => 'test.host' )
+        Rake.application['comfortable_mexican_sofa:import:snippets'].execute(
+          :from => 'test.host', :to => 'test.host' )
       }
     end
   end

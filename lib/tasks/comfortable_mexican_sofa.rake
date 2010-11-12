@@ -1,21 +1,31 @@
 namespace :comfortable_mexican_sofa do
   
+  # Example use:
+  #   rake comfortable_mexican_sofa:import:all FROM=mysite.local TO=mysite.com PATH=/path/to/seed_data
   namespace :import do
     
     task :check_for_requirements => :environment do |task, args|
-      if !(@seed_path = ComfortableMexicanSofa.config.seed_data_path)
-        abort('ComfortableMexicanSofa.config.seed_data_path is not set. Where are those yaml files?') 
+      @from       = args[:from].present?? args[:from] : nil
+      @site       = args[:to].present?? args[:to] : nil
+      @seed_path  = (args[:seeds].present?? args[:seeds] : nil) || ComfortableMexicanSofa.config.seed_data_path
+      
+      if !@seed_path
+        abort 'PATH is not set. Please define where cms fixtures are located.'
       end
-      if !(@site = CmsSite.find_by_hostname(args[:hostname]))
-        abort("Can't find site with HOSTNAME '#{args[:hostname]}'")
+      unless File.exists?((@from && @seed_path = "#{@seed_path}/#{@from}").to_s)
+        abort "FROM is not properly set. Cannot find fixtures in '#{@seed_path}'"
       end
-      puts "Starting import into #{@site.label} (#{@site.hostname})..."
+      if !(@site = CmsSite.find_by_hostname(args[:to]))
+        abort "TO is not properly set. Cannot find site with hostname '#{args[:to]}'"
+      end
+      puts "Starting import into #{@site.label} (#{@site.hostname}) from '#{@seed_path}'"
     end
     
     desc 'Import layouts into database'
     task :layouts => [:environment, :check_for_requirements] do |task, args|
-      puts 'Importing Layouts...'
-      layouts = Dir.glob(File.expand_path("#{@site.hostname}/layouts/**/*.yml", @seed_path)).collect do |layout_file_path|
+      puts 'Importing Layouts'
+      puts '-----------------'
+      layouts = Dir.glob(File.expand_path('layouts/*.yml', @seed_path)).collect do |layout_file_path|
         attributes = YAML.load_file(layout_file_path).symbolize_keys!
         @site.cms_layouts.load_for_slug!(@site, attributes[:slug])
       end
@@ -39,8 +49,8 @@ namespace :comfortable_mexican_sofa do
                 existing_layout.attributes = layout.attributes.slice('label', 'content', 'css', 'js')
                 layout = existing_layout
               end
+              puts "Saving layout: #{layout.label} (#{layout.slug})"
               layout.save!
-              puts "Saved layout: #{layout.label} (#{layout.slug})"
             else
               puts "Skipping layout: #{layout.label} (#{layout.slug})"
             end
@@ -53,8 +63,9 @@ namespace :comfortable_mexican_sofa do
     
     desc 'Import pages into database'
     task :pages => [:environment, :check_for_requirements] do |task, args|
-      puts 'Importing Pages...'
-      pages = Dir.glob(File.expand_path("#{@site.hostname}/pages/**/*.yml", @seed_path)).collect do |page_file_path|
+      puts 'Importing Pages'
+      puts '---------------'
+      pages = Dir.glob(File.expand_path('pages/**/*.yml', @seed_path)).collect do |page_file_path|
         attributes = YAML.load_file(page_file_path).symbolize_keys!
         @site.cms_pages.load_for_full_path!(@site, attributes[:full_path])
       end
@@ -87,10 +98,10 @@ namespace :comfortable_mexican_sofa do
                 existing_page.cms_blocks_attributes = attrs
                 page = existing_page
               end
+              puts "... Saving page: #{page.label} (#{page.full_path})"
               page.save!
-              puts "Saved page: #{page.label} (#{page.full_path})"
             else
-              puts "Skipping page: #{page.label} (#{page.full_path})"
+              puts "... Skipping page: #{page.label} (#{page.full_path})"
             end
           else
             pages.push page
@@ -101,8 +112,9 @@ namespace :comfortable_mexican_sofa do
     
     desc 'Import snippets into database'
     task :snippets => [:environment, :check_for_requirements] do |task, args|
-      puts 'Importing Snippets...'
-      snippets = Dir.glob(File.expand_path("#{@site.hostname}/snippets/**/*.yml", @seed_path)).collect do |snippet_file_path|
+      puts 'Importing Snippets'
+      puts '------------------'
+      snippets = Dir.glob(File.expand_path('snippets/*.yml', @seed_path)).collect do |snippet_file_path|
         attributes = YAML.load_file(snippet_file_path).symbolize_keys!
         @site.cms_snippets.load_for_slug!(@site, attributes[:slug])
       end
@@ -119,10 +131,10 @@ namespace :comfortable_mexican_sofa do
               existing_snippet.attributes = snippet.attributes.slice('label', 'content')
               snippet = existing_snippet
             end
+            puts "... Saving snippet: #{snippet.label} (#{snippet.slug})"
             snippet.save!
-            puts "Saved snippet: #{snippet.label} (#{snippet.slug})"
           else
-            puts "Skipping snippet: #{snippet.label} (#{snippet.slug})"
+            puts "... Skipping snippet: #{snippet.label} (#{snippet.slug})"
           end
         end
       end
@@ -133,21 +145,111 @@ namespace :comfortable_mexican_sofa do
     
   end
   
+  # Example use:
+  #   rake comfortable_mexican_sofa:import:all FROM=mysite.com TO=mysite.local PATH=/path/to/seed_data
   namespace :export do
+    
+    task :check_for_requirements => :environment do |task, args|
+      @site       = args[:from].present?? args[:from] : nil
+      @to         = args[:to].present?? args[:to] : nil
+      @seed_path  = (args[:seeds].present?? args[:seeds] : nil) || ComfortableMexicanSofa.config.seed_data_path
+      
+      if !@seed_path
+        abort 'PATH is not set. Please define where cms fixtures are located.'
+      end
+      if !(@site = CmsSite.find_by_hostname(args[:from]))
+        abort "FROM is not properly set. Cannot find site with hostname '#{args[:from]}'"
+      end
+      unless @to && @seed_path = "#{@seed_path}/#{@to}"
+        abort "TO is not properly set. What's the target hostname?"
+      end
+      
+      FileUtils.mkdir_p @seed_path
+      FileUtils.mkdir_p "#{@seed_path}/layouts"
+      FileUtils.mkdir_p "#{@seed_path}/pages"
+      FileUtils.mkdir_p "#{@seed_path}/snippets"
+      
+      puts "Starting export from #{@site.label} (#{@site.hostname}) to '#{@seed_path}'"
+    end
     
     desc 'Export layouts to yaml files'
     task :layouts => [:environment, :check_for_requirements] do |task, args|
-      
+      puts 'Exporting Layouts'
+      puts '-----------------'
+      CmsLayout.all.each do |layout|
+        should_write = true
+        file_path = File.join(@seed_path, 'layouts', "#{layout.slug}.yml")
+        if File.exists?(file_path)
+          print "Found layout fixture: #{file_path} Overwrite? (yN): "
+          should_write = ($stdin.gets.to_s.strip.downcase == 'y')
+        end
+        if should_write
+          attributes = layout.attributes.slice('label', 'slug', 'content', 'css', 'js')
+          attributes['parent'] = layout.parent.slug if layout.parent
+          open(file_path, 'w') do |f|
+            f.write(attributes.to_yaml)
+          end
+          puts "... Saving layout: #{layout.label} (#{layout.slug})"
+        else
+          puts "... Skipping layout: #{layout.label} (#{layout.slug})"
+        end
+      end
     end
     
     desc 'Export pages to yaml files'
     task :pages => [:environment, :check_for_requirements] do |task, args|
-      
+      puts 'Exporting Pages'
+      puts '---------------'
+      CmsPage.all.each do |page|
+        should_write = true
+        page_name = page.full_path.split('/').last || 'index'
+        page_path = (p = page.full_path.split('/')) && p.pop && p.join('/')
+        
+        FileUtils.mkdir_p "#{@seed_path}/pages/#{page_path}"
+        file_path = File.join(@seed_path, 'pages', "#{page_path}/#{page_name}.yml")
+        
+        if File.exists?(file_path)
+          print "Found page fixture: #{file_path} Overwrite? (yN): "
+          should_write = ($stdin.gets.to_s.strip.downcase == 'y')
+        end
+        if should_write
+          
+          attributes = page.attributes.slice('label', 'slug', 'full_path')
+          attributes['parent']                = page.parent.full_path if page.parent
+          attributes['cms_layout']            = page.cms_layout.slug
+          attributes['cms_blocks_attributes'] = page.cms_blocks_attributes.collect{|b| b.delete(:id) && b.stringify_keys}
+          
+          open(file_path, 'w') do |f|
+            f.write(attributes.to_yaml)
+          end
+          puts "... Saving page: #{page.label} (#{page.full_path})"
+        else
+          puts "... Skipping page: #{page.label} (#{page.full_path})"
+        end
+      end
     end
     
     desc 'Export snippets to yaml files'
     task :snippets => [:environment, :check_for_requirements] do |task, args|
-      
+      puts 'Exporting Snippets'
+      puts '------------------'
+      CmsSnippet.all.each do |snippet|
+        should_write = true
+        file_path = File.join(@seed_path, 'snippets', "#{snippet.slug}.yml")
+        if File.exists?(file_path)
+          print "Found snippet fixture: #{file_path} Overwrite? (yN): "
+          should_write = ($stdin.gets.to_s.strip.downcase == 'y')
+        end
+        if should_write
+          attributes = snippet.attributes.slice('label', 'slug', 'content')
+          open(file_path, 'w') do |f|
+            f.write(attributes.to_yaml)
+          end
+          puts "... Saving snippet: #{snippet.label} (#{snippet.slug})"
+        else
+          puts "... Skipping snippet: #{snippet.label} (#{snippet.slug})"
+        end
+      end
     end
     
     desc 'Export layouts, pages and snippets all in one go'
