@@ -7,10 +7,12 @@ namespace :comfortable_mexican_sofa do
     task :check_for_requirements => :environment do |task, args|
       @from       = args[:from].present?? args[:from] : nil
       @site       = args[:to].present?? args[:to] : nil
-      @seed_path  = (args[:seeds].present?? args[:seeds] : nil) || ComfortableMexicanSofa.config.seed_data_path
+      @seed_path  = 
+        ComfortableMexicanSofa.config.seed_data_path = 
+        (args[:seed_path].present?? args[:seed_path] : nil) || ComfortableMexicanSofa.config.seed_data_path
       
       if !@seed_path
-        abort 'PATH is not set. Please define where cms fixtures are located.'
+        abort 'SEED_PATH is not set. Please define where cms fixtures are located.'
       end
       unless File.exists?((@from && @seed_path = "#{@seed_path}/#{@from}").to_s)
         abort "FROM is not properly set. Cannot find fixtures in '#{@seed_path}'"
@@ -27,9 +29,8 @@ namespace :comfortable_mexican_sofa do
       puts '-----------------'
       layouts = Dir.glob(File.expand_path('layouts/*.yml', @seed_path)).collect do |layout_file_path|
         attributes = YAML.load_file(layout_file_path).symbolize_keys!
-        @site.cms_layouts.load_for_slug!(@site, attributes[:slug])
+        @site.cms_layouts.load_from_file(@site, attributes[:slug])
       end
-      
       CmsPage.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
         # so we cycle them until there nothing left to save
@@ -67,7 +68,7 @@ namespace :comfortable_mexican_sofa do
       puts '---------------'
       pages = Dir.glob(File.expand_path('pages/**/*.yml', @seed_path)).collect do |page_file_path|
         attributes = YAML.load_file(page_file_path).symbolize_keys!
-        @site.cms_pages.load_for_full_path!(@site, attributes[:full_path])
+        @site.cms_pages.load_from_file(@site, attributes[:full_path])
       end
       CmsPage.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
@@ -116,7 +117,7 @@ namespace :comfortable_mexican_sofa do
       puts '------------------'
       snippets = Dir.glob(File.expand_path('snippets/*.yml', @seed_path)).collect do |snippet_file_path|
         attributes = YAML.load_file(snippet_file_path).symbolize_keys!
-        @site.cms_snippets.load_for_slug!(@site, attributes[:slug])
+        @site.cms_snippets.load_from_file(@site, attributes[:slug])
       end
       CmsSnippet.connection.transaction do
         snippets.each do |snippet|
@@ -152,10 +153,12 @@ namespace :comfortable_mexican_sofa do
     task :check_for_requirements => :environment do |task, args|
       @site       = args[:from].present?? args[:from] : nil
       @to         = args[:to].present?? args[:to] : nil
-      @seed_path  = (args[:seeds].present?? args[:seeds] : nil) || ComfortableMexicanSofa.config.seed_data_path
+      @seed_path  = 
+        ComfortableMexicanSofa.config.seed_data_path = 
+        (args[:seed_path].present?? args[:seed_path] : nil) || ComfortableMexicanSofa.config.seed_data_path
       
       if !@seed_path
-        abort 'PATH is not set. Please define where cms fixtures are located.'
+        abort 'SEED_PATH is not set. Please define where cms fixtures are located.'
       end
       if !(@site = CmsSite.find_by_hostname(args[:from]))
         abort "FROM is not properly set. Cannot find site with hostname '#{args[:from]}'"
