@@ -105,6 +105,7 @@ html, body {
   width: 98%;
 }
 .form_element .value input,
+.form_element .value select,
 .form_element .value textarea {
   border: 1px solid #ccc;
   padding: 2px;
@@ -115,6 +116,9 @@ html, body {
 }
 .form_element.submit_element {
   margin-left: 160px;
+}
+.form_element.check_box_element input {
+  width: auto;
 }
 .page_form_extras {
   margin-bottom: 25px;
@@ -199,6 +203,9 @@ ul.list li .item:hover .action_links,
 table.formatted tr:hover td.action_links a {
   opacity: 1;
 }
+table.formatted {
+  clear: both;
+}
 table.formatted th {
   background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
   color: #ececec;
@@ -236,4 +243,8 @@ table.formatted td.main {
 .pagination em {
   background-color: #1C1F22;
   color: #fff;
+}
+form.search {
+  float: right;
+  margin: 5px 0px;
 }
