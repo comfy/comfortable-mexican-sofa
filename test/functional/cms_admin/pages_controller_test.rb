@@ -24,6 +24,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     
     assert_template :new
     assert_select 'form[action=/cms-admin/pages]'
+    assert_select 'select[data-path-prefix=cms-admin]'
   end
   
   def test_get_new_with_field_datetime
