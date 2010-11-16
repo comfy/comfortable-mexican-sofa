@@ -6,7 +6,7 @@ $.CMS = function(){
     $('input#slugify').bind('keyup.cms', function() {
       $('input#slug').val( $.CMS.slugify( $(this).val() ) );
     });
-
+    
     // Expand/Collapse tree function
     $('a.tree_toggle').bind('click.cms', function() {
       $(this).siblings('ul').toggle();
@@ -14,12 +14,12 @@ $.CMS = function(){
       // object_id are set in the helper (check cms_helper.rb)
       $.ajax({url: [current_path, object_id, 'toggle'].join('/')});
     });
-
+    
     // Show/hide details
     $('a.details_toggle').bind('click.cms', function() {
       $(this).parent().siblings('table.details').toggle();
     });
-
+    
     // Sortable trees
     $('ul.sortable').each(function(){
       $(this).sortable({  handle: 'div.dragger',
@@ -31,13 +31,11 @@ $.CMS = function(){
     
     // Load Page Blocks on layout change
     $('select#cms_page_cms_layout_id').bind('change.cms', function() {
-      $.ajax({url: [$(this).attr('data-path-prefix'), 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
+      $.ajax({url: ['/' + $(this).attr('data-path-prefix'), 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
     })
-
+    
   }); // End $(document).ready()
-
-
-
+  
   return {
     slugify: function(str){
       str = str.replace(/^\s+|\s+$/g, '');

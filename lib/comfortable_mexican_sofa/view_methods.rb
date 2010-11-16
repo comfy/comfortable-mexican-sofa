@@ -19,6 +19,24 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_hook(name)
     ComfortableMexicanSofa::ViewHooks.render(name, self)
   end
+  
+  # Content of a snippet. Example:
+  #   cms_snippet_content(:my_snippet)
+  def cms_snippet_content(snippet_slug)
+    return '' unless snippet = CmsSnippet.find_by_slug(snippet_slug)
+    snippet.content.to_s.html_safe
+  end
+  
+  # Content of a page block. This is how you get content from page:field
+  # Example:
+  #   cms_page_content(:left_column, CmsPage.first)
+  #   cms_page_content(:left_column) # if @cms_page is present
+  def cms_page_content(block_label, page = nil)
+    return '' unless page ||= @cms_page
+    return '' unless block = page.cms_blocks.find_by_label(block_label)
+    block.content.to_s.html_safe
+  end
+  
 end
 
 ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods
