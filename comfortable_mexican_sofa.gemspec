@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.23"
+  s.version = "1.0.24"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -169,7 +169,8 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/page_text_test.rb",
      "test/unit/cms_tags/partial_test.rb",
      "test/unit/cms_tags/snippet_test.rb",
-     "test/unit/cms_upload_test.rb"
+     "test/unit/cms_upload_test.rb",
+     "test/unit/view_methods_test.rb"
   ]
   s.homepage = %q{http://github.com/theworkinggroup/comfortable-mexican-sofa}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -208,7 +209,8 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/page_text_test.rb",
      "test/unit/cms_tags/partial_test.rb",
      "test/unit/cms_tags/snippet_test.rb",
-     "test/unit/cms_upload_test.rb"
+     "test/unit/cms_upload_test.rb",
+     "test/unit/view_methods_test.rb"
   ]
 
   if s.respond_to? :specification_version then
