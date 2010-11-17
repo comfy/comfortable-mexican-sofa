@@ -41,6 +41,7 @@ $.CMS = function(){
     })
     
     $.CMS.enable_rich_text();
+    $.CMS.enable_date_picker();
     
   }); // End $(document).ready()
   
@@ -64,6 +65,9 @@ $.CMS = function(){
           redo: { visible : false }
         }
       });
+    },
+    enable_date_picker: function(){
+      $('input[type=datetime]').datepicker();
     }
   }
 }();
