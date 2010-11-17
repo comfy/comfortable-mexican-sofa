@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.24"
+  s.version = "1.0.25"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2010-11-16}
+  s.date = %q{2010-11-17}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -88,6 +88,7 @@ Gem::Specification.new do |s|
      "lib/comfortable_mexican_sofa/cms_tag/helper.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_datetime.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_integer.rb",
+     "lib/comfortable_mexican_sofa/cms_tag/page_rich_text.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_string.rb",
      "lib/comfortable_mexican_sofa/cms_tag/page_text.rb",
      "lib/comfortable_mexican_sofa/cms_tag/partial.rb",
@@ -112,6 +113,11 @@ Gem::Specification.new do |s|
      "public/javascripts/comfortable_mexican_sofa/cms.js",
      "public/javascripts/comfortable_mexican_sofa/jquery-ui.js",
      "public/javascripts/comfortable_mexican_sofa/jquery.js",
+     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.css",
+     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.gif",
+     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.jpg",
+     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.js",
+     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.modal.css",
      "public/javascripts/comfortable_mexican_sofa/plupload/plupload.full.min.js",
      "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html4.min.js",
      "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.min.js",
@@ -165,6 +171,7 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/helper_test.rb",
      "test/unit/cms_tags/page_datetime_test.rb",
      "test/unit/cms_tags/page_integer_test.rb",
+     "test/unit/cms_tags/page_rich_text.rb",
      "test/unit/cms_tags/page_string_test.rb",
      "test/unit/cms_tags/page_text_test.rb",
      "test/unit/cms_tags/partial_test.rb",
@@ -205,6 +212,7 @@ Gem::Specification.new do |s|
      "test/unit/cms_tags/helper_test.rb",
      "test/unit/cms_tags/page_datetime_test.rb",
      "test/unit/cms_tags/page_integer_test.rb",
+     "test/unit/cms_tags/page_rich_text.rb",
      "test/unit/cms_tags/page_string_test.rb",
      "test/unit/cms_tags/page_text_test.rb",
      "test/unit/cms_tags/partial_test.rb",
