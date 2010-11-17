@@ -47,10 +47,12 @@ ActionView::Helpers::AssetTagHelper.register_javascript_expansion :cms => [
   'comfortable_mexican_sofa/rails',
   'comfortable_mexican_sofa/cms',
   'comfortable_mexican_sofa/plupload/plupload.full.min',
-  'comfortable_mexican_sofa/uploader'
+  'comfortable_mexican_sofa/uploader',
+  'comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.js'
 ]
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => [
   'comfortable_mexican_sofa/reset',
   'comfortable_mexican_sofa/structure',
-  'comfortable_mexican_sofa/typography'
+  'comfortable_mexican_sofa/typography',
+  '../javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.css'
 ]

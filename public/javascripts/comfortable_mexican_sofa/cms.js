@@ -31,8 +31,16 @@ $.CMS = function(){
     
     // Load Page Blocks on layout change
     $('select#cms_page_cms_layout_id').bind('change.cms', function() {
-      $.ajax({url: ['/' + $(this).attr('data-path-prefix'), 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'), data: ({ layout_id: $(this).val()})})
+      $.ajax({
+        url: ['/' + $(this).attr('data-path-prefix'), 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
+        data: ({
+          layout_id: $(this).val()
+        }),
+        complete: function(){ $.CMS.enable_rich_text() }
+      })
     })
+    
+    $.CMS.enable_rich_text();
     
   }); // End $(document).ready()
   
@@ -46,6 +54,16 @@ $.CMS = function(){
       }
       str = str.replace(/[^a-zA-Z0-9 -]/g, '').replace(/\s+/g, '-').toLowerCase();
       return str;
+    },
+    
+    enable_rich_text: function(){
+      $('.form_element.cms_tag_page_rich_text textarea').wysiwyg({
+        controls: {
+          html: { visible: true },
+          undo: { visible : false },
+          redo: { visible : false }
+        }
+      });
     }
   }
 }();

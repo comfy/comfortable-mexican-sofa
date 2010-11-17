@@ -83,6 +83,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
   end
   
+  def test_get_new_with_rich_page_text
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:rich_text}}')
+    get :new
+    assert_select "textarea[name='cms_page[cms_blocks_attributes][][content]']"
+    assert_select "input[type='hidden'][name='cms_page[cms_blocks_attributes][][label]'][value='test_label']"
+  end
+  
   def test_get_new_as_child_page
     get :new, :parent_id => cms_pages(:default)
     assert_response :success

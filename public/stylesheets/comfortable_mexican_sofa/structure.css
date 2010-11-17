@@ -132,7 +132,8 @@ html, body {
 .form_element.cms_tag_page_datetime .label,
 .form_element.cms_tag_page_integer .label,
 .form_element.cms_tag_page_string .label,
-.form_element.cms_tag_page_text .label {
+.form_element.cms_tag_page_text .label,
+.form_element.cms_tag_page_rich_text .label {
   border-color: #3F7300;
 }
 .form_error {

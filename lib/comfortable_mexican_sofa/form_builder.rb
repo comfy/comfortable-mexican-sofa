@@ -103,6 +103,10 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     default_tag_field(tag, :content_field_method => :text_area_tag)
   end
   
+  def page_rich_text(tag)
+    default_tag_field(tag, :content_field_method => :text_area_tag)
+  end
+  
   # Capturing all calls of cms_tag_* type. For those we'll try to render
   # a form element. Everything else can trigger MethodNotFound error.
   def method_missing(method_name, *args)
