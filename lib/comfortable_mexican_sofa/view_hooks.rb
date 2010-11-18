@@ -6,8 +6,10 @@ module ComfortableMexicanSofa::ViewHooks
   end
   
   # Renders hook content
-  def self.render(name, template)
-    template.render :partial => self.hooks[name.to_sym] if self.hooks[name.to_sym]
+  def self.render(name, template, options = {})
+    if self.hooks[name.to_sym]
+      template.render({:partial => self.hooks[name.to_sym]}.merge(options))
+    end
   end
   
   # Will declare a partial that will be rendered for this hook

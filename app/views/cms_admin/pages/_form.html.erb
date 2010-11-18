@@ -13,6 +13,7 @@
   <% if (options = CmsPage.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
     <%= form.select :target_page_id, options, :include_blank => true, :label => 'Redirect To Page' %>
   <% end %>
+  <%= cms_hook :page_form, :object => form %>
 </div>
 
 <%= render :partial => 'form_blocks' %>

@@ -16,8 +16,8 @@ module ComfortableMexicanSofa::ViewMethods
   end
   
   # Injects some content somewhere inside cms admin area
-  def cms_hook(name)
-    ComfortableMexicanSofa::ViewHooks.render(name, self)
+  def cms_hook(name, options = {})
+    ComfortableMexicanSofa::ViewHooks.render(name, self, options)
   end
   
   # Content of a snippet. Example:
