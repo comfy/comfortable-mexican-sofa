@@ -77,7 +77,7 @@ class CmsLayout < ActiveRecord::Base
   # is ignored.
   def merged_content
     if parent
-      regex = CmsTag::PageText.regex_tag_signature('content')
+      regex = /\{\{\s*cms:page:content:?(?:(?::text)|(?::rich_text))?\s*\}\}/
       if parent.merged_content.match(regex)
         parent.merged_content.gsub(regex, content)
       else
