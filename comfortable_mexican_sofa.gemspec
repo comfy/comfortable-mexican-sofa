@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.27"
+  s.version = "1.0.28"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2010-11-19}
+  s.date = %q{2010-11-24}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -127,16 +127,39 @@ Gem::Specification.new do |s|
      "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.css",
      "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.js",
      "public/javascripts/comfortable_mexican_sofa/jquery.js",
-     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.css",
-     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.gif",
-     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.jpg",
-     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.js",
-     "public/javascripts/comfortable_mexican_sofa/jwysiwyg/jquery.wysiwyg.modal.css",
-     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.full.min.js",
-     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html4.min.js",
-     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.min.js",
      "public/javascripts/comfortable_mexican_sofa/rails.js",
-     "public/javascripts/comfortable_mexican_sofa/uploader.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/jquery.tinymce.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/langs/en.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/about.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/anchor.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/charmap.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/color_picker.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/editor_template.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/image.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/img/colorpicker.jpg",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/img/icons.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/about.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/anchor.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/charmap.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/color_picker.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/image.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/link.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/source_editor.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/langs/en.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/langs/en_dlg.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/link.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/content.css",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/dialog.css",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/buttons.png",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/items.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/menu_arrow.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/menu_check.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/progress.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/tabs.gif",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/ui.css",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/source_editor.htm",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce.js",
+     "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce_popup.js",
      "public/robots.txt",
      "public/stylesheets/comfortable_mexican_sofa/reset.css",
      "public/stylesheets/comfortable_mexican_sofa/structure.css",
