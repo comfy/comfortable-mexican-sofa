@@ -45,9 +45,9 @@ ActionView::Helpers::AssetTagHelper.register_javascript_expansion :cms => [
   'comfortable_mexican_sofa/jquery',
   'comfortable_mexican_sofa/jquery-ui/jquery-ui',
   'comfortable_mexican_sofa/rails',
-  'comfortable_mexican_sofa/cms',
-  'comfortable_mexican_sofa/plupload/plupload.full.min',
-  'comfortable_mexican_sofa/uploader'
+  'comfortable_mexican_sofa/tiny_mce/tiny_mce',
+  'comfortable_mexican_sofa/tiny_mce/jquery.tinymce',
+  'comfortable_mexican_sofa/cms'
 ]
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => [
   'comfortable_mexican_sofa/reset',

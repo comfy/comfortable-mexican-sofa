@@ -58,13 +58,16 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      $('.form_element.cms_tag_page_rich_text textarea').wysiwyg({
-        controls: {
-          html: { visible: true },
-          undo: { visible : false },
-          redo: { visible : false }
-        }
-      });
+      $('.form_element.cms_tag_page_rich_text textarea').tinymce({
+         theme : "advanced",
+         plugins: "",
+         theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,cut,copy,paste,pastetext,pasteword,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,code",
+         theme_advanced_buttons2 : "",
+         theme_advanced_buttons3 : "",
+         theme_advanced_buttons4 : "",
+         theme_advanced_toolbar_location : "top",
+         theme_advanced_toolbar_align : "left"
+       })
     },
     enable_date_picker: function(){
       $('input[type=datetime]').datepicker();
