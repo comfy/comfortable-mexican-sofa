@@ -6,7 +6,15 @@ class CmsGenerator < Rails::Generators::Base
   source_root File.expand_path('../../..', __FILE__)
   
   def generate_migration
-    migration_template 'db/migrate/01_create_cms.rb', 'db/migrate/create_cms.rb'
+    destination   = File.expand_path('db/migrate/01_create_cms.rb', self.destination_root)
+    migration_dir = File.dirname(destination)
+    destination   = self.class.migration_exists?(migration_dir, 'create_cms')
+    
+    if destination
+      puts "\e[0m\e[31mFound existing cms_create.rb migration. Remove it if you want to regenerate.\e[0m"
+    else
+      migration_template 'db/migrate/01_create_cms.rb', 'db/migrate/create_cms.rb'
+    end
   end
   
   def generate_initialization

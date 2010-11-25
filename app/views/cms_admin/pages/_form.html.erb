@@ -9,7 +9,7 @@
     <%= form.text_field :slug, :id => 'slug' %>
   <% end %>
   <% if (options = CmsLayout.options_for_select(@cms_site)).present? %>
-    <%= form.select :cms_layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, 'data-path-prefix' => ComfortableMexicanSofa.config.admin_route_prefix, :label => 'Layout' %>
+    <%= form.select :cms_layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
   <% end %>
   <% if (options = CmsPage.options_for_select(@cms_site, @cms_page)).present? %>
     <%= form.select :parent_id, options %>

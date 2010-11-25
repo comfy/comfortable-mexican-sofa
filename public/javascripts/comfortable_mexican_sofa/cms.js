@@ -1,5 +1,6 @@
 $.CMS = function(){
   var current_path = window.location.pathname;
+  var admin_path_prefix = current_path.split('/')[1]
   
   $(document).ready(function(){
     
@@ -35,7 +36,7 @@ $.CMS = function(){
     load_page_blocks: function(){
       $('select#cms_page_cms_layout_id').bind('change.cms', function() {
         $.ajax({
-          url: ['/' + $(this).attr('data-path-prefix'), 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
+          url: ['/' + admin_path_prefix, 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
           data: ({
             layout_id: $(this).val()
           }),
@@ -93,7 +94,7 @@ $.CMS = function(){
         unique_names:     true,
         multipart:        true,
         multipart_params: { authenticity_token: auth_token, format: 'js' },
-        url:              '/cms-admin/uploads'
+        url:              '/' + admin_path_prefix + '/uploads'
       });
       uploader.init();
       uploader.bind('FilesAdded', function(up, files) {
