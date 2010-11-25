@@ -1,8 +1,10 @@
-<div id='upload_container'>
-  <div id='filelist'></div>
-  <%= link_to 'select files', '#', :id => 'pickfiles', :class => 'button' %>
-</div>
+<h2>File Uploads</h2>
 
-<div id='uploads_list'>
-  <%= render :partial => 'cms_admin/uploads/upload', :collection => CmsUpload.all %>
+<div id='file_uploads' class='box'>
+  <button id="uploader_button" href="#">Select Files to Upload</button>
+  <div id='uploaded_files'>
+    <% CmsUpload.order('created_at DESC').all.each do |file| %>
+      <%= render :partial => 'cms_admin/uploads/file', :object => file %>
+    <% end %>
+  </div>
 </div>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :sites
     resources :layouts
     resources :snippets
-    resources :uploads
+    resources :uploads, :only => [:create, :destroy]
   end
   
   scope :controller => :cms_content do

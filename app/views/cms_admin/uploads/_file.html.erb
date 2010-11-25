@@ -1,0 +1,10 @@
+<div class='file' id='<%= dom_id(file) %>'>
+  <%  file_name = file.file_file_name 
+      file_ext  = file.file_file_name.split('.').last
+      if (file_name.size - file_ext.size) > 30
+        file_name = file_name.truncate(30) + file_ext
+      end 
+  %>
+  <%= link_to file_name, file.file.url, :target => '_blank' %>
+  <%= link_to span_tag('x'), cms_admin_upload_path(file), :method => :delete, :remote => true, :class => 'delete' %>
+</div>

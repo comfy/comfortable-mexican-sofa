@@ -1,7 +1,8 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
   
-  before_filter :build_cms_page,  :only => [:new, :create]
-  before_filter :load_cms_page,   :only => [:edit, :update, :destroy]
+  before_filter :build_cms_page,    :only => [:new, :create]
+  before_filter :build_upload_file, :only => [:new, :edit]
+  before_filter :load_cms_page,     :only => [:edit, :update, :destroy]
   
   def index
     return redirect_to :action => :new if @cms_site.cms_pages.count == 0
@@ -51,6 +52,10 @@ protected
     @cms_page = @cms_site.cms_pages.new(params[:cms_page])
     @cms_page.parent ||= (CmsPage.find_by_id(params[:parent_id]) || @cms_site.cms_pages.root)
     @cms_page.cms_layout ||= (@cms_page.parent && @cms_page.parent.cms_layout || @cms_site.cms_layouts.first)
+  end
+  
+  def build_upload_file
+    @upload = CmsUpload.new
   end
   
   def load_cms_page

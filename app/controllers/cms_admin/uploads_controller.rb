@@ -7,12 +7,10 @@ class CmsAdmin::UploadsController < CmsAdmin::BaseController
   end
   
   def create
-    @cms_upload = @cms_site.cms_uploads.new(:uploaded_file => params[:file])
-    if @cms_upload.save
-      render(:partial => 'cms_admin/uploads/upload', :object => @cms_upload)
-    else
-      render :nothing => true
-    end
+    @cms_upload = @cms_site.cms_uploads.create!(:file => params[:file])
+    render :partial => 'file', :object => @cms_upload
+  rescue ActiveRecord::RecordInvalid
+    render :nothing => true, :status => :bad_request
   end
   
   def destroy

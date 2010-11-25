@@ -7,49 +7,100 @@ html, body {
   height: 100%;
 }
 .left_column {
-  width: 200px;
+  width: 175px;
   float: left;
 }
 .center_column {
-  margin: 0px 200px;
+  margin: 0px 250px 0px 175px;
   min-height: 100%;
   background-color: #ececec;
+  overflow: hidden;
   box-shadow: inset 0px 0px 3px #000;
   -moz-box-shadow: inset 0px 0px 3px #000;
+  -webkit-box-shadow: inset 0px 0px 3px #000;
 }
 .center_column_content {
   padding: 25px;
 }
 .right_column {
-  width: 200px;
+  width: 250px;
   float: right;
 }
 .right_column_content {
-  padding: 25px;
-  width: 150px;
+  padding: 25px 10px;
+  width: 230px;
   position: fixed;
 }
 .left_column_content {
-  padding: 25px 0px 25px 25px;
-  width: 175px;
+  padding: 25px 0px 25px 10px;
+  width: 165px;
   position: fixed;
 }
 .left_column_content a {
   display: block;
   background-color: #fff;
   padding: 0px 10px;
-  margin-bottom: 10px;
-  font: 18px/30px Georgia, serif;
+  margin-bottom: 5px;
+  font: 15px/25px Georgia, serif;
   color: #1C1F22;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px ;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-bottomleft: 5px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px ;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-bottomleft: 4px;
   opacity: 0.8;
 }
 .left_column_content a:hover,
 .left_column_content a.active {
   opacity: 1;
+}
+/* -- Right Column ------------------------------------------------------- */
+.right_column_content h2 {
+  font: 15px/25px Georgia, serif;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.right_column_content .box {
+  background-color: #ececec;
+  padding: 5px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+#file_uploads button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#file_uploads #uploaded_files {
+  max-height: 500px;
+  overflow-y: auto;
+}
+#file_uploads #uploaded_files .file {
+  position: relative;
+  overflow: hidden;
+  font-size: 11px;
+  background-color: #fff;
+  margin-bottom: 2px;
+  opacity: 0.8;
+}
+#file_uploads #uploaded_files .file.pending {
+  opacity: 0.3;
+}
+#file_uploads #uploaded_files .file:hover {
+  opacity: 1;
+}
+#file_uploads #uploaded_files .file:hover a {
+  color: #000;
+}
+#file_uploads #uploaded_files .file a.delete {
+  position: absolute;
+  display: block;
+  right: 0px;
+  top: 0px;
+  height: 13px;
+  width: 13px;
+  font-weight: bold;
+}
+#file_uploads #uploaded_files .file:hover a.delete {
+  color: #9e0b0f;
 }
 
 /* -- Common Elements ---------------------------------------------------- */

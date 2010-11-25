@@ -1,3 +1,7 @@
+<% content_for :right_column do %>
+  <%= render :partial => 'cms_admin/uploads/index' %>
+<% end %>
+
 <%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
 <%= form.text_field :slug, :id => 'slug' %>
 <% if (options = CmsLayout.options_for_select(@cms_site, @cms_layout)).present? %>
