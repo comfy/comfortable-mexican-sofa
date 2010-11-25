@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.28"
+  s.version = "1.0.29"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2010-11-24}
+  s.date = %q{2010-11-25}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -56,10 +56,9 @@ Gem::Specification.new do |s|
      "app/views/cms_admin/snippets/edit.html.erb",
      "app/views/cms_admin/snippets/index.html.erb",
      "app/views/cms_admin/snippets/new.html.erb",
+     "app/views/cms_admin/uploads/_file.html.erb",
      "app/views/cms_admin/uploads/_index.html.erb",
-     "app/views/cms_admin/uploads/_upload.html.erb",
      "app/views/cms_admin/uploads/destroy.js.erb",
-     "app/views/cms_admin/uploads/index.html.erb",
      "app/views/layouts/cms_admin.html.erb",
      "comfortable_mexican_sofa.gemspec",
      "config.ru",
@@ -127,6 +126,9 @@ Gem::Specification.new do |s|
      "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.css",
      "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.js",
      "public/javascripts/comfortable_mexican_sofa/jquery.js",
+     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.full.min.js",
+     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.min.js",
+     "public/javascripts/comfortable_mexican_sofa/plupload/plupload.min.js",
      "public/javascripts/comfortable_mexican_sofa/rails.js",
      "public/javascripts/comfortable_mexican_sofa/tiny_mce/jquery.tinymce.js",
      "public/javascripts/comfortable_mexican_sofa/tiny_mce/langs/en.js",
