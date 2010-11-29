@@ -14,7 +14,7 @@ begin
     gem.summary     = 'ComfortableMexicanSofa is a Rails Engine CMS gem'
     gem.description = ''
     gem.email       = 'oleg@theworkinggroup.ca'
-    gem.homepage    = 'http://github.com/theworkinggroup/comfortable-mexican-sofa'
+    gem.homepage    = 'http://github.com/twg/comfortable-mexican-sofa'
     gem.authors     = ['Oleg Khabarov', 'The Working Group Inc']
     gem.add_dependency('rails',           '>=3.0.1')
     gem.add_dependency('active_link_to',  '>=0.0.6')
