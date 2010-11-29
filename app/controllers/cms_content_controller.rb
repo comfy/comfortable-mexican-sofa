@@ -3,7 +3,9 @@ class CmsContentController < ApplicationController
   before_filter :load_cms_site
   before_filter :load_cms_page,   :only => :render_html
   before_filter :load_cms_layout, :only => [:render_css, :render_js]
-    
+  
+  caches_page :render_css, :render_js
+  
   def render_html(status = 200)
     layout = @cms_page.cms_layout.app_layout.blank?? false : @cms_page.cms_layout.app_layout
     render :inline => @cms_page.content, :layout => layout, :status => status

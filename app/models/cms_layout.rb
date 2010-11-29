@@ -6,6 +6,10 @@ class CmsLayout < ActiveRecord::Base
   belongs_to :cms_site
   has_many :cms_pages, :dependent => :nullify
   
+  # -- Callbacks ------------------------------------------------------------
+  after_save    :clear_cache
+  after_destroy :clear_cache
+  
   # -- Validations ----------------------------------------------------------
   validates :cms_site_id,
     :presence   => true
@@ -18,7 +22,7 @@ class CmsLayout < ActiveRecord::Base
   validates :content,
     :presence   => true
     
-  validate :content_tag_presence
+  validate :check_content_tag_presence
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -98,11 +102,19 @@ class CmsLayout < ActiveRecord::Base
   
 protected
   
-  def content_tag_presence
+  def check_content_tag_presence
     CmsTag.process_content((test_page = CmsPage.new), content)
     if test_page.cms_tags.select{|t| t.class.superclass == CmsBlock}.blank?
       self.errors.add(:content, 'No cms page tags defined')
     end
+  end
+  
+  # After saving need to make sure that cached pages for css and js for this
+  # layout and its children are gone. Good enough to avoid using cache sweepers.
+  def clear_cache
+    FileUtils.rm File.expand_path("cms-css/#{self.slug}.css", Rails.public_path), :force => true
+    FileUtils.rm File.expand_path("cms-js/#{self.slug}.js",   Rails.public_path), :force => true
+    self.children.each{ |child| child.save! }
   end
   
 end

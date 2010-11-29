@@ -8,3 +8,6 @@ db/development_structure.sql
 public/system/*
 pkg
 rdoc
+/tmp
+public/cms-css/
+public/cms-js/

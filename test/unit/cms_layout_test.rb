@@ -36,6 +36,23 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert layout.valid?
   end
   
+  def test_creation
+    assert_difference 'CmsLayout.count' do
+      layout = cms_sites(:default).cms_layouts.create(
+        :label    => 'New Layout',
+        :slug     => 'new-layout',
+        :content  => '{{cms:page:content}}',
+        :css      => 'css',
+        :js       => 'js'
+      )
+      assert_equal 'New Layout', layout.label
+      assert_equal 'new-layout', layout.slug
+      assert_equal '{{cms:page:content}}', layout.content
+      assert_equal 'css', layout.css
+      assert_equal 'js', layout.js
+    end
+  end
+  
   def test_options_for_select
     assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
       CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
