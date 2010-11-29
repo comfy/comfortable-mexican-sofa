@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.31"
+  s.version = "1.0.32"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -217,7 +217,7 @@ Gem::Specification.new do |s|
      "test/unit/cms_upload_test.rb",
      "test/unit/view_methods_test.rb"
   ]
-  s.homepage = %q{http://github.com/theworkinggroup/comfortable-mexican-sofa}
+  s.homepage = %q{http://github.com/twg/comfortable-mexican-sofa}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
