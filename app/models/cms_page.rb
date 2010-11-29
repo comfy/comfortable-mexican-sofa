@@ -17,6 +17,7 @@ class CmsPage < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_parent,
                     :assign_full_path
+  before_save       :set_cached_content
   after_save        :sync_child_pages
   
   # -- Validations ----------------------------------------------------------
@@ -93,15 +94,19 @@ class CmsPage < ActiveRecord::Base
   
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
-  def content
-    self.cms_tags = [] # resetting
-    cms_layout ? CmsTag.process_content(self, cms_layout.merged_content) : ''
+  def content(force_reload = false)
+    @content = read_attribute(:content)
+    @content = nil if force_reload
+    @content ||= begin
+      self.cms_tags = [] # resetting
+      cms_layout ? CmsTag.process_content(self, cms_layout.merged_content) : ''
+    end
   end
   
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
-  def cms_tags(force = false)
-    self.content if force
+  def cms_tags(force_reload = false)
+    self.content(true) if force_reload
     @cms_tags ||= []
   end
   
@@ -121,6 +126,10 @@ protected
     while p.target_page do
       return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
     end
+  end
+  
+  def set_cached_content
+    write_attribute(:content, self.content(true))
   end
   
   # Forcing re-saves for child pages so they can update full_paths

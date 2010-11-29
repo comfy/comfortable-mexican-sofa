@@ -3,6 +3,10 @@ class CmsSnippet < ActiveRecord::Base
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_site
   
+  # -- Callbacks ------------------------------------------------------------
+  after_save    :clear_cached_page_content
+  after_destroy :clear_cached_page_content
+  
   # -- Validations ----------------------------------------------------------
   validates :cms_site_id,
     :presence   => true
@@ -49,6 +53,15 @@ class CmsSnippet < ActiveRecord::Base
     load_for_slug!(site, slug) 
   rescue ActiveRecord::RecordNotFound
     nil
+  end
+  
+protected
+  
+  # Note: This might be slow. We have no idea where the snippet is used, so
+  # gotta reload every single page. Kinda sucks, but might be ok unless there
+  # are hundreds of pages.
+  def clear_cached_page_content
+    CmsPage.all.each{ |page| page.save! }
   end
   
 end

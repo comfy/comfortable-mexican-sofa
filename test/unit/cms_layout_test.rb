@@ -134,4 +134,13 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert !CmsLayout.load_for_slug(cms_sites(:default), 'not_found')
   end
   
+  def test_update_forces_page_content_reload
+    layout = cms_layouts(:default)
+    page = cms_pages(:default)
+    assert_equal layout, page.cms_layout
+    layout.update_attribute(:content, 'updated {{cms:page:default_page_text:text}} updated')
+    page.reload
+    assert_equal "updated default_page_text_content_a\ndefault_snippet_content\ndefault_page_text_content_b updated", page.content
+  end
+  
 end

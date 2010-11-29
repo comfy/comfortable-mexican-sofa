@@ -8,6 +8,15 @@ default:
   full_path: '/'
   children_count: 1
   position: 0
+  content: |-
+    
+    layout_content_a
+    default_page_text_content_a
+    default_snippet_content
+    default_page_text_content_b
+    layout_content_b
+    default_snippet_content
+    layout_content_c
   
 child:
   cms_site: default
@@ -19,3 +28,10 @@ child:
   full_path: '/child-page'
   children_count: 0
   position: 0
+  content: |-
+    
+    layout_content_a
+    
+    layout_content_b
+    default_snippet_content
+    layout_content_c

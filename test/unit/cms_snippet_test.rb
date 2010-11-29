@@ -57,4 +57,13 @@ class CmsSnippetTest < ActiveSupport::TestCase
     assert !CmsSnippet.load_for_slug(cms_sites(:default), 'not_found')
   end
   
+  def test_update_forces_page_content_reload
+    snippet = cms_snippets(:default)
+    page = cms_pages(:default)
+    assert_match snippet.content, page.content
+    snippet.update_attribute(:content, 'new_snippet_content')
+    page.reload
+    assert_match /new_snippet_content/, page.content
+  end
+  
 end

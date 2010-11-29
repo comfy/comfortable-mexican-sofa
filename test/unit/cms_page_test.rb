@@ -5,6 +5,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_fixtures_validity
     CmsPage.all.each do |page|
       assert page.valid?, page.errors.full_messages
+      assert_equal page.read_attribute(:content), page.content(true)
     end
   end
   
@@ -187,6 +188,17 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'default_field_text', page.cms_blocks_attributes.first[:label]
     assert_equal 'default_field_text_content', page.cms_blocks_attributes.first[:content]
     assert page.cms_blocks_attributes.first[:id]
+  end
+  
+  def test_content_caching
+    page = cms_pages(:default)
+    assert_equal page.read_attribute(:content), page.content
+    assert_equal page.read_attribute(:content), page.content(true)
+    
+    page.update_attribute(:content, 'changed')
+    assert_equal page.read_attribute(:content), page.content
+    assert_equal page.read_attribute(:content), page.content(true)
+    assert_not_equal 'changed', page.read_attribute(:content)
   end
   
 protected

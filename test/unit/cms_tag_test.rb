@@ -78,7 +78,7 @@ class CmsTagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content
+    ), page.content(true)
     
     assert_equal 4, page.cms_tags.size
     assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
@@ -173,7 +173,7 @@ class CmsTagTest < ActiveSupport::TestCase
       default_page_text_content_a
       default_snippet_content
       default_page_text_content_b'
-    ), page.content
+    ), page.content(true)
     
     assert_equal 6, page.cms_tags.size
     assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
@@ -199,7 +199,7 @@ class CmsTagTest < ActiveSupport::TestCase
       layout_content_b
       infinite  loop
       layout_content_c'
-    ), page.content
+    ), page.content(true)
     assert_equal 6, page.cms_tags.size
   end
   

@@ -7,8 +7,8 @@ class CmsLayout < ActiveRecord::Base
   has_many :cms_pages, :dependent => :nullify
   
   # -- Callbacks ------------------------------------------------------------
-  after_save    :clear_cache
-  after_destroy :clear_cache
+  after_save    :clear_cache, :clear_cached_page_content
+  after_destroy :clear_cache, :clear_cached_page_content
   
   # -- Validations ----------------------------------------------------------
   validates :cms_site_id,
@@ -21,7 +21,6 @@ class CmsLayout < ActiveRecord::Base
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
   validates :content,
     :presence   => true
-    
   validate :check_content_tag_presence
     
   # -- Class Methods --------------------------------------------------------
@@ -115,6 +114,11 @@ protected
     FileUtils.rm File.expand_path("cms-css/#{self.slug}.css", Rails.public_path), :force => true
     FileUtils.rm File.expand_path("cms-js/#{self.slug}.js",   Rails.public_path), :force => true
     self.children.each{ |child| child.save! }
+  end
+  
+  # Forcing page content reload. This will happen in cascade due to #clear_cache mathod above.
+  def clear_cached_page_content
+    self.cms_pages.each{ |page| page.save! }
   end
   
 end
