@@ -77,7 +77,9 @@ $.CMS = function(){
       });
       
       $('ul.sortable').each(function(){
-        $(this).sortable({  handle: 'div.dragger',
+        $(this).sortable({
+          handle: 'div.dragger',
+          axis: 'y',
           update: function() {
             $.post(current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
           }
