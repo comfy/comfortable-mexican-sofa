@@ -3,14 +3,14 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class PageTextTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:page:content:text }}',
-      '{{cms:page:content}}',
-      '{{cms:page:content:text}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::PageText.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'content', tag.label
-    end
+    assert tag = CmsTag::PageText.initialize_tag(cms_pages(:default), '{{ cms:page:content:text }}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageText.initialize_tag(cms_pages(:default), '{{cms:page:content}}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageText.initialize_tag(cms_pages(:default), '{{cms:page:content:text}}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageText.initialize_tag(cms_pages(:default), '{{cms:page:dash-content}}')
+    assert_equal 'dash-content', tag.label
   end
   
   def test_initialize_tag_failure

@@ -3,7 +3,7 @@ class CmsTag::FieldInteger < CmsBlock
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
-    label ||= /\w+/
+    label ||= /[\w\-]+/
     /\{\{\s*cms:field:(#{label}):integer\s*\}\}/
   end
   

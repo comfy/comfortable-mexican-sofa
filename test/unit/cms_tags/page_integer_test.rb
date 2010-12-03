@@ -3,13 +3,12 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class PageIntegerTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:page:content:integer }}',
-      '{{cms:page:content:integer}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'content', tag.label
-    end
+    assert tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), '{{ cms:page:content:integer }}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), '{{cms:page:content:integer}}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageInteger.initialize_tag(cms_pages(:default), '{{cms:page:dash-content:integer}}')
+    assert_equal 'dash-content', tag.label
   end
   
   def test_initialize_tag_failure

@@ -7,7 +7,7 @@ class CmsTag::Snippet < CmsSnippet
   end
   
   def self.regex_tag_signature(label = nil)
-    label ||= /\w+/
+    label ||= /[\w\-]+/
     /\{\{\s*cms:snippet:(#{label})\s*\}\}/
   end
   

@@ -3,13 +3,12 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class SnippetTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:snippet:label }}',
-      '{{cms:snippet:label}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::Snippet.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'label', tag.slug
-    end
+    assert tag = CmsTag::Snippet.initialize_tag(cms_pages(:default), '{{ cms:snippet:label }}')
+    assert_equal 'label', tag.slug
+    assert tag = CmsTag::Snippet.initialize_tag(cms_pages(:default), '{{cms:snippet:label}}')
+    assert_equal 'label', tag.slug
+    assert tag = CmsTag::Snippet.initialize_tag(cms_pages(:default), '{{cms:snippet:dash-label}}')
+    assert_equal 'dash-label', tag.slug
   end
   
   def test_initialize_tag_failure

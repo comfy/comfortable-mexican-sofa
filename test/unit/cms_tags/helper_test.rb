@@ -3,7 +3,10 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class HelperTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    assert CmsTag::Helper.initialize_tag(cms_pages(:default), '{{ cms:helper:method_name }}')
+    assert tag = CmsTag::Helper.initialize_tag(cms_pages(:default), '{{ cms:helper:method_name }}')
+    assert_equal 'method_name', tag.label
+    assert tag = CmsTag::Helper.initialize_tag(cms_pages(:default), '{{ cms:helper:method-name }}')
+    assert_equal 'method-name', tag.label
   end
   
   def test_initialize_tag_with_parameters

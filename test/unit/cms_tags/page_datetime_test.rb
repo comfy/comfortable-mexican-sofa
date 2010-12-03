@@ -3,13 +3,12 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class PageDateTimeTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:page:content:datetime }}',
-      '{{cms:page:content:datetime}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::PageDateTime.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'content', tag.label
-    end
+    assert tag = CmsTag::PageDateTime.initialize_tag(cms_pages(:default), '{{ cms:page:content:datetime }}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageDateTime.initialize_tag(cms_pages(:default), '{{cms:page:content:datetime}}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::PageDateTime.initialize_tag(cms_pages(:default), '{{cms:page:dash-content:datetime}}')
+    assert_equal 'dash-content', tag.label
   end
   
   def test_initialize_tag_failure

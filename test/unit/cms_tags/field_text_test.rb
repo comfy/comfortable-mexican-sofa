@@ -3,13 +3,12 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class FieldTextTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:field:content:text }}',
-      '{{cms:field:content:text}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), tag_signature)
-      assert_equal 'content', tag.label
-    end
+    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{ cms:field:content:text }}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{cms:field:content:text}}')
+    assert_equal 'content', tag.label
+    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{cms:field:dash-content:text}}')
+    assert_equal 'dash-content', tag.label
   end
   
   def test_initialize_tag_failure

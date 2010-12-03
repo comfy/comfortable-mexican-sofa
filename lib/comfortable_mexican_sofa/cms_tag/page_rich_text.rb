@@ -3,7 +3,7 @@ class CmsTag::PageRichText < CmsBlock
   include CmsTag
   
   def self.regex_tag_signature(label = nil)
-    label ||= /\w+/
+    label ||= /[\w\-]+/
     /\{\{\s*cms:page:(#{label}):rich_text\s*\}\}/
   end
   

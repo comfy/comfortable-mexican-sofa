@@ -3,12 +3,12 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class PartialTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    [
-      '{{ cms:partial:partial_name }}',
-      '{{cms:partial:path/to/partial}}'
-    ].each do |tag_signature|
-      assert tag = CmsTag::Partial.initialize_tag(cms_pages(:default), tag_signature)
-    end
+    assert tag = CmsTag::Partial.initialize_tag(cms_pages(:default), '{{ cms:partial:partial_name }}')
+    assert_equal 'partial_name', tag.label
+    assert tag = CmsTag::Partial.initialize_tag(cms_pages(:default), '{{cms:partial:path/to/partial}}')
+    assert_equal 'path/to/partial', tag.label
+    assert tag = CmsTag::Partial.initialize_tag(cms_pages(:default), '{{cms:partial:path/to/dashed-partial}}')
+    assert_equal 'path/to/dashed-partial', tag.label
   end
   
   def test_initialize_tag_with_parameters
