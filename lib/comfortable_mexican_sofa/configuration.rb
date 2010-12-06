@@ -14,12 +14,17 @@ class ComfortableMexicanSofa::Configuration
   # You can change 'cms-admin' to 'admin', for example.
   attr_accessor :admin_route_prefix
   
+  # /cms-admin redirects to /cms-admin/pages but you can change it
+  # to something else
+  attr_accessor :admin_route_redirect
+  
   # Configuration defaults
   def initialize
-    @cms_title          = 'ComfortableMexicanSofa'
-    @authentication     = 'ComfortableMexicanSofa::HttpAuth'
-    @seed_data_path     = nil
-    @admin_route_prefix = 'cms-admin'
+    @cms_title            = 'ComfortableMexicanSofa'
+    @authentication       = 'ComfortableMexicanSofa::HttpAuth'
+    @seed_data_path       = nil
+    @admin_route_prefix   = 'cms-admin'
+    @admin_route_redirect = "/#{@admin_route_prefix}/pages"
   end
   
 end

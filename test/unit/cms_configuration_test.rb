@@ -8,6 +8,7 @@ class CmsConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.authentication
     assert_equal nil, config.seed_data_path
     assert_equal 'cms-admin', config.admin_route_prefix
+    assert_equal '/cms-admin/pages', config.admin_route_redirect
   end
   
   def test_initialization_overrides
