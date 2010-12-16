@@ -81,6 +81,6 @@ DEPENDENCIES
   active_link_to (>= 0.0.6)
   jeweler (>= 1.4.0)
   mime-types
-  paperclip (>= 2.3.5)
+  paperclip (>= 2.3.8)
   rails (>= 3.0.3)
   sqlite3-ruby
