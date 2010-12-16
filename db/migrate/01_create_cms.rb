@@ -36,6 +36,7 @@ class CreateCms < ActiveRecord::Migration
       t.text    :content
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
+      t.boolean :is_published,    :null => false, :default => true
       t.timestamps
     end
     add_index :cms_pages, [:cms_site_id, :full_path]
@@ -69,7 +70,6 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_uploads, [:cms_site_id, :file_file_name]
-    
   end
   
   def self.down

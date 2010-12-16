@@ -28,11 +28,11 @@ protected
   end
   
   def load_cms_page
-    @cms_page = CmsPage.load_for_full_path!(@cms_site, "/#{params[:cms_path]}")
+    @cms_page = CmsPage.published.load_for_full_path!(@cms_site, "/#{params[:cms_path]}")
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
     
   rescue ActiveRecord::RecordNotFound
-    if @cms_page = CmsPage.load_for_full_path(@cms_site, '/404')
+    if @cms_page = CmsPage.published.load_for_full_path(@cms_site, '/404')
       render_html(404)
     else
       render :text => 'Page Not Found', :status => 404

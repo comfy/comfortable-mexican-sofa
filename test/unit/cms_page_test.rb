@@ -44,6 +44,22 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, :target_page_id
   end
   
+  def test_creation
+    assert_difference ['CmsPage.count', 'CmsBlock.count'] do
+      page = cms_sites(:default).cms_pages.create!(
+        :label          => 'test',
+        :slug           => 'test',
+        :parent_id      => cms_pages(:default).id,
+        :cms_layout_id  => cms_layouts(:default).id,
+        :cms_blocks_attributes => [
+          { :label    => 'test',
+            :content  => 'test' }
+        ]
+      )
+      assert page.is_published?
+    end
+  end
+  
   def test_initialization_of_full_path
     page = CmsPage.new(new_params)
     assert page.invalid?
@@ -199,6 +215,12 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)
     assert_not_equal 'changed', page.read_attribute(:content)
+  end
+  
+  def test_scope_published
+    assert_equal 2, CmsPage.published.count
+    cms_pages(:child).update_attribute(:is_published, false)
+    assert_equal 1, CmsPage.published.count
   end
   
 protected

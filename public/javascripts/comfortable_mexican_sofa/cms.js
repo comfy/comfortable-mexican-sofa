@@ -9,7 +9,8 @@ $.CMS = function(){
     $.CMS.load_page_blocks();
     $.CMS.enable_rich_text();
     $.CMS.enable_date_picker();
-    if($('#uploader_button').get(0)) $.CMS.enable_uploader();
+    if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
+    if($('#uploader_button').get(0))  $.CMS.enable_uploader();
     
   });
   
@@ -49,7 +50,7 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      $('.form_element.cms_tag_page_rich_text textarea').tinymce({
+      $('.form_element.cms_tag_page_rich_text textarea, textarea.rich_text').tinymce({
          theme : "advanced",
          plugins: "",
          theme_advanced_buttons1 : "formatselect,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,anchor,image,|,code",
@@ -85,6 +86,21 @@ $.CMS = function(){
           }
         })
       });
+    },
+    
+    enable_page_save_widget : function(){
+      $('#page_save input').attr('checked', $('input#cms_page_is_published').is(':checked'));
+      $('#page_save button').html($('input#cms_page_submit').val());
+      
+      $('#page_save input').bind('click', function(){
+        $('input#cms_page_is_published').attr('checked', $(this).is(':checked'));
+      })
+      $('input#cms_page_is_published').bind('click', function(){
+        $('#page_save input').attr('checked', $(this).is(':checked'));
+      })
+      $('#page_save button').bind('click', function(){
+        $('input#cms_page_submit').click();
+      })
     },
     
     enable_uploader : function(){

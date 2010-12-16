@@ -32,17 +32,20 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_not_found_with_custom_404
-    cms_sites(:default).cms_pages.create!(
+    page = cms_sites(:default).cms_pages.create!(
       :label          => '404',
       :slug           => '404',
       :parent_id      => cms_pages(:default).id,
       :cms_layout_id  => cms_layouts(:default).id,
+      :is_published   => '1',
       :cms_blocks_attributes => [
         { :label    => 'default_page_text',
           :type     => 'CmsTag::PageText',
           :content  => 'custom 404 page content' }
       ]
     )
+    assert_equal '/404', page.full_path
+    assert page.is_published?
     get :render_html, :cms_path => 'doesnotexist'
     assert_response 404
     assert assigns(:cms_page)
@@ -55,6 +58,13 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_html, :cms_path => 'child-page'
     assert_response :redirect
     assert_redirected_to '/'
+  end
+  
+  def test_render_page_unpublished
+    page = cms_pages(:default)
+    page.update_attribute(:is_published, false)
+    get :render_html, :cms_path => ''
+    assert_response 404
   end
   
   def test_render_css

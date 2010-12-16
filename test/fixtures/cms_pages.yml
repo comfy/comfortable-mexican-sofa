@@ -8,6 +8,7 @@ default:
   full_path: '/'
   children_count: 1
   position: 0
+  is_published: true
   content: |-
     
     layout_content_a
@@ -28,6 +29,7 @@ child:
   full_path: '/child-page'
   children_count: 0
   position: 0
+  is_published: true
   content: |-
     
     layout_content_a

@@ -36,6 +36,9 @@ class CmsPage < ActiveRecord::Base
     :uniqueness => { :scope => :cms_site_id }
   validate :validate_target_page
   
+  # -- Scopes ---------------------------------------------------------------
+  scope :published, where(:is_published => true)
+  
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages
   def self.options_for_select(cms_site, cms_page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')

@@ -1,4 +1,11 @@
 <% content_for :right_column do %>
+  <div id='page_save' class='box'>
+    <label>
+      <input type='checkbox'/>
+      Published
+    </label>
+    <button></button>
+  </div>
   <%= render :partial => 'cms_admin/uploads/index' %>
 <% end %>
 
@@ -21,3 +28,5 @@
 </div>
 
 <%= render :partial => 'form_blocks' %>
+
+<%= form.check_box :is_published, :label => 'Published' %>

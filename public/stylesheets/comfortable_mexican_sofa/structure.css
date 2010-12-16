@@ -54,17 +54,25 @@ html, body {
   opacity: 1;
 }
 /* -- Right Column ------------------------------------------------------- */
-.right_column_content h2 {
-  font: 15px/25px Georgia, serif;
-  color: #fff;
-  margin-bottom: 10px;
-}
 .right_column_content .box {
   background-color: #ececec;
   padding: 5px;
   border-radius: 3px;
   -moz-border-radius: 3px;
+  margin-bottom: 25px;
+  overflow: hidden;
 }
+#page_save button {
+  float: right;
+}
+#page_save label {
+  line-height: 20px;
+  padding-left: 5px;
+}
+#page_save input {
+  margin-right: 5px;
+}
+
 #file_uploads button {
   width: 100%;
   margin-bottom: 10px;
