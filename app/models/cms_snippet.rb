@@ -33,6 +33,8 @@ class CmsSnippet < ActiveRecord::Base
     return nil unless File.exists?(file_path)
     attributes = YAML.load_file(file_path).symbolize_keys!
     new(attributes)
+  rescue
+    raise "Failed to load from #{file_path}"
   end
   
   # Wrapper around load_from_file and find_by_slug

@@ -55,6 +55,8 @@ class CmsLayout < ActiveRecord::Base
     attributes[:parent]   = CmsLayout.load_from_file(site, attributes[:parent])
     attributes[:cms_site] = site
     new(attributes)
+  rescue
+    raise "Failed to load from #{file_path}"  
   end
   
   # Wrapper around load_from_file and find_by_slug

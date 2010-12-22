@@ -32,8 +32,12 @@ namespace :comfortable_mexican_sofa do
       puts 'Importing Layouts'
       puts '-----------------'
       layouts = Dir.glob(File.expand_path('layouts/*.yml', @seed_path)).collect do |layout_file_path|
-        attributes = YAML.load_file(layout_file_path).symbolize_keys!
-        @site.cms_layouts.load_from_file(@site, attributes[:slug])
+        begin
+          attributes = YAML.load_file(layout_file_path).symbolize_keys!
+          @site.cms_layouts.load_from_file(@site, attributes[:slug])
+        rescue
+          nil
+        end
       end.compact
       CmsLayout.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
@@ -71,8 +75,12 @@ namespace :comfortable_mexican_sofa do
       puts 'Importing Pages'
       puts '---------------'
       pages = Dir.glob(File.expand_path('pages/**/*.yml', @seed_path)).collect do |page_file_path|
-        attributes = YAML.load_file(page_file_path).symbolize_keys!
-        @site.cms_pages.load_from_file(@site, attributes[:full_path])
+        begin
+          attributes = YAML.load_file(page_file_path).symbolize_keys!
+          @site.cms_pages.load_from_file(@site, attributes[:full_path])
+        rescue
+          nil
+        end
       end.compact
       CmsPage.connection.transaction do
         # Fixtures are not ordered in any particular way. Saving order matters,
@@ -120,8 +128,12 @@ namespace :comfortable_mexican_sofa do
       puts 'Importing Snippets'
       puts '------------------'
       snippets = Dir.glob(File.expand_path('snippets/*.yml', @seed_path)).collect do |snippet_file_path|
-        attributes = YAML.load_file(snippet_file_path).symbolize_keys!
-        @site.cms_snippets.load_from_file(@site, attributes[:slug])
+        begin
+          attributes = YAML.load_file(snippet_file_path).symbolize_keys!
+          @site.cms_snippets.load_from_file(@site, attributes[:slug])
+        rescue
+          nil
+        end
       end.compact
       CmsSnippet.connection.transaction do
         snippets.each do |snippet|

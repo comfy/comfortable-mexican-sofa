@@ -173,6 +173,14 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '<html><div>Sub Child Page Content Content for Default Snippet</div></html>', page.content
   end
   
+  def test_load_from_file_broken
+    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
+    error_message = "Failed to load from #{ComfortableMexicanSofa.configuration.seed_data_path}/test.host/pages/broken.yml"
+    assert_exception_raised RuntimeError, error_message do
+      CmsPage.load_from_file(cms_sites(:default), '/broken')
+    end
+  end
+  
   def test_load_for_full_path
     assert page = CmsPage.load_for_full_path!(cms_sites(:default), '/')
     assert !page.new_record?
