@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsAdmin::UploadsControllerTest < ActionController::TestCase
   

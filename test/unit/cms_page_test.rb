@@ -4,7 +4,7 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     CmsPage.all.each do |page|
-      assert page.valid?, page.errors.full_messages
+      assert page.valid?, page.errors.full_messages.to_s
       assert_equal page.read_attribute(:content), page.content(true)
     end
   end
@@ -19,7 +19,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_validation_of_parent_presence
     page = cms_sites(:default).cms_pages.new(new_params)
     assert !page.parent
-    assert page.valid?, page.errors.full_messages
+    assert page.valid?, page.errors.full_messages.to_s
     assert_equal cms_pages(:default), page.parent
   end
   

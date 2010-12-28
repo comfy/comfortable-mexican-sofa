@@ -4,7 +4,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     CmsSnippet.all.each do |snippet|
-      assert snippet.valid?, snippet.errors.full_messages
+      assert snippet.valid?, snippet.errors.full_messages.to_s
     end
   end
   

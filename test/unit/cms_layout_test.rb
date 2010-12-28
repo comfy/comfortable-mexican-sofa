@@ -4,7 +4,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     CmsLayout.all.each do |layout|
-      assert layout.valid?
+      assert layout.valid?, layout.errors.full_messages.to_s
     end
   end
   

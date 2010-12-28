@@ -4,7 +4,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     CmsBlock.all.each do |block|
-      assert block.valid?, block.errors.full_messages
+      assert block.valid?, block.errors.full_messages.to_s
     end
   end
   

@@ -4,7 +4,7 @@ class CmsSiteTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     CmsSite.all.each do |site|
-      assert site.valid?, site.errors.full_messages
+      assert site.valid?, site.errors.full_messages.to_s
     end
   end
   
