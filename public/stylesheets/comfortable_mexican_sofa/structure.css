@@ -158,12 +158,14 @@ html, body {
 .form_element .value {
   margin-left: 160px;
 }
-.form_element .value input,
+.form_element .value input[type='text'],
+.form_element .value input[type='password'],
 .form_element .value textarea,
 .form_element .value select {
   width: 98%;
 }
-.form_element .value input,
+.form_element .value input[type='text'],
+.form_element .value input[type='password'],
 .form_element .value select,
 .form_element .value textarea {
   border: 1px solid #ccc;
@@ -206,6 +208,15 @@ html, body {
 .form_element .value .field_with_errors input,
 .form_element .value .field_with_errors textarea {
   border-color: #9e0b0f;
+}
+.form_element.form_save {
+  background-color: #E0E0E0;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 5px 0px;
+}
+.form_element.form_save label {
+  margin: 0px 5px;
 }
 
 /* -- Listings ----------------------------------------------------------- */

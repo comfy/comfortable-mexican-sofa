@@ -9,6 +9,7 @@ $.CMS = function(){
     $.CMS.load_page_blocks();
     $.CMS.enable_rich_text();
     $.CMS.enable_date_picker();
+    if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
     
@@ -101,6 +102,15 @@ $.CMS = function(){
       $('#page_save button').bind('click', function(){
         $('input#cms_page_submit').click();
       })
+    },
+    
+    enable_page_save_form : function(){
+      $('input[name=commit]').click(function() {
+        $(this).parents('form').attr('target', '');
+      });
+      $('input[name=preview]').click(function() {
+        $(this).parents('form').attr('target', '_blank');
+      });
     },
     
     enable_uploader : function(){

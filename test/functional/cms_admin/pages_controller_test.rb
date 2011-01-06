@@ -126,19 +126,17 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_creation
     assert_difference 'CmsPage.count' do
-      assert_difference 'CmsBlock.count', 3 do
+      assert_difference 'CmsBlock.count', 2 do
         post :create, :cms_page => {
           :label          => 'Test Page',
           :slug           => 'test-page',
           :parent_id      => cms_pages(:default).id,
           :cms_layout_id  => cms_layouts(:default).id,
           :cms_blocks_attributes => [
-            { :label    => 'content',
+            { :label    => 'default_page_text',
               :content  => 'content content' },
-            { :label    => 'title',
-              :content  => 'title content' },
-            { :label    => 'number',
-              :content  => '999' }
+            { :label    => 'default_field_text',
+              :content  => 'title content' }
           ]
         }
         assert_response :redirect
@@ -155,18 +153,16 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       post :create, :cms_page => {
         :cms_layout_id  => cms_layouts(:default).id,
         :cms_blocks_attributes => [
-          { :label    => 'content',
+          { :label    => 'default_page_text',
             :content  => 'content content' },
-          { :label    => 'title',
-            :content  => 'title content' },
-          { :label    => 'number',
-            :content  => '999' }
+          { :label    => 'default_field_text',
+            :content  => 'title content' }
         ]
       }
       assert_response :success
       page = assigns(:cms_page)
-      assert_equal 3, page.cms_blocks.size
-      assert_equal ['content content', 'title content', '999'], page.cms_blocks.collect{|b| b.content}
+      assert_equal 2, page.cms_blocks.size
+      assert_equal ['content content', 'title content'], page.cms_blocks.collect{|b| b.content}
       assert_template :new
       assert_equal 'Failed to create page', flash[:error]
     end
@@ -252,4 +248,38 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_template :form_blocks
   end
   
+  def test_creation_preview
+    assert_no_difference 'CmsPage.count' do
+      post :create, :preview => 'Preview', :cms_page => {
+        :label          => 'Test Page',
+        :slug           => 'test-page',
+        :parent_id      => cms_pages(:default).id,
+        :cms_layout_id  => cms_layouts(:default).id,
+        :cms_blocks_attributes => [
+          { :label    => 'default_page_text',
+            :content  => 'preview content' }
+        ]
+      }
+      assert_response :success
+      assert_match /preview content/, response.body
+    end
+  end
+  
+  def test_update_preview
+    page = cms_pages(:default)
+    assert_no_difference 'CmsPage.count' do
+      put :update, :preview => 'Preview', :id => page, :cms_page => {
+        :label => 'Updated Label',
+        :cms_blocks_attributes => [
+          { :label    => 'default_page_text',
+            :content  => 'preview content',
+            :id       => cms_blocks(:default_page_text).id}
+        ]
+      }
+      assert_response :success
+      assert_match /preview content/, response.body
+      page.reload
+      assert_not_equal 'Updated Label', page.label
+    end
+  end
 end

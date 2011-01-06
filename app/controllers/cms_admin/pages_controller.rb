@@ -1,8 +1,9 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
   
   before_filter :build_cms_page,    :only => [:new, :create]
-  before_filter :build_upload_file, :only => [:new, :edit]
   before_filter :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_filter :preview_cms_page,  :only => [:create, :update]
+  before_filter :build_upload_file, :only => [:new, :edit]
   
   def index
     return redirect_to :action => :new if @cms_site.cms_pages.count == 0
@@ -27,7 +28,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
   
   def update
-    @cms_page.update_attributes!(params[:cms_page])
+    @cms_page.save!
     flash[:notice] = 'Page updated'
     redirect_to :action => :edit, :id => @cms_page
   rescue ActiveRecord::RecordInvalid
@@ -60,10 +61,17 @@ protected
   
   def load_cms_page
     @cms_page = @cms_site.cms_pages.find(params[:id])
+    @cms_page.attributes = params[:cms_page]
     @cms_page.cms_layout ||= (@cms_page.parent && @cms_page.parent.cms_layout || @cms_site.cms_layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Page not found'
     redirect_to :action => :index
   end
   
+  def preview_cms_page
+    if params[:preview]
+      layout = @cms_page.cms_layout.app_layout.blank?? false : @cms_page.cms_layout.app_layout
+      render :inline => @cms_page.content(true), :layout => layout
+    end
+  end
 end
