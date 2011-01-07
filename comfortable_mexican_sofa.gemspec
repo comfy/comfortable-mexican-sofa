@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.36"
+  s.version = "1.0.37"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2010-12-16}
+  s.date = %q{2011-01-07}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -166,11 +166,14 @@ Gem::Specification.new do |s|
     "public/stylesheets/comfortable_mexican_sofa/structure.css",
     "public/stylesheets/comfortable_mexican_sofa/typography.css",
     "script/rails",
+    "test/cms_seeds/test.host/layouts/broken.yml",
     "test/cms_seeds/test.host/layouts/default.yml",
     "test/cms_seeds/test.host/layouts/nested.yml",
+    "test/cms_seeds/test.host/pages/broken.yml",
     "test/cms_seeds/test.host/pages/child.yml",
     "test/cms_seeds/test.host/pages/child/subchild.yml",
     "test/cms_seeds/test.host/pages/index.yml",
+    "test/cms_seeds/test.host/snippets/broken.yml",
     "test/cms_seeds/test.host/snippets/default.yml",
     "test/fixtures/cms_blocks.yml",
     "test/fixtures/cms_layouts.yml",
