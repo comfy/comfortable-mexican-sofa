@@ -59,7 +59,7 @@ html, body {
   padding: 5px;
   border-radius: 3px;
   -moz-border-radius: 3px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 #page_save button {
@@ -73,9 +73,11 @@ html, body {
   margin-right: 5px;
 }
 
-#file_uploads button {
-  width: 100%;
-  margin-bottom: 10px;
+#file_uploads .actions {
+  overflow: hidden;
+}
+#file_uploads .actions button {
+  float: right;
 }
 #file_uploads #uploaded_files {
   max-height: 500px;
@@ -86,7 +88,7 @@ html, body {
   overflow: hidden;
   font-size: 11px;
   background-color: #fff;
-  margin-bottom: 2px;
+  margin-top: 2px;
   opacity: 0.8;
 }
 #file_uploads #uploaded_files .file.pending {

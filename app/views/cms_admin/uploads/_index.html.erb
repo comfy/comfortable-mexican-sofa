@@ -1,7 +1,9 @@
 <div id='file_uploads' class='box'>
-  <button id="uploader_button" href="#">Select Files to Upload</button>
+  <div class='actions'>
+    <button id="uploader_button" href="#">Upload Files</button>
+  </div>
   <div id='uploaded_files'>
-    <% CmsUpload.order('created_at DESC').all.each do |file| %>
+    <% CmsUpload.order('file_file_name').all.each do |file| %>
       <%= render :partial => 'cms_admin/uploads/file', :object => file %>
     <% end %>
   </div>

@@ -74,7 +74,6 @@ class CreateCms < ActiveRecord::Migration
   
   def self.down
     drop_table :cms_sites
-    drop_table :cms_hosts
     drop_table :cms_layouts
     drop_table :cms_pages
     drop_table :cms_snippets
