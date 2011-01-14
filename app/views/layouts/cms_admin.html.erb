@@ -13,7 +13,9 @@
     <div class='body_wrapper'>
       <div class='left_column'>
         <div class='left_column_content'>
-          <%= active_link_to 'Sites', cms_admin_sites_path %>
+          <% unless ComfortableMexicanSofa.config.auto_manage_sites %>
+            <%= active_link_to 'Sites', cms_admin_sites_path %>
+          <% end %>
           <%= active_link_to 'Layouts', cms_admin_layouts_path %>
           <%= active_link_to 'Pages', cms_admin_pages_path %>
           <%= active_link_to 'Snippets', cms_admin_snippets_path %>

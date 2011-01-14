@@ -11,12 +11,15 @@ ComfortableMexicanSofa.configure do |config|
   #   config.admin_route_prefix = 'cms-admin'
   
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
-  # to something else like:
+  # You don't need to change it when changing admin_route_prefix
   #   config.admin_route_redirect = '/cms-admin/pages'
   
   # Location of YAML files that can be used to render pages instead of pulling
   # data from the database. Not active if not specified.
   #   config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
+  
+  # Let CMS handle site creation and management. Enabled by default.
+  #   config.auto_manage_sites = true
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

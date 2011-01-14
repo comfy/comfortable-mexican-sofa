@@ -3,15 +3,23 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
+  
   fixtures :all
   include ActionDispatch::TestProcess
   
   def setup
-    # resetting default configuration
+    reset_config
+  end
+  
+  # resetting default configuration
+  def reset_config
     ComfortableMexicanSofa.configure do |config|
-      config.cms_title      = 'ComfortableMexicanSofa'
-      config.authentication = 'ComfortableMexicanSofa::HttpAuth'
-      config.seed_data_path = nil
+      config.cms_title            = 'ComfortableMexicanSofa'
+      config.authentication       = 'ComfortableMexicanSofa::HttpAuth'
+      config.seed_data_path       = nil
+      config.admin_route_prefix   = 'cms-admin'
+      config.admin_route_redirect = "/cms-admin/pages"
+      config.auto_manage_sites    = true
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
@@ -69,9 +77,7 @@ class ActionDispatch::IntegrationTest
   
   def setup
     host! 'test.host'
-    ComfortableMexicanSofa.config.seed_data_path = nil
-    ComfortableMexicanSofa::HttpAuth.username = 'username'
-    ComfortableMexicanSofa::HttpAuth.password = 'password'
+    reset_config
   end
   
   # Attaching http_auth stuff with request. Example use:

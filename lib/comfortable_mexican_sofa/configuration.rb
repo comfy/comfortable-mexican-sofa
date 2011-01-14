@@ -18,6 +18,9 @@ class ComfortableMexicanSofa::Configuration
   # to something else
   attr_accessor :admin_route_redirect
   
+  # Let CMS handle site creation and management. Enabled by default.
+  attr_accessor :auto_manage_sites
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa'
@@ -25,6 +28,7 @@ class ComfortableMexicanSofa::Configuration
     @seed_data_path       = nil
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = "/#{@admin_route_prefix}/pages"
+    @auto_manage_sites    = true
   end
   
 end
