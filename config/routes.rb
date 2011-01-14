@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   end
   
   scope :controller => :cms_content do
-    get '/cms-css/:id'  => :render_css,   :as => 'cms_css',   :format => 'css'
-    get '/cms-js/:id'   => :render_js,    :as => 'cms_js',    :format => 'js'
+    get '/cms-css/:id'  => :render_css,   :as => 'cms_css'
+    get '/cms-js/:id'   => :render_js,    :as => 'cms_js'
     get '/'             => :render_html,  :as => 'cms_html',  :path => '(*cms_path)'
   end
   

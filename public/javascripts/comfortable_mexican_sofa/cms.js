@@ -9,6 +9,7 @@ $.CMS = function(){
     $.CMS.load_page_blocks();
     $.CMS.enable_rich_text();
     $.CMS.enable_date_picker();
+    $.CMS.enable_desc_toggle();
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
@@ -68,6 +69,13 @@ $.CMS = function(){
     
     enable_date_picker: function(){
       $('input[type=datetime]').datepicker();
+    },
+    
+    enable_desc_toggle: function(){
+      $('.form_element .desc .desc_toggle').click(function(){
+        $(this).toggle();
+        $(this).siblings('.desc_content').toggle();
+      })
     },
     
     tree_methods: function(){

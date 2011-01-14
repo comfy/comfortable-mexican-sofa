@@ -36,7 +36,6 @@ module ComfortableMexicanSofa::ViewMethods
     return '' unless block = page.cms_blocks.find_by_label(block_label)
     block.content.to_s.html_safe
   end
-  
 end
 
 ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods

@@ -17,3 +17,9 @@ a {
 a:hover {
   color: #1C2733;
 }
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}

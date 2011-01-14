@@ -164,14 +164,16 @@ html, body {
 .form_element .value input[type='password'],
 .form_element .value textarea,
 .form_element .value select {
-  width: 98%;
+  width: 100%;
 }
 .form_element .value input[type='text'],
 .form_element .value input[type='password'],
 .form_element .value select,
 .form_element .value textarea {
-  border: 1px solid #ccc;
-  padding: 2px;
+  border: 0px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 2px 0px;
   font-family: 'Courier New', Courier, monospace;
 }
 .form_element .value textarea {
@@ -220,7 +222,31 @@ html, body {
 .form_element.form_save label {
   margin: 0px 5px;
 }
-
+.form_element .desc {
+  margin: 3px 0px 0px 160px;
+  font-size: 11px;
+  color: #777;
+}
+.form_element .desc .desc_toggle {
+  float: right;
+}
+.form_element .desc .desc_toggle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.form_element .desc .desc_content {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.form_element .desc.with_toggle .desc_content {
+  display: none;
+}
+.form_element .desc.with_toggle .desc_content table td {
+  vertical-align: top;
+  padding: 5px;
+}
 /* -- Listings ----------------------------------------------------------- */
 ul.list li .item {
   overflow: hidden;
