@@ -38,6 +38,7 @@ class SitesTest < ActionDispatch::IntegrationTest
       http_auth :get, cms_admin_pages_path
       assert_response :redirect
       assert_redirected_to cms_admin_sites_path
+      assert_equal 'No Site defined for this hostname. Create it now.', flash[:error]
     end
   end
   
@@ -48,6 +49,7 @@ class SitesTest < ActionDispatch::IntegrationTest
       http_auth :get, cms_admin_pages_path
       assert_response :redirect
       assert_redirected_to cms_admin_sites_path
+      assert_equal 'No Site defined for this hostname. Create it now.', flash[:error]
     end
   end
   

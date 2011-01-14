@@ -1,5 +1,6 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
   
+  before_filter :check_for_layouts, :only => [:new, :edit]
   before_filter :build_cms_page,    :only => [:new, :create]
   before_filter :load_cms_page,     :only => [:edit, :update, :destroy]
   before_filter :preview_cms_page,  :only => [:create, :update]
@@ -48,6 +49,13 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
   
 protected
+
+  def check_for_layouts
+    if CmsLayout.count == 0
+      flash[:error] = 'No Layouts found. Please create one.'
+      redirect_to new_cms_admin_layout_path
+    end
+  end
   
   def build_cms_page
     @cms_page = @cms_site.cms_pages.new(params[:cms_page])

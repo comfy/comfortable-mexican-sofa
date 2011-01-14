@@ -282,4 +282,21 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_not_equal 'Updated Label', page.label
     end
   end
+  
+  def test_get_new_with_no_layout
+    CmsLayout.destroy_all
+    get :new
+    assert_response :redirect
+    assert_redirected_to new_cms_admin_layout_path
+    assert_equal 'No Layouts found. Please create one.', flash[:error]
+  end
+  
+  def test_get_edit_with_no_layout
+    CmsLayout.destroy_all
+    page = cms_pages(:default)
+    get :edit, :id => page
+    assert_response :redirect
+    assert_redirected_to new_cms_admin_layout_path
+    assert_equal 'No Layouts found. Please create one.', flash[:error]
+  end
 end
