@@ -20,6 +20,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert assigns(:cms_layout)
+    assert_equal '{{ cms:page:content }}', assigns(:cms_layout).content
     assert_template :new
     assert_select 'form[action=/cms-admin/layouts]'
   end

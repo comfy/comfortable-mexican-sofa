@@ -45,6 +45,7 @@ protected
   def build_cms_layout
     @cms_layout = @cms_site.cms_layouts.new(params[:cms_layout])
     @cms_layout.parent ||= CmsLayout.find_by_id(params[:parent_id])
+    @cms_layout.content ||= '{{ cms:page:content }}'
   end
   
   def load_cms_layout
