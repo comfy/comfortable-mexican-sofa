@@ -19,27 +19,13 @@ Then from the Rails project's root run:
     rails g cms
     rake db:migrate
     
-At this point you should have database structure created, some assets copied to /public directory and initializer set up:
-    
-    ComfortableMexicanSofa.configure do |config|
-      config.cms_title      = 'ComfortableMexicanSofa'
-      config.authentication = 'ComfortableMexicanSofa::HttpAuth'
-    end
-    
-    # Credentials for HttpAuth
-    ComfortableMexicanSofa::HttpAuth.username = 'username'
-    ComfortableMexicanSofa::HttpAuth.password = 'password'
-    
-For a full list of available configuration options and their defaults take a peek in here: [configuration.rb](http://https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/lib/comfortable_mexican_sofa/configuration.rb)
+At this point you should have database structure created, some assets copied to /public directory and [initializer](https://github.com/twg/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb) set up.
     
 Usage
 -----
 Now you should be able to navigate to http://yoursite/cms-admin
 
-### Step 1: Create Site
-CMS allows you to run multiple sites from a single installation. Each site is attached to a hostname. For the first time you'll be prompted to set up the initial site. Hostname will be pre-populated so just choose a label.
-
-### Step 2: Create Layout
+### Step 1: Create Layout
 Before creating pages and populating them with content we need to create a layout. Layout is the template of your pages. It defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
 
     <html>
@@ -88,7 +74,7 @@ are exactly that. You don't want to do IRB inside CMS so there's a handy tag:
     {{ cms:partial:path/to/partial:x:y }} # gets translated to <%= render :partial => 'path/to/partial', 
                                           # :locals => { :param_1 => 'x', :param_2 => 'y'} %>
 
-### Step 3: Create Page
+### Step 2: Create Page
 Now you're ready to create a page. Based on how you defined your layout, you should have form inputs ready to be populated.
 Save a page, and it will be accessible from the public side.
 
@@ -131,7 +117,7 @@ Then it's a matter of populating the content. Few rules to remember:
 - parent pages are identified by full_path (slug for layouts)
 - folder structure reflects tree structure of the site
 
-Example fixture files for a [layout](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/layouts/nested.yml), [page](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/pages/child/subchild.yml) and [snippet](https://github.com/theworkinggroup/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/snippets/default.yml)
+Example fixture files for a [layout](https://github.com/twg/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/layouts/nested.yml), [page](https://github.com/twg/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/pages/child/subchild.yml) and [snippet](https://github.com/twg/comfortable-mexican-sofa/blob/master/test/cms_seeds/test.host/snippets/default.yml)
 
 **Note:** If ComfortableMexicanSofa.config.seed\_data\_path is set no content is loaded from database. Only fixture files are used.
 
