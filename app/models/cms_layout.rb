@@ -93,14 +93,6 @@ class CmsLayout < ActiveRecord::Base
     end
   end
   
-  def merged_css
-    self.parent ? [self.parent.merged_css, self.css].join("\n") : self.css.to_s
-  end
-  
-  def merged_js
-    self.parent ? [self.parent.merged_js, self.js].join("\n") : self.js.to_s
-  end
-  
 protected
   
   def check_content_tag_presence
@@ -115,7 +107,6 @@ protected
   def clear_cache
     FileUtils.rm File.expand_path("cms-css/#{self.slug}.css", Rails.public_path), :force => true
     FileUtils.rm File.expand_path("cms-js/#{self.slug}.js",   Rails.public_path), :force => true
-    self.children.each{ |child| child.save! }
   end
   
   # Forcing page content reload. This will happen in cascade due to #clear_cache mathod above.

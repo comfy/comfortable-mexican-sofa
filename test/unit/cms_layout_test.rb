@@ -84,14 +84,6 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal '{{cms:page:content}}', child_layout.merged_content
   end
   
-  def test_merged_css
-    assert_equal "nested_css\nchild_css", cms_layouts(:child).merged_css
-  end
-  
-  def test_merged_js
-    assert_equal "nested_js\nchild_js", cms_layouts(:child).merged_js
-  end
-  
   def test_load_from_file
     assert !CmsLayout.load_from_file(cms_sites(:default), 'default')
     
