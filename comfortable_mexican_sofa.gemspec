@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.38"
+  s.version = "1.0.39"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -192,6 +192,7 @@ Gem::Specification.new do |s|
     "test/fixtures/files/invalid_file.gif",
     "test/fixtures/files/valid_image.jpg",
     "test/fixtures/views/_nav_hook.html.erb",
+    "test/fixtures/views/_nav_hook_2.html.erb",
     "test/functional/cms_admin/layouts_controller_test.rb",
     "test/functional/cms_admin/pages_controller_test.rb",
     "test/functional/cms_admin/sites_controller_test.rb",
