@@ -299,4 +299,15 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_redirected_to new_cms_admin_layout_path
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
+  
+  def test_get_toggle_branch
+    page = cms_pages(:default)
+    get :toggle_branch, :id => page, :format => :js
+    assert_response :success
+    assert_equal [page.id.to_s], session[:cms_page_tree]
+    
+    get :toggle_branch, :id => page, :format => :js
+    assert_response :success
+    assert_equal [], session[:cms_page_tree]
+  end
 end

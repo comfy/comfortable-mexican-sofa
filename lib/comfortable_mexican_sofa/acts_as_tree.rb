@@ -78,6 +78,11 @@ module ComfortableMexicanSofa::ActsAsTree
       node
     end
     
+    # Checks if this node is a root
+    def root?
+      !self.parent
+    end
+    
     # Returns all siblings of the current node.
     #
     #   subchild1.siblings # => [subchild2]

@@ -1,9 +1,21 @@
-<% cms_page ||= index_branch %>
+<% 
+  cms_page    ||= index_branch 
+  has_children  = cms_page.children.present?
+  has_siblings  = cms_page.siblings.present?
+  branch_open   = (session[:cms_page_tree] || []).member?(cms_page.id.to_s) || cms_page.root?
+%>
 
 <li id='cms_page_<%= cms_page.id %>'>
   <div class='item'>
+    <div class='toggle <%= 'open' if branch_open %>'>
+      <%= 
+        if has_children && !cms_page.root?
+          link_to span_tag('toggle'), toggle_branch_cms_admin_page_path(cms_page), :remote => true
+        end
+      %>
+    </div>
     <div class='icon'>
-      <% if cms_page.siblings.size > 0 %>
+      <% if has_siblings %>
         <div class='dragger'></div>
       <% end %>
     </div>
@@ -15,11 +27,11 @@
     <div class='label'>
       <%= link_to cms_page.label, edit_cms_admin_page_path(cms_page) %>
       <div class='sublabel'>
-        <%= link_to cms_page.full_path, cms_page.full_path %>
+        <%= link_to cms_page.url, cms_page.full_path, :target => '_blank' %>
       </div>
     </div>
   </div>
-  <% if cms_page.children.present? %>
+  <% if has_children && branch_open %>
     <ul>
       <%= render :partial => 'index_branch', :collection => cms_page.children %>
     </ul>

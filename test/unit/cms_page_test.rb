@@ -231,6 +231,16 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, CmsPage.published.count
   end
   
+  def test_root?
+    assert cms_pages(:default).root?
+    assert !cms_pages(:child).root?
+  end
+  
+  def test_url
+    assert_equal 'http://test.host/', cms_pages(:default).url
+    assert_equal 'http://test.host/child-page', cms_pages(:child).url
+  end
+  
 protected
   
   def new_params(options = {})

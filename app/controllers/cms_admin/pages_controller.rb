@@ -48,6 +48,15 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     @cms_page.cms_layout = @cms_site.cms_layouts.find_by_id(params[:layout_id])
   end
   
+  def toggle_branch
+    @cms_page = @cms_site.cms_pages.find(params[:id])
+    s   = (session[:cms_page_tree] ||= [])
+    id  = @cms_page.id.to_s
+    s.member?(id) ? s.delete(id) : s << id
+  rescue ActiveRecord::RecordNotFound
+    # do nothing
+  end
+  
 protected
 
   def check_for_layouts

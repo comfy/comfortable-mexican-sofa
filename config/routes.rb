@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :pages do
       member do 
         match :form_blocks
+        match :toggle_branch
       end
     end
     resources :sites

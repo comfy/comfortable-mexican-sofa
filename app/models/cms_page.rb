@@ -115,6 +115,11 @@ class CmsPage < ActiveRecord::Base
     @cms_tags ||= []
   end
   
+  # Full url for a page
+  def url
+    "http://#{self.cms_site.hostname}#{self.full_path}"
+  end
+  
 protected
   
   def assign_parent
