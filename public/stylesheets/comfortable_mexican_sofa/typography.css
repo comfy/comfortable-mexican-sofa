@@ -3,11 +3,11 @@ body {
 }
 
 h1 {
-  font: bold 25px/25px Georgia, serif;
+  font: 22px/22px Arial, sans-serif;
   margin-bottom: 25px;
   padding-bottom: 5px;
-  color: #1C1F22;
-  text-shadow: #fff 1px 1px;
+  color: rgb(80,80,80);
+  text-shadow: 0px 1px rgb(255,255,255);
   border-bottom: 2px groove #ccc;
 }
 a {
@@ -17,9 +17,69 @@ a {
 a:hover {
   color: #1C2733;
 }
+
 strong {
   font-weight: bold;
 }
 em {
   font-style: italic;
 }
+
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"], 
+input[type="file"], 
+-webkit-file-upload-button, 
+button { 
+	-webkit-box-styling: none; border: none;
+	}
+
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"], 
+input[type="file"], 
+-webkit-file-upload-button, 
+button { 
+	background:#222 url(/images/comfortable_mexican_sofa/overlay-button.png) repeat-x 0 0;
+	background-image:url(/images/comfortable_mexican_sofa/super-button-overlay.png);
+	background-color: rgb(65,79,100);
+	display:inline-block;padding:5px 15px 6px;
+	color:#fff !important;
+	font-size:13px;
+	font-weight:bold;
+	line-height:1;
+	text-decoration:none;
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+	-moz-box-shadow:0 1px 3px rgba(0,0,0,0.25);
+	-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25);
+	text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom:1px solid rgba(0,0,0,0.25);
+	position:relative;
+	cursor:pointer;
+	overflow:visible;
+	width:auto;
+	padding: 5px 10px;
+	margin-right:10px;
+}
+
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"], 
+input[type="file"], 
+-webkit-file-upload-button, 
+button::-moz-focus-inner{
+	border:0;padding:0
+	}
+	
+input[type="button"]:hover, 
+input[type="submit"]:hover, 
+input[type="reset"]:hover, 
+input[type="file"]:hover, 
+-webkit-file-upload-button:hover, 
+button:hover,
+input#uploader_button:hover {
+	background-color: rgb(35,49,70);color:#fff;
+	-webkit-transition: background 0.4s ease-in-out;
+	}
