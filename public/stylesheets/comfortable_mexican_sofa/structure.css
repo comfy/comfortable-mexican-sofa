@@ -1,7 +1,7 @@
 /* -- Containers --------------------------------------------------------- */
 html, body {
   height: 100%;
-  background-color: #515151;
+  background-color: #252525;
 }
 .body_wrapper {
   height: 100%;
@@ -37,19 +37,22 @@ html, body {
 }
 .left_column_content a {
   display: block;
-  background-color: #fff;
-  padding: 0px 10px;
+  padding: 3px 10px;
   margin-bottom: 5px;
-  font: 15px/25px Georgia, serif;
-  color: #1C1F22;
+  font: 15px/25px 'Lucida Grande', 'Tahoma', serif;
   border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px ;
+  border-bottom-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-bottomleft: 4px;
-  opacity: 0.8;
+  background: #2D2D2D;
+  background: -moz-linear-gradient(left, #2D2D2D 0%, #3A3A3A 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2D2D2D), color-stop(100%,#3A3A3A));
+  color: #fff;
+  opacity: 0.3;
 }
 .left_column_content a:hover,
 .left_column_content a.active {
+  color: #fff;
   opacity: 1;
 }
 /* -- Right Column ------------------------------------------------------- */
@@ -148,7 +151,7 @@ html, body {
   width: 137px;
   float: left;
   text-align: right;
-  font: 15px/21px Georgia, serif;
+  font: 15px/21px 'Lucida Grande', 'Tahoma', serif;
   text-shadow: #fff 1px 1px;
   padding-right: 10px;
   background-color: #e0e0e0;
