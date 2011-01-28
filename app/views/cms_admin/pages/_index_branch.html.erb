@@ -5,7 +5,7 @@
   branch_open   = (session[:cms_page_tree] || []).member?(cms_page.id.to_s) || cms_page.root?
 %>
 
-<li id='cms_page_<%= cms_page.id %>'>
+<li id='<%= dom_id(cms_page) %>'>
   <div class='item'>
     <div class='toggle <%= 'open' if branch_open %>'>
       <%= 
@@ -16,7 +16,7 @@
     </div>
     <div class='icon'>
       <% if has_siblings %>
-        <div class='dragger'></div>
+        <div class='dragger'><span>drag</span></div>
       <% end %>
     </div>
     <div class='action_links'>

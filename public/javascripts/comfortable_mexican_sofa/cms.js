@@ -10,6 +10,7 @@ $.CMS = function(){
     $.CMS.enable_rich_text();
     $.CMS.enable_date_picker();
     $.CMS.enable_desc_toggle();
+    $.CMS.enable_sortable_list();
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
@@ -17,6 +18,16 @@ $.CMS = function(){
   });
   
   return {
+    
+    enable_sortable_list: function(){
+      $('ul.sortable, ul.sortable ul').sortable({
+        handle: 'div.dragger',
+        axis: 'y',
+        update: function(){
+          $.post(current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
+        }
+      })
+    },
     
     slugify: function(){
       $('input#slugify').bind('keyup.cms', function() {

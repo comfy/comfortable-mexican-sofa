@@ -1,6 +1,6 @@
 <%= link_to span_tag('Create New Page'), new_cms_admin_page_path, :class => 'big_button' %>
 <h1>Pages</h1>
 
-<ul class='list'>
+<ul class='list sortable'>
   <%= render :partial => 'index_branch', :collection => @cms_pages %>
 </ul>

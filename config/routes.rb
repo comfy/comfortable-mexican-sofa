@@ -7,6 +7,9 @@ Rails.application.routes.draw do
         match :form_blocks
         match :toggle_branch
       end
+      collection do
+        match :reorder
+      end
     end
     resources :sites
     resources :layouts

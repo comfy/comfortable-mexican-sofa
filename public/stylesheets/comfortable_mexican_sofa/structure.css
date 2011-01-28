@@ -281,6 +281,18 @@ ul.list li .item .icon {
   height: 28px;
   background: url(/images/comfortable_mexican_sofa/icon_regular.gif);
 }
+ul.list li .item .icon .dragger {
+  width: 28px;
+  height: 28px;
+  background: url(/images/comfortable_mexican_sofa/icon_move.gif);
+  display: none;
+}
+ul.list li .item .icon:hover .dragger {
+  display: block;
+}
+ul.list li .item .icon .dragger span {
+  display: none;
+}
 ul.list li .item .label {
   margin-left: 60px;
   font-size: 14px;

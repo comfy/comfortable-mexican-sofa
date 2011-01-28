@@ -57,6 +57,15 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
     # do nothing
   end
   
+  def reorder
+    (params[:cms_page] || []).each_with_index do |id, index|
+      if (cms_page = CmsPage.find_by_id(id))
+        cms_page.update_attribute(:position, index)
+      end
+    end
+    render :nothing => true
+  end
+  
 protected
 
   def check_for_layouts

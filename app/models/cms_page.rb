@@ -16,7 +16,8 @@ class CmsPage < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_parent,
-                    :assign_full_path
+                    :assign_full_path,
+                    :assign_position
   before_save       :set_cached_content
   after_save        :sync_child_pages
   
@@ -128,6 +129,12 @@ protected
   
   def assign_full_path
     self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
+  end
+  
+  def assign_position
+    return unless self.parent
+    max = self.parent.children.maximum(:position)
+    self.position = max ? max + 1 : 0
   end
   
   def validate_target_page

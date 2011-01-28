@@ -310,4 +310,25 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal [], session[:cms_page_tree]
   end
+  
+  def test_reorder
+    page_one = cms_pages(:child)
+    page_two = cms_sites(:default).cms_pages.create!(
+      :parent     => cms_pages(:default),
+      :cms_layout => cms_layouts(:default),
+      :label      => 'test',
+      :slug       => 'test'
+    )
+    assert_equal 0, page_one.position
+    assert_equal 1, page_two.position
+    
+    post :reorder, :cms_page => [page_two.id, page_one.id]
+    assert_response :success
+    page_one.reload
+    page_two.reload
+    
+    assert_equal 1, page_one.position
+    assert_equal 0, page_two.position
+  end
+  
 end

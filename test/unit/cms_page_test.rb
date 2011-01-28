@@ -57,6 +57,7 @@ class CmsPageTest < ActiveSupport::TestCase
         ]
       )
       assert page.is_published?
+      assert_equal 1, page.position
     end
   end
   
