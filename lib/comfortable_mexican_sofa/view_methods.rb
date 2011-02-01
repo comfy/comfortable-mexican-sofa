@@ -54,5 +54,7 @@ ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => [
   'comfortable_mexican_sofa/reset',
   'comfortable_mexican_sofa/structure',
   'comfortable_mexican_sofa/typography',
+  'comfortable_mexican_sofa/form',
+  'comfortable_mexican_sofa/content',
   '/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui'
 ]
