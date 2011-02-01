@@ -50,11 +50,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   def submit(value, options = {}, &block)
     return super if options.delete(:disable_builder)
     extra_content = @template.capture(&block) if block_given?
-    %(
-      <div class='form_element submit_element'>
-        #{super(value, options)} #{extra_content}
-      </div>
-    ).html_safe
+    simple_field(nil, "#{super(value, options)} #{extra_content}", :class => 'submit_element')
   end
   
   # -- Tag Field Fields -----------------------------------------------------

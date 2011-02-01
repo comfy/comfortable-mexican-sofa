@@ -29,7 +29,7 @@
 
 <%= render :partial => 'form_blocks' %>
 
-<%= form.simple_field nil, nil, :class => 'form_save' do %>
+<%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
   <%= form.label_for :is_published, :label => 'Published' %>
   <%= form.submit @cms_page.new_record?? 'Create Page' : 'Update Page', :disable_builder => true %>

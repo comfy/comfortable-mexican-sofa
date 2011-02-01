@@ -32,14 +32,11 @@
 .form_element .value textarea {
   height: 300px;
 }
-.form_element.submit_element {
-  margin-left: 150px;
-}
 .form_element.check_box_element input {
   width: auto;
 }
 .page_form_extras {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 .form_element.cms_tag_field_datetime .label,
 .form_element.cms_tag_field_integer .label,
@@ -70,13 +67,16 @@
   font-size: 11px;
   color: #9e0b0f;
 }
-.form_element.form_save {
-  background-color: #E0E0E0;
+.form_element.submit_element {
+  margin-top: 10px;
+}
+.form_element.submit_element .value {
+  background-color: #f1f1f1;
   border-radius: 3px;
   -moz-border-radius: 3px;
-  padding: 5px 0px;
+  padding: 5px;
 }
-.form_element.form_save label {
+.form_element.submit_element label {
   margin: 0px 5px;
 }
 .form_element .desc {

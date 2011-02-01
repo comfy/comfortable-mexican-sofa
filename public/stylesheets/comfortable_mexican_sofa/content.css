@@ -1,0 +1,53 @@
+#page_save button {
+  float: right;
+}
+#page_save label {
+  line-height: 20px;
+  padding-left: 5px;
+}
+#page_save input {
+  margin-right: 5px;
+}
+
+#file_uploads .actions {
+  overflow: hidden;
+}
+#file_uploads .actions button {
+  float: right;
+}
+#file_uploads #uploaded_files {
+  max-height: 500px;
+  overflow-y: auto;
+}
+#file_uploads #uploaded_files .file {
+  position: relative;
+  overflow: hidden;
+  font-size: 11px;
+  background-color: #252525;
+  margin-top: 2px;
+  padding: 0px 3px;
+  opacity: 0.5;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+#file_uploads #uploaded_files .file.pending {
+  opacity: 0.3;
+}
+#file_uploads #uploaded_files .file:hover {
+  opacity: 1;
+}
+#file_uploads #uploaded_files .file a {
+  color: #fff;
+}
+#file_uploads #uploaded_files .file a.delete {
+  position: absolute;
+  display: block;
+  right: 0px;
+  top: 0px;
+  height: 13px;
+  width: 13px;
+  font-weight: bold;
+}
+#file_uploads #uploaded_files .file:hover a.delete {
+  color: #9e0b0f;
+}

@@ -15,7 +15,7 @@ html, body {
   min-height: 100%;
   overflow: hidden;
   background-color: #D8D8D8;
-  border-left: 1px solid #484844;
+  border-left: 1px solid #484848;
   border-right: 1px solid #484848;
 }
 .center_column_content {
@@ -45,8 +45,8 @@ html, body {
   -moz-border-radius-topleft: 4px;
   -moz-border-radius-bottomleft: 4px;
   background: #2D2D2D;
-  background: -moz-linear-gradient(left, #2D2D2D 0%, #3A3A3A 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2D2D2D), color-stop(100%,#3A3A3A));
+  background: -moz-linear-gradient(left, #2D2D2D 0%, #484848 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2D2D2D), color-stop(100%,#484848));
   color: #fff;
   opacity: 0.3;
 }
@@ -55,64 +55,15 @@ html, body {
   color: #fff;
   opacity: 1;
 }
-/* -- Right Column ------------------------------------------------------- */
+
 .right_column_content .box {
-  background-color: #ececec;
+  background-color: #484848;
   padding: 5px;
   border-radius: 3px;
   -moz-border-radius: 3px;
   margin-bottom: 10px;
   overflow: hidden;
-}
-#page_save button {
-  float: right;
-}
-#page_save label {
-  line-height: 20px;
-  padding-left: 5px;
-}
-#page_save input {
-  margin-right: 5px;
-}
-
-#file_uploads .actions {
-  overflow: hidden;
-}
-#file_uploads .actions button {
-  float: right;
-}
-#file_uploads #uploaded_files {
-  max-height: 500px;
-  overflow-y: auto;
-}
-#file_uploads #uploaded_files .file {
-  position: relative;
-  overflow: hidden;
-  font-size: 11px;
-  background-color: #fff;
-  margin-top: 2px;
-  opacity: 0.8;
-}
-#file_uploads #uploaded_files .file.pending {
-  opacity: 0.3;
-}
-#file_uploads #uploaded_files .file:hover {
-  opacity: 1;
-}
-#file_uploads #uploaded_files .file:hover a {
-  color: #000;
-}
-#file_uploads #uploaded_files .file a.delete {
-  position: absolute;
-  display: block;
-  right: 0px;
-  top: 0px;
-  height: 13px;
-  width: 13px;
-  font-weight: bold;
-}
-#file_uploads #uploaded_files .file:hover a.delete {
-  color: #9e0b0f;
+  color: #fff;
 }
 
 /* -- Common Elements ---------------------------------------------------- */
