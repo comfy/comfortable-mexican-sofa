@@ -11,6 +11,6 @@
   <%= form.select :app_layout, [['---- Select Application Layout ----', nil]] + options %>
 <% end %>
 
-<%= form.text_area :content, :desc => render(:partial => '/cms_admin/common/desc/layout_content'), :desc_toggle => '[ help ]' %>
-<%= form.text_area :css, :desc => render(:partial => '/cms_admin/common/desc/layout_css'), :desc_toggle => '[ help ]' %>
-<%= form.text_area :js, :desc => render(:partial => '/cms_admin/common/desc/layout_js'), :desc_toggle => '[ help ]' %>
+<%= form.text_area :content %>
+<%= form.text_area :css %>
+<%= form.text_area :js %>

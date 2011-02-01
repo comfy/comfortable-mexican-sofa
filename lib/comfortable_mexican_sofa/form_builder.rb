@@ -17,13 +17,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   def default_field(type, field, options = {}, &block)
     if desc = options.delete(:desc)
-      desc_toggle = options.delete(:desc_toggle)
-      desc_toggle = "<div class='desc_toggle'>#{desc_toggle}</div>" if desc_toggle
-      desc = %(
-        <div class='desc #{desc_toggle ? 'with_toggle' : nil}'>
-          #{desc_toggle} <div class='desc_content'>#{desc}</div>
-        </div>
-      )
+      desc = "<div class='desc'>#{desc}</div>"
     end
     %(
       <div class='form_element #{type}_element'>
