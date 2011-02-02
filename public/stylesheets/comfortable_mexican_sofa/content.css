@@ -176,3 +176,9 @@ form.search {
 .c_cms_admin_snippets.a_index ul.list li .item .label {
   margin-left: 32px;
 }
+.c_cms_admin_layouts.a_index ul.list li .item .icon {
+  background-image: url(/images/comfortable_mexican_sofa/icon_layout.gif);
+}
+.c_cms_admin_snippets.a_index ul.list li .item .icon {
+  background-image: url(/images/comfortable_mexican_sofa/icon_snippet.gif);
+}
