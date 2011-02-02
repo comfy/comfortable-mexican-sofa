@@ -1,6 +1,6 @@
 <div id='file_uploads' class='box'>
   <div class='actions'>
-    <button id="uploader_button" href="#">Upload Files</button>
+    <a id='uploader_button' href='#' class='big button'>Upload Files</a>
   </div>
   <div id='uploaded_files'>
     <% CmsUpload.order('file_file_name').all.each do |file| %>

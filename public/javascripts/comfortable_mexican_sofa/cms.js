@@ -15,8 +15,6 @@ $.CMS = function(){
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
-  }).ajaxSuccess(function(){
-    $.CMS.enable_codemirror();
   });
   
   return {
@@ -147,15 +145,15 @@ $.CMS = function(){
     
     enable_page_save_widget : function(){
       $('#page_save input').attr('checked', $('input#cms_page_is_published').is(':checked'));
-      $('#page_save button').html($('input#cms_page_submit').val());
+      $('#page_save a').html($('input#cms_page_submit').val());
       
-      $('#page_save input').bind('click', function(){
+      $('#page_save a').bind('click', function(){
         $('input#cms_page_is_published').attr('checked', $(this).is(':checked'));
       })
       $('input#cms_page_is_published').bind('click', function(){
-        $('#page_save input').attr('checked', $(this).is(':checked'));
+        $('#page_save a').attr('checked', $(this).is(':checked'));
       })
-      $('#page_save button').bind('click', function(){
+      $('#page_save a').bind('click', function(){
         $('input#cms_page_submit').click();
       })
     },

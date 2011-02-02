@@ -9,7 +9,7 @@
     <%= yield :head %>
     <%= cms_hook :html_head %>
   </head>
-  <body id='cms_admin'>
+  <body class='c_<%= params[:controller].idify %> a_<%= params[:action].idify %>'>
     <div class='body_wrapper'>
       <div class='left_column'>
         <div class='left_column_content'>

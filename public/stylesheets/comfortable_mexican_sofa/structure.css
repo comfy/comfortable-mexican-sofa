@@ -66,7 +66,7 @@ html, body {
   color: #fff;
 }
 
-/* -- Common Elements ---------------------------------------------------- */
+/* -- Flash Messages ----------------------------------------------------- */
 .flash {
   text-align: center;
   line-height: 25px;
@@ -77,85 +77,20 @@ html, body {
 .flash.error {
   background-color: #9e0b0f;
 }
-.big_button {
-  float: right;
-  padding: 4px 10px;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  border: 1px solid #9f9f9f;
-  background: -moz-linear-gradient(top, #F9F9F9 0%, #D5D5D5 34%, #B4B4B4 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9F9F9), color-stop(34%,#D5D5D5), color-stop(100%,#B4B4B4));
-  text-shadow: #f5f5f5 1px 1px;
-  letter-spacing: 0.5px;
-  color: #1b1b1b;
-}
 
-/* -- Listings ----------------------------------------------------------- */
-ul.list li .item {
-  overflow: hidden;
-  padding: 5px;
-  background-color: #f1f1f1;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  margin-bottom: 5px;
-}
-ul.list li .item .toggle {
-  float: left;
-  height: 28px;
-  width: 28px; 
-}
-ul.list li .item .toggle a {
-  display: block;
-  height: 28px;
-  width: 28px;
-  background: url(/images/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat;
-}
-ul.list li .item .toggle a span {
-  display: none;
-}
-ul.list li .item .toggle.open a {
-  background-image: url(/images/comfortable_mexican_sofa/arrow_bottom.gif);
-}
-ul.list li .item .icon {
-  float: left;
-  width: 28px;
-  height: 28px;
-  background: url(/images/comfortable_mexican_sofa/icon_regular.gif);
-}
-ul.list li .item .icon .dragger {
-  width: 28px;
-  height: 28px;
-  background: url(/images/comfortable_mexican_sofa/icon_move.gif);
-  display: none;
-}
-ul.list li .item .icon:hover .dragger {
-  display: block;
-}
-ul.list li .item .icon .dragger span {
-  display: none;
-}
-ul.list li .item .label {
-  margin-left: 60px;
-  font-size: 14px;
-  font-weight: bold;
-}
-ul.list li .item .label .sublabel {
-  font-size: 10px;
-  font-weight: normal;
-}
-ul.list li ul {
-  margin-left: 28px;
-}
+/* -- Buttons ------------------------------------------------------------ */
+a.button,
+input[type='button'], 
+input[type='submit'], 
+input[type='reset'], 
+input[type='file'],
 ul.list .action_links a,
 table.formatted td.action_links a {
   margin-left: 3px;
   background-color: #b4b4b4;
   color: #1b1b1b;
   padding: 3px 5px;
-  font-size: 9px;
+  font: 9px Arial, sans-serif;
   text-transform: uppercase;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -164,6 +99,11 @@ table.formatted td.action_links a {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9F9F9), color-stop(34%,#D5D5D5), color-stop(100%,#B4B4B4));
   text-shadow: #f5f5f5 1px 1px;
 }
+a.button:hover,
+input[type='button']:hover, 
+input[type='submit']:hover, 
+input[type='reset']:hover, 
+input[type='file']:hover,
 ul.list .action_links a:hover,
 table.formatted td.action_links a:hover {
   box-shadow: inset 0px 0px 5px #aaa;
@@ -171,63 +111,15 @@ table.formatted td.action_links a:hover {
   -webkit-box-shadow: inset 0px 0px 5px #aaa;
   border-color: #484848;
 }
-ul.list li .action_links {
-  float: right;
-  opacity: 0.2;
-}
-table.formatted td.action_links a {
-  opacity: 0.2;
-}
-ul.list li .item:hover .action_links,
-table.formatted tr:hover td.action_links a {
-  opacity: 1;
-}
-ul.list li .item:hover,
-table.formatted tr:hover td {
-  background-color: #fff;
-}
-table.formatted {
-  clear: both;
-}
-table.formatted th {
-  background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
-  color: #ececec;
-  text-transform: uppercase;
+a.button.big,
+input[type='button'], 
+input[type='submit'], 
+input[type='reset'], 
+input[type='file'] {
+  padding: 3px 10px;
   font-size: 10px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
-table.formatted th,
-table.formatted td {
-  white-space: nowrap;
-  vertical-align: top;
-  padding: 5px;
-  border-bottom: 1px solid #fff;
-}
-table.formatted th.main,
-table.formatted td.main {
-  width: 100%;
-  white-space: normal;
-}
-.pagination {
-  margin: 10px 0px;
-}
-.pagination span,
-.pagination em,
-.pagination a {
-  padding: 2px 5px;
-  margin-right: 2px;
-  background-color: #fff;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-}
-.pagination span {
-  color: #ececec;
-}
-.pagination em {
-  background-color: #1C1F22;
-  color: #fff;
-}
-form.search {
+a.button.big {
   float: right;
-  margin: 5px 0px;
 }
