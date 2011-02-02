@@ -32,6 +32,9 @@
 .form_element .value textarea {
   height: 300px;
 }
+.form_element .value .CodeMirror-wrapping {
+  background-color: #fff;
+}
 .form_element.check_box_element input {
   width: auto;
 }

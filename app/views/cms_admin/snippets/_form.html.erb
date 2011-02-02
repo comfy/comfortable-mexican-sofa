@@ -4,4 +4,4 @@
 
 <%= form.text_field :label, :id => (@cms_snippet.new_record?? 'slugify' : nil) %>
 <%= form.text_field :slug, :id => 'slug' %>
-<%= form.text_area :content %>
+<%= form.text_area :content, :class => 'code' %>

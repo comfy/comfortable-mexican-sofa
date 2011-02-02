@@ -2,19 +2,21 @@ $.CMS = function(){
   var current_path = window.location.pathname;
   var admin_path_prefix = current_path.split('/')[1]
   
-  $(document).ready(function(){
+  $(function(){
     
     $.CMS.slugify();
     $.CMS.tree_methods();
     $.CMS.load_page_blocks();
     $.CMS.enable_rich_text();
+    $.CMS.enable_codemirror();
     $.CMS.enable_date_picker();
     $.CMS.enable_desc_toggle();
     $.CMS.enable_sortable_list();
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
-    
+  }).ajaxSuccess(function(){
+    $.CMS.enable_codemirror();
   });
   
   return {
@@ -63,7 +65,7 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      $('.form_element.cms_tag_page_rich_text textarea, textarea.rich_text').tinymce({
+      $('textarea.rich_text').tinymce({
          theme : "advanced",
          plugins: "",
          theme_advanced_buttons1 : "formatselect,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,anchor,image,|,code",
@@ -75,7 +77,42 @@ $.CMS = function(){
          theme_advanced_statusbar_location : "bottom",
          theme_advanced_resizing : true,
          theme_advanced_resize_horizontal : false
-       })
+       });
+    },
+    
+    enable_codemirror: function(){
+      $('textarea.code').each(function(i, element){
+        CodeMirror.fromTextArea(element, {
+          basefiles: [
+            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_xml.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_css.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_js.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_html_mixed.js"
+          ],
+          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
+        });
+      });
+      
+      $('textarea.code_css').each(function(i, element){
+        CodeMirror.fromTextArea(element, {
+          basefiles: [
+            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_css.js"
+          ],
+          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
+        });
+      });
+      
+      $('textarea.code_js').each(function(i, element){
+        CodeMirror.fromTextArea(element, {
+          basefiles: [
+            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
+            "/javascripts/comfortable_mexican_sofa/codemirror/parse_js.js"
+          ],
+          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
+        });
+      });
     },
     
     enable_date_picker: function(){

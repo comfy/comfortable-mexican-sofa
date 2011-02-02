@@ -58,10 +58,15 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     label     = options[:label] || tag.label.to_s.titleize
     css_class = options[:css_class] || tag.class.name.underscore.downcase.idify
     
+    field_css_class = case tag
+      when CmsTag::PageRichText                 then 'rich_text'
+      when CmsTag::PageText, CmsTag::FieldText  then 'code'
+    end
+    
     options[:content_field_method] ||= :text_field_tag
     field = 
       options[:field] || 
-      @template.send(options[:content_field_method], 'cms_page[cms_blocks_attributes][][content]', tag.content, :id => nil)
+      @template.send(options[:content_field_method], 'cms_page[cms_blocks_attributes][][content]', tag.content, :id => nil, :class => field_css_class)
     
     %(
       <div class='form_element #{css_class}'>

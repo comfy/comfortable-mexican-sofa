@@ -11,6 +11,6 @@
   <%= form.select :app_layout, [['---- Select Application Layout ----', nil]] + options %>
 <% end %>
 
-<%= form.text_area :content %>
-<%= form.text_area :css %>
-<%= form.text_area :js %>
+<%= form.text_area :content, :class => 'code' %>
+<%= form.text_area :css, :class => 'code_css' %>
+<%= form.text_area :js, :class => 'code_js' %>
