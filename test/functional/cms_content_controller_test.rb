@@ -22,7 +22,7 @@ class CmsContentControllerTest < ActionController::TestCase
     cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
     get :render_html, :cms_path => ''
     assert_response :success
-    assert_select 'body[id=cms_admin]'
+    assert_select "body[class='c_cms_content a_render_html']"
   end
   
   def test_render_page_not_found

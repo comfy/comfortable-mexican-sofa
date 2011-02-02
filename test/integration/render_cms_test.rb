@@ -6,7 +6,9 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     Rails.application.routes.draw do
       get '/render-implicit'  => 'render_test#implicit'
       get '/render-explicit'  => 'render_test#explicit'
-      get '/seed_data_page'   => 'render_test#seed_data_page'
+      get '/seed-data-page'   => 'render_test#seed_data_page'
+      get '/render-text'      => 'render_test#render_text'
+      get '/render-update'    => 'render_test#render_update'
     end
     super
   end
@@ -24,6 +26,14 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     end
     def seed_data_page
       render :cms_page => '/'
+    end
+    def render_text
+      render :text => 'rendered text'
+    end
+    def render_update
+      render :update do |page|
+        page.alert('rendered text')
+      end
     end
   end
   
@@ -56,6 +66,16 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     assert_exception_raised ActionView::MissingTemplate do
       get '/render-explicit'
     end
+  end
+  
+  def test_get_render_text
+    get '/render-text'
+    assert_response :success
+  end
+  
+  def test_get_render_update
+    get '/render-update'
+    assert_response :success
   end
   
 end

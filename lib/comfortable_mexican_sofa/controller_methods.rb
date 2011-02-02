@@ -21,7 +21,7 @@ module ComfortableMexicanSofa::ControllerMethods
   # instance variables that can be used in partials (that are included by
   # by the cms page and/or layout)
   def render_with_cms(options = {}, locals = {}, &block)
-    if path = options.delete(:cms_page)
+    if options.is_a?(Hash) && path = options.delete(:cms_page)
       site = CmsSite.find_by_hostname(request.host.downcase)
       page = CmsPage.load_from_file(site, path) if site && ComfortableMexicanSofa.configuration.seed_data_path
       page ||= site && site.cms_pages.find_by_full_path(path)
