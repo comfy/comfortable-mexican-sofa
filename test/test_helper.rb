@@ -14,12 +14,13 @@ class ActiveSupport::TestCase
   # resetting default configuration
   def reset_config
     ComfortableMexicanSofa.configure do |config|
-      config.cms_title            = 'ComfortableMexicanSofa'
+      config.cms_title            = 'ComfortableMexicanSofa MicroCMS'
       config.authentication       = 'ComfortableMexicanSofa::HttpAuth'
       config.seed_data_path       = nil
       config.admin_route_prefix   = 'cms-admin'
       config.admin_route_redirect = "/cms-admin/pages"
       config.auto_manage_sites    = true
+      config.disable_irb          = true
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

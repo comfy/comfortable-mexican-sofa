@@ -67,6 +67,46 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_response 404
   end
   
+  def test_render_page_with_irb_disabled
+    assert ComfortableMexicanSofa.config.disable_irb
+    
+    irb_page = cms_sites(:default).cms_pages.create!(
+      :label          => 'irb',
+      :slug           => 'irb',
+      :parent_id      => cms_pages(:default).id,
+      :cms_layout_id  => cms_layouts(:default).id,
+      :is_published   => '1',
+      :cms_blocks_attributes => [
+        { :label    => 'default_page_text',
+          :type     => 'CmsTag::PageText',
+          :content  => 'text <%= 2 + 2 %> text' }
+      ]
+    )
+    get :render_html, :cms_path => 'irb'
+    assert_response :success
+    assert_match "text &lt;%= 2 + 2 %&gt; text", response.body
+  end
+  
+  def test_render_page_with_irb_enabled
+    ComfortableMexicanSofa.config.disable_irb = false
+    
+    irb_page = cms_sites(:default).cms_pages.create!(
+      :label          => 'irb',
+      :slug           => 'irb',
+      :parent_id      => cms_pages(:default).id,
+      :cms_layout_id  => cms_layouts(:default).id,
+      :is_published   => '1',
+      :cms_blocks_attributes => [
+        { :label    => 'default_page_text',
+          :type     => 'CmsTag::PageText',
+          :content  => 'text <%= 2 + 2 %> text' }
+      ]
+    )
+    get :render_html, :cms_path => 'irb'
+    assert_response :success
+    assert_match "text 4 text", response.body
+  end
+  
   def test_render_css
     get :render_css, :id => cms_layouts(:default).slug
     assert_response :success

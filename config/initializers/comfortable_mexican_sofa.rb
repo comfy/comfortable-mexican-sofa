@@ -20,6 +20,11 @@ ComfortableMexicanSofa.configure do |config|
   
   # Let CMS handle site creation and management. Enabled by default.
   #   config.auto_manage_sites = true
+  
+  # By default you cannot have irb code inside your layouts/pages/snippets.
+  # Generally this is to prevent putting something like this:
+  # <% User.delete_all %> but if you really want to allow it...
+  #   config.disable_irb = true
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

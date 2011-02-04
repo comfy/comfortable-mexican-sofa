@@ -67,7 +67,12 @@ module CmsTag
     # Content that is used during page rendering. Outputting existing content
     # as a default.
     def render
-      content.to_s
+      # cleaning content from possible irb stuff. Partial and Helper tags are OK.
+      if ComfortableMexicanSofa.config.disable_irb && ![CmsTag::Partial, CmsTag::Helper].member?(self.class)
+        content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
+      else
+        content.to_s
+      end
     end
   end
   

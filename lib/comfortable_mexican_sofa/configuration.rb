@@ -21,14 +21,18 @@ class ComfortableMexicanSofa::Configuration
   # Let CMS handle site creation and management. Enabled by default.
   attr_accessor :auto_manage_sites
   
+  # Not allowing irb code to be run inside page content. True by default.
+  attr_accessor :disable_irb
+  
   # Configuration defaults
   def initialize
-    @cms_title            = 'ComfortableMexicanSofa'
+    @cms_title            = 'ComfortableMexicanSofa MicroCMS'
     @authentication       = 'ComfortableMexicanSofa::HttpAuth'
     @seed_data_path       = nil
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = "/#{@admin_route_prefix}/pages"
     @auto_manage_sites    = true
+    @disable_irb          = true
   end
   
 end
