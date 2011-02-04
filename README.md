@@ -124,14 +124,14 @@ Example fixture files for a [layout](https://github.com/twg/comfortable-mexican-
 ### Importing fixtures into database
 Now that you have all those fixture files, how do we get them into database? Easy:
 
-    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com PATH=/path/to/fixtures
+    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/fixtures
     
 PATH is optional if seed\_data\_path configuration option is set.
 
 ### Exporting database data into fixtures
 If you need to pull down database content into fixtures it's done as follows:
     
-    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local PATH=/path/to/fixtures
+    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/fixtures
     
 During import/export it will prompt you if there are any files/database entries that are going to be overwritten
 

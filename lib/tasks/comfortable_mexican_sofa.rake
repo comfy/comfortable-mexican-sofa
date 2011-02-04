@@ -1,7 +1,12 @@
+# Small hack to auto-run migrations during testing
+namespace :db do
+  task :abort_if_pending_migrations => [:migrate]
+end
+
 namespace :comfortable_mexican_sofa do
   
   # Example use:
-  #   rake comfortable_mexican_sofa:import:all FROM=mysite.local TO=mysite.com PATH=/path/to/seed_data
+  #   rake comfortable_mexican_sofa:import:all FROM=mysite.local TO=mysite.com SEED_PATH=/path/to/seed_data
   namespace :import do
     
     task :check_for_requirements => :environment do |task, args|
@@ -163,7 +168,7 @@ namespace :comfortable_mexican_sofa do
   end
   
   # Example use:
-  #   rake comfortable_mexican_sofa:import:all FROM=mysite.com TO=mysite.local PATH=/path/to/seed_data
+  #   rake comfortable_mexican_sofa:import:all FROM=mysite.com TO=mysite.local SEED_PATH=/path/to/seed_data
   namespace :export do
     
     task :check_for_requirements => :environment do |task, args|
