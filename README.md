@@ -1,5 +1,3 @@
-![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
-
 Comfortable Mexican Sofa (MicroCMS)
 ===================================
 
@@ -161,3 +159,5 @@ What else?
 Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright (c) 2010-11 Oleg Khabarov, The Working Group Inc
+
+![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
