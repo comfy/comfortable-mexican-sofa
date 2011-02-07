@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.0.43"
+  s.version = "1.0.44"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-02-03}
+  s.date = %q{2011-02-07}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -77,9 +77,16 @@ Gem::Specification.new do |s|
     "config/initializers/paperclip.rb",
     "config/locales/en.yml",
     "config/routes.rb",
+    "db/cms_seeds/example.local/layouts/default.yml",
+    "db/cms_seeds/example.local/layouts/nested.yml",
+    "db/cms_seeds/example.local/pages/child.yml",
+    "db/cms_seeds/example.local/pages/child/subchild.yml",
+    "db/cms_seeds/example.local/pages/index.yml",
+    "db/cms_seeds/example.local/snippets/example.yml",
     "db/migrate/01_create_cms.rb",
     "db/seeds.rb",
-    "doc/README_FOR_APP",
+    "doc/page_editing.png",
+    "doc/sofa.png",
     "lib/comfortable_mexican_sofa.rb",
     "lib/comfortable_mexican_sofa/acts_as_tree.rb",
     "lib/comfortable_mexican_sofa/cms_tag.rb",
@@ -287,7 +294,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.6"])
       s.add_runtime_dependency(%q<paperclip>, [">= 2.3.8"])
       s.add_runtime_dependency(%q<mime-types>, [">= 0"])
-      s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_runtime_dependency(%q<rails>, [">= 3.0.3"])
       s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.6"])
       s.add_runtime_dependency(%q<paperclip>, [">= 2.3.8"])
@@ -296,7 +303,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
       s.add_dependency(%q<paperclip>, [">= 2.3.8"])
       s.add_dependency(%q<mime-types>, [">= 0"])
-      s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<rails>, [">= 3.0.3"])
       s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
       s.add_dependency(%q<paperclip>, [">= 2.3.8"])
@@ -306,7 +313,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
     s.add_dependency(%q<paperclip>, [">= 2.3.8"])
     s.add_dependency(%q<mime-types>, [">= 0"])
-    s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+    s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<rails>, [">= 3.0.3"])
     s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
     s.add_dependency(%q<paperclip>, [">= 2.3.8"])
