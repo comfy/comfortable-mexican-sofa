@@ -157,3 +157,5 @@ There's a rake task that makes moving fixtures into database (and vice-versa) ea
 What else?
 ----------
 Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
+
+Comfortable Mexican Sofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright (c) 2010-11 Oleg Khabarov, The Working Group Inc
