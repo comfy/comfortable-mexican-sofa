@@ -27,6 +27,10 @@ class CmsGenerator < Rails::Generators::Base
     directory 'public/images/comfortable_mexican_sofa', 'public/images/comfortable_mexican_sofa'
   end
   
+  def generate_cms_seeds
+    directory 'db/cms_seeds', 'db/cms_seeds'
+  end
+  
   def show_readme
     readme 'lib/generators/README'
   end

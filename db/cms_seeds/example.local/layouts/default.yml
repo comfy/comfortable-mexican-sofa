@@ -1,0 +1,8 @@
+label: Default Layout
+slug: default
+content: |-
+  <html>
+    <body>
+      {{ cms:page:content }}
+    </body>
+  </html>
