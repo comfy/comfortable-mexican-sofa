@@ -16,7 +16,7 @@ ComfortableMexicanSofa.configure do |config|
   
   # Location of YAML files that can be used to render pages instead of pulling
   # data from the database. Not active if not specified. Containing folder name
-  # could be the hostname of the site. Example: my-app.local
+  # should be the hostname of the site. Example: my-app.local
   #   config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
   
   # Let CMS handle site creation and management. Enabled by default.

@@ -21,7 +21,7 @@ After finishing installation you should be able to navigate to http://yoursite/c
 
 Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/twg/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb)
 
-Before creating pages and populating them with content we need to create a layout. Layout is the template of your pages. It defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
+Before creating pages and populating them with content we need to create a layout. A layout is the template of your pages; it defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
     
     <html>
       <body>
@@ -30,7 +30,7 @@ Before creating pages and populating them with content we need to create a layou
       </body>
     </html>
 
-Once you have a layout you may start creating pages and populating content. It's that easy.
+Once you have a layout, you may start creating pages and populating content. It's that easy.
 
 ![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/page_editing.png)
 
@@ -69,8 +69,8 @@ Here's a number of tag variations:
     
     {{ cms:snippet:some_label }}
     
-    # Helpers is a wrapper for your regular helpers. Normally you cannot have IRB in CMS content, so there are
-    # tags that allow calling things like helpers and partials.
+    # Helper is a wrapper for your regular helpers. Normally you cannot have IRB in CMS content, so there are
+    # tags that allow calling helpers and partials.
     
     {{ cms:helper:method_name }}          # same as <%= method_name() %>
     {{ cms:helper:method_name:x:y:z }}    # same as <%= method_name('x', 'y', 'z') %>
@@ -80,6 +80,10 @@ Here's a number of tag variations:
     {{ cms:partial:path/to/partial }}     # same as <%= render :partial => 'path/to/partial' %>
     {{ cms:partial:path/to/partial:a:b }} # same as <%= render :partial => 'path/to/partial',
                                           #   :locals => { :param_1 => 'a', :param_1 => 'b' } %>
+                                          
+Multiple Sites
+--------------
+Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.auto_manage_sites = false`. When this setting is set to `true`, Sofa assumes there's only one site and will manage hostname associated with it automatically.
     
 Integrating CMS with your app
 -----------------------------
@@ -112,7 +116,7 @@ Similarly you can access **Snippet** content:
 Extending Admin Area
 --------------------
 
-If you wish you can re-use Sofa's admin area for things you need to administer in your application. To do this, first of all you need to make your admin controllers to inherit from CmsAdmin::BaseController. This way your admin views will be using Sofa's admin layout and it's basic HttpAuth.
+If you wish, you can re-use Sofa's admin area for things you need to administer in your application. To do this, first you will need to make your admin controllers to inherit from CmsAdmin::BaseController. This way, your admin views will be using Sofa's admin layout and it's basic HttpAuth.
     
     class Admin::CategoriesController < CmsAdmin::BaseController
       # your code goes here
@@ -120,9 +124,9 @@ If you wish you can re-use Sofa's admin area for things you need to administer i
     
 From your views you can user `cms_form_for` method to re-use Sofa's FormBuilder. There are also some existing styles for tables, will\_paginate helpers, etc. Take a look in [/public/stylesheets/comfortable\_mexican\_sofa/content.css](https://github.com/twg/comfortable-mexican-sofa/blob/master/public/stylesheets/comfortable_mexican_sofa/content.css)
 
-You probably want to add a navigation link on the left side. For that you want to use ViewHook functionality. Create a partial that has a link to your admin area and declare in in Sofa's initializer: `ComfortableMexicanSofa::ViewHooks.add(:navigation, '/admin/navigation')`. Similarly you can add extra stylesheets, etc into admin area in the same way.
+You will probably want to add a navigation link on the left side, and for that you will want to use ViewHook functionality. Create a partial that has a link to your admin area and declare in in Sofa's initializer: `ComfortableMexicanSofa::ViewHooks.add(:navigation, '/admin/navigation')`. Similarly you can add extra stylesheets, etc into admin area in the same way.
     
-Do you have other authentication system in place like Devise, AuthLogic, etc and wish to use that? For that you need to create a module that does the authentication check and make Comfortable Mexican Sofa use it. For example:
+Do you have other authentication system in place (like Devise, AuthLogic, etc) and wish to use that? For that, you will need to create a module that does the authentication check and make Comfortable Mexican Sofa use it. For example:
     
     module CmsDeviseAuth
       def authenticate
@@ -132,19 +136,19 @@ Do you have other authentication system in place like Devise, AuthLogic, etc and
       end
     end
     
-You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeciseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
+You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeviseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
 
 Working with fixtures
 ---------------------
-Comfortable Mexican Sofa has fixtures, functionality that helps manage content during development phase. It's very different than Rails seeds as Sofa's fixtures are loaded with each page load. Database is completely bypassed when fixtures are active. This way you can source-control content before going live, disabling fixtures and dumping everything into database.
+Comfortable Mexican Sofa has fixtures, functionality that helps manage content during development phase. It's very different from Rails seeds as Sofa's fixtures are loaded with each page load. The database is completely bypassed when fixtures are active. This way, you can source-control content before going live, disabling fixtures and dumping everything into the database.
 
-First of all you need to set a path where fixture files will be found (inside Sofa's initializer):
+First, you will need to set a path where fixture files will be found (inside Sofa's initializer):
     
     if Rails.env.development? || Rails.env.test?
       ComfortableMexicanSofa.config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
     end
     
-If you ran `rails g cms`, you should find an example set of fixtures in /db/cms\_seeds directory. Each file is an YAML representation of a database entry for that layout/page/snippet.
+If you ran `rails g cms`, you should find an example set of fixtures in /db/cms\_seeds directory. Please note that seeds are nested in the folder that is the hostname of your site. Each file is an YAML representation of a database entry for that layout/page/snippet.
 
 There's a rake task that makes moving fixtures into database (and vice-versa) easy:
     
@@ -158,6 +162,6 @@ What else?
 ----------
 Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
 
-ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright (c) 2010-11 Oleg Khabarov, The Working Group Inc
-
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
+
+ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright 2009-11 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)

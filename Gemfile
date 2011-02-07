@@ -6,13 +6,13 @@ gem 'paperclip',      '>=2.3.8'
 gem 'mime-types',     :require => 'mime/types'
 
 # If you wish to use sqlite in production
-# gem 'sqlite3-ruby',   :require => 'sqlite3'
+# gem 'sqlite3'
 
 group :development do
-  gem 'sqlite3-ruby',   :require => 'sqlite3'
+  gem 'sqlite3'
 end
 
 group :test do
-  gem 'sqlite3-ruby',   :require => 'sqlite3'
+  gem 'sqlite3'
   gem 'jeweler', '>=1.4.0'
 end
