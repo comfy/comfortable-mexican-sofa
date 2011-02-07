@@ -32,7 +32,7 @@ Before creating pages and populating them with content we need to create a layou
 
 Once you have a layout you may start creating pages and populating content. It's that easy.
 
-![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/blob/master/doc/page_editing.png)
+![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/page_editing.png)
 
 CMS Tags
 --------
