@@ -1,6 +1,8 @@
 Comfortable Mexican Sofa (MicroCMS)
 ===================================
 
+![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
+
 ComfortableMexicanSofa is a tiny and powerful micro CMS for your Rails 3 application. This CMS is a plugin for your application, not the other way around. Implemented as an Engine so installation is no different than for any other plugin out there.
 
 Installation
@@ -158,4 +160,4 @@ What else?
 ----------
 Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
 
-Comfortable Mexican Sofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright (c) 2010-11 Oleg Khabarov, The Working Group Inc
+ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright (c) 2010-11 Oleg Khabarov, The Working Group Inc
