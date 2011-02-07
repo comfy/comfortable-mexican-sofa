@@ -32,6 +32,8 @@ Before creating pages and populating them with content we need to create a layou
 
 Once you have a layout you may start creating pages and populating content. It's that easy.
 
+![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/blob/master/doc/page_editing.png)
+
 CMS Tags
 --------
 There are a number of cms tags that define where the content goes and how it's populated. **Page** and **Field** tags are used during layout creation. **Snippet**, **Helper** and **Partial** tags can be peppered pretty much anywhere. Tag is structured like so:
@@ -155,4 +157,3 @@ There's a rake task that makes moving fixtures into database (and vice-versa) ea
 What else?
 ----------
 Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
-    
