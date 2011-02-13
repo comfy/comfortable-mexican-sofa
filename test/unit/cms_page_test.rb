@@ -62,6 +62,9 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_initialization_of_full_path
+    page = CmsPage.new
+    assert_equal '/', page.full_path
+    
     page = CmsPage.new(new_params)
     assert page.invalid?
     assert_has_errors_on page, :cms_site_id

@@ -86,6 +86,11 @@ class CmsPage < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
+  # For previewing purposes sometimes we need to have full_path set
+  def full_path
+    self.read_attribute(:full_path) || self.assign_full_path
+  end
+  
   # Transforms existing cms_block information into a hash that can be used
   # during form processing. That's the only way to modify cms_blocks.
   def cms_blocks_attributes
