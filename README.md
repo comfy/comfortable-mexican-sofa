@@ -7,7 +7,7 @@ Installation
 ------------
 Add gem definition to your Gemfile:
     
-    config.gem 'comfortable_mexican_sofa'
+    gem 'comfortable_mexican_sofa'
     
 Then from the Rails project's root run:
     
