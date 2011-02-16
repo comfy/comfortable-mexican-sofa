@@ -15,6 +15,8 @@ Then from the Rails project's root run:
     rails g cms
     rake db:migrate
     
+When upgrading to a newer version just run `rails g cms` and replace files when prompted. You may also need to run `rake db:migrate` again.
+    
 Usage
 -----
 After finishing installation you should be able to navigate to http://yoursite/cms-admin
@@ -158,10 +160,9 @@ There's a rake task that makes moving fixtures into database (and vice-versa) ea
     # from database to fixtures    
     rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/fixtures
     
-What else?
-----------
-Versioning control will be eventually implemented. Also I'd love to hear ideas how this CMS can be improved. But feel free to just fork and hack away.
-
+---
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
 
-ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) and is copyright 2009-11 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
+ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) 
+
+Copyright 2009-2011 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
