@@ -140,9 +140,9 @@ Do you have other authentication system in place (like Devise, AuthLogic, etc) a
     
 You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeviseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
 
-Working with fixtures
----------------------
-Comfortable Mexican Sofa has fixtures, functionality that helps manage content during development phase. It's very different from Rails seeds as Sofa's fixtures are loaded with each page load. The database is completely bypassed when fixtures are active. This way, you can source-control content before going live, disabling fixtures and dumping everything into the database.
+Working with seeds
+------------------
+Comfortable Mexican Sofa has seeds, functionality that helps manage content during development phase. It's very different from Rails seeds as Sofa's seeds are loaded with each page load. The database is completely bypassed when seeds are active. This way, you can source-control content before going live, disabling seeds and dumping everything into the database.
 
 First, you will need to set a path where fixture files will be found (inside Sofa's initializer):
     
@@ -150,15 +150,15 @@ First, you will need to set a path where fixture files will be found (inside Sof
       ComfortableMexicanSofa.config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
     end
     
-If you ran `rails g cms`, you should find an example set of fixtures in /db/cms\_seeds directory. Please note that seeds are nested in the folder that is the hostname of your site. Each file is an YAML representation of a database entry for that layout/page/snippet.
+If you ran `rails g cms`, you should find an example set of seeds in /db/cms\_seeds directory. Please note that seeds are nested in the folder that is the hostname of your site. Each file is an YAML representation of a database entry for that layout/page/snippet.
 
-There's a rake task that makes moving fixtures into database (and vice-versa) easy:
+There's a rake task that makes moving seeds into database (and vice-versa) easy:
     
-    # from fixtures into database
-    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/fixtures
+    # from seeds into database
+    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/seeds
     
-    # from database to fixtures    
-    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/fixtures
+    # from database to seeds    
+    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/seeds
     
 ---
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
