@@ -1,7 +1,6 @@
 module ComfortableMexicanSofa::ControllerMethods
   
   def self.included(base)
-    base.alias_method_chain :render, :cms
     
     # If application controller doesn't have template associated with it
     # CMS will attempt to find one. This is so you don't have to explicitly
@@ -13,29 +12,29 @@ module ComfortableMexicanSofa::ControllerMethods
         raise e
       end
     end
-  end
-  
-  # Now you can render cms_page simply by calling:
-  #   render :cms_page => '/path/to/page'
-  # This way application controllers can use CMS content while populating
-  # instance variables that can be used in partials (that are included by
-  # by the cms page and/or layout)
-  def render_with_cms(options = {}, locals = {}, &block)
-    if options.is_a?(Hash) && path = options.delete(:cms_page)
-      site = CmsSite.find_by_hostname(request.host.downcase)
-      page = CmsPage.load_from_file(site, path) if site && ComfortableMexicanSofa.configuration.seed_data_path
-      page ||= site && site.cms_pages.find_by_full_path(path)
-      if page
-        cms_app_layout = page.cms_layout.try(:app_layout)
-        options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-        options[:inline] = page.content
-        @cms_page = page
-        render_without_cms(options, locals, &block)
+    
+    # Now you can render cms_page simply by calling:
+    #   render :cms_page => '/path/to/page'
+    # This way application controllers can use CMS content while populating
+    # instance variables that can be used in partials (that are included by
+    # by the cms page and/or layout)
+    def render(options = {}, locals = {}, &block)
+      if options.is_a?(Hash) && path = options.delete(:cms_page)
+        site = CmsSite.find_by_hostname(request.host.downcase)
+        page = CmsPage.load_from_file(site, path) if site && ComfortableMexicanSofa.configuration.seed_data_path
+        page ||= site && site.cms_pages.find_by_full_path(path)
+        if page
+          cms_app_layout = page.cms_layout.try(:app_layout)
+          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+          options[:inline] = page.content
+          @cms_page = page
+          super(options, locals, &block)
+        else
+          raise ActionView::MissingTemplate.new([path], path, "CMS page not found", nil)
+        end
       else
-        raise ActionView::MissingTemplate.new([path], path, "CMS page not found", nil)
+        super(options, locals, &block)
       end
-    else
-      render_without_cms(options, locals, &block)
     end
   end
 end
