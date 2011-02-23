@@ -160,7 +160,16 @@ There's a rake task that makes moving seeds into database (and vice-versa) easy:
     # from database to seeds    
     rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/seeds
     
----
+Active Components
+-----------------
+Comfortable Mexican Sofa utilizes the following:
+
+* **[https://github.com/rails/rails](https://github.com/rails/rails)** - Ruby on Rails 3.*, of course
+* **[https://github.com/thoughtbot/paperclip](https://github.com/thoughtbot/paperclip)** - Paperclip to handle file uploads
+* **[https://github.com/theworkinggroup/active_link_to](https://github.com/theworkinggroup/active_link_to)** - Easy method to handle logic behind 'active' links
+
+* * *
+
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) 

@@ -24,6 +24,9 @@ class ComfortableMexicanSofa::Configuration
   # Not allowing irb code to be run inside page content. True by default.
   attr_accessor :disable_irb
   
+  # Caching for css/js. For admin layout and ones for cms content. Enabled by default.
+  attr_accessor :enable_caching
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa MicroCMS'
@@ -33,6 +36,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_redirect = "/#{@admin_route_prefix}/pages"
     @auto_manage_sites    = true
     @disable_irb          = true
+    @enable_caching       = true
   end
   
 end

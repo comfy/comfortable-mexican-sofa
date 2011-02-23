@@ -21,6 +21,7 @@ class ActiveSupport::TestCase
       config.admin_route_redirect = "/cms-admin/pages"
       config.auto_manage_sites    = true
       config.disable_irb          = true
+      config.enable_caching       = true
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

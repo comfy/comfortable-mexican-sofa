@@ -26,6 +26,12 @@ ComfortableMexicanSofa.configure do |config|
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...
   #   config.disable_irb = true
+  
+  # Asset caching for CSS and JS for admin layout. This setting also controls
+  # page caching for CMS Layout CSS and Javascript. Enabled by default. When deploying
+  # to an environment with read-only filesystem (like Heroku) turn this setting off.
+  #   config.enable_caching = true
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

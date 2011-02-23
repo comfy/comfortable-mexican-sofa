@@ -10,6 +10,7 @@ class CmsConfigurationTest < ActiveSupport::TestCase
     assert_equal 'cms-admin', config.admin_route_prefix
     assert_equal '/cms-admin/pages', config.admin_route_redirect
     assert_equal true, config.disable_irb
+    assert_equal true, config.enable_caching
   end
   
   def test_initialization_overrides
