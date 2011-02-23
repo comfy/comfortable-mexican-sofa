@@ -166,7 +166,7 @@ Comfortable Mexican Sofa utilizes the following:
 
 * **[https://github.com/rails/rails](https://github.com/rails/rails)** - Ruby on Rails 3.*, of course
 * **[https://github.com/thoughtbot/paperclip](https://github.com/thoughtbot/paperclip)** - Paperclip to handle file uploads
-* **[https://github.com/theworkinggroup/active_link_to](https://github.com/theworkinggroup/active_link_to)** - Easy method to handle logic behind 'active' links
+* **[https://github.com/twg/active_link_to](https://github.com/twg/active_link_to)** - Easy method to handle logic behind 'active' links
 
 * * *
 
