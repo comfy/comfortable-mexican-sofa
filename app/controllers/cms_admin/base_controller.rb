@@ -8,6 +8,8 @@ class CmsAdmin::BaseController < ActionController::Base
   before_filter :authenticate,
                 :load_admin_cms_site
   
+  cache_sweeper :content_sweeper, :only => [:create, :update, :destroy]
+  
   layout 'cms_admin'
   
 protected
