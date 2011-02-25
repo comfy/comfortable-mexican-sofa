@@ -115,6 +115,8 @@ Similarly you can access **Snippet** content:
     
     cms_snippet_content(:snippet_slug)
     
+You can also directly access `@cms_site`, `@cms_layout` and `@cms_page` objects from helpers, partials and application layouts used in rendering a CMS page.
+    
 Extending Admin Area
 --------------------
 
@@ -157,7 +159,7 @@ There's a rake task that makes moving seeds into database (and vice-versa) easy:
     # from seeds into database
     rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/seeds
     
-    # from database to seeds    
+    # from database to seeds
     rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/seeds
     
 Active Components
