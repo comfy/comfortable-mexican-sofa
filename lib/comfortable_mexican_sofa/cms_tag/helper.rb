@@ -9,10 +9,6 @@ class CmsTag::Helper
     /\{\{\s*cms:helper:(#{label}):?(.*?)\s*\}\}/
   end
   
-  def regex_tag_signature
-    self.class.regex_tag_signature(label)
-  end
-  
   def content
     "<%= #{label}(#{params.split(':').collect{|p| "'#{p}'"}.join(', ')}) %>"
   end

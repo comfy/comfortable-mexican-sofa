@@ -18,7 +18,7 @@ module CmsTag
     #   /\{\{\s*?cms:page:(\w+)\}\}/
     # will match tags like these:
     #   {{cms:page:my_label}}
-    def regex_tag_signature
+    def regex_tag_signature(label = nil)
       nil
     end
     
@@ -56,7 +56,7 @@ module CmsTag
     # Example:
     #   /<\{\s*?cms:page:tag_label\}/
     def regex_tag_signature
-      nil
+      self.class.regex_tag_signature(label)
     end
     
     # Content that is accociated with Tag instance.

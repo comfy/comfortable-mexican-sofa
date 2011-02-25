@@ -11,10 +11,6 @@ class CmsTag::Snippet < CmsSnippet
     /\{\{\s*cms:snippet:(#{label})\s*\}\}/
   end
   
-  def regex_tag_signature
-    self.class.regex_tag_signature(label)
-  end
-  
   def content
     self.read_attribute(:content)
   end

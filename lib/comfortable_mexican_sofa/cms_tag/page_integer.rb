@@ -7,10 +7,6 @@ class CmsTag::PageInteger < CmsBlock
     /\{\{\s*cms:page:(#{label}):integer\s*\}\}/
   end
   
-  def regex_tag_signature
-    self.class.regex_tag_signature(label)
-  end
-  
   def content=(value)
     write_attribute(:content, value)
   end
