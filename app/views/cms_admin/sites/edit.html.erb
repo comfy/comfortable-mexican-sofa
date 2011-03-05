@@ -2,5 +2,8 @@
 
 <%= cms_form_for @cms_site, :url => {:action => :update} do |form| %>
   <%= render :partial => 'form', :object => form %>
-  <%= form.submit 'Update Site' %>
+  <%= form.simple_field nil, nil, :class => 'submit_element' do %>
+    <%= form.submit 'Update Site', :disable_builder => true %>
+    <%= form.submit 'Update Site &amp; Continue'.html_safe, :name => 'save', :disable_builder => true %>
+  <% end %>
 <% end %>

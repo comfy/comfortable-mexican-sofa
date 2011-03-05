@@ -21,7 +21,11 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   def create
     @cms_site.save!
     flash[:notice] = 'Site created'
-    redirect_to :action => :edit, :id => @cms_site
+    if params[:commit]
+      redirect_to :action => :index
+    else
+      redirect_to :action => :edit, :id => @cms_site
+    end
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to create site'
     render :action => :new
@@ -30,7 +34,11 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   def update
     @cms_site.update_attributes!(params[:cms_site])
     flash[:notice] = 'Site updated'
-    redirect_to :action => :edit, :id => @cms_site
+    if params[:commit]
+      redirect_to :action => :index
+    else
+      redirect_to :action => :edit, :id => @cms_site
+    end
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to update site'
     render :action => :edit
