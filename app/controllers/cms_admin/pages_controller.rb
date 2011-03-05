@@ -22,7 +22,11 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   def create
     @cms_page.save!
     flash[:notice] = 'Page saved'
-    redirect_to :action => :edit, :id => @cms_page
+    if params[:commit]
+      redirect_to :action => :index
+    else
+      redirect_to :action => :edit, :id => @cms_page
+    end
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to create page'
     render :action => :new
@@ -31,7 +35,11 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   def update
     @cms_page.save!
     flash[:notice] = 'Page updated'
-    redirect_to :action => :edit, :id => @cms_page
+    if params[:commit]
+      redirect_to :action => :index
+    else
+      redirect_to :action => :edit, :id => @cms_page
+    end
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to update page'
     render :action => :edit
