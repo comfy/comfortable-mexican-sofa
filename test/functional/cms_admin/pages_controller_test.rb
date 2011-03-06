@@ -138,7 +138,31 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
             { :label    => 'default_field_text',
               :content  => 'title content' }
           ]
-        }
+        }, :commit => 'Create Page'
+        assert_response :redirect
+        page = CmsPage.last
+        assert_equal cms_sites(:default), page.cms_site
+        assert_redirected_to :action => :index
+        assert_equal 'Page saved', flash[:notice]
+      end
+    end
+  end
+
+  def test_creation_with_continue
+    assert_difference 'CmsPage.count' do
+      assert_difference 'CmsBlock.count', 2 do
+        post :create, :cms_page => {
+          :label          => 'Test Page',
+          :slug           => 'test-page',
+          :parent_id      => cms_pages(:default).id,
+          :cms_layout_id  => cms_layouts(:default).id,
+          :cms_blocks_attributes => [
+            { :label    => 'default_page_text',
+              :content  => 'content content' },
+            { :label    => 'default_field_text',
+              :content  => 'title content' }
+          ]
+        }, :save => 'Create Page &amp; Edit'
         assert_response :redirect
         page = CmsPage.last
         assert_equal cms_sites(:default), page.cms_site
@@ -173,7 +197,21 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_no_difference 'CmsBlock.count' do
       put :update, :id => page, :cms_page => {
         :label => 'Updated Label'
-      }
+      }, :commit => 'Update Page'
+      page.reload
+      assert_response :redirect
+      assert_redirected_to :action => :index
+      assert_equal 'Page updated', flash[:notice]
+      assert_equal 'Updated Label', page.label
+    end
+  end
+
+  def test_update_with_continue
+    page = cms_pages(:default)
+    assert_no_difference 'CmsBlock.count' do
+      put :update, :id => page, :cms_page => {
+        :label => 'Updated Label'
+      }, :save => 'Update Page &amp; Continue'
       page.reload
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => page

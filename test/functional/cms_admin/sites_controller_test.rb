@@ -46,7 +46,19 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
       post :create, :cms_site => {
         :label    => 'Test Site',
         :hostname => 'test.site.local'
-      }
+      }, :commit => 'Create Site'
+      assert_response :redirect
+      assert_redirected_to :action => :index
+      assert_equal 'Site created', flash[:notice]
+    end
+  end
+
+  def test_creation_with_continue
+    assert_difference 'CmsSite.count' do
+      post :create, :cms_site => {
+        :label    => 'Test Site',
+        :hostname => 'test.site.local'
+      }, :save => 'Create Site &amp; Edit'
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => CmsSite.last
       assert_equal 'Site created', flash[:notice]
@@ -67,7 +79,21 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     put :update, :id => site, :cms_site => {
       :label    => 'New Site',
       :hostname => 'new.site.local'
-    }
+    }, :commit => 'Update Site'
+    assert_response :redirect
+    assert_redirected_to :action => :index
+    assert_equal 'Site updated', flash[:notice]
+    site.reload
+    assert_equal 'New Site', site.label
+    assert_equal 'new.site.local', site.hostname
+  end
+
+  def test_update_with_continue
+    site = cms_sites(:default)
+    put :update, :id => site, :cms_site => {
+      :label    => 'New Site',
+      :hostname => 'new.site.local'
+    }, :save => 'Update Site &amp; Continue'
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => site
     assert_equal 'Site updated', flash[:notice]

@@ -46,7 +46,22 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
         :label    => 'Test Snippet',
         :slug     => 'test-snippet',
         :content  => 'Test Content'
-      }
+      }, :commit => 'Creat Snippet'
+      assert_response :redirect
+      snippet = CmsSnippet.last
+      assert_equal cms_sites(:default), snippet.cms_site
+      assert_redirected_to :action => :index
+      assert_equal 'Snippet created', flash[:notice]
+    end
+  end
+  
+  def test_creation_with_continue
+    assert_difference 'CmsSnippet.count' do
+      post :create, :cms_snippet => {
+        :label    => 'Test Snippet',
+        :slug     => 'test-snippet',
+        :content  => 'Test Content'
+      }, :save => 'Create Snippet &amp; Edit'
       assert_response :redirect
       snippet = CmsSnippet.last
       assert_equal cms_sites(:default), snippet.cms_site
@@ -69,7 +84,21 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     put :update, :id => snippet, :cms_snippet => {
       :label    => 'New-Snippet',
       :content  => 'New Content'
-    }
+    }, :commit => 'Update Snippet'
+    assert_response :redirect
+    assert_redirected_to :action => :index
+    assert_equal 'Snippet updated', flash[:notice]
+    snippet.reload
+    assert_equal 'New-Snippet', snippet.label
+    assert_equal 'New Content', snippet.content
+  end
+  
+  def test_update_with_continue
+    snippet = cms_snippets(:default)
+    put :update, :id => snippet, :cms_snippet => {
+      :label    => 'New-Snippet',
+      :content  => 'New Content'
+    }, :save => 'Update Snippet &amp; Continue'
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => snippet
     assert_equal 'Snippet updated', flash[:notice]
