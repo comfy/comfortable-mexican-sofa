@@ -26,6 +26,9 @@ class ComfortableMexicanSofa::Configuration
   
   # Caching for css/js. For admin layout and ones for cms content. Enabled by default.
   attr_accessor :enable_caching
+
+  # Upload settings
+  attr_accessor :upload_file_options
   
   # Configuration defaults
   def initialize
@@ -37,6 +40,7 @@ class ComfortableMexicanSofa::Configuration
     @auto_manage_sites    = true
     @disable_irb          = true
     @enable_caching       = true
+    @upload_file_options  = {}
   end
   
 end
