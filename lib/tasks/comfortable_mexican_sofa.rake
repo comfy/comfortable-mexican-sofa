@@ -238,7 +238,7 @@ namespace :comfortable_mexican_sofa do
         end
         if should_write
           
-          attributes = page.attributes.slice('label', 'slug', 'full_path', 'is_published')
+          attributes = page.attributes.slice('label', 'slug', 'full_path', 'is_published', 'target_page_id')
           attributes['parent']                = page.parent.full_path if page.parent
           attributes['cms_layout']            = page.cms_layout.slug
           attributes['cms_blocks_attributes'] = page.cms_blocks_attributes.collect{|b| b.delete(:id) && b.stringify_keys}
