@@ -37,6 +37,12 @@ ComfortableMexicanSofa.configure do |config|
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for 
   # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3
   #   config.upload_file_options = {:storage => :filesystem}
+  
+  # Override the host used to look up the active CmsSite.  If you are not
+  # planning on using the site features, I recommend you set this override to
+  # limit unexpected "Site not found" errors when you try to hit app01.example.com
+  # instead of www.example.com.
+  #   config.override_host = "www.exmample.com"
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
