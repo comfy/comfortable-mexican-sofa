@@ -31,7 +31,12 @@ ComfortableMexicanSofa.configure do |config|
   # page caching for CMS Layout CSS and Javascript. Enabled by default. When deploying
   # to an environment with read-only filesystem (like Heroku) turn this setting off.
   #   config.enable_caching = true
-  
+
+  # Override the host used to look up the active CmsSite.  If you are not
+  # planning on using the site features, I recommend you set this override to
+  # limit unexpected "Site not found" errors when you try to hit app01.example.com
+  # instead of www.example.com.
+  #   config.override_host = "www.exmample.com"
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

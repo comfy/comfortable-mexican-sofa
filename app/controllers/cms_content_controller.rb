@@ -22,7 +22,7 @@ class CmsContentController < ApplicationController
 protected
   
   def load_cms_site
-    @cms_site = CmsSite.find_by_hostname!(request.host.downcase)
+    @cms_site = CmsSite.find_by_hostname!(ComfortableMexicanSofa.config.override_host || request.host.downcase)
   rescue ActiveRecord::RecordNotFound
     render :text => 'Site Not Found', :status => 404
   end
