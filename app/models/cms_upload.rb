@@ -1,7 +1,7 @@
 class CmsUpload < ActiveRecord::Base
 
   # -- AR Extensions --------------------------------------------------------
-  has_attached_file :file
+  has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options
   
   # -- Relationships --------------------------------------------------------
   belongs_to :cms_site
