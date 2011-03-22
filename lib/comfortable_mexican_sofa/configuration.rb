@@ -26,9 +26,12 @@ class ComfortableMexicanSofa::Configuration
   
   # Caching for css/js. For admin layout and ones for cms content. Enabled by default.
   attr_accessor :enable_caching
-
+  
   # Upload settings
   attr_accessor :upload_file_options
+  
+  # Override the hostname when looking up which site to use
+  attr_accessor :override_host
   
   # Configuration defaults
   def initialize
@@ -41,6 +44,7 @@ class ComfortableMexicanSofa::Configuration
     @disable_irb          = true
     @enable_caching       = true
     @upload_file_options  = {}
+    @override_host        = nil
   end
   
 end

@@ -31,12 +31,19 @@ ComfortableMexicanSofa.configure do |config|
   # page caching for CMS Layout CSS and Javascript. Enabled by default. When deploying
   # to an environment with read-only filesystem (like Heroku) turn this setting off.
   #   config.enable_caching = true
-
+  
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for 
   # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3
   #   config.upload_file_options = {:storage => :filesystem}
+  
+  # Override the host used to look up the active CmsSite.  If you are not
+  # planning on using the site features, I recommend you set this override to
+  # limit unexpected "Site not found" errors when you try to hit app01.example.com
+  # instead of www.example.com.
+  #   config.override_host = "www.example.com"
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
