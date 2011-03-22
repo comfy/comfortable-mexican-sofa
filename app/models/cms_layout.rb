@@ -109,9 +109,10 @@ protected
     FileUtils.rm File.expand_path("cms-js/#{self.slug}.js",   Rails.public_path), :force => true
   end
   
-  # Forcing page content reload. This will happen in cascade due to #clear_cache mathod above.
+  # Forcing page content reload
   def clear_cached_page_content
     self.cms_pages.each{ |page| page.save! }
+    self.children.each{ |child_layout| child_layout.save! }
   end
   
 end

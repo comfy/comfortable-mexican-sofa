@@ -135,12 +135,45 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_update_forces_page_content_reload
-    layout = cms_layouts(:default)
-    page = cms_pages(:default)
-    assert_equal layout, page.cms_layout
-    layout.update_attribute(:content, 'updated {{cms:page:default_page_text:text}} updated')
-    page.reload
-    assert_equal "updated default_page_text_content_a\ndefault_snippet_content\ndefault_page_text_content_b updated", page.content
+    layout_1 = cms_layouts(:nested)
+    layout_2 = cms_layouts(:child)
+    page_1 = cms_sites(:default).cms_pages.create!(
+      :label          => 'page_1',
+      :slug           => 'page-1',
+      :parent_id      => cms_pages(:default).id,
+      :cms_layout_id  => layout_1.id,
+      :is_published   => '1',
+      :cms_blocks_attributes => [
+        { :label    => 'header',
+          :content  => 'header_content' },
+        { :label    => 'content',
+          :content  => 'content_content' }
+      ]
+    )
+    page_2 = cms_sites(:default).cms_pages.create!(
+      :label          => 'page_2',
+      :slug           => 'page-2',
+      :parent_id      => cms_pages(:default).id,
+      :cms_layout_id  => layout_2.id,
+      :is_published   => '1',
+      :cms_blocks_attributes => [
+        { :label    => 'header',
+          :content  => 'header_content' },
+        { :label    => 'left_column',
+          :content  => 'left_column_content' },
+        { :label    => 'right_column',
+          :content  => 'left_column_content' }
+      ]
+    )
+    assert_equal "header_content\ncontent_content", page_1.content
+    assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content
+    
+    layout_1.update_attribute(:content, "Updated {{cms:page:content}}")
+    page_1.reload
+    page_2.reload
+    
+    assert_equal "Updated content_content", page_1.content
+    assert_equal "Updated left_column_content\nleft_column_content", page_2.content
   end
   
 end

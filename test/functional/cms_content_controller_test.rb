@@ -78,7 +78,6 @@ class CmsContentControllerTest < ActionController::TestCase
       :is_published   => '1',
       :cms_blocks_attributes => [
         { :label    => 'default_page_text',
-          :type     => 'CmsTag::PageText',
           :content  => 'text <%= 2 + 2 %> text' }
       ]
     )
@@ -98,7 +97,6 @@ class CmsContentControllerTest < ActionController::TestCase
       :is_published   => '1',
       :cms_blocks_attributes => [
         { :label    => 'default_page_text',
-          :type     => 'CmsTag::PageText',
           :content  => 'text <%= 2 + 2 %> text' }
       ]
     )
