@@ -176,6 +176,7 @@ Contributing to ComfortableMexicanSofa
 * Fork the project
 * Start a feature/bugfix branch (don't just work on the master branch)
 * Commit and push until you are happy with your contribution
+* Create a Pull Request
 
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
 
