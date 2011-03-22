@@ -63,6 +63,7 @@ class CmsPage < ActiveRecord::Base
     attributes[:cms_layout] = CmsLayout.load_from_file(site, attributes[:cms_layout])
     attributes[:parent]     = CmsPage.load_from_file(site, attributes[:parent])
     attributes[:cms_site]   = site
+    attributes[:target_page]= CmsPage.load_from_file(site, attributes[:target_page])
     new(attributes)
   rescue
     raise "Failed to load from #{file_path}"
