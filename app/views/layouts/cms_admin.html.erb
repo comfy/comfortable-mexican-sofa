@@ -6,6 +6,7 @@
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
     <%= javascript_include_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
+    <%= javascript_include_tag :tiny_mce %>
     <%= yield :head %>
     <%= cms_hook :html_head %>
   </head>

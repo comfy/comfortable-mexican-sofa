@@ -114,6 +114,7 @@ table.formatted td.action_links a:hover {
   border-color: #484848;
 }
 a.button.big,
+button,
 input[type='button'], 
 input[type='submit'], 
 input[type='reset'], 
