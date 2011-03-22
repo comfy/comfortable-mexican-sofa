@@ -80,6 +80,7 @@ html, body {
 
 /* -- Buttons ------------------------------------------------------------ */
 a.button,
+button,
 input[type='button'], 
 input[type='submit'], 
 input[type='reset'], 
@@ -100,6 +101,7 @@ table.formatted td.action_links a {
   text-shadow: #f5f5f5 1px 1px;
 }
 a.button:hover,
+button:hover,
 input[type='button']:hover, 
 input[type='submit']:hover, 
 input[type='reset']:hover, 

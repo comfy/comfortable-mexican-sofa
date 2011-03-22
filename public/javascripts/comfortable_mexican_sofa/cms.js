@@ -145,15 +145,15 @@ $.CMS = function(){
     
     enable_page_save_widget : function(){
       $('#page_save input').attr('checked', $('input#cms_page_is_published').is(':checked'));
-      $('#page_save a').html($('input#cms_page_submit').val());
+      $('#page_save button').html($('input#cms_page_submit').val());
       
-      $('#page_save a').bind('click', function(){
+      $('#page_save input').bind('click', function(){
         $('input#cms_page_is_published').attr('checked', $(this).is(':checked'));
       })
       $('input#cms_page_is_published').bind('click', function(){
-        $('#page_save a').attr('checked', $(this).is(':checked'));
+        $('#page_save input').attr('checked', $(this).is(':checked'));
       })
-      $('#page_save a').bind('click', function(){
+      $('#page_save button').bind('click', function(){
         $('input#cms_page_submit').click();
       })
     },
