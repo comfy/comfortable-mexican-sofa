@@ -90,6 +90,7 @@ ul.list li .item .icon .dragger {
   width: 28px;
   height: 28px;
   background: url(/images/comfortable_mexican_sofa/icon_move.gif);
+  cursor: move;
   display: none;
 }
 ul.list li .item .icon:hover .dragger {
