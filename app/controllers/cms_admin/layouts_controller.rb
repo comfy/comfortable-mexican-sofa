@@ -28,7 +28,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   def update
     @cms_layout.update_attributes!(params[:cms_layout])
     flash[:notice] = 'Layout updated'
-    redirect_to :action => :edit, :id => @cms_layout
+    redirect_to (params[:commit] ? {:action => :index} : {:action => :edit, :id => @cms_layout})
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to update layout'
     render :action => :edit

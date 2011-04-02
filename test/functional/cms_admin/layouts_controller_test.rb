@@ -80,7 +80,21 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_update
+  def test_update_with_update
+    layout = cms_layouts(:default)
+    put :update, :id => layout, :cms_layout => {
+      :label    => 'New Label',
+      :content  => 'New {{cms:page:content}}'
+    }, :commit  => 'Update Layout'
+    assert_response :redirect
+    assert_redirected_to :action => :index
+    assert_equal 'Layout updated', flash[:notice]
+    layout.reload
+    assert_equal 'New Label', layout.label
+    assert_equal 'New {{cms:page:content}}', layout.content
+  end
+
+  def test_update_without_update
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
       :label    => 'New Label',
