@@ -80,7 +80,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_update_with_update
+  def test_update_with_commit
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
       :label    => 'New Label',
@@ -94,7 +94,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_equal 'New {{cms:page:content}}', layout.content
   end
 
-  def test_update_without_update
+  def test_update_without_commit
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
       :label    => 'New Label',
