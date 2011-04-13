@@ -23,7 +23,7 @@ module ComfortableMexicanSofa::ViewMethods
   # Content of a snippet. Example:
   #   cms_snippet_content(:my_snippet)
   def cms_snippet_content(snippet_slug)
-    return '' unless snippet = CmsSnippet.find_by_slug(snippet_slug)
+    return '' unless snippet = CmsSnippet.load_for_slug(@cms_site, snippet_slug)
     snippet.content.to_s.html_safe
   end
   
