@@ -33,7 +33,7 @@ module ComfortableMexicanSofa::ViewMethods
   #   cms_page_content(:left_column) # if @cms_page is present
   def cms_page_content(block_label, page = nil)
     return '' unless page ||= @cms_page
-    return '' unless block = page.cms_blocks.find_by_label(block_label)
+    return '' unless block = page.cms_blocks.select{|b| b.label == block_label}.first
     block.content.to_s.html_safe
   end
 end
