@@ -1,8 +1,8 @@
 default:
-  cms_site: default
+  site: default
   parent:
   target_page:
-  cms_layout: default
+  layout: default
   label: Default Page
   slug:
   full_path: '/'
@@ -20,10 +20,10 @@ default:
     layout_content_c
   
 child:
-  cms_site: default
+  site: default
   parent: default
   target_page:
-  cms_layout: default
+  layout: default
   label: Child Page
   slug: 'child-page'
   full_path: '/child-page'

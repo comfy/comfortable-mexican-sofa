@@ -1,4 +1,4 @@
-class CmsTag::FieldDateTime < CmsBlock
+class CmsTag::FieldDateTime < Cms::Block
   
   include CmsTag
   

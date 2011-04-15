@@ -1,5 +1,5 @@
 default:
-  cms_site: default
+  site: default
   label: Default Layout
   slug: default
   parent:
@@ -14,7 +14,7 @@ default:
   js: default_js
     
 nested:
-  cms_site: default
+  site: default
   label: Nested Layout
   slug: nested
   parent:
@@ -25,7 +25,7 @@ nested:
   js: nested_js
     
 child:
-  cms_site: default
+  site: default
   label: Child Layout
   slug: child
   parent: nested

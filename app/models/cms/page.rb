@@ -1,18 +1,20 @@
-class CmsPage < ActiveRecord::Base
+class Cms::Page < ActiveRecord::Base
+  
+  set_table_name :cms_pages
   
   # -- AR Extensions --------------------------------------------------------
   acts_as_tree :counter_cache => :children_count
   
-  attr_accessor :cms_tags
+  attr_accessor :tags
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :cms_site
-  belongs_to :cms_layout
+  belongs_to :site
+  belongs_to :layout
   belongs_to :target_page,
-    :class_name => 'CmsPage'
-  has_many :cms_blocks,
+    :class_name => 'Cms::Page'
+  has_many :blocks,
     :dependent  => :destroy
-  accepts_nested_attributes_for :cms_blocks
+  accepts_nested_attributes_for :blocks
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_parent,
@@ -23,19 +25,19 @@ class CmsPage < ActiveRecord::Base
   after_save  :sync_child_pages
   
   # -- Validations ----------------------------------------------------------
-  validates :cms_site_id, 
+  validates :site_id, 
     :presence   => true
   validates :label,
     :presence   => true
   validates :slug,
     :presence   => true,
     :format     => /^\w[a-z0-9_-]*$/i,
-    :unless     => lambda{ |p| p == CmsPage.root || CmsPage.count == 0 }
-  validates :cms_layout,
+    :unless     => lambda{ |p| p == Cms::Page.root || p.site && p.site.pages.count == 0 }
+  validates :layout,
     :presence   => true
   validates :full_path,
     :presence   => true,
-    :uniqueness => { :scope => :cms_site_id }
+    :uniqueness => { :scope => :site_id }
   validate :validate_target_page
   
   # -- Scopes ---------------------------------------------------------------
@@ -44,12 +46,12 @@ class CmsPage < ActiveRecord::Base
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages
-  def self.options_for_select(cms_site, cms_page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
-    return [] if (current_page ||= cms_site.cms_pages.root) == cms_page && exclude_self || !current_page
+  def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
+    return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
     out = []
-    out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == cms_page
+    out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == page
     current_page.children.each do |child|
-      out += options_for_select(cms_site, cms_page, child, depth + 1, exclude_self, spacer)
+      out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
     end
     return out.compact
   end
@@ -62,8 +64,8 @@ class CmsPage < ActiveRecord::Base
   
   # Transforms existing cms_block information into a hash that can be used
   # during form processing. That's the only way to modify cms_blocks.
-  def cms_blocks_attributes
-    self.cms_blocks.inject([]) do |arr, block|
+  def blocks_attributes
+    self.blocks.inject([]) do |arr, block|
       block_attr = {}
       block_attr[:label]    = block.label
       block_attr[:content]  = block.content
@@ -78,27 +80,28 @@ class CmsPage < ActiveRecord::Base
     @content = read_attribute(:content)
     @content = nil if force_reload
     @content ||= begin
-      self.cms_tags = [] # resetting
-      cms_layout ? CmsTag.process_content(self, cms_layout.merged_content) : ''
+      self.tags = [] # resetting
+      layout ? CmsTag.process_content(self, layout.merged_content) : ''
     end
   end
   
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
-  def cms_tags(force_reload = false)
+  def tags(force_reload = false)
     self.content(true) if force_reload
-    @cms_tags ||= []
+    @tags ||= []
   end
   
   # Full url for a page
   def url
-    "http://#{self.cms_site.hostname}#{self.full_path}"
+    "http://#{self.site.hostname}#{self.full_path}"
   end
   
 protected
   
   def assign_parent
-    self.parent ||= CmsPage.root unless self == CmsPage.root || CmsPage.count == 0
+    return unless site
+    self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count == 0
   end
   
   def assign_full_path

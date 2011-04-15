@@ -1,13 +1,15 @@
-class CmsUpload < ActiveRecord::Base
+class Cms::Upload < ActiveRecord::Base
+  
+  set_table_name :cms_uploads
 
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :cms_site
+  belongs_to :site
   
   # -- Validations ----------------------------------------------------------
-  validates :cms_site_id, :presence => true
+  validates :site_id, :presence => true
   validates_attachment_presence :file
   
 end

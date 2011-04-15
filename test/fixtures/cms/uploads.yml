@@ -1,5 +1,5 @@
 default:
-  cms_site: default
+  site: default
   file_file_name: sample.jpg
   file_content_type: image/jpeg
   file_file_size: 20099

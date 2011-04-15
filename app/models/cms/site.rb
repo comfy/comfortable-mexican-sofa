@@ -1,10 +1,12 @@
-class CmsSite < ActiveRecord::Base
+class Cms::Site < ActiveRecord::Base
+  
+  set_table_name :cms_sites
   
   # -- Relationships --------------------------------------------------------
-  has_many :cms_layouts,  :dependent => :destroy
-  has_many :cms_pages,    :dependent => :destroy
-  has_many :cms_snippets, :dependent => :destroy
-  has_many :cms_uploads,  :dependent => :destroy
+  has_many :layouts,  :dependent => :destroy
+  has_many :pages,    :dependent => :destroy
+  has_many :snippets, :dependent => :destroy
+  has_many :uploads,  :dependent => :destroy
   
   # -- Validations ----------------------------------------------------------
   validates :label,
@@ -17,7 +19,7 @@ class CmsSite < ActiveRecord::Base
     
   # -- Class Methods --------------------------------------------------------
   def self.options_for_select
-    CmsSite.all.collect{|s| ["#{s.label} (#{s.hostname})", s.id]}
+    Cms::Site.all.collect{|s| ["#{s.label} (#{s.hostname})", s.id]}
   end
   
 end

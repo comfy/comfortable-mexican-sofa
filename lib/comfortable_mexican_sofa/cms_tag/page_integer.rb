@@ -1,4 +1,4 @@
-class CmsTag::PageInteger < CmsBlock
+class CmsTag::PageInteger < Cms::Block
   
   include CmsTag
   

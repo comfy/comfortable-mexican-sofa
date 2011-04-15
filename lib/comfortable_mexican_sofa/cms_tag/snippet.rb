@@ -1,4 +1,4 @@
-class CmsTag::Snippet < CmsSnippet
+class CmsTag::Snippet < Cms::Snippet
   
   include CmsTag
   

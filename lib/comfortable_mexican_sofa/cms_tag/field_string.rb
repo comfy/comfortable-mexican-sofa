@@ -1,4 +1,4 @@
-class CmsTag::FieldString < CmsBlock
+class CmsTag::FieldString < Cms::Block
   
   include CmsTag
   

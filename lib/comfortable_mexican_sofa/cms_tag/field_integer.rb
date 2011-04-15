@@ -1,4 +1,4 @@
-class CmsTag::FieldInteger < CmsBlock
+class CmsTag::FieldInteger < Cms::Block
   
   include CmsTag
   

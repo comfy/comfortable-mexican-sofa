@@ -1,23 +1,23 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsPageTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
-    CmsPage.all.each do |page|
+    Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
       assert_equal page.read_attribute(:content), page.content(true)
     end
   end
   
   def test_validations
-    page = CmsPage.new
+    page = Cms::Page.new
     page.save
     assert page.invalid?
-    assert_has_errors_on page, [:cms_layout, :slug, :label]
+    assert_has_errors_on page, [:layout, :slug, :label]
   end
   
   def test_validation_of_parent_presence
-    page = cms_sites(:default).cms_pages.new(new_params)
+    page = cms_sites(:default).pages.new(new_params)
     assert !page.parent
     assert page.valid?, page.errors.full_messages.to_s
     assert_equal cms_pages(:default), page.parent
@@ -45,13 +45,13 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_creation
-    assert_difference ['CmsPage.count', 'CmsBlock.count'] do
-      page = cms_sites(:default).cms_pages.create!(
-        :label          => 'test',
-        :slug           => 'test',
-        :parent_id      => cms_pages(:default).id,
-        :cms_layout_id  => cms_layouts(:default).id,
-        :cms_blocks_attributes => [
+    assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
+      page = cms_sites(:default).pages.create!(
+        :label      => 'test',
+        :slug       => 'test',
+        :parent_id  => cms_pages(:default).id,
+        :layout_id  => cms_layouts(:default).id,
+        :blocks_attributes => [
           { :label    => 'test',
             :content  => 'test' }
         ]
@@ -62,33 +62,33 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_initialization_of_full_path
-    page = CmsPage.new
+    page = Cms::Page.new
     assert_equal '/', page.full_path
     
-    page = CmsPage.new(new_params)
+    page = Cms::Page.new(new_params)
     assert page.invalid?
-    assert_has_errors_on page, :cms_site_id
+    assert_has_errors_on page, :site_id
     
-    page = cms_sites(:default).cms_pages.new(new_params(:parent => cms_pages(:default)))
+    page = cms_sites(:default).pages.new(new_params(:parent => cms_pages(:default)))
     assert page.valid?
     assert_equal '/test-page', page.full_path
     
-    page = cms_sites(:default).cms_pages.new(new_params(:parent => cms_pages(:child)))
+    page = cms_sites(:default).pages.new(new_params(:parent => cms_pages(:child)))
     assert page.valid?
     assert_equal '/child-page/test-page', page.full_path
     
-    CmsPage.destroy_all
-    page = cms_sites(:default).cms_pages.new(new_params)
+    Cms::Page.destroy_all
+    page = cms_sites(:default).pages.new(new_params)
     assert page.valid?
     assert_equal '/', page.full_path
   end
   
   def test_sync_child_pages
     page = cms_pages(:child)
-    page_1 = cms_sites(:default).cms_pages.create!(new_params(:parent => page, :slug => 'test-page-1'))
-    page_2 = cms_sites(:default).cms_pages.create!(new_params(:parent => page, :slug => 'test-page-2'))
-    page_3 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
-    page_4 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
+    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'test-page-1'))
+    page_2 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'test-page-2'))
+    page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
+    page_4 = cms_sites(:default).pages.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
     assert_equal '/child-page/test-page-1', page_1.full_path
     assert_equal '/child-page/test-page-2', page_2.full_path
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
@@ -116,7 +116,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, page_1.children_count
     assert_equal 0, page_2.children_count
     
-    page_3 = cms_sites(:default).cms_pages.create!(new_params(:parent => page_2))
+    page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2))
     page_1.reload; page_2.reload
     assert_equal 1, page_1.children_count
     assert_equal 1, page_2.children_count
@@ -134,30 +134,30 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_cascading_destroy
-    assert_difference 'CmsPage.count', -2 do
+    assert_difference 'Cms::Page.count', -2 do
       cms_pages(:default).destroy
     end
   end
   
   def test_options_for_select
     assert_equal ['Default Page', '. . Child Page'], 
-      CmsPage.options_for_select(cms_sites(:default)).collect{|t| t.first }
+      Cms::Page.options_for_select(cms_sites(:default)).collect{|t| t.first }
     assert_equal ['Default Page'], 
-      CmsPage.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
+      Cms::Page.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
     assert_equal [], 
-      CmsPage.options_for_select(cms_sites(:default), cms_pages(:default))
+      Cms::Page.options_for_select(cms_sites(:default), cms_pages(:default))
     
-    page = CmsPage.new(new_params(:parent => cms_pages(:default)))
+    page = Cms::Page.new(new_params(:parent => cms_pages(:default)))
     assert_equal ['Default Page', '. . Child Page'],
-      CmsPage.options_for_select(cms_sites(:default), page).collect{|t| t.first }
+      Cms::Page.options_for_select(cms_sites(:default), page).collect{|t| t.first }
   end
   
   def test_cms_blocks_attributes_accessor
     page = cms_pages(:default)
-    assert_equal page.cms_blocks.count, page.cms_blocks_attributes.size
-    assert_equal 'default_field_text', page.cms_blocks_attributes.first[:label]
-    assert_equal 'default_field_text_content', page.cms_blocks_attributes.first[:content]
-    assert page.cms_blocks_attributes.first[:id]
+    assert_equal page.blocks.count, page.blocks_attributes.size
+    assert_equal 'default_field_text', page.blocks_attributes.first[:label]
+    assert_equal 'default_field_text_content', page.blocks_attributes.first[:content]
+    assert page.blocks_attributes.first[:id]
   end
   
   def test_content_caching
@@ -172,9 +172,9 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_scope_published
-    assert_equal 2, CmsPage.published.count
+    assert_equal 2, Cms::Page.published.count
     cms_pages(:child).update_attribute(:is_published, false)
-    assert_equal 1, CmsPage.published.count
+    assert_equal 1, Cms::Page.published.count
   end
   
   def test_root?
@@ -191,9 +191,9 @@ protected
   
   def new_params(options = {})
     {
-      :label      => 'Test Page',
-      :slug       => 'test-page',
-      :cms_layout => cms_layouts(:default)
+      :label  => 'Test Page',
+      :slug   => 'test-page',
+      :layout => cms_layouts(:default)
     }.merge(options)
   end
 end

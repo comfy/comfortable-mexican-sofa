@@ -1,34 +1,34 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsLayoutTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
-    CmsLayout.all.each do |layout|
+    Cms::Layout.all.each do |layout|
       assert layout.valid?, layout.errors.full_messages.to_s
     end
   end
   
   def test_validations
-    layout = cms_sites(:default).cms_layouts.create
+    layout = cms_sites(:default).layouts.create
     assert layout.errors.present?
     assert_has_errors_on layout, [:label, :slug, :content]
   end
   
   def test_validation_of_tag_presence
-    layout = cms_sites(:default).cms_layouts.create(:content => 'some text')
+    layout = cms_sites(:default).layouts.create(:content => 'some text')
     assert_has_errors_on layout, :content
     
-    layout = cms_sites(:default).cms_layouts.create(:content => '{cms:snippet:blah}')
+    layout = cms_sites(:default).layouts.create(:content => '{cms:snippet:blah}')
     assert_has_errors_on layout, :content
     
-    layout = cms_sites(:default).cms_layouts.new(
+    layout = cms_sites(:default).layouts.new(
       :label    => 'test',
       :slug     => 'test',
       :content  => '{{cms:page:blah}}'
     )
     assert layout.valid?
     
-    layout = cms_sites(:default).cms_layouts.new(
+    layout = cms_sites(:default).layouts.new(
       :label    => 'test',
       :slug     => 'test',
       :content  => '{{cms:field:blah}}'
@@ -37,8 +37,8 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_creation
-    assert_difference 'CmsLayout.count' do
-      layout = cms_sites(:default).cms_layouts.create(
+    assert_difference 'Cms::Layout.count' do
+      layout = cms_sites(:default).layouts.create(
         :label    => 'New Layout',
         :slug     => 'new-layout',
         :content  => '{{cms:page:content}}',
@@ -55,15 +55,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
   
   def test_options_for_select
     assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
-      CmsLayout.options_for_select(cms_sites(:default)).collect{|t| t.first}
+      Cms::Layout.options_for_select(cms_sites(:default)).collect{|t| t.first}
     assert_equal ['Default Layout', 'Nested Layout'],
-      CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:child)).collect{|t| t.first}
+      Cms::Layout.options_for_select(cms_sites(:default), cms_layouts(:child)).collect{|t| t.first}
     assert_equal ['Default Layout'],
-      CmsLayout.options_for_select(cms_sites(:default), cms_layouts(:nested)).collect{|t| t.first}
+      Cms::Layout.options_for_select(cms_sites(:default), cms_layouts(:nested)).collect{|t| t.first}
   end
   
   def test_app_layouts_for_select
-    assert_equal ['cms_admin.html.erb'], CmsLayout.app_layouts_for_select
+    assert_equal ['cms_admin.html.erb'], Cms::Layout.app_layouts_for_select
   end
   
   def test_merged_content_with_same_child_content
@@ -87,26 +87,26 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_update_forces_page_content_reload
     layout_1 = cms_layouts(:nested)
     layout_2 = cms_layouts(:child)
-    page_1 = cms_sites(:default).cms_pages.create!(
-      :label          => 'page_1',
-      :slug           => 'page-1',
-      :parent_id      => cms_pages(:default).id,
-      :cms_layout_id  => layout_1.id,
-      :is_published   => '1',
-      :cms_blocks_attributes => [
+    page_1 = cms_sites(:default).pages.create!(
+      :label        => 'page_1',
+      :slug         => 'page-1',
+      :parent_id    => cms_pages(:default).id,
+      :layout_id    => layout_1.id,
+      :is_published => '1',
+      :blocks_attributes => [
         { :label    => 'header',
           :content  => 'header_content' },
         { :label    => 'content',
           :content  => 'content_content' }
       ]
     )
-    page_2 = cms_sites(:default).cms_pages.create!(
+    page_2 = cms_sites(:default).pages.create!(
       :label          => 'page_2',
       :slug           => 'page-2',
       :parent_id      => cms_pages(:default).id,
-      :cms_layout_id  => layout_2.id,
+      :layout_id      => layout_2.id,
       :is_published   => '1',
-      :cms_blocks_attributes => [
+      :blocks_attributes => [
         { :label    => 'header',
           :content  => 'header_content' },
         { :label    => 'left_column',

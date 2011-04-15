@@ -1,4 +1,4 @@
-class CmsTag::PageDateTime < CmsBlock
+class CmsTag::PageDateTime < Cms::Block
   
   include CmsTag
   

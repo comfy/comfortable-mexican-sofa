@@ -1,4 +1,4 @@
-class CmsTag::PageRichText < CmsBlock
+class CmsTag::PageRichText < Cms::Block
   
   include CmsTag
   

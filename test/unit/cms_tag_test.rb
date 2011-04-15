@@ -68,7 +68,7 @@ class CmsTagTest < ActiveSupport::TestCase
   
   def test_content_for_existing_page
     page = cms_pages(:default)
-    assert page.cms_tags.blank?
+    assert page.tags.blank?
     assert_equal rendered_content_formatter(
       '
       layout_content_a
@@ -80,26 +80,26 @@ class CmsTagTest < ActiveSupport::TestCase
       layout_content_c'
     ), page.content(true)
     
-    assert_equal 4, page.cms_tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.cms_tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[2].identifier
-    assert_equal page.cms_tags[1], page.cms_tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[3].identifier
+    assert_equal 4, page.tags.size
+    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal page.tags[1], page.tags[2].parent
+    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
   end
   
   def test_content_for_new_page
-    page = CmsPage.new
-    assert page.cms_blocks.blank?
-    assert page.cms_tags.blank?
+    page = Cms::Page.new
+    assert page.blocks.blank?
+    assert page.tags.blank?
     assert_equal '', page.content
-    assert page.cms_tags.blank?
+    assert page.tags.blank?
   end
   
   def test_content_for_new_page_with_layout
-    page = cms_sites(:default).cms_pages.new(:cms_layout => cms_layouts(:default))
-    assert page.cms_blocks.blank?
-    assert page.cms_tags.blank?
+    page = cms_sites(:default).pages.new(:layout => cms_layouts(:default))
+    assert page.blocks.blank?
+    assert page.tags.blank?
     assert_equal rendered_content_formatter(
       '
       layout_content_a
@@ -109,17 +109,17 @@ class CmsTagTest < ActiveSupport::TestCase
       layout_content_c'
     ), page.content
     
-    assert_equal 3, page.cms_tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.cms_tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[2].identifier
+    assert_equal 3, page.tags.size
+    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
   end
   
   def test_content_for_new_page_with_initilized_cms_blocks
-    page = cms_sites(:default).cms_pages.new(:cms_layout => cms_layouts(:default))
-    assert page.cms_blocks.blank?
-    assert page.cms_tags.blank?
-    page.cms_blocks_attributes = [
+    page = cms_sites(:default).pages.new(:layout => cms_layouts(:default))
+    assert page.blocks.blank?
+    assert page.tags.blank?
+    page.blocks_attributes = [
       {
         :label    => 'default_field_text',
         :content  => 'new_default_field_content',
@@ -136,7 +136,7 @@ class CmsTagTest < ActiveSupport::TestCase
         :type     => 'CmsTag::PageText'
       }
     ]
-    assert_equal 3, page.cms_blocks.size
+    assert_equal 3, page.blocks.size
     
     assert_equal rendered_content_formatter(
       '
@@ -148,18 +148,18 @@ class CmsTagTest < ActiveSupport::TestCase
       layout_content_c'
     ), page.content
     
-    assert_equal 4, page.cms_tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.cms_tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[2].identifier
-    assert_equal page.cms_tags[1], page.cms_tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[3].identifier
+    assert_equal 4, page.tags.size
+    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal page.tags[1], page.tags[2].parent
+    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
   end
   
   def test_content_with_repeated_tags
     page = cms_pages(:default)
-    page.cms_layout.content << "\n{{cms:page:default_page_text:text}}"
-    page.cms_layout.save!
+    page.layout.content << "\n{{cms:page:default_page_text:text}}"
+    page.layout.save!
     
     assert_equal rendered_content_formatter(
       '
@@ -175,15 +175,15 @@ class CmsTagTest < ActiveSupport::TestCase
       default_page_text_content_b'
     ), page.content(true)
     
-    assert_equal 6, page.cms_tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.cms_tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.cms_tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[2].identifier
-    assert_equal page.cms_tags[1], page.cms_tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[3].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.cms_tags[4].identifier
-    assert_equal 'cms_tag/snippet_default', page.cms_tags[5].identifier
-    assert_equal page.cms_tags[4], page.cms_tags[5].parent
+    assert_equal 6, page.tags.size
+    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal page.tags[1], page.tags[2].parent
+    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
+    assert_equal 'cms_tag/page_text_default_page_text', page.tags[4].identifier
+    assert_equal 'cms_tag/snippet_default', page.tags[5].identifier
+    assert_equal page.tags[4], page.tags[5].parent
   end
   
   def test_content_with_cyclical_tags
@@ -200,7 +200,7 @@ class CmsTagTest < ActiveSupport::TestCase
       infinite  loop
       layout_content_c'
     ), page.content(true)
-    assert_equal 6, page.cms_tags.size
+    assert_equal 6, page.tags.size
   end
   
 end
