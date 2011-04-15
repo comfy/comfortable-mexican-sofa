@@ -46,36 +46,6 @@ class CmsLayout < ActiveRecord::Base
     end.compact
   end
   
-  # Attempting to initialize layout object from yaml file that is found in config.seed_data_path
-  def self.load_from_file(site, slug)
-    return nil if ComfortableMexicanSofa.config.seed_data_path.blank?
-    file_path = "#{ComfortableMexicanSofa.config.seed_data_path}/#{site.hostname}/layouts/#{slug}.yml"
-    return nil unless File.exists?(file_path)
-    attributes            = YAML.load_file(file_path).symbolize_keys!
-    attributes[:parent]   = CmsLayout.load_from_file(site, attributes[:parent])
-    attributes[:cms_site] = site
-    new(attributes)
-  rescue
-    raise "Failed to load from #{file_path}"  
-  end
-  
-  # Wrapper around load_from_file and find_by_slug
-  # returns layout object if loaded / found
-  def self.load_for_slug!(site, slug)
-    if ComfortableMexicanSofa.configuration.seed_data_path
-      load_from_file(site, slug)
-    else
-      site.cms_layouts.find_by_slug(slug)
-    end || raise(ActiveRecord::RecordNotFound, "CmsLayout with slug: #{slug} cannot be found")
-  end
-  
-  # Non-blowing-up version of the method above
-  def self.load_for_slug(site, slug)
-    load_for_slug!(site, slug) 
-  rescue ActiveRecord::RecordNotFound
-    nil
-  end
-  
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is {cms:page:content} If parent layout has this tag
   # defined its content will be merged. If no such tag found, parent content
@@ -96,7 +66,7 @@ class CmsLayout < ActiveRecord::Base
 protected
   
   def check_content_tag_presence
-    CmsTag.process_content((test_page = CmsPage.new), content)
+    CmsTag.process_content((test_page = cms_site.cms_pages.new), content)
     if test_page.cms_tags.select{|t| t.class.superclass == CmsBlock}.blank?
       self.errors.add(:content, 'No cms page tags defined')
     end

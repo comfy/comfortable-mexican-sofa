@@ -9,16 +9,16 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_validations
-    layout = CmsLayout.create
+    layout = cms_sites(:default).cms_layouts.create
     assert layout.errors.present?
     assert_has_errors_on layout, [:label, :slug, :content]
   end
   
   def test_validation_of_tag_presence
-    layout = CmsLayout.create(:content => 'some text')
+    layout = cms_sites(:default).cms_layouts.create(:content => 'some text')
     assert_has_errors_on layout, :content
     
-    layout = CmsLayout.create(:content => '{cms:snippet:blah}')
+    layout = cms_sites(:default).cms_layouts.create(:content => '{cms:snippet:blah}')
     assert_has_errors_on layout, :content
     
     layout = cms_sites(:default).cms_layouts.new(
@@ -82,56 +82,6 @@ class CmsLayoutTest < ActiveSupport::TestCase
     parent_layout.update_attribute(:content, '{{cms:page:whatever}}')
     child_layout.reload
     assert_equal '{{cms:page:content}}', child_layout.merged_content
-  end
-  
-  def test_load_from_file
-    assert !CmsLayout.load_from_file(cms_sites(:default), 'default')
-    
-    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
-    
-    assert !CmsLayout.load_from_file(cms_sites(:default), 'bogus')
-    
-    assert layout = CmsLayout.load_from_file(cms_sites(:default), 'default')
-    assert_equal 'Default Layout', layout.label
-    assert_equal '<html>{{cms:page:content}}</html>', layout.content
-    
-    assert layout = CmsLayout.load_from_file(cms_sites(:default), 'nested')
-    assert_equal 'Nested Layout', layout.label
-    assert_equal '<div>{{cms:page:content}}</div>', layout.content
-    assert_equal '<html><div>{{cms:page:content}}</div></html>', layout.merged_content
-  end
-  
-  def test_load_from_file_broken
-    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
-    error_message = "Failed to load from #{ComfortableMexicanSofa.configuration.seed_data_path}/test.host/layouts/broken.yml"
-    assert_exception_raised RuntimeError, error_message do
-      CmsLayout.load_from_file(cms_sites(:default), 'broken')
-    end
-  end
-  
-  def test_load_for_slug
-    assert layout = CmsLayout.load_for_slug!(cms_sites(:default), 'default')
-    assert !layout.new_record?
-    db_content = layout.content
-    
-    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
-    assert layout = CmsLayout.load_for_slug!(cms_sites(:default), 'default')
-    assert layout.new_record?
-    file_content = layout.content
-    assert_not_equal db_content, file_content
-  end
-  
-  def test_load_for_slug_exceptions
-    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsLayout with slug: not_found cannot be found' do
-      CmsLayout.load_for_slug!(cms_sites(:default), 'not_found')
-    end
-    assert !CmsLayout.load_for_slug(cms_sites(:default), 'not_found')
-    
-    ComfortableMexicanSofa.configuration.seed_data_path = File.expand_path('../cms_seeds', File.dirname(__FILE__))
-    assert_exception_raised ActiveRecord::RecordNotFound, 'CmsLayout with slug: not_found cannot be found' do
-      CmsLayout.load_for_slug!(cms_sites(:default), 'not_found')
-    end
-    assert !CmsLayout.load_for_slug(cms_sites(:default), 'not_found')
   end
   
   def test_update_forces_page_content_reload

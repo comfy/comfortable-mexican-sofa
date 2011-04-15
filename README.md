@@ -142,25 +142,9 @@ Do you have other authentication system in place (like Devise, AuthLogic, etc) a
     
 You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeviseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
 
-Working with seeds
-------------------
-ComfortableMexicanSofa has seeds, functionality that helps manage content during development phase. It's very different from Rails seeds as Sofa's seeds are loaded with each page load. The database is completely bypassed when seeds are active. This way, you can source-control content before going live, disabling seeds and dumping everything into the database.
-
-First, you will need to set a path where fixture files will be found (inside Sofa's initializer):
-    
-    if Rails.env.development? || Rails.env.test?
-      ComfortableMexicanSofa.config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
-    end
-    
-If you ran `rails g cms`, you should find an example set of seeds in /db/cms\_seeds directory. Please note that seeds are nested in the folder that is the hostname of your site. Each file is an YAML representation of a database entry for that layout/page/snippet.
-
-There's a rake task that makes moving seeds into database (and vice-versa) easy:
-    
-    # from seeds into database
-    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/seeds
-    
-    # from database to seeds
-    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/seeds
+Working with Fixtures
+---------------------
+TODO
     
 Active Components
 -----------------

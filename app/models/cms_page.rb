@@ -54,40 +54,6 @@ class CmsPage < ActiveRecord::Base
     return out.compact
   end
   
-  # Attempting to initialize page object from yaml file that is found in config.seed_data_path
-  # This file defines all attributes of the page plus all the block information
-  def self.load_from_file(site, path)
-    return nil if ComfortableMexicanSofa.config.seed_data_path.blank?
-    path = (path == '/')? '/index' : path.to_s.chomp('/')
-    file_path = "#{ComfortableMexicanSofa.config.seed_data_path}/#{site.hostname}/pages#{path}.yml"
-    return nil unless File.exists?(file_path)
-    attributes              = YAML.load_file(file_path).symbolize_keys!
-    attributes[:cms_layout] = CmsLayout.load_from_file(site, attributes[:cms_layout])
-    attributes[:parent]     = CmsPage.load_from_file(site, attributes[:parent])
-    attributes[:cms_site]   = site
-    attributes[:target_page]= CmsPage.load_from_file(site, attributes[:target_page])
-    new(attributes)
-  rescue
-    raise "Failed to load from #{file_path}"
-  end
-  
-  # Wrapper around load_from_file and find_by_full_path
-  # returns page object if loaded / found
-  def self.load_for_full_path!(site, path)
-    if ComfortableMexicanSofa.configuration.seed_data_path
-      load_from_file(site, path)
-    else
-      site.cms_pages.find_by_full_path(path)
-    end || raise(ActiveRecord::RecordNotFound, "CmsPage with path: #{path} cannot be found")
-  end
-  
-  # Non-blowing-up version of the method above
-  def self.load_for_full_path(site, path)
-    load_for_full_path!(site, path) 
-  rescue ActiveRecord::RecordNotFound
-    nil
-  end
-  
   # -- Instance Methods -----------------------------------------------------
   # For previewing purposes sometimes we need to have full_path set
   def full_path

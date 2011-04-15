@@ -44,7 +44,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
   
   def form_blocks
-    @cms_page = @cms_site.cms_pages.find_by_id(params[:id]) || CmsPage.new
+    @cms_page = @cms_site.cms_pages.find_by_id(params[:id]) || @cms_site.cms_pages.new
     @cms_page.cms_layout = @cms_site.cms_layouts.find_by_id(params[:layout_id])
   end
   

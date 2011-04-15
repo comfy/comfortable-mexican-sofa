@@ -1,4 +1,0 @@
-label: Nested Layout
-slug: nested
-parent: default
-content: <div>{{cms:page:content}}</div>

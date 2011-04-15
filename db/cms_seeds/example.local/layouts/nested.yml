@@ -1,6 +1,0 @@
-label: Nested Layout
-slug: nested
-parent: default
-content: |-
-  <div class='left'> {{ cms:page:left }} </div>
-  <div class='left'> {{ cms:page:right }} </div>

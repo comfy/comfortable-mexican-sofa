@@ -5,8 +5,8 @@ class ViewMethodsTest < ActiveSupport::TestCase
   include ComfortableMexicanSofa::ViewMethods
   
   def test_cms_snippet_content
-    assert_equal 'default_snippet_content', cms_snippet_content('default')
-    assert_equal '', cms_snippet_content('not_found')
+    assert_equal 'default_snippet_content', cms_snippet_content('default', cms_sites(:default))
+    assert_equal '', cms_snippet_content('not_found', cms_sites(:default))
   end
   
   def test_cms_page_content
