@@ -68,7 +68,7 @@ module CmsTag
     # as a default.
     def render
       # cleaning content from possible irb stuff. Partial and Helper tags are OK.
-      if ComfortableMexicanSofa.config.disable_irb && ![CmsTag::Partial, CmsTag::Helper].member?(self.class)
+      if !ComfortableMexicanSofa.config.allow_irb && ![CmsTag::Partial, CmsTag::Helper].member?(self.class)
         content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
       else
         content.to_s

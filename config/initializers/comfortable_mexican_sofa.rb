@@ -19,8 +19,9 @@ ComfortableMexicanSofa.configure do |config|
   # should be the hostname of the site. Example: my-app.local
   #   config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
   
-  # Let CMS handle site creation and management. Enabled by default.
-  #   config.auto_manage_sites = true
+  # If you enable this setting you'll be able to serve completely different set
+  # of sites with their own layouts and pages.
+  #   config.enable_multiple_sites = false
   
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
@@ -37,12 +38,6 @@ ComfortableMexicanSofa.configure do |config|
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for 
   # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3
   #   config.upload_file_options = {:storage => :filesystem}
-  
-  # Override the host used to look up the active CmsSite.  If you are not
-  # planning on using the site features, I recommend you set this override to
-  # limit unexpected "Site not found" errors when you try to hit app01.example.com
-  # instead of www.example.com.
-  #   config.override_host = "www.example.com"
   
 end
 

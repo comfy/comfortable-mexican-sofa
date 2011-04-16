@@ -10,7 +10,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_index_with_no_pages
-    CmsPage.delete_all
+    Cms::Page.delete_all
     get :index
     assert_response :redirect
     assert_redirected_to :action => :new
@@ -20,7 +20,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal cms_layouts(:default), assigns(:cms_page).cms_layout
+    assert_equal cms_layouts(:default), assigns(:cms_page).layout
     
     assert_template :new
     assert_select 'form[action=/cms-admin/pages]'
@@ -117,22 +117,22 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_get_edit_with_blank_layout
     page = cms_pages(:default)
-    page.update_attribute(:cms_layout_id, nil)
+    page.update_attribute(:layout_id, nil)
     get :edit, :id => page
     assert_response :success
     assert assigns(:cms_page)
-    assert assigns(:cms_page).cms_layout
+    assert assigns(:cms_page).layout
   end
   
   def test_creation
-    assert_difference 'CmsPage.count' do
-      assert_difference 'CmsBlock.count', 2 do
+    assert_difference 'Cms::Page.count' do
+      assert_difference 'Cms::Block.count', 2 do
         post :create, :cms_page => {
-          :label          => 'Test Page',
-          :slug           => 'test-page',
-          :parent_id      => cms_pages(:default).id,
-          :cms_layout_id  => cms_layouts(:default).id,
-          :cms_blocks_attributes => [
+          :label      => 'Test Page',
+          :slug       => 'test-page',
+          :parent_id  => cms_pages(:default).id,
+          :layout_id  => cms_layouts(:default).id,
+          :blocks_attributes => [
             { :label    => 'default_page_text',
               :content  => 'content content' },
             { :label    => 'default_field_text',
@@ -140,8 +140,8 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
           ]
         }
         assert_response :redirect
-        page = CmsPage.last
-        assert_equal cms_sites(:default), page.cms_site
+        page = Cms::Page.last
+        assert_equal cms_sites(:default), page.site
         assert_redirected_to :action => :edit, :id => page
         assert_equal 'Page saved', flash[:notice]
       end
@@ -149,10 +149,10 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_creation_failure
-    assert_no_difference ['CmsPage.count', 'CmsBlock.count'] do
+    assert_no_difference ['Cms::Page.count', 'Cms::Block.count'] do
       post :create, :cms_page => {
-        :cms_layout_id  => cms_layouts(:default).id,
-        :cms_blocks_attributes => [
+        :layout_id => cms_layouts(:default).id,
+        :blocks_attributes => [
           { :label    => 'default_page_text',
             :content  => 'content content' },
           { :label    => 'default_field_text',
@@ -161,8 +161,8 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       }
       assert_response :success
       page = assigns(:cms_page)
-      assert_equal 2, page.cms_blocks.size
-      assert_equal ['content content', 'title content'], page.cms_blocks.collect{|b| b.content}
+      assert_equal 2, page.blocks.size
+      assert_equal ['content content', 'title content'], page.blocks.collect{|b| b.content}
       assert_template :new
       assert_equal 'Failed to create page', flash[:error]
     end
@@ -170,7 +170,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_update
     page = cms_pages(:default)
-    assert_no_difference 'CmsBlock.count' do
+    assert_no_difference 'Cms::Block.count' do
       put :update, :id => page, :cms_page => {
         :label => 'Updated Label'
       }
@@ -184,11 +184,11 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_update_with_layout_change
     page = cms_pages(:default)
-    assert_difference 'CmsBlock.count', 1 do
+    assert_difference 'Cms::Block.count', 1 do
       put :update, :id => page, :cms_page => {
-        :label => 'Updated Label',
-        :cms_layout_id => cms_layouts(:nested).id,
-        :cms_blocks_attributes => [
+        :label      => 'Updated Label',
+        :layout_id  => cms_layouts(:nested).id,
+        :blocks_attributes => [
           { :label    => 'content',
             :content  => 'new_page_text_content',
             :id       => cms_blocks(:default_page_text).id },
@@ -201,7 +201,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_redirected_to :action => :edit, :id => page
       assert_equal 'Page updated', flash[:notice]
       assert_equal 'Updated Label', page.label
-      assert_equal ['new_page_text_content', 'default_field_text_content', 'new_page_string_content'], page.cms_blocks.collect{|b| b.content}
+      assert_equal ['new_page_text_content', 'default_field_text_content', 'new_page_string_content'], page.blocks.collect{|b| b.content}
     end
   end
   
@@ -216,8 +216,8 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_destroy
-    assert_difference 'CmsPage.count', -2 do
-      assert_difference 'CmsBlock.count', -2 do
+    assert_difference 'Cms::Page.count', -2 do
+      assert_difference 'Cms::Block.count', -2 do
         delete :destroy, :id => cms_pages(:default)
         assert_response :redirect
         assert_redirected_to :action => :index
@@ -230,13 +230,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     xhr :get, :form_blocks, :id => cms_pages(:default), :layout_id => cms_layouts(:nested).id
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal 2, assigns(:cms_page).cms_tags.size
+    assert_equal 2, assigns(:cms_page).tags.size
     assert_template :form_blocks
     
     xhr :get, :form_blocks, :id => cms_pages(:default), :layout_id => cms_layouts(:default).id
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal 4, assigns(:cms_page).cms_tags.size
+    assert_equal 4, assigns(:cms_page).tags.size
     assert_template :form_blocks
   end
   
@@ -244,18 +244,18 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     xhr :get, :form_blocks, :id => 0, :layout_id => cms_layouts(:default).id
     assert_response :success
     assert assigns(:cms_page)
-    assert_equal 3, assigns(:cms_page).cms_tags.size
+    assert_equal 3, assigns(:cms_page).tags.size
     assert_template :form_blocks
   end
   
   def test_creation_preview
-    assert_no_difference 'CmsPage.count' do
+    assert_no_difference 'Cms::Page.count' do
       post :create, :preview => 'Preview', :cms_page => {
-        :label          => 'Test Page',
-        :slug           => 'test-page',
-        :parent_id      => cms_pages(:default).id,
-        :cms_layout_id  => cms_layouts(:default).id,
-        :cms_blocks_attributes => [
+        :label      => 'Test Page',
+        :slug       => 'test-page',
+        :parent_id  => cms_pages(:default).id,
+        :layout_id  => cms_layouts(:default).id,
+        :blocks_attributes => [
           { :label    => 'default_page_text',
             :content  => 'preview content' }
         ]
@@ -267,10 +267,10 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_update_preview
     page = cms_pages(:default)
-    assert_no_difference 'CmsPage.count' do
+    assert_no_difference 'Cms::Page.count' do
       put :update, :preview => 'Preview', :id => page, :cms_page => {
         :label => 'Updated Label',
-        :cms_blocks_attributes => [
+        :blocks_attributes => [
           { :label    => 'default_page_text',
             :content  => 'preview content',
             :id       => cms_blocks(:default_page_text).id}
@@ -284,7 +284,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_no_layout
-    CmsLayout.destroy_all
+    Cms::Layout.destroy_all
     get :new
     assert_response :redirect
     assert_redirected_to new_cms_admin_layout_path
@@ -292,7 +292,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_edit_with_no_layout
-    CmsLayout.destroy_all
+    Cms::Layout.destroy_all
     page = cms_pages(:default)
     get :edit, :id => page
     assert_response :redirect
@@ -313,11 +313,11 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_reorder
     page_one = cms_pages(:child)
-    page_two = cms_sites(:default).cms_pages.create!(
-      :parent     => cms_pages(:default),
-      :cms_layout => cms_layouts(:default),
-      :label      => 'test',
-      :slug       => 'test'
+    page_two = cms_sites(:default).pages.create!(
+      :parent => cms_pages(:default),
+      :layout => cms_layouts(:default),
+      :label  => 'test',
+      :slug   => 'test'
     )
     assert_equal 0, page_one.position
     assert_equal 1, page_two.position

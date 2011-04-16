@@ -18,11 +18,11 @@ class ComfortableMexicanSofa::Configuration
   # to something else
   attr_accessor :admin_route_redirect
   
-  # Let CMS handle site creation and management. Enabled by default.
-  attr_accessor :auto_manage_sites
+  # Are you running multiple sites from single install? Default assumption is 'No'
+  attr_accessor :enable_multiple_sites
   
-  # Not allowing irb code to be run inside page content. True by default.
-  attr_accessor :disable_irb
+  # Not allowing irb code to be run inside page content. False by default.
+  attr_accessor :allow_irb
   
   # Caching for css/js. For admin layout and ones for cms content. Enabled by default.
   attr_accessor :enable_caching
@@ -30,21 +30,17 @@ class ComfortableMexicanSofa::Configuration
   # Upload settings
   attr_accessor :upload_file_options
   
-  # Override the hostname when looking up which site to use
-  attr_accessor :override_host
-  
   # Configuration defaults
   def initialize
-    @cms_title            = 'ComfortableMexicanSofa MicroCMS'
-    @authentication       = 'ComfortableMexicanSofa::HttpAuth'
-    @seed_data_path       = nil
-    @admin_route_prefix   = 'cms-admin'
-    @admin_route_redirect = "/#{@admin_route_prefix}/pages"
-    @auto_manage_sites    = true
-    @disable_irb          = true
-    @enable_caching       = true
-    @upload_file_options  = {}
-    @override_host        = nil
+    @cms_title              = 'ComfortableMexicanSofa MicroCMS'
+    @authentication         = 'ComfortableMexicanSofa::HttpAuth'
+    @seed_data_path         = nil
+    @admin_route_prefix     = 'cms-admin'
+    @admin_route_redirect   = "/#{@admin_route_prefix}/pages"
+    @enable_multiple_sites  = false
+    @allow_irb              = false
+    @enable_caching         = true
+    @upload_file_options    = {}
   end
   
 end

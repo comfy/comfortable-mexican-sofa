@@ -32,13 +32,13 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_not_found_with_custom_404
-    page = cms_sites(:default).cms_pages.create!(
+    page = cms_sites(:default).pages.create!(
       :label          => '404',
       :slug           => '404',
       :parent_id      => cms_pages(:default).id,
-      :cms_layout_id  => cms_layouts(:default).id,
+      :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
-      :cms_blocks_attributes => [
+      :blocks_attributes => [
         { :label    => 'default_page_text',
           :type     => 'CmsTag::PageText',
           :content  => 'custom 404 page content' }
@@ -68,15 +68,15 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_irb_disabled
-    assert ComfortableMexicanSofa.config.disable_irb
+    assert_equal false, ComfortableMexicanSofa.config.allow_irb
     
-    irb_page = cms_sites(:default).cms_pages.create!(
+    irb_page = cms_sites(:default).pages.create!(
       :label          => 'irb',
       :slug           => 'irb',
       :parent_id      => cms_pages(:default).id,
-      :cms_layout_id  => cms_layouts(:default).id,
+      :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
-      :cms_blocks_attributes => [
+      :blocks_attributes => [
         { :label    => 'default_page_text',
           :content  => 'text <%= 2 + 2 %> text' }
       ]
@@ -87,15 +87,15 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_irb_enabled
-    ComfortableMexicanSofa.config.disable_irb = false
+    ComfortableMexicanSofa.config.allow_irb = true
     
-    irb_page = cms_sites(:default).cms_pages.create!(
+    irb_page = cms_sites(:default).pages.create!(
       :label          => 'irb',
       :slug           => 'irb',
       :parent_id      => cms_pages(:default).id,
-      :cms_layout_id  => cms_layouts(:default).id,
+      :layout_id  => cms_layouts(:default).id,
       :is_published   => '1',
-      :cms_blocks_attributes => [
+      :blocks_attributes => [
         { :label    => 'default_page_text',
           :content  => 'text <%= 2 + 2 %> text' }
       ]

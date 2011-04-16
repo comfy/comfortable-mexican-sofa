@@ -1,6 +1,6 @@
 <div id='form_blocks'>
   <%= fields_for :cms_blocks, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
-    <% @cms_page.cms_tags(true).each do |tag| %>
+    <% @cms_page.tags(true).each do |tag| %>
       <%= cms_blocks.send(tag.class.name.underscore.downcase.idify, tag)%>
     <% end %>
   <% end %>

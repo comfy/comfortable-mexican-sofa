@@ -4,10 +4,10 @@
 
 <%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
 <%= form.text_field :slug, :id => 'slug' %>
-<% if (options = CmsLayout.options_for_select(@cms_site, @cms_layout)).present? %>
+<% if (options = Cms::Layout.options_for_select(@cms_site, @cms_layout)).present? %>
   <%= form.select :parent_id, [['---- Select Parent Layout ----', nil]] + options %>
 <% end %>
-<% if (options = CmsLayout.app_layouts_for_select).present? %>
+<% if (options = Cms::Layout.app_layouts_for_select).present? %>
   <%= form.select :app_layout, [['---- Select Application Layout ----', nil]] + options %>
 <% end %>
 
