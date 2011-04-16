@@ -17,10 +17,10 @@ protected
     @cms_site = Cms::Site.find_by_hostname!(hostname)
     
   rescue ActiveRecord::RecordNotFound
-    if Cms::Site.count == 0
-      @cms_site = Cms::Site.create!(:label => 'Default Site', :hostname => hostname)
-    else
-      unless ComfortableMexicanSofa.config.enable_multiple_sites
+    unless ComfortableMexicanSofa.config.enable_multiple_sites
+      if Cms::Site.count == 0
+        @cms_site = Cms::Site.create!(:label => 'Default Site', :hostname => hostname)
+      else
         @cms_site = Cms::Site.first
         @cms_site.update_attribute(:hostname, hostname)
       end
