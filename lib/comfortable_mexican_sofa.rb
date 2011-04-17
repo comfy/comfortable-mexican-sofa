@@ -7,7 +7,8 @@
   'comfortable_mexican_sofa/view_methods',
   'comfortable_mexican_sofa/form_builder',
   'comfortable_mexican_sofa/acts_as_tree',
-  'comfortable_mexican_sofa/cms_tag' 
+  'comfortable_mexican_sofa/cms_tag',
+  'comfortable_mexican_sofa/fixtures'
 ].each do |path|
   require File.expand_path(path, File.dirname(__FILE__))
 end

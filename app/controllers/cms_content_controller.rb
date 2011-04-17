@@ -1,6 +1,7 @@
 class CmsContentController < ApplicationController
   
   before_filter :load_cms_site
+  before_filter :load_fixtures
   before_filter :load_cms_page,   :only => :render_html
   before_filter :load_cms_layout, :only => [:render_css, :render_js]
   
@@ -20,6 +21,11 @@ class CmsContentController < ApplicationController
   end
   
 protected
+  
+  def load_fixtures
+    return unless ComfortableMexicanSofa.config.enable_fixtures
+    ComfortableMexicanSofa::Fixtures.sync!
+  end
   
   def load_cms_site
     @cms_site = if ComfortableMexicanSofa.config.enable_multiple_sites

@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication to access cms-admin area
   attr_accessor :authentication
   
-  # Location of YAML files that can be used to render pages instead of pulling
-  # data from the database. Not active if not specified.
-  attr_accessor :seed_data_path
-  
   # Default url to access admin area is http://yourhost/cms-admin/ 
   # You can change 'cms-admin' to 'admin', for example.
   attr_accessor :admin_route_prefix
@@ -30,6 +26,13 @@ class ComfortableMexicanSofa::Configuration
   # Upload settings
   attr_accessor :upload_file_options
   
+  # With each page load, files will be synched with the database. Database entries are
+  # destroyed if there's no corresponding file. Fixtures are disabled by default.
+  attr_accessor :enable_fixtures
+  
+  # Path where fixtures can be located.
+  attr_accessor :fixtures_path
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -41,6 +44,8 @@ class ComfortableMexicanSofa::Configuration
     @allow_irb              = false
     @enable_caching         = true
     @upload_file_options    = {}
+    @enable_fixtures        = false
+    @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
   end
   
 end

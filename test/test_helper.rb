@@ -16,12 +16,13 @@ class ActiveSupport::TestCase
     ComfortableMexicanSofa.configure do |config|
       config.cms_title              = 'ComfortableMexicanSofa MicroCMS'
       config.authentication         = 'ComfortableMexicanSofa::HttpAuth'
-      config.seed_data_path         = nil
       config.admin_route_prefix     = 'cms-admin'
       config.admin_route_redirect   = "/cms-admin/pages"
       config.enable_multiple_sites  = false
       config.allow_irb              = false
       config.enable_caching         = true
+      config.enable_fixtures        = false
+      config.fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
