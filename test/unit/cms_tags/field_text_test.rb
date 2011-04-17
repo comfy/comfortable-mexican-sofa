@@ -3,11 +3,17 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class FieldTextTest < ActiveSupport::TestCase
   
   def test_initialize_tag
-    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{ cms:field:content:text }}')
+    assert tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+      cms_pages(:default), '{{ cms:field:content:text }}'
+    )
     assert_equal 'content', tag.label
-    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{cms:field:content:text}}')
+    assert tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+      cms_pages(:default), '{{cms:field:content:text}}'
+    )
     assert_equal 'content', tag.label
-    assert tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{cms:field:dash-content:text}}')
+    assert tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+      cms_pages(:default), '{{cms:field:dash-content:text}}'
+    )
     assert_equal 'dash-content', tag.label
   end
   
@@ -17,12 +23,16 @@ class FieldTextTest < ActiveSupport::TestCase
       '{{cms:not_field:content:text}}',
       '{not_a_tag}'
     ].each do |tag_signature|
-      assert_nil CmsTag::FieldText.initialize_tag(cms_pages(:default), tag_signature)
+      assert_nil ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+        cms_pages(:default), tag_signature
+      )
     end
   end
   
   def test_content_and_render
-    tag = CmsTag::FieldText.initialize_tag(cms_pages(:default), '{{cms:field:content:text}}')
+    tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+      cms_pages(:default), '{{cms:field:content:text}}'
+    )
     assert tag.content.blank?
     tag.content = 'test_content'
     assert_equal 'test_content', tag.content

@@ -1,8 +1,7 @@
-class CmsTag::Partial
+class ComfortableMexicanSofa::Tag::Partial
+  include ComfortableMexicanSofa::Tag
   
   attr_accessor :label
-  
-  include CmsTag
   
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\/\-]+/

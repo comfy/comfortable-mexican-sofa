@@ -4,7 +4,7 @@
 #     include CmsTag
 #     ...
 #   end
-module CmsTag
+module ComfortableMexicanSofa::Tag
   
   TOKENIZER_REGEX = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
   
@@ -42,7 +42,7 @@ module CmsTag
     
     # String indentifier of the tag
     def identifier
-      "#{self.class.name.underscore}_#{self.label}"
+      "#{self.class.to_s.demodulize.underscore}_#{self.label}"
     end
     
     # Ancestors of this tag constructed during rendering process.
@@ -68,7 +68,8 @@ module CmsTag
     # as a default.
     def render
       # cleaning content from possible irb stuff. Partial and Helper tags are OK.
-      if !ComfortableMexicanSofa.config.allow_irb && ![CmsTag::Partial, CmsTag::Helper].member?(self.class)
+      if !ComfortableMexicanSofa.config.allow_irb && 
+          ![ComfortableMexicanSofa::Tag::Partial, ComfortableMexicanSofa::Tag::Helper].member?(self.class)
         content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
       else
         content.to_s
@@ -106,8 +107,8 @@ private
   end
   
   def self.included(tag)
-    tag.send(:include, CmsTag::InstanceMethods)
-    tag.send(:extend, CmsTag::ClassMethods)
+    tag.send(:include, ComfortableMexicanSofa::Tag::InstanceMethods)
+    tag.send(:extend, ComfortableMexicanSofa::Tag::ClassMethods)
     @@tag_classes ||= []
     @@tag_classes << tag
   end

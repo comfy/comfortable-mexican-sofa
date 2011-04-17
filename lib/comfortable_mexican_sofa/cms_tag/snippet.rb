@@ -1,9 +1,8 @@
-class CmsTag::Snippet < Cms::Snippet
-  
-  include CmsTag
+class ComfortableMexicanSofa::Tag::Snippet < Cms::Snippet
+  include ComfortableMexicanSofa::Tag
   
   def identifier
-    "#{self.class.name.underscore}_#{self.slug}"
+    "#{self.class.to_s.demodulize.underscore}_#{self.slug}"
   end
   
   def self.regex_tag_signature(label = nil)

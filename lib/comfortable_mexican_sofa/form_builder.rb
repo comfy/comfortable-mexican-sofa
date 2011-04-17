@@ -59,8 +59,10 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     css_class = options[:css_class] || tag.class.name.underscore.downcase.idify
     
     field_css_class = case tag
-      when CmsTag::PageRichText                 then 'rich_text'
-      when CmsTag::PageText, CmsTag::FieldText  then 'code'
+    when ComfortableMexicanSofa::Tag::PageRichText
+      'rich_text'
+    when ComfortableMexicanSofa::Tag::PageText, ComfortableMexicanSofa::Tag::FieldText
+      'code'
     end
     
     options[:content_field_method] ||= :text_field_tag
@@ -114,16 +116,6 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   def page_rich_text(tag)
     default_tag_field(tag, :content_field_method => :text_area_tag)
-  end
-  
-  # Capturing all calls of cms_tag_* type. For those we'll try to render
-  # a form element. Everything else can trigger MethodNotFound error.
-  def method_missing(method_name, *args)
-    if m = method_name.to_s.match(/^cms_tag_(\w+)$/)
-      send(m[1], *args) if respond_to?(m[1])
-    else
-      super
-    end
   end
   
 end

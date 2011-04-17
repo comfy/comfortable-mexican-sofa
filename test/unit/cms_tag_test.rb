@@ -3,7 +3,7 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 class CmsTagTest < ActiveSupport::TestCase
   
   def test_tokenizer_regex
-    regex = CmsTag::TOKENIZER_REGEX
+    regex = ComfortableMexicanSofa::Tag::TOKENIZER_REGEX
     
     tokens = 'text { text } text'.scan(regex)
     assert_equal nil,                   tokens[0][0]
@@ -60,7 +60,7 @@ class CmsTagTest < ActiveSupport::TestCase
   
   def test_tokenizer_regex_limit
     string = '<p>text</p>' * 400
-    tokens = string.scan(CmsTag::TOKENIZER_REGEX)
+    tokens = string.scan(ComfortableMexicanSofa::Tag::TOKENIZER_REGEX)
     assert_equal 1, tokens.count
     assert_equal nil, tokens[0][0]
     assert_equal string, tokens[0][1]
@@ -81,11 +81,11 @@ class CmsTagTest < ActiveSupport::TestCase
     ), page.content(true)
     
     assert_equal 4, page.tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal 'field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'snippet_default', page.tags[2].identifier
     assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
+    assert_equal 'snippet_default', page.tags[3].identifier
   end
   
   def test_content_for_new_page
@@ -110,9 +110,9 @@ class CmsTagTest < ActiveSupport::TestCase
     ), page.content
     
     assert_equal 3, page.tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal 'field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'snippet_default', page.tags[2].identifier
   end
   
   def test_content_for_new_page_with_initilized_cms_blocks
@@ -149,11 +149,11 @@ class CmsTagTest < ActiveSupport::TestCase
     ), page.content
     
     assert_equal 4, page.tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal 'field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'snippet_default', page.tags[2].identifier
     assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
+    assert_equal 'snippet_default', page.tags[3].identifier
   end
   
   def test_content_with_repeated_tags
@@ -176,13 +176,13 @@ class CmsTagTest < ActiveSupport::TestCase
     ), page.content(true)
     
     assert_equal 6, page.tags.size
-    assert_equal 'cms_tag/field_text_default_field_text', page.tags[0].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.tags[1].identifier
-    assert_equal 'cms_tag/snippet_default', page.tags[2].identifier
+    assert_equal 'field_text_default_field_text', page.tags[0].identifier
+    assert_equal 'page_text_default_page_text', page.tags[1].identifier
+    assert_equal 'snippet_default', page.tags[2].identifier
     assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'cms_tag/snippet_default', page.tags[3].identifier
-    assert_equal 'cms_tag/page_text_default_page_text', page.tags[4].identifier
-    assert_equal 'cms_tag/snippet_default', page.tags[5].identifier
+    assert_equal 'snippet_default', page.tags[3].identifier
+    assert_equal 'page_text_default_page_text', page.tags[4].identifier
+    assert_equal 'snippet_default', page.tags[5].identifier
     assert_equal page.tags[4], page.tags[5].parent
   end
   

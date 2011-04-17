@@ -1,6 +1,5 @@
-class CmsTag::PageText < Cms::Block
-  
-  include CmsTag
+class ComfortableMexicanSofa::Tag::PageText < Cms::Block
+  include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\-]+/

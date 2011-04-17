@@ -31,11 +31,11 @@ class BlockTest < ActiveSupport::TestCase
   end
   
   def test_initialize_or_find
-    tag = CmsTag::PageText.initialize_or_find(cms_pages(:default), :default_field_text)
+    tag = ComfortableMexicanSofa::Tag::PageText.initialize_or_find(cms_pages(:default), :default_field_text)
     assert_equal 'default_field_text', tag.label
     assert_equal 'default_field_text_content', tag.content
     
-    tag = CmsTag::PageText.initialize_or_find(cms_pages(:default), :new_block)
+    tag = ComfortableMexicanSofa::Tag::PageText.initialize_or_find(cms_pages(:default), :new_block)
     assert_equal 'new_block', tag.label
     assert tag.content.blank?
   end

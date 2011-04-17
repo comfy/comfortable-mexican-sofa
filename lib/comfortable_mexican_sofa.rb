@@ -13,7 +13,6 @@
 end
 
 module ComfortableMexicanSofa
-  
   class << self
     
     # Modify CMS configuration
@@ -32,5 +31,4 @@ module ComfortableMexicanSofa
     alias :config :configuration
     
   end
-  
 end

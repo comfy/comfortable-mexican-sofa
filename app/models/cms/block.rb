@@ -25,8 +25,6 @@ class Cms::Block < ActiveRecord::Base
         :page   => page
       )
     end
-  rescue => e
-    raise "WTF! #{e.to_s}"
   end
   
 end

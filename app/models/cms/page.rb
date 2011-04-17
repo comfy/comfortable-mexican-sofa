@@ -81,7 +81,7 @@ class Cms::Page < ActiveRecord::Base
     @content = nil if force_reload
     @content ||= begin
       self.tags = [] # resetting
-      layout ? CmsTag.process_content(self, layout.merged_content) : ''
+      layout ? ComfortableMexicanSofa::Tag.process_content(self, layout.merged_content) : ''
     end
   end
   
