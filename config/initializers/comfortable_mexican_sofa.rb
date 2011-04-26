@@ -10,6 +10,10 @@ ComfortableMexicanSofa.configure do |config|
   # You can change 'cms-admin' to 'admin', for example.
   #   config.admin_route_prefix = 'cms-admin'
   
+  # Default url to content directly is http://yourhost/
+  # You can change '' to 'preview', for example.
+  #   config.cms_content_route_prefix = ''
+  
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
   # You don't need to change it when changing admin_route_prefix
   #   config.admin_route_redirect = '/cms-admin/pages'

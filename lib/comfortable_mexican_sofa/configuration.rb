@@ -14,6 +14,10 @@ class ComfortableMexicanSofa::Configuration
   # You can change 'cms-admin' to 'admin', for example.
   attr_accessor :admin_route_prefix
   
+  # Default url to content directly is http://yourhost/
+  # You can change '' to 'preview', for example.
+  attr_accessor :cms_content_route_prefix
+  
   # /cms-admin redirects to /cms-admin/pages but you can change it
   # to something else
   attr_accessor :admin_route_redirect
@@ -39,6 +43,7 @@ class ComfortableMexicanSofa::Configuration
     @authentication       = 'ComfortableMexicanSofa::HttpAuth'
     @seed_data_path       = nil
     @admin_route_prefix   = 'cms-admin'
+    @cms_content_route_prefix = ''
     @admin_route_redirect = "/#{@admin_route_prefix}/pages"
     @auto_manage_sites    = true
     @disable_irb          = true
