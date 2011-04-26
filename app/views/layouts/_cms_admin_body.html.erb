@@ -1,0 +1,26 @@
+<div class='body_wrapper'>
+  <div class='left_column'>
+    <div class='left_column_content'>
+      <% unless ComfortableMexicanSofa.config.auto_manage_sites %>
+        <%= active_link_to 'Sites', cms_admin_sites_path %>
+      <% end %>
+      <%= active_link_to 'Layouts', cms_admin_layouts_path %>
+      <%= active_link_to 'Pages', cms_admin_pages_path %>
+      <%= active_link_to 'Snippets', cms_admin_snippets_path %>
+      <%= cms_hook :navigation %>
+    </div>
+  </div>
+  <div class='right_column'>
+    <div class='right_column_content'>
+      <%= yield :right_column %>
+    </div>
+  </div>
+  <div class='center_column'>
+    <% flash.each do |type, message| %>
+      <div class='flash <%= type %>'><%= message %></div>
+    <% end %>
+    <div class='center_column_content'>
+      <%= yield %>
+    </div>
+  </div>
+</div>

@@ -168,7 +168,7 @@ namespace :comfortable_mexican_sofa do
   end
   
   # Example use:
-  #   rake comfortable_mexican_sofa:import:all FROM=mysite.com TO=mysite.local SEED_PATH=/path/to/seed_data
+  #   rake comfortable_mexican_sofa:export:all FROM=mysite.com TO=mysite.local SEED_PATH=/path/to/seed_data
   namespace :export do
     
     task :check_for_requirements => :environment do |task, args|
