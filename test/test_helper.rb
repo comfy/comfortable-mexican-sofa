@@ -18,6 +18,7 @@ class ActiveSupport::TestCase
       config.authentication       = 'ComfortableMexicanSofa::HttpAuth'
       config.seed_data_path       = nil
       config.admin_route_prefix   = 'cms-admin'
+      config.cms_content_route_prefix = ''
       config.admin_route_redirect = "/cms-admin/pages"
       config.auto_manage_sites    = true
       config.disable_irb          = true
