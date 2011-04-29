@@ -79,15 +79,41 @@ class ViewMethodsTest < ActiveSupport::TestCase
   end
   
   def test_sync_pages_creating
-    flunk
+    Cms::Page.delete_all
+    
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '<html>{{cms:page:content}}</html>')
+    
+    nested = cms_layouts(:nested)
+    nested.update_attribute(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
+    
+    assert_difference 'Cms::Page.count', 2 do
+      ComfortableMexicanSofa::Fixtures.sync_pages(@site)
+      
+      assert page = Cms::Page.find_by_full_path('/')
+      assert_equal 'index', page.slug
+      assert_equal "<html>Home Page Fixture Content\n</html>", page.content
+      
+      assert child_page = Cms::Page.find_by_full_path('/child')
+      assert_equal page, child_page.parent
+      assert_equal 'child', child_page.slug
+      assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content
+    end
   end
   
-  def test_sync_pages_updating
-    flunk
-  end
-  
-  def test_sync_pages_deleting
-    flunk
+  def test_sync_pages_updating_and_deleting
+    page = cms_pages(:default)
+    page.update_attribute(:updated_at, 10.years.ago)
+    assert_equal 'Default Page', page.label
+    
+    child = cms_pages(:child)
+    child.update_attribute(:slug, 'old')
+    
+    assert_no_difference 'Cms::Page.count' do
+      ComfortableMexicanSofa::Fixtures.sync_pages(@site)
+      raise Cms::Page.all.to_yaml
+    end
+    
   end
   
   def test_sync_pages_ignoring

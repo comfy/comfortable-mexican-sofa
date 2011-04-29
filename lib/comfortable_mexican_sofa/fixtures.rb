@@ -48,14 +48,61 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    Cms::Layout.where('id NOT IN (?)', layout_ids).each{ |s| s.destroy } if root
+    Cms::Layout.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
     
     # returning ids of layouts in fixtures
     layout_ids
   end
   
-  def self.sync_pages
-    # TODO
+  def self.sync_pages(site, path = nil, root = true, parent = nil, page_ids = [])
+    return unless path ||= find_path(site, 'pages')
+    
+    Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
+      slug = path.split('/').last
+      page = if parent
+        parent.children.find_by_slug(slug) || parent.children.new(:slug => slug, :site => site)
+      else
+        site.pages.find_by_slug(slug) || site.pages.new(:slug => slug)
+      end
+      
+      # updating attributes
+      if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
+        if page.new_record? || File.mtime(file_path) > page.updated_at
+          attributes = YAML.load_file(file_path).symbolize_keys!
+          page.label = attributes[:label] || slug.titleize
+          page.layout = Cms::Layout.find_by_slug(attributes[:layout]) || parent.try(:layout)
+        end
+      elsif page.new_record?
+        page.label = slug.titleize
+        page.layout = Cms::Layout.find_by_slug(attributes[:layout]) || parent.try(:layout)
+      end
+      
+      # updating content
+      blocks_attributes = [ ]
+      Dir.glob("#{path}/*.html").each do |file_path|
+        if page.new_record? || File.mtime(file_path) > page.updated_at
+          label = file_path.split('/').last.split('.').first
+          blocks_attributes << {
+            :label    => label,
+            :content  => File.open(file_path, 'rb').read
+          }
+        end
+      end
+      
+      # saving
+      page.blocks_attributes = blocks_attributes if blocks_attributes.present?
+      page.save! if page.changed?
+      page_ids << page.id
+      
+      # checking for nested fixtures
+      page_ids += sync_pages(site, path, false, page, page_ids)
+    end
+    
+    # removing all db entries that are not in fixtures
+    Cms::Page.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy } if root
+    
+    # returning ids of layouts in fixtures
+    page_ids
   end
   
   def self.sync_snippets(site)
