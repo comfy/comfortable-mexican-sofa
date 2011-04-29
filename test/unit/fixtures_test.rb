@@ -8,19 +8,74 @@ class ViewMethodsTest < ActiveSupport::TestCase
   end
   
   def test_sync_layouts_creating
-    ComfortableMexicanSofa::Fixtures.sync_layouts(@site)
+    Cms::Layout.delete_all
+    
+    assert_difference 'Cms::Layout.count', 2 do
+      ComfortableMexicanSofa::Fixtures.sync_layouts(@site)
+      assert layout = Cms::Layout.find_by_slug('default')
+      assert_equal 'Default Fixture Layout', layout.label
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal 'body{color: red}', layout.css
+      assert_equal '// default js', layout.js
+      
+      assert nested_layout = Cms::Layout.find_by_slug('nested')
+      assert_equal layout, nested_layout.parent
+      assert_equal 'Default Fixture Nested Layout', nested_layout.label
+      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal 'div{float:left}', nested_layout.css
+      assert_equal '// nested js', nested_layout.js
+    end
   end
   
-  def test_sync_layouts_updating
-    flunk
-  end
-  
-  def test_sync_layouts_deleting
-    flunk
+  def test_sync_layouts_updating_and_deleting
+    
+    layout        = cms_layouts(:default)
+    nested_layout = cms_layouts(:nested)
+    child_layout  = cms_layouts(:child)
+    layout.update_attribute(:updated_at, 10.years.ago)
+    nested_layout.update_attribute(:updated_at, 10.years.ago)
+    child_layout.update_attribute(:updated_at, 10.years.ago)
+    
+    assert_difference 'Cms::Layout.count', -1 do
+      ComfortableMexicanSofa::Fixtures.sync_layouts(@site)
+      
+      layout.reload
+      assert_equal 'Default Fixture Layout', layout.label
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal 'body{color: red}', layout.css
+      assert_equal '// default js', layout.js
+      
+      nested_layout.reload
+      assert_equal layout, nested_layout.parent
+      assert_equal 'Default Fixture Nested Layout', nested_layout.label
+      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal 'div{float:left}', nested_layout.css
+      assert_equal '// nested js', nested_layout.js
+      
+      assert_nil Cms::Layout.find_by_slug('child')
+    end
   end
   
   def test_sync_layouts_ignoring
-    flunk
+    layout = cms_layouts(:default)
+    layout_path       = File.join(ComfortableMexicanSofa.config.fixtures_path, @site.hostname, 'layouts', 'default')
+    attr_file_path    = File.join(layout_path, '_default.yml')
+    content_file_path = File.join(layout_path, 'content.html')
+    css_file_path     = File.join(layout_path, 'css.css')
+    js_file_path      = File.join(layout_path, 'js.js')
+    
+    assert layout.updated_at >= File.mtime(attr_file_path)
+    assert layout.updated_at >= File.mtime(content_file_path)
+    assert layout.updated_at >= File.mtime(css_file_path)
+    assert layout.updated_at >= File.mtime(js_file_path)
+    
+    ComfortableMexicanSofa::Fixtures.sync_layouts(@site)
+    layout.reload
+    assert_equal 'default', layout.slug
+    assert_equal 'Default Layout', layout.label
+    assert_equal "{{cms:field:default_field_text:text}}\nlayout_content_a\n{{cms:page:default_page_text:text}}\nlayout_content_b\n{{cms:snippet:default}}\nlayout_content_c", layout.content
+    assert_equal 'default_css', layout.css
+    assert_equal 'default_js', layout.js
   end
   
   def test_sync_pages_creating
@@ -84,8 +139,8 @@ class ViewMethodsTest < ActiveSupport::TestCase
   
   def test_sync_snippets_ignoring
     snippet = cms_snippets(:default)
-    snippet_path = File.join(ComfortableMexicanSofa.config.fixtures_path, @site.hostname, 'snippets', 'default')
-    attr_file_path = File.join(snippet_path, '_default.yml')
+    snippet_path      = File.join(ComfortableMexicanSofa.config.fixtures_path, @site.hostname, 'snippets', 'default')
+    attr_file_path    = File.join(snippet_path, '_default.yml')
     content_file_path = File.join(snippet_path, 'content.html')
     
     assert snippet.updated_at >= File.mtime(attr_file_path)
