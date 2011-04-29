@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
-class CmsConfigurationTest < ActiveSupport::TestCase
+class ConfigurationTest < ActiveSupport::TestCase
   
   def test_configuration_presense
     assert config = ComfortableMexicanSofa.configuration

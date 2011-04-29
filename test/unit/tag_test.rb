@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
-class CmsTagTest < ActiveSupport::TestCase
+class TagTest < ActiveSupport::TestCase
   
   def test_tokenizer_regex
     regex = ComfortableMexicanSofa::Tag::TOKENIZER_REGEX
