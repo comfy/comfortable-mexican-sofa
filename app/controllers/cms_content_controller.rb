@@ -8,8 +8,12 @@ class CmsContentController < ApplicationController
   caches_page :render_css, :render_js, :if => Proc.new { |c| ComfortableMexicanSofa.config.enable_caching }
   
   def render_html(status = 200)
-    layout = @cms_page.layout.app_layout.blank?? false : @cms_page.layout.app_layout
-    render :inline => @cms_page.content, :layout => layout, :status => status
+    if layout = @cms_page.layout
+      app_layout = layout.app_layout.blank?? false : layout.app_layout
+      render :inline => @cms_page.content, :layout => app_layout, :status => status
+    else
+      render :text => 'Layout Not Found', :status => 404
+    end
   end
   
   def render_css
