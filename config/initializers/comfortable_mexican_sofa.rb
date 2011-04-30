@@ -14,11 +14,6 @@ ComfortableMexicanSofa.configure do |config|
   # You don't need to change it when changing admin_route_prefix
   #   config.admin_route_redirect = '/cms-admin/pages'
   
-  # Location of YAML files that can be used to render pages instead of pulling
-  # data from the database. Not active if not specified. Containing folder name
-  # should be the hostname of the site. Example: my-app.local
-  #   config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
-  
   # If you enable this setting you'll be able to serve completely different set
   # of sites with their own layouts and pages.
   #   config.enable_multiple_sites = false
@@ -38,6 +33,14 @@ ComfortableMexicanSofa.configure do |config|
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for 
   # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3
   #   config.upload_file_options = {:storage => :filesystem}
+  
+  # Sofa allows you to setup entire site from files. Database is updated with each
+  # request (if nessesary). Please note that database entries are destroyed if there's
+  # no corresponding file. Fixtures are disabled by default.
+  config.enable_fixtures = false
+  
+  # Path where fixtures can be located.
+  config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
   
 end
 

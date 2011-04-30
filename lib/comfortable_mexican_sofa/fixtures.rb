@@ -1,7 +1,9 @@
 module ComfortableMexicanSofa::Fixtures
   
-  def self.sync
-    
+  def self.sync(site)
+    sync_layouts(site)
+    sync_pages(site)
+    sync_snippets(site)
   end
   
   def self.sync_layouts(site, path = nil, root = true, parent = nil, layout_ids = [])

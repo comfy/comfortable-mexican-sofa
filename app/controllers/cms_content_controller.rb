@@ -24,7 +24,7 @@ protected
   
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
-    ComfortableMexicanSofa::Fixtures.sync!
+    ComfortableMexicanSofa::Fixtures.sync(@cms_site)
   end
   
   def load_cms_site
