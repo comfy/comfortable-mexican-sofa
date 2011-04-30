@@ -52,6 +52,14 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_match /custom 404 page content/, response.body
   end
   
+  def test_render_page_with_no_site
+    Cms::Site.destroy_all
+    
+    get :render_html, :cms_path => ''
+    assert_response 404
+    assert_equal 'Site Not Found', response.body
+  end
+  
   def test_render_page_with_redirect
     cms_pages(:child).update_attribute(:target_page, cms_pages(:default))
     assert_equal cms_pages(:default), cms_pages(:child).target_page
