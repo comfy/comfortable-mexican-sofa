@@ -48,7 +48,7 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    Cms::Layout.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
+    site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
     
     # returning ids of layouts in fixtures
     layout_ids
@@ -62,7 +62,7 @@ module ComfortableMexicanSofa::Fixtures
       page = if parent
         parent.children.find_by_slug(slug) || parent.children.new(:slug => slug, :site => site)
       else
-        site.pages.find_by_slug(slug) || site.pages.new(:slug => slug)
+        site.pages.root || site.pages.new(:slug => slug)
       end
       
       # updating attributes
@@ -99,7 +99,7 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    Cms::Page.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy } if root
+    site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy } if root
     
     # returning ids of layouts in fixtures
     page_ids
@@ -136,7 +136,7 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    Cms::Snippet.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
+    site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
   end
   
   def self.find_path(site, dir)

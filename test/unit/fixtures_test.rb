@@ -111,13 +111,28 @@ class ViewMethodsTest < ActiveSupport::TestCase
     
     assert_no_difference 'Cms::Page.count' do
       ComfortableMexicanSofa::Fixtures.sync_pages(@site)
-      raise Cms::Page.all.to_yaml
+      
+      page.reload
+      assert_equal 'Home Fixture Page', page.label
+      
+      assert_nil Cms::Page.find_by_slug('old')
     end
-    
   end
   
   def test_sync_pages_ignoring
-    flunk
+    page = cms_pages(:default)
+    page_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, @site.hostname, 'pages', 'index')
+    attr_file_path    = File.join(page_path, '_index.yml')
+    content_file_path = File.join(page_path, 'content.html')
+    
+    assert page.updated_at >= File.mtime(attr_file_path)
+    assert page.updated_at >= File.mtime(content_file_path)
+    
+    ComfortableMexicanSofa::Fixtures.sync_pages(@site)
+    page.reload
+    assert_equal nil, page.slug
+    assert_equal 'Default Page', page.label
+    assert_equal "\nlayout_content_a\ndefault_page_text_content_a\ndefault_snippet_content\ndefault_page_text_content_b\nlayout_content_b\ndefault_snippet_content\nlayout_content_c", page.content
   end
   
   def test_sync_snippets_creating
