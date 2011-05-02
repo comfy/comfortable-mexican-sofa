@@ -85,7 +85,7 @@ Here's a number of tag variations:
                                           
 Multiple Sites
 --------------
-Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.auto_manage_sites = false`. When this setting is set to `true`, Sofa assumes there's only one site and will manage hostname associated with it automatically.
+Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.enable_multiple_sites = true`.
     
 Integrating CMS with your app
 -----------------------------
