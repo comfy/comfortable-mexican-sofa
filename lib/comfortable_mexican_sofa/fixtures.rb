@@ -72,11 +72,14 @@ module ComfortableMexicanSofa::Fixtures
         if page.new_record? || File.mtime(file_path) > page.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           page.label = attributes[:label] || slug.titleize
-          page.layout = Cms::Layout.find_by_slug(attributes[:layout]) || parent.try(:layout)
+          page.layout = site.layouts.find_by_slug(attributes[:layout]) || parent.try(:layout)
+          page.target_page = site.pages.find_by_full_path(attributes[:target_page])
+          page.is_published = attributes[:is_published].present?? attributes[:is_published] : true
         end
       elsif page.new_record?
         page.label = slug.titleize
-        page.layout = Cms::Layout.find_by_slug(attributes[:layout]) || parent.try(:layout)
+        page.layout = site.layouts.find_by_slug(attributes[:layout]) || parent.try(:layout)
+        
       end
       
       # updating content

@@ -93,6 +93,7 @@ class ViewMethodsTest < ActiveSupport::TestCase
       assert page = Cms::Page.find_by_full_path('/')
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Content\ndefault_snippet_content</html>", page.content
+      assert page.is_published?
       
       assert child_page = Cms::Page.find_by_full_path('/child')
       assert_equal page, child_page.parent
