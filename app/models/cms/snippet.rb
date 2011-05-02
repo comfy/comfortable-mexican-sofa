@@ -24,11 +24,6 @@ class Cms::Snippet < ActiveRecord::Base
     (s = find_by_slug(slug)) ? s.content : ''
   end
   
-  def self.initialize_or_find(page, slug)
-    find_by_slug(slug, :conditions => {:site_id => page.site.id}) ||
-    new(:slug => slug, :site => page.site)
-  end
-  
 protected
   
   # Note: This might be slow. We have no idea where the snippet is used, so

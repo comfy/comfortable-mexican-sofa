@@ -18,26 +18,16 @@ class BlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
           {
-            :label    => 'test_block',
+            :label    => 'default_page_text',
             :content  => 'test_content'
           }
         ]
       )
       assert_equal 1, page.blocks.count
       block = page.blocks.first
-      assert_equal 'test_block', block.label
+      assert_equal 'default_page_text', block.label
       assert_equal 'test_content', block.content
     end
-  end
-  
-  def test_initialize_or_find
-    tag = ComfortableMexicanSofa::Tag::PageText.initialize_or_find(cms_pages(:default), :default_field_text)
-    assert_equal 'default_field_text', tag.label
-    assert_equal 'default_field_text_content', tag.content
-    
-    tag = ComfortableMexicanSofa::Tag::PageText.initialize_or_find(cms_pages(:default), :new_block)
-    assert_equal 'new_block', tag.label
-    assert tag.content.blank?
   end
   
 end

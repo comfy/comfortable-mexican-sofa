@@ -203,4 +203,21 @@ class TagTest < ActiveSupport::TestCase
     assert_equal 6, page.tags.size
   end
   
+  def test_is_cms_block?
+    tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
+      cms_pages(:default), '{{ cms:page:content:text }}'
+    )
+    assert tag.is_cms_block?
+    
+    tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
+      cms_pages(:default), '{{ cms:field:content:text }}'
+    )
+    assert tag.is_cms_block?
+    
+    tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
+      cms_pages(:default), '{{ cms:snippet:label }}'
+    )
+    assert !tag.is_cms_block?
+  end
+  
 end

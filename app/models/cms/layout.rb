@@ -69,7 +69,7 @@ protected
   
   def check_content_tag_presence
     ComfortableMexicanSofa::Tag.process_content((test_page = site.pages.new), content)
-    if test_page.tags.select{|t| t.class.superclass == Cms::Block}.blank?
+    if test_page.tags.select{|t| t.is_cms_block?}.blank?
       self.errors.add(:content, 'No cms page tags defined')
     end
   end

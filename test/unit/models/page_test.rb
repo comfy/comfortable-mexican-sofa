@@ -52,7 +52,7 @@ class CmsPageTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :layout_id  => cms_layouts(:default).id,
         :blocks_attributes => [
-          { :label    => 'test',
+          { :label    => 'default_page_text',
             :content  => 'test' }
         ]
       )

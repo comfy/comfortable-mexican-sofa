@@ -8,9 +8,10 @@ module ComfortableMexicanSofa::Tag
   
   TOKENIZER_REGEX = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
   
-  attr_accessor :params,
-                :parent,
-                :record_id
+  attr_accessor :page,
+                :label,
+                :params,
+                :parent
   
   module ClassMethods
     # Regex that is used to match tags in the content
@@ -24,16 +25,13 @@ module ComfortableMexicanSofa::Tag
     
     # Initializing tag object for a particular Tag type
     # First capture group in the regex is the tag label
-    def initialize_tag(cms_page, tag_signature)
+    def initialize_tag(page, tag_signature)
       if match = tag_signature.match(regex_tag_signature)
-        if self.respond_to?(:initialize_or_find)
-          self.initialize_or_find(cms_page, match[1])
-        else
-          tag = self.new
-          tag.label   = match[1]
-          tag.params  = match[2]
-          tag
-        end
+        tag = self.new
+        tag.page    = page
+        tag.label   = match[1]
+        tag.params  = match[2]
+        tag
       end
     end
   end
@@ -74,6 +72,26 @@ module ComfortableMexicanSofa::Tag
       else
         content.to_s
       end
+    end
+    
+    # Find or initialize Cms::Block object
+    def block
+      page.blocks.detect{|b| b.label == self.label.to_s} || page.blocks.build(:label => self.label.to_s)
+    end
+    
+    # Find or initialize Cms::Snippet object
+    def snippet
+      page.site.snippets.detect{|s| s.slug == self.label.to_s} || page.site.snippets.build(:slug => self.label.to_s)
+    end
+    
+    # Checks if this tag is using Cms::Block
+    def is_cms_block?
+      %w(page field).member?(self.class.to_s.demodulize.underscore.split(/_/).first)
+    end
+    
+    # Used in displaying form elements for Cms::Block
+    def record_id
+      block.id
     end
   end
   
