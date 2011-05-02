@@ -1,5 +1,5 @@
 <div id='form_blocks'>
-  <%= fields_for :blocks, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
+  <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
     <% @cms_page.tags(true).select{|t| t.is_cms_block?}.each do |tag| %>
       <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag)%>
     <% end %>
