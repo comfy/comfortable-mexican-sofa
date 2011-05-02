@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.1.0"
+  s.version = "1.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -63,6 +63,11 @@ Gem::Specification.new do |s|
     "app/views/cms_admin/uploads/_index.html.erb",
     "app/views/cms_admin/uploads/destroy.js.erb",
     "app/views/layouts/cms_admin.html.erb",
+    "app/views/layouts/cms_admin/_body.html.erb",
+    "app/views/layouts/cms_admin/_center.html.erb",
+    "app/views/layouts/cms_admin/_head.html.erb",
+    "app/views/layouts/cms_admin/_left.html.erb",
+    "app/views/layouts/cms_admin/_right.html.erb",
     "comfortable_mexican_sofa.gemspec",
     "config.ru",
     "config/application.rb",
