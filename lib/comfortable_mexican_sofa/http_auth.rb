@@ -14,4 +14,5 @@ module ComfortableMexicanSofa::HttpAuth
       username == self.username && password == self.password
     end
   end
+  
 end

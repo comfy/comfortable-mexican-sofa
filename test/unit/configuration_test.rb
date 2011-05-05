@@ -21,4 +21,8 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'New Title', ComfortableMexicanSofa.configuration.cms_title
   end
   
+  def test_version
+    assert ComfortableMexicanSofa::VERSION
+  end
+  
 end
