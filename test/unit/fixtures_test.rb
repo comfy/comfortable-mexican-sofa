@@ -7,6 +7,20 @@ class ViewMethodsTest < ActiveSupport::TestCase
     @site.update_attribute(:hostname, 'example.com')
   end
   
+  def test_sync
+    Cms::Page.destroy_all
+    Cms::Layout.destroy_all
+    Cms::Snippet.destroy_all
+    
+    assert_difference 'Cms::Layout.count', 2 do
+      assert_difference 'Cms::Page.count', 2 do
+        assert_difference 'Cms::Snippet.count', 1 do
+          ComfortableMexicanSofa::Fixtures.sync(@site)
+        end
+      end
+    end
+  end
+  
   def test_sync_layouts_creating
     Cms::Layout.delete_all
     
@@ -91,12 +105,14 @@ class ViewMethodsTest < ActiveSupport::TestCase
       ComfortableMexicanSofa::Fixtures.sync_pages(@site)
       
       assert page = Cms::Page.find_by_full_path('/')
+      assert_equal layout, page.layout
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Content\ndefault_snippet_content</html>", page.content
       assert page.is_published?
       
       assert child_page = Cms::Page.find_by_full_path('/child')
       assert_equal page, child_page.parent
+      assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug
       assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content
     end

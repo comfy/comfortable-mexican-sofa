@@ -1,5 +1,9 @@
-[ 'comfortable_mexican_sofa/engine',
-  'comfortable_mexican_sofa/configuration',
+# Loading engine only if this is not a standalone installation
+unless defined? ComfortableMexicanSofa::Application
+  require File.expand_path('comfortable_mexican_sofa/engine', File.dirname(__FILE__))
+end
+
+[ 'comfortable_mexican_sofa/configuration',
   'comfortable_mexican_sofa/http_auth',
   'comfortable_mexican_sofa/rails_extensions',
   'comfortable_mexican_sofa/controller_methods',
@@ -23,7 +27,7 @@ module ComfortableMexicanSofa
     # Modify CMS configuration
     # Example:
     #   ComfortableMexicanSofa.configure do |config|
-    #     config.cms_title = 'Comfortable Mexican Sofa'
+    #     config.cms_title = 'ComfortableMexicanSofa'
     #   end
     def configure
       yield configuration
