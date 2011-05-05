@@ -19,6 +19,7 @@
 }
 .form_element .value {
   margin-left: 150px;
+  overflow: hidden;
 }
 .form_element .value input[type='text'],
 .form_element .value input[type='password'],
@@ -81,6 +82,10 @@
 }
 .form_element.submit_element label {
   margin: 0px 5px;
+}
+.form_element.submit_element input[name='commit'],
+.form_element.submit_element input[name='save'] {
+  float: right;
 }
 .form_element .desc {
   margin: 2px 0px 0px 150px;

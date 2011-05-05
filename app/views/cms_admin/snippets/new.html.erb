@@ -2,8 +2,4 @@
 
 <%= cms_form_for @cms_snippet, :url => {:action => :create} do |form| %>
   <%= render :partial => 'form', :object => form %>
-  <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-    <%= form.submit 'Create Snippet', :disable_builder => true %>
-    <%= form.submit 'Create &amp; Edit'.html_safe, :name => "save", :disable_builder => true %>
-  <% end %>
 <% end %>
