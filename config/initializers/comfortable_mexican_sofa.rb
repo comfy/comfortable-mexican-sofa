@@ -10,6 +10,11 @@ ComfortableMexicanSofa.configure do |config|
   # You can change 'cms-admin' to 'admin', for example.
   #   config.admin_route_prefix = 'cms-admin'
   
+  # By default Cms content is served directly from the root. Change this setting
+  # if you wish to restrict all content to a section of your site.
+  # To have root page served from http://yourhost/content/ set config below to 'content'
+  #   config.content_route_prefix = ''
+  
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
   # You don't need to change it when changing admin_route_prefix
   #   config.admin_route_redirect = '/cms-admin/pages'
