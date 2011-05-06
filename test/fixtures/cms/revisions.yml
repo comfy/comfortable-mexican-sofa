@@ -1,0 +1,20 @@
+layout:
+  record: default (Cms::Layout)
+  data: <%= {
+    'content' => 'revision content',
+    'css'     => 'revision css',
+    'js'      => 'revision js' }.to_yaml.inspect %>
+    
+page:
+  record: default (Cms::Page)
+  data: <%= [
+      { 'label'   => 'default_page_text',
+        'content' => 'revision page content' },
+      { 'label'   => 'default_field_text',
+        'content' => 'revision field content'}
+    ].to_yaml.inspect %>
+      
+snippet:
+  record: default (Cms::Snippet)
+  data: <%= {
+    'content' => 'revision content' }.to_yaml.inspect %>
