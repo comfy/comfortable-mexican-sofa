@@ -13,8 +13,8 @@ class Cms::Page < ActiveRecord::Base
   belongs_to :target_page,
     :class_name => 'Cms::Page'
   has_many :blocks,
-    :dependent  => :destroy
-  accepts_nested_attributes_for :blocks
+    :dependent  => :destroy,
+    :autosave   => true
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_parent,
@@ -69,8 +69,20 @@ class Cms::Page < ActiveRecord::Base
       block_attr = {}
       block_attr[:label]    = block.label
       block_attr[:content]  = block.content
-      block_attr[:id]       = block.id
       arr << block_attr
+    end
+  end
+  
+  # Array of block hashes in the following format:
+  #   [
+  #     { :label => 'block_1', :content => 'block content' },
+  #     { :label => 'block_2', :content => 'block content' }
+  #   ]
+  def blocks_attributes=(block_hashes = [])
+    block_hashes.each do |block_hash|
+      block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
+      block = self.blocks.detect{|b| b.label == block_hash[:label]} || self.blocks.build(:label => block_hash[:label])
+      block.content = block_hash[:content]
     end
   end
   

@@ -103,8 +103,6 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert assigns(:cms_page)
     assert_template :edit
     assert_select "form[action=/cms-admin/pages/#{page.id}]"
-    assert_select "input[name='cms_page[blocks_attributes][][id]'][value='#{cms_blocks(:default_field_text).id}']"
-    assert_select "input[name='cms_page[blocks_attributes][][id]'][value='#{cms_blocks(:default_field_text).id}']"
   end
 
   def test_get_edit_failure
@@ -221,14 +219,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
 
   def test_update_with_layout_change
     page = cms_pages(:default)
-    assert_difference 'Cms::Block.count', 1 do
+    assert_difference 'Cms::Block.count', 2 do
       put :update, :id => page, :cms_page => {
         :label      => 'Updated Label',
         :layout_id  => cms_layouts(:nested).id,
         :blocks_attributes => [
           { :label    => 'content',
-            :content  => 'new_page_text_content',
-            :id       => cms_blocks(:default_page_text).id },
+            :content  => 'new_page_text_content' },
           { :label    => 'header',
             :content  => 'new_page_string_content' }
         ]
@@ -238,7 +235,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_redirected_to :action => :edit, :id => page
       assert_equal 'Page updated', flash[:notice]
       assert_equal 'Updated Label', page.label
-      assert_equal ['new_page_text_content', 'default_field_text_content', 'new_page_string_content'], page.blocks.collect{|b| b.content}
+      assert_equal ['content', 'default_field_text', 'default_page_text', 'header'], page.blocks.collect{|b| b.label}
     end
   end
 
