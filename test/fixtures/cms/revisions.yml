@@ -1,7 +1,7 @@
 layout:
   record: default (Cms::Layout)
   data: <%= {
-    'content' => 'revision content',
+    'content' => 'revision {{cms:page:default_page_text}}',
     'css'     => 'revision css',
     'js'      => 'revision js' }.to_yaml.inspect %>
     
