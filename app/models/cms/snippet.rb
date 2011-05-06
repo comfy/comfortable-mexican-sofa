@@ -2,6 +2,8 @@ class Cms::Snippet < ActiveRecord::Base
   
   set_table_name :cms_snippets
   
+  has_revisions_for :content
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   

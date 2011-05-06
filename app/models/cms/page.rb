@@ -5,6 +5,11 @@ class Cms::Page < ActiveRecord::Base
   # -- AR Extensions --------------------------------------------------------
   acts_as_tree :counter_cache => :children_count
   
+  has_revisions_for :blocks_attributes
+  
+  # ------ blocks_attributes_changed?
+  # ------ blocks_attributes_was
+  
   attr_accessor :tags
   
   # -- Relationships --------------------------------------------------------

@@ -4,6 +4,8 @@ class Cms::Layout < ActiveRecord::Base
   
   acts_as_tree
   
+  has_revisions_for :content, :css, :js
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   has_many :pages, :dependent => :nullify

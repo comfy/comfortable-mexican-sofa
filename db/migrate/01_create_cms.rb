@@ -70,6 +70,16 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_uploads, [:site_id, :file_file_name]
+    
+    # -- Revisions -----------------------------------------------------------
+    create_table :cms_revisions, :force => true do |t|
+      t.string    :record_type
+      t.integer   :record_id
+      t.text      :data
+      t.datetime  :created_at
+    end
+    add_index :cms_revisions, [:record_type, :record_id, :created_at]
+    
   end
   
   def self.down
@@ -79,5 +89,6 @@ class CreateCms < ActiveRecord::Migration
     drop_table :cms_snippets
     drop_table :cms_blocks
     drop_table :cms_uploads
+    drop_table :cms_revisions
   end
 end
