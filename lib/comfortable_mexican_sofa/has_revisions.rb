@@ -14,7 +14,7 @@ module ComfortableMexicanSofa::HasRevisions
       has_many :revisions,
         :as         => :record,
         :dependent  => :destroy
-        
+      
       before_save :prepare_revision
       after_save  :create_revision
       
@@ -26,6 +26,7 @@ module ComfortableMexicanSofa::HasRevisions
   
   module InstanceMethods
     
+    # Preparing revision data. A bit of a special thing to grab page blocks
     def prepare_revision
       if (self.respond_to?(:blocks_attributes_changed) && self.blocks_attributes_changed) || 
         !(self.changed & revision_fields).empty?
@@ -36,9 +37,16 @@ module ComfortableMexicanSofa::HasRevisions
       end
     end
     
+    # Revision is created only if relevant data changed
     def create_revision
       return unless self.revision_data
       self.revisions.create!(:data => self.revision_data)
+    end
+    
+    # Assigning whatever is found in revision data and attemptint to save the object
+    def restore_from_revision(revision)
+      return unless revision.record == self
+      self.update_attributes!(revision.data)
     end
   end
 end

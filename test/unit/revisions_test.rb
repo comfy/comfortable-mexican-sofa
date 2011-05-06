@@ -8,10 +8,10 @@ class RevisionsTest < ActiveSupport::TestCase
       'css'     => 'revision css',
       'js'      => 'revision js' }), cms_revisions(:layout).data
       
-    assert_equal ([
+    assert_equal ({'blocks_attributes' => [
       { 'label' => 'default_page_text',   'content' => 'revision page content'  },
       { 'label' => 'default_field_text',  'content' => 'revision field content' }
-    ]), cms_revisions(:page).data
+    ]}), cms_revisions(:page).data
     
     assert_equal ({
       'content' => 'revision content'
@@ -100,6 +100,44 @@ class RevisionsTest < ActiveSupport::TestCase
     snippet = cms_snippets(:default)
     assert_no_difference 'snippet.revisions.count' do
       snippet.update_attribute(:label, 'new label')
+    end
+  end
+  
+  def test_restore_from_revision_for_layout
+    layout = cms_layouts(:default)
+    revision = cms_revisions(:layout)
+    
+    assert_difference 'layout.revisions.count' do
+      layout.restore_from_revision(revision)
+      layout.reload
+      assert_equal 'revision {{cms:page:default_page_text}}', layout.content
+      assert_equal 'revision css', layout.css
+      assert_equal 'revision js', layout.js
+    end
+  end
+  
+  def test_restore_from_revision_for_page
+    page = cms_pages(:default)
+    revision = cms_revisions(:page)
+    
+    assert_difference 'page.revisions.count' do
+      page.restore_from_revision(revision)
+      page.reload
+      assert_equal [
+        { :label => 'default_field_text', :content => 'revision field content'  },
+        { :label => 'default_page_text',  :content => 'revision page content'   }
+      ], page.blocks_attributes
+    end
+  end
+  
+  def test_restore_from_revision_for_snippet
+    snippet = cms_snippets(:default)
+    revision = cms_revisions(:snippet)
+    
+    assert_difference 'snippet.revisions.count' do
+      snippet.restore_from_revision(revision)
+      snippet.reload
+      assert_equal 'revision content', snippet.content
     end
   end
   
