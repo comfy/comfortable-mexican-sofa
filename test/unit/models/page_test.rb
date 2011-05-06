@@ -157,7 +157,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.blocks.count, page.blocks_attributes.size
     assert_equal 'default_field_text', page.blocks_attributes.first[:label]
     assert_equal 'default_field_text_content', page.blocks_attributes.first[:content]
-    assert page.blocks_attributes.first[:id]
   end
   
   def test_content_caching
