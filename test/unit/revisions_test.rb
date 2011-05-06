@@ -55,7 +55,6 @@ class RevisionsTest < ActiveSupport::TestCase
   
   def test_creation_for_page
     page = cms_pages(:default)
-    old_attributes = page.attributes.slice('blocks_attributes')
     
     assert_difference 'page.revisions.count' do
       page.update_attributes!(
@@ -67,7 +66,13 @@ class RevisionsTest < ActiveSupport::TestCase
       page.reload
       assert_equal 2, page.revisions.count
       revision = page.revisions.last
-      assert_equal old_attributes, revision.data
+      assert_equal ({
+        'blocks_attributes' => [
+          { :label    => 'default_field_text',
+            :content  => 'default_field_text_content' },
+          { :label    => 'default_page_text',
+            :content  => "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }]
+      }), revision.data
     end
   end
   

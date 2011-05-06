@@ -2,15 +2,12 @@ class Cms::Page < ActiveRecord::Base
   
   set_table_name :cms_pages
   
-  # -- AR Extensions --------------------------------------------------------
   acts_as_tree :counter_cache => :children_count
   
   has_revisions_for :blocks_attributes
   
-  # ------ blocks_attributes_changed?
-  # ------ blocks_attributes_was
-  
-  attr_accessor :tags
+  attr_accessor :tags,
+                :blocks_attributes_changed
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
@@ -69,12 +66,12 @@ class Cms::Page < ActiveRecord::Base
   
   # Transforms existing cms_block information into a hash that can be used
   # during form processing. That's the only way to modify cms_blocks.
-  def blocks_attributes
-    self.blocks.inject([]) do |arr, block|
+  def blocks_attributes(was = false)
+    self.blocks.collect do |block|
       block_attr = {}
       block_attr[:label]    = block.label
-      block_attr[:content]  = block.content
-      arr << block_attr
+      block_attr[:content]  = was ? block.content_was : block.content
+      block_attr
     end
   end
   
@@ -88,6 +85,7 @@ class Cms::Page < ActiveRecord::Base
       block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
       block = self.blocks.detect{|b| b.label == block_hash[:label]} || self.blocks.build(:label => block_hash[:label])
       block.content = block_hash[:content]
+      self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
     end
   end
   
@@ -112,6 +110,11 @@ class Cms::Page < ActiveRecord::Base
   # Full url for a page
   def url
     "http://#{self.site.hostname}#{self.full_path}"
+  end
+  
+  # Method to collect prevous state of blocks for revisions
+  def blocks_attributes_was
+    blocks_attributes(true)
   end
   
 protected

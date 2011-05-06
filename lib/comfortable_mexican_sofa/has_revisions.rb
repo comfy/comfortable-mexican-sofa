@@ -27,7 +27,8 @@ module ComfortableMexicanSofa::HasRevisions
   module InstanceMethods
     
     def prepare_revision
-      if !(self.changed & revision_fields).empty?
+      if (self.respond_to?(:blocks_attributes_changed) && self.blocks_attributes_changed) || 
+        !(self.changed & revision_fields).empty?
         self.revision_data = revision_fields.inject({}) do |c, field|
           c[field] = self.send("#{field}_was")
           c
@@ -39,9 +40,7 @@ module ComfortableMexicanSofa::HasRevisions
       return unless self.revision_data
       self.revisions.create!(:data => self.revision_data)
     end
-    
   end
-  
 end
 
 ActiveRecord::Base.send :include, ComfortableMexicanSofa::HasRevisions
