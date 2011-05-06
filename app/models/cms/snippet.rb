@@ -20,11 +20,6 @@ class Cms::Snippet < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
-    
-  # -- Class Methods --------------------------------------------------------
-  def self.content_for(slug)
-    (s = find_by_slug(slug)) ? s.content : ''
-  end
   
 protected
   

@@ -15,11 +15,6 @@ class CmsSnippetTest < ActiveSupport::TestCase
     assert_has_errors_on snippet, [:label, :slug]
   end
   
-  def test_method_content
-    assert_equal cms_snippets(:default).content, Cms::Snippet.content_for('default')
-    assert_equal '', Cms::Snippet.content_for('nonexistent_snippet')
-  end
-  
   def test_update_forces_page_content_reload
     snippet = cms_snippets(:default)
     page = cms_pages(:default)
