@@ -2,27 +2,27 @@
   <div id='page_save' class='box'>
     <label>
       <input type='checkbox'/>
-      Published
+      <%= t('cms.views.pages.published') %>
     </label>
     <button></button>
   </div>
   <%= render :partial => 'cms_admin/uploads/index' %>
 <% end %>
 
-<%= form.text_field :label, :id => (@cms_page.new_record?? 'slugify' : nil) %>
+<%= form.text_field :label, :id => (@cms_page.new_record?? 'slugify' : nil), :label => t('cms.forms.label') %>
 
 <div class='page_form_extras'>
   <% unless @cms_site.pages.count == 0 || @cms_site.pages.root == @cms_page%>
-    <%= form.text_field :slug, :id => 'slug' %>
+    <%= form.text_field :slug, :id => 'slug', :label => t('cms.forms.slug') %>
   <% end %>
   <% if (options = Cms::Layout.options_for_select(@cms_site)).present? %>
-    <%= form.select :layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
+    <%= form.select :layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => t('cms.forms.layout') %>
   <% end %>
   <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page)).present? %>
-    <%= form.select :parent_id, options %>
+    <%= form.select :parent_id, options, :label => t('cms.forms.parent') %>
   <% end %>
   <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
-    <%= form.select :target_page_id, [['---- No Redirect ----', nil]] + options, :label => 'Redirect To Page' %>
+    <%= form.select :target_page_id, [["---- #{t('cms.forms.no_redirect')} ----", nil]] + options, :label => t('cms.forms.redirect_to_page') %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
 </div>
@@ -31,7 +31,7 @@
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
-  <%= form.label_for :is_published, :label => 'Published' %>
-  <%= form.submit 'Preview', :name => 'preview', :id => nil, :disable_builder => true %>
-  <%= form.submit @cms_page.new_record? ? 'Create Page' : 'Update Page', :disable_builder => true %>
+  <%= form.label_for :is_published, :label => t('cms.views.pages.published') %>
+  <%= form.submit t('cms.views.pages.preview'), :name => 'preview', :id => nil, :disable_builder => true %>
+  <%= form.submit t("cms.forms.#{@cms_page.new_record? ? 'create_page' : 'update_page'}"), :disable_builder => true %>
 <% end %>

@@ -1,0 +1,28 @@
+es:
+  cms:
+    forms:
+      label: "Rótulo"
+      slug: "Ruta"
+      layout: "Diseño"
+      parent: "Padre"
+      no_redirect: "No Redirigir"
+      redirect_to_page: "Redirigir a la Página"
+      create_page: "Crear Página"
+      update_page: "Actualizar Página"
+    views:
+      pages:
+        new_page: "Nueva Página"
+        editing_page: "Editando Página"
+        published: "Publicada"
+        preview: "Vista Previa"
+        and_continue: "Y Continuar Editando"
+        toggle: "Cambiar"
+        drag: "Arrastrar"
+        add_child_page: "Añadir página hija"
+        edit: "Editar"
+        delete: "Eliminar"
+        are_you_sure: "¿Está seguro de que desea eliminar esta página?"
+        pages: "Páginas"
+        create_new_page: "Crear Nueva Página"
+      uploads:
+        upload_files: "Cargar Archivos"

@@ -1,6 +1,6 @@
 <div id='file_uploads' class='box'>
   <div class='actions'>
-    <a id='uploader_button' href='#' class='big button'>Upload Files</a>
+    <a id='uploader_button' href='#' class='big button'><%= t('cms.views.uploads.upload_files') %></a>
   </div>
   <div id='uploaded_files'>
     <% Cms::Upload.order('file_file_name').all.each do |file| %>

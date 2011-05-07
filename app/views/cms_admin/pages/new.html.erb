@@ -1,4 +1,4 @@
-<h1> New Page </h1>
+<h1><%= t('cms.views.pages.new_page') %></h1>
 
 <%= cms_form_for @cms_page, :url => {:action => :create} do |form| %>
   <%= render :partial => 'form', :object => form %>

@@ -1,5 +1,5 @@
-<% 
-  cms_page    ||= index_branch 
+<%
+  cms_page    ||= index_branch
   has_children  = cms_page.children.present?
   has_siblings  = cms_page.siblings.present?
   branch_open   = (session[:cms_page_tree] || []).member?(cms_page.id.to_s) || cms_page.root?
@@ -8,21 +8,21 @@
 <li id='<%= dom_id(cms_page) %>'>
   <div class='item'>
     <div class='toggle <%= 'open' if branch_open %>'>
-      <%= 
+      <%=
         if has_children && !cms_page.root?
-          link_to span_tag('toggle'), toggle_branch_cms_admin_page_path(cms_page), :remote => true
+          link_to span_tag(t('cms.views.pages.toggle')), toggle_branch_cms_admin_page_path(cms_page), :remote => true
         end
       %>
     </div>
     <div class='icon'>
       <% if has_siblings %>
-        <div class='dragger'><span>drag</span></div>
+        <div class='dragger'><span><%= t('cms.views.pages.drag') %></span></div>
       <% end %>
     </div>
     <div class='action_links'>
-      <%= link_to 'Add Child Page', new_cms_admin_page_path(:parent_id => cms_page.id) %>
-      <%= link_to 'Edit', edit_cms_admin_page_path(cms_page) %>
-      <%= link_to 'Delete', cms_admin_page_path(cms_page), :method => :delete, :confirm => 'Are you sure?' %>
+      <%= link_to t('cms.views.pages.add_child_page'), new_cms_admin_page_path(:parent_id => cms_page.id) %>
+      <%= link_to t('cms.views.pages.edit'), edit_cms_admin_page_path(cms_page) %>
+      <%= link_to t('cms.views.pages.delete'), cms_admin_page_path(cms_page), :method => :delete, :confirm => t('cms.views.pages.are_you_sure') %>
     </div>
     <div class='label'>
       <%= link_to cms_page.label, edit_cms_admin_page_path(cms_page) %>
