@@ -3,7 +3,7 @@
     <a id='uploader_button' href='#' class='big button'>Upload Files</a>
   </div>
   <div id='uploaded_files'>
-    <% CmsUpload.order('file_file_name').all.each do |file| %>
+    <% Cms::Upload.order('file_file_name').all.each do |file| %>
       <%= render :partial => 'cms_admin/uploads/file', :object => file %>
     <% end %>
   </div>

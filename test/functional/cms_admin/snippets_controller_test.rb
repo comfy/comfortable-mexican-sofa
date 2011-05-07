@@ -10,7 +10,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_no_snippets
-    CmsSnippet.delete_all
+    Cms::Snippet.delete_all
     get :index
     assert_response :redirect
     assert_redirected_to :action => :new
@@ -39,39 +39,39 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert_redirected_to :action => :index
     assert_equal 'Snippet not found', flash[:error]
   end
-
+  
   def test_create_with_commit
-    assert_difference 'CmsSnippet.count' do
+    assert_difference 'Cms::Snippet.count' do
       post :create, :cms_snippet => {
         :label    => 'Test Snippet',
         :slug     => 'test-snippet',
         :content  => 'Test Content'
       }, :commit  => 'Create Snippet'
       assert_response :redirect
-      snippet = CmsSnippet.last
-      assert_equal cms_sites(:default), snippet.cms_site
+      snippet = Cms::Snippet.last
+      assert_equal cms_sites(:default), snippet.site
       assert_redirected_to :action => :index
       assert_equal 'Snippet created', flash[:notice]
     end
   end
-
+  
   def test_create_without_commit
-    assert_difference 'CmsSnippet.count' do
+    assert_difference 'Cms::Snippet.count' do
       post :create, :cms_snippet => {
         :label    => 'Test Snippet',
         :slug     => 'test-snippet',
         :content  => 'Test Content'
       }
       assert_response :redirect
-      snippet = CmsSnippet.last
-      assert_equal cms_sites(:default), snippet.cms_site
+      snippet = Cms::Snippet.last
+      assert_equal cms_sites(:default), snippet.site
       assert_redirected_to :action => :edit, :id => snippet
       assert_equal 'Snippet created', flash[:notice]
     end
   end
 
   def test_creation_failure
-    assert_no_difference 'CmsSnippet.count' do
+    assert_no_difference 'Cms::Snippet.count' do
       post :create, :cms_snippet => { }
       assert_response :success
       assert_template :new
@@ -120,7 +120,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   end
 
   def test_destroy
-    assert_difference 'CmsSnippet.count', -1 do
+    assert_difference 'Cms::Snippet.count', -1 do
       delete :destroy, :id => cms_snippets(:default)
       assert_response :redirect
       assert_redirected_to :action => :index

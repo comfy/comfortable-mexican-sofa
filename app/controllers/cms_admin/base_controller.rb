@@ -13,16 +13,15 @@ class CmsAdmin::BaseController < ActionController::Base
 protected
   
   def load_admin_cms_site
-    hostname = ComfortableMexicanSofa.config.override_host || request.host.downcase
-    @cms_site = CmsSite.find_by_hostname!(hostname)
-  
-  rescue ActiveRecord::RecordNotFound
+    hostname = request.host.downcase
+    @cms_site = Cms::Site.find_by_hostname!(hostname)
     
-    if ComfortableMexicanSofa.config.auto_manage_sites
-      if CmsSite.count == 0
-        @cms_site = CmsSite.create!(:label => 'Default Site', :hostname => hostname)
-      elsif CmsSite.count == 1
-        @cms_site = CmsSite.first
+  rescue ActiveRecord::RecordNotFound
+    unless ComfortableMexicanSofa.config.enable_multiple_sites
+      if Cms::Site.count == 0
+        @cms_site = Cms::Site.create!(:label => 'Default Site', :hostname => hostname)
+      else
+        @cms_site = Cms::Site.first
         @cms_site.update_attribute(:hostname, hostname)
       end
     end

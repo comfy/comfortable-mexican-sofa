@@ -4,13 +4,18 @@
 
 <%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
 <%= form.text_field :slug, :id => 'slug' %>
-<% if (options = CmsLayout.options_for_select(@cms_site, @cms_layout)).present? %>
+<% if (options = Cms::Layout.options_for_select(@cms_site, @cms_layout)).present? %>
   <%= form.select :parent_id, [['---- Select Parent Layout ----', nil]] + options %>
 <% end %>
-<% if (options = CmsLayout.app_layouts_for_select).present? %>
+<% if (options = Cms::Layout.app_layouts_for_select).present? %>
   <%= form.select :app_layout, [['---- Select Application Layout ----', nil]] + options %>
 <% end %>
 
 <%= form.text_area :content, :class => 'code' %>
 <%= form.text_area :css, :class => 'code_css' %>
 <%= form.text_area :js, :class => 'code_js' %>
+
+<%= form.simple_field nil, nil, :class => 'submit_element' do %>
+  <%= form.submit 'and continue', :id => nil, :name => 'save', :disable_builder => true %>
+  <%= form.submit @cms_layout.new_record?? 'Create Layout' : 'Update Layout', :disable_builder => true %>
+<% end %>

@@ -85,7 +85,7 @@ Here's a number of tag variations:
                                           
 Multiple Sites
 --------------
-Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.auto_manage_sites = false`. When this setting is set to `true`, Sofa assumes there's only one site and will manage hostname associated with it automatically.
+Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.enable_multiple_sites = true`.
     
 Integrating CMS with your app
 -----------------------------
@@ -142,25 +142,15 @@ Do you have other authentication system in place (like Devise, AuthLogic, etc) a
     
 You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeviseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
 
-Working with seeds
-------------------
-ComfortableMexicanSofa has seeds, functionality that helps manage content during development phase. It's very different from Rails seeds as Sofa's seeds are loaded with each page load. The database is completely bypassed when seeds are active. This way, you can source-control content before going live, disabling seeds and dumping everything into the database.
+Working with Fixtures
+---------------------
+Sofa allows you to build entire site using files instead of updating database via admin area. This significantly speeds up initial content population. To enable fixtures go to the initializer and set this: `config.enable_fixtures = true`. You may also change the folder that is used to store fixtures.
 
-First, you will need to set a path where fixture files will be found (inside Sofa's initializer):
-    
-    if Rails.env.development? || Rails.env.test?
-      ComfortableMexicanSofa.config.seed_data_path = File.expand_path('db/cms_seeds', Rails.root)
-    end
-    
-If you ran `rails g cms`, you should find an example set of seeds in /db/cms\_seeds directory. Please note that seeds are nested in the folder that is the hostname of your site. Each file is an YAML representation of a database entry for that layout/page/snippet.
+If you run `rails g cms` you should find an example set of fixtures in [/db/cms\_fixtures](https://github.com/twg/comfortable-mexican-sofa/blob/master/db/cms_fixtures). If you run multiple sites, each set of fixtures should be inside a folder named as the hostname of the site. It's optional if you only have one site.
 
-There's a rake task that makes moving seeds into database (and vice-versa) easy:
-    
-    # from seeds into database
-    rake comfortable_mexican_sofa:import:all FROM=your-site.local TO=your-site.com SEED_PATH=/path/to/seeds
-    
-    # from database to seeds
-    rake comfortable_mexican_sofa:export:all FROM=your-site.com TO=your-site.local SEED_PATH=/path/to/seeds
+When fixtures are enabled, database is updated with each request, but only if fixture file is newer than the database entry. Database is also purged of items that are not defined in fixtures. So be careful not to clear out your database by mistake.
+
+When deploying to a production server don't forget to turn off fixtures. To load them into the database just run this rake task: `rake comfortable_mexican_sofa:fixtures:import`. When running multiple sites specify which one by passing argument like this: `SITE=example.com`.
     
 Active Components
 -----------------

@@ -8,12 +8,12 @@ class SitesTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_admin_with_no_site
-    CmsSite.delete_all
-    assert_difference 'CmsSite.count' do
+    Cms::Site.delete_all
+    assert_difference 'Cms::Site.count' do
       http_auth :get, cms_admin_pages_path
       assert_response :redirect
       assert_redirected_to new_cms_admin_page_path
-      site = CmsSite.first
+      site = Cms::Site.first
       assert_equal 'test.host', site.hostname
       assert_equal 'Default Site', site.label
     end
@@ -22,7 +22,7 @@ class SitesTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_wrong_site
     site = cms_sites(:default)
     site.update_attribute(:hostname, 'remote.host')
-    assert_no_difference 'CmsSite.count' do
+    assert_no_difference 'Cms::Site.count' do
       http_auth :get, cms_admin_pages_path
       assert_response :success
       site.reload
@@ -31,10 +31,11 @@ class SitesTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_admin_with_two_wrong_sites
-    CmsSite.delete_all
-    CmsSite.create!(:label => 'Site1', :hostname => 'site1.host')
-    CmsSite.create!(:label => 'Site2', :hostname => 'site2.host')
-    assert_no_difference 'CmsSite.count' do
+    ComfortableMexicanSofa.config.enable_multiple_sites = true
+    Cms::Site.delete_all
+    Cms::Site.create!(:label => 'Site1', :hostname => 'site1.host')
+    Cms::Site.create!(:label => 'Site2', :hostname => 'site2.host')
+    assert_no_difference 'Cms::Site.count' do
       http_auth :get, cms_admin_pages_path
       assert_response :redirect
       assert_redirected_to cms_admin_sites_path
@@ -42,10 +43,10 @@ class SitesTest < ActionDispatch::IntegrationTest
     end
   end
   
-  def test_get_admin_with_no_site_and_no_auto_manage
-    ComfortableMexicanSofa.config.auto_manage_sites = false
-    CmsSite.delete_all
-    assert_no_difference 'CmsSite.count' do
+  def test_get_admin_with_no_site_and_multiple_sites_enabled
+    ComfortableMexicanSofa.config.enable_multiple_sites = true
+    Cms::Site.delete_all
+    assert_no_difference 'Cms::Site.count' do
       http_auth :get, cms_admin_pages_path
       assert_response :redirect
       assert_redirected_to cms_admin_sites_path
@@ -53,7 +54,16 @@ class SitesTest < ActionDispatch::IntegrationTest
     end
   end
   
-  def test_get_public_page_for_non_existent_site
+  def test_get_public_page_for_wrong_host_with_single_site
+    host! 'bogus.host'
+    get '/'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal 'test.host', assigns(:cms_site).hostname
+  end
+  
+  def test_get_public_page_for_wrong_host_with_mutiple_sites
+    ComfortableMexicanSofa.config.enable_multiple_sites = true
     host! 'bogus.host'
     get '/'
     assert_response 404

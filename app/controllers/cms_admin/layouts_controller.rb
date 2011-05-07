@@ -4,8 +4,8 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   before_filter :load_cms_layout,   :only => [:edit, :update, :destroy]
 
   def index
-    return redirect_to :action => :new if @cms_site.cms_layouts.count == 0
-    @cms_layouts = @cms_site.cms_layouts.roots
+    return redirect_to :action => :new if @cms_site.layouts.count == 0
+    @cms_layouts = @cms_site.layouts.roots
   end
 
   def new
@@ -43,13 +43,13 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 protected
 
   def build_cms_layout
-    @cms_layout = @cms_site.cms_layouts.new(params[:cms_layout])
-    @cms_layout.parent ||= CmsLayout.find_by_id(params[:parent_id])
+    @cms_layout = @cms_site.layouts.new(params[:cms_layout])
+    @cms_layout.parent ||= Cms::Layout.find_by_id(params[:parent_id])
     @cms_layout.content ||= '{{ cms:page:content:text }}'
   end
 
   def load_cms_layout
-    @cms_layout = @cms_site.cms_layouts.find(params[:id])
+    @cms_layout = @cms_site.layouts.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Layout not found'
     redirect_to :action => :index

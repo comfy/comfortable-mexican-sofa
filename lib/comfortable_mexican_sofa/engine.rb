@@ -6,7 +6,7 @@ require 'mime/types'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
-    
+    # ...
   end
 end
 

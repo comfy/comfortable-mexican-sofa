@@ -1,0 +1,36 @@
+default:
+  site: default
+  label: Default Layout
+  slug: default
+  parent:
+  content: |-
+    {{cms:field:default_field_text:text}}
+    layout_content_a
+    {{cms:page:default_page_text:text}}
+    layout_content_b
+    {{cms:snippet:default}}
+    layout_content_c
+  css: default_css
+  js: default_js
+    
+nested:
+  site: default
+  label: Nested Layout
+  slug: nested
+  parent:
+  content: |-
+    {{cms:page:header}}
+    {{cms:page:content}}
+  css: nested_css
+  js: nested_js
+    
+child:
+  site: default
+  label: Child Layout
+  slug: child
+  parent: nested
+  content: |-
+    {{cms:page:left_column}}
+    {{cms:page:right_column}}
+  css: child_css
+  js: child_js

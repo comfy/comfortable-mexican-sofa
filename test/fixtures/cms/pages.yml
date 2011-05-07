@@ -1,0 +1,39 @@
+default:
+  site: default
+  parent:
+  target_page:
+  layout: default
+  label: Default Page
+  slug:
+  full_path: '/'
+  children_count: 1
+  position: 0
+  is_published: true
+  content: |-
+    
+    layout_content_a
+    default_page_text_content_a
+    default_snippet_content
+    default_page_text_content_b
+    layout_content_b
+    default_snippet_content
+    layout_content_c
+  
+child:
+  site: default
+  parent: default
+  target_page:
+  layout: default
+  label: Child Page
+  slug: 'child-page'
+  full_path: '/child-page'
+  children_count: 0
+  position: 0
+  is_published: true
+  content: |-
+    
+    layout_content_a
+    
+    layout_content_b
+    default_snippet_content
+    layout_content_c

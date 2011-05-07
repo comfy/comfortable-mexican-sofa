@@ -6,7 +6,6 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     Rails.application.routes.draw do
       get '/render-implicit'  => 'render_test#implicit'
       get '/render-explicit'  => 'render_test#explicit'
-      get '/seed-data-page'   => 'render_test#seed_data_page'
       get '/render-text'      => 'render_test#render_text'
       get '/render-update'    => 'render_test#render_update'
     end
@@ -23,9 +22,6 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     end
     def explicit
       render :cms_page => '/render-explicit-page'
-    end
-    def seed_data_page
-      render :cms_page => '/'
     end
     def render_text
       render :text => 'rendered text'

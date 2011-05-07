@@ -1,0 +1,9 @@
+<ul class='nav'>
+  <% if ComfortableMexicanSofa.config.enable_multiple_sites %>
+    <li><%= active_link_to 'Sites', cms_admin_sites_path %></li>
+  <% end %>
+  <li><%= active_link_to 'Layouts', cms_admin_layouts_path %></li>
+  <li><%= active_link_to 'Pages', cms_admin_pages_path %></li>
+  <li><%= active_link_to 'Snippets', cms_admin_snippets_path %></li>
+  <%= cms_hook :navigation %>
+</ul>

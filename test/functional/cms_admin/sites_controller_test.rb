@@ -10,7 +10,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_no_sites
-    CmsSite.delete_all
+    Cms::Site.delete_all
     get :index
     assert_response :redirect
     assert_redirected_to :action => :new
@@ -40,9 +40,9 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_redirected_to :action => :index
     assert_equal 'Site not found', flash[:error]
   end
-
+  
   def test_create_with_commit
-    assert_difference 'CmsSite.count' do
+    assert_difference 'Cms::Site.count' do
       post :create, :cms_site => {
         :label    => 'Test Site',
         :hostname => 'test.site.local'
@@ -54,19 +54,19 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
   end
 
   def test_create_without_commit
-    assert_difference 'CmsSite.count' do
+    assert_difference 'Cms::Site.count' do
       post :create, :cms_site => {
         :label    => 'Test Site',
         :hostname => 'test.site.local'
       }
       assert_response :redirect
-      assert_redirected_to :action => :edit, :id => CmsSite.last
+      assert_redirected_to :action => :edit, :id => Cms::Site.last
       assert_equal 'Site created', flash[:notice]
     end
   end
 
   def test_creation_failure
-    assert_no_difference 'CmsSite.count' do
+    assert_no_difference 'Cms::Site.count' do
       post :create, :cms_site => { }
       assert_response :success
       assert_template :new
@@ -88,7 +88,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_equal 'new.site.local', site.hostname
   end
 
-  def test_update_wthout_commit
+  def test_update_without_commit
     site = cms_sites(:default)
     put :update, :id => site, :cms_site => {
       :label    => 'New Site',
@@ -115,7 +115,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
   end
 
   def test_destroy
-    assert_difference 'CmsSite.count', -1 do
+    assert_difference 'Cms::Site.count', -1 do
       delete :destroy, :id => cms_sites(:default)
       assert_response :redirect
       assert_redirected_to :action => :index

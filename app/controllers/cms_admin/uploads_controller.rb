@@ -7,7 +7,7 @@ class CmsAdmin::UploadsController < CmsAdmin::BaseController
   end
   
   def create
-    @cms_upload = @cms_site.cms_uploads.create!(:file => params[:file])
+    @cms_upload = @cms_site.uploads.create!(:file => params[:file])
     render :partial => 'file', :object => @cms_upload
   rescue ActiveRecord::RecordInvalid
     render :nothing => true, :status => :bad_request
@@ -20,7 +20,7 @@ class CmsAdmin::UploadsController < CmsAdmin::BaseController
 protected
   
   def load_cms_upload
-    @cms_upload = @cms_site.cms_uploads.find(params[:id])
+    @cms_upload = @cms_site.uploads.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true
   end

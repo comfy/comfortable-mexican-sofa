@@ -1,0 +1,5 @@
+default:
+  site: default
+  label: Default Snippet
+  slug: default
+  content: default_snippet_content

@@ -11,6 +11,7 @@ html, body {
   float: left;
 }
 .center_column {
+  position: relative;
   margin: 0px 250px 0px 175px;
   min-height: 100%;
   overflow: hidden;
@@ -18,7 +19,7 @@ html, body {
   border-left: 1px solid #484848;
   border-right: 1px solid #484848;
 }
-.center_column_content {
+.center_column .center_column_content {
   padding: 25px;
 }
 .right_column {
@@ -35,7 +36,7 @@ html, body {
   width: 165px;
   position: fixed;
 }
-.left_column_content a {
+.left_column_content ul.nav a {
   display: block;
   padding: 3px 10px;
   margin-bottom: 5px;
@@ -50,12 +51,11 @@ html, body {
   color: #fff;
   opacity: 0.3;
 }
-.left_column_content a:hover,
-.left_column_content a.active {
+.left_column_content ul.nav a:hover,
+.left_column_content ul.nav a.active {
   color: #fff;
   opacity: 1;
 }
-
 .right_column_content .box {
   background-color: #484848;
   padding: 5px;
@@ -125,4 +125,24 @@ input[type='file'] {
 }
 a.button.big {
   float: right;
+}
+.body_wrapper .sofa {
+  position: absolute;
+  background: #000;
+  bottom: 0px;
+  left: 0px;
+  width: 155px;
+  padding: 5px 10px;
+  font-size: 10px;
+}
+.body_wrapper .sofa a {
+  color: #484848;
+}
+.body_wrapper .sofa a:hover {
+  color: #f1f1f1;
+}
+.body_wrapper .sofa span.version {
+  color: #f1f1f1;
+  font-size: 9px;
+  margin-left: 2px;
 }

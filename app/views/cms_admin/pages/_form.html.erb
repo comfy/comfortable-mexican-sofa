@@ -12,16 +12,16 @@
 <%= form.text_field :label, :id => (@cms_page.new_record?? 'slugify' : nil) %>
 
 <div class='page_form_extras'>
-  <% unless @cms_site.cms_pages.count == 0 || @cms_site.cms_pages.root == @cms_page%>
+  <% unless @cms_site.pages.count == 0 || @cms_site.pages.root == @cms_page%>
     <%= form.text_field :slug, :id => 'slug' %>
   <% end %>
-  <% if (options = CmsLayout.options_for_select(@cms_site)).present? %>
-    <%= form.select :cms_layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
+  <% if (options = Cms::Layout.options_for_select(@cms_site)).present? %>
+    <%= form.select :layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
   <% end %>
-  <% if (options = CmsPage.options_for_select(@cms_site, @cms_page)).present? %>
+  <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page)).present? %>
     <%= form.select :parent_id, options %>
   <% end %>
-  <% if (options = CmsPage.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
+  <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
     <%= form.select :target_page_id, [['---- No Redirect ----', nil]] + options, :label => 'Redirect To Page' %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
@@ -32,9 +32,7 @@
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
   <%= form.label_for :is_published, :label => 'Published' %>
-  <%= form.submit 'Preview', :name => 'preview', :id => 'cms_page_preview', :disable_builder => true %>
-<% end %>
-<%= form.simple_field nil, nil, :class => 'submit_element' do %>
+  <%= form.submit 'Preview', :name => 'preview', :id => nil, :disable_builder => true %>
+  <%= form.submit 'and continue', :id => nil, :name => 'save', :disable_builder => true %>
   <%= form.submit @cms_page.new_record? ? 'Create Page' : 'Update Page', :disable_builder => true %>
-  <%= form.submit @cms_page.new_record? ? 'Create &amp; Edit'.html_safe : 'Update &amp; Edit'.html_safe, :name => "save", :disable_builder => true %>
 <% end %>

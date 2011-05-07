@@ -1,0 +1,6 @@
+<% flash.each do |type, message| %>
+  <div class='flash <%= type %>'><%= message %></div>
+<% end %>
+<div class='center_column_content'>
+  <%= yield %>
+</div>

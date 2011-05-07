@@ -54,7 +54,7 @@ $.CMS = function(){
     
     // Load Page Blocks on layout change
     load_page_blocks: function(){
-      $('select#cms_page_cms_layout_id').bind('change.cms', function() {
+      $('select#cms_page_layout_id').bind('change.cms', function() {
         $.ajax({
           url: ['/' + $.CMS.admin_path_prefix, 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
           data: ({

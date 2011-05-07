@@ -28,7 +28,7 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def generate_cms_seeds
-    directory 'db/cms_seeds', 'db/cms_seeds'
+    directory 'db/cms_fixtures', 'db/cms_fixtures'
   end
   
   def show_readme

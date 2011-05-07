@@ -6,8 +6,8 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   before_filter :load_cms_site,   :only => [:edit, :update, :destroy]
 
   def index
-    return redirect_to :action => :new if CmsSite.count == 0
-    @cms_sites = CmsSite.all
+    return redirect_to :action => :new if Cms::Site.count == 0
+    @cms_sites = Cms::Site.all
   end
 
   def new
@@ -45,12 +45,12 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 protected
 
   def build_cms_site
-    @cms_site = CmsSite.new(params[:cms_site])
+    @cms_site = Cms::Site.new(params[:cms_site])
     @cms_site.hostname ||= request.host.downcase
   end
 
   def load_cms_site
-    @cms_site = CmsSite.find(params[:id])
+    @cms_site = Cms::Site.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Site not found'
     redirect_to :action => :index

@@ -4,8 +4,8 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   before_filter :load_cms_snippet,  :only => [:edit, :update, :destroy]
 
   def index
-    return redirect_to :action => :new if @cms_site.cms_snippets.count == 0
-    @cms_snippets = @cms_site.cms_snippets.all(:order => 'label')
+    return redirect_to :action => :new if @cms_site.snippets.count == 0
+    @cms_snippets = @cms_site.snippets.all(:order => 'label')
   end
 
   def new
@@ -43,11 +43,11 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 protected
 
   def build_cms_snippet
-    @cms_snippet = @cms_site.cms_snippets.new(params[:cms_snippet])
+    @cms_snippet = @cms_site.snippets.new(params[:cms_snippet])
   end
 
   def load_cms_snippet
-    @cms_snippet = @cms_site.cms_snippets.find(params[:id])
+    @cms_snippet = @cms_site.snippets.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Snippet not found'
     redirect_to :action => :index

@@ -1,0 +1,21 @@
+<body class='c_<%= params[:controller].idify %> a_<%= params[:action].idify %>'>
+  <div class='body_wrapper'>
+    <div class='left_column'>
+      <div class='left_column_content'>
+        <%= render :partial => 'layouts/cms_admin/left'%>
+      </div>
+    </div>
+    <div class='right_column'>
+      <div class='right_column_content'>
+        <%= render :partial => 'layouts/cms_admin/right'%>
+      </div>
+    </div>
+    <div class='center_column'>
+      <%= render :partial => 'layouts/cms_admin/center' %>
+    </div>
+    <div class='sofa'>
+      <a href='http://comfortablemexicansofa.twg.ca' target='_blank'>ComfortableMexicanSofa</a>
+      <span class='version'><%= ComfortableMexicanSofa::VERSION %></span>
+    </div>
+  </div>
+</body>
