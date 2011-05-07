@@ -1,4 +1,4 @@
-class CmsAdmin::BaseController < ActionController::Base
+class CmsAdmin::BaseController < ApplicationController
   
   protect_from_forgery
   
