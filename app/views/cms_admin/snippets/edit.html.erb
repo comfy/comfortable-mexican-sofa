@@ -1,3 +1,4 @@
+<%= link_to span_tag(pluralize(@cms_snippet.revisions.count, 'revision')), new_cms_admin_snippet_path, :class => 'big button' %>
 <h1> Editing Snippet </h1>
 
 <%= cms_form_for @cms_snippet, :url => {:action => :update} do |form| %>
