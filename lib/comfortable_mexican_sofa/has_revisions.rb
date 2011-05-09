@@ -2,12 +2,13 @@ module ComfortableMexicanSofa::HasRevisions
   
   def self.included(base)
     base.send :extend, ClassMethods
-    base.send :include, InstanceMethods
   end
   
   module ClassMethods
     
     def has_revisions_for(*fields)
+      
+      include ComfortableMexicanSofa::HasRevisions::InstanceMethods
       
       attr_accessor :revision_data
       
