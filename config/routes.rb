@@ -10,11 +10,22 @@ Rails.application.routes.draw do
       collection do
         match :reorder
       end
+      resources :revisions, :only => [:index, :show, :revert] do
+        post :revert, :on => :member
+      end
     end
     resources :sites
-    resources :layouts
-    resources :snippets
     resources :uploads, :only => [:create, :destroy]
+    resources :layouts do
+      resources :revisions, :only => [:index, :show, :revert] do
+        post :revert, :on => :member
+      end
+    end
+    resources :snippets do 
+      resources :revisions, :only => [:index, :show, :revert] do
+        post :revert, :on => :member
+      end
+    end
   end
   
   scope :controller => :cms_content do

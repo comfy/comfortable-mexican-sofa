@@ -1,11 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails',          '>=3.0.3'
+gem 'rails',          '>=3.0.0'
 gem 'active_link_to', '>=0.0.6'
 gem 'paperclip',      '>=2.3.8'
-
-# If you wish to use sqlite in production
-# gem 'sqlite3'
 
 group :development do
   gem 'sqlite3'

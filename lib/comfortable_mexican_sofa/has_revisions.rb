@@ -29,6 +29,7 @@ module ComfortableMexicanSofa::HasRevisions
     
     # Preparing revision data. A bit of a special thing to grab page blocks
     def prepare_revision
+      return if self.new_record?
       if (self.respond_to?(:blocks_attributes_changed) && self.blocks_attributes_changed) || 
         !(self.changed & revision_fields).empty?
         self.revision_data = revision_fields.inject({}) do |c, field|
@@ -48,8 +49,7 @@ module ComfortableMexicanSofa::HasRevisions
       end
       
       # blowing away old revisions
-      ids = [0] + self.revisions.order('created_at DESC').
-        limit(ComfortableMexicanSofa.config.revisions_limit.to_i).collect(&:id)
+      ids = [0] + self.revisions.limit(ComfortableMexicanSofa.config.revisions_limit.to_i).collect(&:id)
       self.revisions.where('id NOT IN (?)', ids).destroy_all
     end
     

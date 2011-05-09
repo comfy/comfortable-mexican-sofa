@@ -41,7 +41,7 @@ class RevisionsTest < ActiveSupport::TestCase
       )
       layout.reload
       assert_equal 2, layout.revisions.count
-      revision = layout.revisions.last
+      revision = layout.revisions.first
       assert_equal old_attributes, revision.data
     end
   end
@@ -65,7 +65,7 @@ class RevisionsTest < ActiveSupport::TestCase
       )
       page.reload
       assert_equal 2, page.revisions.count
-      revision = page.revisions.last
+      revision = page.revisions.first
       assert_equal ({
         'blocks_attributes' => [
           { :label    => 'default_field_text',
@@ -91,7 +91,7 @@ class RevisionsTest < ActiveSupport::TestCase
       snippet.update_attribute(:content, 'new content')
       snippet.reload
       assert_equal 2, snippet.revisions.count
-      revision = snippet.revisions.last
+      revision = snippet.revisions.first
       assert_equal old_attributes, revision.data
     end
   end
@@ -100,6 +100,19 @@ class RevisionsTest < ActiveSupport::TestCase
     snippet = cms_snippets(:default)
     assert_no_difference 'snippet.revisions.count' do
       snippet.update_attribute(:label, 'new label')
+    end
+  end
+  
+  def test_creation_for_new_record
+    assert_difference 'Cms::Snippet.count' do
+      assert_no_difference 'Cms::Revision.count' do
+        snippet = cms_sites(:default).snippets.create!(
+          :label    => 'test snippet',
+          :slug     => 'test_snippet',
+          :content  => 'test content'
+        )
+        assert_equal 0, snippet.revisions.count
+      end
     end
   end
   

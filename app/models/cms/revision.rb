@@ -7,4 +7,7 @@ class Cms::Revision < ActiveRecord::Base
   # -- Relationships --------------------------------------------------------
   belongs_to :record, :polymorphic => true
   
+  # -- Scopes ---------------------------------------------------------------
+  default_scope order('created_at DESC')
+  
 end
