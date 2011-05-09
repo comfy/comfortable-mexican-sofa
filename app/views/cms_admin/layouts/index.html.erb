@@ -1,5 +1,5 @@
-<%= link_to span_tag('Create New Layout'), new_cms_admin_layout_path, :class => 'big button' %>
-<h1>Layouts</h1>
+<%= link_to span_tag(t('cms.views.layouts.create_new_layout')), new_cms_admin_layout_path, :class => 'big button' %>
+<h1><%= t('cms.sections.layouts') %></h1>
 
 <% content_for :right_column do %>
   <%= render :partial => 'cms_admin/sites/mirrors' %>

@@ -22,7 +22,7 @@
     <%= form.select :parent_id, options, :label => t('cms.forms.parent') %>
   <% end %>
   <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
-    <%= form.select :target_page_id, [["---- #{t('cms.forms.no_redirect')} ----", nil]] + options, :label => t('cms.forms.redirect_to_page') %>
+    <%= form.select :target_page_id, [["---- #{t('cms.views.pages.no_redirect')} ----", nil]] + options, :label => t('cms.views.pages.redirect_to_page') %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
 </div>
@@ -33,5 +33,5 @@
   <%= form.check_box :is_published, :disable_builder => true %>
   <%= form.label_for :is_published, :label => t('cms.views.pages.published') %>
   <%= form.submit t('cms.views.pages.preview'), :name => 'preview', :id => nil, :disable_builder => true %>
-  <%= form.submit t("cms.forms.#{@cms_page.new_record? ? 'create_page' : 'update_page'}"), :disable_builder => true %>
+  <%= form.submit t("cms.views.pages.#{@cms_page.new_record? ? 'create_page' : 'update_page'}"), :disable_builder => true %>
 <% end %>

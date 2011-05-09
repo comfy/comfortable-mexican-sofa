@@ -1,5 +1,5 @@
 <%= link_to span_tag(pluralize(@cms_layout.revisions.count, 'revision')), cms_admin_layout_revisions_path(@cms_layout), :class => 'big button' %>
-<h1> Editing Layout </h1>
+<h1><%= t('cms.views.layouts.editing_layout') %></h1>
 
 <% content_for :right_column do %>
   <%= render :partial => 'cms_admin/sites/mirrors', :object => @cms_layout %>

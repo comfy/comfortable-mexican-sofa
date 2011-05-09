@@ -1,4 +1,4 @@
-<h1> Editing Site </h1>
+<h1><%= t('cms.views.sites.editing_site') %></h1>
 
 <%= cms_form_for @cms_site, :url => {:action => :update} do |form| %>
   <%= render :partial => 'form', :object => form %>

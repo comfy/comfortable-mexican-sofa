@@ -1,4 +1,4 @@
-<h1> New Layout </h1>
+<h1><%= t('cms.views.layouts.new_layout') %></h1>
 
 <%= cms_form_for @cms_layout, :url => {:action => :create} do |form| %>
   <%= render :partial => 'form', :object => form %>

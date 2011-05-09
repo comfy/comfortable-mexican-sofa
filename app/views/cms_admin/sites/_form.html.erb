@@ -1,6 +1,6 @@
-<%= form.text_field :label %>
-<%= form.text_field :hostname %>
+<%= form.text_field :label, :label => t('cms.forms.label') %>
+<%= form.text_field :hostname, :label => t('cms.forms.hostname')  %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.submit @cms_site.new_record?? 'Create Site' : 'Update Site', :disable_builder => true %>
+  <%= form.submit t("cms.views.sites.#{@cms_site.new_record? ? 'create_site' : 'update_site'}"), :disable_builder => true %>
 <% end %>

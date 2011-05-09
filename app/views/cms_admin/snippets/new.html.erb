@@ -1,4 +1,4 @@
-<h1> New Snippet </h1>
+<h1><%= t('cms.views.snippets.new_snippet') %></h1>
 
 <%= cms_form_for @cms_snippet, :url => {:action => :create} do |form| %>
   <%= render :partial => 'form', :object => form %>

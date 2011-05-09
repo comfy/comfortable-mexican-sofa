@@ -21,8 +21,8 @@
     </div>
     <div class='action_links'>
       <%= link_to t('cms.views.pages.add_child_page'), new_cms_admin_page_path(:parent_id => cms_page.id) %>
-      <%= link_to t('cms.views.pages.edit'), edit_cms_admin_page_path(cms_page) %>
-      <%= link_to t('cms.views.pages.delete'), cms_admin_page_path(cms_page), :method => :delete, :confirm => t('cms.views.pages.are_you_sure') %>
+      <%= link_to t('cms.views.edit'), edit_cms_admin_page_path(cms_page) %>
+      <%= link_to t('cms.views.delete'), cms_admin_page_path(cms_page), :method => :delete, :confirm => t('cms.views.are_you_sure') %>
     </div>
     <div class='label'>
       <%= link_to cms_page.label, edit_cms_admin_page_path(cms_page) %>

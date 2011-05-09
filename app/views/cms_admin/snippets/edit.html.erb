@@ -1,5 +1,5 @@
 <%= link_to span_tag(pluralize(@cms_snippet.revisions.count, 'revision')), cms_admin_snippet_revisions_path(@cms_snippet), :class => 'big button' %>
-<h1> Editing Snippet </h1>
+<h1><%= t('cms.views.snippets.editing_snippet') %></h1>
 
 <% content_for :right_column do %>
   <%= render :partial => 'cms_admin/sites/mirrors', :object => @cms_snippet %>

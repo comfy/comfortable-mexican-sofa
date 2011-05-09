@@ -1,5 +1,63 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  cms:
+    sections:
+      sites: "Sites"
+      layouts: "Layouts"
+      pages: "Pages"
+      snippets: "Snippets"
+    forms:
+      label: "Label"
+      hostname: "Hostname"
+      slug: "Slug"
+      layout: "Layout"
+      parent: "Parent"
+      content: "Content"
+      and_continue: "And Continue"
+    views:
+      edit: "Edit"
+      delete: "Delete"
+      are_you_sure: "Are you sure?"
+
+      layouts:
+        new_layout: "New Layout"
+        create_new_layout: "Create new Layout"
+        add_child_layout: "Add Child Layout"
+        editing_layout: "Editing Layout"
+        layout_name: "Layout Name"
+        parent_layout: "Parent Layout"
+        select_parent_layout: "Select Parent Layout"
+        app_layout: "App Layout"
+        select_application_layout: "Select Application Layout"
+        create_layout: "Create Layout"
+        update_layout: "Update Layout"
+
+      pages:
+        new_page: "New Page"
+        editing_page: "Editing Page"
+        published: "Published"
+        preview: "Preview"
+        toggle: "Toggle"
+        drag: "Drag"
+        add_child_page: "Add Child Page"
+        create_new_page: "Create new Page"
+        no_redirect: "No Redirect"
+        redirect_to_page: "Redirect to Page"
+        create_page: "Create Page"
+        update_page: "Update Page"
+
+      uploads:
+        upload_files: "Upload Files"
+
+      snippets:
+        new_snippet: "New Snippet"
+        editing_snippet: "Editing Snippet"
+        create_new_snippet: "Create New Snippet"
+        create_snippet: "Create Snippet"
+        update_snippet: "Update Snippet"
+
+      sites:
+        new_site: "New Site"
+        editing_site: "Editing Site"
+        create_new_site: "Create New Site"
+        create_site: "Create Site"
+        update_site: "Update Site"

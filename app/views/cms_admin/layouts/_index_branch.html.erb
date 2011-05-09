@@ -4,9 +4,9 @@
   <div class='item'>
     <div class='icon'></div>
     <div class='action_links'>
-      <%= link_to 'Add Child Layout', new_cms_admin_layout_path(:parent_id => cms_layout.id) %>
-      <%= link_to 'Edit', edit_cms_admin_layout_path(cms_layout) %>
-      <%= link_to 'Delete', cms_admin_layout_path(cms_layout), :method => :delete, :confirm => 'Are you sure?' %>
+      <%= link_to t('cms.views.layouts.add_child_layout'), new_cms_admin_layout_path(:parent_id => cms_layout.id) %>
+      <%= link_to t('cms.views.edit'), edit_cms_admin_layout_path(cms_layout) %>
+      <%= link_to t('cms.views.delete'), cms_admin_layout_path(cms_layout), :method => :delete, :confirm => t('cms.views.are_you_sure') %>
     </div>
     <div class='label'>
       <%= link_to cms_layout.label, edit_cms_admin_layout_path(cms_layout) %>

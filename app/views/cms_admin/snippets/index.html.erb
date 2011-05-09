@@ -1,5 +1,5 @@
-<%= link_to span_tag('Create New Snippet'), new_cms_admin_snippet_path, :class => 'big button' %>
-<h1>Snippets</h1>
+<%= link_to span_tag(t('cms.views.snippets.create_new_snippet')), new_cms_admin_snippet_path, :class => 'big button' %>
+<h1><%= t('cms.sections.snippets') %></h1>
 
 <% content_for :right_column do %>
   <%= render :partial => 'cms_admin/sites/mirrors' %>
@@ -11,8 +11,8 @@
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
-          <%= link_to 'Edit', edit_cms_admin_snippet_path(cms_snippet) %>
-          <%= link_to 'Delete', cms_admin_snippet_path(cms_snippet), :method => :delete, :confirm => 'Are you sure?' %>
+          <%= link_to t('cms.views.edit'), edit_cms_admin_snippet_path(cms_snippet) %>
+          <%= link_to t('cms.views.delete'), cms_admin_snippet_path(cms_snippet), :method => :delete, :confirm => t('cms.views.are_you_sure') %>
         </div>
         <div class='label'>
           <%= link_to cms_snippet.label, edit_cms_admin_snippet_path(cms_snippet) %>

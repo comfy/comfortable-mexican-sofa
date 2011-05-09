@@ -1,28 +1,63 @@
 es:
   cms:
+    sections:
+      sites: "Sitios"
+      layouts: "Diseños"
+      pages: "Páginas"
+      snippets: "Fragmentos"
     forms:
       label: "Rótulo"
+      hostname: "Dirección"
       slug: "Ruta"
       layout: "Diseño"
       parent: "Padre"
-      no_redirect: "No Redirigir"
-      redirect_to_page: "Redirigir a la Página"
-      create_page: "Crear Página"
-      update_page: "Actualizar Página"
+      content: "Contenido"
+      and_continue: "Y Continuar Editando"
     views:
+      edit: "Editar"
+      delete: "Eliminar"
+      are_you_sure: "¿Está seguro?"
+
+      layouts:
+        new_layout: "Nuevo Diseño"
+        create_new_layout: "Crear Nuevo Diseño"
+        add_child_layout: "Añadir diseño hijo"
+        editing_layout: "Editando Diseño"
+        layout_name: "Nombre del Diseño"
+        parent_layout: "Diseño Padre"
+        select_parent_layout: "Seleccionar diseño padre"
+        app_layout: "Diseño (App)"
+        select_application_layout: "Seleccionar diseño (App)"
+        create_layout: "Crear Diseño"
+        update_layout: "Actualizar Diseño"
+
       pages:
         new_page: "Nueva Página"
         editing_page: "Editando Página"
         published: "Publicada"
         preview: "Vista Previa"
-        and_continue: "Y Continuar Editando"
         toggle: "Cambiar"
         drag: "Arrastrar"
         add_child_page: "Añadir página hija"
-        edit: "Editar"
-        delete: "Eliminar"
-        are_you_sure: "¿Está seguro de que desea eliminar esta página?"
-        pages: "Páginas"
         create_new_page: "Crear Nueva Página"
+        no_redirect: "No Redirigir"
+        redirect_to_page: "Redirigir a la Página"
+        create_page: "Crear Página"
+        update_page: "Actualizar Página"
+
       uploads:
         upload_files: "Cargar Archivos"
+
+      snippets:
+        new_snippet: "Nuevo Fragmento"
+        editing_snippet: "Editando Fragmento"
+        create_new_snippet: "Crear nuevo Fragmento"
+        create_snippet: "Crear Fragmento"
+        update_snippet: "Actualizar Fragmento"
+
+      sites:
+        new_site: "Nuevo Sitio"
+        create_new_site: "Crear nuevo Sitio"
+        editing_site: "Editando Sitio"
+        create_site: "Crear Sitio"
+        update_site: "Actualizar Sitio"

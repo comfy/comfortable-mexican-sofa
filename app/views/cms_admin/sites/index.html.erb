@@ -1,5 +1,5 @@
-<%= link_to span_tag('Create New Site'), new_cms_admin_site_path, :class => 'big button' %>
-<h1>Sites</h1>
+<%= link_to span_tag(t('cms.views.sites.create_new_site')), new_cms_admin_site_path, :class => 'big button' %>
+<h1><%= t('cms.sections.sites') %></h1>
 
 <ul class='list'>
   <% @cms_sites.each do |cms_site| %>
@@ -7,8 +7,8 @@
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
-          <%= link_to 'Edit', edit_cms_admin_site_path(cms_site) %>
-          <%= link_to 'Delete', cms_admin_site_path(cms_site), :method => :delete, :confirm => 'Are you sure?' %>
+          <%= link_to t('cms.views.edit'), edit_cms_admin_site_path(cms_site) %>
+          <%= link_to t('cms.views.delete'), cms_admin_site_path(cms_site), :method => :delete, :confirm => t('cms.views.are_you_sure') %>
         </div>
         <div class='label'>
           <%= link_to cms_site.label, edit_cms_admin_site_path(cms_site) %>
