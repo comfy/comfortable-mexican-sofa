@@ -18,25 +18,25 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
   def create
     @cms_layout.save!
-    flash[:notice] = 'Layout created'
+    flash[:notice] = I18n.t('cms.controllers.layouts.layout_created', :default => 'Layout created')
     redirect_to :action => :edit, :id => @cms_layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create layout'
+    flash.now[:error] = I18n.t('cms.controllers.layouts.failed_to_create_layout', :default => 'Failed to create layout')
     render :action => :new
   end
 
   def update
     @cms_layout.update_attributes!(params[:cms_layout])
-    flash[:notice] = 'Layout updated'
+    flash[:notice] = I18n.t('cms.controllers.layouts.layout_updated', :default => 'Layout updated')
     redirect_to :action => :edit, :id => @cms_layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update layout'
+    flash.now[:error] = I18n.t('cms.controllers.layouts.failed_to_update_layout', :default => 'Failed to update layout')
     render :action => :edit
   end
 
   def destroy
     @cms_layout.destroy
-    flash[:notice] = 'Layout deleted'
+    flash[:notice] = I18n.t('cms.controllers.layouts.layout_deleted', :default => 'Layout Deleted')
     redirect_to :action => :index
   end
 
@@ -51,7 +51,7 @@ protected
   def load_cms_layout
     @cms_layout = @cms_site.layouts.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Layout not found'
+    flash[:error] = I18n.t('cms.controllers.errors.layout_not_found', :default => 'Layout Not Found')
     redirect_to :action => :index
   end
 

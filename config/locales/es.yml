@@ -1,3 +1,4 @@
+# encoding: utf-8
 es:
   cms:
     sections:
@@ -61,3 +62,19 @@ es:
         editing_site: "Editando Sitio"
         create_site: "Crear Sitio"
         update_site: "Actualizar Sitio"
+
+    controllers:
+      sites:
+        default_site: "Sitio Predeterminado"
+      layouts:
+        layout_created: "Diseño Creado"
+        failed_to_create_layout: "El diseño NO ha podido ser Creado"
+        layout_updated: "Diseño Actualizado"
+        failed_to_update_layout: "El diseño NO ha podido ser Actualizado"
+        layout_deleted: "Diseñó Eliminado"
+
+      errors:
+        layout_not_found: "Diseño no encontrado"
+        site_not_found: "Sitio no encontrado"
+        page_not_found: "Página no encontrada"
+        no_site_for_this_hostname: "No se ha creado un sitio para esta dirección. Créalo ahora."
