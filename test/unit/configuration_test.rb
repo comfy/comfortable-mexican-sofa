@@ -14,6 +14,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal true, config.enable_caching
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
+    assert_equal 25, config.revisions_limit
   end
   
   def test_initialization_overrides

@@ -47,6 +47,11 @@ ComfortableMexicanSofa.configure do |config|
   # Path where fixtures can be located.
   #   config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
   
+  # Content for Layouts, Pages and Snippets has a revision history. You can revert
+  # a previous version using this system. You can control how many revisions per
+  # object you want to keep. Set it to 0 if you wish to turn this feature off.
+  #   config.revisions_limit = 25
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

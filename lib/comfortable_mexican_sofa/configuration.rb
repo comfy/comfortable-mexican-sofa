@@ -37,6 +37,9 @@ class ComfortableMexicanSofa::Configuration
   # Path where fixtures can be located.
   attr_accessor :fixtures_path
   
+  # Number of revisions kept. Default is 25. If you wish to disable: set this to 0.
+  attr_accessor :revisions_limit
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -51,6 +54,7 @@ class ComfortableMexicanSofa::Configuration
     @upload_file_options    = {}
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
+    @revisions_limit        = 25
   end
   
 end

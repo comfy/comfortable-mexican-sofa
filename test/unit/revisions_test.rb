@@ -141,4 +141,32 @@ class RevisionsTest < ActiveSupport::TestCase
     end
   end
   
+  def test_restore_from_revision_with_wrong_revision_type
+    snippet = cms_snippets(:default)
+    revision = cms_revisions(:layout)
+    
+    assert_no_difference 'snippet.revisions.count' do
+      snippet.restore_from_revision(revision)
+      snippet.reload
+      assert_equal 'default_snippet_content', snippet.content
+    end
+  end
+  
+  def test_creation_with_limit
+    ComfortableMexicanSofa.config.revisions_limit = 1
+    snippet = cms_snippets(:default)
+    revision = cms_revisions(:snippet)
+    
+    assert_equal 1, snippet.revisions.count
+    
+    assert_no_difference 'snippet.revisions.count' do
+      snippet.update_attribute(:content, 'new content')
+      assert_nil Cms::Revision.find_by_id(revision.id)
+      
+      snippet.reload
+      revision = snippet.revisions.first
+      assert_equal ({ 'content' => 'default_snippet_content' }), revision.data
+    end
+  end
+  
 end

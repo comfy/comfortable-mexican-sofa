@@ -24,6 +24,7 @@ class ActiveSupport::TestCase
       config.enable_caching         = true
       config.enable_fixtures        = false
       config.fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
+      config.revisions_limit        = 25
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

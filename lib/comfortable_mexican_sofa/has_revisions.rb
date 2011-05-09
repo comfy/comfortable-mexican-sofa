@@ -41,7 +41,16 @@ module ComfortableMexicanSofa::HasRevisions
     # Revision is created only if relevant data changed
     def create_revision
       return unless self.revision_data
-      self.revisions.create!(:data => self.revision_data)
+      
+      # creating revision
+      if ComfortableMexicanSofa.config.revisions_limit.to_i != 0
+        self.revisions.create!(:data => self.revision_data)
+      end
+      
+      # blowing away old revisions
+      ids = [0] + self.revisions.order('created_at DESC').
+        limit(ComfortableMexicanSofa.config.revisions_limit.to_i).collect(&:id)
+      self.revisions.where('id NOT IN (?)', ids).destroy_all
     end
     
     # Assigning whatever is found in revision data and attemptint to save the object
