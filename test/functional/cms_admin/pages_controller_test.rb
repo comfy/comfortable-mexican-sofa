@@ -121,7 +121,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert assigns(:cms_page).layout
   end
   
-  def test_creation_with_commit
+  def test_creation
     assert_difference 'Cms::Page.count' do
       assert_difference 'Cms::Block.count', 2 do
         post :create, :cms_page => {
@@ -139,36 +139,12 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         assert_response :redirect
         page = Cms::Page.last
         assert_equal cms_sites(:default), page.site
-        assert_redirected_to :action => :index
-        assert_equal 'Page saved', flash[:notice]
-      end
-    end
-  end
-
-  def test_creation_without_commit
-    assert_difference 'Cms::Page.count' do
-      assert_difference 'Cms::Block.count', 2 do
-        post :create, :cms_page => {
-          :label      => 'Test Page',
-          :slug       => 'test-page',
-          :parent_id  => cms_pages(:default).id,
-          :layout_id  => cms_layouts(:default).id,
-          :blocks_attributes => [
-            { :label    => 'default_page_text',
-              :content  => 'content content' },
-            { :label    => 'default_field_text',
-              :content  => 'title content' }
-          ]
-        }
-        assert_response :redirect
-        page = Cms::Page.last
-        assert_equal cms_sites(:default), page.site
         assert_redirected_to :action => :edit, :id => page
         assert_equal 'Page saved', flash[:notice]
       end
     end
   end
-
+  
   def test_creation_failure
     assert_no_difference ['Cms::Page.count', 'Cms::Block.count'] do
       post :create, :cms_page => {
@@ -189,21 +165,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     end
   end
 
-  def test_update_with_commit
-    page = cms_pages(:default)
-    assert_no_difference 'Cms::Block.count' do
-      put :update, :id => page, :cms_page => {
-        :label => 'Updated Label'
-      }, :commit => 'Update Page'
-      page.reload
-      assert_response :redirect
-      assert_redirected_to :action => :index
-      assert_equal 'Page updated', flash[:notice]
-      assert_equal 'Updated Label', page.label
-    end
-  end
-
-  def test_update_without_commit
+  def test_update
     page = cms_pages(:default)
     assert_no_difference 'Cms::Block.count' do
       put :update, :id => page, :cms_page => {
@@ -216,7 +178,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       assert_equal 'Updated Label', page.label
     end
   end
-
+  
   def test_update_with_layout_change
     page = cms_pages(:default)
     assert_difference 'Cms::Block.count', 2 do

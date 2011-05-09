@@ -19,7 +19,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   def create
     @cms_snippet.save!
     flash[:notice] = 'Snippet created'
-    redirect_to (params[:commit] ? {:action => :index} : {:action => :edit, :id => @cms_snippet})
+    redirect_to :action => :edit, :id => @cms_snippet
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to create snippet'
     render :action => :new
@@ -28,7 +28,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   def update
     @cms_snippet.update_attributes!(params[:cms_snippet])
     flash[:notice] = 'Snippet updated'
-    redirect_to (params[:commit] ? {:action => :index} : {:action => :edit, :id => @cms_snippet})
+    redirect_to :action => :edit, :id => @cms_snippet
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to update snippet'
     render :action => :edit

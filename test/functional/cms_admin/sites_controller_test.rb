@@ -41,26 +41,15 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_equal 'Site not found', flash[:error]
   end
   
-  def test_create_with_commit
-    assert_difference 'Cms::Site.count' do
-      post :create, :cms_site => {
-        :label    => 'Test Site',
-        :hostname => 'test.site.local'
-      }, :commit  => 'Create Site'
-      assert_response :redirect
-      assert_redirected_to :action => :index
-      assert_equal 'Site created', flash[:notice]
-    end
-  end
-
-  def test_create_without_commit
+  def test_create
     assert_difference 'Cms::Site.count' do
       post :create, :cms_site => {
         :label    => 'Test Site',
         :hostname => 'test.site.local'
       }
       assert_response :redirect
-      assert_redirected_to :action => :edit, :id => Cms::Site.last
+      site = Cms::Site.last
+      assert_redirected_to :action => :edit, :id => site
       assert_equal 'Site created', flash[:notice]
     end
   end
@@ -74,21 +63,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     end
   end
 
-  def test_update_with_commit
-    site = cms_sites(:default)
-    put :update, :id => site, :cms_site => {
-      :label    => 'New Site',
-      :hostname => 'new.site.local'
-    }, :commit  => 'Update Site'
-    assert_response :redirect
-    assert_redirected_to :action => :index
-    assert_equal 'Site updated', flash[:notice]
-    site.reload
-    assert_equal 'New Site', site.label
-    assert_equal 'new.site.local', site.hostname
-  end
-
-  def test_update_without_commit
+  def test_update
     site = cms_sites(:default)
     put :update, :id => site, :cms_site => {
       :label    => 'New Site',

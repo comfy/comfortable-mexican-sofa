@@ -14,7 +14,6 @@ html, body {
   position: relative;
   margin: 0px 250px 0px 175px;
   min-height: 100%;
-  overflow: hidden;
   background-color: #D8D8D8;
   border-left: 1px solid #484848;
   border-right: 1px solid #484848;
@@ -126,22 +125,23 @@ input[type='file'] {
 a.button.big {
   float: right;
 }
-.body_wrapper .sofa {
+
+.center_column .sofa {
   position: absolute;
   background: #000;
   bottom: 0px;
-  left: 0px;
+  left: -175px;
   width: 155px;
   padding: 5px 10px;
   font-size: 10px;
 }
-.body_wrapper .sofa a {
+.center_column .sofa a {
   color: #484848;
 }
-.body_wrapper .sofa a:hover {
+.center_column .sofa a:hover {
   color: #f1f1f1;
 }
-.body_wrapper .sofa span.version {
+.center_column .sofa span.version {
   color: #f1f1f1;
   font-size: 9px;
   margin-left: 2px;

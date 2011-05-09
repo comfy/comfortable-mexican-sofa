@@ -41,28 +41,13 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_equal 'Layout not found', flash[:error]
   end
   
-  def test_creation_with_commit
+  def test_creation
     assert_difference 'Cms::Layout.count' do
       post :create, :cms_layout => {
         :label    => 'Test Layout',
         :slug     => 'test',
         :content  => 'Test {{cms:page:content}}'
       }, :commit  => 'Create Layout'
-      assert_response :redirect
-      layout = Cms::Layout.last
-      assert_equal cms_sites(:default), layout.site
-      assert_redirected_to :action => :index
-      assert_equal 'Layout created', flash[:notice]
-    end
-  end
-  
-  def test_creation_without_commit
-    assert_difference 'Cms::Layout.count' do
-      post :create, :cms_layout => {
-        :label    => 'Test Layout',
-        :slug     => 'test',
-        :content  => 'Test {{cms:page:content}}'
-      }
       assert_response :redirect
       layout = Cms::Layout.last
       assert_equal cms_sites(:default), layout.site
@@ -80,21 +65,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     end
   end
   
-  def test_update_with_commit
-    layout = cms_layouts(:default)
-    put :update, :id => layout, :cms_layout => {
-      :label    => 'New Label',
-      :content  => 'New {{cms:page:content}}'
-    }, :commit  => 'Update Layout'
-    assert_response :redirect
-    assert_redirected_to :action => :index
-    assert_equal 'Layout updated', flash[:notice]
-    layout.reload
-    assert_equal 'New Label', layout.label
-    assert_equal 'New {{cms:page:content}}', layout.content
-  end
-  
-  def test_update_without_commit
+  def test_update
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
       :label    => 'New Label',

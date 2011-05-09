@@ -7,6 +7,5 @@
 <%= form.text_area :content, :class => 'code' %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.submit 'and continue', :id => nil, :name => 'save', :disable_builder => true %>
   <%= form.submit @cms_snippet.new_record?? 'Create Snippet' : 'Update Snippet', :disable_builder => true %>
 <% end %>
