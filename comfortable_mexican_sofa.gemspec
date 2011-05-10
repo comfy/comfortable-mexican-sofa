@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.1.2"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-05-05}
+  s.date = %q{2011-05-10}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "app/controllers/cms_admin/base_controller.rb",
     "app/controllers/cms_admin/layouts_controller.rb",
     "app/controllers/cms_admin/pages_controller.rb",
+    "app/controllers/cms_admin/revisions_controller.rb",
     "app/controllers/cms_admin/sites_controller.rb",
     "app/controllers/cms_admin/snippets_controller.rb",
     "app/controllers/cms_admin/uploads_controller.rb",
@@ -35,6 +36,7 @@ Gem::Specification.new do |s|
     "app/models/cms/block.rb",
     "app/models/cms/layout.rb",
     "app/models/cms/page.rb",
+    "app/models/cms/revision.rb",
     "app/models/cms/site.rb",
     "app/models/cms/snippet.rb",
     "app/models/cms/upload.rb",
@@ -51,6 +53,7 @@ Gem::Specification.new do |s|
     "app/views/cms_admin/pages/index.html.erb",
     "app/views/cms_admin/pages/new.html.erb",
     "app/views/cms_admin/pages/toggle_branch.js.erb",
+    "app/views/cms_admin/revisions/show.html.erb",
     "app/views/cms_admin/sites/_form.html.erb",
     "app/views/cms_admin/sites/edit.html.erb",
     "app/views/cms_admin/sites/index.html.erb",
@@ -78,7 +81,6 @@ Gem::Specification.new do |s|
     "config/environments/production.rb",
     "config/environments/test.rb",
     "config/initializers/comfortable_mexican_sofa.rb",
-    "config/initializers/mime_types.rb",
     "config/initializers/paperclip.rb",
     "config/locales/en.yml",
     "config/routes.rb",
@@ -99,6 +101,7 @@ Gem::Specification.new do |s|
     "db/cms_fixtures/example.com/snippets/default/content.html",
     "db/migrate/01_create_cms.rb",
     "db/migrate/upgrades/02_upgrade_to_1_1_0.rb",
+    "db/migrate/upgrades/03_upgrade_to_1_2_0.rb",
     "db/seeds.rb",
     "doc/page_editing.png",
     "doc/sofa.png",
@@ -109,6 +112,7 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/engine.rb",
     "lib/comfortable_mexican_sofa/fixtures.rb",
     "lib/comfortable_mexican_sofa/form_builder.rb",
+    "lib/comfortable_mexican_sofa/has_revisions.rb",
     "lib/comfortable_mexican_sofa/http_auth.rb",
     "lib/comfortable_mexican_sofa/rails_extensions.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
@@ -124,6 +128,7 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/tags/page_text.rb",
     "lib/comfortable_mexican_sofa/tags/partial.rb",
     "lib/comfortable_mexican_sofa/tags/snippet.rb",
+    "lib/comfortable_mexican_sofa/version.rb",
     "lib/comfortable_mexican_sofa/view_hooks.rb",
     "lib/comfortable_mexican_sofa/view_methods.rb",
     "lib/generators/README",
@@ -209,6 +214,7 @@ Gem::Specification.new do |s|
     "test/fixtures/cms/blocks.yml",
     "test/fixtures/cms/layouts.yml",
     "test/fixtures/cms/pages.yml",
+    "test/fixtures/cms/revisions.yml",
     "test/fixtures/cms/sites.yml",
     "test/fixtures/cms/snippets.yml",
     "test/fixtures/cms/uploads.yml",
@@ -218,6 +224,7 @@ Gem::Specification.new do |s|
     "test/fixtures/views/_nav_hook_2.html.erb",
     "test/functional/cms_admin/layouts_controller_test.rb",
     "test/functional/cms_admin/pages_controller_test.rb",
+    "test/functional/cms_admin/revisions_controller_test.rb",
     "test/functional/cms_admin/sites_controller_test.rb",
     "test/functional/cms_admin/snippets_controller_test.rb",
     "test/functional/cms_admin/uploads_controller_test.rb",
@@ -237,6 +244,7 @@ Gem::Specification.new do |s|
     "test/unit/models/site_test.rb",
     "test/unit/models/snippet_test.rb",
     "test/unit/models/upload_test.rb",
+    "test/unit/revisions_test.rb",
     "test/unit/tag_test.rb",
     "test/unit/tags/field_datetime_test.rb",
     "test/unit/tags/field_integer_test.rb",
@@ -259,6 +267,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/functional/cms_admin/layouts_controller_test.rb",
     "test/functional/cms_admin/pages_controller_test.rb",
+    "test/functional/cms_admin/revisions_controller_test.rb",
     "test/functional/cms_admin/sites_controller_test.rb",
     "test/functional/cms_admin/snippets_controller_test.rb",
     "test/functional/cms_admin/uploads_controller_test.rb",
@@ -278,6 +287,7 @@ Gem::Specification.new do |s|
     "test/unit/models/site_test.rb",
     "test/unit/models/snippet_test.rb",
     "test/unit/models/upload_test.rb",
+    "test/unit/revisions_test.rb",
     "test/unit/tag_test.rb",
     "test/unit/tags/field_datetime_test.rb",
     "test/unit/tags/field_integer_test.rb",
@@ -298,23 +308,20 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.3"])
-      s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.6"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.7"])
       s.add_runtime_dependency(%q<paperclip>, [">= 2.3.8"])
-      s.add_runtime_dependency(%q<mime-types>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, [">= 3.0.3"])
-      s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
+      s.add_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
       s.add_dependency(%q<paperclip>, [">= 2.3.8"])
-      s.add_dependency(%q<mime-types>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.0.3"])
-    s.add_dependency(%q<active_link_to>, [">= 0.0.6"])
+    s.add_dependency(%q<rails>, [">= 3.0.0"])
+    s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
     s.add_dependency(%q<paperclip>, [">= 2.3.8"])
-    s.add_dependency(%q<mime-types>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
   end
 end
