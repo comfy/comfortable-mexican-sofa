@@ -33,7 +33,6 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Layout)
-    assert_equal 'Layout (default)', assigns(:record_title)
     assert_template :show
   end
   
@@ -43,7 +42,6 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Page)
-    assert_equal 'Page (/)', assigns(:record_title)
     assert_template :show
   end
   
@@ -53,7 +51,6 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Snippet)
-    assert_equal 'Snippet (default)', assigns(:record_title)
     assert_template :show
   end
   
