@@ -33,6 +33,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Layout)
+    assert_equal 'Layout (default)', assigns(:record_title)
     assert_template :show
   end
   
@@ -42,6 +43,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Page)
+    assert_equal 'Page (/)', assigns(:record_title)
     assert_template :show
   end
   
@@ -51,6 +53,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Cms::Snippet)
+    assert_equal 'Snippet (default)', assigns(:record_title)
     assert_template :show
   end
   
@@ -89,7 +92,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     layout = cms_layouts(:default)
     
     assert_difference 'layout.revisions.count' do 
-      post :revert, :layout_id => layout, :id => cms_revisions(:layout)
+      put :revert, :layout_id => layout, :id => cms_revisions(:layout)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_layout_path(layout)
       assert_equal 'Content Reverted', flash[:notice]
@@ -105,7 +108,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     page = cms_pages(:default)
     
     assert_difference 'page.revisions.count' do
-      post :revert, :page_id => page, :id => cms_revisions(:page)
+      put :revert, :page_id => page, :id => cms_revisions(:page)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_page_path(page)
       assert_equal 'Content Reverted', flash[:notice]
@@ -122,7 +125,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
     snippet = cms_snippets(:default)
     
     assert_difference 'snippet.revisions.count' do
-      post :revert, :snippet_id => snippet, :id => cms_revisions(:snippet)
+      put :revert, :snippet_id => snippet, :id => cms_revisions(:snippet)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_snippet_path(snippet)
       assert_equal 'Content Reverted', flash[:notice]

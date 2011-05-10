@@ -8,7 +8,14 @@ class CmsAdmin::RevisionsController < CmsAdmin::BaseController
   end
   
   def show
-    render
+    case @record
+    when Cms::Page
+      @current_content    = @record.blocks.inject({}){|c, b| c[b.label] = b.content; c }
+      @versioned_content  = @record.blocks.inject({}){|c, b| c[b.label] = @revision.data['blocks_attributes'].detect{|r| r[:label] == b.label}.try(:[], :content); c }
+    else
+      @current_content    = @record.revision_fields.inject({}){|c, f| c[f] = @record.send(f); c }
+      @versioned_content  = @record.revision_fields.inject({}){|c, f| c[f] = @revision.data[f]; c }
+    end
   end
   
   def revert

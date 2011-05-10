@@ -55,6 +55,11 @@ html, body {
   color: #fff;
   opacity: 1;
 }
+.right_column_content h2 {
+  color: #d8d8d8;
+  text-shadow: #000 1px 1px;
+  margin-bottom: 5px;
+}
 .right_column_content .box {
   background-color: #484848;
   padding: 5px;

@@ -15,7 +15,7 @@ GEM
       rack-mount (~> 0.6.13)
       rack-test (~> 0.5.6)
       tzinfo (~> 0.3.23)
-    active_link_to (0.0.6)
+    active_link_to (0.0.7)
     activemodel (3.0.3)
       activesupport (= 3.0.3)
       builder (~> 2.1.2)
@@ -78,7 +78,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_link_to (>= 0.0.6)
+  active_link_to (>= 0.0.7)
   jeweler (>= 1.4.0)
   paperclip (>= 2.3.8)
   rails (>= 3.0.0)

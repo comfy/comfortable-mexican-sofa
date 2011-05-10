@@ -10,6 +10,14 @@ h1 {
   text-shadow: #fff 1px 1px;
   border-bottom: 2px solid #9f9f9f;
 }
+h2 {
+  font: bold 16px/16px 'Lucida Grande', 'Tahoma', serif;
+  text-shadow: #fff 1px 1px;
+  margin-bottom: 15px;
+}
+h1 + h2 {
+  margin-top: -15px;
+}
 a {
   text-decoration: none;
   color: #384E66;

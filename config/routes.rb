@@ -11,19 +11,19 @@ Rails.application.routes.draw do
         match :reorder
       end
       resources :revisions, :only => [:index, :show, :revert] do
-        post :revert, :on => :member
+        put :revert, :on => :member
       end
     end
     resources :sites
     resources :uploads, :only => [:create, :destroy]
     resources :layouts do
       resources :revisions, :only => [:index, :show, :revert] do
-        post :revert, :on => :member
+        put :revert, :on => :member
       end
     end
     resources :snippets do 
       resources :revisions, :only => [:index, :show, :revert] do
-        post :revert, :on => :member
+        put :revert, :on => :member
       end
     end
   end

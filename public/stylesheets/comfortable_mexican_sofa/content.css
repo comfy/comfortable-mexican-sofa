@@ -183,3 +183,45 @@ form.search {
 .c_cms_admin_snippets.a_index ul.list li .item .icon {
   background-image: url(/images/comfortable_mexican_sofa/icon_snippet.gif);
 }
+
+/* -- Revisions ---------------------------------------------------------- */
+.c_cms_admin_revisions.a_show .form_element.submit_element .value {
+  margin-left: 0px;
+}
+.c_cms_admin_revisions.a_show .current {
+  width: 50%;
+  float: left;
+}
+.c_cms_admin_revisions.a_show .versioned {
+  width: 50%;
+  float: right;
+}
+.c_cms_admin_revisions.a_show .title,
+.c_cms_admin_revisions.a_show .content {
+  padding: 2px 5px;
+  margin: 0px 3px;
+}
+.c_cms_admin_revisions.a_show .title {
+  background: #f1f1f1;
+  border-bottom: 2px solid #bbb;
+}
+.c_cms_admin_revisions.a_show .content {
+  min-height: 16px;
+  border: 1px dashed #f1f1f1;
+}
+.c_cms_admin_revisions.a_show .revisions a {
+  display: block;
+  background-color: #252525;
+  border-radius: 2px;
+  padding: 0px 3px;
+  opacity: 0.5;
+  margin-bottom: 2px;
+  color: #fff;
+}
+.c_cms_admin_revisions.a_show .revisions a:hover,
+.c_cms_admin_revisions.a_show .revisions a.active {
+  opacity: 1;
+}
+.c_cms_admin_revisions.a_show .revisions a:last-child {
+  margin-bottom: 0px;
+}

@@ -1,3 +1,4 @@
+<%= link_to span_tag(pluralize(@cms_page.revisions.count, 'revision')), cms_admin_page_revisions_path(@cms_page), :class => 'big button' %>
 <h1> Editing Page </h1>
 
 <%= cms_form_for @cms_page, :url => {:action => :update} do |form| %>
