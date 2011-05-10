@@ -1,5 +1,6 @@
 class CmsGenerator < Rails::Generators::Base
   
+  require 'rails/generators/active_record'
   include Rails::Generators::Migration
   include Thor::Actions
   
@@ -22,9 +23,14 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def generate_public_assets
-    directory 'public/stylesheets/comfortable_mexican_sofa', 'public/stylesheets/comfortable_mexican_sofa'
-    directory 'public/javascripts/comfortable_mexican_sofa', 'public/javascripts/comfortable_mexican_sofa'
-    directory 'public/images/comfortable_mexican_sofa', 'public/images/comfortable_mexican_sofa'
+    assets_dir = if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1 && Rails.configuration.assets.enabled
+      'app/assets'
+    else
+      'public'
+    end
+    directory 'public/stylesheets/comfortable_mexican_sofa', "#{assets_dir}/stylesheets/comfortable_mexican_sofa"
+    directory 'public/javascripts/comfortable_mexican_sofa', "#{assets_dir}/javascripts/comfortable_mexican_sofa"
+    directory 'public/images/comfortable_mexican_sofa', "#{assets_dir}/images/comfortable_mexican_sofa"
   end
   
   def generate_cms_seeds
@@ -36,9 +42,7 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def self.next_migration_number(dirname)
-    orm = Rails.configuration.generators.options[:rails][:orm]
-    require "rails/generators/#{orm}"
-    "#{orm.to_s.camelize}::Generators::Base".constantize.next_migration_number(dirname)
+    ActiveRecord::Generators::Base.next_migration_number(dirname)
   end
   
 end
