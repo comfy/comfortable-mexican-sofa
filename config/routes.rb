@@ -26,7 +26,7 @@ Rails.application.routes.draw do
         put :revert, :on => :member
       end
     end
-  end
+  end unless ComfortableMexicanSofa.config.admin_route_prefix.nil?
   
   scope :controller => :cms_content do
     prefix = ComfortableMexicanSofa.config.content_route_prefix
