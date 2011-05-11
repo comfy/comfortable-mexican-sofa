@@ -1,9 +1,6 @@
 $.CMS = function(){
-  var current_path = window.location.pathname;
-  var admin_path_prefix = current_path.split('/')[1]
   
   $(function(){
-    
     $.CMS.slugify();
     $.CMS.tree_methods();
     $.CMS.load_page_blocks();
@@ -18,13 +15,16 @@ $.CMS = function(){
   });
   
   return {
+    current_path: null,
+    
+    admin_path_prefix: null,
     
     enable_sortable_list: function(){
       $('ul.sortable, ul.sortable ul').sortable({
         handle: 'div.dragger',
         axis: 'y',
         update: function(){
-          $.post(current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
+          $.post($.CMS.current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
         }
       })
     },
@@ -56,7 +56,7 @@ $.CMS = function(){
     load_page_blocks: function(){
       $('select#cms_page_layout_id').bind('change.cms', function() {
         $.ajax({
-          url: ['/' + admin_path_prefix, 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
+          url: ['/' + $.CMS.admin_path_prefix, 'pages', $(this).attr('data-page-id'), 'form_blocks'].join('/'),
           data: ({
             layout_id: $(this).val()
           }),
@@ -135,7 +135,7 @@ $.CMS = function(){
         $(this).siblings('ul').toggle();
         $(this).toggleClass('closed');
         // object_id are set in the helper (check cms_helper.rb)
-        $.ajax({url: [current_path, object_id, 'toggle'].join('/')});
+        $.ajax({url: [$.CMS.current_path, object_id, 'toggle'].join('/')});
       });
       
       $('ul.sortable').each(function(){
@@ -143,7 +143,7 @@ $.CMS = function(){
           handle: 'div.dragger',
           axis: 'y',
           update: function() {
-            $.post(current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
+            $.post($.CMS.current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
           }
         })
       });
@@ -182,7 +182,7 @@ $.CMS = function(){
         unique_names:     true,
         multipart:        true,
         multipart_params: { authenticity_token: auth_token, format: 'js' },
-        url:              '/' + admin_path_prefix + '/uploads'
+        url:              '/' + $.CMS.admin_path_prefix + '/uploads'
       });
       uploader.init();
       uploader.bind('FilesAdded', function(up, files) {

@@ -5,6 +5,10 @@
   <%= stylesheet_link_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
   <%= javascript_include_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
   <%= javascript_include_tag :tiny_mce %>
+  <script type="text/javascript">
+    $.CMS.current_path = window.location.pathname;
+    $.CMS.admin_path_prefix = "<%= ComfortableMexicanSofa.config.admin_route_prefix %>";
+  </script>
 
   <%= yield :head %>
   <%= cms_hook :html_head %>
