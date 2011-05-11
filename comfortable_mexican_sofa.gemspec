@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-05-10}
+  s.date = %q{2011-05-11}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".gemtest",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE",
     "README.md",
     "Rakefile",
@@ -264,45 +263,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.7.2}
   s.summary = %q{ComfortableMexicanSofa is a powerful micro CMS for Ruby on Rails 3 applications}
-  s.test_files = [
-    "test/functional/cms_admin/layouts_controller_test.rb",
-    "test/functional/cms_admin/pages_controller_test.rb",
-    "test/functional/cms_admin/revisions_controller_test.rb",
-    "test/functional/cms_admin/sites_controller_test.rb",
-    "test/functional/cms_admin/snippets_controller_test.rb",
-    "test/functional/cms_admin/uploads_controller_test.rb",
-    "test/functional/cms_content_controller_test.rb",
-    "test/integration/authentication_test.rb",
-    "test/integration/fixtures_test.rb",
-    "test/integration/render_cms_test.rb",
-    "test/integration/routing_extensions_test.rb",
-    "test/integration/sites_test.rb",
-    "test/integration/view_hooks_test.rb",
-    "test/test_helper.rb",
-    "test/unit/configuration_test.rb",
-    "test/unit/fixtures_test.rb",
-    "test/unit/models/block_test.rb",
-    "test/unit/models/layout_test.rb",
-    "test/unit/models/page_test.rb",
-    "test/unit/models/site_test.rb",
-    "test/unit/models/snippet_test.rb",
-    "test/unit/models/upload_test.rb",
-    "test/unit/revisions_test.rb",
-    "test/unit/tag_test.rb",
-    "test/unit/tags/field_datetime_test.rb",
-    "test/unit/tags/field_integer_test.rb",
-    "test/unit/tags/field_string_test.rb",
-    "test/unit/tags/field_text_test.rb",
-    "test/unit/tags/helper_test.rb",
-    "test/unit/tags/page_datetime_test.rb",
-    "test/unit/tags/page_integer_test.rb",
-    "test/unit/tags/page_rich_text.rb",
-    "test/unit/tags/page_string_test.rb",
-    "test/unit/tags/page_text_test.rb",
-    "test/unit/tags/partial_test.rb",
-    "test/unit/tags/snippet_test.rb",
-    "test/unit/view_methods_test.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
