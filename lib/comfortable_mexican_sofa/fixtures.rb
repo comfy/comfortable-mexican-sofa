@@ -98,7 +98,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
-      page.save! if page.changed?
+      page.save! if page.changed? || blocks_attributes.present?
       page_ids << page.id
       
       # checking for nested fixtures
