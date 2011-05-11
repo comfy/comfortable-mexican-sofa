@@ -25,7 +25,7 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_snippet_content(snippet_slug, cms_site = nil)
     return '' unless cms_site ||= (@cms_site || Cms::Site.find_by_hostname!(request.host.downcase))
     return '' unless snippet = cms_site.snippets.find_by_slug(snippet_slug)
-    ComfortableMexicanSofa::Tag.process_content(Cms::Page.new, snippet.content).html_safe
+    render :inline => ComfortableMexicanSofa::Tag.process_content(Cms::Page.new, snippet.content)
   end
   
   # Content of a page block. This is how you get content from page:field
@@ -35,7 +35,7 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_page_content(block_label, page = nil)
     return '' unless page ||= @cms_page
     return '' unless block = page.blocks.find_by_label(block_label)
-    ComfortableMexicanSofa::Tag.process_content(page, block.content).html_safe
+    render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
   end
 end
 

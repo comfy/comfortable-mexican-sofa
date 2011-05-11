@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
-class ViewMethodsTest < ActiveSupport::TestCase
+class FixturesTest < ActiveSupport::TestCase
   
   def setup
     @site = cms_sites(:default)
