@@ -36,6 +36,12 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert layout.valid?
   end
   
+  def test_label_assignment
+    layout = cms_sites(:default).layouts.new(:slug => 'test', :content => '{{cms:page:content}}')
+    assert layout.valid?
+    assert_equal 'Test', layout.label
+  end
+  
   def test_creation
     assert_difference 'Cms::Layout.count' do
       layout = cms_sites(:default).layouts.create(

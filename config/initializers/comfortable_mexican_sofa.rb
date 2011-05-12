@@ -23,6 +23,11 @@ ComfortableMexicanSofa.configure do |config|
   # of sites with their own layouts and pages.
   #   config.enable_multiple_sites = false
   
+  # In cases when you need sites with identical page tree structure, like different
+  # language versions. This will automatically create/destroy resources across all sites and
+  # will keep slugs/paths synced.
+  #   config.enable_mirror_sites = false
+  
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...

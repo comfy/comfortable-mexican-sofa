@@ -80,12 +80,12 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
   def test_update_failure
     site = cms_sites(:default)
     put :update, :id => site, :cms_site => {
-      :label => ''
+      :hostname => ''
     }
     assert_response :success
     assert_template :edit
     site.reload
-    assert_not_equal '', site.label
+    assert_not_equal '', site.hostname
     assert_equal 'Failed to update site', flash[:error]
   end
 

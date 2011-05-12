@@ -19,7 +19,8 @@ class Cms::Page < ActiveRecord::Base
     :autosave   => true
   
   # -- Callbacks ------------------------------------------------------------
-  before_validation :assign_parent,
+  before_validation :assigns_label,
+                    :assign_parent,
                     :assign_full_path
   before_validation :assign_position,
                     :on => :create
@@ -118,6 +119,10 @@ class Cms::Page < ActiveRecord::Base
   end
   
 protected
+  
+  def assigns_label
+    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+  end
   
   def assign_parent
     return unless site

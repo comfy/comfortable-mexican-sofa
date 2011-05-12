@@ -15,6 +15,14 @@ class CmsSnippetTest < ActiveSupport::TestCase
     assert_has_errors_on snippet, [:label, :slug]
   end
   
+  def test_label_assignment
+    snippet = cms_sites(:default).snippets.new(
+      :slug   => 'test'
+    )
+    assert snippet.valid?
+    assert_equal 'Test', snippet.label
+  end
+  
   def test_update_forces_page_content_reload
     snippet = cms_snippets(:default)
     page = cms_pages(:default)

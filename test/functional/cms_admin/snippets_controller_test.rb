@@ -81,12 +81,12 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   def test_update_failure
     snippet = cms_snippets(:default)
     put :update, :id => snippet, :cms_snippet => {
-      :label => ''
+      :slug => ''
     }
     assert_response :success
     assert_template :edit
     snippet.reload
-    assert_not_equal '', snippet.label
+    assert_not_equal '', snippet.slug
     assert_equal 'Failed to update snippet', flash[:error]
   end
 

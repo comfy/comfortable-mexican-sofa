@@ -44,13 +44,23 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, :target_page_id
   end
   
+  def test_label_assignment
+    page = cms_sites(:default).pages.new(
+      :slug   => 'test',
+      :parent => cms_pages(:default),
+      :layout => cms_layouts(:default)
+    )
+    assert page.valid?
+    assert_equal 'Test', page.label
+  end
+  
   def test_creation
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       page = cms_sites(:default).pages.create!(
-        :label      => 'test',
-        :slug       => 'test',
-        :parent_id  => cms_pages(:default).id,
-        :layout_id  => cms_layouts(:default).id,
+        :label  => 'test',
+        :slug   => 'test',
+        :parent => cms_pages(:default),
+        :layout => cms_layouts(:default),
         :blocks_attributes => [
           { :label    => 'default_page_text',
             :content  => 'test' }

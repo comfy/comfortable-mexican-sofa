@@ -8,6 +8,7 @@ class Cms::Snippet < ActiveRecord::Base
   belongs_to :site
   
   # -- Callbacks ------------------------------------------------------------
+  before_validation :assign_label
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
   
@@ -22,6 +23,10 @@ class Cms::Snippet < ActiveRecord::Base
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
   
 protected
+  
+  def assign_label
+    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+  end
   
   # Note: This might be slow. We have no idea where the snippet is used, so
   # gotta reload every single page. Kinda sucks, but might be ok unless there

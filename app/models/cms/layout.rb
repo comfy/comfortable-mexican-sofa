@@ -11,6 +11,7 @@ class Cms::Layout < ActiveRecord::Base
   has_many :pages, :dependent => :nullify
   
   # -- Callbacks ------------------------------------------------------------
+  before_validation :assign_label
   after_save    :clear_cache, :clear_cached_page_content
   after_destroy :clear_cache, :clear_cached_page_content
   
@@ -68,6 +69,10 @@ class Cms::Layout < ActiveRecord::Base
   end
   
 protected
+  
+  def assign_label
+    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+  end
   
   def check_content_tag_presence
     ComfortableMexicanSofa::Tag.process_content((test_page = site.pages.new), content)

@@ -10,6 +10,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal '', config.content_route_prefix
     assert_equal 'pages', config.admin_route_redirect
     assert_equal false, config.enable_multiple_sites
+    assert_equal false, config.enable_mirror_sites
     assert_equal false, config.allow_irb
     assert_equal true, config.enable_caching
     assert_equal false, config.enable_fixtures
