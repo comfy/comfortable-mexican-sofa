@@ -24,9 +24,6 @@ class Cms::Layout < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
-  validates :content,
-    :presence   => true
-  validate :check_content_tag_presence
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -72,13 +69,6 @@ protected
   
   def assign_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
-  end
-  
-  def check_content_tag_presence
-    ComfortableMexicanSofa::Tag.process_content((test_page = site.pages.new), content)
-    if test_page.tags.select{|t| t.is_cms_block?}.blank?
-      self.errors.add(:content, 'No cms page tags defined')
-    end
   end
   
   # After saving need to make sure that cached pages for css and js for this

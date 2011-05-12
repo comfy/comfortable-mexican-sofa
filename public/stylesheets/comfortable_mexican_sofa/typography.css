@@ -31,3 +31,6 @@ strong {
 em {
   font-style: italic;
 }
+code {
+  font: 13px Consolas, Monaco, Courier New, Courier, monospace;
+}

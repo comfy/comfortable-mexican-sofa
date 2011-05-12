@@ -1,7 +1,17 @@
+<% block_tags = @cms_page.tags(true).select{ |t| t.is_cms_block? } %>
+
 <div id='form_blocks'>
-  <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
-    <% @cms_page.tags(true).select{|t| t.is_cms_block?}.each do |tag| %>
-      <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag)%>
+  <% if block_tags.empty? %>
+    <div class='no_tags'>
+      <%= link_to @cms_page.layout.label, edit_cms_admin_layout_path(@cms_page.layout) %>
+      Layout has no content tags defined. <br/>
+      Edit the content to include a page or field tag, for example: <code>{{cms:page:content}}</code>
+    </div>
+  <% else %>
+    <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
+      <% block_tags.each do |tag| %>
+        <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag)%>
+      <% end %>
     <% end %>
   <% end %>
 </div>

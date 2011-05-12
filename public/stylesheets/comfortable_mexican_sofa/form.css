@@ -42,6 +42,24 @@
 .page_form_extras {
   margin-bottom: 10px;
 }
+#form_blocks .no_tags {
+  background-color: #252525;
+  color: #aaa;
+  border-radius: 3px;
+  margin-left: 150px;
+  text-align: center;
+  padding: 10px;
+}
+#form_blocks .no_tags a {
+  color: #fff;
+}
+#form_blocks .no_tags a:hover {
+  color: #aaa;
+  text-decoration: underline;
+}
+#form_blocks .no_tags code {
+  color: #B85042;
+}
 .form_element.field_datetime .label,
 .form_element.field_integer .label,
 .form_element.field_string .label,
