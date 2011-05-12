@@ -46,8 +46,8 @@ class ComfortableMexicanSofa::Configuration
     @authentication         = 'ComfortableMexicanSofa::HttpAuth'
     @seed_data_path         = nil
     @admin_route_prefix     = 'cms-admin'
+    @admin_route_redirect   = 'pages'
     @content_route_prefix   = ''
-    @admin_route_redirect   = "/#{@admin_route_prefix}/pages"
     @enable_multiple_sites  = false
     @allow_irb              = false
     @enable_caching         = true

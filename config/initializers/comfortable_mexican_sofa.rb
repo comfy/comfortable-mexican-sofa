@@ -17,8 +17,7 @@ ComfortableMexicanSofa.configure do |config|
   #   config.content_route_prefix = ''
   
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
-  # You don't need to change it when changing admin_route_prefix
-  #   config.admin_route_redirect = '/cms-admin/pages'
+  #   config.admin_route_redirect = 'pages'
   
   # If you enable this setting you'll be able to serve completely different set
   # of sites with their own layouts and pages.

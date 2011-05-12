@@ -31,4 +31,23 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
+  def test_get_admin_with_admin_route_redirect
+    ComfortableMexicanSofa.config.admin_route_redirect = 'snippets'
+    load(File.expand_path('config/routes.rb', Rails.root))
+    
+    http_auth :get, '/cms-admin'
+    assert_response :redirect
+    assert_redirected_to cms_admin_snippets_path
+  end
+  
+  def test_get_admin_with_admin_route_prefix_disabled
+    ComfortableMexicanSofa.config.admin_route_prefix = ''
+    load(File.expand_path('config/routes.rb', Rails.root))
+    
+    assert !respond_to?(:cms_admin_path)
+    
+    http_auth :get, '/cms-admin'
+    assert_response 404
+  end
+  
 end
