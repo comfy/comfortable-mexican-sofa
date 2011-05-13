@@ -15,8 +15,6 @@ html, body {
   margin: 0px 250px 0px 175px;
   min-height: 100%;
   background-color: #D8D8D8;
-  border-left: 1px solid #484848;
-  border-right: 1px solid #484848;
 }
 .center_column .center_column_content {
   padding: 25px;
@@ -69,19 +67,16 @@ html, body {
   overflow: hidden;
   color: #fff;
 }
-
 /* -- Flash Messages ----------------------------------------------------- */
 .flash {
   text-align: center;
-  line-height: 25px;
+  padding: 8px;
   color: #fff;
   background-color: #066B12;
-  margin: 0px 2px;
 }
 .flash.error {
   background-color: #9e0b0f;
 }
-
 /* -- Buttons ------------------------------------------------------------ */
 a.button,
 button,

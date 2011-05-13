@@ -1,7 +1,7 @@
 class Cms::Snippet < ActiveRecord::Base
   
   set_table_name :cms_snippets
-  
+  is_mirrored
   has_revisions_for :content
   
   # -- Relationships --------------------------------------------------------

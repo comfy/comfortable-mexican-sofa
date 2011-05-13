@@ -11,4 +11,5 @@ end
 group :test do
   gem 'sqlite3'
   gem 'jeweler', '>=1.4.0'
+  gem 'turn'
 end
