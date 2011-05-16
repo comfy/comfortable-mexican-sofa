@@ -1,10 +1,10 @@
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
-  config.cms_title      = 'ComfortableMexicanSofa MicroCMS'
+  #   config.cms_title = 'ComfortableMexicanSofa MicroCMS'
   
   # Module responsible for authentication. You can replace it with your own.
   # It simply needs to have #authenticate method. See http_auth.rb for reference.
-  config.authentication = 'ComfortableMexicanSofa::HttpAuth'
+  #   config.authentication = 'ComfortableMexicanSofa::HttpAuth'
   
   # Default url to access admin area is http://yourhost/cms-admin/ 
   # You can change 'cms-admin' to 'admin', for example. To disable admin area
@@ -55,6 +55,7 @@ ComfortableMexicanSofa.configure do |config|
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
+# YOU REALLY WANT TO CHANGE THIS BEFORE PUTTING YOUR SITE LIVE
 ComfortableMexicanSofa::HttpAuth.username = 'username'
 ComfortableMexicanSofa::HttpAuth.password = 'password'
 
