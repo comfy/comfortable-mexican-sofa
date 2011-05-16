@@ -80,8 +80,7 @@ module ComfortableMexicanSofa::Fixtures
         end
       elsif page.new_record?
         page.label = slug.titleize
-        page.layout = site.layouts.find_by_slug(attributes[:layout]) || parent.try(:layout)
-        
+        page.layout = parent.try(:layout)
       end
       
       # updating content
