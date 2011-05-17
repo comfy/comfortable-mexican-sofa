@@ -55,8 +55,11 @@ module ComfortableMexicanSofa::IsMirrored
           }
           m
         when Cms::Snippet
-          puts self.slug_change.to_yaml
-          site.snippets.find_by_slug(self.slug_was || self.slug) || site.snippets.new(:slug => self.slug)
+          m = site.snippets.find_by_slug(self.slug_was || self.slug) || site.snippets.new
+          m.attributes = {
+            :slug => self.slug
+          }
+          m
         end
         
         mirror.is_mirrored = true

@@ -52,10 +52,12 @@ class MirrorSitesTest < ActiveSupport::TestCase
     assert_equal layout_2a, layout_2c.parent
     
     layout_1c.update_attributes!(
+      :slug     => 'updated',
       :parent   => layout_1b,
       :content  => 'updated content'
     )
     layout_2c.reload
+    assert_equal 'updated', layout_2c.slug
     assert_equal layout_2b, layout_2c.parent
     assert_not_equal 'updated content', layout_2c
   end
@@ -69,10 +71,20 @@ class MirrorSitesTest < ActiveSupport::TestCase
     page_1b = @site_a.pages.create!(:slug => 'test_b', :layout => layout_1a)
     assert_equal page_1r, page_1b.parent
     
-    page_1b.update_attributes!(
-      
-    )
+    assert layout_2b = layout_1b.mirrors.first
+    assert page_2a = page_1a.mirrors.first
+    assert page_2b = page_1b.mirrors.first
     
+    page_1b.update_attributes!(
+      :slug => 'updated',
+      :parent => page_1a,
+      :layout => layout_1b
+    )
+    page_2b.reload
+    assert_equal 'updated', page_2b.slug
+    assert_equal page_2a, page_2b.parent
+    assert_equal '/test_a/updated', page_2b.full_path
+    assert_equal layout_2b, page_2b.layout
   end
   
   def test_snippet_update
@@ -88,15 +100,15 @@ class MirrorSitesTest < ActiveSupport::TestCase
   end
   
   def test_layout_destroy
-    
+    flunk
   end
   
   def test_page_destroy
-    
+    flunk
   end
   
   def test_snippet_destroy
-    
+    flunk
   end
   
 end
