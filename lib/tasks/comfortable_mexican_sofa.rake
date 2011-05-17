@@ -6,7 +6,7 @@ end
 namespace :comfortable_mexican_sofa do
   namespace :fixtures do
     
-    desc 'Import Fixture data into database. (options: SITE=example.com)'
+    desc 'Import Fixture data into database (options: SITE=example.com)'
     task :import => :environment do |task, args|
       site = if ComfortableMexicanSofa.config.enable_multiple_sites
         Cms::Site.find_by_hostname(args[:site])

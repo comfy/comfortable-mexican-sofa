@@ -7,28 +7,56 @@ module ComfortableMexicanSofa::IsMirrored
   module ClassMethods
     
     def is_mirrored
-      include ComfortableMexicanSofa::IsMirrored::InstanceMethods
-      
-      attr_accessor :is_mirrored
-      
-      after_save    :sync_mirror
-      after_destroy :destroy_mirror
+      if ComfortableMexicanSofa.config.enable_mirror_sites
+        include ComfortableMexicanSofa::IsMirrored::InstanceMethods
+        
+        attr_accessor :is_mirrored
+        
+        after_save    :sync_mirror
+        after_destroy :destroy_mirror
+      end
     end
   end
   
   module InstanceMethods
     
+    # Mirrors of the object found on other sites
+    def mirrors
+      (Cms::Site.all - [self.site]).collect do |site|
+        case self
+          when Cms::Layout  then site.layouts.find_by_slug(self.slug)
+          when Cms::Page    then site.pages.find_by_full_path(self.full_path)
+          when Cms::Snippet then site.snippets.find_by_slug(self.slug)
+        end
+      end
+    end
+    
+    # Creating or updating a mirror object. Relationships are mirrored
+    # but content is unique. When updating need to grab mirrors based on
+    # self.slug_was, new objects will use self.slug.
     def sync_mirror
       return if self.is_mirrored
       
-      Cms::Site.all.each do |site|
+      (Cms::Site.all - [self.site]).each do |site|
         mirror = case self
         when Cms::Layout
-          site.layouts.find_by_slug(self.slug) || site.layouts.new(:slug => self.slug)
+          m = site.layouts.find_by_slug(self.slug_was || self.slug) || site.layouts.new
+          m.attributes = {
+            :slug   => self.slug,
+            :parent => site.layouts.find_by_slug(self.parent.try(:slug))
+          }
+          m
         when Cms::Page
-          
+          m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
+          m.attributes = {
+            :slug   => self.slug,
+            :parent => site.pages.find_by_full_path(self.parent.try(:full_path)),
+            :layout => site.layouts.find_by_slug(self.layout.slug)
+          }
+          m
         when Cms::Snippet
-          site.snippets.find_by_slug(self.slug) || site.snippets.new(:slug => self.slug)
+          puts self.slug_change.to_yaml
+          site.snippets.find_by_slug(self.slug_was || self.slug) || site.snippets.new(:slug => self.slug)
         end
         
         mirror.is_mirrored = true
@@ -36,6 +64,7 @@ module ComfortableMexicanSofa::IsMirrored
       end
     end
     
+    # Mirrors should be destroyed
     def destroy_mirror
       return if self.is_mirrored
       

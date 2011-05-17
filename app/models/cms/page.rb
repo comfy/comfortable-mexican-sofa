@@ -3,7 +3,7 @@ class Cms::Page < ActiveRecord::Base
   set_table_name :cms_pages
   
   acts_as_tree :counter_cache => :children_count
-  # is_mirrored
+  is_mirrored
   has_revisions_for :blocks_attributes
   
   attr_accessor :tags,
