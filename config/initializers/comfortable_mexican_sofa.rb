@@ -51,6 +51,15 @@ ComfortableMexicanSofa.configure do |config|
   # a previous version using this system. You can control how many revisions per
   # object you want to keep. Set it to 0 if you wish to turn this feature off.
   #   config.revisions_limit = 25
+
+  # In case you want to use :locale to I18n your content within one site, it will
+  # need to do some routing changes. This will enable urls like "https://www.example.com/en"
+  # and "https://www.example.com/fr" to live in the same site. Default is false.
+  #   config.enable_multiple_language_routes = false
+  
+  # Additionaly if enable_multiple_language_routes is activated we need to define a
+  # default locale to use in case no locale was requested. Defaults to "en".
+  #   config.default_locale = "en"
   
 end
 
