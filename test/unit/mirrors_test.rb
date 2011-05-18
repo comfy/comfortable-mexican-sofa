@@ -26,10 +26,10 @@ class MirrorsTest < ActiveSupport::TestCase
     assert_difference 'Cms::Page.count', 2 do
       page = @site_a.pages.create!(
         :layout => layout,
-        :slug   => 'test'
+        :label  => 'Root'
       )
       assert_equal 1, page.mirrors.size
-      assert_equal 'test', page.mirrors.first.slug
+      assert_equal '/', page.mirrors.first.full_path
     end
   end
   

@@ -28,7 +28,7 @@ module ComfortableMexicanSofa::IsMirrored
           when Cms::Page    then site.pages.find_by_full_path(self.full_path)
           when Cms::Snippet then site.snippets.find_by_slug(self.slug)
         end
-      end
+      end.compact
     end
     
     # Creating or updating a mirror object. Relationships are mirrored
@@ -50,6 +50,7 @@ module ComfortableMexicanSofa::IsMirrored
           m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
           m.attributes = {
             :slug   => self.slug,
+            :label  => self.slug.blank?? self.label : m.label,
             :parent => site.pages.find_by_full_path(self.parent.try(:full_path)),
             :layout => site.layouts.find_by_slug(self.layout.slug)
           }
@@ -70,7 +71,6 @@ module ComfortableMexicanSofa::IsMirrored
     # Mirrors should be destroyed
     def destroy_mirror
       return if self.is_mirrored
-      
       mirrors.each do |mirror|
         mirror.is_mirrored = true
         mirror.destroy
