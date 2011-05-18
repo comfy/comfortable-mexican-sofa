@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
-class MirrorSitesTest < ActiveSupport::TestCase
+class MirrorsTest < ActiveSupport::TestCase
   
   def setup
     ComfortableMexicanSofa.config.enable_mirror_sites = true
@@ -46,9 +46,9 @@ class MirrorSitesTest < ActiveSupport::TestCase
     layout_1b = @site_a.layouts.create!(:slug => 'test_b')
     layout_1c = @site_a.layouts.create!(:slug => 'nested', :parent => layout_1a)
     
-    layout_2a = layout_1a.mirrors.first
-    layout_2b = layout_1b.mirrors.first
-    layout_2c = layout_1c.mirrors.first
+    assert layout_2a = layout_1a.mirrors.first
+    assert layout_2b = layout_1b.mirrors.first
+    assert layout_2c = layout_1c.mirrors.first
     assert_equal layout_2a, layout_2c.parent
     
     layout_1c.update_attributes!(
@@ -89,7 +89,7 @@ class MirrorSitesTest < ActiveSupport::TestCase
   
   def test_snippet_update
     snippet_1 = @site_a.snippets.create(:slug => 'test')
-    snippet_2 = snippet_1.mirrors.first
+    assert snippet_2 = snippet_1.mirrors.first
     snippet_1.update_attributes!(
       :slug     => 'updated',
       :content  => 'updated content'
@@ -100,15 +100,54 @@ class MirrorSitesTest < ActiveSupport::TestCase
   end
   
   def test_layout_destroy
-    flunk
+    layout_1a = @site_a.layouts.create!(:slug => 'test_a')
+    layout_1b = @site_a.layouts.create!(:slug => 'test_b')
+    layout_1c = @site_a.layouts.create!(:slug => 'nested', :parent => layout_1b)
+    
+    assert layout_2a = layout_1a.mirrors.first
+    assert layout_2b = layout_1b.mirrors.first
+    assert layout_2c = layout_1c.mirrors.first
+    
+    assert_difference ['@site_a.layouts.count', '@site_b.layouts.count'], -1 do
+      layout_1a.destroy
+      assert_nil Cms::Layout.find_by_id(layout_2a.id)
+    end
+    
+    assert_difference ['@site_a.layouts.count', '@site_b.layouts.count'], -2 do
+      layout_1b.destroy
+      assert_nil Cms::Layout.find_by_id(layout_2b.id)
+    end
   end
   
   def test_page_destroy
-    flunk
+    layout = @site_a.layouts.create!(:slug => 'test')
+    page_1r = @site_a.pages.create!(:slug => 'root', :layout => layout)
+    page_1a = @site_a.pages.create!(:slug => 'test_a', :layout => layout)
+    page_1b = @site_a.pages.create!(:slug => 'test_b', :layout => layout)
+    
+    assert page_2r = page_1r.mirrors.first
+    assert page_2a = page_1a.mirrors.first
+    assert page_2b = page_1b.mirrors.first
+    
+    assert_difference ['@site_a.pages.count', '@site_b.pages.count'], -1 do
+      page_1a.destroy
+      assert_nil Cms::Page.find_by_id(page_2a.id)
+    end
+    
+    assert_difference ['@site_a.pages.count', '@site_b.pages.count'], -2 do
+      page_1r.destroy
+      assert_nil Cms::Page.find_by_id(page_2r.id)
+    end
   end
   
   def test_snippet_destroy
-    flunk
+    snippet_1 = @site_a.snippets.create(:slug => 'test')
+    assert snippet_2 = snippet_1.mirrors.first
+    
+    assert_difference ['@site_a.snippets.count', '@site_b.snippets.count'], -1 do
+      snippet_1.destroy
+      assert_nil Cms::Snippet.find_by_id(snippet_2.id)
+    end
   end
   
 end

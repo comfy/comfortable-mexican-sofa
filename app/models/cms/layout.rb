@@ -81,7 +81,7 @@ protected
   # Forcing page content reload
   def clear_cached_page_content
     self.pages.each{ |page| page.save! }
-    self.children.each{ |child_layout| child_layout.save! }
+    self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
   
 end

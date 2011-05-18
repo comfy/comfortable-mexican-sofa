@@ -71,7 +71,10 @@ module ComfortableMexicanSofa::IsMirrored
     def destroy_mirror
       return if self.is_mirrored
       
-      # TODO
+      mirrors.each do |mirror|
+        mirror.is_mirrored = true
+        mirror.destroy
+      end
     end
   end
   
