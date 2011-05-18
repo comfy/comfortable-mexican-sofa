@@ -28,7 +28,6 @@ class CmsGenerator < Rails::Generators::Base
     else
       'public'
     end
-    directory 'public/stylesheets/comfortable_mexican_sofa', "#{assets_dir}/stylesheets/comfortable_mexican_sofa"
     directory 'public/javascripts/comfortable_mexican_sofa', "#{assets_dir}/javascripts/comfortable_mexican_sofa"
     directory 'public/images/comfortable_mexican_sofa', "#{assets_dir}/images/comfortable_mexican_sofa"
   end

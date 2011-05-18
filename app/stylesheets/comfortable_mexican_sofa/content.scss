@@ -1,0 +1,234 @@
+#cms_body_wrapper {
+  /* -- Mirrors widget ----------------------------------------------------- */
+  #mirrors.box select {
+    width: 100%;
+  }
+
+  /* -- Page saving widget ------------------------------------------------- */
+  #page_save button {
+    float: right;
+  }
+  #page_save label {
+    line-height: 20px;
+    padding-left: 5px;
+  }
+  #page_save input {
+    margin-right: 5px;
+  }
+  /* -- File Upload widget ------------------------------------------------- */
+  #file_uploads .actions {
+    overflow: hidden;
+  }
+  #file_uploads .actions a.button {
+    float: right;
+  }
+  #file_uploads #uploaded_files {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  #file_uploads #uploaded_files .file {
+    position: relative;
+    overflow: hidden;
+    font-size: 11px;
+    background-color: #252525;
+    margin-top: 2px;
+    padding: 0px 3px;
+    opacity: 0.5;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+  }
+  #file_uploads #uploaded_files .file.pending {
+    opacity: 0.3;
+  }
+  #file_uploads #uploaded_files .file:hover {
+    opacity: 1;
+  }
+  #file_uploads #uploaded_files .file a {
+    color: #fff;
+  }
+  #file_uploads #uploaded_files .file a.delete {
+    position: absolute;
+    display: block;
+    right: 0px;
+    top: 0px;
+    height: 13px;
+    width: 13px;
+    font-weight: bold;
+  }
+  #file_uploads #uploaded_files .file:hover a.delete {
+    color: #9e0b0f;
+  }
+
+  /* -- Listings ----------------------------------------------------------- */
+  ul.list li .item {
+    overflow: hidden;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin-bottom: 5px;
+  }
+  ul.list li .item .toggle {
+    float: left;
+    height: 28px;
+    width: 28px;
+  }
+  ul.list li .item .toggle a {
+    display: block;
+    height: 28px;
+    width: 28px;
+    background: url(/images/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat;
+  }
+  ul.list li .item .toggle a span {
+    display: none;
+  }
+  ul.list li .item .toggle.open a {
+    background-image: url(/images/comfortable_mexican_sofa/arrow_bottom.gif);
+  }
+  ul.list li .item .icon {
+    float: left;
+    width: 28px;
+    height: 28px;
+    background: url(/images/comfortable_mexican_sofa/icon_regular.gif);
+  }
+  ul.list li .item .icon .dragger {
+    width: 28px;
+    height: 28px;
+    background: url(/images/comfortable_mexican_sofa/icon_move.gif);
+    cursor: move;
+    display: none;
+  }
+  ul.list li .item .icon:hover .dragger {
+    display: block;
+  }
+  ul.list li .item .icon .dragger span {
+    display: none;
+  }
+  ul.list li .item .label {
+    margin-left: 60px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  ul.list li .item .label .sublabel {
+    font-size: 10px;
+    font-weight: normal;
+  }
+  ul.list li ul {
+    margin-left: 28px;
+  }
+  ul.list li .action_links {
+    float: right;
+    opacity: 0.2;
+  }
+  table.formatted td.action_links a {
+    opacity: 0.2;
+  }
+  ul.list li .item:hover .action_links,
+  table.formatted tr:hover td.action_links a {
+    opacity: 1;
+  }
+  ul.list li .item:hover,
+  table.formatted tr:hover td {
+    background-color: #fff;
+  }
+  table.formatted {
+    clear: both;
+  }
+  table.formatted th {
+    background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
+    color: #ececec;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  table.formatted th,
+  table.formatted td {
+    white-space: nowrap;
+    vertical-align: top;
+    padding: 5px;
+    border-bottom: 1px solid #fff;
+  }
+  table.formatted th.main,
+  table.formatted td.main {
+    width: 100%;
+    white-space: normal;
+  }
+  .pagination {
+    margin: 10px 0px;
+  }
+  .pagination span,
+  .pagination em,
+  .pagination a {
+    padding: 2px 5px;
+    margin-right: 2px;
+    background-color: #fff;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+  }
+  .pagination span {
+    color: #ececec;
+  }
+  .pagination em {
+    background-color: #1C1F22;
+    color: #fff;
+  }
+  form.search {
+    float: right;
+    margin: 5px 0px;
+  }
+
+  /* -- Page Specific stuff ------------------------------------------------ */
+  .c_cms_admin_sites.a_index ul.list li .item .label,
+  .c_cms_admin_layouts.a_index ul.list li .item .label,
+  .c_cms_admin_snippets.a_index ul.list li .item .label {
+    margin-left: 32px;
+  }
+  .c_cms_admin_layouts.a_index ul.list li .item .icon {
+    background-image: url(/images/comfortable_mexican_sofa/icon_layout.gif);
+  }
+  .c_cms_admin_snippets.a_index ul.list li .item .icon {
+    background-image: url(/images/comfortable_mexican_sofa/icon_snippet.gif);
+  }
+
+  /* -- Revisions ---------------------------------------------------------- */
+  .c_cms_admin_revisions.a_show .form_element.submit_element .value {
+    margin-left: 0px;
+  }
+  .c_cms_admin_revisions.a_show .current {
+    width: 50%;
+    float: left;
+  }
+  .c_cms_admin_revisions.a_show .versioned {
+    width: 50%;
+    float: right;
+  }
+  .c_cms_admin_revisions.a_show .title,
+  .c_cms_admin_revisions.a_show .content {
+    padding: 2px 5px;
+    margin: 0px 3px;
+  }
+  .c_cms_admin_revisions.a_show .title {
+    background: #f1f1f1;
+    border-bottom: 2px solid #bbb;
+  }
+  .c_cms_admin_revisions.a_show .content {
+    min-height: 16px;
+    border: 1px dashed #f1f1f1;
+  }
+  .c_cms_admin_revisions.a_show .revisions a {
+    display: block;
+    background-color: #252525;
+    border-radius: 2px;
+    padding: 0px 3px;
+    opacity: 0.5;
+    margin-bottom: 2px;
+    color: #fff;
+  }
+  .c_cms_admin_revisions.a_show .revisions a:hover,
+  .c_cms_admin_revisions.a_show .revisions a.active {
+    opacity: 1;
+  }
+  .c_cms_admin_revisions.a_show .revisions a:last-child {
+    margin-bottom: 0px;
+  }
+}
