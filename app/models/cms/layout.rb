@@ -56,7 +56,7 @@ class Cms::Layout < ActiveRecord::Base
     if parent
       regex = /\{\{\s*cms:page:content:?(?:(?::text)|(?::rich_text))?\s*\}\}/
       if parent.merged_content.match(regex)
-        parent.merged_content.gsub(regex, content)
+        parent.merged_content.gsub(regex, content.to_s)
       else
         content
       end

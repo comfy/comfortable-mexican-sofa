@@ -1,6 +1,10 @@
 <%= link_to span_tag('Create New Page'), new_cms_admin_page_path, :class => 'big button' %>
 <h1>Pages</h1>
 
+<% content_for :right_column do %>
+  <%= render :partial => 'cms_admin/sites/mirrors' %>
+<% end %>
+
 <ul class='list sortable'>
   <%= render :partial => 'index_branch', :collection => @cms_pages %>
 </ul>

@@ -13,6 +13,7 @@ $.CMS = function(){
     $.CMS.enable_desc_toggle();
     $.CMS.enable_sortable_list();
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
+    if($('#mirrors').get(0))          $.CMS.enable_mirrors_widget();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
   });
@@ -147,6 +148,12 @@ $.CMS = function(){
           }
         })
       });
+    },
+    
+    enable_mirrors_widget: function(){
+      $('#mirrors select').change(function(){
+        window.location = $(this).val();
+      })
     },
 
     enable_page_save_widget : function(){

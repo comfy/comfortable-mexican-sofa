@@ -1,3 +1,8 @@
+/* -- Mirrors widget ----------------------------------------------------- */
+#mirrors.box select {
+  width: 100%;
+}
+
 /* -- Page saving widget ------------------------------------------------- */
 #page_save button {
   float: right;
@@ -9,7 +14,6 @@
 #page_save input {
   margin-right: 5px;
 }
-
 /* -- File Upload widget ------------------------------------------------- */
 #file_uploads .actions {
   overflow: hidden;
@@ -173,6 +177,7 @@ form.search {
 }
 
 /* -- Page Specific stuff ------------------------------------------------ */
+.c_cms_admin_sites.a_index ul.list li .item .label,
 .c_cms_admin_layouts.a_index ul.list li .item .label,
 .c_cms_admin_snippets.a_index ul.list li .item .label {
   margin-left: 32px;

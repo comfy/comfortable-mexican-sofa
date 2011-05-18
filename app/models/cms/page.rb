@@ -35,7 +35,7 @@ class Cms::Page < ActiveRecord::Base
   validates :slug,
     :presence   => true,
     :format     => /^\w[a-z0-9_-]*$/i,
-    :unless     => lambda{ |p| p == Cms::Page.root || p.site && p.site.pages.count == 0 }
+    :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
     :presence   => true
   validates :full_path,
