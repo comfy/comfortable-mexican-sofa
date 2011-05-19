@@ -1,6 +1,7 @@
 module ComfortableMexicanSofa::Fixtures
   
   def self.sync(site)
+    return unless site
     sync_layouts(site)
     sync_pages(site)
     sync_snippets(site)
