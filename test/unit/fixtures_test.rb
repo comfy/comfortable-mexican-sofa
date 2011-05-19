@@ -24,7 +24,6 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_import_layouts_updating_and_deleting
-    
     layout        = cms_layouts(:default)
     nested_layout = cms_layouts(:nested)
     child_layout  = cms_layouts(:child)
@@ -205,6 +204,101 @@ class FixturesTest < ActiveSupport::TestCase
         end
       end
     end
+  end
+  
+  def test_export_layouts
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    layout_1_attr_path    = File.join(host_path, 'layouts/nested/_nested.yml')
+    layout_1_content_path = File.join(host_path, 'layouts/nested/content.html')
+    layout_1_css_path     = File.join(host_path, 'layouts/nested/css.css')
+    layout_1_js_path      = File.join(host_path, 'layouts/nested/js.js')
+    layout_2_attr_path    = File.join(host_path, 'layouts/nested/child/_child.yml')
+    layout_2_content_path = File.join(host_path, 'layouts/nested/child/content.html')
+    layout_2_css_path     = File.join(host_path, 'layouts/nested/child/css.css')
+    layout_2_js_path      = File.join(host_path, 'layouts/nested/child/js.js')
+    
+    ComfortableMexicanSofa::Fixtures.export_layouts('test.host', 'test.test')
+    
+    assert File.exists?(layout_1_attr_path)
+    assert File.exists?(layout_1_content_path)
+    assert File.exists?(layout_1_css_path)
+    assert File.exists?(layout_1_js_path)
+    
+    assert File.exists?(layout_2_attr_path)
+    assert File.exists?(layout_2_content_path)
+    assert File.exists?(layout_2_css_path)
+    assert File.exists?(layout_2_js_path)
+    
+    assert_equal ({
+      'label'       => 'Nested Layout',
+      'app_layout'  => nil,
+      'parent'      => nil
+    }), YAML.load_file(layout_1_attr_path)
+    assert_equal cms_layouts(:nested).content, IO.read(layout_1_content_path)
+    assert_equal cms_layouts(:nested).css, IO.read(layout_1_css_path)
+    assert_equal cms_layouts(:nested).js, IO.read(layout_1_js_path)
+    
+    assert_equal ({
+      'label'       => 'Child Layout',
+      'app_layout'  => nil,
+      'parent'      => 'nested'
+    }), YAML.load_file(layout_2_attr_path)
+    assert_equal cms_layouts(:child).content, IO.read(layout_2_content_path)
+    assert_equal cms_layouts(:child).css, IO.read(layout_2_css_path)
+    assert_equal cms_layouts(:child).js, IO.read(layout_2_js_path)
+    
+    FileUtils.rm_rf(host_path)
+  end
+  
+  def test_export_pages
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    page_1_attr_path    = File.join(host_path, 'pages/index/_index.yml')
+    page_1_block_a_path = File.join(host_path, 'pages/index/default_field_text.html')
+    page_1_block_b_path = File.join(host_path, 'pages/index/default_page_text.html')
+    page_2_attr_path    = File.join(host_path, 'pages/index/child-page/_child-page.yml')
+    
+    ComfortableMexicanSofa::Fixtures.export_pages('test.host', 'test.test')
+    
+    assert_equal ({
+      'label'         => 'Default Page',
+      'layout'        => 'default',
+      'parent'        => nil,
+      'target_page'   => nil,
+      'is_published'  => true
+    }), YAML.load_file(page_1_attr_path)
+    assert_equal cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
+    assert_equal cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
+    
+    assert_equal ({
+      'label'         => 'Child Page',
+      'layout'        => 'default',
+      'parent'        => 'index',
+      'target_page'   => nil,
+      'is_published'  => true
+    }), YAML.load_file(page_2_attr_path)
+    
+    FileUtils.rm_rf(host_path)
+  end
+  
+  def test_export_snippets
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    attr_path     = File.join(host_path, 'snippets/default/_default.yml')
+    content_path  = File.join(host_path, 'snippets/default/content.html')
+    
+    ComfortableMexicanSofa::Fixtures.export_snippets('test.host', 'test.test')
+    
+    assert File.exists?(attr_path)
+    assert File.exists?(content_path)
+    assert_equal ({'label' => 'Default Snippet'}), YAML.load_file(attr_path)
+    assert_equal cms_snippets(:default).content, IO.read(content_path)
+    
+    FileUtils.rm_rf(host_path)
+  end
+  
+  def test_export_all
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    ComfortableMexicanSofa::Fixtures.export_all('test.host', 'test.test')
+    FileUtils.rm_rf(host_path)
   end
   
 end

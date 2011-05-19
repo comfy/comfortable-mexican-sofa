@@ -6,6 +6,12 @@ module ComfortableMexicanSofa::Fixtures
     import_snippets to_hostname, from_hostname
   end
   
+  def self.export_all(from_hostname, to_hostname = nil)
+    export_layouts  from_hostname, to_hostname
+    export_pages    from_hostname, to_hostname
+    export_snippets from_hostname, to_hostname
+  end
+  
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
     return unless site = Cms::Site.find_by_hostname(to_hostname)
     return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
@@ -146,6 +152,80 @@ module ComfortableMexicanSofa::Fixtures
     
     # removing all db entries that are not in fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
+  end
+  
+  def self.export_layouts(from_hostname, to_hostname = nil)
+    return unless site = Cms::Site.find_by_hostname(from_hostname)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_hostname || site.hostname), 'layouts')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    
+    site.layouts.each do |layout|
+      layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.slug}, layout.slug)
+      FileUtils.mkdir_p(layout_path)
+      
+      open(File.join(layout_path, "_#{layout.slug}.yml"), 'w') do |f|
+        f.write({
+          'label'       => layout.label,
+          'app_layout'  => layout.app_layout,
+          'parent'      => layout.parent.try(:slug)
+        }.to_yaml)
+      end
+      open(File.join(layout_path, 'content.html'), 'w') do |f|
+        f.write(layout.content)
+      end
+      open(File.join(layout_path, 'css.css'), 'w') do |f|
+        f.write(layout.css)
+      end
+      open(File.join(layout_path, 'js.js'), 'w') do |f|
+        f.write(layout.js)
+      end
+    end
+  end
+  
+  def self.export_pages(from_hostname, to_hostname = nil)
+    return unless site = Cms::Site.find_by_hostname(from_hostname)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_hostname || site.hostname), 'pages')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    
+    site.pages.each do |page|
+      page.slug = 'index' if page.slug.blank?
+      page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
+      FileUtils.mkdir_p(page_path)
+      
+      open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
+        f.write({
+          'label'         => page.label,
+          'layout'        => page.layout.try(:slug),
+          'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
+          'target_page'   => page.target_page.try(:slug),
+          'is_published'  => page.is_published
+        }.to_yaml)
+      end
+      page.blocks_attributes.each do |block|
+        open(File.join(page_path, "#{block[:label]}.html"), 'w') do |f|
+          f.write(block[:content])
+        end
+      end
+    end
+  end
+  
+  def self.export_snippets(from_hostname, to_hostname = nil)
+    return unless site = Cms::Site.find_by_hostname(from_hostname)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_hostname || site.hostname), 'snippets')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    
+    site.snippets.each do |snippet|
+      FileUtils.mkdir_p(snippet_path = File.join(path, snippet.slug))
+      open(File.join(snippet_path, "_#{snippet.slug}.yml"), 'w') do |f|
+        f.write({'label' => snippet.label}.to_yaml)
+      end
+      open(File.join(snippet_path, 'content.html'), 'w') do |f|
+        f.write(snippet.content)
+      end
+    end
   end
   
 protected
