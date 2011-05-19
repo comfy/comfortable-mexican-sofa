@@ -32,7 +32,7 @@ protected
   # gotta reload every single page. Kinda sucks, but might be ok unless there
   # are hundreds of pages.
   def clear_cached_page_content
-    site.pages.all.each{ |page| page.save! }
+    site.pages.all.each{ |page| page.save }
   end
   
 end

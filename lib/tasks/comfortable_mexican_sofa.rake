@@ -6,18 +6,15 @@ end
 namespace :comfortable_mexican_sofa do
   namespace :fixtures do
     
-    desc 'Import Fixture data into database (options: SITE=example.com)'
+    desc 'Import Fixture data into database (options: FROM=example.local TO=example.com)'
     task :import => :environment do |task, args|
-      site = if ComfortableMexicanSofa.config.enable_multiple_sites
-        Cms::Site.find_by_hostname(args[:site])
-      else
-        Cms::Site.first
-      end
-      abort 'SITE is not found. Aborting.' if !site
+      
+      hostname = args[:to] || args[:from]
+      site = Cms::Site.find_by_hostname(hostname)
+      abort "Site with hostname [#{hostname}] not found. Aborting." if !site
       
       puts "Syncing for #{site.hostname}"
-      ComfortableMexicanSofa::Fixtures.sync(site)
-      
+      ComfortableMexicanSofa::Fixtures.import_all(site.hostname, args[:from] || site.hostname)
       puts 'Done!'
     end
   end

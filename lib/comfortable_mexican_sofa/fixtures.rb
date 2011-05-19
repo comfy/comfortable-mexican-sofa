@@ -1,14 +1,14 @@
 module ComfortableMexicanSofa::Fixtures
   
-  def self.sync(site)
-    return unless site
-    sync_layouts(site)
-    sync_pages(site)
-    sync_snippets(site)
+  def self.import_all(to_hostname, from_hostname = nil)
+    import_layouts  to_hostname, from_hostname
+    import_pages    to_hostname, from_hostname
+    import_snippets to_hostname, from_hostname
   end
   
-  def self.sync_layouts(site, path = nil, root = true, parent = nil, layout_ids = [])
-    return unless path ||= find_path(site, 'layouts')
+  def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
+    return unless site = Cms::Site.find_by_hostname(to_hostname)
+    return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
@@ -49,7 +49,7 @@ module ComfortableMexicanSofa::Fixtures
       layout_ids << layout.id
       
       # checking for nested fixtures
-      layout_ids += sync_layouts(site, path, false, layout, layout_ids)
+      layout_ids += import_layouts(to_hostname, from_hostname, path, false, layout, layout_ids)
     end
     
     # removing all db entries that are not in fixtures
@@ -59,8 +59,9 @@ module ComfortableMexicanSofa::Fixtures
     layout_ids
   end
   
-  def self.sync_pages(site, path = nil, root = true, parent = nil, page_ids = [])
-    return unless path ||= find_path(site, 'pages')
+  def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
+    return unless site = Cms::Site.find_by_hostname(to_hostname)
+    return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
@@ -102,7 +103,7 @@ module ComfortableMexicanSofa::Fixtures
       page_ids << page.id
       
       # checking for nested fixtures
-      page_ids += sync_pages(site, path, false, page, page_ids)
+      page_ids += import_pages(to_hostname, from_hostname, path, false, page, page_ids)
     end
     
     # removing all db entries that are not in fixtures
@@ -112,8 +113,9 @@ module ComfortableMexicanSofa::Fixtures
     page_ids
   end
   
-  def self.sync_snippets(site)
-    return unless path = find_path(site, 'snippets')
+  def self.import_snippets(to_hostname, from_hostname = nil)
+    return unless site = Cms::Site.find_by_hostname(to_hostname)
+    return unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
     
     snippet_ids = []
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
@@ -146,12 +148,11 @@ module ComfortableMexicanSofa::Fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
   end
   
-  def self.find_path(site, dir)
-    path = nil
-    File.exists?(path = File.join(ComfortableMexicanSofa.config.fixtures_path, site.hostname, dir)) ||
-    !ComfortableMexicanSofa.config.enable_multiple_sites &&
-    File.exists?(path = File.join(ComfortableMexicanSofa.config.fixtures_path, dir))
-    return path
+protected
+  
+  def self.find_fixtures_path(hostname, dir)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, hostname, dir)
+    File.exists?(path) ? path : nil
   end
   
 end
