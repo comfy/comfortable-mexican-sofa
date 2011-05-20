@@ -1,5 +1,7 @@
 class CmsAdmin::UploadsController < CmsAdmin::BaseController
   
+  skip_before_filter :load_fixtures
+  
   before_filter :load_cms_upload, :only => :destroy
   
   def index

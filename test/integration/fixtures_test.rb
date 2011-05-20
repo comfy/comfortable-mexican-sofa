@@ -55,7 +55,6 @@ class FixturesTest < ActionDispatch::IntegrationTest
         end
       end
     end
-    
   end
   
 end

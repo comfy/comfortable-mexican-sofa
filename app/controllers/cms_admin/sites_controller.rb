@@ -1,6 +1,7 @@
 class CmsAdmin::SitesController < CmsAdmin::BaseController
 
-  skip_before_filter :load_admin_cms_site
+  skip_before_filter  :load_admin_cms_site,
+                      :load_fixtures
 
   before_filter :build_cms_site,  :only => [:new, :create]
   before_filter :load_cms_site,   :only => [:edit, :update, :destroy]
