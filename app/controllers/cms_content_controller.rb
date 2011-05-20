@@ -41,7 +41,12 @@ protected
   end
   
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+    cms_path = if ComfortableMexicanSofa.config.enable_multiple_language_routes
+      "/#{params[:locale]}/#{params[:cms_path]}".sub!(/\/$/,'')
+    else
+      "/#{params[:cms_path]}"
+    end
+    @cms_page = @cms_site.pages.published.find_by_full_path!(cms_path)
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
     
   rescue ActiveRecord::RecordNotFound

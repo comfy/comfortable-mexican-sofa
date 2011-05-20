@@ -43,6 +43,12 @@ class ComfortableMexicanSofa::Configuration
   # Number of revisions kept. Default is 25. If you wish to disable: set this to 0.
   attr_accessor :revisions_limit
   
+  # Enable multiple languages in a site via route (i.e. http://www.example.com/en, http://www.example.com/fr)
+  attr_accessor :enable_multiple_language_routes
+  
+  # To which locale should non-locale routes be redirected?
+  attr_accessor :default_locale
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -59,6 +65,8 @@ class ComfortableMexicanSofa::Configuration
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit        = 25
+    @enable_multiple_language_routes = false
+    @default_locale         = "en"
   end
   
 end

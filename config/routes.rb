@@ -34,7 +34,13 @@ Rails.application.routes.draw do
     prefix = ComfortableMexicanSofa.config.content_route_prefix
     get "#{prefix}/cms-css/:id"  => :render_css,   :as => 'cms_css'
     get "#{prefix}/cms-js/:id"   => :render_js,    :as => 'cms_js'
-    get "#{prefix}/"             => :render_html,  :as => 'cms_html',  :path => "#{prefix}/(*cms_path)"
+    if ComfortableMexicanSofa.config.enable_multiple_language_routes and ComfortableMexicanSofa.config.default_locale
+      default_locale=ComfortableMexicanSofa.config.default_locale
+      get ":locale/#{prefix}/"   => :render_html,  :as => 'cms_html',  :path => ":locale/#{prefix}/(*cms_path)"
+      get "#{prefix}/"           => redirect("/#{default_locale}/#{prefix}")
+    else
+      get "#{prefix}/"     => :render_html,  :as => 'cms_html',  :path => "#{prefix}/(*cms_path)"
+    end
   end
   
 end
