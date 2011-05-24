@@ -1,17 +1,42 @@
 <%
   return unless ComfortableMexicanSofa.config.enable_mirror_sites
   object ||= mirrors
-  
+
   options = case object
   when Cms::Layout
-    object.mirrors.collect{|m| [m.site.label, edit_cms_admin_layout_url(m, :host => m.site.hostname)]}
+    object.mirrors.collect{|m| [m.site.label, 
+      if m.site.hostname.split(":")[1].nil?
+        edit_cms_admin_layout_url(m, :host => m.site.hostname)
+      else
+        edit_cms_admin_layout_url(m, :cms_locale => m.site.hostname.split(":")[1])
+      end
+    ]}
   when Cms::Page
-    object.mirrors.collect{|m| [m.site.label, edit_cms_admin_page_url(m, :host => m.site.hostname)]}
+    object.mirrors.collect{|m| [m.site.label, 
+      if m.site.hostname.split(":")[1].nil?
+        edit_cms_admin_page_url(m, :host => m.site.hostname)
+      else
+        edit_cms_admin_page_url(m, :cms_locale => m.site.hostname.split(":")[1])
+      end
+    ]}
   when Cms::Snippet
-    object.mirrors.collect{|m| [m.site.label, edit_cms_admin_snippet_url(m, :host => m.site.hostname)]}
+    object.mirrors.collect{|m| [m.site.label, 
+      if m.site.hostname.split(":")[1].nil?
+        edit_cms_admin_snippet_url(m, :host => m.site.hostname)
+      else
+        edit_cms_admin_snippet_url(m, :cms_locale => m.site.hostname.split(":")[1])
+      end
+    ]}
   else
-    (Cms::Site.all - [@cms_site]).collect{|s| [s.label, url_for(:host => s.hostname)]}
+    (Cms::Site.all - [@cms_site]).collect{|s| [s.label, 
+      if s.hostname.split(":")[1].nil?
+        url_for(:host => s.hostname)
+      else
+        url_for(:cms_locale => s.hostname.split(":")[1])
+      end
+    ]}
   end
+  flash[:error] = options
   options = [[@cms_site.label, request.fullpath]] + options
 %>
 

@@ -43,6 +43,9 @@ class ComfortableMexicanSofa::Configuration
   # Number of revisions kept. Default is 25. If you wish to disable: set this to 0.
   attr_accessor :revisions_limit
   
+  # Enable the usage of I18n.locale in sites (i.e. www.example.com:en, www.example.com:fr)
+  attr_accessor :enable_i18n_sites
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -59,6 +62,7 @@ class ComfortableMexicanSofa::Configuration
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit        = 25
+    @enable_i18n_sites      = false
   end
   
 end

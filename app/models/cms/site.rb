@@ -17,7 +17,7 @@ class Cms::Site < ActiveRecord::Base
   validates :hostname,
     :presence   => true,
     :uniqueness => true,
-    :format     => { :with => /^[\w\.\-]+$/ }
+    :format     => { :with => /^[\w\.\-]+(\:..)?$/ }
     
   # -- Class Methods --------------------------------------------------------
   def self.options_for_select
