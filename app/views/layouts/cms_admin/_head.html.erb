@@ -3,8 +3,11 @@
   <title><%= ComfortableMexicanSofa.config.cms_title %></title>
   <%= csrf_meta_tag %>
   <meta name="cms-admin-path" content="<%= ComfortableMexicanSofa.config.admin_route_prefix %>" />
-  <%= stylesheet_link_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
-  <%= javascript_include_tag :cms, :cache => ('_cms' if ComfortableMexicanSofa.config.enable_caching) %>
+  
+  <%= stylesheet_link_tag 'comfortable_mexican_sofa/application' %>
+  <%= javascript_include_tag 'comfortable_mexican_sofa/application' %>
+  
+  
   <%= javascript_include_tag :tiny_mce %>
 
   <%= yield :head %>
