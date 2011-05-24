@@ -119,61 +119,11 @@ ul.list li .action_links {
   float: right;
   opacity: 0.2;
 }
-table.formatted td.action_links a {
-  opacity: 0.2;
-}
-ul.list li .item:hover .action_links,
-table.formatted tr:hover td.action_links a {
+ul.list li .item:hover .action_links {
   opacity: 1;
 }
-ul.list li .item:hover,
-table.formatted tr:hover td {
+ul.list li .item:hover {
   background-color: #fff;
-}
-table.formatted {
-  clear: both;
-}
-table.formatted th {
-  background: url(/images/comfortable_mexican_sofa/body_bg.jpg);
-  color: #ececec;
-  text-transform: uppercase;
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-table.formatted th,
-table.formatted td {
-  white-space: nowrap;
-  vertical-align: top;
-  padding: 5px;
-  border-bottom: 1px solid #fff;
-}
-table.formatted th.main,
-table.formatted td.main {
-  width: 100%;
-  white-space: normal;
-}
-.pagination {
-  margin: 10px 0px;
-}
-.pagination span,
-.pagination em,
-.pagination a {
-  padding: 2px 5px;
-  margin-right: 2px;
-  background-color: #fff;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-}
-.pagination span {
-  color: #ececec;
-}
-.pagination em {
-  background-color: #1C1F22;
-  color: #fff;
-}
-form.search {
-  float: right;
-  margin: 5px 0px;
 }
 
 /* -- Page Specific stuff ------------------------------------------------ */
@@ -188,7 +138,6 @@ form.search {
 .c_cms_admin_snippets.a_index ul.list li .item .icon {
   background-image: url(/images/comfortable_mexican_sofa/icon_snippet.gif);
 }
-
 /* -- Revisions ---------------------------------------------------------- */
 .c_cms_admin_revisions.a_show .form_element.submit_element .value {
   margin-left: 0px;
