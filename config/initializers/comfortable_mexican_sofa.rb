@@ -1,13 +1,14 @@
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
-  config.cms_title      = 'ComfortableMexicanSofa MicroCMS'
+  #   config.cms_title = 'ComfortableMexicanSofa MicroCMS'
   
   # Module responsible for authentication. You can replace it with your own.
   # It simply needs to have #authenticate method. See http_auth.rb for reference.
-  config.authentication = 'ComfortableMexicanSofa::HttpAuth'
+  #   config.authentication = 'ComfortableMexicanSofa::HttpAuth'
   
   # Default url to access admin area is http://yourhost/cms-admin/ 
-  # You can change 'cms-admin' to 'admin', for example.
+  # You can change 'cms-admin' to 'admin', for example. To disable admin area
+  # entirely set this to '' or nil
   #   config.admin_route_prefix = 'cms-admin'
   
   # By default Cms content is served directly from the root. Change this setting
@@ -16,12 +17,16 @@ ComfortableMexicanSofa.configure do |config|
   #   config.content_route_prefix = ''
   
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
-  # You don't need to change it when changing admin_route_prefix
-  #   config.admin_route_redirect = '/cms-admin/pages'
+  #   config.admin_route_redirect = 'pages'
   
   # If you enable this setting you'll be able to serve completely different set
   # of sites with their own layouts and pages.
-  #   config.enable_multiple_sites = false
+  #   config.enable_multiple_sites = true
+  
+  # In cases when you need sites with identical page tree structure, like different
+  # language versions. This will automatically create/destroy resources across all sites and
+  # will keep slugs/paths synced.
+  #   config.enable_mirror_sites = true
   
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
@@ -55,6 +60,7 @@ ComfortableMexicanSofa.configure do |config|
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
+# YOU REALLY WANT TO CHANGE THIS BEFORE PUTTING YOUR SITE LIVE
 ComfortableMexicanSofa::HttpAuth.username = 'username'
 ComfortableMexicanSofa::HttpAuth.password = 'password'
 

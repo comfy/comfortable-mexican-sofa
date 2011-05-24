@@ -8,10 +8,12 @@ class Cms::Site < ActiveRecord::Base
   has_many :snippets, :dependent => :destroy
   has_many :uploads,  :dependent => :destroy
   
+  # -- Callbacks ------------------------------------------------------------
+  before_validation :assign_label
+  
   # -- Validations ----------------------------------------------------------
   validates :label,
-    :presence   => true,
-    :uniqueness => true
+    :presence   => true
   validates :hostname,
     :presence   => true,
     :uniqueness => true,
@@ -20,6 +22,12 @@ class Cms::Site < ActiveRecord::Base
   # -- Class Methods --------------------------------------------------------
   def self.options_for_select
     Cms::Site.all.collect{|s| ["#{s.label} (#{s.hostname})", s.id]}
+  end
+  
+protected
+
+  def assign_label
+    self.label = self.label.blank?? self.hostname : self.label
   end
   
 end

@@ -8,8 +8,9 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.authentication
     assert_equal 'cms-admin', config.admin_route_prefix
     assert_equal '', config.content_route_prefix
-    assert_equal '/cms-admin/pages', config.admin_route_redirect
+    assert_equal 'pages', config.admin_route_redirect
     assert_equal false, config.enable_multiple_sites
+    assert_equal false, config.enable_mirror_sites
     assert_equal false, config.allow_irb
     assert_equal true, config.enable_caching
     assert_equal false, config.enable_fixtures

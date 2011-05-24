@@ -13,6 +13,7 @@ end
   'comfortable_mexican_sofa/form_builder',
   'comfortable_mexican_sofa/acts_as_tree',
   'comfortable_mexican_sofa/has_revisions',
+  'comfortable_mexican_sofa/is_mirrored',
   'comfortable_mexican_sofa/tag',
   'comfortable_mexican_sofa/fixtures'
 ].each do |path|

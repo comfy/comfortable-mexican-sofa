@@ -21,6 +21,9 @@ class ComfortableMexicanSofa::Configuration
   # Are you running multiple sites from single install? Default assumption is 'No'
   attr_accessor :enable_multiple_sites
   
+  # All resources across sites are kept in sync
+  attr_accessor :enable_mirror_sites
+  
   # Not allowing irb code to be run inside page content. False by default.
   attr_accessor :allow_irb
   
@@ -46,9 +49,10 @@ class ComfortableMexicanSofa::Configuration
     @authentication         = 'ComfortableMexicanSofa::HttpAuth'
     @seed_data_path         = nil
     @admin_route_prefix     = 'cms-admin'
+    @admin_route_redirect   = 'pages'
     @content_route_prefix   = ''
-    @admin_route_redirect   = "/#{@admin_route_prefix}/pages"
     @enable_multiple_sites  = false
+    @enable_mirror_sites    = false
     @allow_irb              = false
     @enable_caching         = true
     @upload_file_options    = {}

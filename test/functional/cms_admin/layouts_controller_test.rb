@@ -82,12 +82,12 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
   def test_update_failure
     layout = cms_layouts(:default)
     put :update, :id => layout, :cms_layout => {
-      :label    => ''
+      :slug    => ''
     }
     assert_response :success
     assert_template :edit
     layout.reload
-    assert_not_equal '', layout.label
+    assert_not_equal '', layout.slug
     assert_equal 'Failed to update layout', flash[:error]
   end
   

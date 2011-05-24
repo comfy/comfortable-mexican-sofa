@@ -40,4 +40,21 @@ class FixturesTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_fixtures_enabled_in_admin
+    ComfortableMexicanSofa.config.enable_fixtures = true
+    Cms::Layout.destroy_all
+    Cms::Page.destroy_all
+    Cms::Snippet.destroy_all
+    
+    assert_difference 'Cms::Page.count', 2 do
+      assert_difference 'Cms::Layout.count', 2 do
+        assert_difference 'Cms::Snippet.count', 1 do
+           http_auth :get, '/cms-admin/pages'
+           assert_response :success
+           assert_equal 'CMS Fixtures are enabled. All changes done here will be discarded.', flash[:error]
+        end
+      end
+    end
+  end
+  
 end

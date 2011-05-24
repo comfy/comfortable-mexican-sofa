@@ -3,7 +3,7 @@ class Cms::Layout < ActiveRecord::Base
   set_table_name :cms_layouts
   
   acts_as_tree
-  
+  is_mirrored
   has_revisions_for :content, :css, :js
   
   # -- Relationships --------------------------------------------------------
@@ -11,6 +11,7 @@ class Cms::Layout < ActiveRecord::Base
   has_many :pages, :dependent => :nullify
   
   # -- Callbacks ------------------------------------------------------------
+  before_validation :assign_label
   after_save    :clear_cache, :clear_cached_page_content
   after_destroy :clear_cache, :clear_cached_page_content
   
@@ -23,9 +24,6 @@ class Cms::Layout < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
-  validates :content,
-    :presence   => true
-  validate :check_content_tag_presence
     
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -58,7 +56,7 @@ class Cms::Layout < ActiveRecord::Base
     if parent
       regex = /\{\{\s*cms:page:content:?(?:(?::text)|(?::rich_text))?\s*\}\}/
       if parent.merged_content.match(regex)
-        parent.merged_content.gsub(regex, content)
+        parent.merged_content.gsub(regex, content.to_s)
       else
         content
       end
@@ -69,11 +67,8 @@ class Cms::Layout < ActiveRecord::Base
   
 protected
   
-  def check_content_tag_presence
-    ComfortableMexicanSofa::Tag.process_content((test_page = site.pages.new), content)
-    if test_page.tags.select{|t| t.is_cms_block?}.blank?
-      self.errors.add(:content, 'No cms page tags defined')
-    end
+  def assign_label
+    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
   end
   
   # After saving need to make sure that cached pages for css and js for this
@@ -86,7 +81,7 @@ protected
   # Forcing page content reload
   def clear_cached_page_content
     self.pages.each{ |page| page.save! }
-    self.children.each{ |child_layout| child_layout.save! }
+    self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
   
 end

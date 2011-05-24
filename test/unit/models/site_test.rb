@@ -13,12 +13,18 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert site.invalid?
     assert_has_errors_on site, [:label, :hostname]
     
-    site = Cms::Site.new(:label => 'My Site', :hostname => 'http://mysite.com')
+    site = Cms::Site.new(:label => 'My Site', :hostname => 'http://my-site.host')
     assert site.invalid?
     assert_has_errors_on site, :hostname
     
-    site = Cms::Site.new(:label => 'My Site', :hostname => 'mysite.com')
+    site = Cms::Site.new(:label => 'My Site', :hostname => 'my-site.host')
     assert site.valid?
+  end
+  
+  def test_label_assignment
+    site = Cms::Site.new(:hostname => 'my-site.host')
+    assert site.valid?
+    assert_equal 'my-site.host', site.label
   end
   
   def test_cascading_destroy

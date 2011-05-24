@@ -11,29 +11,13 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_validations
     layout = cms_sites(:default).layouts.create
     assert layout.errors.present?
-    assert_has_errors_on layout, [:label, :slug, :content]
+    assert_has_errors_on layout, [:label, :slug]
   end
   
-  def test_validation_of_tag_presence
-    layout = cms_sites(:default).layouts.create(:content => 'some text')
-    assert_has_errors_on layout, :content
-    
-    layout = cms_sites(:default).layouts.create(:content => '{cms:snippet:blah}')
-    assert_has_errors_on layout, :content
-    
-    layout = cms_sites(:default).layouts.new(
-      :label    => 'test',
-      :slug     => 'test',
-      :content  => '{{cms:page:blah}}'
-    )
+  def test_label_assignment
+    layout = cms_sites(:default).layouts.new(:slug => 'test', :content => '{{cms:page:content}}')
     assert layout.valid?
-    
-    layout = cms_sites(:default).layouts.new(
-      :label    => 'test',
-      :slug     => 'test',
-      :content  => '{{cms:field:blah}}'
-    )
-    assert layout.valid?
+    assert_equal 'Test', layout.label
   end
   
   def test_creation

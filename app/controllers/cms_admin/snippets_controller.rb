@@ -17,6 +17,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   end
 
   def create
+    # raise @cms_snippet.to_yaml
     @cms_snippet.save!
     flash[:notice] = 'Snippet created'
     redirect_to :action => :edit, :id => @cms_snippet
