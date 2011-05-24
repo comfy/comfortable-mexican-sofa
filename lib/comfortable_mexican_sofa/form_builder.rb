@@ -16,7 +16,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def default_field(type, field, options = {}, &block)
-    errors = if object.errors[field].present?
+    errors = if object.respond_to?(:errors) && object.errors[field].present?
       "<div class='errors'>#{[object.errors[field]].flatten.first}</div>"
     end
     if desc = options.delete(:desc)

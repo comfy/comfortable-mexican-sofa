@@ -36,6 +36,8 @@ protected
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
     ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
-    flash.now[:error] = 'CMS Fixtures are enabled. All changes done here will be discarded.'
+    if %w(cms_admin/layouts cms_admin/pages cms_admin/snippets).member?(params[:controller])
+      flash.now[:error] = 'CMS Fixtures are enabled. All changes done here will be discarded.'
+    end
   end
 end
