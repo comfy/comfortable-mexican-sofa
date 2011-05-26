@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::ControllerMethods
     base.rescue_from 'ActionView::MissingTemplate' do |e|
       begin
         render :cms_page => request.path
-      rescue ActionView::MissingTemplate
+      rescue ComfortableMexicanSofa::MissingPage
         raise e
       end
     end
@@ -29,7 +29,7 @@ module ComfortableMexicanSofa::ControllerMethods
           @cms_page = page
           super(options, locals, &block)
         else
-          raise ActionView::MissingTemplate.new([path], path, "CMS page not found", nil)
+          raise ComfortableMexicanSofa::MissingPage.new(path)
         end
       else
         super(options, locals, &block)

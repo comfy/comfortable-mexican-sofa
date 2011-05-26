@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-05-24}
+  s.date = %q{2011-05-25}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -23,6 +23,13 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "app/assets/javascripts/comfortable_mexican_sofa/application.js",
+    "app/assets/stylesheets/comfortable_mexican_sofa/application.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/content.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/form.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/reset.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/structure.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/typography.css",
     "app/controllers/application_controller.rb",
     "app/controllers/cms_admin/base_controller.rb",
     "app/controllers/cms_admin/layouts_controller.rb",
@@ -71,6 +78,7 @@ Gem::Specification.new do |s|
     "app/views/layouts/cms_admin/_head.html.erb",
     "app/views/layouts/cms_admin/_left.html.erb",
     "app/views/layouts/cms_admin/_right.html.erb",
+    "comfortable_mexican_sofa.gemspec",
     "config.ru",
     "config/application.rb",
     "config/boot.rb",
@@ -205,11 +213,6 @@ Gem::Specification.new do |s|
     "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce.js",
     "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce_popup.js",
     "public/robots.txt",
-    "public/stylesheets/comfortable_mexican_sofa/content.css",
-    "public/stylesheets/comfortable_mexican_sofa/form.css",
-    "public/stylesheets/comfortable_mexican_sofa/reset.css",
-    "public/stylesheets/comfortable_mexican_sofa/structure.css",
-    "public/stylesheets/comfortable_mexican_sofa/typography.css",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
     "test/fixtures/cms/layouts.yml",

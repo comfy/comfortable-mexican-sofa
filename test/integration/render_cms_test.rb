@@ -59,7 +59,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     page = cms_pages(:child)
     page.slug = 'render-explicit-404'
     page.save!
-    assert_exception_raised ActionView::MissingTemplate do
+    assert_exception_raised ComfortableMexicanSofa::MissingPage do
       get '/render-explicit'
     end
   end
