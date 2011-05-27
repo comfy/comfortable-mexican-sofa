@@ -12,3 +12,4 @@ rdoc
 public/cms-css/
 public/cms-js/
 Gemfile.lock
+.rvmrc
