@@ -1,6 +1,6 @@
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
+//= require comfortable_mexican_sofa/jquery.js
+//= require comfortable_mexican_sofa/jquery_ui.js
+//= require comfortable_mexican_sofa/rails.js
 
 $.CMS = function(){
   var current_path = window.location.pathname;
@@ -17,7 +17,7 @@ $.CMS = function(){
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#mirrors').get(0))          $.CMS.enable_mirrors_widget();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
-    if($('#uploader_button').get(0))  $.CMS.enable_uploader();
+    // if($('#uploader_button').get(0))  $.CMS.enable_uploader();
   });
 
   return {

@@ -37,7 +37,7 @@ class ActiveSupport::TestCase
   def assert_has_errors_on(record, fields)
     fields = [fields].flatten unless fields.is_a?(Hash)
     fields.each do |field, message|
-      assert record.errors.has_key?(field.to_sym), "#{record.class.name} should error on invalid #{field}"
+      assert record.errors.to_hash.has_key?(field.to_sym), "#{record.class.name} should error on invalid #{field}"
       if message && record.errors[field].is_a?(Array) && !message.is_a?(Array)
         assert_not_nil record.errors[field].index(message)
       elsif message

@@ -33,5 +33,5 @@
   <%= form.check_box :is_published, :disable_builder => true %>
   <%= form.label_for :is_published, :label => 'Published' %>
   <%= form.submit 'Preview', :name => 'preview', :id => nil, :disable_builder => true %>
-  <%= form.submit @cms_page.new_record? ? 'Create Page' : 'Update Page', :disable_builder => true %>
+  <%= form.submit @cms_page.new_record? ? 'Create Page' : 'Update Page', :id => 'cms_page_submit', :disable_builder => true %>
 <% end %>
