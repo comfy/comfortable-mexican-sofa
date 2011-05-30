@@ -41,9 +41,9 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       </div>
     ).html_safe
   end
-  
-  def label_for(field, options)
-    label = options.delete(:label) || field.to_s.titleize.capitalize_all
+
+  def label_for(field, options={})
+    label = options.delete(:label) || object.class.human_attribute_name(field)
     "<label for=\"#{object_name}_#{field}\">#{label}</label>".html_safe
   end
   
