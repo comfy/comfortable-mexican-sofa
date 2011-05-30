@@ -1,4 +1,33 @@
+# encoding: utf-8
 en:
+  attributes:
+    label: "Label"
+    slug: "Slug"
+    parent_id: "Parent"
+    content: "Content"
+
+  activerecord:
+    models:
+      cms/site: "Site"
+      cms/layout: "Layout"
+      cms/page: "Page"
+      cms/snippet: "Snippet"
+    attributes:
+      cms/site:
+        hostname: "Hostname"
+      cms/layout:
+        label: "Layout Name"
+        app_layout: "App Layout"
+        parent_id: "Parent Layout"
+        css: "Stylesheets"
+        js: "Javascript"
+      cms/page:
+        label: "Label"
+        layout_id: "Layout"
+        slug: "Slug"
+        target_page_id: "Redirect to Page"
+        is_published: "Published"
+
   cms:
     sections:
       sites: "Sites"
@@ -6,12 +35,6 @@ en:
       pages: "Pages"
       snippets: "Snippets"
     forms:
-      label: "Label"
-      hostname: "Hostname"
-      slug: "Slug"
-      layout: "Layout"
-      parent: "Parent"
-      content: "Content"
       and_continue: "And Continue"
     views:
       edit: "Edit"
@@ -23,8 +46,6 @@ en:
         create_new_layout: "Create new Layout"
         add_child_layout: "Add Child Layout"
         editing_layout: "Editing Layout"
-        layout_name: "Layout Name"
-        parent_layout: "Parent Layout"
         select_parent_layout: "Select Parent Layout"
         app_layout: "App Layout"
         select_application_layout: "Select Application Layout"
@@ -41,7 +62,6 @@ en:
         add_child_page: "Add Child Page"
         create_new_page: "Create new Page"
         no_redirect: "No Redirect"
-        redirect_to_page: "Redirect to Page"
         create_page: "Create Page"
         update_page: "Update Page"
 
@@ -61,3 +81,19 @@ en:
         create_new_site: "Create New Site"
         create_site: "Create Site"
         update_site: "Update Site"
+
+    controllers:
+      sites:
+        default_site: "Default Site"
+      layouts:
+        layout_created: "Layout created"
+        failed_to_create_layout: "Failed to create Layout"
+        layout_updated: "Layout updated"
+        failed_to_update_layout: "Failed to update Layout"
+        layout_deleted: "Layout deleted"
+
+      errors:
+        layout_not_found: "Layout not found"
+        site_not_found: "Site not found"
+        page_not_found: "Page not found"
+        no_site_for_this_hostname: "No site have been created for this hostname. Create it now!"

@@ -1,5 +1,33 @@
 # encoding: utf-8
 es:
+  attributes:
+    label: "Nombre"
+    slug: "Identificador"
+    parent_id: "Padre"
+    content: "Contenido"
+
+  activerecord:
+    models:
+      cms/site: "Sitio"
+      cms/layout: "Plantilla"
+      cms/page: "Página"
+      cms/snippet: "Fragmento"
+    attributes:
+      cms/site:
+        hostname: "Dirección"
+      cms/layout:
+        label: "Nombre de Plantilla"
+        app_layout: "Plantilla Base"
+        parent_id: "Plantilla Padre"
+        css: "Hoja de Estilo"
+        js: "Javascript"
+      cms/page:
+        label: "Título"
+        layout_id: "Plantilla"
+        slug: "Ruta"
+        target_page_id: "Redirigir a"
+        is_published: "Publicada"
+
   cms:
     sections:
       sites: "Sitios"
@@ -7,12 +35,6 @@ es:
       pages: "Páginas"
       snippets: "Fragmentos"
     forms:
-      label: "Rótulo"
-      hostname: "Dirección"
-      slug: "Ruta"
-      layout: "Diseño"
-      parent: "Padre"
-      content: "Contenido"
       and_continue: "Y Continuar Editando"
     views:
       edit: "Editar"
@@ -24,10 +46,7 @@ es:
         create_new_layout: "Crear Nuevo Diseño"
         add_child_layout: "Añadir diseño hijo"
         editing_layout: "Editando Diseño"
-        layout_name: "Nombre del Diseño"
-        parent_layout: "Diseño Padre"
         select_parent_layout: "Seleccionar diseño padre"
-        app_layout: "Diseño (App)"
         select_application_layout: "Seleccionar diseño (App)"
         create_layout: "Crear Diseño"
         update_layout: "Actualizar Diseño"
@@ -42,7 +61,6 @@ es:
         add_child_page: "Añadir página hija"
         create_new_page: "Crear Nueva Página"
         no_redirect: "No Redirigir"
-        redirect_to_page: "Redirigir a la Página"
         create_page: "Crear Página"
         update_page: "Actualizar Página"
 
