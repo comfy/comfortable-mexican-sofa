@@ -28,6 +28,23 @@ es:
         target_page_id: "Redirigir a"
         is_published: "Publicada"
 
+  cms_admin:
+    sites:
+      index:
+        create_site: "Crear nuevo Sitio"
+        are_you_sure: "¿Está seguro de que desea eliminar este sitio?"
+        title: "Listado de Sitios"
+        admin: "Administrar"
+        edit: "Editar"
+        delete: "Eliminar"
+      new:
+        title: "Creando Sitio"
+      edit:
+        title: "Editando Sitio"
+      form:
+        create_site: "Crear Sitio"
+        update_site: "Actualizar Sitio"
+
   cms:
     sections:
       sites: "Sitios"
@@ -74,12 +91,6 @@ es:
         create_snippet: "Crear Fragmento"
         update_snippet: "Actualizar Fragmento"
 
-      sites:
-        new_site: "Nuevo Sitio"
-        create_new_site: "Crear nuevo Sitio"
-        editing_site: "Editando Sitio"
-        create_site: "Crear Sitio"
-        update_site: "Actualizar Sitio"
 
     controllers:
       sites:

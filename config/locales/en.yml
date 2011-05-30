@@ -28,6 +28,23 @@ en:
         target_page_id: "Redirect to Page"
         is_published: "Published"
 
+  cms_admin:
+    sites:
+      index:
+        create_site: "Create New Site"
+        are_you_sure: "Are you sure you want to delete this site?"
+        title: "Sites"
+        admin: "Admin"
+        edit: "Edit"
+        delete: "Delete"
+      new:
+        title: "Creating Site"
+      edit:
+        title: "Editing Site"
+      form:
+        create_site: "Create Site"
+        update_site: "Update Site"
+
   cms:
     sections:
       sites: "Sites"
@@ -75,12 +92,6 @@ en:
         create_snippet: "Create Snippet"
         update_snippet: "Update Snippet"
 
-      sites:
-        new_site: "New Site"
-        editing_site: "Editing Site"
-        create_new_site: "Create New Site"
-        create_site: "Create Site"
-        update_site: "Update Site"
 
     controllers:
       sites:
