@@ -7,13 +7,14 @@
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
+          <%= link_to 'Admin', cms_admin_pages_url(:host => cms_site.hostname, :port => request.port) %>
           <%= link_to t('cms.views.edit'), edit_cms_admin_site_path(cms_site) %>
           <%= link_to t('cms.views.delete'), cms_admin_site_path(cms_site), :method => :delete, :confirm => t('cms.views.are_you_sure') %>
         </div>
         <div class='label'>
           <%= link_to cms_site.label, edit_cms_admin_site_path(cms_site) %>
           <div class='sublabel'>
-            <%= link_to cms_site.hostname, "http://#{cms_site.hostname}/cms-admin" %>
+            <%= link_to cms_site.hostname, cms_html_url(:host => cms_site.hostname, :port => request.port), :target => '_blank' %>
           </div>
         </div>
       </div>
