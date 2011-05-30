@@ -34,6 +34,11 @@ module ComfortableMexicanSofa
     #   end
     def configure
       yield configuration
+
+      require 'sass/plugin'
+      Sass::Plugin.add_template_location(
+        File.expand_path('../../app/stylesheets/comfortable_mexican_sofa', __FILE__),
+        Rails.root.to_s + '/public/stylesheets/comfortable_mexican_sofa')
     end
     
     # Accessor for ComfortableMexicanSofa::Configuration

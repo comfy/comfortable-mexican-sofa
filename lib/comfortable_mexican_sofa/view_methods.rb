@@ -57,6 +57,7 @@ ActionView::Helpers::AssetTagHelper.register_javascript_expansion :tiny_mce => [
 
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :cms => [
   'comfortable_mexican_sofa/reset',
+  'comfortable_mexican_sofa/body',
   'comfortable_mexican_sofa/structure',
   'comfortable_mexican_sofa/typography',
   'comfortable_mexican_sofa/form',

@@ -1,0 +1,34 @@
+#cms_body_wrapper {
+  h1 {
+    font: bold 25px/25px 'Lucida Grande', 'Tahoma', serif;
+    margin-bottom: 25px;
+    padding-bottom: 5px;
+    color: #1C1F22;
+    text-shadow: #fff 1px 1px;
+    border-bottom: 2px solid #9f9f9f;
+  }
+  h2 {
+    font: bold 16px/16px 'Lucida Grande', 'Tahoma', serif;
+    text-shadow: #fff 1px 1px;
+    margin-bottom: 15px;
+  }
+  h1 + h2 {
+    margin-top: -15px;
+  }
+  a {
+    text-decoration: none;
+    color: #384E66;
+  }
+  a:hover {
+    color: #1C2733;
+  }
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+  code {
+    font: 13px Consolas, Monaco, Courier New, Courier, monospace;
+  }
+}
