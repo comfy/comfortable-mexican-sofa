@@ -6,24 +6,25 @@ end
 namespace :comfortable_mexican_sofa do
   namespace :fixtures do
     
-    desc 'Import Fixture data into database (options: FOLDER=example.local SITE=example.com)'
+    desc 'Import Fixture data into database (options: FROM=example.local TO=example.com)'
     task :import => :environment do |task, args|
-      hostname = args[:site] || args[:folder]
-      site = Cms::Site.find_by_hostname(hostname)
-      abort "Site with hostname [#{hostname}] not found. Aborting." if !site
+      to    = args[:to] || args[:from]
+      from  = args[:from]
       
-      puts "Importing for #{site.hostname}"
-      ComfortableMexicanSofa::Fixtures.import_all(site.hostname, (args[:site] || site.hostname))
+      abort "Site with hostname [#{to}] not found. Aborting." if !Cms::Site.find_by_hostname(to)
+      puts "Importing from Folder [#{from}] to Site [#{to}] ..."
+      ComfortableMexicanSofa::Fixtures.import_all(to, from)
       puts 'Done!'
     end
     
-    desc 'Export database data into Fixtures (options: SITE=example.com FOLDER=example.local)'
+    desc 'Export database data into Fixtures (options: FROM=example.com TO=example.local)'
     task :export => :environment do |task, args|
-      site = Cms::Site.find_by_hostname(args[:folder])
-      abort "Site with hostname [#{hostname}] not found. Aborting." if !site
+      to    = args[:to] || args[:from]
+      from  = args[:from]
       
-      puts "Exporting for #{site.hostname}"
-      ComfortableMexicanSofa::Fixtures.export_all((args[:site] || site.hostname), site.hostname)
+      abort "Site with hostname [#{from}] not found. Aborting." if !Cms::Site.find_by_hostname(from)
+      puts "Exporting from Site [#{from}] to Folder [#{to}] ..."
+      ComfortableMexicanSofa::Fixtures.export_all(from, to)
       puts 'Done!'
     end
   end
