@@ -4,8 +4,10 @@
   <%= csrf_meta_tag %>
   <meta name="cms-admin-path" content="<%= ComfortableMexicanSofa.config.admin_route_prefix %>" />
   
+  
   <%= stylesheet_link_tag 'comfortable_mexican_sofa/application' %>
   <%= javascript_include_tag 'comfortable_mexican_sofa/application' %>
+  <%= javascript_include_tag 'comfortable_mexican_sofa/wymeditor/jquery.wymeditor.pack.js' %>
   
   <%= yield :head %>
   <%= cms_hook :html_head %>
