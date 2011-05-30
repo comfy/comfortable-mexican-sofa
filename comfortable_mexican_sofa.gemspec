@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.2.4"
+  s.version = "1.2.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-05-26}
+  s.date = %q{2011-05-30}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -23,7 +23,16 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "app/assets/images/comfortable_mexican_sofa/arrow_bottom.gif",
+    "app/assets/images/comfortable_mexican_sofa/arrow_right.gif",
+    "app/assets/images/comfortable_mexican_sofa/icon_layout.gif",
+    "app/assets/images/comfortable_mexican_sofa/icon_move.gif",
+    "app/assets/images/comfortable_mexican_sofa/icon_regular.gif",
+    "app/assets/images/comfortable_mexican_sofa/icon_snippet.gif",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/jquery.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/jquery_ui.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/rails.js",
     "app/assets/stylesheets/comfortable_mexican_sofa/application.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/content.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/form.css",
@@ -143,76 +152,9 @@ Gem::Specification.new do |s|
     "lib/generators/README",
     "lib/generators/cms_generator.rb",
     "lib/tasks/comfortable_mexican_sofa.rake",
-    "public/404.html",
     "public/422.html",
     "public/500.html",
     "public/favicon.ico",
-    "public/images/comfortable_mexican_sofa/arrow_bottom.gif",
-    "public/images/comfortable_mexican_sofa/arrow_right.gif",
-    "public/images/comfortable_mexican_sofa/icon_layout.gif",
-    "public/images/comfortable_mexican_sofa/icon_move.gif",
-    "public/images/comfortable_mexican_sofa/icon_regular.gif",
-    "public/images/comfortable_mexican_sofa/icon_snippet.gif",
-    "public/javascripts/comfortable_mexican_sofa/cms.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/codemirror.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/parse_css.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/parse_html_mixed.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/parse_js.js",
-    "public/javascripts/comfortable_mexican_sofa/codemirror/parse_xml.js",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_flat_0_aaaaaa_40x100.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_flat_75_ffffff_40x100.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_glass_55_fbf9ee_1x400.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_glass_65_ffffff_1x400.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_glass_75_dadada_1x400.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_glass_95_fef1ec_1x400.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-bg_highlight-soft_75_cccccc_1x100.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-icons_222222_256x240.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-icons_2e83ff_256x240.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-icons_454545_256x240.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-icons_888888_256x240.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/images/ui-icons_cd0a0a_256x240.png",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.css",
-    "public/javascripts/comfortable_mexican_sofa/jquery-ui/jquery-ui.js",
-    "public/javascripts/comfortable_mexican_sofa/jquery.js",
-    "public/javascripts/comfortable_mexican_sofa/plupload/plupload.full.min.js",
-    "public/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.min.js",
-    "public/javascripts/comfortable_mexican_sofa/plupload/plupload.min.js",
-    "public/javascripts/comfortable_mexican_sofa/rails.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/jquery.tinymce.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/langs/en.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/about.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/anchor.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/charmap.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/color_picker.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/editor_template.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/image.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/img/colorpicker.jpg",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/img/icons.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/about.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/anchor.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/charmap.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/color_picker.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/image.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/link.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/js/source_editor.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/langs/en.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/langs/en_dlg.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/link.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/content.css",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/dialog.css",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/buttons.png",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/items.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/menu_arrow.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/menu_check.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/progress.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/img/tabs.gif",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/skins/default/ui.css",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/themes/advanced/source_editor.htm",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce.js",
-    "public/javascripts/comfortable_mexican_sofa/tiny_mce/tiny_mce_popup.js",
     "public/robots.txt",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
@@ -275,18 +217,18 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_runtime_dependency(%q<rails>, [">= 0"])
       s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.7"])
       s.add_runtime_dependency(%q<paperclip>, [">= 2.3.8"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_dependency(%q<rails>, [">= 0"])
       s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
       s.add_dependency(%q<paperclip>, [">= 2.3.8"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.0.0"])
+    s.add_dependency(%q<rails>, [">= 0"])
     s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
     s.add_dependency(%q<paperclip>, [">= 2.3.8"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
