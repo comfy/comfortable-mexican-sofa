@@ -1,4 +1,4 @@
-WYMeditor.SKINS['compact'] = {
+WYMeditor.SKINS['sofa'] = {
 
     init: function(wym) {
     

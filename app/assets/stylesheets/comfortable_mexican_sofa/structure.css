@@ -84,7 +84,8 @@ input[type='button'],
 input[type='submit'], 
 input[type='reset'], 
 input[type='file'],
-.action_links a {
+.action_links a,
+a.ui-dialog-titlebar-close {
   margin-left: 3px;
   background-color: #b4b4b4;
   color: #1b1b1b;
@@ -104,7 +105,8 @@ input[type='button']:hover,
 input[type='submit']:hover, 
 input[type='reset']:hover, 
 input[type='file']:hover,
-.action_links a:hover {
+.action_links a:hover,
+a.ui-dialog-titlebar-close:hover {
   box-shadow: inset 0px 0px 5px #aaa;
   -moz-box-shadow: inset 0px 0px 5px #aaa;
   -webkit-box-shadow: inset 0px 0px 5px #aaa;

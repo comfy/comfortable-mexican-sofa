@@ -72,9 +72,7 @@ $.CMS = function(){
     },
 
     enable_rich_text: function(){
-      $('textarea.rich_text').wymeditor({
-        
-      });
+      $('textarea.rich_text').wymeditor(cms_wym_options);
     },
 
     enable_codemirror: function(){
