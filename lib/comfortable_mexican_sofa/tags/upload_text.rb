@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Tag::UploadText
   end
   
   def content
-    upload.file.url
+    upload.nil? ? nil : upload.file.url
   end
   
 end

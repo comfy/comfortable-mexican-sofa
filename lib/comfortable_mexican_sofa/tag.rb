@@ -86,9 +86,9 @@ module ComfortableMexicanSofa::Tag
     
     def upload
       if ComfortableMexicanSofa.config.enable_mirror_sites 
-        Cms::Upload.all.detect{|s| s.file_file_name == self.label.to_s} || Cms::Upload.all.build(:file_file_name => self.label.to_s)
+        Cms::Upload.all.detect{|s| s.file_file_name == self.label.to_s} || nil
       else
-        page.site.uploads.detect{|s| s.file_file_name == self.label.to_s} || page.site.uploads.build(:file_file_name => self.label.to_s)
+        page.site.uploads.detect{|s| s.file_file_name == self.label.to_s} || nil
       end
     end
     

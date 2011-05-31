@@ -3,11 +3,16 @@ class ComfortableMexicanSofa::Tag::UploadImage
   
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\-\.]+/
-    /\{\{\s*cms:upload:(#{label}):img\s*\}\}/
+    /\{\{\s*cms:upload:(#{label}):image:?(.*?)\s*\}\}/
   end
   
   def content
-    "<img src='#{upload.file.url}'/>"
+    return nil if upload.nil?
+    alt = if params.empty?
+      upload.file_file_name
+    else
+      params
+    end
+    "<img src='#{upload.file.url}' alt='#{alt}' />"
   end
-  
 end
