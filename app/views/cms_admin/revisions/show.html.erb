@@ -10,27 +10,4 @@
   </div>
 <% end %>
 
-<%= cms_form_for @revision, :url => {:action => :revert} do |form| %>
-  <%= form.simple_field do %>
-    <div class='current'>
-      <div class='title'>Current</div>
-    </div>
-    <div class='versioned'>
-      <div class='title'><%= @revision.created_at %></div>
-    </div>
-  <% end %>
-  
-  <% @current_content.each do |label, content| %>
-  
-    <%= form.simple_field label do %>
-      <div class='current'>
-        <div class='content'><%= content %></div>
-      </div>
-      <div class='versioned'>
-        <div class='content'><%= @versioned_content[label] %></div>
-      </div>
-    <% end %>
-  <% end %>
-  
-  <%= form.submit 'Update to this Revision' %>
-<% end %>
+<%= render :partial => 'revision', :object => @revision %>
