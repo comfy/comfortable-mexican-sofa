@@ -179,23 +179,3 @@ ul.list li .item:hover {
 .c_cms_admin_revisions.a_show .revisions a:last-child {
   margin-bottom: 0px;
 }
-/* -- Dialog Box --------------------------------------------------------- */
-#cms_dialog {
-  border: 4px solid #9f9f9f;
-  border-radius: 5px;
-  background-color: #d8d8d8;
-  padding: 10px;
-}
-.ui-widget-overlay {
-  position: absolute;
-  top: 0px;
-  background: rgba(0,0,0,0.4);
-}
-.ui-dialog-title {
-  display: none;
-}
-a.ui-dialog-titlebar-close {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
