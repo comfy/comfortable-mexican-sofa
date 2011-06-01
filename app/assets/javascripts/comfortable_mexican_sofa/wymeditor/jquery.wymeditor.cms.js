@@ -29,9 +29,9 @@ var cms_wym_options = {
   ],
   
   classesItems: [
-    { 'name': 'AlignLeft',    'title': 'Align_Left',    'css': 'align_left' },
-    { 'name': 'AlignCenter',  'title': 'Align_Center',  'css': 'align_center' },
-    { 'name': 'AlignRight',   'title': 'Align_Left',    'css': 'align_right' }
+    { 'name': 'align_left',    'title': 'Align_Left',    'expr': '*' },
+    { 'name': 'align_center',  'title': 'Align_Center',  'expr': '*' },
+    { 'name': 'align_right',   'title': 'Align_Left',    'expr': '*' }
   ],
   
   boxHtml:            '<div class="wym_box">'
@@ -62,7 +62,30 @@ var cms_wym_options = {
                     +   '<textarea class="wym_html_val code"></textarea>'
                     + '</div>',
                     
-  dialogLinkHtml:   'Link Dialog',
+  dialogLinkHtml:     '<form>'
+                    +   '<input type="hidden" class="wym_dialog_type" value="' + WYMeditor.DIALOG_LINK + '"/>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{URL}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" class="wym_href"/>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Title}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" class="wym_title"/>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element submit_element">'
+                    +     '<div class="value">'
+                    +       '<input class="wym_submit" name="commit" type="button" value="{Submit}" />'
+                    +     '</div>'
+                    +   '</div>'
+                    + '</form>',
   dialogImageHtml:  'Image Dialog',
   dialogTableHtml:  'Table Dialog',
   dialogPasteHtml:  'Paste Dialog'

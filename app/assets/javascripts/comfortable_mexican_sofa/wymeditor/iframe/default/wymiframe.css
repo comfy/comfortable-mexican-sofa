@@ -33,3 +33,8 @@ h5          { background-image: url(lbl-h5.png); }
 h6          { background-image: url(lbl-h6.png); }
 blockquote  { background-image: url(lbl-blockquote.png); }
 pre         { background-image: url(lbl-pre.png); }
+
+/* Custom Classes */
+p.align_left    { text-align: left }
+p.align_center  { text-align: center }
+p.align_right   { text-align: right }
