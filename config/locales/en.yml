@@ -1,5 +1,27 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      cms/site:     'Site'
+      cms/layout:   'Layout'
+      cms/page:     'Page'
+      cms/snippet:  'Snippet'
+    attributes:
+      cms/site:
+        label:        'Label'
+        hostname:     'Hostname'
+        path:         'Path'
+        locale:       'Locale'
+        is_mirrored:  'Mirrored'
+      cms/layout:
+        label:      'Layout Name'
+        app_layout: 'App Layout'
+        parent_id:  'Parent Layout'
+        css:        'Stylesheets'
+        js:         'Javascript'
+      cms/page:
+        label:          'Label'
+        layout_id:      'Layout'
+        slug:           'Slug'
+        target_page_id: 'Redirect to Page'
+        is_published:   'Published'
+    

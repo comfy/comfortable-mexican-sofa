@@ -62,11 +62,31 @@ class ActiveSupport::TestCase
       flunk 'Exception was not raised'
     end
   end
-  
+
+  def assert_no_select(selector, value = nil)
+    assert_select(selector, :text => value, :count => 0)
+  end
+
   # Small method that allows for better formatting in tests
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
+
+  # Example usage:
+  #   with_translations(:en, :sections => { :products => "Our Products" }) do
+  #     assert_equal I18n.translate('products', :scope => 'sections'), "Our Products"
+  #     assert_equal I18n.translate('sections'), { :products => "Our Products" }
+  #   end
+  def with_translations(locale, translations, &block)
+    begin
+      I18n.backend.store_translations locale, translations
+      I18n.locale = locale
+      yield
+    ensure
+      I18n.reload!
+    end
+  end
+
 end
 
 class ActionController::TestCase
