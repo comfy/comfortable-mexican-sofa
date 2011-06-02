@@ -34,7 +34,7 @@ var cms_wym_options = {
     { 'name': 'align_right',   'title': 'Align_Left',    'expr': '*' }
   ],
   
-  dialog:           $($('#cms_dialog').get(0) || $('<div id="cms_dialog"></div>')),
+  dialog:           jQuery(jQuery('#cms_dialog').get(0) || jQuery('<div id="cms_dialog"></div>')),
   
   boxHtml:            '<div class="wym_box">'
                     +   '<div class="wym_toolbar">'
@@ -88,7 +88,37 @@ var cms_wym_options = {
                     +   '</div>'
                     + '</form>',
   
-  dialogImageHtml:  'Image Dialog',
+  dialogImageHtml:    '<form id="wym_dialog_form">'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{URL}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="src"/>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Alternative_Text}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="alt"/>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Title}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="title"/>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element submit_element">'
+                    +     '<div class="value">'
+                    +       '<input name="commit" type="submit" value="{Submit}" />'
+                    +     '</div>'
+                    +   '</div>'
+                    + '</form>',
   
   dialogTableHtml:  'Table Dialog',
   
@@ -152,6 +182,11 @@ WYMeditor.INIT_DIALOG = function(wym, type) {
     form.find('input[name="title"]').val(jQuery(selected).attr(WYMeditor.TITLE));
     form.find('input[name="alt"]').val(jQuery(selected).attr(WYMeditor.ALT));
   }
+  if(wym._selected_image) {
+    form.find('input[name="src"]').val(jQuery(wym._selected_image).attr(WYMeditor.SRC));
+    form.find('input[name="alt"]').val(jQuery(wym._selected_image).attr(WYMeditor.ALT));
+    form.find('input[name="title"]').val(jQuery(wym._selected_image).attr(WYMeditor.TITLE));
+  }
   
   form.submit(function(){
     var data = { };
@@ -170,6 +205,9 @@ WYMeditor.INIT_DIALOG = function(wym, type) {
     switch(type){
       case WYMeditor.DIALOG_LINK:
         WYMeditor.PROCESS_DIALOG_LINK(wym, data);
+      break;
+      case WYMeditor.DIALOG_IMAGE:
+        WYMeditor.PROCESS_DIALOG_IMAGE(wym, data);
       break;
       case WYMeditor.DIALOG_PASTE:
         WYMeditor.PROCESS_DIALOG_PASTE(wym, data);
@@ -204,6 +242,20 @@ WYMeditor.PROCESS_DIALOG_LINK = function(wym, data) {
       link = jQuery("a[href=" + sStamp + "]", wym._doc.body);
     }
     link.attr(WYMeditor.HREF, sUrl).attr(WYMeditor.TITLE, data['title']);
+  }
+}
+
+WYMeditor.PROCESS_DIALOG_IMAGE = function(wym, data) {
+  var sStamp = wym.uniqueStamp();
+  
+  var sUrl = data['src'];
+  if(sUrl.length > 0) {
+    wym._exec(WYMeditor.INSERT_IMAGE, sStamp);
+    
+    jQuery("img[src$=" + sStamp + "]", wym._doc.body)
+        .attr(WYMeditor.SRC, sUrl)
+        .attr(WYMeditor.TITLE, data['title'])
+        .attr(WYMeditor.ALT, data['alt']);
   }
 }
 

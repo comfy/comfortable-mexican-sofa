@@ -35,6 +35,9 @@ blockquote  { background-image: url(lbl-blockquote.png); }
 pre         { background-image: url(lbl-pre.png); }
 
 /* Custom Classes */
-p.align_left    { text-align: left }
-p.align_center  { text-align: center }
-p.align_right   { text-align: right }
+*.align_left    { float: left }
+*.align_center  { display: block; margin: auto }
+*.align_right   { float: right }
+p.align_left    { float: none; text-align: left }
+p.align_center  { float: none; text-align: center }
+p.align_right   { float: none; text-align: right }
