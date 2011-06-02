@@ -118,6 +118,7 @@ WYMeditor.editor.prototype.dialog = function( dialogType, dialogFeatures, bodyHt
   
   dialog.html(this.replaceStrings(body));
   dialog.dialog({
+    title:      this.replaceStrings(this.encloseString(dialogType)),
     modal:      true,
     width:      800,
     resizable:  false
