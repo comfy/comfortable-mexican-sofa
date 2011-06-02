@@ -92,7 +92,21 @@ var cms_wym_options = {
   
   dialogTableHtml:  'Table Dialog',
   
-  dialogPasteHtml:  'Paste Dialog'
+  dialogPasteHtml:    '<form id="wym_dialog_form">'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Paste_From_Word}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<textarea name="paste"></textarea>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element submit_element">'
+                    +     '<div class="value">'
+                    +       '<input name="commit" type="submit" value="{Submit}" />'
+                    +     '</div>'
+                    +   '</div>'
+                    + '</form>'
 };
 
 // -- New dialog pop-up -----------------------------------------------------
@@ -157,6 +171,9 @@ WYMeditor.INIT_DIALOG = function(wym, type) {
       case WYMeditor.DIALOG_LINK:
         WYMeditor.PROCESS_DIALOG_LINK(wym, data);
       break;
+      case WYMeditor.DIALOG_PASTE:
+        WYMeditor.PROCESS_DIALOG_PASTE(wym, data);
+      break;
     }
     
     wym._options.dialog.dialog('close');
@@ -190,6 +207,9 @@ WYMeditor.PROCESS_DIALOG_LINK = function(wym, data) {
   }
 }
 
+WYMeditor.PROCESS_DIALOG_PASTE = function(wym, data) {
+  wym.paste(data['paste']);
+}
 
 
 
