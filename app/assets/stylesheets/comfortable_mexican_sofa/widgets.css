@@ -18,6 +18,9 @@
   position: relative;
   padding: 0px 5px;
   margin-bottom: -5px;
+  background-color: #9F9F9F;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .ui-dialog-titlebar .ui-dialog-title {
   font: 15px/25px Helvetica, Arial, sans-serif;

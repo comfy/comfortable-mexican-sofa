@@ -1,4 +1,4 @@
-// Options overrides
+// -- Options overrides -----------------------------------------------------
 var cms_wym_options = {
   
   initSkin:         false,
@@ -8,11 +8,11 @@ var cms_wym_options = {
   updateEvent:       'submit',
   
   containersItems: [
-    { 'name': 'H1',                   'title': 'Heading_1',       'css': 'wym_containers_h1' },
-    { 'name': 'H2',                   'title': 'Heading_2',       'css': 'wym_containers_h2' },
-    { 'name': 'H3',                   'title': 'Heading_3',       'css': 'wym_containers_h3' },
-    { 'name': 'P',                    'title': 'Paragraph',       'css': 'wym_containers_p' },
-    { 'name': 'PRE',                  'title': 'Preformatted',    'css': 'wym_containers_pre' }
+    { 'name': 'H1',   'title': 'Heading_1',     'css': 'wym_containers_h1' },
+    { 'name': 'H2',   'title': 'Heading_2',     'css': 'wym_containers_h2' },
+    { 'name': 'H3',   'title': 'Heading_3',     'css': 'wym_containers_h3' },
+    { 'name': 'P',    'title': 'Paragraph',     'css': 'wym_containers_p' },
+    { 'name': 'PRE',  'title': 'Preformatted',  'css': 'wym_containers_pre' }
   ],
   
   toolsItems: [
@@ -33,6 +33,8 @@ var cms_wym_options = {
     { 'name': 'align_center',  'title': 'Align_Center',  'expr': '*' },
     { 'name': 'align_right',   'title': 'Align_Left',    'expr': '*' }
   ],
+  
+  dialog:           $($('#cms_dialog').get(0) || $('<div id="cms_dialog"></div>')),
   
   boxHtml:            '<div class="wym_box">'
                     +   '<div class="wym_toolbar">'
@@ -62,14 +64,13 @@ var cms_wym_options = {
                     +   '<textarea class="wym_html_val code"></textarea>'
                     + '</div>',
                     
-  dialogLinkHtml:     '<form>'
-                    +   '<input type="hidden" class="wym_dialog_type" value="' + WYMeditor.DIALOG_LINK + '"/>'
+  dialogLinkHtml:     '<form id="wym_dialog_form">'
                     +   '<div class="form_element">'
                     +     '<div class="label">'
                     +       '<label>{URL}</label>'
                     +     '</div>'
                     +     '<div class="value">'
-                    +       '<input type="text" class="wym_href"/>'
+                    +       '<input type="text" name="href"/>'
                     +     '</div>'
                     +   '</div>'
                     +   '<div class="form_element">'
@@ -77,50 +78,122 @@ var cms_wym_options = {
                     +       '<label>{Title}</label>'
                     +     '</div>'
                     +     '<div class="value">'
-                    +       '<input type="text" class="wym_title"/>'
+                    +       '<input type="text" name="title"/>'
                     +     '</div>'
                     +   '</div>'
                     +   '<div class="form_element submit_element">'
                     +     '<div class="value">'
-                    +       '<input class="wym_submit" name="commit" type="button" value="{Submit}" />'
+                    +       '<input name="commit" type="submit" value="{Submit}" />'
                     +     '</div>'
                     +   '</div>'
                     + '</form>',
+  
   dialogImageHtml:  'Image Dialog',
+  
   dialogTableHtml:  'Table Dialog',
+  
   dialogPasteHtml:  'Paste Dialog'
 };
 
+// -- New dialog pop-up -----------------------------------------------------
 WYMeditor.editor.prototype.dialog = function( dialogType, dialogFeatures, bodyHtml ) {
-  // pop-up container
-  var dialog = $($('#cms_dialog').get(0) || $('<div id="cms_dialog"></div>'));
   
   var body = '';
   switch(dialogType) {
-    case(WYMeditor.DIALOG_LINK):
+    case WYMeditor.DIALOG_LINK:
       body = this._options.dialogLinkHtml;
     break;
-    case(WYMeditor.DIALOG_IMAGE):
+    case WYMeditor.DIALOG_IMAGE:
       body = this._options.dialogImageHtml;
     break;
-    case(WYMeditor.DIALOG_TABLE):
+    case WYMeditor.DIALOG_TABLE:
       body = this._options.dialogTableHtml;
     break;
-    case(WYMeditor.DIALOG_PASTE):
+    case WYMeditor.DIALOG_PASTE:
       body = this._options.dialogPasteHtml;
-    break;
-    case(WYMeditor.PREVIEW):
-      body = this._options.dialogPreviewHtml;
     break;
     default:
       body = bodyHtmls;
   }
   
-  dialog.html(this.replaceStrings(body));
-  dialog.dialog({
+  this._options.dialog.html(this.replaceStrings(body));
+  this._options.dialog.dialog({
     title:      this.replaceStrings(this.encloseString(dialogType)),
     modal:      true,
     width:      800,
     resizable:  false
   });
+  
+  WYMeditor.INIT_DIALOG(this, dialogType);
 };
+
+// -- Dialog processing -----------------------------------------------------
+WYMeditor.INIT_DIALOG = function(wym, type) {
+  var form = jQuery('form#wym_dialog_form');
+  var selected = wym.selected();
+  
+  if(selected) {
+    form.find('input[name="href"]').val(jQuery(selected).attr(WYMeditor.HREF));
+    form.find('input[name="src"]').val(jQuery(selected).attr(WYMeditor.SRC));
+    form.find('input[name="title"]').val(jQuery(selected).attr(WYMeditor.TITLE));
+    form.find('input[name="alt"]').val(jQuery(selected).attr(WYMeditor.ALT));
+  }
+  
+  form.submit(function(){
+    var data = { };
+    var form_data = $(this).serializeArray();
+    jQuery.each(form_data, function(){
+      if (data[this.name] !== undefined) {
+        if (!data[this.name].push) {
+          data[this.name] = [data[this.name]];
+        }
+        data[this.name].push(this.value || '');
+      } else {
+        data[this.name] = this.value || '';
+      }
+    });
+    
+    switch(type){
+      case WYMeditor.DIALOG_LINK:
+        WYMeditor.PROCESS_DIALOG_LINK(wym, data);
+      break;
+    }
+    
+    wym._options.dialog.dialog('close');
+    return false;
+  })
+}
+
+WYMeditor.PROCESS_DIALOG_LINK = function(wym, data) {
+  var sStamp = wym.uniqueStamp();
+  var selected = wym.selected();
+  
+  //ensure that we select the link to populate the fields
+  if(selected && selected.tagName && selected.tagName.toLowerCase != WYMeditor.A) {
+    selected = jQuery(selected).parentsOrSelf(WYMeditor.A);
+  }
+  //fix MSIE selection if link image has been clicked
+  if(!selected && wym._selected_image){
+    selected = jQuery(wym._selected_image).parentsOrSelf(WYMeditor.A);
+  }
+  
+  var sUrl = data['href'];
+  if(sUrl.length > 0) {
+    var link;
+    if (selected[0] && selected[0].tagName.toLowerCase() == WYMeditor.A) {
+      link = selected;
+    } else {
+      wym._exec(WYMeditor.CREATE_LINK, sStamp);
+      link = jQuery("a[href=" + sStamp + "]", wym._doc.body);
+    }
+    link.attr(WYMeditor.HREF, sUrl).attr(WYMeditor.TITLE, data['title']);
+  }
+}
+
+
+
+
+
+
+
+
