@@ -24,6 +24,15 @@ ul, ol  { margin-left: 25px }
 ul li   { list-style: disc }
 ol li   { list-style: decimal }
 
+table {
+  width: 100%;
+}
+th, td {
+  min-height: 20px;
+  min-width: 20px;
+  border: 1px dotted #ccc;
+}
+
 p           { background-image: url(lbl-p.png); }
 h1          { background-image: url(lbl-h1.png); }
 h2          { background-image: url(lbl-h2.png); }

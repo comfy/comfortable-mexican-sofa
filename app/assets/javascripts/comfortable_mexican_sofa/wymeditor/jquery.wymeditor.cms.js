@@ -120,7 +120,45 @@ var cms_wym_options = {
                     +   '</div>'
                     + '</form>',
   
-  dialogTableHtml:  'Table Dialog',
+  dialogTableHtml:    '<form id="wym_dialog_form">'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Caption}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="caption"></textarea>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Summary}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="summary"></textarea>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Number_Of_Rows}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="rows"></textarea>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element">'
+                    +     '<div class="label">'
+                    +       '<label>{Number_Of_Cols}</label>'
+                    +     '</div>'
+                    +     '<div class="value">'
+                    +       '<input type="text" name="cols"></textarea>'
+                    +     '</div>'
+                    +   '</div>'
+                    +   '<div class="form_element submit_element">'
+                    +     '<div class="value">'
+                    +       '<input name="commit" type="submit" value="{Submit}" />'
+                    +     '</div>'
+                    +   '</div>'
+                    + '</form>',
   
   dialogPasteHtml:    '<form id="wym_dialog_form">'
                     +   '<div class="form_element">'
@@ -209,6 +247,9 @@ WYMeditor.INIT_DIALOG = function(wym, type) {
       case WYMeditor.DIALOG_IMAGE:
         WYMeditor.PROCESS_DIALOG_IMAGE(wym, data);
       break;
+      case WYMeditor.DIALOG_TABLE:
+        WYMeditor.PROCESS_DIALOG_TABLE(wym, data);
+      break;
       case WYMeditor.DIALOG_PASTE:
         WYMeditor.PROCESS_DIALOG_PASTE(wym, data);
       break;
@@ -259,13 +300,31 @@ WYMeditor.PROCESS_DIALOG_IMAGE = function(wym, data) {
   }
 }
 
+WYMeditor.PROCESS_DIALOG_TABLE = function(wym, data) {
+  var iRows = data['rows'];
+  var iCols = data['cols'];
+  if(iRows > 0 && iCols > 0) {
+    var table = wym._doc.createElement(WYMeditor.TABLE);
+    var newRow = null;
+    var newCol = null;
+    var sCaption = data['caption'];
+    var newCaption = table.createCaption();
+    newCaption.innerHTML = sCaption;
+    for(x=0; x<iRows; x++) {
+      newRow = table.insertRow(x);
+      for(y=0; y<iCols; y++) {newRow.insertCell(y);}
+    }
+    jQuery(table).attr('summary', data['summary']);
+    var node = jQuery(wym.findUp(wym.container(), WYMeditor.MAIN_CONTAINERS)).get(0);
+    if(!node || !node.parentNode){
+      jQuery(wym._doc.body).append(table);
+    } else {
+      jQuery(node).after(table);
+    }
+  }
+}
+
 WYMeditor.PROCESS_DIALOG_PASTE = function(wym, data) {
   wym.paste(data['paste']);
 }
-
-
-
-
-
-
 
