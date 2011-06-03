@@ -44,8 +44,6 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     ComfortableMexicanSofa.config.admin_route_prefix = ''
     load(File.expand_path('config/routes.rb', Rails.root))
     
-    assert !respond_to?(:cms_admin_path)
-    
     http_auth :get, '/cms-admin'
     assert_response 404
   end

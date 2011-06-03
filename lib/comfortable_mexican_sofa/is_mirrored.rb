@@ -42,17 +42,17 @@ module ComfortableMexicanSofa::IsMirrored
         when Cms::Layout
           m = site.layouts.find_by_slug(self.slug_was || self.slug) || site.layouts.new
           m.attributes = {
-            :slug   => self.slug,
-            :parent => site.layouts.find_by_slug(self.parent.try(:slug))
+            :slug       => self.slug,
+            :parent_id  => site.layouts.find_by_slug(self.parent.try(:slug)).try(:id)
           }
           m
         when Cms::Page
           m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
           m.attributes = {
-            :slug   => self.slug,
-            :label  => self.slug.blank?? self.label : m.label,
-            :parent => site.pages.find_by_full_path(self.parent.try(:full_path)),
-            :layout => site.layouts.find_by_slug(self.layout.slug)
+            :slug       => self.slug,
+            :label      => self.slug.blank?? self.label : m.label,
+            :parent_id  => site.pages.find_by_full_path(self.parent.try(:full_path)).try(:id),
+            :layout     => site.layouts.find_by_slug(self.layout.slug)
           }
           m
         when Cms::Snippet
