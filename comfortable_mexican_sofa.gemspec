@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.2.5"
+  s.version = "1.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-05-30}
+  s.date = %q{2011-06-03}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -29,16 +29,60 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/icon_move.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_regular.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_snippet.gif",
+    "app/assets/images/comfortable_mexican_sofa/wym_icons.png",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/codemirror/codemirror.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery_ui.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/plupload/plupload.js",
     "app/assets/javascripts/comfortable_mexican_sofa/rails.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-blockquote.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h1.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h2.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h3.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h4.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h5.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h6.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-p.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-pre.png",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/wymiframe.css",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/wymiframe.html",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/jquery.wymeditor.cms.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/jquery.wymeditor.pack.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/bg.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/ca.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/cs.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/cy.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/de.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/en.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/es.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fa.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fi.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fr.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/gl.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/he.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/hr.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/hu.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/it.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nb.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nl.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nn.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pl.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pt-br.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pt.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/ru.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/sv.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/tr.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/zh_cn.js",
     "app/assets/stylesheets/comfortable_mexican_sofa/application.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/codemirror.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/content.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/form.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/reset.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/structure.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/typography.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/widgets.css",
     "app/controllers/application_controller.rb",
     "app/controllers/cms_admin/base_controller.rb",
     "app/controllers/cms_admin/layouts_controller.rb",
@@ -217,20 +261,20 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 0"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
       s.add_runtime_dependency(%q<active_link_to>, [">= 0.0.7"])
-      s.add_runtime_dependency(%q<paperclip>, [">= 2.3.8"])
+      s.add_runtime_dependency(%q<paperclip>, [">= 2.3.11"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, [">= 0"])
+      s.add_dependency(%q<rails>, [">= 3.0.0"])
       s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
-      s.add_dependency(%q<paperclip>, [">= 2.3.8"])
+      s.add_dependency(%q<paperclip>, [">= 2.3.11"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 0"])
+    s.add_dependency(%q<rails>, [">= 3.0.0"])
     s.add_dependency(%q<active_link_to>, [">= 0.0.7"])
-    s.add_dependency(%q<paperclip>, [">= 2.3.8"])
+    s.add_dependency(%q<paperclip>, [">= 2.3.11"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
   end
 end
