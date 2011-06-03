@@ -42,7 +42,9 @@ module ComfortableMexicanSofa
     config.filter_parameters += [:password]
     
     # Enable the asset pipeline
-    config.assets.enabled = true
+    if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1
+      config.assets.enabled = true
+    end
     
     config.session_store :cookie_store, :key => '_comfortable_mexican_sofa_session'
     config.secret_token = 'e0fef4ab56c1cacd8845864fe2cb2a27f5caad72823419f87b2774785187090a654b83229bf9cef70ce475a83bfa561dbbaa2015788181ea837c456964c1e0f6'

@@ -61,7 +61,7 @@ var cms_wym_options = {
                     + '</ul>',
                     
   htmlHtml:           '<div class="wym_html">'
-                    +   '<textarea class="wym_html_val code"></textarea>'
+                    +   '<textarea class="wym_html_val"></textarea>'
                     + '</div>',
                     
   dialogLinkHtml:     '<form id="wym_dialog_form">'
@@ -328,3 +328,9 @@ WYMeditor.PROCESS_DIALOG_PASTE = function(wym, data) {
   wym.paste(data['paste']);
 }
 
+WYMeditor.editor.prototype.xhtml = function() {
+  var html = this.parser.parse(this.html());
+  var reg = /(>)(<)(\/*)/g;
+  html = html.replace(reg, '$1\r\n$2$3');
+  return html;
+};

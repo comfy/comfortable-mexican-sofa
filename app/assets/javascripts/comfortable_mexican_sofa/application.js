@@ -1,6 +1,7 @@
 //= require comfortable_mexican_sofa/jquery.js
 //= require comfortable_mexican_sofa/jquery_ui.js
 //= require comfortable_mexican_sofa/rails.js
+//= require comfortable_mexican_sofa/codemirror/codemirror.js
 
 $.CMS = function(){
   var current_path = window.location.pathname;
@@ -11,13 +12,13 @@ $.CMS = function(){
     $.CMS.tree_methods();
     $.CMS.load_page_blocks();
     $.CMS.enable_rich_text();
-    // $.CMS.enable_codemirror();
+    $.CMS.enable_codemirror();
     $.CMS.enable_date_picker();
     $.CMS.enable_sortable_list();
     if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
     if($('#mirrors').get(0))          $.CMS.enable_mirrors_widget();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
-    // if($('#uploader_button').get(0))  $.CMS.enable_uploader();
+    if($('#uploader_button').get(0))  $.CMS.enable_uploader();
   });
 
   return {
@@ -70,42 +71,20 @@ $.CMS = function(){
         })
       });
     },
-
+    
     enable_rich_text: function(){
       $('textarea.rich_text').wymeditor(cms_wym_options);
     },
-
+    
     enable_codemirror: function(){
       $('textarea.code').each(function(i, element){
+        var mode = 'htmlmixed';
+        if ($(element).hasClass('css'))  mode = 'css';
+        if ($(element).hasClass('js'))   mode = 'javascript';
         CodeMirror.fromTextArea(element, {
-          basefiles: [
-            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_xml.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_css.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_js.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_html_mixed.js"
-          ],
-          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
-        });
-      });
-
-      $('textarea.code_css').each(function(i, element){
-        CodeMirror.fromTextArea(element, {
-          basefiles: [
-            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_css.js"
-          ],
-          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
-        });
-      });
-
-      $('textarea.code_js').each(function(i, element){
-        CodeMirror.fromTextArea(element, {
-          basefiles: [
-            "/javascripts/comfortable_mexican_sofa/codemirror/codemirror_base.js",
-            "/javascripts/comfortable_mexican_sofa/codemirror/parse_js.js"
-          ],
-          stylesheet: "/javascripts/comfortable_mexican_sofa/codemirror/codemirror.css"
+          htmlMode: true,
+          mode:     mode,
+          tabMode: 'indent'
         });
       });
     },
