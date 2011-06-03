@@ -5,11 +5,9 @@ tmp/**/*
 .DS_Store
 db/schema.rb
 db/development_structure.sql
-public/system/*
 pkg
 rdoc
 /tmp
-public/cms-css/
-public/cms-js/
+public/*
 Gemfile.lock
 .rvmrc
