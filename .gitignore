@@ -8,6 +8,5 @@ db/development_structure.sql
 pkg
 rdoc
 /tmp
-public/*
 Gemfile.lock
 .rvmrc
