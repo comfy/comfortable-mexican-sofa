@@ -23,10 +23,15 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def generate_public_assets
-    return if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1 && Rails.configuration.assets.enabled
-    directory 'app/assets/stylesheets/comfortable_mexican_sofa', 'public/stylesheets/comfortable_mexican_sofa'
-    directory 'app/assets/javascripts/comfortable_mexican_sofa', 'public/javascripts/comfortable_mexican_sofa'
-    directory 'app/assets/images/comfortable_mexican_sofa', 'public/images/comfortable_mexican_sofa'
+    return if ComfortableMexicanSofa.asset_pipeline_enabled?
+    directory 'app/assets/stylesheets/comfortable_mexican_sofa',  'public/stylesheets/comfortable_mexican_sofa'
+    directory 'app/assets/javascripts/comfortable_mexican_sofa',  'public/javascripts/comfortable_mexican_sofa'
+    directory 'app/assets/images/comfortable_mexican_sofa',       'public/images/comfortable_mexican_sofa'
+    
+    gsub_file 'public/stylesheets/comfortable_mexican_sofa/content.css',
+      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
+    gsub_file 'public/stylesheets/comfortable_mexican_sofa/widgets.css',
+      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
   end
   
   def generate_cms_seeds

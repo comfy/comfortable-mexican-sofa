@@ -43,5 +43,10 @@ module ComfortableMexicanSofa
     end
     alias :config :configuration
     
+    # Checking if Rails3.1+ asset pipeline is enabled
+    def asset_pipeline_enabled?
+      Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1 && Rails.configuration.assets.enabled
+    end
+    
   end
 end
