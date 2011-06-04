@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Tag::Helper
   end
   
   def content
-    "<%= #{label}(#{params.split(':').collect{|p| "'#{p}'"}.join(', ')}) %>"
+    "<%= #{label}(#{params.collect{|p| "'#{p}'"}.join(', ')}) %>"
   end
   
 end

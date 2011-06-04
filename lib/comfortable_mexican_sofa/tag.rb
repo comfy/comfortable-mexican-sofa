@@ -30,7 +30,7 @@ module ComfortableMexicanSofa::Tag
         tag = self.new
         tag.page    = page
         tag.label   = match[1]
-        tag.params  = match[2]
+        tag.params  = match[2].to_s.split(':')
         tag
       end
     end

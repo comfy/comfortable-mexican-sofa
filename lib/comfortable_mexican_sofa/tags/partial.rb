@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Tag::Partial
   end
   
   def content
-    ps = params.split(':').collect_with_index{|p, i| ":param_#{i+1} => '#{p}'"}.join(', ')
+    ps = params.collect_with_index{|p, i| ":param_#{i+1} => '#{p}'"}.join(', ')
     "<%= render :partial => '#{label}'#{ps.blank?? nil : ", :locals => {#{ps}}"} %>"
   end
   
