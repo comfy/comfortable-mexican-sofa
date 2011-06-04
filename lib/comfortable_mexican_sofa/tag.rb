@@ -84,12 +84,9 @@ module ComfortableMexicanSofa::Tag
       page.site.snippets.detect{|s| s.slug == self.label.to_s} || page.site.snippets.build(:slug => self.label.to_s)
     end
     
+    # Initializing Cms::Upload object
     def upload
-      if ComfortableMexicanSofa.config.enable_mirror_sites 
-        Cms::Upload.all.detect{|s| s.file_file_name == self.label.to_s} || nil
-      else
-        page.site.uploads.detect{|s| s.file_file_name == self.label.to_s} || nil
-      end
+      page.site.uploads.detect{|s| s.file_file_name == self.label.to_s}
     end
     
     # Checks if this tag is using Cms::Block
