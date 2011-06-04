@@ -7,20 +7,19 @@ class ComfortableMexicanSofa::Tag::Asset
   end
 
   def content
-    html = ""
-    case label
-      when 'stylesheet_link_tag'
-        params.split(':').each do |slug|
-          path = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-css/#{slug}.css"
-          html += "<link href=\"#{path}\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\" />"
-        end
-      when 'javascript_include_tag'
-        params.split(':').each do |slug|
-          path = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-js/#{slug}.js"
-          html += "<script src=\"#{path}\" type=\"text/javascript\"></script>"
-        end
+    return unless (layout = Cms::Layout.find_by_slug(label))
+    type    = params[0]
+    format  = params[1]
+    
+    case type
+    when 'css'
+      out = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-css/#{label}.css"
+      out = "<link href='#{out}' media='screen' rel='stylesheet' type='text/css' />" if format == 'html_tag'
+      out
+    when 'js'
+      out = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-js/#{label}.js"
+      out = "<script src='#{out}' type='text/javascript'></script>" if format == 'html_tag'
+      out
     end
-    html
   end
-
 end
