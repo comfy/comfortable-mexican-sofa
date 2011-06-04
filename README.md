@@ -82,7 +82,16 @@ Here's a number of tag variations:
     {{ cms:partial:path/to/partial }}     # same as <%= render :partial => 'path/to/partial' %>
     {{ cms:partial:path/to/partial:a:b }} # same as <%= render :partial => 'path/to/partial',
                                           #   :locals => { :param_1 => 'a', :param_1 => 'b' } %>
-                                          
+
+    # Upload tags are wrappers that interact with the uploads.
+
+    {{ cms:upload:upload_file_name }}           # URL of upload_file_name
+    {{ cms:upload:upload_file_name:text }}      # The same.
+    {{ cms:upload:upload_file_name:image }}     # An image html tag (img) for this upload
+    {{ cms:upload:upload_file_name:image:alt }} # An image html tag (img) for this upload with "alt" as text alternate
+    {{ cms:upload:upload_file_name:link }}      # A link html tag (a) to this upload
+    {{ cms:upload:upload_file_name:link:text }} # A link html tag (a) to this upload using text as description
+
 Multiple Sites
 --------------
 Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.enable_multiple_sites = true`.
