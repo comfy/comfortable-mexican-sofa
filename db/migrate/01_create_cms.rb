@@ -5,8 +5,11 @@ class CreateCms < ActiveRecord::Migration
     create_table :cms_sites do |t|
       t.string :label
       t.string :hostname
+      t.string :path,         :null => false, :default => '/'
+      t.boolean :is_mirrored, :null => false, :default => false
     end
-    add_index :cms_sites, :hostname
+    add_index :cms_sites, [:hostname, :path]
+    add_index :cms_sites, :is_mirrored
     
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|

@@ -14,9 +14,12 @@ class Cms::Site < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :label,
     :presence   => true
+  validates :path,
+    :presence   => true,
+    :format     => { :with => /^\/[\w\d\-\/]+$/ }
   validates :hostname,
     :presence   => true,
-    :uniqueness => true,
+    :uniqueness => { :scope => :path },
     :format     => { :with => /^[\w\.\-]+$/ }
     
   # -- Class Methods --------------------------------------------------------

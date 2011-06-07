@@ -26,11 +26,6 @@ class CmsContentController < ApplicationController
   
 protected
   
-  def load_fixtures
-    return unless ComfortableMexicanSofa.config.enable_fixtures
-    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
-  end
-  
   def load_cms_site
     @cms_site = if ComfortableMexicanSofa.config.enable_multiple_sites
       Cms::Site.find_by_hostname(request.host.downcase)
@@ -38,6 +33,11 @@ protected
       Cms::Site.first
     end
     render :text => 'Site Not Found', :status => 404 if !@cms_site
+  end
+  
+  def load_fixtures
+    return unless ComfortableMexicanSofa.config.enable_fixtures
+    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
   end
   
   def load_cms_page
