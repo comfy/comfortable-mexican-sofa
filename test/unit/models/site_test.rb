@@ -19,10 +19,6 @@ class CmsSiteTest < ActiveSupport::TestCase
     
     site = Cms::Site.new(:label => 'My Site', :hostname => 'my-site.host')
     assert site.valid?
-    
-    site = Cms::Site.new(:hostname => 'test.host', :path => 'invalid')
-    assert site.invalid?
-    assert_has_errors_on site, :path
   end
   
   def test_validation_path_uniqueness
@@ -41,11 +37,10 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert s2.valid?
   end
   
-  def test_label_and_path_assignment
+  def test_label_assignment
     site = Cms::Site.new(:hostname => 'my-site.host')
     assert site.valid?
     assert_equal 'my-site.host', site.label
-    assert_equal '/', site.path
   end
   
   def test_clean_path
@@ -53,7 +48,7 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal '/en/test', site.path
     
     site = Cms::Site.create!(:hostname => 'my-site.host', :path => '/')
-    assert_equal '/', site.path
+    assert_equal '', site.path
   end
   
   def test_cascading_destroy

@@ -13,11 +13,11 @@ class ComfortableMexicanSofa::Tag::Asset
     
     case type
     when 'css'
-      out = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-css/#{label}.css"
+      out = "#{page.site.path}/cms-css/#{label}.css"
       out = "<link href='#{out}' media='screen' rel='stylesheet' type='text/css' />" if format == 'html_tag'
       out
     when 'js'
-      out = "#{ComfortableMexicanSofa.config.content_route_prefix}/cms-js/#{label}.js"
+      out = "#{page.site.path}/cms-js/#{label}.js"
       out = "<script src='#{out}' type='text/javascript'></script>" if format == 'html_tag'
       out
     end

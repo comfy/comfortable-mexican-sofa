@@ -1,5 +1,5 @@
 default:
   label: Default Site
   hostname: test.host
-  path: /
+  path:
   is_mirrored: false

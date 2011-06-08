@@ -31,10 +31,9 @@ Rails.application.routes.draw do
   end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
   
   scope :controller => :cms_content do
-    prefix = ComfortableMexicanSofa.config.content_route_prefix
-    get "#{prefix}/cms-css/:id"  => :render_css,   :as => 'cms_css'
-    get "#{prefix}/cms-js/:id"   => :render_js,    :as => 'cms_js'
-    get "#{prefix}/"             => :render_html,  :as => 'cms_html',  :path => "#{prefix}/(*cms_path)"
+    get 'cms-css/:id' => :render_css,   :as => 'cms_css'
+    get 'cms-js/:id'  => :render_js,    :as => 'cms_js'
+    get '/'           => :render_html,  :as => 'cms_html',  :path => "(*cms_path)"
   end
   
 end
