@@ -3,12 +3,7 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 class MirrorsTest < ActionDispatch::IntegrationTest
   
   def setup
-    ComfortableMexicanSofa.config.enable_mirror_sites = true
-    Cms::Site.create!(:hostname => 'test-b.host')
-    load(File.expand_path('app/models/cms/layout.rb', Rails.root))
-    load(File.expand_path('app/models/cms/page.rb', Rails.root))
-    load(File.expand_path('app/models/cms/snippet.rb', Rails.root))
-    
+    Cms::Site.create!(:hostname => 'test-b.host', :is_mirrored => true)
     # making mirrors
     Cms::Layout.all.each{ |l| l.save! }
     Cms::Page.all.each{ |p| p.save! }

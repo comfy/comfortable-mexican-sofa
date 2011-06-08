@@ -5,16 +5,13 @@ module ComfortableMexicanSofa::IsMirrored
   end
   
   module ClassMethods
-    
     def is_mirrored
-      if ComfortableMexicanSofa.config.enable_mirror_sites
-        include ComfortableMexicanSofa::IsMirrored::InstanceMethods
-        
-        attr_accessor :is_mirrored
-        
-        after_save    :sync_mirror
-        after_destroy :destroy_mirror
-      end
+      include ComfortableMexicanSofa::IsMirrored::InstanceMethods
+      
+      attr_accessor :is_mirrored
+      
+      after_save    :sync_mirror
+      after_destroy :destroy_mirror
     end
   end
   
@@ -22,7 +19,8 @@ module ComfortableMexicanSofa::IsMirrored
     
     # Mirrors of the object found on other sites
     def mirrors
-      (Cms::Site.all - [self.site]).collect do |site|
+      return [] unless self.site.is_mirrored?
+      (Cms::Site.mirrored - [self.site]).collect do |site|
         case self
           when Cms::Layout  then site.layouts.find_by_slug(self.slug)
           when Cms::Page    then site.pages.find_by_full_path(self.full_path)
@@ -37,7 +35,7 @@ module ComfortableMexicanSofa::IsMirrored
     def sync_mirror
       return if self.is_mirrored
       
-      (Cms::Site.all - [self.site]).each do |site|
+      (Cms::Site.mirrored - [self.site]).each do |site|
         mirror = case self
         when Cms::Layout
           m = site.layouts.find_by_slug(self.slug_was || self.slug) || site.layouts.new

@@ -19,12 +19,41 @@ class CmsSiteTest < ActiveSupport::TestCase
     
     site = Cms::Site.new(:label => 'My Site', :hostname => 'my-site.host')
     assert site.valid?
+    
+    site = Cms::Site.new(:hostname => 'test.host', :path => 'invalid')
+    assert site.invalid?
+    assert_has_errors_on site, :path
   end
   
-  def test_label_assignment
+  def test_validation_path_uniqueness
+    s1 = cms_sites(:default)
+    s2 = Cms::Site.new(
+      :hostname => s1.hostname,
+      :path     => s1.path
+    )
+    assert s2.invalid?
+    assert_has_errors_on s2, :hostname
+    
+    s2 = Cms::Site.new(
+      :hostname => s1.hostname,
+      :path     => '/en'
+    )
+    assert s2.valid?
+  end
+  
+  def test_label_and_path_assignment
     site = Cms::Site.new(:hostname => 'my-site.host')
     assert site.valid?
     assert_equal 'my-site.host', site.label
+    assert_equal '/', site.path
+  end
+  
+  def test_clean_path
+    site = Cms::Site.create!(:hostname => 'test.host', :path => '/en///test//')
+    assert_equal '/en/test', site.path
+    
+    site = Cms::Site.create!(:hostname => 'my-site.host', :path => '/')
+    assert_equal '/', site.path
   end
   
   def test_cascading_destroy
@@ -39,9 +68,12 @@ class CmsSiteTest < ActiveSupport::TestCase
     end
   end
   
-  def test_options_for_select
-    assert_equal 1, Cms::Site.options_for_select.size
-    assert_equal 'Default Site (test.host)', Cms::Site.options_for_select[0][0]
+  def test_scope_mirrored
+    site = cms_sites(:default)
+    assert !site.is_mirrored
+    assert_equal 0, Cms::Site.mirrored.count
+    site.update_attribute(:is_mirrored, true)
+    assert_equal 1, Cms::Site.mirrored.count
   end
   
 end

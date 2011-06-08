@@ -2,18 +2,18 @@
 <h1>Sites</h1>
 
 <ul class='list'>
-  <% @cms_sites.each do |cms_site| %>
-    <li id='cms_site_<%= cms_site.id %>'>
+  <% @cms_sites.each do |site| %>
+    <li id='cms_site_<%= site.id %>'>
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
-          <%= link_to 'Edit', edit_cms_admin_site_path(cms_site) %>
-          <%= link_to 'Delete', cms_admin_site_path(cms_site), :method => :delete, :confirm => 'Are you sure?' %>
+          <%= link_to 'Edit', edit_cms_admin_site_path(site) %>
+          <%= link_to 'Delete', cms_admin_site_path(site), :method => :delete, :confirm => 'Are you sure?' %>
         </div>
         <div class='label'>
-          <%= link_to cms_site.label, edit_cms_admin_site_path(cms_site) %>
+          <%= link_to site.label, edit_cms_admin_site_path(site) %>
           <div class='sublabel'>
-            <%= link_to cms_site.hostname, "http://#{cms_site.hostname}/cms-admin" %>
+            <%= link_to "http://#{site.hostname}#{site.path}", "http://#{site.hostname}#{site.path}", :target => '_blank' %>
           </div>
         </div>
       </div>

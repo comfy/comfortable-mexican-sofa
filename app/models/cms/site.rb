@@ -9,28 +9,37 @@ class Cms::Site < ActiveRecord::Base
   has_many :uploads,  :dependent => :destroy
   
   # -- Callbacks ------------------------------------------------------------
-  before_validation :assign_label
+  before_validation :assign_label,
+                    :assign_path
+  before_save :clean_path
   
   # -- Validations ----------------------------------------------------------
   validates :label,
     :presence   => true
   validates :path,
     :presence   => true,
-    :format     => { :with => /^\/[\w\d\-\/]+$/ }
+    :format     => { :with => /^\/[\w\d\-\/]*$/ }
   validates :hostname,
     :presence   => true,
     :uniqueness => { :scope => :path },
     :format     => { :with => /^[\w\.\-]+$/ }
     
-  # -- Class Methods --------------------------------------------------------
-  def self.options_for_select
-    Cms::Site.all.collect{|s| ["#{s.label} (#{s.hostname})", s.id]}
-  end
+  # -- Scopes ---------------------------------------------------------------
+  scope :mirrored, where(:is_mirrored => true)
   
 protected
-
+  
   def assign_label
     self.label = self.label.blank?? self.hostname : self.label
+  end
+  
+  def assign_path
+    self.path ||= '/'
+  end
+  
+  def clean_path
+    self.path.squeeze!('/')
+    self.path.gsub!(/\/$/, '') unless self.path == '/'
   end
   
 end

@@ -3,13 +3,9 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 class MirrorsTest < ActiveSupport::TestCase
   
   def setup
-    ComfortableMexicanSofa.config.enable_mirror_sites = true
-    load(File.expand_path('app/models/cms/layout.rb', Rails.root))
-    load(File.expand_path('app/models/cms/page.rb', Rails.root))
-    load(File.expand_path('app/models/cms/snippet.rb', Rails.root))
     Cms::Site.delete_all
-    @site_a = Cms::Site.create!(:label => 'Site A', :hostname => 'site-a.host')
-    @site_b = Cms::Site.create!(:label => 'Site B', :hostname => 'site-b.host')
+    @site_a = Cms::Site.create!(:label => 'Site A', :hostname => 'site-a.host', :is_mirrored => true)
+    @site_b = Cms::Site.create!(:label => 'Site B', :hostname => 'site-b.host', :is_mirrored => true)
   end
   
   def test_layout_creation

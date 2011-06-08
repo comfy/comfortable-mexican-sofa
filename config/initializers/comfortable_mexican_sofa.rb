@@ -21,12 +21,7 @@ ComfortableMexicanSofa.configure do |config|
   
   # If you enable this setting you'll be able to serve completely different set
   # of sites with their own layouts and pages.
-  #   config.enable_multiple_sites = true
-  
-  # In cases when you need sites with identical page tree structure, like different
-  # language versions. This will automatically create/destroy resources across all sites and
-  # will keep slugs/paths synced.
-  #   config.enable_mirror_sites = true
+  config.enable_multiple_sites = true
   
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:

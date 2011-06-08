@@ -1,6 +1,6 @@
 <%
-  return unless ComfortableMexicanSofa.config.enable_mirror_sites
   object ||= mirrors
+  return unless object && object.mirrors.present?
   
   options = case object
   when Cms::Layout
@@ -10,7 +10,7 @@
   when Cms::Snippet
     object.mirrors.collect{|m| [m.site.label, edit_cms_admin_snippet_url(m, :host => m.site.hostname)]}
   else
-    (Cms::Site.all - [@cms_site]).collect{|s| [s.label, url_for(:host => s.hostname)]}
+    (Cms::Site.mirrored - [@cms_site]).collect{|s| [s.label, url_for(:host => s.hostname)]}
   end
   options = [[@cms_site.label, request.fullpath]] + options
 %>

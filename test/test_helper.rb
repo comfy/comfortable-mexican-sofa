@@ -20,7 +20,6 @@ class ActiveSupport::TestCase
       config.content_route_prefix   = ''
       config.admin_route_redirect   = 'pages'
       config.enable_multiple_sites  = false
-      config.enable_mirror_sites    = false
       config.allow_irb              = false
       config.enable_caching         = true
       config.enable_fixtures        = false
