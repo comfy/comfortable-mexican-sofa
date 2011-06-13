@@ -3,7 +3,7 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 class CmsAdmin::PagesControllerTest < ActionController::TestCase
 
   def test_get_index
-    get :index
+    get :index, :site_id => cms_sites(:default)
     assert_response :success
     assert assigns(:cms_pages)
     assert_template :index

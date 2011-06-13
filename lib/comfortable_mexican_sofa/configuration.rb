@@ -14,9 +14,6 @@ class ComfortableMexicanSofa::Configuration
   # to something else
   attr_accessor :admin_route_redirect
   
-  # Are you running multiple sites from single install? Default assumption is 'No'
-  attr_accessor :enable_multiple_sites
-  
   # Not allowing irb code to be run inside page content. False by default.
   attr_accessor :allow_irb
   

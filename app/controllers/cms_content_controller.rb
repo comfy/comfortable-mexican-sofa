@@ -27,11 +27,7 @@ class CmsContentController < ApplicationController
 protected
   
   def load_cms_site
-    @cms_site = if ComfortableMexicanSofa.config.enable_multiple_sites
-      Cms::Site.find_by_hostname(request.host.downcase)
-    else
-      Cms::Site.first
-    end
+    Cms::Site.find_by_hostname(request.host.downcase)
     render :text => 'Site Not Found', :status => 404 if !@cms_site
   end
   

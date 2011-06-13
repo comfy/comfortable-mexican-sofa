@@ -14,10 +14,6 @@ ComfortableMexicanSofa.configure do |config|
   # Path: /cms-admin redirects to /cms-admin/pages but you can change it
   #   config.admin_route_redirect = 'pages'
   
-  # If you enable this setting you'll be able to serve completely different set
-  # of sites with their own layouts and pages.
-  config.enable_multiple_sites = true
-  
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...

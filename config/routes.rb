@@ -4,28 +4,29 @@ Rails.application.routes.draw do
     get '/' => redirect(
       "/#{ComfortableMexicanSofa.config.admin_route_prefix}/#{ComfortableMexicanSofa.config.admin_route_redirect}"
     )
-    resources :pages do
-      member do 
-        match :form_blocks
-        match :toggle_branch
+    resources :sites do
+      resources :pages do
+        member do 
+          match :form_blocks
+          match :toggle_branch
+        end
+        collection do
+          match :reorder
+        end
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
       end
-      collection do
-        match :reorder
+      resources :uploads, :only => [:create, :destroy]
+      resources :layouts do
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
       end
-      resources :revisions, :only => [:index, :show, :revert] do
-        put :revert, :on => :member
-      end
-    end
-    resources :sites
-    resources :uploads, :only => [:create, :destroy]
-    resources :layouts do
-      resources :revisions, :only => [:index, :show, :revert] do
-        put :revert, :on => :member
-      end
-    end
-    resources :snippets do 
-      resources :revisions, :only => [:index, :show, :revert] do
-        put :revert, :on => :member
+      resources :snippets do 
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
       end
     end
   end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
