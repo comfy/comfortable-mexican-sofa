@@ -6,7 +6,7 @@ module ComfortableMexicanSofa::IsMirrored
   
   module ClassMethods
     
-    def is_mirrored
+    def cms_is_mirrored
       if ComfortableMexicanSofa.config.enable_mirror_sites
         include ComfortableMexicanSofa::IsMirrored::InstanceMethods
         

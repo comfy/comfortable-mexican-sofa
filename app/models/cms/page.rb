@@ -2,9 +2,9 @@ class Cms::Page < ActiveRecord::Base
   
   set_table_name :cms_pages
   
-  acts_as_tree :counter_cache => :children_count
-  is_mirrored
-  has_revisions_for :blocks_attributes
+  cms_acts_as_tree :counter_cache => :children_count
+  cms_is_mirrored
+  cms_has_revisions_for :blocks_attributes
   
   attr_accessor :tags,
                 :blocks_attributes_changed

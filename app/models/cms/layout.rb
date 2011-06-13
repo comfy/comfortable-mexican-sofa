@@ -2,9 +2,9 @@ class Cms::Layout < ActiveRecord::Base
   
   set_table_name :cms_layouts
   
-  acts_as_tree
-  is_mirrored
-  has_revisions_for :content, :css, :js
+  cms_acts_as_tree
+  cms_is_mirrored
+  cms_has_revisions_for :content, :css, :js
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
