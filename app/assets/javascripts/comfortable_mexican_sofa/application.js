@@ -24,8 +24,8 @@ $.CMS = function(){
   return {
 
     enable_sortable_list: function(){
-      $('ul.sortable, ul.sortable ul').sortable({
-        handle: 'div.dragger',
+      $('.sortable, ul.sortable ul').sortable({
+        handle: '.dragger',
         axis:   'y',
         update: function(){
           $.post(current_path + '/reorder', '_method=put&'+$(this).sortable('serialize'));
