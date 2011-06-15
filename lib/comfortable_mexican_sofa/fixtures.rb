@@ -51,7 +51,10 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       layout.parent = parent
-      layout.save! if layout.changed?
+      if layout.changed?
+        layout.save!
+        Rails.logger.debug "[Fixtures] Saved Layout {#{layout.slug}}"
+      end
       layout_ids << layout.id
       
       # checking for nested fixtures
@@ -105,7 +108,10 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
-      page.save! if page.changed? || blocks_attributes.present?
+      if page.changed? || blocks_attributes.present?
+        page.save! 
+        Rails.logger.debug "[Fixtures] Saved Page {#{page.full_path}}"
+      end
       page_ids << page.id
       
       # checking for nested fixtures
@@ -146,7 +152,10 @@ module ComfortableMexicanSofa::Fixtures
       end
       
       # saving
-      snippet.save! if snippet.changed?
+      if snippet.changed?
+        snippet.save!
+        Rails.logger.debug "[Fixtures] Saved Snippet {#{snippet.slug}}"
+      end
       snippet_ids << snippet.id
     end
     
