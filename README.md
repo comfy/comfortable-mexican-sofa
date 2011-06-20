@@ -12,7 +12,7 @@ Add gem definition to your Gemfile:
 Then from the Rails project's root run:
     
     bundle install
-    rails g cms
+    rails generate cms
     rake db:migrate
     
 When upgrading to a newer version just run `rails g cms` and replace files when prompted. You may also need to run `rake db:migrate` again.
