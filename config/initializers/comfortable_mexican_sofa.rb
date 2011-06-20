@@ -31,7 +31,7 @@ ComfortableMexicanSofa.configure do |config|
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...
-  #   config.disable_irb = true
+  #   config.allow_irb = false
   
   # Asset caching for CSS and JS for admin layout. This setting also controls
   # page caching for CMS Layout CSS and Javascript. Enabled by default. When deploying
