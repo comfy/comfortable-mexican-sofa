@@ -7,8 +7,8 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   before_filter :build_upload_file, :only => [:new, :edit]
 
   def index
-    return redirect_to :action => :new if @cms_site.pages.count == 0
-    @cms_pages = [@cms_site.pages.root].compact
+    return redirect_to :action => :new if @site.pages.count == 0
+    @pages = [@site.pages.root].compact
   end
 
   def new
@@ -20,45 +20,45 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def create
-    @cms_page.save!
+    @page.save!
     flash[:notice] = 'Page saved'
-    redirect_to :action => :edit, :id => @cms_page
+    redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to create page'
     render :action => :new
   end
 
   def update
-    @cms_page.save!
+    @page.save!
     flash[:notice] = 'Page updated'
-    redirect_to :action => :edit, :id => @cms_page
+    redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = 'Failed to update page'
     render :action => :edit
   end
 
   def destroy
-    @cms_page.destroy
+    @page.destroy
     flash[:notice] = 'Page deleted'
     redirect_to :action => :index
   end
 
   def form_blocks
-    @cms_page = @cms_site.pages.find_by_id(params[:id]) || @cms_site.pages.new
-    @cms_page.layout = @cms_site.layouts.find_by_id(params[:layout_id])
+    @page = @site.pages.find_by_id(params[:id]) || @site.pages.new
+    @page.layout = @site.layouts.find_by_id(params[:layout_id])
   end
 
   def toggle_branch
-    @cms_page = @cms_site.pages.find(params[:id])
+    @page = @site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
-    id  = @cms_page.id.to_s
+    id  = @page.id.to_s
     s.member?(id) ? s.delete(id) : s << id
   rescue ActiveRecord::RecordNotFound
     # do nothing
   end
 
   def reorder
-    (params[:cms_page] || []).each_with_index do |id, index|
+    (params[:page] || []).each_with_index do |id, index|
       if (cms_page = Cms::Page.find_by_id(id))
         cms_page.update_attribute(:position, index)
       end
@@ -69,16 +69,16 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 protected
 
   def check_for_layouts
-    if @cms_site.layouts.count == 0
+    if @site.layouts.count == 0
       flash[:error] = 'No Layouts found. Please create one.'
-      redirect_to new_cms_admin_layout_path
+      redirect_to new_cms_admin_site_layout_path(@site)
     end
   end
 
   def build_cms_page
-    @cms_page = @cms_site.pages.new(params[:cms_page])
-    @cms_page.parent ||= (@cms_site.pages.find_by_id(params[:parent_id]) || @cms_site.pages.root)
-    @cms_page.layout ||= (@cms_page.parent && @cms_page.parent.layout || @cms_site.layouts.first)
+    @page = @site.pages.new(params[:page])
+    @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
+    @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   end
 
   def build_upload_file
@@ -86,9 +86,9 @@ protected
   end
 
   def load_cms_page
-    @cms_page = @cms_site.pages.find(params[:id])
-    @cms_page.attributes = params[:cms_page]
-    @cms_page.layout ||= (@cms_page.parent && @cms_page.parent.layout || @cms_site.layouts.first)
+    @page = @site.pages.find(params[:id])
+    @page.attributes = params[:page]
+    @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = 'Page not found'
     redirect_to :action => :index
@@ -96,8 +96,8 @@ protected
 
   def preview_cms_page
     if params[:preview]
-      layout = @cms_page.layout.app_layout.blank?? false : @cms_page.layout.app_layout
-      render :inline => @cms_page.content(true), :layout => layout
+      layout = @page.layout.app_layout.blank?? false : @page.layout.app_layout
+      render :inline => @page.content(true), :layout => layout
     end
   end
 end

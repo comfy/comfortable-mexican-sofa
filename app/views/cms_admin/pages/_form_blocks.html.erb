@@ -1,9 +1,9 @@
-<% block_tags = @cms_page.tags(true).select{ |t| t.is_cms_block? } %>
+<% block_tags = @page.tags(true).select{ |t| t.is_cms_block? } %>
 
 <div id='form_blocks'>
   <% if block_tags.empty? %>
     <div class='no_tags'>
-      <%= link_to @cms_page.layout.label, edit_cms_admin_layout_path(@cms_page.layout) %>
+      <%= link_to @page.layout.label, edit_cms_admin_layout_path(@page.layout) %>
       Layout has no content tags defined. <br/>
       Edit the content to include a page or field tag, for example: <code>{{cms:page:content}}</code>
     </div>

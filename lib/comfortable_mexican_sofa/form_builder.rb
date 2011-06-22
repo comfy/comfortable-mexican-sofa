@@ -68,14 +68,14 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     options[:content_field_method] ||= :text_field_tag
     field = 
       options[:field] || 
-      @template.send(options[:content_field_method], 'cms_page[blocks_attributes][][content]', tag.content, :id => nil, :class => field_css_class)
+      @template.send(options[:content_field_method], 'page[blocks_attributes][][content]', tag.content, :id => nil, :class => field_css_class)
     
     %(
       <div class='form_element #{css_class}'>
         <div class='label'>#{label}</div>
         <div class='value'>
           #{field}
-          #{@template.hidden_field_tag('cms_page[blocks_attributes][][label]', tag.label, :id => nil)}
+          #{@template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)}
         </div>
       </div>
     ).html_safe

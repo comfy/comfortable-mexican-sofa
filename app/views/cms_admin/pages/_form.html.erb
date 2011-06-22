@@ -9,19 +9,19 @@
   <%= render :partial => 'cms_admin/uploads/index' %>
 <% end %>
 
-<%= form.text_field :label, :id => (@cms_page.new_record?? 'slugify' : nil) %>
+<%= form.text_field :label, :id => (@page.new_record?? 'slugify' : nil) %>
 
 <div class='page_form_extras'>
-  <% unless @cms_site.pages.count == 0 || @cms_site.pages.root == @cms_page%>
+  <% unless @site.pages.count == 0 || @site.pages.root == @page%>
     <%= form.text_field :slug, :id => 'slug' %>
   <% end %>
-  <% if (options = Cms::Layout.options_for_select(@cms_site)).present? %>
-    <%= form.select :layout_id, options, {}, 'data-page-id' => @cms_page.id.to_i, :label => 'Layout' %>
+  <% if (options = Cms::Layout.options_for_select(@site)).present? %>
+    <%= form.select :layout_id, options, {}, 'data-page-id' => @page.id.to_i, :label => 'Layout' %>
   <% end %>
-  <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page)).present? %>
+  <% if (options = Cms::Page.options_for_select(@site, @page)).present? %>
     <%= form.select :parent_id, options %>
   <% end %>
-  <% if (options = Cms::Page.options_for_select(@cms_site, @cms_page, nil, 0, false)).present? %>
+  <% if (options = Cms::Page.options_for_select(@site, @page, nil, 0, false)).present? %>
     <%= form.select :target_page_id, [['---- No Redirect ----', nil]] + options, :label => 'Redirect To Page' %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
@@ -33,5 +33,5 @@
   <%= form.check_box :is_published, :disable_builder => true %>
   <%= form.label_for :is_published, :label => 'Published' %>
   <%= form.submit 'Preview', :name => 'preview', :id => nil, :disable_builder => true %>
-  <%= form.submit @cms_page.new_record? ? 'Create Page' : 'Update Page', :id => 'cms_page_submit', :disable_builder => true %>
+  <%= form.submit @page.new_record? ? 'Create Page' : 'Update Page', :id => 'cms_page_submit', :disable_builder => true %>
 <% end %>
