@@ -6,7 +6,7 @@ module ComfortableMexicanSofa::HasRevisions
   
   module ClassMethods
     
-    def has_revisions_for(*fields)
+    def cms_has_revisions_for(*fields)
       
       include ComfortableMexicanSofa::HasRevisions::InstanceMethods
       

@@ -5,7 +5,7 @@ module ComfortableMexicanSofa::ActsAsTree
   end
   
   module ClassMethods
-    def acts_as_tree(options = {})
+    def cms_acts_as_tree(options = {})
       configuration = {
         :foreign_key    => 'parent_id', 
         :order          => nil, 

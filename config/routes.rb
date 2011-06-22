@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
-    get '/' => redirect(
-      "/#{ComfortableMexicanSofa.config.admin_route_prefix}/#{ComfortableMexicanSofa.config.admin_route_redirect}"
-    )
+    get '/', :to => 'base#jump'
     resources :sites do
       resources :pages do
         member do 

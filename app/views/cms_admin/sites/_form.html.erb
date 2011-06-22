@@ -4,5 +4,5 @@
 <%= form.check_box :is_mirrored, :label => 'Mirrored'%>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.submit @cms_site.new_record?? 'Create Site' : 'Update Site', :disable_builder => true %>
+  <%= form.submit @site.new_record?? 'Create Site' : 'Update Site', :disable_builder => true %>
 <% end %>

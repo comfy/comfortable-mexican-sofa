@@ -10,9 +10,9 @@
   when Cms::Snippet
     object.mirrors.collect{|m| [m.site.label, edit_cms_admin_snippet_url(m, :host => m.site.hostname)]}
   else
-    (Cms::Site.mirrored - [@cms_site]).collect{|s| [s.label, url_for(:host => s.hostname)]}
+    (Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(:host => s.hostname)]}
   end
-  options = [[@cms_site.label, request.fullpath]] + options
+  options = [[@site.label, request.fullpath]] + options
 %>
 
 <div id='mirrors' class='box'>

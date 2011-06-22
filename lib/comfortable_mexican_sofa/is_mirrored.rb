@@ -5,7 +5,7 @@ module ComfortableMexicanSofa::IsMirrored
   end
   
   module ClassMethods
-    def is_mirrored
+    def cms_is_mirrored
       include ComfortableMexicanSofa::IsMirrored::InstanceMethods
       
       attr_accessor :is_mirrored

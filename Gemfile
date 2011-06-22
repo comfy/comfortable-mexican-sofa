@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails',          :git => 'git://github.com/rails/rails.git'
+gem 'rails',          '3.1.0.rc4'
 gem 'active_link_to', '>=0.0.7'
 gem 'paperclip',      :git => 'git://github.com/thoughtbot/paperclip.git'
 

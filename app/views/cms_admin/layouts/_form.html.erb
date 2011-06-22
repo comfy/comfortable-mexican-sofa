@@ -2,9 +2,9 @@
   <%= render :partial => 'cms_admin/uploads/index' %>
 <% end %>
 
-<%= form.text_field :label, :label => 'Layout Name', :id => (@cms_layout.new_record?? 'slugify' : nil)%>
+<%= form.text_field :label, :label => 'Layout Name', :id => (@layout.new_record?? 'slugify' : nil)%>
 <%= form.text_field :slug, :id => 'slug' %>
-<% if (options = Cms::Layout.options_for_select(@cms_site, @cms_layout)).present? %>
+<% if (options = Cms::Layout.options_for_select(@site, @layout)).present? %>
   <%= form.select :parent_id, [['---- Select Parent Layout ----', nil]] + options %>
 <% end %>
 <% if (options = Cms::Layout.app_layouts_for_select).present? %>
@@ -16,5 +16,5 @@
 <%= form.text_area :js, :class => 'code js' %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.submit @cms_layout.new_record?? 'Create Layout' : 'Update Layout', :disable_builder => true %>
+  <%= form.submit @layout.new_record?? 'Create Layout' : 'Update Layout', :disable_builder => true %>
 <% end %>
