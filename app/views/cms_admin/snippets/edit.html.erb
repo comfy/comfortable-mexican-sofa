@@ -1,10 +1,10 @@
-<%= link_to span_tag(pluralize(@cms_snippet.revisions.count, 'revision')), cms_admin_snippet_revisions_path(@cms_snippet), :class => 'big button' %>
+<%= link_to span_tag(pluralize(@snippet.revisions.count, 'revision')), cms_admin_site_snippet_revisions_path(@site, @snippet), :class => 'big button' %>
 <h1> Editing Snippet </h1>
 
 <% content_for :right_column do %>
-  <%= render :partial => 'cms_admin/sites/mirrors', :object => @cms_snippet %>
+  <%= render :partial => 'cms_admin/sites/mirrors', :object => @snippet %>
 <% end %>
 
-<%= cms_form_for @cms_snippet, :url => {:action => :update} do |form| %>
+<%= cms_form_for @snippet, :as => :snippet, :url => {:action => :update} do |form| %>
   <%= render :partial => 'form', :object => form %>
 <% end %>

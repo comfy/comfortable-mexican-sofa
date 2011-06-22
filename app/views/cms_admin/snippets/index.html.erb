@@ -1,4 +1,4 @@
-<%= link_to span_tag('Create New Snippet'), new_cms_admin_snippet_path, :class => 'big button' %>
+<%= link_to span_tag('Create New Snippet'), new_cms_admin_site_snippet_path(@site), :class => 'big button' %>
 <h1>Snippets</h1>
 
 <% content_for :right_column do %>
@@ -6,18 +6,18 @@
 <% end %>
 
 <ul class='list'>
-  <% @cms_snippets.each do |cms_snippet| %>
-    <li id='cms_snippet_<%= cms_snippet.id %>'>
+  <% @snippets.each do |snippet| %>
+    <li id='cms_snippet_<%= snippet.id %>'>
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
-          <%= link_to 'Edit', edit_cms_admin_snippet_path(cms_snippet) %>
-          <%= link_to 'Delete', cms_admin_snippet_path(cms_snippet), :method => :delete, :confirm => 'Are you sure?' %>
+          <%= link_to 'Edit', edit_cms_admin_site_snippet_path(@site, snippet) %>
+          <%= link_to 'Delete', cms_admin_site_snippet_path(@site, snippet), :method => :delete, :confirm => 'Are you sure?' %>
         </div>
         <div class='label'>
-          <%= link_to cms_snippet.label, edit_cms_admin_snippet_path(cms_snippet) %>
+          <%= link_to snippet.label, edit_cms_admin_site_snippet_path(@site, snippet) %>
           <div class='sublabel'>
-            <%= link_to cms_snippet.slug, edit_cms_admin_snippet_path(cms_snippet) %>
+            <%= link_to snippet.slug, edit_cms_admin_site_snippet_path(@site, snippet) %>
           </div>
         </div>
       </div>

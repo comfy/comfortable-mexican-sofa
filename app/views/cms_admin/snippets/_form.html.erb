@@ -2,10 +2,10 @@
   <%= render :partial => 'cms_admin/uploads/index' %>
 <% end %>
 
-<%= form.text_field :label, :id => (@cms_snippet.new_record?? 'slugify' : nil) %>
+<%= form.text_field :label, :id => (@snippet.new_record?? 'slugify' : nil) %>
 <%= form.text_field :slug, :id => 'slug', :class => 'delimiter-underscore' %>
 <%= form.text_area :content, :class => 'code' %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.submit @cms_snippet.new_record?? 'Create Snippet' : 'Update Snippet', :disable_builder => true %>
+  <%= form.submit @snippet.new_record?? 'Create Snippet' : 'Update Snippet', :disable_builder => true %>
 <% end %>
