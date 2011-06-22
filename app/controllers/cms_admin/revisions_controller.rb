@@ -48,9 +48,9 @@ protected
   
   def redirect_to_record
     redirect_to case @record
-      when Cms::Layout  then edit_cms_admin_layout_path(@record)
-      when Cms::Page    then edit_cms_admin_page_path(@record)
-      when Cms::Snippet then edit_cms_admin_snippet_path(@record)
+      when Cms::Layout  then edit_cms_admin_site_layout_path(@site, @record)
+      when Cms::Page    then edit_cms_admin_site_page_path(@site, @record)
+      when Cms::Snippet then edit_cms_admin_site_snippet_path(@site, @record)
     end
   end
   
