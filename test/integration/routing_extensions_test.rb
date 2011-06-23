@@ -11,18 +11,18 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     ComfortableMexicanSofa.config.admin_route_prefix = 'custom-admin'
     load(File.expand_path('config/routes.rb', Rails.root))
     
-    assert_equal '/custom-admin/pages', cms_admin_pages_path
-    http_auth :get, cms_admin_pages_path
+    assert_equal '/custom-admin/sites', cms_admin_sites_path
+    http_auth :get, cms_admin_sites_path
     assert_response :success
   end
   
   def test_get_admin_with_admin_route_redirect
-    ComfortableMexicanSofa.config.admin_route_redirect = 'snippets'
+    ComfortableMexicanSofa.config.admin_route_redirect = '/cms-admin/sites'
     load(File.expand_path('config/routes.rb', Rails.root))
     
     http_auth :get, '/cms-admin'
     assert_response :redirect
-    assert_redirected_to cms_admin_snippets_path
+    assert_redirected_to cms_admin_sites_path
   end
   
   def test_get_admin_with_admin_route_prefix_disabled
