@@ -16,18 +16,16 @@ class CmsAdmin::BaseController < ApplicationController
     path = ComfortableMexicanSofa.config.admin_route_redirect
     return redirect_to(path) unless path.blank?
     load_admin_site
-    redirect_to cms_admin_site_pages_path(@site)
+    redirect_to cms_admin_site_pages_path(@site) if @site
   end
   
 protected
   
   def load_admin_site
-    @site = Cms::Site.find(params[:site_id])
-  rescue ActiveRecord::RecordNotFound => e
-    raise e unless @site = Cms::Site.first
-  rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Site not found'
-    return redirect_to(cms_admin_sites_path)
+    unless (@site = Cms::Site.find_by_id(params[:site_id]) || Cms::Site.first)
+      flash[:error] = 'Site not found'
+      return redirect_to(new_cms_admin_site_path)
+    end
   end
   
   def load_fixtures
