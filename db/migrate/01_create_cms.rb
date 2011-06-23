@@ -6,6 +6,7 @@ class CreateCms < ActiveRecord::Migration
       t.string :label
       t.string :hostname
       t.string :path
+      t.string :locale,       :null => false, :default => 'en'
       t.boolean :is_mirrored, :null => false, :default => false
     end
     add_index :cms_sites, :hostname

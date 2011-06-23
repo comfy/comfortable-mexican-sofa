@@ -17,9 +17,6 @@ class ComfortableMexicanSofa::Configuration
   # Not allowing irb code to be run inside page content. False by default.
   attr_accessor :allow_irb
   
-  # Caching for css/js. For admin layout and ones for cms content. Enabled by default.
-  attr_accessor :enable_caching
-  
   # Upload settings
   attr_accessor :upload_file_options
   
@@ -39,10 +36,9 @@ class ComfortableMexicanSofa::Configuration
     @authentication         = 'ComfortableMexicanSofa::HttpAuth'
     @seed_data_path         = nil
     @admin_route_prefix     = 'cms-admin'
-    @admin_route_redirect   = 'pages'
+    @admin_route_redirect   = ''
     @enable_multiple_sites  = false
     @allow_irb              = false
-    @enable_caching         = true
     @upload_file_options    = {}
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)

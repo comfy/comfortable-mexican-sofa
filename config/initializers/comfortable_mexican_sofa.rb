@@ -11,18 +11,14 @@ ComfortableMexicanSofa.configure do |config|
   # entirely set this to '' or nil
   #   config.admin_route_prefix = 'cms-admin'
   
-  # Path: /cms-admin redirects to /cms-admin/pages but you can change it
-  #   config.admin_route_redirect = 'pages'
+  # When arriving at /cms-admin you may chose to redirect to arbirtary path,
+  # for example '/cms-admin/users'
+  #   config.admin_route_redirect = ''
   
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...
   #   config.allow_irb = false
-  
-  # Asset caching for CSS and JS for admin layout. This setting also controls
-  # page caching for CMS Layout CSS and Javascript. Enabled by default. When deploying
-  # to an environment with read-only filesystem (like Heroku) turn this setting off.
-  #   config.enable_caching = true
   
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:

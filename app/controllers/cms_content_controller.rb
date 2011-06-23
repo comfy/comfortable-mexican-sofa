@@ -5,8 +5,6 @@ class CmsContentController < ApplicationController
   before_filter :load_cms_page,   :only => :render_html
   before_filter :load_cms_layout, :only => [:render_css, :render_js]
   
-  caches_page :render_css, :render_js, :if => Proc.new { |c| ComfortableMexicanSofa.config.enable_caching }
-  
   def render_html(status = 200)
     if layout = @cms_page.layout
       app_layout = layout.app_layout.blank?? false : layout.app_layout

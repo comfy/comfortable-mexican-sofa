@@ -17,9 +17,8 @@ class ActiveSupport::TestCase
       config.cms_title              = 'ComfortableMexicanSofa MicroCMS'
       config.authentication         = 'ComfortableMexicanSofa::HttpAuth'
       config.admin_route_prefix     = 'cms-admin'
-      config.admin_route_redirect   = 'pages'
+      config.admin_route_redirect   = ''
       config.allow_irb              = false
-      config.enable_caching         = true
       config.enable_fixtures        = false
       config.fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit        = 25

@@ -12,8 +12,8 @@ class Cms::Layout < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
-  after_save    :clear_cache, :clear_cached_page_content
-  after_destroy :clear_cache, :clear_cached_page_content
+  after_save    :clear_cached_page_content
+  after_destroy :clear_cached_page_content
   
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -69,13 +69,6 @@ protected
   
   def assign_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
-  end
-  
-  # After saving need to make sure that cached pages for css and js for this
-  # layout and its children are gone. Good enough to avoid using cache sweepers.
-  def clear_cache
-    FileUtils.rm File.expand_path("cms-css/#{self.slug}.css", Rails.public_path), :force => true
-    FileUtils.rm File.expand_path("cms-js/#{self.slug}.js",   Rails.public_path), :force => true
   end
   
   # Forcing page content reload

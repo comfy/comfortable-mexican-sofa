@@ -7,9 +7,8 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa MicroCMS', config.cms_title
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.authentication
     assert_equal 'cms-admin', config.admin_route_prefix
-    assert_equal 'pages', config.admin_route_redirect
+    assert_equal '', config.admin_route_redirect
     assert_equal false, config.allow_irb
-    assert_equal true, config.enable_caching
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
