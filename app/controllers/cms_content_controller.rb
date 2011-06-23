@@ -25,8 +25,21 @@ class CmsContentController < ApplicationController
 protected
   
   def load_cms_site
-    @cms_site = Cms::Site.find_by_hostname(request.host.downcase)
-    render :text => 'Site Not Found', :status => 404 if !@cms_site
+    @cms_site ||= Cms::Site.first if Cms::Site.count == 1
+    Cms::Site.find_all_by_hostname(request.host.downcase).each do |site|
+      if site.path.blank?
+        @cms_site = site
+      elsif "#{request.fullpath}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
+        @cms_site = site
+        break
+      end
+    end unless @cms_site
+    
+    if @cms_site
+      params[:cms_path].to_s.gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
+    else
+      render :text => 'Site Not Found', :status => 404
+    end
   end
   
   def load_fixtures

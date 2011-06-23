@@ -26,4 +26,35 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_equal 'test.host', assigns(:cms_site).hostname
   end
   
+  def test_get_public_page_with_sites_with_different_paths
+    Cms::Site.delete_all
+    site_a = Cms::Site.create!(:label => 'Site A', :hostname => 'test.host', :path => '')
+    site_b = Cms::Site.create!(:label => 'Site B', :hostname => 'test.host', :path => 'path-b')
+    site_c = Cms::Site.create!(:label => 'Site C', :hostname => 'test.host', :path => 'path-c/child')
+    
+    %w(/ /path-a /path-a/child /path-c).each do |path|
+      get path
+      assert_response 404
+      assert assigns(:cms_site), path
+      assert_equal site_a, assigns(:cms_site)
+      assert_equal path.gsub(/^\//, ''), @controller.params[:cms_path].to_s
+    end
+    
+    %w(/path-b /path-b/child).each do |path|
+      get path
+      assert_response 404
+      assert assigns(:cms_site), path
+      assert_equal site_b, assigns(:cms_site)
+      assert_equal path.gsub(/^\/path-b/, '').gsub(/^\//, ''), @controller.params[:cms_path].to_s
+    end
+    
+    %w(/path-c/child /path-c/child/child).each do |path|
+      get path
+      assert_response 404
+      assert assigns(:cms_site), path
+      assert_equal site_c, assigns(:cms_site)
+      assert_equal path.gsub(/^\/path-c\/child/, '').gsub(/^\//, ''), @controller.params[:cms_path].to_s
+    end
+  end
+  
 end
