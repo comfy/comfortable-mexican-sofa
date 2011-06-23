@@ -25,7 +25,7 @@ class CmsContentController < ApplicationController
 protected
   
   def load_cms_site
-    Cms::Site.find_by_hostname(request.host.downcase)
+    @cms_site = Cms::Site.find_by_hostname(request.host.downcase)
     render :text => 'Site Not Found', :status => 404 if !@cms_site
   end
   

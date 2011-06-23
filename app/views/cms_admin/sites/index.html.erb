@@ -11,7 +11,7 @@
           <%= link_to 'Delete', cms_admin_site_path(site), :method => :delete, :confirm => 'Are you sure?' %>
         </div>
         <div class='label'>
-          <%= link_to site.label, edit_cms_admin_site_path(site) %>
+          <%= link_to site.label, cms_admin_site_pages_path(site) %>
           <div class='sublabel'>
             <%= link_to "http://#{site.hostname}#{site.path}", "http://#{site.hostname}#{site.path}", :target => '_blank' %>
           </div>
