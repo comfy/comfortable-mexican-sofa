@@ -47,7 +47,11 @@ protected
 
   def build_cms_site
     @cms_site = Cms::Site.new(params[:cms_site])
-    @cms_site.hostname ||= request.host.downcase
+    @cms_site.hostname ||= if ComfortableMexicanSofa.config.enable_multiple_sites and ComfortableMexicanSofa.config.enable_i18n_sites
+      request.host.downcase + ":" + (params[:cms_locale] || Rails.application.config.i18n.default_locale || I18n.locale).to_s
+    else
+      request.host.downcase
+    end
   end
 
   def load_cms_site

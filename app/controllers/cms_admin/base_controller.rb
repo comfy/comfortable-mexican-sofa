@@ -11,10 +11,21 @@ class CmsAdmin::BaseController < ApplicationController
   
   layout 'cms_admin'
   
+  def default_url_options(options={})
+    if params[:cms_locale] then
+      {:cms_locale => params[:cms_locale]}
+    else
+      {}
+    end
+  end
 protected
   
   def load_admin_cms_site
-    hostname = request.host.downcase
+    hostname = if ComfortableMexicanSofa.config.enable_multiple_sites and ComfortableMexicanSofa.config.enable_i18n_sites
+      request.host.downcase + ":" + (params[:cms_locale] || Rails.application.config.i18n.default_locale || I18n.locale).to_s
+    else
+      request.host.downcase
+    end
     @cms_site = Cms::Site.find_by_hostname!(hostname)
     
   rescue ActiveRecord::RecordNotFound

@@ -33,7 +33,11 @@ protected
   
   def load_cms_site
     @cms_site = if ComfortableMexicanSofa.config.enable_multiple_sites
-      Cms::Site.find_by_hostname(request.host.downcase)
+      if ComfortableMexicanSofa.config.enable_i18n_sites then
+        Cms::Site.find_by_hostname(request.host.downcase + ":" + I18n.locale.to_s)
+      else
+        Cms::Site.find_by_hostname(request.host.downcase)
+      end
     else
       Cms::Site.first
     end
