@@ -26,6 +26,7 @@ protected
       flash[:error] = 'Site not found'
       return redirect_to(new_cms_admin_site_path)
     end
+    I18n.locale = @site.locale
   end
   
   def load_fixtures

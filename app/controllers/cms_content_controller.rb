@@ -37,6 +37,7 @@ protected
     
     if @cms_site
       params[:cms_path].to_s.gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
+      I18n.locale = @cms_site.locale
     else
       render :text => 'Site Not Found', :status => 404
     end

@@ -57,4 +57,28 @@ class SitesTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_get_public_with_locale
+    get '/'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal :en, I18n.locale
+    
+    cms_sites(:default).update_attribute(:locale, 'fr')
+    get '/'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal :fr, I18n.locale
+  end
+  
+  def test_get_admin_with_locale
+    http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
+    assert_response :success
+    assert_equal :en, I18n.locale
+    
+    cms_sites(:default).update_attribute(:locale, 'fr')
+    http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
+    assert_response :success
+    assert_equal :fr, I18n.locale
+  end
+  
 end
