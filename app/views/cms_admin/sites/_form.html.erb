@@ -1,7 +1,7 @@
 <%= form.text_field :label %>
 <%= form.text_field :hostname %>
 <%= form.text_field :path %>
-<%= form.text_field :locale %>
+<%= form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| [l[1], l[0]]} %>
 <%= form.check_box :is_mirrored %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>

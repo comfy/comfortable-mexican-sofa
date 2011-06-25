@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ComfortableMexicanSofa::Configuration
   
   # Don't like Comfortable Mexican Sofa? Set it to whatever you like. :(
@@ -10,8 +12,8 @@ class ComfortableMexicanSofa::Configuration
   # You can change 'cms-admin' to 'admin', for example.
   attr_accessor :admin_route_prefix
   
-  # /cms-admin redirects to /cms-admin/pages but you can change it
-  # to something else
+  # When arriving at /cms-admin you may chose to redirect to arbirtary path,
+  # for example '/cms-admin/users'
   attr_accessor :admin_route_redirect
   
   # Not allowing irb code to be run inside page content. False by default.
@@ -30,6 +32,14 @@ class ComfortableMexicanSofa::Configuration
   # Number of revisions kept. Default is 25. If you wish to disable: set this to 0.
   attr_accessor :revisions_limit
   
+  # Locale definitions. If you want to define your own locale merge
+  # {:locale => 'Locale Title'} with this.
+  attr_accessor :locales
+  
+  # Admin interface will respect the locale of the site being managed. However you can
+  # force it to English by setting this to `:en`
+  attr_accessor :admin_locale
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -43,6 +53,8 @@ class ComfortableMexicanSofa::Configuration
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit        = 25
+    @locales                = { :en => 'English', :es => 'Español' }
+    @admin_locale           = nil
   end
   
 end

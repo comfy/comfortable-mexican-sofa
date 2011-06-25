@@ -15,7 +15,9 @@ es:
     attributes:
       cms/site:
         hostname: Dirección
-        is_mirrored: Mirrored
+        path: Ruta
+        locale: Lengua
+        is_mirrored: Espejo
       cms/layout:
         label: Nombre de Plantilla
         app_layout: Plantilla Base

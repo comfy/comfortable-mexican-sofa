@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class ConfigurationTest < ActiveSupport::TestCase
@@ -12,6 +14,8 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
+    assert_equal ({:en => 'English', :es => 'Español'}), config.locales
+    assert_equal nil, config.admin_locale
   end
   
   def test_initialization_overrides
