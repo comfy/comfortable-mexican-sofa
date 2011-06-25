@@ -1,5 +1,5 @@
-<%= link_to span_tag('Create New Page'), new_cms_admin_site_page_path(@site), :class => 'big button' %>
-<h1>Pages</h1>
+<%= link_to span_tag(t('.new_link')), new_cms_admin_site_page_path(@site), :class => 'big button' %>
+<h1><%= t('.title')%></h1>
 
 <% content_for :right_column do %>
   <%= render :partial => 'cms_admin/sites/mirrors' %>

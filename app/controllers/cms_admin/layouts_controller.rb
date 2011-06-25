@@ -18,25 +18,25 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
   def create
     @layout.save!
-    flash[:notice] = 'Layout created'
+    flash[:notice] = I18n.t('cms.layouts.created')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create layout'
+    flash.now[:error] = I18n.t('cms.layouts.creation_failure')
     render :action => :new
   end
 
   def update
     @layout.update_attributes!(params[:layout])
-    flash[:notice] = 'Layout updated'
+    flash[:notice] = I18n.t('cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update layout'
+    flash.now[:error] = I18n.t('cms.layouts.update_failure')
     render :action => :edit
   end
 
   def destroy
     @layout.destroy
-    flash[:notice] = 'Layout deleted'
+    flash[:notice] = I18n.t('cms.layouts.deleted')
     redirect_to :action => :index
   end
 
@@ -51,7 +51,7 @@ protected
   def load_layout
     @layout = @site.layouts.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Layout not found'
+    flash[:error] = I18n.t('cms.layouts.not_found')
     redirect_to :action => :index
   end
 

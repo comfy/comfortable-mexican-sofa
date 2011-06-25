@@ -21,25 +21,25 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 
   def create
     @site.save!
-    flash[:notice] = 'Site created'
+    flash[:notice] = I18n.t('cms.sites.created')
     redirect_to :action => :edit, :id => @site
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create site'
+    flash.now[:error] = I18n.t('cms.sites.creation_failure')
     render :action => :new
   end
 
   def update
     @site.update_attributes!(params[:site])
-    flash[:notice] = 'Site updated'
+    flash[:notice] = I18n.t('cms.sites.updated')
     redirect_to :action => :edit, :id => @site
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update site'
+    flash.now[:error] = I18n.t('cms.sites.update_failure')
     render :action => :edit
   end
 
   def destroy
     @site.destroy
-    flash[:notice] = 'Site deleted'
+    flash[:notice] = I18n.t('cms.sites.deleted')
     redirect_to :action => :index
   end
 
@@ -53,7 +53,7 @@ protected
   def load_site
     @site = Cms::Site.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Site not found'
+    flash[:error] = I18n.t('cms.sites.not_found')
     redirect_to :action => :index
   end
 

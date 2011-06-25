@@ -1,8 +1,8 @@
-<h1> Revisions for <%= @record.class.to_s.demodulize %></h1>
-<h2> <%= @record.is_a?(Cms::Page) ? "Full Path: #{@record.full_path}" : "Slug: #{@record.slug}" %> </h2>
+<h1> <%= t('.title') %> <%= @record.class.to_s.demodulize %></h1>
+<h2> <%= @record.is_a?(Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.slug}" %> </h2>
 
 <% content_for :right_column do %>
-  <h2><%= pluralize(@record.revisions.count, 'Revision') %></h2>
+  <h2><%= pluralize(@record.revisions.count, t('.revision')) %></h2>
   <div class='revisions box'>
     <% @record.revisions.each do |revision| %>
       <%= active_link_to revision.created_at, :id => revision.id %>
@@ -32,5 +32,5 @@
     <% end %>
   <% end %>
   
-  <%= form.submit 'Update to this Revision' %>
+  <%= form.submit t('.update') %>
 <% end %>

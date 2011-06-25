@@ -3,9 +3,8 @@
 <div id='form_blocks'>
   <% if block_tags.empty? %>
     <div class='no_tags'>
-      <%= link_to @page.layout.label, edit_cms_admin_layout_path(@page.layout) %>
-      Layout has no content tags defined. <br/>
-      Edit the content to include a page or field tag, for example: <code>{{cms:page:content}}</code>
+      <%= link_to @page.layout.label, edit_cms_admin_site_layout_path(@site, @page.layout) %>
+      <%= t('.no_tags').html_safe %>
     </div>
   <% else %>
     <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>

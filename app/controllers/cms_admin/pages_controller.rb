@@ -21,25 +21,25 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 
   def create
     @page.save!
-    flash[:notice] = 'Page saved'
+    flash[:notice] = I18n.t('cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create page'
+    flash.now[:error] = I18n.t('cms.pages.creation_failure')
     render :action => :new
   end
 
   def update
     @page.save!
-    flash[:notice] = 'Page updated'
+    flash[:notice] = I18n.t('cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update page'
+    flash.now[:error] = I18n.t('cms.pages.update_failure')
     render :action => :edit
   end
 
   def destroy
     @page.destroy
-    flash[:notice] = 'Page deleted'
+    flash[:notice] = I18n.t('cms.pages.deleted')
     redirect_to :action => :index
   end
 
@@ -70,7 +70,7 @@ protected
 
   def check_for_layouts
     if @site.layouts.count == 0
-      flash[:error] = 'No Layouts found. Please create one.'
+      flash[:error] = I18n.t('cms.pages.layout_not_found')
       redirect_to new_cms_admin_site_layout_path(@site)
     end
   end
@@ -90,7 +90,7 @@ protected
     @page.attributes = params[:page]
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Page not found'
+    flash[:error] = I18n.t('cms.pages.not_found')
     redirect_to :action => :index
   end
 

@@ -1,5 +1,5 @@
 class CmsContentController < ApplicationController
-  
+
   before_filter :load_cms_site
   before_filter :load_fixtures
   before_filter :load_cms_page,   :only => :render_html
@@ -10,19 +10,24 @@ class CmsContentController < ApplicationController
       app_layout = layout.app_layout.blank?? false : layout.app_layout
       render :inline => @cms_page.content, :layout => app_layout, :status => status
     else
-      render :text => 'Layout Not Found', :status => 404
+      render :text => I18n.t('cms.content.layout_not_found'), :status => 404
     end
   end
-  
+
   def render_css
     render :text => @cms_layout.css, :content_type => 'text/css'
   end
-  
+
   def render_js
     render :text => @cms_layout.js, :content_type => 'text/javascript'
   end
-  
+
 protected
+
+  def load_fixtures
+    return unless ComfortableMexicanSofa.config.enable_fixtures
+    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
+  end
   
   def load_cms_site
     @cms_site ||= Cms::Site.first if Cms::Site.count == 1
@@ -39,7 +44,8 @@ protected
       params[:cms_path].to_s.gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
       I18n.locale = @cms_site.locale
     else
-      render :text => 'Site Not Found', :status => 404
+      I18n.locale = I18n.default_locale
+      render :text => I18n.t('cms.content.site_not_found'), :status => 404
     end
   end
   
@@ -47,23 +53,23 @@ protected
     return unless ComfortableMexicanSofa.config.enable_fixtures
     ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
   end
-  
+
   def load_cms_page
     @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
-    
+
   rescue ActiveRecord::RecordNotFound
     if @cms_page = @cms_site.pages.published.find_by_full_path('/404')
       render_html(404)
     else
-      render :text => 'Page Not Found', :status => 404
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
     end
   end
-  
+
   def load_cms_layout
     @cms_layout = @cms_site.layouts.find_by_slug!(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true, :status => 404
   end
-  
+
 end

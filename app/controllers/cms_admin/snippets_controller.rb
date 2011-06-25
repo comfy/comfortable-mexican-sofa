@@ -18,25 +18,25 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def create
     @snippet.save!
-    flash[:notice] = 'Snippet created'
+    flash[:notice] = I18n.t('cms.snippets.created')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create snippet'
+    flash.now[:error] = I18n.t('cms.snippets.creation_failure')
     render :action => :new
   end
 
   def update
     @snippet.update_attributes!(params[:snippet])
-    flash[:notice] = 'Snippet updated'
+    flash[:notice] = I18n.t('cms.snippets.updated')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update snippet'
+    flash.now[:error] = I18n.t('cms.snippets.update_failure')
     render :action => :edit
   end
 
   def destroy
     @snippet.destroy
-    flash[:notice] = 'Snippet deleted'
+    flash[:notice] = I18n.t('cms.snippets.deleted')
     redirect_to :action => :index
   end
 
@@ -49,7 +49,7 @@ protected
   def load_snippet
     @snippet = @site.snippets.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Snippet not found'
+    flash[:error] = I18n.t('cms.snippets.not_found')
     redirect_to :action => :index
   end
 end

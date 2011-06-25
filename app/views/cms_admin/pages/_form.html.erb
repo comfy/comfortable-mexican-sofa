@@ -2,7 +2,7 @@
   <div id='page_save' class='box'>
     <label>
       <input type='checkbox'/>
-      Published
+      <%= Cms::Page.human_attribute_name(:is_published) %>
     </label>
     <button></button>
   </div>
@@ -22,7 +22,7 @@
     <%= form.select :parent_id, options %>
   <% end %>
   <% if (options = Cms::Page.options_for_select(@site, @page, nil, 0, false)).present? %>
-    <%= form.select :target_page_id, [['---- No Redirect ----', nil]] + options, :label => 'Redirect To Page' %>
+    <%= form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
 </div>
@@ -31,7 +31,7 @@
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
-  <%= form.label_for :is_published, :label => 'Published' %>
-  <%= form.submit 'Preview', :name => 'preview', :id => nil, :disable_builder => true %>
-  <%= form.submit @page.new_record? ? 'Create Page' : 'Update Page', :id => 'cms_page_submit', :disable_builder => true %>
+  <%= form.label_for :is_published %>
+  <%= form.submit t('.preview'), :name => 'preview', :id => nil, :disable_builder => true %>
+  <%= form.submit t(@page.new_record?? '.create' : '.update'), :id => 'cms_page_submit', :disable_builder => true %>
 <% end %>

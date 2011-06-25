@@ -141,7 +141,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         page = Cms::Page.last
         assert_equal cms_sites(:default), page.site
         assert_redirected_to :action => :edit, :id => page
-        assert_equal 'Page saved', flash[:notice]
+        assert_equal 'Page created', flash[:notice]
       end
     end
   end

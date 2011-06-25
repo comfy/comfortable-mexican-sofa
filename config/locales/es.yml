@@ -1,0 +1,177 @@
+# encoding: utf-8
+es:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: Nombre
+    slug: Identificador
+    parent_id: Padre
+    content: Contenido
+  activerecord:
+    models:
+      cms/site: Sitio
+      cms/layout: Plantilla
+      cms/page: Página
+      cms/snippet: Fragmento
+    attributes:
+      cms/site:
+        hostname: Dirección
+        is_mirrored: Mirrored
+      cms/layout:
+        label: Nombre de Plantilla
+        app_layout: Plantilla Base
+        parent_id: Plantilla Padre
+        css: Hoja de Estilo
+        js: Javascript
+      cms/page:
+        label: Título
+        layout_id: Plantilla
+        slug: Ruta
+        target_page_id: Redirigir a
+        is_published: Publicada
+        
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: Sitio no encontrado
+      fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
+      
+    sites:
+      created: Site created
+      creation_failure: Failed to create site
+      updated: Site updated
+      update_failure: Failed to update site
+      deleted: Site deleted
+      not_found: Sitio no encontrado
+      
+    layouts:
+      created: Diseño Creado
+      creation_failure: El diseño NO ha podido ser Creado
+      updated: Diseño Actualizado"
+      update_failure: El diseño NO ha podido ser Actualizado
+      deleted: Diseñó Eliminado
+      not_found: Diseño no encontrado
+      
+    pages:
+      created: Page created
+      creation_failure: Failed to create page
+      updated: Page updated
+      update_failure: Failed to update page
+      deleted: Page deleted
+      not_found: Página no encontrada
+      layout_not_found: No Layouts found. Please create one.
+      
+    snippets:
+      created: Snippet created
+      creation_failure: Failed to create snippet
+      updated: Snippet updated
+      update_failure: Failed to update snippet
+      deleted: Snippet deleted
+      not_found: Snippet not found
+      
+    revisions:
+      reverted: Content Reverted
+      record_not_found: Record Not Found
+      not_found: Revision Not Found
+      
+    uploads:
+      
+    content:
+      site_not_found: Sitio no encontrado
+      layout_not_found: Diseño no encontrado
+      page_not_found: Página no encontrada
+  
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Sitios
+      layouts: Diseños
+      pages: Páginas
+      snippets: Fragmentos
+    
+    sites:
+      index:
+        title: Listado de Sitios
+        new_link: Crear nuevo Sitio
+        edit: Editar
+        delete: Eliminar
+        are_you_sure: ¿Está seguro de que desea eliminar este sitio?
+      new:
+        title: Creando Sitio
+      edit:
+        title: Editando Sitio
+      form:
+        create: Crear Sitio
+        update: Actualizar Sitio
+        
+    layouts:
+      index:
+        title: Diseños
+        new_link: Crear Nuevo Diseño
+      index_branch:
+        add_child_layout: Añadir diseño hijo
+        edit: Editar
+        delete: Eliminar
+        are_you_sure: ¿Está seguro?
+      new:
+        title: Nuevo Diseño
+      edit:
+        title: Editando Diseño
+        revision: Revision
+      form:
+        select_parent_layout: Seleccionar diseño padre
+        select_app_layout: Seleccionar diseño (App)
+        create: Crear Diseño
+        update: Actualizar Diseño
+      
+    pages:
+      index:
+        title: Páginas
+        new_link: Crear Nueva Página
+      index_branch:
+        toggle: Cambiar
+        add_child_page: Añadir página hija
+        edit: Editar
+        delete: Eliminar
+        are_you_sure: ¿Está seguro?
+      new:
+        title: Nueva Página
+      edit:
+        title: Editando Página
+        revision: Revision
+      form:
+        select_target_page: No Redirigir
+        preview: Vista Previa
+        create: Crear Página
+        update: Actualizar Página
+      form_blocks:
+        no_tags: |-
+          Layout has no content tags defined.<br/>
+          Editar the content to include a page or field tag, for example: <code>{{cms:page:content}}</code>
+      
+    snippets:
+      index:
+        title: Fragmentos
+        new_link: Crear nuevo Fragmento
+        edit: Editar
+        delete: Eliminar
+        are_you_sure: ¿Está seguro?
+      new:
+        title: Nuevo Fragmento
+      edit:
+        title: Editando Fragmento
+        revision: Revision
+      form:
+        create: Crear Fragmento
+        update: Actualizar Fragmento
+          
+    revisions:
+      show:
+        title: Revisions for
+        revision: Revision
+        full_path: Full Path
+        slug: Slug
+        update: Update to this Revision
+      
+    uploads:
+      index:
+        button: Cargar Archivos
