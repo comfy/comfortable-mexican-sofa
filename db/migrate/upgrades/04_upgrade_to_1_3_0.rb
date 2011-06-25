@@ -4,6 +4,10 @@ class UpgradeTo130 < ActiveRecord::Migration
     add_column :cms_sites, :path, :string
     add_column :cms_sites, :locale, :string, :null_false, :default => 'en'
     add_index :cms_sites, :is_mirrored
+    
+    add_column :cms_layouts,  :is_shared, :null => false, :default => false
+    add_column :cms_pages,    :is_shared, :null => false, :default => false
+    add_column :cms_snippets, :is_shared, :null => false, :default => false
   end
 
   def self.down
@@ -11,5 +15,9 @@ class UpgradeTo130 < ActiveRecord::Migration
     remove_column :cms_sites, :path
     remove_column :cms_sites, :is_mirrored
     remove_column :cms_sites, :locale
+    
+    remove_column :cms_layouts,   :is_shared
+    remove_column :cms_pages,     :is_shared
+    remove_column :cms_snippets,  :is_shared
   end
 end
