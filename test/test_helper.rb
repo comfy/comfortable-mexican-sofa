@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -22,6 +24,8 @@ class ActiveSupport::TestCase
       config.enable_fixtures        = false
       config.fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit        = 25
+      config.locales                = { :en => 'English', :es => 'Español' }
+      config.admin_locale           = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

@@ -23,11 +23,11 @@ protected
   
   def load_admin_site
     unless (@site = Cms::Site.find_by_id(params[:site_id]) || Cms::Site.first)
-      I18n.locale = I18n.default_locale
+      I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
       flash[:error] = I18n.t('cms.base.site_not_found')
       return redirect_to(new_cms_admin_site_path)
     end
-    I18n.locale = @site.locale
+    I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
   end
 
   def load_fixtures
