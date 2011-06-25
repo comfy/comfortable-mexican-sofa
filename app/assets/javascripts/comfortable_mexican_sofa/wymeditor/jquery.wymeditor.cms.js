@@ -2,7 +2,7 @@
 var cms_wym_options = {
   
   initSkin:         false,
-  lang:             'en',
+  lang:             $('meta[name="cms-locale"]').attr('content'),
   
   updateSelector:    'form',
   updateEvent:       'submit',
