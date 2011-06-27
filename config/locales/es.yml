@@ -30,21 +30,21 @@ es:
         slug: Ruta
         target_page_id: Redirigir a
         is_published: Publicada
-        
+
   # -- Controllers ----------------------------------------------------------
   cms:
     base:
       site_not_found: Sitio no encontrado
-      fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
-      
+      fixtures_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
+
     sites:
-      created: Site created
-      creation_failure: Failed to create site
-      updated: Site updated
-      update_failure: Failed to update site
-      deleted: Site deleted
+      created: Sitio creado
+      creation_failure: El sitio no ha podido ser creado
+      updated: Sitio actualizado
+      update_failure: El sitio no ha podido ser actualizado
+      deleted: Sitio eliminado
       not_found: Sitio no encontrado
-      
+
     layouts:
       created: Diseño Creado
       creation_failure: El diseño NO ha podido ser Creado
@@ -52,36 +52,36 @@ es:
       update_failure: El diseño NO ha podido ser Actualizado
       deleted: Diseñó Eliminado
       not_found: Diseño no encontrado
-      
+
     pages:
-      created: Page created
-      creation_failure: Failed to create page
-      updated: Page updated
-      update_failure: Failed to update page
-      deleted: Page deleted
+      created: Página creada
+      creation_failure: La página no ha podido ser creada
+      updated: Página actualizada
+      update_failure: La página no ha podido ser actualizada
+      deleted: Página eliminada
       not_found: Página no encontrada
-      layout_not_found: No Layouts found. Please create one.
-      
+      layout_not_found: No se ha encontrado una plantilla. Cree una primero.
+
     snippets:
-      created: Snippet created
-      creation_failure: Failed to create snippet
-      updated: Snippet updated
-      update_failure: Failed to update snippet
-      deleted: Snippet deleted
-      not_found: Snippet not found
-      
+      created: Fragmento creado
+      creation_failure: El fragmento no ha podido ser creado
+      updated: Fragmento actualizado
+      update_failure: El fragmento no ha podido ser actualizado
+      deleted: Fragmento eliminado
+      not_found: Fragmento no encontrado
+
     revisions:
-      reverted: Content Reverted
-      record_not_found: Record Not Found
-      not_found: Revision Not Found
-      
+      reverted: Contenido revertido
+      record_not_found: Registro no encontrado
+      not_found: Revisión no encontrada
+
     uploads:
-      
+
     content:
       site_not_found: Sitio no encontrado
       layout_not_found: Diseño no encontrado
       page_not_found: Página no encontrada
-  
+
   # -- Views ----------------------------------------------------------------
   cms_admin:
     base:
@@ -89,7 +89,7 @@ es:
       layouts: Diseños
       pages: Páginas
       snippets: Fragmentos
-    
+
     sites:
       index:
         title: Listado de Sitios
@@ -104,7 +104,7 @@ es:
       form:
         create: Crear Sitio
         update: Actualizar Sitio
-        
+
     layouts:
       index:
         title: Diseños
@@ -118,13 +118,13 @@ es:
         title: Nuevo Diseño
       edit:
         title: Editando Diseño
-        revision: Revision
+        revision: Revisión
       form:
         select_parent_layout: Seleccionar diseño padre
         select_app_layout: Seleccionar diseño (App)
         create: Crear Diseño
         update: Actualizar Diseño
-      
+
     pages:
       index:
         title: Páginas
@@ -147,9 +147,9 @@ es:
         update: Actualizar Página
       form_blocks:
         no_tags: |-
-          Layout has no content tags defined.<br/>
-          Editar the content to include a page or field tag, for example: <code>{{cms:page:content}}</code>
-      
+          La plantilla no tiene etiquetas de contenido definidas.<br/>
+          Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:page:content}}</code>
+
     snippets:
       index:
         title: Fragmentos
@@ -161,19 +161,19 @@ es:
         title: Nuevo Fragmento
       edit:
         title: Editando Fragmento
-        revision: Revision
+        revision: Revisión
       form:
         create: Crear Fragmento
         update: Actualizar Fragmento
-          
+
     revisions:
       show:
-        title: Revisions for
-        revision: Revision
-        full_path: Full Path
-        slug: Slug
-        update: Update to this Revision
-      
+        title: Revisiones de
+        revision: Revisión
+        full_path: Ruta completa
+        slug: Identificador
+        update: Actualizar a esta versión
+
     uploads:
       index:
         button: Cargar Archivos
