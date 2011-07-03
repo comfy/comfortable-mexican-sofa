@@ -41,9 +41,9 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_field_string
-    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label}}')
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:string}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "input[type='text'][name='page[blocks_attributes][][content]']", 1, response.body.to_s
+    assert_select "input[type='text'][name='page[blocks_attributes][][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
