@@ -1,4 +1,4 @@
-# ComfortableMexicanSofa (MicroCMS) [![Build Status](https://secure.travis-ci.org/twg/comfortable-mexican-sofa.png)](http://travis-ci.org/twg/comfortable-mexican-sofa.png)
+# ComfortableMexicanSofa (MicroCMS) [![Build Status](https://secure.travis-ci.org/twg/comfortable-mexican-sofa.png)](http://travis-ci.org/twg/comfortable-mexican-sofa)
 
 ComfortableMexicanSofa is a tiny and powerful micro CMS for your Rails 3 application. This CMS is a plugin for your application, not the other way around. Implemented as an Engine so installation is no different than for any other plugin out there.
 
