@@ -4,6 +4,10 @@ var cms_wym_options = {
   initSkin:         false,
   lang:             $('meta[name="cms-locale"]').attr('content'),
   
+  basePath:   $('meta[name="cms-js-assets-base-path"]').attr('content') + '/wymeditor/',
+  wymPath:    'disabled',
+  jQueryPath: 'disabled',
+  
   updateSelector:    'form',
   updateEvent:       'submit',
   

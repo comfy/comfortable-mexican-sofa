@@ -28,8 +28,8 @@ table {
   width: 100%;
 }
 th, td {
-  min-height: 20px;
-  min-width: 20px;
+  height: 20px;
+  width: 20px;
   border: 1px dotted #ccc;
 }
 
