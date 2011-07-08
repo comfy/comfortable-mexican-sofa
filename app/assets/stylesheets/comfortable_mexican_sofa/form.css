@@ -23,12 +23,18 @@
 }
 .form_element .value input[type='text'],
 .form_element .value input[type='password'],
+.form_element .value input[type='datetime'],
+.form_element .value input[type='number'],
 .form_element .value select,
 .form_element .value textarea {
   border: 0px;
   width: 100%;
   padding: 2px 0px;
   font-family: 'Courier New', Courier, monospace;
+}
+.form_element .value input[type='datetime'],
+.form_element .value input[type='number'] {
+  width: 200px;
 }
 .form_element .value textarea {
   height: 300px;

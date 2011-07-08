@@ -6,5 +6,5 @@
 = require comfortable_mexican_sofa/content.css
 = require comfortable_mexican_sofa/widgets.css
 = require comfortable_mexican_sofa/codemirror.css
-= require comfortable_mexican_sofa/jquery-ui/jquery-ui.css
+= require comfortable_mexican_sofa/jquery_ui.css
 */
