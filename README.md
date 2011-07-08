@@ -1,6 +1,16 @@
-# ComfortableMexicanSofa (MicroCMS) [![Build Status](https://secure.travis-ci.org/twg/comfortable-mexican-sofa.png)](http://travis-ci.org/twg/comfortable-mexican-sofa)
+# ComfortableMexicanSofa (CMS Engine) [![Build Status](https://secure.travis-ci.org/twg/comfortable-mexican-sofa.png)](http://travis-ci.org/twg/comfortable-mexican-sofa)
 
-ComfortableMexicanSofa is a tiny and powerful micro CMS for your Rails 3 application. This CMS is a plugin for your application, not the other way around. Implemented as an Engine so installation is no different than for any other plugin out there.
+ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications. Unlike other CMS solutions ComfortableMexicanSofa compliments your application, it doesn't force you to extend it to implement custom functionality.
+
+Features
+--------
+* Powerful Page templating
+* Simple integration with Rails 3.0 and 3.1 apps
+* Multiple Sites from a single installation
+* Multilingual
+* Fixtures for initial content population
+* Great reusable admin interface
+* Almost no 3rd party library dependencies
 
 Installation
 ------------
@@ -14,15 +24,17 @@ Then from the Rails project's root run:
     rails generate cms
     rake db:migrate
     
-When upgrading to a newer version just run `rails g cms` and replace files when prompted. You may also need to run `rake db:migrate` again.
+When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/twg/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)
     
-Usage
------
+Quick Start Guide
+-----------------
 After finishing installation you should be able to navigate to http://yoursite/cms-admin
 
 Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/twg/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb)
 
-Before creating pages and populating them with content we need to create a layout. A layout is the template of your pages; it defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
+Before creating pages and populating them with content we need to create a Site. Site defines a hostname, content path and it's language.
+
+After creating a Site, you need to make a Layout. Layout is the template of your pages; it defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
     
     <html>
       <body>
@@ -35,9 +47,9 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 ![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/page_editing.png)
 
-CMS Tags
---------
-There are a number of cms tags that define where the content goes and how it's populated. **Page** and **Field** tags are used during layout creation. **Snippet**, **Helper** and **Partial** tags can be peppered pretty much anywhere. Tag is structured like so:
+CMS Tags Overview
+-----------------
+There are a [number of cms tags]() that define where the content goes and how it's populated. **Page** and **Field** tags are used during layout creation. **Snippet**, **Helper** and **Partial** tags can be peppered pretty much anywhere. Tag is structured like so:
     
     {{ cms:page:content:text }}
         \    \     \      \ 
@@ -56,7 +68,7 @@ Here's a number of tag variations:
     {{ cms:page:some_label:string }}      # in admin area text field is displayed instead of textarea
     {{ cms:page:some_label:datetime }}    # similarly, datetime widget in the admin area
     {{ cms:page:some_label:integer }}     # a number field
-    {{ cms:page:some_label:rich_text }}   # TinyMCE wysiwyg editor will be used to edit this content
+    {{ cms:page:some_label:rich_text }}   # wymiwyg editor will be used to edit this content
     
     # Field tags are pieces of text content that are NOT rendered on the page. They can be accessed via
     # your application's layout / helpers / partials etc. Useful for populating this like <meta> tags.
@@ -140,34 +152,6 @@ Do you have other authentication system in place (like Devise, AuthLogic, etc) a
     end
     
 You can put this module in /config/initializers/comfortable\_mexican\_sofa.rb and change authentication method: `config.authentication = 'CmsDeviseAuth'`. Now to access Sofa's admin area users will be authenticated against your existing authentication system.
-
-Working with Fixtures
----------------------
-Sofa allows you to build entire site using files instead of updating database via admin area. This significantly speeds up initial content population. Go to the initializer and set this to enable fixtures in development environment: `config.enable_fixtures = Rails.env.development?`. You may also change the folder that is used to store fixtures.
-
-If you run `rails g cms` you should find an example set of fixtures in [/db/cms\_fixtures](https://github.com/twg/comfortable-mexican-sofa/blob/master/db/cms_fixtures).
-
-When fixtures are enabled, database is updated with each request, but only if fixture file is newer than the database entry. Database is also purged of items that are not defined in fixtures. So be careful not to clear out your database by mistake.
-
-To load fixtures into the database just run this rake task: `rake comfortable_mexican_sofa:fixtures:import FROM=example.local TO=example.com`. `from` indicates folder the fixtures are in and `to` is the Site hostname you have defined in the database.
-
-If you need to dump database contents into fixture files run: `rake comfortable_mexican_sofa:fixtures:export FROM=example.com TO=example.local`. This will create example.local folder and dump all content from example.com Site.
-    
-Active Components
------------------
-ComfortableMexicanSofa utilizes the following:
-
-* **[https://github.com/rails/rails](https://github.com/rails/rails)** - Ruby on Rails 3.*, of course
-* **[https://github.com/thoughtbot/paperclip](https://github.com/thoughtbot/paperclip)** - Paperclip to handle file uploads
-* **[https://github.com/twg/active_link_to](https://github.com/twg/active_link_to)** - Easy method to handle logic behind 'active' links
-
-Contributing to ComfortableMexicanSofa
---------------------------------------
-
-* Fork the project
-* Start a feature/bugfix branch (don't just work on the master branch)
-* Commit and push until you are happy with your contribution
-* Create a Pull Request
 
 ![Looks pretty comfortable to me. No idea what makes it Mexican.](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/sofa.png)
 
