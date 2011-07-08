@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails',          '>=3.0.0'
 gem 'active_link_to', '>=0.0.8'
-gem 'paperclip',      '>=2.3.11'
+gem 'paperclip',      '>=2.3.14'
 
 group :development do
   # gem 'sqlite3'
