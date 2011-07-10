@@ -1,11 +1,12 @@
 # ComfortableMexicanSofa (CMS Engine) [![Build Status](https://secure.travis-ci.org/twg/comfortable-mexican-sofa.png)](http://travis-ci.org/twg/comfortable-mexican-sofa)
 
-ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications. Unlike other CMS solutions ComfortableMexicanSofa compliments your application, it doesn't force you to extend it to implement custom functionality.
+ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 
 Features
 --------
-* Powerful page templating capability
 * Simple integration with Rails 3.0 and 3.1 apps
+* Build your application in Rails, not in CMS
+* Powerful page templating capability
 * Multiple Sites from a single installation
 * Multilingual
 * Fixtures for initial content population
@@ -45,6 +46,8 @@ After creating a Site, you need to make a Layout. Layout is the template of your
     </html>
 
 Once you have a layout, you may start creating pages and populating content. It's that easy.
+
+For more information please [see Wiki pages](https://github.com/twg/comfortable-mexican-sofa/wiki).
 
 ![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/page_editing.png)
 
@@ -94,10 +97,6 @@ Here's a number of tag variations:
     {{ cms:partial:path/to/partial }}     # same as <%= render :partial => 'path/to/partial' %>
     {{ cms:partial:path/to/partial:a:b }} # same as <%= render :partial => 'path/to/partial',
                                           #   :locals => { :param_1 => 'a', :param_1 => 'b' } %>
-
-Multiple Sites
---------------
-Sofa is able to manage multiple sites from the same application. For instance: 'site-a.example.com' and 'site-b.example.com' will have distinct set of layouts, pages, snippets, etc. To enable multi-site functionality make sure you have this setting in the initializer: `config.enable_multiple_sites = true`.
     
 Integrating CMS with your app
 -----------------------------
