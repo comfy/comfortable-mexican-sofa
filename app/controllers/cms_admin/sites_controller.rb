@@ -22,7 +22,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   def create
     @site.save!
     flash[:notice] = I18n.t('cms.sites.created')
-    redirect_to :action => :edit, :id => @site
+    redirect_to cms_admin_site_layouts_path(@site)
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = I18n.t('cms.sites.creation_failure')
     render :action => :new

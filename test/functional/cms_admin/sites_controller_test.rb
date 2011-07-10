@@ -49,7 +49,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
       }
       assert_response :redirect
       site = Cms::Site.last
-      assert_redirected_to :action => :edit, :id => site
+      assert_redirected_to cms_admin_site_layouts_path(site)
       assert_equal 'Site created', flash[:notice]
     end
   end
