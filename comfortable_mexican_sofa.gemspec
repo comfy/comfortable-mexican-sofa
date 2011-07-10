@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.3.1"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-07-08}
+  s.date = %q{2011-07-10}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -29,6 +29,19 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/icon_move.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_regular.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_snippet.gif",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_flat_0_aaaaaa_40x100.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_flat_75_ffffff_40x100.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_55_fbf9ee_1x400.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_65_ffffff_1x400.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_75_dadada_1x400.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_75_e6e6e6_1x400.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_95_fef1ec_1x400.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_highlight-soft_75_cccccc_1x100.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_222222_256x240.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_2e83ff_256x240.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_454545_256x240.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_888888_256x240.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_cd0a0a_256x240.png",
     "app/assets/images/comfortable_mexican_sofa/wym_icons.png",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
     "app/assets/javascripts/comfortable_mexican_sofa/codemirror/codemirror.js",
@@ -79,6 +92,7 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/comfortable_mexican_sofa/codemirror.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/content.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/form.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/jquery_ui.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/reset.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/structure.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/typography.css",
@@ -200,10 +214,6 @@ Gem::Specification.new do |s|
     "lib/generators/README",
     "lib/generators/cms_generator.rb",
     "lib/tasks/comfortable_mexican_sofa.rake",
-    "public/422.html",
-    "public/500.html",
-    "public/favicon.ico",
-    "public/robots.txt",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
     "test/fixtures/cms/layouts.yml",
