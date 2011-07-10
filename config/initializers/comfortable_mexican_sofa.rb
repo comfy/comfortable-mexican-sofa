@@ -47,7 +47,7 @@ ComfortableMexicanSofa.configure do |config|
   
   # Admin interface will respect the locale of the site being managed. However you can
   # force it to English by setting this to `:en`
-  #   cofig.admin_locale = nil
+  #   config.admin_locale = nil
   
 end
 
