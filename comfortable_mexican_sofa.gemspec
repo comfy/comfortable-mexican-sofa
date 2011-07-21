@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.3.4"
+  s.version = "1.3.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
@@ -273,7 +273,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/twg/comfortable-mexican-sofa}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
-  s.summary = %q{ComfortableMexicanSofa is a powerful micro CMS for Ruby on Rails 3 applications}
+  s.summary = %q{ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
