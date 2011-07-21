@@ -11,7 +11,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name        = 'comfortable_mexican_sofa'
-    gem.summary     = 'ComfortableMexicanSofa is a powerful micro CMS for Ruby on Rails 3 applications'
+    gem.summary     = 'ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications'
     gem.description = ''
     gem.email       = 'oleg@theworkinggroup.ca'
     gem.homepage    = 'http://github.com/twg/comfortable-mexican-sofa'
