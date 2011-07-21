@@ -30,15 +30,19 @@ protected
   end
   
   def load_cms_site
-    @cms_site ||= Cms::Site.first if Cms::Site.count == 1
-    Cms::Site.find_all_by_hostname(request.host.downcase).each do |site|
-      if site.path.blank?
-        @cms_site = site
-      elsif "#{request.fullpath}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
-        @cms_site = site
-        break
-      end
-    end unless @cms_site
+    if params[:site_id]
+      @cms_site ||= Cms::Site.find_by_id(params[:site_id])
+    else
+      @cms_site ||= Cms::Site.first if Cms::Site.count == 1
+      Cms::Site.find_all_by_hostname(request.host.downcase).each do |site|
+        if site.path.blank?
+          @cms_site = site
+        elsif "#{request.fullpath}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
+          @cms_site = site
+          break
+        end
+      end unless @cms_site
+    end
     
     if @cms_site
       params[:cms_path].to_s.gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
@@ -67,7 +71,7 @@ protected
   end
 
   def load_cms_layout
-    @cms_layout = @cms_site.layouts.find_by_slug!(params[:id])
+    @cms_layout = @cms_site.layouts.find_by_slug!(params[:layout_slug])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true, :status => 404
   end
