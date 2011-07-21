@@ -15,7 +15,7 @@ $.CMS = function(){
     $.CMS.enable_codemirror();
     $.CMS.enable_date_picker();
     $.CMS.enable_sortable_list();
-    if($('form.new_cms_page, form.edit_cms_page').get(0)) $.CMS.enable_page_save_form();
+    if($('form#page_edit, form#page_new').get(0)) $.CMS.enable_page_save_form();
     if($('#mirrors').get(0))          $.CMS.enable_mirrors_widget();
     if($('#page_save').get(0))        $.CMS.enable_page_save_widget();
     if($('#uploader_button').get(0))  $.CMS.enable_uploader();
@@ -119,13 +119,13 @@ $.CMS = function(){
     },
 
     enable_page_save_widget : function(){
-      $('#page_save input').attr('checked', $('input#cms_page_is_published').is(':checked'));
+      $('#page_save input').attr('checked', $('input#page_is_published').is(':checked'));
       $('#page_save button').html($('input#cms_page_submit').val());
 
       $('#page_save input').bind('click', function(){
-        $('input#cms_page_is_published').attr('checked', $(this).is(':checked'));
+        $('input#page_is_published').attr('checked', $(this).is(':checked'));
       })
-      $('input#cms_page_is_published').bind('click', function(){
+      $('input#page_is_published').bind('click', function(){
         $('#page_save input').attr('checked', $(this).is(':checked'));
       })
       $('#page_save button').bind('click', function(){
