@@ -1,5 +1,5 @@
 <% content_for :right_column do %>
-  <%= render :partial => 'cms_admin/uploads/index' %>
+  <%= render :partial => 'cms_admin/files/index' %>
 <% end %>
 
 <%= form.text_field :label, :id => (@layout.new_record?? 'slugify' : nil)%>

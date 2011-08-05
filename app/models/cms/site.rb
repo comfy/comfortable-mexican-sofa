@@ -6,7 +6,7 @@ class Cms::Site < ActiveRecord::Base
   has_many :layouts,  :dependent => :destroy
   has_many :pages,    :dependent => :destroy
   has_many :snippets, :dependent => :destroy
-  has_many :uploads,  :dependent => :destroy
+  has_many :files,    :dependent => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label

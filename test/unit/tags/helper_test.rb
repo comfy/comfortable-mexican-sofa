@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
-class HelperTest < ActiveSupport::TestCase
+class HelperTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(

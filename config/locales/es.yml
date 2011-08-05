@@ -75,7 +75,7 @@ es:
       record_not_found: Registro no encontrado
       not_found: Revisión no encontrada
 
-    uploads:
+    files:
 
     content:
       site_not_found: Sitio no encontrado
@@ -174,6 +174,6 @@ es:
         slug: Identificador
         update: Actualizar a esta versión
 
-    uploads:
+    files:
       index:
         button: Cargar Archivos

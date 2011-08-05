@@ -75,7 +75,7 @@ en:
       record_not_found: Record Not Found
       not_found: Revision Not Found
       
-    uploads:
+    files:
       
     content:
       site_not_found: Site Not Found
@@ -174,7 +174,7 @@ en:
         slug: Slug
         update: Update to this Revision
       
-    uploads:
+    files:
       index:
         button: Upload Files
       

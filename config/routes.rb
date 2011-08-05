@@ -15,7 +15,7 @@ Rails.application.routes.draw do
           put :revert, :on => :member
         end
       end
-      resources :uploads, :only => [:create, :destroy]
+      resources :files
       resources :layouts do
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member

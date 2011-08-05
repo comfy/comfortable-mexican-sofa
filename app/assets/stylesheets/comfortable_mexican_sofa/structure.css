@@ -1,8 +1,5 @@
 /* -- Containers --------------------------------------------------------- */
-html {
-  height: 100%;
-}
-body#cms_body {
+html, body#cms_body {
   height: 100%;
   background-color: #252525;
 }

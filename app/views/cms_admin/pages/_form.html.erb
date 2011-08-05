@@ -6,7 +6,7 @@
     </label>
     <button></button>
   </div>
-  <%= render :partial => 'cms_admin/uploads/index' %>
+  <%= render :partial => 'cms_admin/files/index' %>
 <% end %>
 
 <%= form.text_field :label, :id => (@page.new_record?? 'slugify' : nil) %>

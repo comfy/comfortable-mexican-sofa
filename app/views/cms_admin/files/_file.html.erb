@@ -6,5 +6,5 @@
       end 
   %>
   <%= link_to file_name, file.file.url, :target => '_blank', :class => 'filename' %>
-  <%= link_to span_tag('x'), cms_admin_site_upload_path(@site, file), :method => :delete, :remote => true, :class => 'delete' %>
+  <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :class => 'delete' %>
 </div>

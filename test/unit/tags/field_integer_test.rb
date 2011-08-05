@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
-class FieldIntegerTest < ActiveSupport::TestCase
+class FieldIntegerTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::FieldInteger.initialize_tag(

@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
-class FieldDateTimeTest < ActiveSupport::TestCase
+class FieldDateTimeTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
