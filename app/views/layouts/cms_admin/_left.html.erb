@@ -1,5 +1,5 @@
 <ul class='nav'>
-  <li><%= active_link_to t('cms_admin.base.sites'), cms_admin_sites_path, :active => {:when => :self_only} %></li>
+  <li><%= active_link_to t('cms_admin.base.sites'), cms_admin_sites_path, :active => :exclusive %></li>
   <% if @site && params[:controller] != 'cms_admin/sites' %>
     <li><%= active_link_to t('cms_admin.base.layouts'), cms_admin_site_layouts_path(@site) %></li>
     <li><%= active_link_to t('cms_admin.base.pages'), cms_admin_site_pages_path(@site) %></li>

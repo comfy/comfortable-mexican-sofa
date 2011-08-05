@@ -7,7 +7,7 @@ class CmsContentController < ApplicationController
   
   def render_html(status = 200)
     if layout = @cms_page.layout
-      app_layout = layout.app_layout.blank?? false : layout.app_layout
+      app_layout = (layout.app_layout.blank? || request.xhr?) ? false : layout.app_layout
       render :inline => @cms_page.content, :layout => app_layout, :status => status
     else
       render :text => I18n.t('cms.content.layout_not_found'), :status => 404

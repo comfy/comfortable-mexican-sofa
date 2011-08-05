@@ -22,7 +22,16 @@ class CmsContentControllerTest < ActionController::TestCase
     cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
     get :render_html, :cms_path => ''
     assert_response :success
+    assert assigns(:cms_page)
     assert_select "body[class='c_cms_content a_render_html']"
+  end
+  
+  def test_render_page_with_xhr
+    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
+    xhr :get, :render_html, :cms_path => ''
+    assert_response :success
+    assert assigns(:cms_page)
+    assert_no_select "body[class='c_cms_content a_render_html']"
   end
   
   def test_render_page_not_found
