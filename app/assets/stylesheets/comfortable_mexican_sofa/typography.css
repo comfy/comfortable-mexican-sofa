@@ -1,8 +1,8 @@
-body {
+body#cms_body {
   font: 13px 'Lucida Grande', 'Tahoma', sans-serif;
 }
 
-h1 {
+#cms_body h1 {
   font: bold 25px/25px 'Lucida Grande', 'Tahoma', serif;
   margin-bottom: 25px;
   padding-bottom: 5px;
@@ -10,27 +10,27 @@ h1 {
   text-shadow: #fff 1px 1px;
   border-bottom: 2px solid #9f9f9f;
 }
-h2 {
+#cms_body h2 {
   font: bold 16px/16px 'Lucida Grande', 'Tahoma', serif;
   text-shadow: #fff 1px 1px;
   margin-bottom: 15px;
 }
-h1 + h2 {
+#cms_body h1 + h2 {
   margin-top: -15px;
 }
-a {
+#cms_body a {
   text-decoration: none;
   color: #384E66;
 }
-a:hover {
+#cms_body a:hover {
   color: #1C2733;
 }
-strong {
+#cms_body strong {
   font-weight: bold;
 }
-em {
+#cms_body em {
   font-style: italic;
 }
-code {
+#cms_body code {
   font: 13px Consolas, Monaco, Courier New, Courier, monospace;
 }

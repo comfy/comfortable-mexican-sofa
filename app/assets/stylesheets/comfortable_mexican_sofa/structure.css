@@ -1,39 +1,42 @@
 /* -- Containers --------------------------------------------------------- */
-html, body {
+html {
+  height: 100%;
+}
+body#cms_body {
   height: 100%;
   background-color: #252525;
 }
-.body_wrapper {
+#cms_body .body_wrapper {
   height: 100%;
 }
-.left_column {
+#cms_body .left_column {
   width: 175px;
   float: left;
 }
-.center_column {
+#cms_body .center_column {
   position: relative;
   margin: 0px 250px 0px 175px;
   min-height: 100%;
   background-color: #e6e6e6;
 }
-.center_column .center_column_content {
+#cms_body .center_column .center_column_content {
   padding: 25px;
 }
-.right_column {
+#cms_body .right_column {
   width: 250px;
   float: right;
 }
-.right_column_content {
+#cms_body .right_column_content {
   padding: 25px 10px;
   width: 230px;
   position: fixed;
 }
-.left_column_content {
+#cms_body .left_column_content {
   padding: 25px 0px 25px 10px;
   width: 165px;
   position: fixed;
 }
-.left_column_content ul.nav a {
+#cms_body .left_column_content ul.nav a {
   display: block;
   padding: 3px 10px;
   margin-bottom: 5px;
@@ -48,17 +51,17 @@ html, body {
   color: #fff;
   opacity: 0.3;
 }
-.left_column_content ul.nav a:hover,
-.left_column_content ul.nav a.active {
+#cms_body .left_column_content ul.nav a:hover,
+#cms_body .left_column_content ul.nav a.active {
   color: #fff;
   opacity: 1;
 }
-.right_column_content h2 {
+#cms_body .right_column_content h2 {
   color: #d8d8d8;
   text-shadow: #000 1px 1px;
   margin-bottom: 5px;
 }
-.right_column_content .box {
+#cms_body .right_column_content .box {
   background-color: #484848;
   padding: 5px;
   border-radius: 3px;
@@ -68,24 +71,24 @@ html, body {
   color: #fff;
 }
 /* -- Flash Messages ----------------------------------------------------- */
-.flash {
+#cms_body .flash {
   text-align: center;
   padding: 8px;
   color: #fff;
   background-color: #066B12;
 }
-.flash.error {
+#cms_body .flash.error {
   background-color: #9e0b0f;
 }
 /* -- Buttons ------------------------------------------------------------ */
-a.button,
-button,
-input[type='button'], 
-input[type='submit'], 
-input[type='reset'], 
-input[type='file'],
-.action_links a,
-a.ui-dialog-titlebar-close {
+#cms_body a.button,
+#cms_body button,
+#cms_body input[type='button'], 
+#cms_body input[type='submit'], 
+#cms_body input[type='reset'], 
+#cms_body input[type='file'],
+#cms_body .action_links a,
+#cms_body a.ui-dialog-titlebar-close {
   margin-left: 3px;
   background-color: #b4b4b4;
   color: #1b1b1b;
@@ -99,34 +102,34 @@ a.ui-dialog-titlebar-close {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F9F9F9), color-stop(34%,#D5D5D5), color-stop(100%,#B4B4B4));
   text-shadow: #f5f5f5 1px 1px;
 }
-a.button:hover,
-button:hover,
-input[type='button']:hover, 
-input[type='submit']:hover, 
-input[type='reset']:hover, 
-input[type='file']:hover,
-.action_links a:hover,
-a.ui-dialog-titlebar-close:hover {
+#cms_body a.button:hover,
+#cms_body button:hover,
+#cms_body input[type='button']:hover, 
+#cms_body input[type='submit']:hover, 
+#cms_body input[type='reset']:hover, 
+#cms_body input[type='file']:hover,
+#cms_body .action_links a:hover,
+#cms_body a.ui-dialog-titlebar-close:hover {
   box-shadow: inset 0px 0px 5px #aaa;
   -moz-box-shadow: inset 0px 0px 5px #aaa;
   -webkit-box-shadow: inset 0px 0px 5px #aaa;
   border-color: #484848;
 }
-a.button.big,
-button,
-input[type='button'], 
-input[type='submit'], 
-input[type='reset'], 
-input[type='file'] {
+#cms_body a.button.big,
+#cms_body button,
+#cms_body input[type='button'], 
+#cms_body input[type='submit'], 
+#cms_body input[type='reset'], 
+#cms_body input[type='file'] {
   padding: 3px 10px;
   font-size: 10px;
   letter-spacing: 0.5px;
 }
-a.button.big {
+#cms_body a.button.big {
   float: right;
 }
 /* -- Sofa Version ------------------------------------------------------- */
-.center_column .sofa {
+#cms_body .center_column .sofa {
   position: absolute;
   background: #000;
   bottom: 0px;
@@ -135,13 +138,13 @@ a.button.big {
   padding: 5px 10px;
   font-size: 10px;
 }
-.center_column .sofa a {
+#cms_body .center_column .sofa a {
   color: #484848;
 }
-.center_column .sofa a:hover {
+#cms_body .center_column .sofa a:hover {
   color: #f1f1f1;
 }
-.center_column .sofa span.version {
+#cms_body .center_column .sofa span.version {
   color: #f1f1f1;
   font-size: 9px;
   margin-left: 2px;

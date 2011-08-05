@@ -1,9 +1,9 @@
 /* -- Forms -------------------------------------------------------------- */
-.form_element {
+#cms_body .form_element {
   overflow: hidden;
   margin-bottom: 5px;
 }
-.form_element .label {
+#cms_body .form_element .label {
   width: 117px;
   float: left;
   text-align: right;
@@ -17,38 +17,38 @@
   -moz-border-radius-bottomleft: 3px;
   border-right: 3px solid #bbb;
 }
-.form_element .value {
+#cms_body .form_element .value {
   margin-left: 150px;
   overflow: hidden;
 }
-.form_element .value input[type='text'],
-.form_element .value input[type='password'],
-.form_element .value input[type='datetime'],
-.form_element .value input[type='number'],
-.form_element .value select,
-.form_element .value textarea {
+#cms_body .form_element .value input[type='text'],
+#cms_body .form_element .value input[type='password'],
+#cms_body .form_element .value input[type='datetime'],
+#cms_body .form_element .value input[type='number'],
+#cms_body .form_element .value select,
+#cms_body .form_element .value textarea {
   border: 0px;
   width: 100%;
   padding: 2px 0px;
   font-family: 'Courier New', Courier, monospace;
 }
-.form_element .value input[type='datetime'],
-.form_element .value input[type='number'] {
+#cms_body .form_element .value input[type='datetime'],
+#cms_body .form_element .value input[type='number'] {
   width: 200px;
 }
-.form_element .value textarea {
+#cms_body .form_element .value textarea {
   height: 300px;
 }
-.form_element .value .CodeMirror-wrapping {
+#cms_body .form_element .value .CodeMirror-wrapping {
   background-color: #fff;
 }
-.form_element.check_box_element input {
+#cms_body .form_element.check_box_element input {
   width: auto;
 }
-.page_form_extras {
+#cms_body .page_form_extras {
   margin-bottom: 10px;
 }
-#form_blocks .no_tags {
+#cms_body #form_blocks .no_tags {
   background-color: #252525;
   color: #aaa;
   border-radius: 3px;
@@ -56,30 +56,30 @@
   text-align: center;
   padding: 10px;
 }
-#form_blocks .no_tags a {
+#cms_body #form_blocks .no_tags a {
   color: #fff;
 }
-#form_blocks .no_tags a:hover {
+#cms_body #form_blocks .no_tags a:hover {
   color: #aaa;
   text-decoration: underline;
 }
-#form_blocks .no_tags code {
+#cms_body #form_blocks .no_tags code {
   color: #B85042;
 }
-.form_element.field_datetime .label,
-.form_element.field_integer .label,
-.form_element.field_string .label,
-.form_element.field_text .label {
+#cms_body .form_element.field_datetime .label,
+#cms_body .form_element.field_integer .label,
+#cms_body .form_element.field_string .label,
+#cms_body .form_element.field_text .label {
   border-color: #48699C;
 }
-.form_element.page_datetime .label,
-.form_element.page_integer .label,
-.form_element.page_string .label,
-.form_element.page_text .label,
-.form_element.page_rich_text .label {
+#cms_body .form_element.page_datetime .label,
+#cms_body .form_element.page_integer .label,
+#cms_body .form_element.page_string .label,
+#cms_body .form_element.page_text .label,
+#cms_body .form_element.page_rich_text .label {
   border-color: #3F7300;
 }
-.form_error {
+#cms_body .form_error {
   background-color: #9e0b0f;
   font-size: 14px;
   color: #fff;
@@ -87,31 +87,31 @@
   text-align: center;
   margin-bottom: 10px;
 }
-.form_element.errors .label {
+#cms_body .form_element.errors .label {
   border-color: #9e0b0f;
 }
-.form_element.errors .errors {
+#cms_body .form_element.errors .errors {
   margin: 2px 0px 0px 150px;
   font-size: 11px;
   color: #9e0b0f;
 }
-.form_element.submit_element {
+#cms_body .form_element.submit_element {
   margin-top: 10px;
 }
-.form_element.submit_element .value {
+#cms_body .form_element.submit_element .value {
   background-color: #f1f1f1;
   border-radius: 3px;
   -moz-border-radius: 3px;
   padding: 5px;
 }
-.form_element.submit_element label {
+#cms_body .form_element.submit_element label {
   margin: 0px 5px;
 }
-.form_element.submit_element input[name='commit'],
-.form_element.submit_element input[name='save'] {
+#cms_body .form_element.submit_element input[name='commit'],
+#cms_body .form_element.submit_element input[name='save'] {
   float: right;
 }
-.form_element .desc {
+#cms_body .form_element .desc {
   margin: 2px 0px 0px 150px;
   font-size: 11px;
   color: #777;

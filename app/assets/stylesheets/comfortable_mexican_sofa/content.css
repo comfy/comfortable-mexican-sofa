@@ -59,7 +59,7 @@
 }
 
 /* -- Listings ----------------------------------------------------------- */
-ul.list li .item {
+#cms_body ul.list li .item {
   overflow: hidden;
   padding: 5px;
   background-color: #f1f1f1;
@@ -67,62 +67,62 @@ ul.list li .item {
   -moz-border-radius: 3px;
   margin-bottom: 5px;
 }
-ul.list li .item .toggle {
+#cms_body ul.list li .item .toggle {
   float: left;
   height: 28px;
   width: 28px; 
 }
-ul.list li .item .toggle a {
+#cms_body ul.list li .item .toggle a {
   display: block;
   height: 28px;
   width: 28px;
   background: url(/assets/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat;
 }
-ul.list li .item .toggle a span {
+#cms_body ul.list li .item .toggle a span {
   display: none;
 }
-ul.list li .item .toggle.open a {
+#cms_body ul.list li .item .toggle.open a {
   background-image: url(/assets/comfortable_mexican_sofa/arrow_bottom.gif);
 }
-ul.list li .item .icon {
+#cms_body ul.list li .item .icon {
   float: left;
   width: 28px;
   height: 28px;
   background: url(/assets/comfortable_mexican_sofa/icon_regular.gif);
 }
-ul.list li .item .icon .dragger {
+#cms_body ul.list li .item .icon .dragger {
   width: 28px;
   height: 28px;
   background: url(/assets/comfortable_mexican_sofa/icon_move.gif);
   cursor: move;
   display: none;
 }
-ul.list li .item .icon:hover .dragger {
+#cms_body ul.list li .item .icon:hover .dragger {
   display: block;
 }
-ul.list li .item .icon .dragger span {
+#cms_body ul.list li .item .icon .dragger span {
   display: none;
 }
-ul.list li .item .label {
+#cms_body ul.list li .item .label {
   margin-left: 60px;
   font-size: 14px;
   font-weight: bold;
 }
-ul.list li .item .label .sublabel {
+#cms_body ul.list li .item .label .sublabel {
   font-size: 10px;
   font-weight: normal;
 }
-ul.list li ul {
+#cms_body ul.list li ul {
   margin-left: 28px;
 }
-ul.list li .action_links {
+#cms_body ul.list li .action_links {
   float: right;
   opacity: 0.2;
 }
-ul.list li .item:hover .action_links {
+#cms_body ul.list li .item:hover .action_links {
   opacity: 1;
 }
-ul.list li .item:hover {
+#cms_body ul.list li .item:hover {
   background-color: #fff;
 }
 
