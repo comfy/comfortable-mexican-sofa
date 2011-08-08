@@ -89,6 +89,7 @@ en:
       layouts: Layouts
       pages: Pages
       snippets: Snippets
+      files: Files
       
     sites:
       index:

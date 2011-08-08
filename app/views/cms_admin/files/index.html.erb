@@ -1,0 +1,22 @@
+<%= link_to span_tag(t('.new_link')), new_cms_admin_site_file_path(@site), :class => 'big button' %>
+<h1><%= t('.title')%></h1>
+
+<ul class='list'>
+  <% @files.each do |file| %>
+    <li id='<%= dom_id(file) %>'>
+      <div class='item'>
+        <div class='icon'></div>
+        <div class='action_links'>
+          <%= link_to t('.edit'), edit_cms_admin_site_file_path(@site, file) %>
+          <%= link_to t('.delete'), cms_admin_site_file_path(@site, file), :method => :delete, :confirm => t('.are_you_sure') %>
+        </div>
+        <div class='label'>
+          <%= link_to file.file_file_name, edit_cms_admin_site_file_path(@site, file) %>
+          <div class='sublabel'>
+            <%= link_to file.file_file_name, edit_cms_admin_site_file_path(@site, file) %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

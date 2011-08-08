@@ -2,7 +2,6 @@
 #mirrors.box select {
   width: 100%;
 }
-
 /* -- Page saving widget ------------------------------------------------- */
 #page_save button {
   float: right;
@@ -125,7 +124,10 @@
 #cms_body ul.list li .item:hover {
   background-color: #fff;
 }
-
+/* -- Missing Translations ---------------------------------------------- */
+#cms_body .translation_missing {
+  text-decoration: blink;
+}
 /* -- Page Specific stuff ------------------------------------------------ */
 .c_cms_admin_sites.a_index ul.list li .item .label,
 .c_cms_admin_layouts.a_index ul.list li .item .label,

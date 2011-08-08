@@ -2,9 +2,14 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   skip_before_filter :load_fixtures
   
-  before_filter :load_file, :only => :destroy
+  before_filter :build_file, :only => [:new, :create]
+  before_filter :load_file,  :only => [:edit, :update, :destroy]
   
   def index
+    @files = @site.files
+  end
+  
+  def new
     render
   end
   
@@ -20,6 +25,10 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   end
   
 protected
+
+  def build_file
+    @file = @site.files.new(params[:file])
+  end
   
   def load_file
     @file = @site.files.find(params[:id])
