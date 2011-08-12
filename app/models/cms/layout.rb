@@ -41,9 +41,9 @@ class Cms::Layout < ActiveRecord::Base
   
   # List of available application layouts
   def self.app_layouts_for_select
-    Dir.glob(File.expand_path('app/views/layouts/*.html.*', Rails.root)).collect do |filename|
-      match = filename.match(/\w*.html.\w*$/)
-      app_layout = match && match[0]
+    Dir.glob(File.expand_path('app/views/layouts/**/*.html.*', Rails.root)).collect do |filename|
+      match = filename.match(/\/views\/layouts\/(.*)/)
+      app_layout = match[1]
       app_layout.to_s[0...1] == '_' ? nil : app_layout
     end.compact
   end
