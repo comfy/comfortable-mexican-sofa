@@ -47,7 +47,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_app_layouts_for_select
-    assert_equal ['cms_admin.html.erb'], Cms::Layout.app_layouts_for_select
+    FileUtils.touch(File.expand_path('app/views/layouts/cms_admin/nested.html.erb', Rails.root))
+    FileUtils.touch(File.expand_path('app/views/layouts/_partial.html.erb', Rails.root))
+    FileUtils.touch(File.expand_path('app/views/layouts/not_a_layout.erb', Rails.root))
+    
+    assert_equal ['cms_admin.html.erb', 'cms_admin/nested.html.erb'], Cms::Layout.app_layouts_for_select
+    
+    FileUtils.rm(File.expand_path('app/views/layouts/cms_admin/nested.html.erb', Rails.root))
+    FileUtils.rm(File.expand_path('app/views/layouts/_partial.html.erb', Rails.root))
+    FileUtils.rm(File.expand_path('app/views/layouts/not_a_layout.erb', Rails.root))
   end
   
   def test_merged_content_with_same_child_content
