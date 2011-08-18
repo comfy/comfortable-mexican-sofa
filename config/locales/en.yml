@@ -76,6 +76,12 @@ en:
       not_found: Revision Not Found
       
     files:
+      created: Files Uploaded
+      creation_failure: Failed to upload files
+      updated: File updated
+      update_failure: Failed to update file
+      deleted: File deleted
+      not_found: File not found
       
     content:
       site_not_found: Site Not Found
@@ -177,5 +183,17 @@ en:
       
     files:
       index:
+        title: Files
+        new_link: Upload New File
+        edit: Edit
+        delete: Delete
+        are_you_sure: Are you sure?
         button: Upload Files
+      new:
+        title: New File
+      edit:
+        title: Editing File
+      form:
+        create: Upload File
+        update: Update File
       

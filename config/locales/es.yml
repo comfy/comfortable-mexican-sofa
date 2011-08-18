@@ -165,7 +165,7 @@ es:
       form:
         create: Crear Fragmento
         update: Actualizar Fragmento
-
+        
     revisions:
       show:
         title: Revisiones de
@@ -173,7 +173,20 @@ es:
         full_path: Ruta completa
         slug: Identificador
         update: Actualizar a esta versión
-
+        
     files:
       index:
         button: Cargar Archivos
+        title:
+        new_link:
+        edit:
+        delete:
+        are_you_sure:
+        button:
+      new:
+        title:
+      edit:
+        title:
+      form:
+        create:
+        update:
