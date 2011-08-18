@@ -2,33 +2,35 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   skip_before_filter :load_fixtures
   
-  before_filter :build_file, :only => [:new, :create]
-  before_filter :load_file,  :only => [:edit, :update, :destroy]
+  before_filter :load_file, :only => [:edit, :update, :destroy]
   
   def index
     @files = @site.files
   end
   
   def new
-    render
+    @file = @site.files.new
   end
   
   def create
-    @file = @site.files.create!(:file => params[:file])
-    render :partial => 'file', :object => @file
+    params[:file][:file].each do |file|
+      @site.files.create!(:file => file)
+    end
+    
+    flash[:notice] = I18n.t('cms.files.created')
+    redirect_to :action => :index
   rescue ActiveRecord::RecordInvalid
-    render :nothing => true, :status => :bad_request
+    flash.now[:error] = I18n.t('cms.files.creation_failure')
+    render :action => :new
   end
   
   def destroy
     @file.destroy
+    flash[:notice] = I18n.t('cms.files.deleted')
+    redirect_to :action => :index
   end
   
 protected
-
-  def build_file
-    @file = @site.files.new(params[:file])
-  end
   
   def load_file
     @file = @site.files.find(params[:id])
