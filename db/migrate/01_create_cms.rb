@@ -71,11 +71,14 @@ class CreateCms < ActiveRecord::Migration
     # -- Files --------------------------------------------------------------
     create_table :cms_files do |t|
       t.integer :site_id
+      t.string  :label
       t.string  :file_file_name
       t.string  :file_content_type
       t.integer :file_file_size
+      t.string  :description, :limit => 2048
       t.timestamps
     end
+    add_index :cms_files, [:site_id, :label]
     add_index :cms_files, [:site_id, :file_file_name]
     
     # -- Revisions -----------------------------------------------------------
@@ -95,7 +98,7 @@ class CreateCms < ActiveRecord::Migration
     drop_table :cms_pages
     drop_table :cms_snippets
     drop_table :cms_blocks
-    drop_table :cms_uploads
+    drop_table :cms_files
     drop_table :cms_revisions
   end
 end
