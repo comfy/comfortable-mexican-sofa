@@ -12,4 +12,16 @@ class Cms::File < ActiveRecord::Base
   validates :site_id, :presence => true
   validates_attachment_presence :file
   
+  validates_uniqueness_of :file_file_name,
+    :scope => :site_id
+  
+  # -- Callbacks ------------------------------------------------------------
+  before_save :assign_label
+  
+protected
+  
+  def assign_label
+    self.label ||= self.file_file_name.gsub(/\.[^\.]*?$/, '').titleize
+  end
+  
 end

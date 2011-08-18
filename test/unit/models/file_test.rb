@@ -18,9 +18,10 @@ class CmsFileTest < ActiveSupport::TestCase
   
   def test_create
     assert_difference 'Cms::File.count' do
-      cms_sites(:default).files.create(
+      file = cms_sites(:default).files.create(
         :file => fixture_file_upload('files/valid_image.jpg')
       )
+      assert_equal 'Valid Image', file.label
     end
   end
   

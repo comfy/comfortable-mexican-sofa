@@ -11,9 +11,9 @@
           <%= link_to t('.delete'), cms_admin_site_file_path(@site, file), :method => :delete, :confirm => t('.are_you_sure') %>
         </div>
         <div class='label'>
-          <%= link_to file.file_file_name, edit_cms_admin_site_file_path(@site, file) %>
+          <%= link_to file.label, edit_cms_admin_site_file_path(@site, file) %>
           <div class='sublabel'>
-            <%= link_to file.file_file_name, edit_cms_admin_site_file_path(@site, file) %>
+            <%= link_to file.file_file_name, file.file.url, :target => '_blank' %>
           </div>
         </div>
       </div>

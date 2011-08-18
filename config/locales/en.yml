@@ -76,7 +76,7 @@ en:
       not_found: Revision Not Found
       
     files:
-      created: Files Uploaded
+      created: Files uploaded
       creation_failure: Failed to upload files
       updated: File updated
       update_failure: Failed to update file
