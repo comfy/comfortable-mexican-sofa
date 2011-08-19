@@ -96,11 +96,16 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   end
   
   def test_create_as_xhr
-    flunk
-  end
-  
-  def test_create_failure_as_xhr
-    flunk
+    request.env['HTTP_X_FILE_NAME'] = 'test.pdf'
+    request.env['CONTENT_TYPE'] = 'application/pdf'
+    
+    assert_difference 'Cms::File.count' do
+      xhr :post, :create, :site_id => cms_sites(:default)
+      assert_response :success
+      
+      file = Cms::File.last
+      assert_equal 'test.pdf', file.file_file_name
+    end
   end
   
   def test_update
@@ -139,28 +144,10 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   end
   
   def test_destroy_as_xhr
-    flunk
+    assert_difference 'Cms::File.count', -1 do
+      xhr :delete, :destroy, :site_id => cms_sites(:default), :id => cms_files(:default)
+      assert_response :success
+    end
   end
-  
-  # def test_create
-  #     assert_difference 'Cms::File.count', 1 do
-  #       xhr :post, :create, :site_id => cms_sites(:default), :file => fixture_file_upload('files/valid_image.jpg')
-  #       assert_response :success
-  #     end
-  #   end
-  #   
-  #   def test_create_failure
-  #     assert_no_difference 'Cms::File.count' do
-  #       xhr :post, :create, :site_id => cms_sites(:default), :file => nil
-  #       assert_response :bad_request
-  #     end
-  #   end
-  #   
-  #   def test_destroy
-  #     assert_difference 'Cms::File.count', -1 do
-  #       xhr :delete, :destroy, :site_id => cms_sites(:default), :id => cms_files(:default)
-  #       assert_response :success
-  #     end
-  #   end
   
 end

@@ -14,23 +14,41 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   end
   
   def create
-    @file = @site.files.new
-    file_array  = params[:file][:file] || [nil]
-    label       = params[:file][:label]
-    
-    file_array.each_with_index do |file, i|
-      file_params = params[:file].merge(:file => file)
-      if file_array.size > 1 && file_params[:label].present?
-        label = file_params[:label] + " #{i + 1}"
+    respond_to do |format|
+      format.html do
+        @file = @site.files.new
+        file_array  = params[:file][:file] || [nil]
+        label       = params[:file][:label]
+        
+        file_array.each_with_index do |file, i|
+          file_params = params[:file].merge(:file => file)
+          if file_array.size > 1 && file_params[:label].present?
+            label = file_params[:label] + " #{i + 1}"
+          end
+          @file = @site.files.create!(file_params.merge(:label => label))
+        end
+        
+        flash[:notice] = I18n.t('cms.files.created')
+        redirect_to :action => :edit, :id => @file
       end
-      @file = @site.files.create!(file_params.merge(:label => label))
+      format.js do
+        io = request.env['rack.input'].clone
+        io.class.class_eval { attr_accessor :original_filename, :content_type }
+        io.original_filename  = request.env['HTTP_X_FILE_NAME']
+        io.content_type       = request.env['CONTENT_TYPE']
+        @file = @site.files.create!(:file => io)
+      end
     end
-    
-    flash[:notice] = I18n.t('cms.files.created')
-    redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.files.creation_failure')
-    render :action => :new
+    respond_to do |format|
+      format.html do
+        flash.now[:error] = I18n.t('cms.files.creation_failure')
+        render :action => :new
+      end
+      format.js do
+        render :nothing => true
+      end
+    end
   end
   
   def update
@@ -44,8 +62,13 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   def destroy
     @file.destroy
-    flash[:notice] = I18n.t('cms.files.deleted')
-    redirect_to :action => :index
+    respond_to do |format|
+      format.js
+      format.html do
+        flash[:notice] = I18n.t('cms.files.deleted')
+        redirect_to :action => :index
+      end
+    end
   end
   
 protected

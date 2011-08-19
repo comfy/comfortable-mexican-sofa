@@ -1,9 +1,12 @@
-<div id='file_uploads' class='box' data-path='<%= cms_admin_site_files_path(@site) %>'>
-  <div class='actions'>
+<div id='file_uploads' class='box'>
+  
+  <%= form_for :file, :url => cms_admin_site_files_path(@site) do |form| %>
     <a id='uploader_button' href='#' class='big button'><%= t('.button') %></a>
-  </div>
+    <%= form.file_field :file, :multiple => true %>
+  <% end %>
+  
   <div id='uploaded_files'>
-    <% Cms::File.order('file_file_name').all.each do |file| %>
+    <% Cms::File.order('label').all.each do |file| %>
       <%= render :partial => 'cms_admin/files/file', :object => file %>
     <% end %>
   </div>

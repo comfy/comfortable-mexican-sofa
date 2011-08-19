@@ -143,30 +143,25 @@ $.CMS = function(){
     },
 
     enable_uploader : function(){
-      auth_token = $("meta[name=csrf-token]").attr('content');
-      var uploader = new plupload.Uploader({
-        container:        'file_uploads',
-        browse_button:    'uploader_button',
-        runtimes:         'html5',
-        unique_names:     true,
-        multipart:        true,
-        multipart_params: { authenticity_token: auth_token, format: 'js' },
-        url:              $('#file_uploads').data('path')
-      });
-      uploader.init();
-      uploader.bind('FilesAdded', function(up, files) {
-        $.each(files, function(i, file){
-          $('#uploaded_files').prepend(
-            '<div class="file pending" id="' + file.id + '">' + file.name + '</div>'
-          );
+      var action = $('#file_uploads form').attr('action');
+      $('#file_uploads input#file_file').change(function(){
+        var files = $($(this).get(0).files);
+        files.each(function(i, file){
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function(e){
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              eval(xhr.responseText);
+            }
+          }
+          
+          xhr.open('POST', action, true);
+          xhr.setRequestHeader('Accept', 'application/javascript');
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name=csrf-token]').attr('content'));
+          xhr.setRequestHeader('Content-Type', file.content_type);
+          xhr.setRequestHeader('X-File-Name', file.name);
+          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          xhr.send(file);
         });
-        uploader.start();
-      });
-      uploader.bind('Error', function(up, err) {
-        alert('File Upload failed')
-      });
-      uploader.bind('FileUploaded', function(up, file, response){
-        $('#' + file.id).replaceWith(response.response);
       });
     }
   }

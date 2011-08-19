@@ -21,7 +21,7 @@ class Cms::File < ActiveRecord::Base
 protected
   
   def assign_label
-    self.label ||= self.file_file_name.gsub(/\.[^\.]*?$/, '').titleize
+    self.label = self.label.blank?? self.file_file_name.gsub(/\.[^\.]*?$/, '').titleize : self.label
   end
   
 end

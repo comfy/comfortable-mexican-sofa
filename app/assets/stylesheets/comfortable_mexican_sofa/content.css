@@ -1,30 +1,43 @@
 /* -- Mirrors widget ----------------------------------------------------- */
-#mirrors.box select {
+#cms_body #mirrors.box select {
   width: 100%;
 }
 /* -- Page saving widget ------------------------------------------------- */
-#page_save button {
+#cms_body #page_save button {
   float: right;
 }
-#page_save label {
+#cms_body #page_save label {
   line-height: 20px;
   padding-left: 5px;
 }
-#page_save input {
+#cms_body #page_save input {
   margin-right: 5px;
 }
 /* -- File Upload widget ------------------------------------------------- */
-#file_uploads .actions {
+#cms_body #file_uploads form {
+  position: relative;
+  height: 21px;
+  overflow: hidden
+}
+#cms_body #file_uploads form input {
+  position: absolute;
+  margin-top: -1px;
+  right: 0px;
+  top: 0px;
+  font-size: 220px;
+  opacity: 0;
+}
+#cms_body #file_uploads .actions {
   overflow: hidden;
 }
-#file_uploads .actions a.button {
+#cms_body #file_uploads .actions a.button {
   float: right;
 }
-#file_uploads #uploaded_files {
+#cms_body #file_uploads #uploaded_files {
   max-height: 500px;
   overflow-y: auto;
 }
-#file_uploads #uploaded_files .file {
+#cms_body #file_uploads #uploaded_files .file {
   position: relative;
   overflow: hidden;
   font-size: 11px;
@@ -35,16 +48,16 @@
   border-radius: 2px;
   -moz-border-radius: 2px;
 }
-#file_uploads #uploaded_files .file.pending {
+#cms_body #file_uploads #uploaded_files .file.pending {
   opacity: 0.3;
 }
-#file_uploads #uploaded_files .file:hover {
+#cms_body #file_uploads #uploaded_files .file:hover {
   opacity: 1;
 }
-#file_uploads #uploaded_files .file a {
+#cms_body #file_uploads #uploaded_files .file a {
   color: #fff;
 }
-#file_uploads #uploaded_files .file a.delete {
+#cms_body #file_uploads #uploaded_files .file a.delete {
   position: absolute;
   display: block;
   right: 0px;
@@ -53,7 +66,7 @@
   width: 13px;
   font-weight: bold;
 }
-#file_uploads #uploaded_files .file:hover a.delete {
+#cms_body #file_uploads #uploaded_files .file:hover a.delete {
   color: #9e0b0f;
 }
 
@@ -140,6 +153,9 @@
 }
 #cms_body.c_cms_admin_snippets.a_index ul.list li .item .icon {
   background-image: url(/assets/comfortable_mexican_sofa/icon_snippet.gif);
+}
+#cms_body.c_cms_admin_files textarea#file_description {
+  height: 100px;
 }
 /* -- Revisions ---------------------------------------------------------- */
 #cms_body.c_cms_admin_revisions.a_show .form_element.submit_element .value {
