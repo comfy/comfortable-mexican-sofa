@@ -1,6 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
-class BlockTest < ActiveSupport::TestCase
+class CmsBlockTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     Cms::Block.all.each do |block|

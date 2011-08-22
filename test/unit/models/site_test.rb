@@ -51,6 +51,15 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal '', site.path
   end
   
+  def test_creation
+    assert_difference 'Cms::Site.count' do
+      Cms::Site.create!(
+        :label    => 'Test Site',
+        :hostname => 'test.test'
+      )
+    end
+  end
+  
   def test_cascading_destroy
     assert_difference 'Cms::Site.count', -1 do
       assert_difference 'Cms::Layout.count', -3 do

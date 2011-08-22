@@ -1,0 +1,3 @@
+default:
+  label: Default
+  categorized_type: Cms::File
