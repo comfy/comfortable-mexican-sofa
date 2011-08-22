@@ -22,4 +22,42 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     end
   end
   
+  def test_categorized_relationship
+    file = cms_files(:default)
+    assert file.respond_to?(:category_ids)
+    assert_equal 1, file.categories.count
+    assert_equal cms_categories(:default), file.categories.first
+    
+    assert cms_snippets(:default).respond_to?(:category_ids)
+    assert_equal 0, cms_snippets(:default).categories.count
+    assert cms_pages(:default).respond_to?(:category_ids)
+    assert_equal 0, cms_pages(:default).categories.count
+  end
+  
+  def test_categorized_destruction
+    file = cms_files(:default)
+    assert_difference ['Cms::File.count', 'Cms::Categorization.count'], -1 do
+      file.destroy
+    end
+  end
+  
+  def test_categorized_syncing
+    snippet = cms_snippets(:default)
+    assert_equal 0, snippet.categories.count
+    
+    snippet.update_attribute(:category_ids, {
+      cms_categories(:default).id => 1,
+      'invalid'                   => 1
+    })
+    snippet.reload
+    assert_equal 1, snippet.categories.count
+    
+    snippet.update_attribute(:category_ids, {
+      cms_categories(:default).id => 0,
+      'invalid'                   => 0
+    })
+    snippet.reload
+    assert_equal 0, snippet.categories.count
+  end
+  
 end
