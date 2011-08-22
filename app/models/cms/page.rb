@@ -3,6 +3,7 @@ class Cms::Page < ActiveRecord::Base
   set_table_name :cms_pages
   
   cms_acts_as_tree :counter_cache => :children_count
+  cms_is_categorized
   cms_is_mirrored
   cms_has_revisions_for :blocks_attributes
   

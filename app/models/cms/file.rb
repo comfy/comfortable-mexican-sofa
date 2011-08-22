@@ -2,6 +2,8 @@ class Cms::File < ActiveRecord::Base
   
   set_table_name :cms_files
   
+  cms_is_categorized
+  
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options
   

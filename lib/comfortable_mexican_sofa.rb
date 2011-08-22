@@ -7,16 +7,17 @@ end
   'comfortable_mexican_sofa/error',
   'comfortable_mexican_sofa/configuration',
   'comfortable_mexican_sofa/http_auth',
-  'comfortable_mexican_sofa/rails_extensions',
   'comfortable_mexican_sofa/controller_methods',
   'comfortable_mexican_sofa/view_hooks',
   'comfortable_mexican_sofa/view_methods',
   'comfortable_mexican_sofa/form_builder',
-  'comfortable_mexican_sofa/acts_as_tree',
-  'comfortable_mexican_sofa/has_revisions',
-  'comfortable_mexican_sofa/is_mirrored',
   'comfortable_mexican_sofa/tag',
-  'comfortable_mexican_sofa/fixtures'
+  'comfortable_mexican_sofa/fixtures',
+  'comfortable_mexican_sofa/extensions/rails',
+  'comfortable_mexican_sofa/extensions/acts_as_tree',
+  'comfortable_mexican_sofa/extensions/has_revisions',
+  'comfortable_mexican_sofa/extensions/is_mirrored',
+  'comfortable_mexican_sofa/extensions/is_categorized'
 ].each do |path|
   require File.expand_path(path, File.dirname(__FILE__))
 end

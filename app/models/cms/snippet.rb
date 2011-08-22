@@ -1,6 +1,8 @@
 class Cms::Snippet < ActiveRecord::Base
   
   set_table_name :cms_snippets
+  
+  cms_is_categorized
   cms_is_mirrored
   cms_has_revisions_for :content
   
