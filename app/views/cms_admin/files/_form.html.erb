@@ -8,6 +8,8 @@
 <% end %>
 <%= form.text_area :description %>
 
+<%= render :partial => 'cms_admin/categories/form', :object => form %>
+
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.submit t(@file.new_record?? '.create' : '.update'), :disable_builder => true %>
 <% end %>

@@ -14,6 +14,7 @@ class Cms::Category < ActiveRecord::Base
     :presence   => true
     
   # -- Scopes ---------------------------------------------------------------
+  default_scope order(:label)
   scope :of_type, lambda { |type|
     where(:categorized_type => type)
   }

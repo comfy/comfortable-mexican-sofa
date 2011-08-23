@@ -120,3 +120,12 @@
   border-radius: 3px;
   -moz-border-radius: 3px;
 }
+#cms_body .form_element.categories .value label {
+  display: inline-block;
+  padding: 3px 5px;
+  background-color: #9f9f9f;
+  border-radius: 3px;
+  font: 9px/14px 'Lucida Grande', 'Tahoma', serif;
+  text-transform: uppercase;
+  color: #fff;
+}
