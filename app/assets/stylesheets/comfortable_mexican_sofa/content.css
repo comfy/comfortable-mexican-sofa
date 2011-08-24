@@ -195,6 +195,15 @@
   font-size: 14px;
   font-weight: bold;
 }
+#cms_body ul.list li .item .label span.category {
+  display: inline-block;
+  padding: 2px 5px;
+  font: 9px/9px Arial, sans-serif;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  text-transform: uppercase;
+  color: #888;
+}
 #cms_body ul.list li .item .label .sublabel {
   font-size: 10px;
   font-weight: normal;

@@ -1,0 +1,6 @@
+<% object ||= categories %>
+<% object.categories.each do |category| %>
+  <span class='category'>
+    <%= category.label %>
+  </span>
+<% end %>
