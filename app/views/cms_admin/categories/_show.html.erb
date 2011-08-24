@@ -3,7 +3,7 @@
 <div class='category' id="<%= dom_id(category)%>">
   
   <% if read %>
-    <%= link_to category.label, :category => category.label %>
+    <%= link_to category.label, "?#{{:category => category.label}.to_param}" %>
   <% else %>
     <%= link_to category.label, edit_cms_admin_site_category_path(@site, category), :remote => true %>
     <%= link_to 'x', cms_admin_site_category_path(@site, category), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>

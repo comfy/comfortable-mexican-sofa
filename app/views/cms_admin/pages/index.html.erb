@@ -5,6 +5,8 @@
   <%= render :partial => 'cms_admin/sites/mirrors' %>
 <% end %>
 
+<%= render :partial => 'cms_admin/categories/index', :object => 'Cms::Page' %>
+
 <ul class='list sortable'>
   <%= render :partial => 'index_branch', :collection => @pages %>
 </ul>

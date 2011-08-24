@@ -9,7 +9,7 @@ class Cms::Category < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :label,
     :presence   => true,
-    :uniqueness => true
+    :uniqueness => { :scope => :categorized_type }
   validates :categorized_type,
     :presence   => true
     

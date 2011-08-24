@@ -1,6 +1,8 @@
 <%= link_to span_tag(t('.new_link')), new_cms_admin_site_file_path(@site), :class => 'big button' %>
 <h1><%= t('.title')%></h1>
 
+<%= render :partial => 'cms_admin/categories/index', :object => 'Cms::File' %>
+
 <ul class='list'>
   <% @files.each do |file| %>
     <li id='<%= dom_id(file) %>'>
