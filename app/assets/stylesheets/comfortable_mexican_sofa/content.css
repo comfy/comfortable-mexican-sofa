@@ -73,17 +73,14 @@
 #cms_body .categories_widget {
   margin-bottom: 10px;
   background-color: #252525;
-  padding: 5px 5px 5px 10px;
+  padding: 5px 5px 0px 10px;
   border-radius: 5px;
   color: #fff;
 }
 #cms_body .categories_widget .label {
   float: left;
+  font: 12px 'Lucida Grande', Tahoma, sans-serif;
   width: 100px;
-}
-#cms_body .categories_widget .label span {
-  float: left;
-  font: 12px 'Lucida Grande','Tahoma', sans-serif;
 }
 #cms_body .categories_widget a.action_link.edit {
   float: right;
@@ -98,19 +95,56 @@
 }
 #cms_body .categories_widget .category {
   float: left;
+  overflow: hidden;
   background-color: #484848;
   border-radius: 3px;
   color: #fff;
+  height: 9px;
   padding: 3px 5px;
-  margin: 0px 3px 0px 3px;
+  margin: 0px 5px 5px 0px;
 }
 #cms_body .categories_widget .category a {
-  display: block;
+  float: left;
   color: #a3a3a3;
-  font: 9px/9px 'Arial', serif;
+  font: 9px/9px Arial, serif;
   text-transform: uppercase;
 }
-
+#cms_body .categories_widget .category a:hover {
+  color: #fff;
+}
+#cms_body .categories_widget .category a.delete {
+  float: right;
+  margin-left: 5px;
+  background-color: #b7b7b7;
+  color: #000;
+  font: bold 7px/7px Arial, sans-serif;
+  padding: 1px 3px;
+  border-radius: 4px;
+}
+#cms_body .categories_widget .category a.delete:hover {
+  background-color: #fff;
+}
+#cms_body .categories_widget .category.new,
+#cms_body .categories_widget .category.edit {
+  height: 15px;
+  padding: 0px;
+}
+#cms_body .categories_widget form input[type='text'] {
+  float: left;
+  width: 120px;
+  border: 0px;
+  padding: 1px 2px;
+  font: 11px/11px Arial, serif;
+  border-radius: 2px;
+}
+#cms_body .categories_widget form input[type='submit'] {
+  float: right;
+  font: 9px Arial, sans-serif;
+  padding: 1px 2px;
+  border: 0px;
+  border-radius: 2px;
+  margin-left: 5px;
+}
 /* -- Listings ----------------------------------------------------------- */
 #cms_body ul.list li .item {
   overflow: hidden;

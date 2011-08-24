@@ -2,10 +2,7 @@
 
 <div class='categories_widget'>
   
-  <div class='label'>
-    <span><%= t('.label') %></span>
-  </div>
-  
+  <div class='label'><%= t('.label') %></div>
   <%= link_to t('.edit'), '#', :class => 'action_link edit' %>
   
   <div class='categories'>
@@ -13,16 +10,14 @@
       <%= link_to t('.all'), '' %>
     </div>
     <% Cms::Category.of_type(type).each do |category| %>
-      <div class='category' id="<%= dom_id(category)%>">
-        <%= link_to category.label, '' %>
-      </div>
+      <%= render :partial => 'cms_admin/categories/show', :object => category %>
     <% end %>
-    <!-- >
-    <%= form_for :category, :url => cms_admin_site_categories_path(@site), :remote => true do |form| %>
-      <%= form.text_field :label %>
-      <%= form.submit t('.add') %>
-    <% end %>
-    < -->
+    <div class='category new'>
+      <%= form_for :category, :url => cms_admin_site_categories_path(@site), :remote => true do |form| %>
+        <%= form.hidden_field :categorized_type, :value => type %>
+        <%= form.text_field :label %>
+        <%= form.submit t('.add') %>
+      <% end %>
+    </div>
   </div>
-  
 </div>

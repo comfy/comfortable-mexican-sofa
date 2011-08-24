@@ -202,6 +202,11 @@ en:
         label: Categories
         edit: Edit
         all: All
+        add: add
+      show:
+        are_you_sure: Are you sure?
+      edit:
+        save: Save
       form:
         label: Categories
       

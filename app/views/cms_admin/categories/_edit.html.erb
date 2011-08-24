@@ -1,0 +1,7 @@
+<% category ||= edit %>
+<div class='category edit' id='<%= dom_id(category) %>'>
+  <%= form_for @category, :as => :category, :url => cms_admin_site_category_path(@site, category), :remote => true do |form| %>
+    <%= form.text_field :label %>
+    <%= form.submit t('.save') %>
+  <% end %>
+</div>

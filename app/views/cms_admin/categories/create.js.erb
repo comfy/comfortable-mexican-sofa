@@ -1,0 +1,4 @@
+$('.categories_widget .category.new').before(
+  '<%= escape_javascript(render :partial => "show", :object => @category ) %>'
+);
+$('.categories_widget .category.new form input#category_label').val('');

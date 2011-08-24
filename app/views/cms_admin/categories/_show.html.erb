@@ -1,0 +1,5 @@
+<% category ||= show %>
+<div class='category' id="<%= dom_id(category)%>">
+  <%= link_to category.label, edit_cms_admin_site_category_path(@site, category), :remote => true %>
+  <%= link_to 'x', cms_admin_site_category_path(@site, category), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
+</div>
