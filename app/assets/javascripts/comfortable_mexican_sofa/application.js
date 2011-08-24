@@ -179,6 +179,7 @@ $.CMS = function(){
           $(this).hide();
           $('a.action_link.edit').show();
         }
+        return false;
       });
     }
   }
