@@ -201,6 +201,7 @@ en:
       index:
         label: Categories
         edit: Edit
+        done: Done
         all: All
         add: add
       show:

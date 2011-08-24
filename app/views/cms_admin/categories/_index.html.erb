@@ -3,12 +3,20 @@
 <div class='categories_widget'>
   
   <div class='label'><%= t('.label') %></div>
-  <%= link_to t('.edit'), '#', :class => 'action_link edit' %>
   
-  <div class='categories'>
+  <%= link_to t('.edit'), '#', :class => 'action_link edit', 'data-state' => 'edit' %>
+  <%= link_to t('.done'), '#', :class => 'action_link done', 'data-state' => 'done', :style => 'display:none' %>
+  
+  <div class='categories read'>
     <div class='category all'>
-      <%= link_to t('.all'), '' %>
+      <%= link_to t('.all'), :category => nil %>
     </div>
+    <% Cms::Category.of_type(type).each do |category| %>
+      <%= render :partial => 'cms_admin/categories/show', :object => category, :locals => { :read => true } %>
+    <% end %>
+  </div>
+  
+  <div class='categories editable' style='display:none'>
     <% Cms::Category.of_type(type).each do |category| %>
       <%= render :partial => 'cms_admin/categories/show', :object => category %>
     <% end %>
