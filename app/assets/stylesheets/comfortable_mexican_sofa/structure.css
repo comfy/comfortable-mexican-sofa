@@ -85,12 +85,14 @@ html, body#cms_body {
 #cms_body input[type='reset'], 
 #cms_body input[type='file'],
 #cms_body .action_links a,
+#cms_body a.action_link,
 #cms_body a.ui-dialog-titlebar-close {
   margin-left: 3px;
   background-color: #b4b4b4;
   color: #1b1b1b;
   padding: 3px 5px;
   font: 9px Arial, sans-serif;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -106,6 +108,7 @@ html, body#cms_body {
 #cms_body input[type='reset']:hover, 
 #cms_body input[type='file']:hover,
 #cms_body .action_links a:hover,
+#cms_body a.action_link:hover,
 #cms_body a.ui-dialog-titlebar-close:hover {
   box-shadow: inset 0px 0px 5px #aaa;
   -moz-box-shadow: inset 0px 0px 5px #aaa;

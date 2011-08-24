@@ -5,6 +5,8 @@
   <%= render :partial => 'cms_admin/sites/mirrors' %>
 <% end %>
 
+<%= render :partial => 'cms_admin/categories/index', :object => 'Cms::Snippet' %>
+
 <ul class='list'>
   <% @snippets.each do |snippet| %>
     <li id='cms_snippet_<%= snippet.id %>'>

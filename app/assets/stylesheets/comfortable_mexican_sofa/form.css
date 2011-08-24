@@ -123,9 +123,10 @@
 #cms_body .form_element.categories .value label {
   display: inline-block;
   padding: 3px 5px;
-  background-color: #9f9f9f;
+  background-color: #484848;
   border-radius: 3px;
-  font: 9px/14px 'Lucida Grande', 'Tahoma', serif;
+  font: 9px/14px 'Arial', serif;
   text-transform: uppercase;
   color: #fff;
+  margin-bottom: 3px;
 }

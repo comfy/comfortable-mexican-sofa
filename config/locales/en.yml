@@ -196,4 +196,12 @@ en:
       form:
         create: Upload File
         update: Update File
+        
+    categories:
+      index:
+        label: Categories
+        edit: Edit
+        all: All
+      form:
+        label: Categories
       

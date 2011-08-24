@@ -69,6 +69,47 @@
 #cms_body #file_uploads #uploaded_files .file:hover a.delete {
   color: #9e0b0f;
 }
+/* -- Categories Widget -------------------------------------------------- */
+#cms_body .categories_widget {
+  margin-bottom: 10px;
+  background-color: #252525;
+  padding: 5px 5px 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+#cms_body .categories_widget .label {
+  float: left;
+  width: 100px;
+}
+#cms_body .categories_widget .label span {
+  float: left;
+  font: 12px 'Lucida Grande','Tahoma', sans-serif;
+}
+#cms_body .categories_widget a.action_link.edit {
+  float: right;
+  margin-left: 10px;
+  padding: 2px 4px;
+  border: 0px;
+  border-radius: 2px;
+}
+#cms_body .categories_widget .categories {
+  overflow: hidden;
+  margin: 0px 50px 0px 110px;
+}
+#cms_body .categories_widget .category {
+  float: left;
+  background-color: #484848;
+  border-radius: 3px;
+  color: #fff;
+  padding: 3px 5px;
+  margin: 0px 3px 0px 3px;
+}
+#cms_body .categories_widget .category a {
+  display: block;
+  color: #a3a3a3;
+  font: 9px/9px 'Arial', serif;
+  text-transform: uppercase;
+}
 
 /* -- Listings ----------------------------------------------------------- */
 #cms_body ul.list li .item {

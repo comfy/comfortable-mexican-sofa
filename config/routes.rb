@@ -21,11 +21,12 @@ Rails.application.routes.draw do
           put :revert, :on => :member
         end
       end
-      resources :snippets do 
+      resources :snippets do
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end
       end
+      resources :categories
     end
   end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?
   

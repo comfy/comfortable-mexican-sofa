@@ -1,0 +1,28 @@
+<% type ||= index %>
+
+<div class='categories_widget'>
+  
+  <div class='label'>
+    <span><%= t('.label') %></span>
+  </div>
+  
+  <%= link_to t('.edit'), '#', :class => 'action_link edit' %>
+  
+  <div class='categories'>
+    <div class='category all'>
+      <%= link_to t('.all'), '' %>
+    </div>
+    <% Cms::Category.of_type(type).each do |category| %>
+      <div class='category' id="<%= dom_id(category)%>">
+        <%= link_to category.label, '' %>
+      </div>
+    <% end %>
+    <!-- >
+    <%= form_for :category, :url => cms_admin_site_categories_path(@site), :remote => true do |form| %>
+      <%= form.text_field :label %>
+      <%= form.submit t('.add') %>
+    <% end %>
+    < -->
+  </div>
+  
+</div>
