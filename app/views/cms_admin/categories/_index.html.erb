@@ -8,7 +8,7 @@
   <%= link_to t('.done'), '#', :class => 'action_link done', 'data-state' => 'done', :style => 'display:none' %>
   
   <div class='categories read'>
-    <div class='category all'>
+    <div class='category all <%= (params[:category].blank?? 'active' : nil ) %>'>
       <%= link_to t('.all'), :category => nil %>
     </div>
     <% Cms::Category.of_type(type).each do |category| %>

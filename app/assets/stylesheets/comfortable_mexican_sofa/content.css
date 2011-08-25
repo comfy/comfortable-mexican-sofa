@@ -103,6 +103,13 @@
   padding: 3px 5px;
   margin: 0px 5px 5px 0px;
 }
+#cms_body .categories_widget .category.active {
+  background-color: #f7f7f7;
+}
+#cms_body .categories_widget .category.active a,
+#cms_body .categories_widget .category.active a:hover {
+  color: #000;
+}
 #cms_body .categories_widget .category a {
   float: left;
   color: #a3a3a3;
