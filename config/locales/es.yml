@@ -76,6 +76,12 @@ es:
       not_found: Revisión no encontrada
 
     files:
+      created: Files uploaded
+      creation_failure: Failed to upload files
+      updated: File updated
+      update_failure: Failed to update file
+      deleted: File deleted
+      not_found: File not found
 
     content:
       site_not_found: Sitio no encontrado
@@ -89,7 +95,8 @@ es:
       layouts: Diseños
       pages: Páginas
       snippets: Fragmentos
-
+      files: Files
+      
     sites:
       index:
         title: Listado de Sitios
@@ -176,17 +183,30 @@ es:
         
     files:
       index:
+        title: Files
+        new_link: Upload New File
+        edit: Edit
+        delete: Delete
+        are_you_sure: Are you sure?
         button: Cargar Archivos
-        title:
-        new_link:
-        edit:
-        delete:
-        are_you_sure:
-        button:
       new:
-        title:
+        title: New File
       edit:
-        title:
+        title: Editing File
       form:
-        create:
-        update:
+        create: Upload File
+        update: Update File
+          
+    categories:
+      index:
+        label: Categories
+        edit: Edit
+        done: Done
+        all: All
+        add: Add
+      show:
+        are_you_sure: Are you sure?
+      edit:
+        save: Save
+      form:
+        label: Categories
