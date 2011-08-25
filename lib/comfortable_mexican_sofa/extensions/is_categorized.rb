@@ -17,6 +17,14 @@ module ComfortableMexicanSofa::IsCategorized
       attr_accessor :category_ids
       
       after_save :sync_categories
+      
+      scope :for_category, lambda { |*categories|
+        if (categories = [categories].flatten.compact).present?
+          select("DISTINCT #{table_name}.*")
+          .joins(:categorizations => :category)
+          .where('cms_categories.label' => categories)
+        end
+      }
     end
   end
   

@@ -5,7 +5,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def index
     return redirect_to :action => :new if @site.snippets.count == 0
-    @snippets = @site.snippets.all(:order => 'label')
+    @snippets = @site.snippets.for_category(params[:category]).all(:order => 'label')
   end
 
   def new

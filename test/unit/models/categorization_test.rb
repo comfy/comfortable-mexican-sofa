@@ -60,4 +60,17 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     assert_equal 0, snippet.categories.count
   end
   
+  def test_scope_for_category
+    category = cms_categories(:default)
+    assert_equal 1, Cms::File.for_category(category.label).count
+    assert_equal 0, Cms::File.for_category('invalid').count
+    assert_equal 1, Cms::File.for_category(category.label, 'invalid').count
+    assert_equal 1, Cms::File.for_category(nil).count
+    
+    new_category = Cms::Category.create!(:label => 'Test Category', :categorized_type => 'Cms::File')
+    new_category.categorizations.create!(:categorized => cms_files(:default))
+    assert_equal 1, Cms::File.for_category(category.label, new_category.label).all.size
+    assert_equal 1, Cms::File.for_category(category.label, new_category.label).count(:distinct => true)
+  end
+  
 end

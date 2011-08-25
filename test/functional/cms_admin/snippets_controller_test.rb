@@ -15,6 +15,24 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to :action => :new
   end
+  
+  def test_get_index_with_category
+    category = Cms::Category.create!(:label => 'Test Category', :categorized_type => 'Cms::Snippet')
+    category.categorizations.create!(:categorized => cms_snippets(:default))
+    
+    get :index, :site_id => cms_sites(:default), :category => category.label
+    assert_response :success
+    assert assigns(:snippets)
+    assert_equal 1, assigns(:snippets).count
+    assert assigns(:snippets).first.categories.member? category
+  end
+  
+  def test_get_index_with_category_invalid
+    get :index, :site_id => cms_sites(:default), :category => 'invalid'
+    assert_response :success
+    assert assigns(:snippets)
+    assert_equal 0, assigns(:snippets).count
+  end
 
   def test_get_new
     site = cms_sites(:default)

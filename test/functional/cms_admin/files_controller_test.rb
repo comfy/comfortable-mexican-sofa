@@ -16,6 +16,21 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     assert_redirected_to :action => :new
   end
   
+  def test_get_index_with_category
+    get :index, :site_id => cms_sites(:default), :category => cms_categories(:default).label
+    assert_response :success
+    assert assigns(:files)
+    assert_equal 1, assigns(:files).count
+    assert assigns(:files).first.categories.member? cms_categories(:default)
+  end
+  
+  def test_get_index_with_category_invalid
+    get :index, :site_id => cms_sites(:default), :category => 'invalid'
+    assert_response :success
+    assert assigns(:files)
+    assert_equal 0, assigns(:files).count
+  end
+  
   def test_get_new
     site = cms_sites(:default)
     get :new, :site_id => site
