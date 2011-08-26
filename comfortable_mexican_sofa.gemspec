@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.3.8"
+  s.version = "1.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-08-12}
+  s.date = %q{2011-08-26}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_75_e6e6e6_1x400.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_glass_95_fef1ec_1x400.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_highlight-soft_75_cccccc_1x100.png",
+    "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-bg_inset-soft_95_fef1ec_1x100.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_222222_256x240.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_2e83ff_256x240.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_454545_256x240.png",
@@ -47,8 +48,6 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/comfortable_mexican_sofa/codemirror/codemirror.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery_ui.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/plupload/plupload.html5.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/plupload/plupload.js",
     "app/assets/javascripts/comfortable_mexican_sofa/rails.js",
     "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-blockquote.png",
     "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h1.png",
@@ -99,20 +98,40 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/comfortable_mexican_sofa/widgets.css",
     "app/controllers/application_controller.rb",
     "app/controllers/cms_admin/base_controller.rb",
+    "app/controllers/cms_admin/categories_controller.rb",
+    "app/controllers/cms_admin/files_controller.rb",
     "app/controllers/cms_admin/layouts_controller.rb",
     "app/controllers/cms_admin/pages_controller.rb",
     "app/controllers/cms_admin/revisions_controller.rb",
     "app/controllers/cms_admin/sites_controller.rb",
     "app/controllers/cms_admin/snippets_controller.rb",
-    "app/controllers/cms_admin/uploads_controller.rb",
     "app/controllers/cms_content_controller.rb",
     "app/models/cms/block.rb",
+    "app/models/cms/categorization.rb",
+    "app/models/cms/category.rb",
+    "app/models/cms/file.rb",
     "app/models/cms/layout.rb",
     "app/models/cms/page.rb",
     "app/models/cms/revision.rb",
     "app/models/cms/site.rb",
     "app/models/cms/snippet.rb",
-    "app/models/cms/upload.rb",
+    "app/views/cms_admin/categories/_categories.html.erb",
+    "app/views/cms_admin/categories/_edit.html.erb",
+    "app/views/cms_admin/categories/_form.html.erb",
+    "app/views/cms_admin/categories/_index.html.erb",
+    "app/views/cms_admin/categories/_show.html.erb",
+    "app/views/cms_admin/categories/create.js.erb",
+    "app/views/cms_admin/categories/destroy.js.erb",
+    "app/views/cms_admin/categories/edit.js.erb",
+    "app/views/cms_admin/categories/update.js.erb",
+    "app/views/cms_admin/files/_file.html.erb",
+    "app/views/cms_admin/files/_form.html.erb",
+    "app/views/cms_admin/files/_index.html.erb",
+    "app/views/cms_admin/files/create.js.erb",
+    "app/views/cms_admin/files/destroy.js.erb",
+    "app/views/cms_admin/files/edit.html.erb",
+    "app/views/cms_admin/files/index.html.erb",
+    "app/views/cms_admin/files/new.html.erb",
     "app/views/cms_admin/layouts/_form.html.erb",
     "app/views/cms_admin/layouts/_index_branch.html.erb",
     "app/views/cms_admin/layouts/edit.html.erb",
@@ -136,9 +155,6 @@ Gem::Specification.new do |s|
     "app/views/cms_admin/snippets/edit.html.erb",
     "app/views/cms_admin/snippets/index.html.erb",
     "app/views/cms_admin/snippets/new.html.erb",
-    "app/views/cms_admin/uploads/_file.html.erb",
-    "app/views/cms_admin/uploads/_index.html.erb",
-    "app/views/cms_admin/uploads/destroy.js.erb",
     "app/views/layouts/cms_admin.html.erb",
     "app/views/layouts/cms_admin/_body.html.erb",
     "app/views/layouts/cms_admin/_center.html.erb",
@@ -178,27 +194,30 @@ Gem::Specification.new do |s|
     "db/migrate/upgrades/02_upgrade_to_1_1_0.rb",
     "db/migrate/upgrades/03_upgrade_to_1_2_0.rb",
     "db/migrate/upgrades/04_upgrade_to_1_3_0.rb",
+    "db/migrate/upgrades/05_upgrade_to_1_4_0.rb",
     "db/seeds.rb",
     "doc/page_editing.png",
     "doc/sofa.png",
     "lib/comfortable_mexican_sofa.rb",
-    "lib/comfortable_mexican_sofa/acts_as_tree.rb",
     "lib/comfortable_mexican_sofa/configuration.rb",
     "lib/comfortable_mexican_sofa/controller_methods.rb",
     "lib/comfortable_mexican_sofa/engine.rb",
     "lib/comfortable_mexican_sofa/error.rb",
+    "lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb",
+    "lib/comfortable_mexican_sofa/extensions/has_revisions.rb",
+    "lib/comfortable_mexican_sofa/extensions/is_categorized.rb",
+    "lib/comfortable_mexican_sofa/extensions/is_mirrored.rb",
+    "lib/comfortable_mexican_sofa/extensions/rails.rb",
     "lib/comfortable_mexican_sofa/fixtures.rb",
     "lib/comfortable_mexican_sofa/form_builder.rb",
-    "lib/comfortable_mexican_sofa/has_revisions.rb",
     "lib/comfortable_mexican_sofa/http_auth.rb",
-    "lib/comfortable_mexican_sofa/is_mirrored.rb",
-    "lib/comfortable_mexican_sofa/rails_extensions.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
     "lib/comfortable_mexican_sofa/tags/asset.rb",
     "lib/comfortable_mexican_sofa/tags/field_datetime.rb",
     "lib/comfortable_mexican_sofa/tags/field_integer.rb",
     "lib/comfortable_mexican_sofa/tags/field_string.rb",
     "lib/comfortable_mexican_sofa/tags/field_text.rb",
+    "lib/comfortable_mexican_sofa/tags/file.rb",
     "lib/comfortable_mexican_sofa/tags/helper.rb",
     "lib/comfortable_mexican_sofa/tags/page_datetime.rb",
     "lib/comfortable_mexican_sofa/tags/page_integer.rb",
@@ -207,7 +226,6 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/tags/page_text.rb",
     "lib/comfortable_mexican_sofa/tags/partial.rb",
     "lib/comfortable_mexican_sofa/tags/snippet.rb",
-    "lib/comfortable_mexican_sofa/tags/upload.rb",
     "lib/comfortable_mexican_sofa/version.rb",
     "lib/comfortable_mexican_sofa/view_hooks.rb",
     "lib/comfortable_mexican_sofa/view_methods.rb",
@@ -216,23 +234,26 @@ Gem::Specification.new do |s|
     "lib/tasks/comfortable_mexican_sofa.rake",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
+    "test/fixtures/cms/categories.yml",
+    "test/fixtures/cms/categorizations.yml",
+    "test/fixtures/cms/files.yml",
     "test/fixtures/cms/layouts.yml",
     "test/fixtures/cms/pages.yml",
     "test/fixtures/cms/revisions.yml",
     "test/fixtures/cms/sites.yml",
     "test/fixtures/cms/snippets.yml",
-    "test/fixtures/cms/uploads.yml",
     "test/fixtures/files/invalid_file.gif",
     "test/fixtures/files/valid_image.jpg",
     "test/fixtures/views/_nav_hook.html.erb",
     "test/fixtures/views/_nav_hook_2.html.erb",
     "test/functional/cms_admin/base_controller_test.rb",
+    "test/functional/cms_admin/categories_controller_test.rb",
+    "test/functional/cms_admin/files_controller_test.rb",
     "test/functional/cms_admin/layouts_controller_test.rb",
     "test/functional/cms_admin/pages_controller_test.rb",
     "test/functional/cms_admin/revisions_controller_test.rb",
     "test/functional/cms_admin/sites_controller_test.rb",
     "test/functional/cms_admin/snippets_controller_test.rb",
-    "test/functional/cms_admin/uploads_controller_test.rb",
     "test/functional/cms_content_controller_test.rb",
     "test/integration/authentication_test.rb",
     "test/integration/fixtures_test.rb",
@@ -247,11 +268,13 @@ Gem::Specification.new do |s|
     "test/unit/form_builder_test.rb",
     "test/unit/mirrors_test.rb",
     "test/unit/models/block_test.rb",
+    "test/unit/models/categorization_test.rb",
+    "test/unit/models/category_test.rb",
+    "test/unit/models/file_test.rb",
     "test/unit/models/layout_test.rb",
     "test/unit/models/page_test.rb",
     "test/unit/models/site_test.rb",
     "test/unit/models/snippet_test.rb",
-    "test/unit/models/upload_test.rb",
     "test/unit/revisions_test.rb",
     "test/unit/tag_test.rb",
     "test/unit/tags/asset_test.rb",
@@ -259,6 +282,7 @@ Gem::Specification.new do |s|
     "test/unit/tags/field_integer_test.rb",
     "test/unit/tags/field_string_test.rb",
     "test/unit/tags/field_text_test.rb",
+    "test/unit/tags/file_test.rb",
     "test/unit/tags/helper_test.rb",
     "test/unit/tags/page_datetime_test.rb",
     "test/unit/tags/page_integer_test.rb",
@@ -267,7 +291,6 @@ Gem::Specification.new do |s|
     "test/unit/tags/page_text_test.rb",
     "test/unit/tags/partial_test.rb",
     "test/unit/tags/snippet_test.rb",
-    "test/unit/tags/upload_test.rb",
     "test/unit/view_methods_test.rb"
   ]
   s.homepage = %q{http://github.com/twg/comfortable-mexican-sofa}
@@ -279,16 +302,16 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.1.0.rc6"])
       s.add_runtime_dependency(%q<active_link_to>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<paperclip>, [">= 2.3.14"])
     else
-      s.add_dependency(%q<rails>, [">= 3.0.0"])
+      s.add_dependency(%q<rails>, [">= 3.1.0.rc6"])
       s.add_dependency(%q<active_link_to>, [">= 1.0.0"])
       s.add_dependency(%q<paperclip>, [">= 2.3.14"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.0.0"])
+    s.add_dependency(%q<rails>, [">= 3.1.0.rc6"])
     s.add_dependency(%q<active_link_to>, [">= 1.0.0"])
     s.add_dependency(%q<paperclip>, [">= 2.3.14"])
   end
