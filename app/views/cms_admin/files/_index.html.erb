@@ -1,6 +1,6 @@
 <div id='file_uploads' class='box'>
   
-  <%= form_for :file, :url => cms_admin_site_files_path(@site) do |form| %>
+  <%= form_for :file, :url => cms_admin_site_files_path(@site), :html => {:multipart => true} do |form| %>
     <a id='uploader_button' href='#' class='big button'><%= t('.button') %></a>
     <%= form.file_field :file, :multiple => true %>
   <% end %>

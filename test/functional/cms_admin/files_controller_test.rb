@@ -37,7 +37,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:file)
     assert_template :new
-    assert_select "form[action=/cms-admin/sites/#{site.id}/files]"
+    assert_select "form[action=/cms-admin/sites/#{site.id}/files][enctype=multipart/form-data]"
   end
   
   def test_get_edit
