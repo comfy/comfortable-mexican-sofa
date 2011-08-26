@@ -5,3 +5,6 @@ rvm:
   - rbx-2.0
   - ree
   # - jruby
+gemfile:
+  - gemfiles/Gemfile.rails-3.0.x
+  - gemfiles/Gemfile.rails-3.1.x
