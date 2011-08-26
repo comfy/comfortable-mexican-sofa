@@ -1,4 +1,4 @@
-class UpgradeTo130 < ActiveRecord::Migration
+class UpgradeTo140 < ActiveRecord::Migration
   def self.up
     rename_table :cms_uploads, :cms_files
     add_column :cms_files, :label, :string
