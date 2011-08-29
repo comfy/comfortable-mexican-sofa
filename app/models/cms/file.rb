@@ -1,4 +1,5 @@
 class Cms::File < ActiveRecord::Base
+  establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
   
   set_table_name :cms_files
   

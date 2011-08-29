@@ -49,6 +49,12 @@ ComfortableMexicanSofa.configure do |config|
   # force it to English by setting this to `:en`
   #   config.admin_locale = nil
   
+  # Database prefix.  If you want to keep your comfortable mexican sofa tables
+  # in a location other than the default databases add a database_prefix.
+  # Using a prefix of `cms_` will look for a cms_#{Rails.env} definition
+  # in your database.yml file
+     config.database_prefix = 'cms_'
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

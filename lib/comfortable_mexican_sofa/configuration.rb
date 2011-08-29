@@ -40,6 +40,12 @@ class ComfortableMexicanSofa::Configuration
   # force it to English by setting this to `:en`
   attr_accessor :admin_locale
   
+  # Database prefix.  If you want to keep your comfortable mexican sofa tables
+  # in a location other than the default databases add a database_prefix.
+  # Using a prefix of `cms_` will look for a cms_#{Rails.env} definition
+  # in your database.yml file
+  attr_accessor :database_prefix
+  
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
@@ -55,6 +61,7 @@ class ComfortableMexicanSofa::Configuration
     @revisions_limit        = 25
     @locales                = { :en => 'English', :es => 'Español' }
     @admin_locale           = nil
+    @database_prefix        = nil
   end
   
 end
