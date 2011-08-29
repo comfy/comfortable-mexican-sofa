@@ -1,9 +1,14 @@
 class CmsContentController < ApplicationController
-
+  
+  # Authentication module must have #authenticate method
+  include ComfortableMexicanSofa.config.public_auth.to_s.constantize
+  
   before_filter :load_cms_site
   before_filter :load_fixtures
-  before_filter :load_cms_page,   :only => :render_html
-  before_filter :load_cms_layout, :only => [:render_css, :render_js]
+  before_filter :load_cms_page, :authenticate,
+    :only => :render_html
+  before_filter :load_cms_layout,
+    :only => [:render_css, :render_js]
   
   def render_html(status = 200)
     if layout = @cms_page.layout

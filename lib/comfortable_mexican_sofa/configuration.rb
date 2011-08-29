@@ -6,7 +6,10 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :cms_title
   
   # Module that will handle authentication to access cms-admin area
-  attr_accessor :authentication
+  attr_accessor :admin_auth
+  
+  # Module that will handle authentication for public pages
+  attr_accessor :public_auth
   
   # Default url to access admin area is http://yourhost/cms-admin/ 
   # You can change 'cms-admin' to 'admin', for example.
@@ -43,7 +46,8 @@ class ComfortableMexicanSofa::Configuration
   # Configuration defaults
   def initialize
     @cms_title              = 'ComfortableMexicanSofa MicroCMS'
-    @authentication         = 'ComfortableMexicanSofa::HttpAuth'
+    @admin_auth             = 'ComfortableMexicanSofa::HttpAuth'
+    @public_auth            = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path         = nil
     @admin_route_prefix     = 'cms-admin'
     @admin_route_redirect   = ''

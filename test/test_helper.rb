@@ -17,7 +17,8 @@ class ActiveSupport::TestCase
   def reset_config
     ComfortableMexicanSofa.configure do |config|
       config.cms_title              = 'ComfortableMexicanSofa MicroCMS'
-      config.authentication         = 'ComfortableMexicanSofa::HttpAuth'
+      config.admin_auth             = 'ComfortableMexicanSofa::HttpAuth'
+      config.public_auth            = 'ComfortableMexicanSofa::DummyAuth'
       config.admin_route_prefix     = 'cms-admin'
       config.admin_route_redirect   = ''
       config.allow_irb              = false
