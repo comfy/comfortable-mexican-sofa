@@ -1,5 +1,6 @@
 class UpgradeTo120 < ActiveRecord::Migration
   def self.up
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type
       t.integer   :record_id
@@ -10,6 +11,7 @@ class UpgradeTo120 < ActiveRecord::Migration
   end
 
   def self.down
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
     drop_table :cms_revisions
   end
 end

@@ -1,6 +1,7 @@
 class CreateCms < ActiveRecord::Migration
   
   def self.up
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
     # -- Sites --------------------------------------------------------------
     create_table :cms_sites do |t|
       t.string :label
@@ -107,6 +108,8 @@ class CreateCms < ActiveRecord::Migration
   end
   
   def self.down
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
+    
     drop_table :cms_sites
     drop_table :cms_layouts
     drop_table :cms_pages

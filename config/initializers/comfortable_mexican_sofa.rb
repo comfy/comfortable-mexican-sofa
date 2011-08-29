@@ -53,7 +53,7 @@ ComfortableMexicanSofa.configure do |config|
   # in a location other than the default databases add a database_prefix.
   # Using a prefix of `cms_` will look for a cms_#{Rails.env} definition
   # in your database.yml file
-     config.database_prefix = 'cms_'
+  #   config.database_prefix = 'cms_'
   
 end
 
