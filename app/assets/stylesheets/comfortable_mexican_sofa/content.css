@@ -198,7 +198,7 @@
   display: none;
 }
 #cms_body ul.list li .item .label {
-  margin-left: 60px;
+  margin-left: 32px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -233,11 +233,8 @@
   text-decoration: blink;
 }
 /* -- Page Specific stuff ------------------------------------------------ */
-#cms_body.c_cms_admin_sites.a_index ul.list li .item .label,
-#cms_body.c_cms_admin_layouts.a_index ul.list li .item .label,
-#cms_body.c_cms_admin_snippets.a_index ul.list li .item .label,
-#cms_body.c_cms_admin_files.a_index ul.list li .item .label {
-  margin-left: 32px;
+#cms_body.c_cms_admin_pages.a_index ul.list li .item .label {
+  margin-left: 60px;
 }
 #cms_body.c_cms_admin_layouts.a_index ul.list li .item .icon {
   background-image: url(/assets/comfortable_mexican_sofa/icon_layout.gif);
