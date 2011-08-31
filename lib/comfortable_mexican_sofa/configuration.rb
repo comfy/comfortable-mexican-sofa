@@ -44,10 +44,10 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :admin_locale
   
   # Database prefix.  If you want to keep your comfortable mexican sofa tables
-  # in a location other than the default databases add a database_prefix.
+  # in a location other than the default databases add a database_config.
   # Using a prefix of `cms_` will look for a cms_#{Rails.env} definition
   # in your database.yml file
-  attr_accessor :database_prefix
+  attr_accessor :database_config
   
   # Configuration defaults
   def initialize
@@ -65,7 +65,7 @@ class ComfortableMexicanSofa::Configuration
     @revisions_limit        = 25
     @locales                = { :en => 'English', :es => 'Español' }
     @admin_locale           = nil
-    @database_prefix        = nil
+    @database_config        = nil
   end
   
 end
