@@ -1,5 +1,6 @@
 class UpgradeTo130 < ActiveRecord::Migration
   def self.up
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
     add_column :cms_sites, :is_mirrored, :boolean, :null => false, :default => false
     add_column :cms_sites, :path, :string
     add_column :cms_sites, :locale, :string, :null => false, :default => 'en'
@@ -11,6 +12,7 @@ class UpgradeTo130 < ActiveRecord::Migration
   end
 
   def self.down
+    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
     remove_index :cms_sites, :is_mirrored
     remove_column :cms_sites, :path
     remove_column :cms_sites, :is_mirrored
