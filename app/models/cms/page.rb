@@ -1,6 +1,8 @@
 class Cms::Page < ActiveRecord::Base
-  establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
-  
+  unless Rails.env == 'test'
+    establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
+  end
+    
   set_table_name :cms_pages
   
   cms_acts_as_tree :counter_cache => :children_count

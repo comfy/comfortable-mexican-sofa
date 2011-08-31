@@ -1,6 +1,8 @@
 class Cms::Categorization < ActiveRecord::Base
-  establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
-  
+  unless Rails.env == 'test'
+    establish_connection "#{ComfortableMexicanSofa.config.database_prefix}#{Rails.env}"
+  end
+    
   set_table_name :cms_categorizations
   
   # -- Relationships --------------------------------------------------------

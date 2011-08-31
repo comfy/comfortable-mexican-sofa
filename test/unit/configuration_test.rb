@@ -16,6 +16,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 25, config.revisions_limit
     assert_equal ({:en => 'English', :es => 'Español'}), config.locales
     assert_equal nil, config.admin_locale
+    assert_equal nil, config.database_prefix
   end
   
   def test_initialization_overrides
