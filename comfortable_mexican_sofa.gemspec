@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.4.3"
+  s.version = "1.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-08-26}
+  s.date = %q{2011-08-30}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -198,7 +198,11 @@ Gem::Specification.new do |s|
     "db/seeds.rb",
     "doc/page_editing.png",
     "doc/sofa.png",
+    "gemfiles/Gemfile.rails-3.0.x",
+    "gemfiles/Gemfile.rails-3.1.x",
     "lib/comfortable_mexican_sofa.rb",
+    "lib/comfortable_mexican_sofa/authentication/dummy_auth.rb",
+    "lib/comfortable_mexican_sofa/authentication/http_auth.rb",
     "lib/comfortable_mexican_sofa/configuration.rb",
     "lib/comfortable_mexican_sofa/controller_methods.rb",
     "lib/comfortable_mexican_sofa/engine.rb",
@@ -210,7 +214,6 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/extensions/rails.rb",
     "lib/comfortable_mexican_sofa/fixtures.rb",
     "lib/comfortable_mexican_sofa/form_builder.rb",
-    "lib/comfortable_mexican_sofa/http_auth.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
     "lib/comfortable_mexican_sofa/tags/asset.rb",
     "lib/comfortable_mexican_sofa/tags/field_datetime.rb",
