@@ -5,6 +5,13 @@ development:
   database: db/development.sqlite3
   pool: 5
   timeout: 10000
+ 
+# config.database_config = 'cms_'
+cms_development:
+  adapter: sqlite3
+  database: db/cms_development.sqlite3
+  pool: 5
+  timeout: 10000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
