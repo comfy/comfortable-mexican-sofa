@@ -1,15 +1,21 @@
 .CodeMirror {
-  overflow: auto;
+  line-height: 1em;
+  font-family: monospace;
   height: 300px;
   background-color: #fff;
-  line-height: 1em;
-  font-family: 'Courier New', Courier, monospace;
 }
+
 .CodeMirror-scroll {
-  min-height: 300px;
+  overflow: auto;
+  height: 300px;
+  /* This is needed to prevent an IE[67] bug where the scrolled content
+     is visible outside of the scrolling box. */
+  position: relative;
 }
+
 .CodeMirror-gutter {
   position: absolute; left: 0; top: 0;
+  z-index: 10;
   background-color: #f7f7f7;
   border-right: 1px solid #eee;
   min-width: 2em;
@@ -31,10 +37,15 @@
   border-radius: 0;
   border-width: 0; margin: 0; padding: 0; background: transparent;
   font-family: inherit;
+  font-size: inherit;
+  padding: 0; margin: 0;
+  white-space: pre;
+  word-wrap: normal;
 }
 
 .CodeMirror textarea {
-  font-family: monospace !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
 }
 
 .CodeMirror-cursor {
@@ -58,27 +69,22 @@ span.CodeMirror-selected {
 .CodeMirror-matchingbracket {color: #0f0 !important;}
 .CodeMirror-nonmatchingbracket {color: #f22 !important;}
 
-span.xml-tag {color: #a0b;}
-span.xml-attribute {color: #281;}
-span.xml-attname {color: #00f;}
-span.xml-comment {color: #a70;}
-span.xml-cdata {color: #48a;}
-span.xml-processing {color: #999;}
-span.xml-entity {color: #a22;}
-
-span.css-at {color: #708;}
-span.css-unit {color: #281;}
-span.css-value {color: #708;}
-span.css-identifier {color: black;}
-span.css-selector {color: #11B;}
-span.css-important {color: #00F;}
-span.css-colorcode {color: #299;}
-span.css-comment {color: #A70;}
-span.css-string {color: #A22;}
-
-span.js-keyword {color: #90b;}
-span.js-atom {color: #291;}
-span.js-variabledef {color: #00f;}
-span.js-localvariable {color: #049;}
-span.js-comment {color: #a70;}
-span.js-string {color: #a22;}
+.cm-s-default span.cm-keyword {color: #708;}
+.cm-s-default span.cm-atom {color: #219;}
+.cm-s-default span.cm-number {color: #164;}
+.cm-s-default span.cm-def {color: #00f;}
+.cm-s-default span.cm-variable {color: black;}
+.cm-s-default span.cm-variable-2 {color: #05a;}
+.cm-s-default span.cm-variable-3 {color: #0a5;}
+.cm-s-default span.cm-property {color: black;}
+.cm-s-default span.cm-operator {color: black;}
+.cm-s-default span.cm-comment {color: #a50;}
+.cm-s-default span.cm-string {color: #a11;}
+.cm-s-default span.cm-string-2 {color: #f50;}
+.cm-s-default span.cm-meta {color: #555;}
+.cm-s-default span.cm-error {color: #f00;}
+.cm-s-default span.cm-qualifier {color: #555;}
+.cm-s-default span.cm-builtin {color: #30a;}
+.cm-s-default span.cm-bracket {color: #cc7;}
+.cm-s-default span.cm-tag {color: #170;}
+.cm-s-default span.cm-attribute {color: #00c;}
