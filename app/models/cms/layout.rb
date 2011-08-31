@@ -1,6 +1,7 @@
 class Cms::Layout < ActiveRecord::Base
-  unless Rails.env == 'test'
-    establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
+  
+  if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+    establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
   end
     
   set_table_name :cms_layouts

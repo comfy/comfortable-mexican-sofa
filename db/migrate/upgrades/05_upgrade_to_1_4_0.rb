@@ -1,6 +1,8 @@
 class UpgradeTo140 < ActiveRecord::Migration
   def self.up
-    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
+    if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+      establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
+    end
     rename_table :cms_uploads, :cms_files
     add_column :cms_files, :label, :string
     add_column :cms_files, :description, :string, :limit => 2048
@@ -23,7 +25,9 @@ class UpgradeTo140 < ActiveRecord::Migration
   end
   
   def self.down
-    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
+    if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+      establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
+    end
     remove_index :cms_files, [:site_id, :label]
     remove_column :cms_files, :description
     remove_column :cms_files, :label

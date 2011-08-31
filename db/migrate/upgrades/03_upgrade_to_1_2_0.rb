@@ -1,6 +1,8 @@
 class UpgradeTo120 < ActiveRecord::Migration
   def self.up
-    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
+    if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+      establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
+    end
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type
       t.integer   :record_id
@@ -11,7 +13,9 @@ class UpgradeTo120 < ActiveRecord::Migration
   end
 
   def self.down
-    ActiveRecord::Base.establish_connection "#{ComfortableMexicanSofa.config.database_config}#{Rails.env}"
+    if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+      establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
+    end
     drop_table :cms_revisions
   end
 end
