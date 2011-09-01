@@ -1,6 +1,6 @@
 class UpgradeTo120 < ActiveRecord::Migration
   def self.up
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type
       t.integer   :record_id
@@ -11,7 +11,7 @@ class UpgradeTo120 < ActiveRecord::Migration
   end
 
   def self.down
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     drop_table :cms_revisions
   end
 end

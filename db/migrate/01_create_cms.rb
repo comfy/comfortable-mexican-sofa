@@ -2,7 +2,7 @@ class CreateCms < ActiveRecord::Migration
   
   def self.up
     
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     
     # -- Sites --------------------------------------------------------------
     create_table :cms_sites do |t|
@@ -111,7 +111,7 @@ class CreateCms < ActiveRecord::Migration
   
   def self.down
     
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     
     drop_table :cms_sites
     drop_table :cms_layouts
