@@ -124,7 +124,7 @@ private
           end
         end
       else
-        text
+        text.force_encoding("utf-8")
       end
     end.join('')
   end
