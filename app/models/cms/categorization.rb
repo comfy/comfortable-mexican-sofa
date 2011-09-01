@@ -1,8 +1,6 @@
 class Cms::Categorization < ActiveRecord::Base
   
-  if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
-    establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
-  end
+  ComfortableMexicanSofa.establish_connection(self)
   
   set_table_name :cms_categorizations
   

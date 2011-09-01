@@ -50,5 +50,12 @@ module ComfortableMexicanSofa
       Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1 && Rails.configuration.assets.enabled
     end
     
+    # Establishing database connection if custom one is defined
+    def establish_connection(klass)
+      if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
+        klass.establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
+      end
+    end
+    
   end
 end
