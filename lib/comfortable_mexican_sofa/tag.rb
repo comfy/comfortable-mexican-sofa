@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # This module provides all Tag classes with neccessary methods.
 # Example class that will behave as a Tag:
 #   class MySpecialTag
@@ -124,7 +126,7 @@ private
           end
         end
       else
-        text.force_encoding("utf-8")
+        text
       end
     end.join('')
   end
