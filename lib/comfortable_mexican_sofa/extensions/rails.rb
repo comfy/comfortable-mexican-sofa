@@ -3,11 +3,6 @@ class String
   def idify
     self.strip.gsub(/\W/, '_').gsub(/\s|^_*|_*$/, '').squeeze('_')
   end
-  
-  # Capitalize all words in the string
-  def capitalize_all(delimiter = ' ')
-    self.split(delimiter).collect{|w| w.capitalize }.join(' ')
-  end
 end
 
 module Enumerable
