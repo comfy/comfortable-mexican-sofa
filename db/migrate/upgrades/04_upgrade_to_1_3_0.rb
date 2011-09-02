@@ -9,6 +9,7 @@ class UpgradeTo130 < ActiveRecord::Migration
     add_column :cms_layouts,  :is_shared, :boolean, :null => false, :default => false
     add_column :cms_pages,    :is_shared, :boolean, :null => false, :default => false
     add_column :cms_snippets, :is_shared, :boolean, :null => false, :default => false
+    ActiveRecord::Base.establish_connection
   end
 
   def self.down
@@ -21,5 +22,6 @@ class UpgradeTo130 < ActiveRecord::Migration
     remove_column :cms_layouts,   :is_shared
     remove_column :cms_pages,     :is_shared
     remove_column :cms_snippets,  :is_shared
+    ActiveRecord::Base.establish_connection
   end
 end

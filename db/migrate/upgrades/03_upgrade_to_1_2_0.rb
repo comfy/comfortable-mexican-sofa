@@ -8,10 +8,12 @@ class UpgradeTo120 < ActiveRecord::Migration
       t.datetime  :created_at
     end
     add_index :cms_revisions, [:record_type, :record_id, :created_at]
+    ActiveRecord::Base.establish_connection
   end
 
   def self.down
     ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     drop_table :cms_revisions
+    ActiveRecord::Base.establish_connection
   end
 end
