@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class FixturesTest < ActiveSupport::TestCase
@@ -300,5 +301,24 @@ class FixturesTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Fixtures.export_all('test.host', 'test.test')
     FileUtils.rm_rf(host_path)
   end
-  
+
+  # ----- MultiByte Character Test -----
+  def test_import_multibyte_character_layouts
+    Cms::Site.new(:label => 'test.hoge.jp', :hostname => 'test.host.jp', :path => nil, :is_mirrored => false).save
+    Cms::Layout.delete_all
+
+    ComfortableMexicanSofa::Fixtures.import_layouts('test.host.jp', 'example.jp')
+    assert layout = Cms::Layout.find_by_slug('default')
+    assert_equal '標準レイアウト', layout.label
+    assert_equal "<html>\n  <body>\n    日本語\n    {{ cms:page:content }}\n    日本語\n  </body>\n</html>", layout.content
+    assert_equal "/* 日本語 */\nbody{color: red}", layout.css
+    assert_equal "// 日本語\n// default js", layout.js
+
+    assert nested_layout = Cms::Layout.find_by_slug('nested')
+    assert_equal layout, nested_layout.parent
+    assert_equal 'Default Fixture Nested Layout', nested_layout.label
+    assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+    assert_equal 'div{float:left}', nested_layout.css
+    assert_equal '// nested js', nested_layout.js
+  end
 end

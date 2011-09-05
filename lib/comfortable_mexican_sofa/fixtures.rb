@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_hostname, from_hostname = nil)
@@ -15,23 +16,23 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
     return unless site = Cms::Site.find_by_hostname(to_hostname)
     return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
-    
+
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
       layout = site.layouts.find_by_slug(slug) || site.layouts.new(:slug => slug)
-      
+
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           layout.label      = attributes[:label] || slug.titleize
-          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout) 
+          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout)
         end
       elsif layout.new_record?
         layout.label      = slug.titleize
-        layout.app_layout = parent.try(:app_layout) 
+        layout.app_layout = parent.try(:app_layout)
       end
-      
+
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
@@ -48,7 +49,7 @@ module ComfortableMexicanSofa::Fixtures
           layout.js = File.open(file_path, 'rb').read
         end
       end
-      
+
       # saving
       layout.parent = parent
       if layout.changed?
@@ -56,18 +57,18 @@ module ComfortableMexicanSofa::Fixtures
         Rails.logger.debug "[Fixtures] Saved Layout {#{layout.slug}}"
       end
       layout_ids << layout.id
-      
+
       # checking for nested fixtures
       layout_ids += import_layouts(to_hostname, from_hostname, path, false, layout, layout_ids)
     end
-    
+
     # removing all db entries that are not in fixtures
     site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
-    
+
     # returning ids of layouts in fixtures
     layout_ids
   end
-  
+
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
     return unless site = Cms::Site.find_by_hostname(to_hostname)
     return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
