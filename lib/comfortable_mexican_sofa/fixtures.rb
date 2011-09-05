@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_hostname, from_hostname = nil)
@@ -175,11 +176,9 @@ module ComfortableMexicanSofa::Fixtures
       FileUtils.mkdir_p(layout_path)
       
       open(File.join(layout_path, "_#{layout.slug}.yml"), 'w') do |f|
-        f.write({
-          'label'       => layout.label,
-          'app_layout'  => layout.app_layout,
-          'parent'      => layout.parent.try(:slug)
-        }.to_yaml)
+        f.puts "label: #{layout.label}"
+        f.puts "app_layout: #{layout.app_layout}"
+        f.puts "parent: #{layout.parent.try(:slug)}"
       end
       open(File.join(layout_path, 'content.html'), 'w') do |f|
         f.write(layout.content)
@@ -203,15 +202,12 @@ module ComfortableMexicanSofa::Fixtures
       page.slug = 'index' if page.slug.blank?
       page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
       FileUtils.mkdir_p(page_path)
-      
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
-        f.write({
-          'label'         => page.label,
-          'layout'        => page.layout.try(:slug),
-          'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-          'target_page'   => page.target_page.try(:slug),
-          'is_published'  => page.is_published
-        }.to_yaml)
+        f.puts "label: #{page.label}"
+        f.puts "layout: #{page.layout.try(:slug)}"
+        f.puts "parent: #{page.parent && (page.parent.slug.present?? page.parent.slug : 'index')}"
+        f.puts "target_page: #{page.target_page.try(:slug)}"
+        f.puts "is_published: #{page.is_published}"
       end
       page.blocks_attributes.each do |block|
         open(File.join(page_path, "#{block[:label]}.html"), 'w') do |f|
@@ -230,7 +226,7 @@ module ComfortableMexicanSofa::Fixtures
     site.snippets.each do |snippet|
       FileUtils.mkdir_p(snippet_path = File.join(path, snippet.slug))
       open(File.join(snippet_path, "_#{snippet.slug}.yml"), 'w') do |f|
-        f.write({'label' => snippet.label}.to_yaml)
+        f.puts "label: #{snippet.label}"
       end
       open(File.join(snippet_path, 'content.html'), 'w') do |f|
         f.write(snippet.content)
