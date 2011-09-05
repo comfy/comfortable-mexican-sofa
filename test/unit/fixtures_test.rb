@@ -303,7 +303,7 @@ class FixturesTest < ActiveSupport::TestCase
   end
 
   # ----- MultiByte Character Test -----
-  def test_import_multibyte_character_layouts
+  def test_import_multibyte_character
     Cms::Page.destroy_all
     Cms::Layout.destroy_all
     Cms::Snippet.destroy_all
