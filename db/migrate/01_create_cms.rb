@@ -2,7 +2,7 @@ class CreateCms < ActiveRecord::Migration
   
   def self.up
     
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     
     # -- Sites --------------------------------------------------------------
     create_table :cms_sites do |t|
@@ -107,11 +107,13 @@ class CreateCms < ActiveRecord::Migration
     end
     add_index :cms_categorizations, [:category_id, :categorized_type, :categorized_id], :unique => true,
       :name => 'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
+      
+    ActiveRecord::Base.establish_connection
   end
   
   def self.down
     
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     
     drop_table :cms_sites
     drop_table :cms_layouts
@@ -122,5 +124,7 @@ class CreateCms < ActiveRecord::Migration
     drop_table :cms_revisions
     drop_table :cms_categories
     drop_table :cms_categorizations
+    
+    ActiveRecord::Base.establish_connection
   end
 end
