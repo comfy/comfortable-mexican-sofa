@@ -1,6 +1,6 @@
 class UpgradeTo140 < ActiveRecord::Migration
   def self.up
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     rename_table :cms_uploads, :cms_files
     add_column :cms_files, :label, :string
     add_column :cms_files, :description, :string, :limit => 2048
@@ -20,10 +20,11 @@ class UpgradeTo140 < ActiveRecord::Migration
     end
     add_index :cms_categorizations, [:category_id, :categorized_type, :categorized_id], :unique => true,
       :name => 'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
+    ActiveRecord::Base.establish_connection
   end
   
   def self.down
-    ComfortableMexicanSofa.establish_connection(self)
+    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     remove_index :cms_files, [:site_id, :label]
     remove_column :cms_files, :description
     remove_column :cms_files, :label
@@ -31,5 +32,6 @@ class UpgradeTo140 < ActiveRecord::Migration
     
     drop_table :cms_categories
     drop_table :cms_categorizations
+    ActiveRecord::Base.establish_connection
   end
 end
