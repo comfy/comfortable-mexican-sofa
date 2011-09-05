@@ -36,17 +36,17 @@ module ComfortableMexicanSofa::Fixtures
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.content = File.open(file_path, 'rb').read
+          layout.content = File.open(file_path, 'r').read
         end
       end
       if File.exists?(file_path = File.join(path, 'css.css'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.css = File.open(file_path, 'rb').read
+          layout.css = File.open(file_path, 'r').read
         end
       end
       if File.exists?(file_path = File.join(path, 'js.js'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.js = File.open(file_path, 'rb').read
+          layout.js = File.open(file_path, 'r').read
         end
       end
 
