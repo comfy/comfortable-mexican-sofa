@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.4.7"
+  s.version = "1.4.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-08-31}
+  s.date = %q{2011-09-05}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -196,7 +196,7 @@ Gem::Specification.new do |s|
     "db/migrate/upgrades/04_upgrade_to_1_3_0.rb",
     "db/migrate/upgrades/05_upgrade_to_1_4_0.rb",
     "db/seeds.rb",
-    "doc/page_editing.png",
+    "doc/preview.png",
     "doc/sofa.png",
     "gemfiles/Gemfile.rails-3.0.x",
     "gemfiles/Gemfile.rails-3.1.x",
