@@ -304,10 +304,12 @@ class FixturesTest < ActiveSupport::TestCase
 
   # ----- MultiByte Character Test -----
   def test_import_multibyte_character_layouts
+    Cms::Page.destroy_all
+    Cms::Layout.destroy_all
+    Cms::Snippet.destroy_all
     Cms::Site.new(:label => 'test.hoge.jp', :hostname => 'test.host.jp', :path => nil, :is_mirrored => false).save
-    Cms::Layout.delete_all
 
-    ComfortableMexicanSofa::Fixtures.import_layouts('test.host.jp', 'example.jp')
+    ComfortableMexicanSofa::Fixtures.import_all('test.host.jp', 'example.jp')
     assert layout = Cms::Layout.find_by_slug('default')
     assert_equal '標準レイアウト', layout.label
     assert_equal "<html>\n  <body>\n    日本語\n    {{ cms:page:content }}\n    日本語\n  </body>\n</html>", layout.content
