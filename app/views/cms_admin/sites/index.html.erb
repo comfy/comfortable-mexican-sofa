@@ -7,6 +7,7 @@
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
+          <%= link_to t('.select'),  cms_admin_site_pages_path(site) %>
           <%= link_to t('.edit'), edit_cms_admin_site_path(site) %>
           <%= link_to t('.delete'), cms_admin_site_path(site), :method => :delete, :confirm => t('.are_you_sure') %>
         </div>

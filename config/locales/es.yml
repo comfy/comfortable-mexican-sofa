@@ -101,6 +101,7 @@ es:
       index:
         title: Listado de Sitios
         new_link: Crear nuevo Sitio
+        select: Select Site
         edit: Editar
         delete: Eliminar
         are_you_sure: ¿Está seguro de que desea eliminar este sitio?

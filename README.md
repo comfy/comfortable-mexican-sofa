@@ -49,7 +49,7 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 For more information please [see Wiki pages](https://github.com/twg/comfortable-mexican-sofa/wiki).
 
-![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/page_editing.png)
+![Sofa's Page Edit View](https://github.com/twg/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/twg/comfortable-mexican-sofa/raw/master/LICENSE) 
 
