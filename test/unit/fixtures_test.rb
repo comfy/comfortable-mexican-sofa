@@ -310,17 +310,22 @@ class FixturesTest < ActiveSupport::TestCase
     Cms::Site.new(:label => 'test.hoge.jp', :hostname => 'test.host.jp', :path => nil, :is_mirrored => false).save
 
     ComfortableMexicanSofa::Fixtures.import_all('test.host.jp', 'example.jp')
+    # layout
     assert layout = Cms::Layout.find_by_slug('default')
     assert_equal '標準レイアウト', layout.label
-    assert_equal "<html>\n  <body>\n    日本語\n    {{ cms:page:content }}\n    日本語\n  </body>\n</html>", layout.content
+    assert_equal "<html>\n  <body>\n    レイアウト上\n    {{ cms:page:content }}\n    レイアウト下\n  </body>\n</html>", layout.content
     assert_equal "/* 日本語 */\nbody{color: red}", layout.css
     assert_equal "// 日本語\n// default js", layout.js
-
-    assert nested_layout = Cms::Layout.find_by_slug('nested')
-    assert_equal layout, nested_layout.parent
-    assert_equal 'Default Fixture Nested Layout', nested_layout.label
-    assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
-    assert_equal 'div{float:left}', nested_layout.css
-    assert_equal '// nested js', nested_layout.js
+    # page
+    assert page = Cms::Page.find_by_full_path('/')
+    assert_equal layout, page.layout
+    assert_equal 'index', page.slug
+    assert_equal "<html>\n  <body>\n    レイアウト上\n    ページ上\nスニペット\nページ下\n    レイアウト下\n  </body>\n</html>", page.content
+    assert_equal "TOPページ", page.label
+    # snippet
+    assert snippet = Cms::Snippet.last
+    assert_equal 'default', snippet.slug
+    assert_equal 'サイドバー', snippet.label
+    assert_equal 'スニペット', snippet.content
   end
 end

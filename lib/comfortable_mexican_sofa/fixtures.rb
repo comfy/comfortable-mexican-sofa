@@ -102,7 +102,7 @@ module ComfortableMexicanSofa::Fixtures
           label = file_path.split('/').last.split('.').first
           blocks_attributes << {
             :label    => label,
-            :content  => File.open(file_path, 'rb').read
+            :content  => File.open(file_path, 'r').read
           }
         end
       end
@@ -148,7 +148,7 @@ module ComfortableMexicanSofa::Fixtures
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
-          snippet.content = File.open(file_path, 'rb').read
+          snippet.content = File.open(file_path, 'r').read
         end
       end
       
