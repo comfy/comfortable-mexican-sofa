@@ -62,7 +62,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def reorder
-    (params[:page] || []).each_with_index do |id, index|
+    (params[:cms_page] || []).each_with_index do |id, index|
       if (cms_page = Cms::Page.find_by_id(id))
         cms_page.update_attribute(:position, index)
       end
