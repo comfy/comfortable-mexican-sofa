@@ -42,7 +42,9 @@ protected
     end
     
     if @cms_site
-      params[:cms_path].to_s.gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
+      if params[:cms_path].present?
+        params[:cms_path].gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
+      end
       I18n.locale = @cms_site.locale
     else
       I18n.locale = I18n.default_locale
