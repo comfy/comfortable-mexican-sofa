@@ -27,9 +27,9 @@
   <%= cms_hook :page_form, :object => form %>
 </div>
 
-<%= render :partial => 'form_blocks' %>
-
 <%= render :partial => 'cms_admin/categories/form', :object => form %>
+
+<%= render :partial => 'form_blocks' %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
