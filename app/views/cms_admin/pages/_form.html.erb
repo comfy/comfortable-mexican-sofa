@@ -25,9 +25,8 @@
     <%= form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options %>
   <% end %>
   <%= cms_hook :page_form, :object => form %>
+  <%= render :partial => 'cms_admin/categories/form', :object => form %>
 </div>
-
-<%= render :partial => 'cms_admin/categories/form', :object => form %>
 
 <%= render :partial => 'form_blocks' %>
 

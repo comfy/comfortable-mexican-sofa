@@ -1,6 +1,5 @@
 class UpgradeTo140 < ActiveRecord::Migration
   def self.up
-    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     rename_table :cms_uploads, :cms_files
     add_column :cms_files, :label, :string
     add_column :cms_files, :description, :string, :limit => 2048
@@ -23,7 +22,6 @@ class UpgradeTo140 < ActiveRecord::Migration
   end
   
   def self.down
-    ComfortableMexicanSofa.establish_connection(ActiveRecord::Base)
     remove_index :cms_files, [:site_id, :label]
     remove_column :cms_files, :description
     remove_column :cms_files, :label
