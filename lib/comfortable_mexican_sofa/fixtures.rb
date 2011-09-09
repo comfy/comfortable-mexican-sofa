@@ -65,7 +65,7 @@ module ComfortableMexicanSofa::Fixtures
     site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
     
     # returning ids of layouts in fixtures
-    layout_ids
+    layout_ids.uniq
   end
   
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
@@ -122,7 +122,7 @@ module ComfortableMexicanSofa::Fixtures
     site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy } if root
     
     # returning ids of layouts in fixtures
-    page_ids
+    page_ids.uniq
   end
   
   def self.import_snippets(to_hostname, from_hostname = nil)
