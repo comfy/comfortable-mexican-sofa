@@ -37,7 +37,7 @@ html, body#cms_body {
   display: block;
   padding: 3px 10px;
   margin-bottom: 5px;
-  font: 15px/25px 'Lucida Grande', 'Tahoma', serif;
+  font: 15px/25px 'Lucida Grande', 'Tahoma', sans-serif;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
