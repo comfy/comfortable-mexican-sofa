@@ -2,7 +2,11 @@
 
 <li id='cms_layout_<%= layout.id %>'>
   <div class='item'>
-    <div class='icon'></div>
+    <div class='icon'>
+      <% if !params[:category].present? %>
+        <div class='dragger'><span><%= t('cms.views.pages.drag') %></span></div>
+      <% end %>
+    </div>
     <div class='action_links'>
       <%= link_to t('.add_child_layout'), new_cms_admin_site_layout_path(@site, :parent_id => layout.id) %>
       <%= link_to t('.edit'), edit_cms_admin_site_layout_path(@site, layout) %>

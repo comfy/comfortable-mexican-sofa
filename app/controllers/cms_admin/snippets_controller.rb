@@ -5,7 +5,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def index
     return redirect_to :action => :new if @site.snippets.count == 0
-    @snippets = @site.snippets.for_category(params[:category]).all(:order => 'label')
+    @snippets = @site.snippets.for_category(params[:category])
   end
 
   def new
@@ -38,6 +38,15 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
     @snippet.destroy
     flash[:notice] = I18n.t('cms.snippets.deleted')
     redirect_to :action => :index
+  end
+  
+  def reorder
+    (params[:cms_snippet] || []).each_with_index do |id, index|
+      if (cms_snippet = Cms::Snippet.find_by_id(id))
+        cms_snippet.update_attribute(:position, index)
+      end
+    end
+    render :nothing => true
   end
 
 protected

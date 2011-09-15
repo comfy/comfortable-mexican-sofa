@@ -18,14 +18,24 @@ class Cms::File < ActiveRecord::Base
   
   validates_uniqueness_of :file_file_name,
     :scope => :site_id
+    
+  # -- Scopes ---------------------------------------------------------------
+  default_scope order(:position)
   
   # -- Callbacks ------------------------------------------------------------
   before_save :assign_label
+  before_validation :assign_position,
+                    :on => :create
   
 protected
   
   def assign_label
     self.label = self.label.blank?? self.file_file_name.gsub(/\.[^\.]*?$/, '').titleize : self.label
+  end
+  
+  def assign_position
+    max = Cms::File.maximum(:position)
+    self.position = max ? max + 1 : 0
   end
   
 end

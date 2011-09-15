@@ -117,5 +117,23 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
       assert_equal 'Snippet deleted', flash[:notice]
     end
   end
+  
+  def test_reorder
+    snippet_one = cms_snippets(:default)
+    snippet_two = cms_sites(:default).snippets.create!(
+      :label  => 'test',
+      :slug   => 'test'
+    )
+    assert_equal 0, snippet_one.position
+    assert_equal 1, snippet_two.position
+
+    post :reorder, :site_id => cms_sites(:default), :cms_snippet => [snippet_two.id, snippet_one.id]
+    assert_response :success
+    snippet_one.reload
+    snippet_two.reload
+
+    assert_equal 1, snippet_one.position
+    assert_equal 0, snippet_two.position
+  end
 
 end

@@ -100,5 +100,23 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       assert_equal 'Layout deleted', flash[:notice]
     end
   end
+  
+  def test_reorder
+    layout_one = cms_layouts(:default)
+    layout_two = cms_sites(:default).layouts.create!(
+      :label  => 'test',
+      :slug   => 'test'
+    )
+    assert_equal 0, layout_one.position
+    assert_equal 1, layout_two.position
+
+    post :reorder, :site_id => cms_sites(:default), :cms_layout => [layout_two.id, layout_one.id]
+    assert_response :success
+    layout_one.reload
+    layout_two.reload
+
+    assert_equal 1, layout_one.position
+    assert_equal 0, layout_two.position
+  end
 
 end

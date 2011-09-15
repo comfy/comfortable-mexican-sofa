@@ -24,7 +24,12 @@ module ComfortableMexicanSofa::ViewMethods
   #   cms_snippet_content(:my_snippet)
   def cms_snippet_content(snippet_slug, cms_site = nil)
     return '' unless cms_site ||= (@cms_site || Cms::Site.find_site(request.host.downcase, request.fullpath))
-    return '' unless snippet = cms_site.snippets.find_by_slug(snippet_slug)
+    case snippet_slug
+    when Cms::Snippet
+      snippet = snippet_slug
+    else
+      return '' unless snippet = cms_site.snippets.find_by_slug(snippet_slug)
+    end
     render :inline => ComfortableMexicanSofa::Tag.process_content(Cms::Page.new, snippet.content)
   end
   

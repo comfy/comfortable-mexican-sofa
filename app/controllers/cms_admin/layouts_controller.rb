@@ -39,6 +39,15 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
     flash[:notice] = I18n.t('cms.layouts.deleted')
     redirect_to :action => :index
   end
+  
+  def reorder
+    (params[:cms_layout] || []).each_with_index do |id, index|
+      if (cms_layout = Cms::Layout.find_by_id(id))
+        cms_layout.update_attribute(:position, index)
+      end
+    end
+    render :nothing => true
+  end
 
 protected
 
