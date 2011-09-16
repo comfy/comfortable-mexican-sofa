@@ -34,6 +34,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
       assert_equal '{{cms:page:content}}', layout.content
       assert_equal 'css', layout.css
       assert_equal 'js', layout.js
+      assert_equal 1, layout.position
     end
   end
   

@@ -13,11 +13,9 @@ class Cms::Snippet < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
-  before_validation :assign_position,
-                    :on => :create
+  before_save   :assign_position, :on => :create
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
-  
   
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -31,6 +29,7 @@ class Cms::Snippet < ActiveRecord::Base
     
   # -- Scopes ---------------------------------------------------------------
   default_scope order(:position)
+  
 protected
   
   def assign_label
@@ -45,7 +44,7 @@ protected
   end
   
   def assign_position
-    max = Cms::Snippet.maximum(:position)
+    max = self.site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
   

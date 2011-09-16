@@ -4,34 +4,24 @@ Rails.application.routes.draw do
     get '/', :to => 'base#jump'
     resources :sites do
       resources :pages do
-        member do 
-          match :form_blocks
-          match :toggle_branch
-        end
-        collection do
-          match :reorder
-        end
+        get  :form_blocks,    :on => :member
+        get  :toggle_branch,  :on => :member
+        post :reorder,        :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end
       end
       resources :files do
-        collection do
-          match :reorder
-        end
+        post :reorder, :on => :collection
       end
       resources :layouts do
-        collection do
-          match :reorder
-        end
+        post :reorder, :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end
       end
       resources :snippets do
-        collection do
-          match :reorder
-        end
+        post :reorder, :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end

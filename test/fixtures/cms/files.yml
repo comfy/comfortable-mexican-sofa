@@ -5,3 +5,4 @@ default:
   file_content_type: image/jpeg
   file_file_size: 20099
   description: Description
+  position: 0

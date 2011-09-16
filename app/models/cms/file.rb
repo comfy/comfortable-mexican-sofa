@@ -18,14 +18,13 @@ class Cms::File < ActiveRecord::Base
   
   validates_uniqueness_of :file_file_name,
     :scope => :site_id
-    
-  # -- Scopes ---------------------------------------------------------------
-  default_scope order(:position)
   
   # -- Callbacks ------------------------------------------------------------
   before_save :assign_label
-  before_validation :assign_position,
-                    :on => :create
+  before_save :assign_position, :on => :create
+  
+  # -- Scopes ---------------------------------------------------------------
+  default_scope order(:position)
   
 protected
   

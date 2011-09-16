@@ -23,6 +23,20 @@ class CmsSnippetTest < ActiveSupport::TestCase
     assert_equal 'Test', snippet.label
   end
   
+  def test_create
+    assert_difference 'Cms::Snippet.count' do
+      snippet = cms_sites(:default).snippets.create(
+        :label    => 'Test Snippet',
+        :slug     => 'test',
+        :content  => 'Test Content'
+      )
+      assert_equal 'Test Snippet', snippet.label
+      assert_equal 'test', snippet.slug
+      assert_equal 'Test Content', snippet.content
+      assert_equal 1, snippet.position
+    end
+  end
+  
   def test_update_forces_page_content_reload
     snippet = cms_snippets(:default)
     page = cms_pages(:default)

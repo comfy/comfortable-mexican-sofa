@@ -12,6 +12,7 @@ default:
     layout_content_c
   css: default_css
   js: default_js
+  position: 0
     
 nested:
   site: default
@@ -23,6 +24,7 @@ nested:
     {{cms:page:content}}
   css: nested_css
   js: nested_js
+  position: 0
     
 child:
   site: default
@@ -34,3 +36,4 @@ child:
     {{cms:page:right_column}}
   css: child_css
   js: child_js
+  position: 0

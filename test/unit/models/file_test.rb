@@ -22,6 +22,7 @@ class CmsFileTest < ActiveSupport::TestCase
         :file => fixture_file_upload('files/valid_image.jpg')
       )
       assert_equal 'Valid Image', file.label
+      assert_equal 1, file.position
     end
   end
   
