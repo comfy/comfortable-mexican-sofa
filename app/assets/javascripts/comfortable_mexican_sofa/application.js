@@ -91,7 +91,7 @@ $.CMS = function(){
     },
 
     enable_date_picker: function(){
-      $('input[type=datetime], input[type=text].datetime').datepicker();
+      $('input[type=text].date').datepicker({ dateFormat: 'yy-mm-dd' });
     },
 
     tree_methods: function(){

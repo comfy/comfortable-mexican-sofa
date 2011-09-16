@@ -48,7 +48,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_field_datetime
     cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "input[type='datetime'][name='page[blocks_attributes][][content]']"
+    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='date']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
@@ -69,14 +69,14 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_field_text
     cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:text}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "textarea[name='page[blocks_attributes][][content]']"
+    assert_select "textarea[name='page[blocks_attributes][][content]'][class='code']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
   def test_get_new_with_page_datetime
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "input[type='datetime'][name='page[blocks_attributes][][content]']"
+    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='date']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
@@ -97,14 +97,14 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_page_text
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "textarea[name='page[blocks_attributes][][content]']"
+    assert_select "textarea[name='page[blocks_attributes][][content]'][class='code']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
   def test_get_new_with_rich_page_text
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "textarea[name='page[blocks_attributes][][content]']"
+    assert_select "textarea[name='page[blocks_attributes][][content]'][class='rich_text']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 

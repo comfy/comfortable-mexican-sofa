@@ -60,16 +60,24 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     css_class = options[:css_class] || tag.class.to_s.demodulize.underscore
     
     field_css_class = case tag
-    when ComfortableMexicanSofa::Tag::PageRichText
-      'rich_text'
+    when ComfortableMexicanSofa::Tag::PageDateTime, ComfortableMexicanSofa::Tag::FieldDateTime
+      'date'
     when ComfortableMexicanSofa::Tag::PageText, ComfortableMexicanSofa::Tag::FieldText
       'code'
+    when ComfortableMexicanSofa::Tag::PageRichText
+      'rich_text'
     end
     
     options[:content_field_method] ||= :text_field_tag
     field = 
       options[:field] || 
-      @template.send(options[:content_field_method], 'page[blocks_attributes][][content]', tag.content, :id => nil, :class => field_css_class)
+      @template.send(
+        options[:content_field_method],
+        'page[blocks_attributes][][content]',
+        tag.content,
+        :id     => nil, 
+        :class  => field_css_class
+      )
     
     %(
       <div class='form_element #{css_class}'>
@@ -83,7 +91,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def field_date_time(tag)
-    default_tag_field(tag, :content_field_method => :datetime_field_tag)
+    default_tag_field(tag)
   end
   
   def field_integer(tag)
@@ -99,7 +107,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def page_date_time(tag)
-    default_tag_field(tag, :content_field_method => :datetime_field_tag)
+    default_tag_field(tag)
   end
   
   def page_integer(tag)
