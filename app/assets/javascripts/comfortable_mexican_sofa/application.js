@@ -91,7 +91,7 @@ $.CMS = function(){
     },
 
     enable_date_picker: function(){
-      $('input[type=datetime]').datepicker();
+      $('input[type=datetime], input[type=text].datetime').datepicker();
     },
 
     tree_methods: function(){
