@@ -13,8 +13,11 @@ class Cms::Snippet < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
+  before_validation :assign_position,
+                    :on => :create
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
+  
   
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -25,7 +28,9 @@ class Cms::Snippet < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
-  
+    
+  # -- Scopes ---------------------------------------------------------------
+  default_scope order(:position)
 protected
   
   def assign_label
@@ -37,6 +42,11 @@ protected
   # are hundreds of pages.
   def clear_cached_page_content
     site.pages.all.each{ |page| page.save }
+  end
+  
+  def assign_position
+    max = Cms::Snippet.maximum(:position)
+    self.position = max ? max + 1 : 0
   end
   
 end

@@ -14,6 +14,8 @@ class Cms::Layout < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
+  before_validation :assign_position,
+                    :on => :create
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
   
@@ -27,6 +29,9 @@ class Cms::Layout < ActiveRecord::Base
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
     
+  # -- Scopes ---------------------------------------------------------------
+  default_scope order(:position)
+  
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
@@ -70,6 +75,11 @@ protected
   
   def assign_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+  end
+  
+  def assign_position
+    max = Cms::Layout.maximum(:position)
+    self.position = max ? max + 1 : 0
   end
   
   # Forcing page content reload

@@ -165,4 +165,21 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     end
   end
   
+  def test_reorder
+    file_one = cms_files(:default)
+    file_two = cms_sites(:default).files.create(
+      :file => fixture_file_upload('files/valid_image.jpg')
+    )
+    assert_equal 0, file_one.position
+    assert_equal 1, file_two.position
+
+    post :reorder, :site_id => cms_sites(:default), :cms_file => [file_two.id, file_one.id]
+    assert_response :success
+    file_one.reload
+    file_two.reload
+
+    assert_equal 1, file_one.position
+    assert_equal 0, file_two.position
+  end
+  
 end

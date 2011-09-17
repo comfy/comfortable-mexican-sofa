@@ -3,11 +3,15 @@
 
 <%= render :partial => 'cms_admin/categories/index', :object => 'Cms::File' %>
 
-<ul class='list'>
+<ul class='list sortable'>
   <% @files.each do |file| %>
     <li id='<%= dom_id(file) %>'>
       <div class='item'>
-        <div class='icon'></div>
+        <div class='icon'>
+          <% if !params[:category].present? %>
+            <div class='dragger'><span><%= t('cms.views.pages.drag') %></span></div>
+          <% end %>
+        </div>
         <div class='action_links'>
           <%= link_to t('.edit'), edit_cms_admin_site_file_path(@site, file) %>
           <%= link_to t('.delete'), cms_admin_site_file_path(@site, file), :method => :delete, :confirm => t('.are_you_sure') %>
