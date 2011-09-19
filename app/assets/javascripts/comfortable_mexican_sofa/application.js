@@ -1,5 +1,6 @@
 //= require comfortable_mexican_sofa/jquery.js
 //= require comfortable_mexican_sofa/jquery_ui.js
+//= require comfortable_mexican_sofa/jquery_ui_timepicker.js
 //= require comfortable_mexican_sofa/rails.js
 //= require comfortable_mexican_sofa/codemirror/codemirror.js
 
@@ -91,6 +92,7 @@ $.CMS = function(){
     },
 
     enable_date_picker: function(){
+      $('input[type=text].datetime').datetimepicker({ dateFormat: 'yy-mm-dd' });
       $('input[type=text].date').datepicker({ dateFormat: 'yy-mm-dd' });
     },
 

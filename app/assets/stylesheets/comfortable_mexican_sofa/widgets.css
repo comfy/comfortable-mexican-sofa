@@ -1,39 +1,10 @@
-/* -- Dialog Box --------------------------------------------------------- */
-/*
-.ui-dialog {
-  border: 1px solid #252525;
-  border-radius: 5px;
-}
-#cms_dialog {
-  border: 5px solid #9f9f9f;
-  border-radius: 5px;
-  background-color: #d8d8d8;
-  padding: 15px;
-}
-.ui-widget-overlay {
-  position: absolute;
-  top: 0px;
-  background: rgba(0,0,0,0.4);
-}
-.ui-dialog-titlebar {
-  position: relative;
-  padding: 0px 5px;
-  margin-bottom: -5px;
-  background-color: #9F9F9F;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.ui-dialog-titlebar .ui-dialog-title {
-  font: 15px/25px Helvetica, Arial, sans-serif;
-  text-shadow: #252525 1px 1px;
-  color: #f1f1f1;
-}
-a.ui-dialog-titlebar-close {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-}
-*/
+/* -- jqueryIU ----------------------------------------------------------- */
+.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
+.ui-timepicker-div dl{ text-align: left; }
+.ui-timepicker-div dl dt{ height: 25px; }
+.ui-timepicker-div dl dd{ margin: -25px 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+
 /* -- WYMeditor ---------------------------------------------------------- */
 .wym_box {
   background: #f1f1f1;
