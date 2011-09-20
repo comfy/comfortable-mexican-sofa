@@ -34,7 +34,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert assigns(:layout)
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{layout.site.id}/layouts/#{layout.id}]"
-    assert_select "form[action='/cms-admin/sites/#{layout.site.id}/files?file%5Blayout_id%5D=#{layout.id}']"
+    assert_select "form[action='/cms-admin/sites/#{layout.site.id}/files?file[layout_id]=#{layout.id}']"
   end
 
   def test_get_edit_failure

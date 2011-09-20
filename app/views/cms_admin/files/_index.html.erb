@@ -8,9 +8,10 @@
     elsif @snippet && !@snippet.new_record?
       [:snippet_id, @snippet.id]
     end
-    url_param = key.present?? { :file => { key => id} } : nil
+    url_param = key.present?? "?file[#{key}]=#{id}" : ''
   %>
-  <%= form_for :file, :url => cms_admin_site_files_path(@site, url_param), :html => {:multipart => true} do |form| %>
+  
+  <%= form_for :file, :url => cms_admin_site_files_path(@site) + url_param, :html => {:multipart => true} do |form| %>
     <a id='uploader_button' href='#' class='big button'><%= t('.button') %></a>
     <%= form.file_field :file, :multiple => true %>
   <% end %>
