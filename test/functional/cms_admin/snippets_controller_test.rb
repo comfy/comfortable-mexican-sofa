@@ -41,6 +41,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert assigns(:snippet)
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/snippets]"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
   end
 
   def test_get_edit
@@ -50,6 +51,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert assigns(:snippet)
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{snippet.site.id}/snippets/#{snippet.id}]"
+    assert_select "form[action='/cms-admin/sites/#{snippet.site.id}/files?file%5Bsnippet_id%5D=#{snippet.id}']"
   end
 
   def test_get_edit_failure

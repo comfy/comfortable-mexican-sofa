@@ -1,6 +1,13 @@
 <div id='file_uploads' class='box'>
   
-  <%= form_for :file, :url => cms_admin_site_files_path(@site), :html => {:multipart => true} do |form| %>
+  <%
+    url_param = %w(layout page snippet).inject({}) do |c, type| 
+      c["#{type}_id"] = @_assigns[type].id if @_assigns[type] && @_assigns[type].id
+      c
+    end 
+    url_param = url_param.present?? { :file => url_param } : nil
+  %>
+  <%= form_for :file, :url => cms_admin_site_files_path(@site, url_param), :html => {:multipart => true} do |form| %>
     <a id='uploader_button' href='#' class='big button'><%= t('.button') %></a>
     <%= form.file_field :file, :multiple => true %>
   <% end %>

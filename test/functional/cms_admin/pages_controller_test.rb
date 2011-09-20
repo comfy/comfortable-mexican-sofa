@@ -43,6 +43,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/pages]"
     assert_select "select[data-url=/cms-admin/sites/#{site.id}/pages/0/form_blocks]"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
   end
 
   def test_get_new_with_field_datetime
@@ -124,6 +125,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{page.site.id}/pages/#{page.id}]"
     assert_select "select[data-url=/cms-admin/sites/#{page.site.id}/pages/#{page.id}/form_blocks]"
+    assert_select "form[action='/cms-admin/sites/#{page.site.id}/files?file%5Bpage_id%5D=#{page.id}']"
   end
 
   def test_get_edit_failure

@@ -24,6 +24,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_equal '{{ cms:page:content:text }}', assigns(:layout).content
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/layouts]"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
   end
 
   def test_get_edit
@@ -33,6 +34,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert assigns(:layout)
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{layout.site.id}/layouts/#{layout.id}]"
+    assert_select "form[action='/cms-admin/sites/#{layout.site.id}/files?file%5Blayout_id%5D=#{layout.id}']"
   end
 
   def test_get_edit_failure

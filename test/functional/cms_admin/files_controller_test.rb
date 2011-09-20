@@ -123,6 +123,24 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     end
   end
   
+  def test_create_as_xhr_with_page_id
+    request.env['HTTP_X_FILE_NAME'] = 'test.pdf'
+    request.env['CONTENT_TYPE'] = 'application/pdf'
+    
+    assert_difference ['Cms::File.count', 'Cms::Category.count', 'Cms::Categorization.count'] do
+      xhr :post, :create, :site_id => cms_sites(:default), :file => {
+        :page_id => cms_pages(:default).id
+      }
+      assert_response :success
+      
+      file = Cms::File.last
+      assert_equal 'test.pdf', file.file_file_name
+      assert_equal 1, file.categories.count
+      assert_equal '[page] /',  file.categories.first.label
+      assert_equal 'Cms::File', file.categories.first.categorized_type
+    end
+  end
+  
   def test_update
     file = cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
