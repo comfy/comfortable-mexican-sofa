@@ -124,6 +124,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   end
   
   def test_create_as_xhr_with_page_id
+    ComfortableMexicanSofa.config.auto_file_categorization = true
     request.env['HTTP_X_FILE_NAME'] = 'test.pdf'
     request.env['CONTENT_TYPE'] = 'application/pdf'
     

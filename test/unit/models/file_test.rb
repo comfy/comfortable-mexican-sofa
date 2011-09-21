@@ -25,7 +25,20 @@ class CmsFileTest < ActiveSupport::TestCase
     end
   end
   
+  def test_creation_with_layout_link_and_config_disabled
+    assert !ComfortableMexicanSofa.config.auto_file_categorization
+    assert_difference 'Cms::File.count' do
+      assert_no_difference ['Cms::Category.count', 'Cms::Categorization.count'] do
+        file = cms_sites(:default).files.create(
+          :file       => fixture_file_upload('files/valid_image.jpg'),
+          :layout_id  => cms_layouts(:default)
+        )
+      end
+    end
+  end
+  
   def test_creation_with_layout_link
+    ComfortableMexicanSofa.config.auto_file_categorization = true
     assert_difference ['Cms::File.count', 'Cms::Category.count', 'Cms::Categorization.count'] do
       file = cms_sites(:default).files.create(
         :file       => fixture_file_upload('files/valid_image.jpg'),
@@ -38,6 +51,7 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_creation_with_page_link
+    ComfortableMexicanSofa.config.auto_file_categorization = true
     assert_difference ['Cms::File.count', 'Cms::Category.count', 'Cms::Categorization.count'] do
       file = cms_sites(:default).files.create(
         :file     => fixture_file_upload('files/valid_image.jpg'),
@@ -50,6 +64,7 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_creation_with_snippet_link
+    ComfortableMexicanSofa.config.auto_file_categorization = true
     assert_difference ['Cms::File.count', 'Cms::Category.count', 'Cms::Categorization.count'] do
       file = cms_sites(:default).files.create(
         :file       => fixture_file_upload('files/valid_image.jpg'),

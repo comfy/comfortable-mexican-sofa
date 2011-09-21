@@ -59,6 +59,10 @@ ComfortableMexicanSofa.configure do |config|
   # definition in your database.yml file
   #   config.database_config = nil
   
+  # When enabled files upload via the side widget will get automatically categorized for
+  # the current layout/page/snippet (as long as it's already saved). It's disabled by default.
+  #   config.file_categorization = false
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

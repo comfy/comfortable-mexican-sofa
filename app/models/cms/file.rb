@@ -34,6 +34,7 @@ protected
   end
   
   def categorize_file
+    return unless ComfortableMexicanSofa.config.auto_file_categorization
     category = if layout_id && layout = site.layouts.find_by_id(layout_id)
       Cms::Category.find_or_create_by_label_and_categorized_type("[layout] #{layout.slug}", 'Cms::File')
     elsif page_id && page = site.pages.find_by_id(page_id)
