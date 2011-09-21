@@ -20,13 +20,13 @@ module ComfortableMexicanSofa::ControllerMethods
     # by the cms page and/or layout)
     def render(options = {}, locals = {}, &block)
       if options.is_a?(Hash) && path = options.delete(:cms_page)
-        site = Cms::Site.find_site(request.host.downcase, request.fullpath)
-        page = site && site.pages.find_by_full_path(path)
-        if page
-          cms_app_layout = page.layout.try(:app_layout)
+        @cms_site   = Cms::Site.find_site(request.host.downcase, request.fullpath)
+        @cms_page   = @cms_site && @cms_site.pages.find_by_full_path(path)
+        if @cms_page
+          @cms_layout = @cms_page.layout
+          cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = page.content
-          @cms_page = page
+          options[:inline] = @cms_page.content
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingPage.new(path)

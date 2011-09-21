@@ -4,7 +4,10 @@ class CmsContentControllerTest < ActionController::TestCase
 
   def test_render_page
     get :render_html, :cms_path => ''
-    assert_equal assigns(:cms_page), cms_pages(:default)
+    assert_equal cms_sites(:default), assigns(:cms_site)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
+    assert_equal cms_pages(:default), assigns(:cms_page)
+    
     assert_response :success
     assert_equal rendered_content_formatter(
       '
