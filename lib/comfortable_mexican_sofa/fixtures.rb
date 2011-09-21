@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_hostname, from_hostname = nil)
@@ -15,40 +17,40 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
     return unless site = Cms::Site.find_by_hostname(to_hostname)
     return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
-    
+
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
       layout = site.layouts.find_by_slug(slug) || site.layouts.new(:slug => slug)
-      
+
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           layout.label      = attributes[:label] || slug.titleize
-          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout) 
+          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout)
         end
       elsif layout.new_record?
         layout.label      = slug.titleize
-        layout.app_layout = parent.try(:app_layout) 
+        layout.app_layout = parent.try(:app_layout)
       end
-      
+
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.content = File.open(file_path, 'rb').read
+          layout.content = File.open(file_path, 'r').read
         end
       end
       if File.exists?(file_path = File.join(path, 'css.css'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.css = File.open(file_path, 'rb').read
+          layout.css = File.open(file_path, 'r').read
         end
       end
       if File.exists?(file_path = File.join(path, 'js.js'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          layout.js = File.open(file_path, 'rb').read
+          layout.js = File.open(file_path, 'r').read
         end
       end
-      
+
       # saving
       layout.parent = parent
       if layout.changed?
@@ -56,18 +58,18 @@ module ComfortableMexicanSofa::Fixtures
         Rails.logger.debug "[Fixtures] Saved Layout {#{layout.slug}}"
       end
       layout_ids << layout.id
-      
+
       # checking for nested fixtures
       layout_ids += import_layouts(to_hostname, from_hostname, path, false, layout, layout_ids)
     end
-    
+
     # removing all db entries that are not in fixtures
     site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
-    
+
     # returning ids of layouts in fixtures
     layout_ids.uniq
   end
-  
+
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
     return unless site = Cms::Site.find_by_hostname(to_hostname)
     return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
@@ -101,7 +103,7 @@ module ComfortableMexicanSofa::Fixtures
           label = file_path.split('/').last.split('.').first
           blocks_attributes << {
             :label    => label,
-            :content  => File.open(file_path, 'rb').read
+            :content  => File.open(file_path, 'r').read
           }
         end
       end
@@ -147,7 +149,7 @@ module ComfortableMexicanSofa::Fixtures
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
-          snippet.content = File.open(file_path, 'rb').read
+          snippet.content = File.open(file_path, 'r').read
         end
       end
       
@@ -174,11 +176,9 @@ module ComfortableMexicanSofa::Fixtures
       FileUtils.mkdir_p(layout_path)
       
       open(File.join(layout_path, "_#{layout.slug}.yml"), 'w') do |f|
-        f.write({
-          'label'       => layout.label,
-          'app_layout'  => layout.app_layout,
-          'parent'      => layout.parent.try(:slug)
-        }.to_yaml)
+        f.puts "label: #{layout.label}"
+        f.puts "app_layout: #{layout.app_layout}"
+        f.puts "parent: #{layout.parent.try(:slug)}"
       end
       open(File.join(layout_path, 'content.html'), 'w') do |f|
         f.write(layout.content)
@@ -202,15 +202,12 @@ module ComfortableMexicanSofa::Fixtures
       page.slug = 'index' if page.slug.blank?
       page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
       FileUtils.mkdir_p(page_path)
-      
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
-        f.write({
-          'label'         => page.label,
-          'layout'        => page.layout.try(:slug),
-          'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-          'target_page'   => page.target_page.try(:slug),
-          'is_published'  => page.is_published
-        }.to_yaml)
+        f.puts "label: #{page.label}"
+        f.puts "layout: #{page.layout.try(:slug)}"
+        f.puts "parent: #{page.parent && (page.parent.slug.present?? page.parent.slug : 'index')}"
+        f.puts "target_page: #{page.target_page.try(:slug)}"
+        f.puts "is_published: #{page.is_published}"
       end
       page.blocks_attributes.each do |block|
         open(File.join(page_path, "#{block[:label]}.html"), 'w') do |f|
@@ -229,7 +226,7 @@ module ComfortableMexicanSofa::Fixtures
     site.snippets.each do |snippet|
       FileUtils.mkdir_p(snippet_path = File.join(path, snippet.slug))
       open(File.join(snippet_path, "_#{snippet.slug}.yml"), 'w') do |f|
-        f.write({'label' => snippet.label}.to_yaml)
+        f.puts "label: #{snippet.label}"
       end
       open(File.join(snippet_path, 'content.html'), 'w') do |f|
         f.write(snippet.content)

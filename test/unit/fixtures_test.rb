@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class FixturesTest < ActiveSupport::TestCase
@@ -300,5 +301,75 @@ class FixturesTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Fixtures.export_all('test.host', 'test.test')
     FileUtils.rm_rf(host_path)
   end
-  
+
+  # ----- MultiByte Character Test -----
+  def test_import_multibyte_character_fixtures
+    Cms::Page.destroy_all
+    Cms::Layout.destroy_all
+    Cms::Snippet.destroy_all
+    Cms::Site.new(:label => 'test.hoge.jp', :hostname => 'test.host.jp', :path => nil, :is_mirrored => false).save
+
+    ComfortableMexicanSofa::Fixtures.import_all('test.host.jp', 'example.jp')
+    # layout
+    assert layout = Cms::Layout.find_by_slug('default')
+    assert_equal '標準レイアウト', layout.label
+    assert_equal "<html>\n  <body>\n    レイアウト上\n    {{ cms:page:content }}\n    レイアウト下\n  </body>\n</html>", layout.content
+    assert_equal "/* 日本語 */\nbody{color: red}", layout.css
+    assert_equal "// 日本語\n// default js", layout.js
+    # page
+    assert page = Cms::Page.find_by_full_path('/')
+    assert_equal layout, page.layout
+    assert_equal 'index', page.slug
+    assert_equal "<html>\n  <body>\n    レイアウト上\n    ページ上\nスニペット\nページ下\n    レイアウト下\n  </body>\n</html>", page.content
+    assert_equal "TOPページ", page.label
+    # snippet
+    assert snippet = Cms::Snippet.last
+    assert_equal 'default', snippet.slug
+    assert_equal 'サイドバー', snippet.label
+    assert_equal 'スニペット', snippet.content
+  end
+
+  def test_export_multibyte_character_fixtures
+    Cms::Page.destroy_all
+    Cms::Layout.destroy_all
+    Cms::Snippet.destroy_all
+    Cms::Site.new(:label => 'test.hoge.jp', :hostname => 'test.host.jp', :path => nil, :is_mirrored => false).save
+
+    ComfortableMexicanSofa::Fixtures.import_all('test.host.jp', 'example.jp')
+
+    layout = Cms::Layout.find_by_slug('default')
+    page = Cms::Page.find_by_full_path('/')
+    snippet = Cms::Snippet.last
+
+    # export
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test.jp')
+    ComfortableMexicanSofa::Fixtures.export_all('test.host.jp', 'test.test.jp')
+
+    # layout
+    assert_equal ({
+      'label'       => '標準レイアウト',
+      'app_layout'  => nil,
+      'parent'      => nil
+    }), YAML.load_file(File.join(host_path, 'layouts/default/_default.yml'))
+    assert_equal layout.content, IO.read(File.join(host_path, 'layouts/default/content.html'))
+    assert_equal layout.css, IO.read(File.join(host_path, 'layouts/default/css.css'))
+    assert_equal layout.js, IO.read(File.join(host_path, 'layouts/default/js.js'))
+
+    # page
+    assert_equal ({
+      'label'         => 'TOPページ',
+      'layout'        => 'default',
+      'parent'        => nil,
+      'target_page'   => nil,
+      'is_published'  => true
+    }), YAML.load_file(File.join(host_path, 'pages/index/_index.yml'))
+    assert_equal "ページ上\n{{ cms:snippet:default }}\nページ下", IO.read(File.join(host_path, 'pages/index/content.html'))
+
+    # snippet
+    assert_equal ({'label' => 'サイドバー'}), YAML.load_file(File.join(host_path, 'snippets/default/_default.yml'))
+    assert_equal snippet.content, IO.read(File.join(host_path, 'snippets/default/content.html'))
+
+    # del test.test.jp fixtures
+    FileUtils.rm_rf(host_path)
+  end
 end
