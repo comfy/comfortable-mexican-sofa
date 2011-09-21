@@ -76,12 +76,12 @@ es:
       not_found: Revisión no encontrada
 
     files:
-      created: Files uploaded
-      creation_failure: Failed to upload files
-      updated: File updated
-      update_failure: Failed to update file
-      deleted: File deleted
-      not_found: File not found
+      created: Archivos subidos
+      creation_failure: Fallo la subida del archivo
+      updated: Archivo actualizado
+      update_failure: Fallo la actualización del archivo
+      deleted: Archivo borrado
+      not_found: Archivo no encontrado
 
     content:
       site_not_found: Sitio no encontrado
@@ -95,13 +95,13 @@ es:
       layouts: Diseños
       pages: Páginas
       snippets: Fragmentos
-      files: Files
+      files: Archivos
       
     sites:
       index:
         title: Listado de Sitios
         new_link: Crear nuevo Sitio
-        select: Select Site
+        select: Selecciona el Sitio
         edit: Editar
         delete: Eliminar
         are_you_sure: ¿Está seguro de que desea eliminar este sitio?
@@ -184,30 +184,30 @@ es:
         
     files:
       index:
-        title: Files
-        new_link: Upload New File
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure?
+        title: Archivos
+        new_link: Subir Nuevo Archivo
+        edit: Editar
+        delete: Borrar
+        are_you_sure: ¿Estás seguro?
         button: Cargar Archivos
       new:
-        title: New File
+        title: Nuevo Archivo
       edit:
-        title: Editing File
+        title: Editar Archivo
       form:
-        create: Upload File
-        update: Update File
+        create: Subir Archivo
+        update: Actualizar Archivo
           
     categories:
       index:
-        label: Categories
-        edit: Edit
-        done: Done
-        all: All
-        add: Add
+        label: Categorias
+        edit: Editar
+        done: Listo
+        all: Todos
+        add: Agregar
       show:
-        are_you_sure: Are you sure?
+        are_you_sure: ¿Estás seguro?
       edit:
-        save: Save
+        save: Guardar
       form:
-        label: Categories
+        label: Categorias
