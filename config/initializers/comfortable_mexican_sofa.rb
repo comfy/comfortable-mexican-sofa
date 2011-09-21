@@ -61,7 +61,7 @@ ComfortableMexicanSofa.configure do |config|
   
   # When enabled files upload via the side widget will get automatically categorized for
   # the current layout/page/snippet (as long as it's already saved). It's disabled by default.
-  #   config.file_categorization = false
+  #   config.auto_file_categorization = false
   
 end
 
