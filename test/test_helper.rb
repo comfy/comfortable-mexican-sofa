@@ -6,6 +6,11 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   
+  $stdout_orig = $stdout
+  $stderr_orig = $stderr
+  $stdout = StringIO.new
+  $stderr = StringIO.new
+  
   fixtures :all
   include ActionDispatch::TestProcess
   

@@ -11,10 +11,8 @@ namespace :comfortable_mexican_sofa do
       to    = ENV['TO'] || ENV['FROM']
       from  = ENV['FROM']
       
-      abort "Site with hostname [#{to}] not found. Aborting." if !Cms::Site.find_by_hostname(to)
-      puts "Importing from Folder [#{from}] to Site [#{to}] ..."
+      puts "Importing CMS Fixtures from Folder [#{from}] to Site [#{to}] ..."
       ComfortableMexicanSofa::Fixtures.import_all(to, from)
-      puts 'Done!'
     end
     
     desc 'Export database data into Fixtures (options: FROM=example.com TO=example.local)'
@@ -22,8 +20,7 @@ namespace :comfortable_mexican_sofa do
       to    = ENV['TO'] || ENV['FROM']
       from  = ENV['FROM']
       
-      abort "Site with hostname [#{from}] not found. Aborting." if !Cms::Site.find_by_hostname(from)
-      puts "Exporting from Site [#{from}] to Folder [#{to}] ..."
+      puts "Exporting CMS data from Site [#{from}] to Folder [#{to}] ..."
       ComfortableMexicanSofa::Fixtures.export_all(from, to)
       puts 'Done!'
     end
