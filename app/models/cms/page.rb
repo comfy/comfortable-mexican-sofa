@@ -100,7 +100,14 @@ class Cms::Page < ActiveRecord::Base
     @content = nil if force_reload
     @content ||= begin
       self.tags = [] # resetting
-      layout ? ComfortableMexicanSofa::Tag.process_content(self, layout.merged_content) : ''
+      if layout
+        ComfortableMexicanSofa::Tag.process_content(
+          self,
+          ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
+        )
+      else
+        ''
+      end
     end
   end
   
