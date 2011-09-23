@@ -10,5 +10,6 @@ end
 
 group :test do
   gem 'sqlite3'
+  gem 'simplecov'
   gem 'jeweler', '>=1.4.0'
 end

@@ -11,3 +11,4 @@ rdoc
 public/*
 Gemfile.lock
 .rvmrc
+/coverage
