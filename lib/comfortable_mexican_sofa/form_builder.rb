@@ -78,16 +78,8 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
         :id     => nil, 
         :class  => field_css_class
       )
-    
-    %(
-      <div class='form_element #{css_class}'>
-        <div class='label'>#{label}</div>
-        <div class='value'>
-          #{field}
-          #{@template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)}
-        </div>
-      </div>
-    ).html_safe
+    content = "#{field} #{@template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)}"
+    simple_field(label, content, :class => css_class)
   end
   
   def field_date_time(tag)
@@ -124,6 +116,21 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   def page_rich_text(tag)
     default_tag_field(tag, :content_field_method => :text_area_tag)
+  end
+  
+  def collection(tag)
+    options = [["---- Select #{tag.collection_class.titleize} ----", nil]] + 
+      tag.collection_class.constantize.all.collect do |m| 
+        [m.send(tag.collection_title), m.send(tag.collection_identifier)]
+      end
+      
+    content = @template.select_tag(
+      'page[blocks_attributes][][content]',
+      @template.options_for_select(options, :selected => tag.content),
+      :id => nil
+    )
+    content << @template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)
+    simple_field(tag.collection_class.titleize, content, :class => tag.class.to_s.demodulize.underscore )
   end
   
 end

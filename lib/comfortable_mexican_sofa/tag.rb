@@ -88,7 +88,7 @@ module ComfortableMexicanSofa::Tag
     
     # Checks if this tag is using Cms::Block
     def is_cms_block?
-      %w(page field).member?(self.class.to_s.demodulize.underscore.split(/_/).first)
+      %w(page field collection).member?(self.class.to_s.demodulize.underscore.split(/_/).first)
     end
     
     # Used in displaying form elements for Cms::Block

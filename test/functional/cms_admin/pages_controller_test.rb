@@ -101,6 +101,17 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "textarea[name='page[blocks_attributes][][content]'][class='code']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
+  
+  def test_get_new_with_collection
+    snippet = cms_snippets(:default)
+    cms_layouts(:default).update_attribute(:content, '{{cms:collection:cms/snippet:snippets/show}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_select "select[name='page[blocks_attributes][][content]']" do
+      assert_select "option[value='']", :html => '---- Select Cms/Snippet ----'
+      assert_select "option[value='#{snippet.id}']", :html => snippet.label
+    end
+    assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='cms/snippet']"
+  end
 
   def test_get_new_with_rich_page_text
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:rich_text}}')
