@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.4.19"
+  s.version = "1.4.20"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-09-22}
+  s.date = %q{2011-09-24}
   s.description = %q{}
   s.email = %q{oleg@theworkinggroup.ca}
   s.extra_rdoc_files = [
@@ -218,6 +218,7 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/form_builder.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
     "lib/comfortable_mexican_sofa/tags/asset.rb",
+    "lib/comfortable_mexican_sofa/tags/collection.rb",
     "lib/comfortable_mexican_sofa/tags/field_datetime.rb",
     "lib/comfortable_mexican_sofa/tags/field_integer.rb",
     "lib/comfortable_mexican_sofa/tags/field_string.rb",
@@ -283,6 +284,7 @@ Gem::Specification.new do |s|
     "test/unit/revisions_test.rb",
     "test/unit/tag_test.rb",
     "test/unit/tags/asset_test.rb",
+    "test/unit/tags/collection_test.rb",
     "test/unit/tags/field_datetime_test.rb",
     "test/unit/tags/field_integer_test.rb",
     "test/unit/tags/field_string_test.rb",
@@ -291,7 +293,7 @@ Gem::Specification.new do |s|
     "test/unit/tags/helper_test.rb",
     "test/unit/tags/page_datetime_test.rb",
     "test/unit/tags/page_integer_test.rb",
-    "test/unit/tags/page_rich_text.rb",
+    "test/unit/tags/page_rich_text_test.rb",
     "test/unit/tags/page_string_test.rb",
     "test/unit/tags/page_text_test.rb",
     "test/unit/tags/partial_test.rb",
