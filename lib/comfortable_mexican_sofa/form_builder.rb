@@ -120,7 +120,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   def collection(tag)
     options = [["---- Select #{tag.collection_class.titleize} ----", nil]] + 
-      tag.collection_class.constantize.all.collect do |m| 
+      tag.collection_objects.collect do |m| 
         [m.send(tag.collection_title), m.send(tag.collection_identifier)]
       end
       
@@ -130,7 +130,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       :id => nil
     )
     content << @template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)
-    simple_field(tag.collection_class.titleize, content, :class => tag.class.to_s.demodulize.underscore )
+    simple_field(tag.label, content, :class => tag.class.to_s.demodulize.underscore )
   end
   
 end

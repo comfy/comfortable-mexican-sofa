@@ -2,6 +2,13 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CollectionTagTest < ActiveSupport::TestCase
   
+  module TestCollectionScope
+    def self.included(base)
+      base.scope :cms_collection, lambda{|*args| base.where(:slug => args.first) if args.first }
+    end
+  end
+  Cms::Snippet.send(:include, TestCollectionScope)
+  
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
@@ -39,9 +46,33 @@ class CollectionTagTest < ActiveSupport::TestCase
     end
   end
   
+  def test_collection_objects
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
+    )
+    assert snippets = tag.collection_objects
+    assert_equal 1, snippets.count
+    assert snippets.first.is_a?(Cms::Snippet)
+  end
+  
+  def test_collection_objects_with_scope
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), "{{ cms:collection:snippet:cms/snippet:path/to/partial:label:slug:#{cms_snippets(:default).slug} }}"
+    )
+    assert snippets = tag.collection_objects
+    assert_equal 1, snippets.count
+    assert snippets.first.is_a?(Cms::Snippet)
+    
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), "{{ cms:collection:snippet:cms/snippet:path/to/partial:label:slug:invalid }}"
+    )
+    assert snippets = tag.collection_objects
+    assert_equal 0, snippets.count
+  end
+  
   def test_content_and_render
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial }}'
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
     assert tag.content.blank?
     
@@ -49,7 +80,7 @@ class CollectionTagTest < ActiveSupport::TestCase
     tag.content = snippet.id
     assert_equal snippet.id, tag.block.content
     assert_equal snippet.id, tag.content
-    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %>", tag.render
+    assert_equal "<%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %>", tag.render
   end
   
   def test_content_and_render_detailed
