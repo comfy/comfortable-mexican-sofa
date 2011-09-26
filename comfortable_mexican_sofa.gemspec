@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{comfortable_mexican_sofa}
-  s.version = "1.4.20"
+  s.name = "comfortable_mexican_sofa"
+  s.version = "1.4.21"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = %q{2011-09-24}
-  s.description = %q{}
-  s.email = %q{oleg@theworkinggroup.ca}
+  s.date = "2011-09-26"
+  s.description = ""
+  s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.md"
@@ -300,10 +300,10 @@ Gem::Specification.new do |s|
     "test/unit/tags/snippet_test.rb",
     "test/unit/view_methods_test.rb"
   ]
-  s.homepage = %q{http://github.com/twg/comfortable-mexican-sofa}
+  s.homepage = "http://github.com/twg/comfortable-mexican-sofa"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications}
+  s.rubygems_version = "1.8.10"
+  s.summary = "ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
