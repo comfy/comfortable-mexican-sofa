@@ -226,7 +226,7 @@ class TagTest < ActiveSupport::TestCase
     site = cms_sites(:default)
     layout = site.layouts.create!(
       :slug     => 'no-irb-layout',
-      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:cms/snippet:snippets/show}} <%= 1 + 1 %>'
+      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
       :slug     => 'no-irb-snippet',
@@ -239,11 +239,11 @@ class TagTest < ActiveSupport::TestCase
       :blocks_attributes => [
         { :label    => 'content',
           :content  => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
-        { :label    => 'cms/snippet',
+        { :label    => 'snippet',
           :content  => snippet.id }
       ]
     )
-    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'snippets/show', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
+    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
   end
   
   def test_content_with_irb_enabled
@@ -252,7 +252,7 @@ class TagTest < ActiveSupport::TestCase
     site = cms_sites(:default)
     layout = site.layouts.create!(
       :slug     => 'irb-layout',
-      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:cms/snippet:snippets/show}} <%= 1 + 1 %>'
+      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
       :slug     => 'irb-snippet',
@@ -265,11 +265,11 @@ class TagTest < ActiveSupport::TestCase
       :blocks_attributes => [
         { :label    => 'content',
           :content  => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
-        { :label    => 'cms/snippet',
+        { :label    => 'snippet',
           :content  => snippet.id }
       ]
     )
-    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'snippets/show', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
+    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
   end
   
 end

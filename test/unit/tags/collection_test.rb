@@ -4,11 +4,11 @@ class CollectionTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:cms/snippet:path/to/partial }}'
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
-    assert_equal 'cms/snippet',     tag.label
+    assert_equal 'snippet',         tag.label
     assert_equal 'Cms::Snippet',    tag.collection_class
-    assert_equal 'path/to/partial', tag.collection_partial
+    assert_equal 'cms/snippets',    tag.collection_partial
     assert_equal 'label',           tag.collection_title
     assert_equal 'id',              tag.collection_identifier
     assert_equal [],                tag.collection_params
@@ -16,9 +16,9 @@ class CollectionTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag_detailed
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:cms/snippet:path/to/partial:title:slug:param_a:param_b }}'
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial:title:slug:param_a:param_b }}'
     )
-    assert_equal 'cms/snippet',     tag.label
+    assert_equal 'snippet',         tag.label
     assert_equal 'Cms::Snippet',    tag.collection_class
     assert_equal 'path/to/partial', tag.collection_partial
     assert_equal 'title',           tag.collection_title
@@ -30,7 +30,7 @@ class CollectionTagTest < ActiveSupport::TestCase
     [ 
       '{{cms:collection}}',
       '{{cms:collection:label}}',
-      '{{cms:not_collection:label:partial}}',
+      '{{cms:not_collection:label:class:partial}}',
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::Collection.initialize_tag(
@@ -40,8 +40,8 @@ class CollectionTagTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render
-    tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:cms/snippet:path/to/partial }}'
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial }}'
     )
     assert tag.content.blank?
     
@@ -53,8 +53,8 @@ class CollectionTagTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render_detailed
-    tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:cms/snippet:path/to/partial:label:slug:param_a:param_b }}'
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial:label:slug:param_a:param_b }}'
     )
     assert tag.content.blank?
     
@@ -66,8 +66,8 @@ class CollectionTagTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render_with_no_content
-    tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:cms/snippet:path/to/partial }}'
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial }}'
     )
     assert tag.content.blank?
     assert_equal '', tag.render

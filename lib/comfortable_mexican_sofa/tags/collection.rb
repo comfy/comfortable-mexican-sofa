@@ -1,36 +1,40 @@
 class ComfortableMexicanSofa::Tag::Collection
   include ComfortableMexicanSofa::Tag
   
-  # Simple example for Albums collection rendered out by albums/show partial
-  # making assumtion that we will use `label` and `id` as Album attributes
-  #   {{ cms:collection:Album:albums/show }}
-  # If Album uses `title` and `slug` tag will look as follows:
-  #   {{ cms:collection:Album:albums/show:title:slug }}
-  # If you need to send more paramers to the partial just attach them as such:
-  #   {{ cms:collection:Album:albums/show:title:slug:param_a:param_b }}
+  # Here's a full tag signature:
+  #   {{ cms:collection:label:collection_class:collection_partial:collection_title:collection_identifier:collection_params }}
+  # A working example of the above:
+  #   {{ cms:collection:album:foo/my_album:albums/show:title:slug:param_a:param_b }}
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\/\-]+/
-    /\{\{\s*cms:collection:(#{label}):([\w\/\-\:]+)\s*\}\}/
+    /\{\{\s*cms:collection:(#{label}):(.*?)\s*\}\}/
   end
   
-  def collection_partial
-    self.params.first
-  end
-  
+  # Class definitition. It's basically `Herp::DerpityDerp.undescore` so an example
+  # of valid definition is: `herp/derpity_derp`
   def collection_class
-    label.classify
+    self.params[0].classify
   end
   
+  # Path to the partial. Example: `path/to/partial`
+  def collection_partial
+    self.params[1] || self.collection_class.underscore.pluralize
+  end
+  
+  # Title method for the Collection objects. Default is `label`
   def collection_title
-    self.params[1] || 'label'
+    self.params[2] || 'label'
   end
   
+  # Identifier that will be used to find selected collection object. Defaults to `id`
   def collection_identifier
-    self.params[2] || 'id'
+    self.params[3] || 'id'
   end
   
+  # Extra params that will be passed to the partial AND ALSO will be passed as parameters
+  # for the `cms_collection` scope you can define for your Collection object
   def collection_params
-    self.params[3..-1] || []
+    self.params[4..-1] || []
   end
   
   def content=(value)
