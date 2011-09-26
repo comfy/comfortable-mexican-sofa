@@ -13,12 +13,12 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
-    assert_equal 'snippet',         tag.label
-    assert_equal 'Cms::Snippet',    tag.collection_class
-    assert_equal 'cms/snippets',    tag.collection_partial
-    assert_equal 'label',           tag.collection_title
-    assert_equal 'id',              tag.collection_identifier
-    assert_equal [],                tag.collection_params
+    assert_equal 'snippet',               tag.label
+    assert_equal 'Cms::Snippet',          tag.collection_class
+    assert_equal 'partials/cms/snippets', tag.collection_partial
+    assert_equal 'label',                 tag.collection_title
+    assert_equal 'id',                    tag.collection_identifier
+    assert_equal [],                      tag.collection_params
   end
   
   def test_initialize_tag_detailed
@@ -80,7 +80,7 @@ class CollectionTagTest < ActiveSupport::TestCase
     tag.content = snippet.id
     assert_equal snippet.id, tag.block.content
     assert_equal snippet.id, tag.content
-    assert_equal "<%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %>", tag.render
+    assert_equal "<%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %>", tag.render
   end
   
   def test_content_and_render_detailed

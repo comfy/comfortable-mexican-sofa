@@ -49,7 +49,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_field_datetime
     cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='date']"
+    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='datetime']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 
@@ -77,7 +77,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_page_datetime
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
-    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='date']"
+    assert_select "input[type='text'][name='page[blocks_attributes][][content]'][class='datetime']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][][label]'][value='test_label']"
   end
 

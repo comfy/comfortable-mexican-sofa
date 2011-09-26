@@ -20,7 +20,7 @@ class ComfortableMexicanSofa::Tag::Collection
   
   # Path to the partial. Example: `path/to/partial`
   def collection_partial
-    self.params[1] || self.collection_class.underscore.pluralize
+    self.params[1] || "partials/#{self.collection_class.underscore.pluralize}"
   end
   
   # Title method for the Collection objects. Default is `label`

@@ -243,7 +243,7 @@ class TagTest < ActiveSupport::TestCase
           :content  => snippet.id }
       ]
     )
-    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
+    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
   end
   
   def test_content_with_irb_enabled
@@ -269,7 +269,7 @@ class TagTest < ActiveSupport::TestCase
           :content  => snippet.id }
       ]
     )
-    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
+    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
   end
   
 end
