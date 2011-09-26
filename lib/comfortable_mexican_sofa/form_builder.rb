@@ -61,7 +61,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     
     field_css_class = case tag
     when ComfortableMexicanSofa::Tag::PageDateTime, ComfortableMexicanSofa::Tag::FieldDateTime
-      'date'
+      'datetime'
     when ComfortableMexicanSofa::Tag::PageText, ComfortableMexicanSofa::Tag::FieldText
       'code'
     when ComfortableMexicanSofa::Tag::PageRichText
