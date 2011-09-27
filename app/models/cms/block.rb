@@ -7,9 +7,17 @@ class Cms::Block < ActiveRecord::Base
   # -- Relationships --------------------------------------------------------
   belongs_to :page
   
+  before_save :save_file
+  
   # -- Validations ----------------------------------------------------------
   validates :label,
     :presence   => true,
     :uniqueness => { :scope => :page_id }
+    
+  def save_file
+    p '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+    p self.content
+    p self.content.class.name
+  end
   
 end

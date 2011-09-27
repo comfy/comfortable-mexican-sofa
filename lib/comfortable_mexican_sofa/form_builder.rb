@@ -118,4 +118,23 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     default_tag_field(tag, :content_field_method => :text_area_tag)
   end
   
+  def file(tag)
+    default_tag_field(tag, :content_field_method => :file_field)
+  end
+  
+  def collection(tag)
+    options = [["---- Select #{tag.collection_class.titleize} ----", nil]] + 
+      tag.collection_objects.collect do |m| 
+        [m.send(tag.collection_title), m.send(tag.collection_identifier)]
+      end
+      
+    content = @template.select_tag(
+      'page[blocks_attributes][][content]',
+      @template.options_for_select(options, :selected => tag.content),
+      :id => nil
+    )
+    content << @template.hidden_field_tag('page[blocks_attributes][][label]', tag.label, :id => nil)
+    simple_field(tag.label, content, :class => tag.class.to_s.demodulize.underscore )
+  end
+  
 end
