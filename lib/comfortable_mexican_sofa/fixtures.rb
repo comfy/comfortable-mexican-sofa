@@ -13,8 +13,11 @@ module ComfortableMexicanSofa::Fixtures
   end
   
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
-    return unless site = Cms::Site.find_by_hostname(to_hostname)
-    return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
+    site = Cms::Site.find_or_create_by_hostname(to_hostname)
+    unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
+      $stderr.puts 'Cannot find fixtures'
+      return
+    end
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
@@ -62,15 +65,21 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } if root
+    if root
+      site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } 
+      $stdout.puts 'Imported Layouts!'
+    end
     
     # returning ids of layouts in fixtures
     layout_ids.uniq
   end
   
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
-    return unless site = Cms::Site.find_by_hostname(to_hostname)
-    return unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
+    site = Cms::Site.find_or_create_by_hostname(to_hostname)
+    unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
+      $stderr.puts 'Cannot find fixtures'
+      return
+    end
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
@@ -119,15 +128,21 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     # removing all db entries that are not in fixtures
-    site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy } if root
+    if root
+      site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy }
+      $stdout.puts 'Imported Pages!'
+    end
     
     # returning ids of layouts in fixtures
     page_ids.uniq
   end
   
   def self.import_snippets(to_hostname, from_hostname = nil)
-    return unless site = Cms::Site.find_by_hostname(to_hostname)
-    return unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
+    site = Cms::Site.find_or_create_by_hostname(to_hostname)
+    unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
+      $stdout.puts 'Cannot find fixtures'
+      return
+    end
     
     snippet_ids = []
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
@@ -161,6 +176,7 @@ module ComfortableMexicanSofa::Fixtures
     
     # removing all db entries that are not in fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
+    $stdout.puts 'Imported Snippets!'
   end
   
   def self.export_layouts(from_hostname, to_hostname = nil)

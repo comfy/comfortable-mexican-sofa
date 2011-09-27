@@ -67,13 +67,8 @@ module ComfortableMexicanSofa::Tag
     # Content that is used during page rendering. Outputting existing content
     # as a default.
     def render
-      # cleaning content from possible irb stuff. Partial and Helper tags are OK.
-      if !ComfortableMexicanSofa.config.allow_irb && 
-          ![ComfortableMexicanSofa::Tag::Partial, ComfortableMexicanSofa::Tag::Helper].member?(self.class)
-        content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
-      else
-        content.to_s
-      end
+      ignore = [ComfortableMexicanSofa::Tag::Partial, ComfortableMexicanSofa::Tag::Helper].member?(self.class)
+      ComfortableMexicanSofa::Tag.sanitize_irb(content, ignore)
     end
     
     # Find or initialize Cms::Block object
@@ -129,6 +124,15 @@ private
         text
       end
     end.join('')
+  end
+  
+  # Cleaning content from possible irb stuff. Partial and Helper tags are OK.
+  def self.sanitize_irb(content, ignore = false)
+    if ComfortableMexicanSofa.config.allow_irb || ignore
+      content.to_s
+    else
+      content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
+    end
   end
   
   def self.included(tag)

@@ -45,6 +45,9 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     page.save!
     get '/render-implicit'
     assert_response :success
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert assigns(:cms_page)
   end
   
   def test_get_with_explicit_cms_template
@@ -53,6 +56,9 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     page.save!
     get '/render-explicit'
     assert_response :success
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert assigns(:cms_page)
   end
   
   def test_get_with_explicit_cms_template_failure

@@ -51,21 +51,20 @@ class ComfortableMexicanSofa::Configuration
   
   # Configuration defaults
   def initialize
-    @cms_title              = 'ComfortableMexicanSofa MicroCMS'
-    @admin_auth             = 'ComfortableMexicanSofa::HttpAuth'
-    @public_auth            = 'ComfortableMexicanSofa::DummyAuth'
-    @seed_data_path         = nil
-    @admin_route_prefix     = 'cms-admin'
-    @admin_route_redirect   = ''
-    @enable_multiple_sites  = false
-    @allow_irb              = false
-    @upload_file_options    = {}
-    @enable_fixtures        = false
-    @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
-    @revisions_limit        = 25
-    @locales                = { :en => 'English', :es => 'Español' }
-    @admin_locale           = nil
-    @database_config        = nil
+    @cms_title            = 'ComfortableMexicanSofa MicroCMS'
+    @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
+    @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
+    @seed_data_path       = nil
+    @admin_route_prefix   = 'cms-admin'
+    @admin_route_redirect = ''
+    @allow_irb            = false
+    @upload_file_options  = {}
+    @enable_fixtures      = false
+    @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
+    @revisions_limit      = 25
+    @locales              = { :en => 'English', :es => 'Español' }
+    @admin_locale         = nil
+    @database_config      = nil
   end
   
 end

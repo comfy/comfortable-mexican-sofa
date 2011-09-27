@@ -10,9 +10,11 @@ module ComfortableMexicanSofa::IsCategorized
       
       has_many :categorizations,
         :as         => :categorized,
+        :class_name => 'Cms::Categorization',
         :dependent  => :destroy
       has_many :categories,
-        :through    => :categorizations
+        :through    => :categorizations,
+        :class_name => 'Cms::Category'
         
       attr_accessor :category_ids
       

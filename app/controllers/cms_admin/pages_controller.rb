@@ -101,6 +101,9 @@ protected
   def preview_cms_page
     if params[:preview]
       layout = @page.layout.app_layout.blank?? false : @page.layout.app_layout
+      @cms_site   = @page.site
+      @cms_layout = @page.layout
+      @cms_page   = @page
       render :inline => @page.content(true), :layout => layout
     end
   end

@@ -67,13 +67,13 @@
 #cms_body #form_blocks .no_tags code {
   color: #B85042;
 }
-#cms_body .form_element.field_datetime .label,
+#cms_body .form_element.field_date_time .label,
 #cms_body .form_element.field_integer .label,
 #cms_body .form_element.field_string .label,
 #cms_body .form_element.field_text .label {
   border-color: #48699C;
 }
-#cms_body .form_element.page_datetime .label,
+#cms_body .form_element.page_date_time .label,
 #cms_body .form_element.page_integer .label,
 #cms_body .form_element.page_string .label,
 #cms_body .form_element.page_text .label,

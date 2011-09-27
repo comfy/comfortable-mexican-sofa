@@ -6,6 +6,11 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   
+  $stdout_orig = $stdout
+  $stderr_orig = $stderr
+  $stdout = StringIO.new
+  $stderr = StringIO.new
+  
   fixtures :all
   include ActionDispatch::TestProcess
   
@@ -16,17 +21,17 @@ class ActiveSupport::TestCase
   # resetting default configuration
   def reset_config
     ComfortableMexicanSofa.configure do |config|
-      config.cms_title              = 'ComfortableMexicanSofa MicroCMS'
-      config.admin_auth             = 'ComfortableMexicanSofa::HttpAuth'
-      config.public_auth            = 'ComfortableMexicanSofa::DummyAuth'
-      config.admin_route_prefix     = 'cms-admin'
-      config.admin_route_redirect   = ''
-      config.allow_irb              = false
-      config.enable_fixtures        = false
-      config.fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
-      config.revisions_limit        = 25
-      config.locales                = { :en => 'English', :es => 'Español' }
-      config.admin_locale           = nil
+      config.cms_title            = 'ComfortableMexicanSofa MicroCMS'
+      config.admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
+      config.public_auth          = 'ComfortableMexicanSofa::DummyAuth'
+      config.admin_route_prefix   = 'cms-admin'
+      config.admin_route_redirect = ''
+      config.allow_irb            = false
+      config.enable_fixtures      = false
+      config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
+      config.revisions_limit      = 25
+      config.locales              = { :en => 'English', :es => 'Español' }
+      config.admin_locale         = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
