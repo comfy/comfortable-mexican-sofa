@@ -74,10 +74,10 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
-    assert tag.content.blank?
+    assert tag.block.content.blank?
     
     snippet = cms_snippets(:default)
-    tag.content = snippet.id
+    tag.block.content = snippet.id
     assert_equal snippet.id, tag.block.content
     assert_equal snippet.id, tag.content
     assert_equal "<%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %>", tag.render
@@ -87,10 +87,10 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial:label:slug:param_a:param_b }}'
     )
-    assert tag.content.blank?
+    assert tag.block.content.blank?
     
     snippet = cms_snippets(:default)
-    tag.content = snippet.slug
+    tag.block.content = snippet.slug
     assert_equal snippet.slug, tag.block.content
     assert_equal snippet.slug, tag.content
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.slug}', :param_1 => 'param_a', :param_2 => 'param_b'} %>", tag.render
@@ -100,7 +100,7 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial }}'
     )
-    assert tag.content.blank?
+    assert tag.block.content.blank?
     assert_equal '', tag.render
   end
   

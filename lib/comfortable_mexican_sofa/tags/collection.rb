@@ -47,10 +47,6 @@ class ComfortableMexicanSofa::Tag::Collection
     klass.respond_to?(:cms_collection) ? klass.cms_collection(*collection_params).all : klass.all
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

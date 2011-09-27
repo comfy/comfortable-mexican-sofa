@@ -3,7 +3,7 @@
 # This module provides all Tag classes with neccessary methods.
 # Example class that will behave as a Tag:
 #   class MySpecialTag
-#     include CmsTag
+#     include ComfortableMexicanSofa::Tag
 #     ...
 #   end
 module ComfortableMexicanSofa::Tag
@@ -74,16 +74,6 @@ module ComfortableMexicanSofa::Tag
     # Find or initialize Cms::Block object
     def block
       page.blocks.detect{|b| b.label == self.label.to_s} || page.blocks.build(:label => self.label.to_s)
-    end
-    
-    # Find or initialize Cms::Snippet object
-    def snippet
-      page.site.snippets.detect{|s| s.slug == self.label.to_s} || page.site.snippets.build(:slug => self.label.to_s)
-    end
-    
-    # Initializing Cms::File object
-    def file
-      page.site.files.detect{|f| f.file_file_name == self.label.to_s}
     end
     
     # Checks if this tag is using Cms::Block
