@@ -14,7 +14,7 @@ class Cms::Layout < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
-  before_save   :assign_position, :on => :create
+  before_create :assign_position
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
   
@@ -77,7 +77,7 @@ protected
   end
   
   def assign_position
-    max = self.site.layouts.maximum(:position)
+    max = self.site.layouts.where(:parent_id => self.parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
   

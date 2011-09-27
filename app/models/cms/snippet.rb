@@ -13,7 +13,7 @@ class Cms::Snippet < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
-  before_save   :assign_position, :on => :create
+  before_create :assign_position
   after_save    :clear_cached_page_content
   after_destroy :clear_cached_page_content
   

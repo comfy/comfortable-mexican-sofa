@@ -25,8 +25,7 @@ class Cms::Page < ActiveRecord::Base
   before_validation :assigns_label,
                     :assign_parent,
                     :assign_full_path
-  before_save :assign_position,
-    :on => :create
+  before_create :assign_position
   before_save :set_cached_content
   after_save  :sync_child_pages
   

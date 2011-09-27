@@ -25,7 +25,7 @@ class Cms::File < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_save :assign_label
-  before_save :assign_position, :on => :create
+  before_create :assign_position
   
   # -- Scopes ---------------------------------------------------------------
   default_scope order(:position)
