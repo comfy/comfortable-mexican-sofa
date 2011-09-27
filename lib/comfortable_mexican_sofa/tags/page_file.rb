@@ -1,13 +1,13 @@
-class ComfortableMexicanSofa::Tag::PageString
+class ComfortableMexicanSofa::Tag::PageFile
   include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(label = nil)
     label ||= /[\w\-]+/
-    /\{\{\s*cms:page:(#{label}):string\s*\}\}/
+    /\{\{\s*cms:page_file:(#{label}):?(.*?)\s*\}\}/
   end
   
   def content
-    block.content
+    # ...
   end
   
 end

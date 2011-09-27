@@ -34,8 +34,8 @@ class PageRichTextTagTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Tag::PageRichText.initialize_tag(
       cms_pages(:default), '{{cms:page:content:rich_text}}'
     )
-    assert tag.content.blank?
-    tag.content = 'test_content'
+    assert tag.block.content.blank?
+    tag.block.content = 'test_content'
     assert_equal 'test_content', tag.content
     assert_equal 'test_content', tag.render
   end

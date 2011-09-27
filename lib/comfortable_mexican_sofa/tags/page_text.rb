@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::PageText
     /\{\{\s*cms:page:(#{label}):?(?:text)?\s*\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

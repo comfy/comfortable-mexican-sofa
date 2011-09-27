@@ -118,8 +118,9 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     default_tag_field(tag, :content_field_method => :text_area_tag)
   end
   
-  def file(tag)
-    default_tag_field(tag, :content_field_method => :file_field)
+  def page_file(tag)
+    default_tag_field(tag, :content_field_method => :file_field) + 
+      "FILES: #{tag.block.files.to_yaml}"
   end
   
   def collection(tag)

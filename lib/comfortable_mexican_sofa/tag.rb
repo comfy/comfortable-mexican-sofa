@@ -81,7 +81,7 @@ module ComfortableMexicanSofa::Tag
       page.site.snippets.detect{|s| s.slug == self.label.to_s} || page.site.snippets.build(:slug => self.label.to_s)
     end
     
-    # Initializing Cms::Upload object
+    # Initializing Cms::File object
     def file
       page.site.files.detect{|f| f.file_file_name == self.label.to_s}
     end

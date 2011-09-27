@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::PageDateTime
     /\{\{\s*cms:page:(#{label}):datetime\s*\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

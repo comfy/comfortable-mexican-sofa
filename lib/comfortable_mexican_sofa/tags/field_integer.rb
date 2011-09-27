@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::FieldInteger
     /\{\{\s*cms:field:(#{label}):integer\s*\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

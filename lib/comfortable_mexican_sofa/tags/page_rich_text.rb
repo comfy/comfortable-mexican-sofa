@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::PageRichText
     /\{\{\s*cms:page:(#{label}):rich_text\s*\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

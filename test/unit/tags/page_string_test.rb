@@ -34,8 +34,8 @@ class PageStringTagTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
       cms_pages(:default), '{{cms:page:content:string}}'
     )
-    assert tag.content.blank?
-    tag.content = 'test_content'
+    assert tag.block.content.blank?
+    tag.block.content = 'test_content'
     assert_equal 'test_content', tag.content
     assert_equal 'test_content', tag.render
   end

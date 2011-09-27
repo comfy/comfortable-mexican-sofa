@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::FieldText
     /\{\{\s*cms:field:(#{label}):?(?:text)?\s*?\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end

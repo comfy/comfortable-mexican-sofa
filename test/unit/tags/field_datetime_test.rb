@@ -34,9 +34,9 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
       cms_pages(:default), '{{cms:field:content:datetime}}'
     )
-    assert tag.content.blank?
+    assert tag.block.content.blank?
     time = 2.days.ago
-    tag.content = time
+    tag.block.content = time
     assert_equal time, tag.content
     assert_equal '', tag.render
   end

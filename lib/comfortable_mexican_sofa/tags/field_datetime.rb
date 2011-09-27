@@ -6,10 +6,6 @@ class ComfortableMexicanSofa::Tag::FieldDateTime
     /\{\{\s*cms:field:(#{label}):datetime\s*\}\}/
   end
   
-  def content=(value)
-    block.content = value
-  end
-  
   def content
     block.content
   end
