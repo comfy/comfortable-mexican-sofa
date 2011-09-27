@@ -6,15 +6,12 @@ class Cms::File < ActiveRecord::Base
   
   cms_is_categorized
   
-  attr_accessor :layout_id,
-                :page_id,
-                :snippet_id
-  
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
+  belongs_to :block
   
   # -- Validations ----------------------------------------------------------
   validates :site_id, :presence => true

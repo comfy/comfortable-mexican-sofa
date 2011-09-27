@@ -30,4 +30,29 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
+  def test_new_via_nested_attributes_with_files
+    assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
+      assert_difference 'Cms::File.count', 2 do
+        page = Cms::Page.create!(
+          :site       => cms_sites(:default),
+          :layout     => cms_layouts(:default),
+          :label      => 'test page',
+          :slug       => 'test_page',
+          :parent_id  => cms_pages(:default).id,
+          :blocks_attributes => [
+            {
+              :label    => 'default_page_text',
+              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] 
+            }
+          ]
+        )
+        assert_equal 1, page.blocks.count
+        block = page.blocks.first
+        assert_equal 'default_page_text', block.label
+        assert_equal nil, block.content
+        assert_equal 2, block.files.count
+      end
+    end
+  end
+  
 end

@@ -73,6 +73,7 @@ class CreateCms < ActiveRecord::Migration
     # -- Files --------------------------------------------------------------
     create_table :cms_files do |t|
       t.integer :site_id
+      t.integer :block_id
       t.string  :label
       t.string  :file_file_name
       t.string  :file_content_type
@@ -84,6 +85,7 @@ class CreateCms < ActiveRecord::Migration
     add_index :cms_files, [:site_id, :label]
     add_index :cms_files, [:site_id, :file_file_name]
     add_index :cms_files, [:site_id, :position]
+    add_index :cms_files, [:site_id, :block_id]
     
     # -- Revisions -----------------------------------------------------------
     create_table :cms_revisions, :force => true do |t|

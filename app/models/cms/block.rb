@@ -6,18 +6,26 @@ class Cms::Block < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :page
+  has_many :files,
+    :autosave   => true,
+    :dependent  => :destroy
   
-  before_save :save_file
+  # -- Callbacks ------------------------------------------------------------
+  before_save :prepare_files
   
   # -- Validations ----------------------------------------------------------
   validates :label,
     :presence   => true,
     :uniqueness => { :scope => :page_id }
     
-  def save_file
-    p '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-    p self.content
-    p self.content.class.name
-  end
+protected
   
+  def prepare_files
+    temp_files = [self.content].flatten.select do |f|
+      %w(ActionDispatch::Http::UploadedFile Rack::Test::UploadedFile).member?(f.class.name)
+    end.each do |file|
+      self.files.new(:site => self.page.site, :file => file)
+    end
+    self.content = nil unless self.content.is_a?(String)
+  end
 end
