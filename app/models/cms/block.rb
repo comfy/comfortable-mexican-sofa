@@ -18,6 +18,12 @@ class Cms::Block < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :page_id }
     
+  # -- Instance Methods -----------------------------------------------------
+  # Tag object that is using this block
+  def tag
+    page.tags(true).detect{|t| t.is_cms_block? && t.label == label}
+  end
+    
 protected
   
   def prepare_files

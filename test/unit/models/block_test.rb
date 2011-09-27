@@ -8,6 +8,12 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
+  def test_tag
+    block = cms_blocks(:default_page_text)
+    assert block.page.tags(true).collect(&:identifier).member?('page_text_default_page_text')
+    assert_equal 'page_text_default_page_text', block.tag.identifier
+  end
+  
   def test_new_via_page_nested_attributes
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       page = Cms::Page.create!(

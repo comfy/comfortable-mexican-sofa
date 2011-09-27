@@ -73,7 +73,8 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       options[:field] || 
       case method = options[:content_field_method]
       when :file_field_tag
-        @template.send(method, 'page[blocks_attributes][][content]', :id => nil, :class => field_css_class)
+        @template.send(method, 'page[blocks_attributes][][content]', :id => nil, :class => field_css_class) +
+        @template.render(:partial => 'cms_admin/files/page_form', :object => tag.block)
       else
         @template.send(method, 'page[blocks_attributes][][content]', tag.content, :id => nil, :class => field_css_class)
       end
@@ -118,8 +119,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def page_file(tag)
-    default_tag_field(tag, :content_field_method => :file_field_tag) + 
-      "FILES: #{tag.block.files.to_yaml}"
+    default_tag_field(tag, :content_field_method => :file_field_tag)
   end
   
   def collection(tag)

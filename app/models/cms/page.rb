@@ -95,8 +95,7 @@ class Cms::Page < ActiveRecord::Base
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
   def content(force_reload = false)
-    @content = read_attribute(:content)
-    @content = nil if force_reload
+    @content = force_reload ? nil : read_attribute(:content)
     @content ||= begin
       self.tags = [] # resetting
       if layout
