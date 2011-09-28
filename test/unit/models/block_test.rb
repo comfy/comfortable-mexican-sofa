@@ -14,7 +14,7 @@ class CmsBlockTest < ActiveSupport::TestCase
     assert_equal 'page_text_default_page_text', block.tag.identifier
   end
   
-  def test_new_via_page_nested_attributes
+  def test_creation_via_page_nested_attributes
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       page = Cms::Page.create!(
         :site       => cms_sites(:default),
@@ -36,7 +36,7 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
-  def test_new_via_page_nested_attributes_as_hash
+  def test_creation_via_page_nested_attributes_as_hash
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       page = Cms::Page.create!(
         :site       => cms_sites(:default),
@@ -58,27 +58,85 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
-  def test_new_via_nested_attributes_with_files
+  def test_creation_and_update_via_nested_attributes_with_file
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '{{cms:page_file:file}}')
+    
+    page = nil
+    assert_difference ['Cms::Page.count', 'Cms::Block.count', 'Cms::File.count'] do
+      page = Cms::Page.create!(
+        :site       => cms_sites(:default),
+        :layout     => layout,
+        :label      => 'test page',
+        :slug       => 'test_page',
+        :parent_id  => cms_pages(:default).id,
+        :blocks_attributes => [
+          { :label    => 'file',
+            :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+        ]
+      )
+      assert_equal 1, page.blocks.count
+      block = page.blocks.first
+      assert_equal 'file', block.label
+      assert_equal nil, block.content
+      assert_equal 1, block.files.count, 'huh'
+      assert_equal 'valid_image.jpg', block.files.first.file_file_name
+    end
+    
+    assert_no_difference ['Cms::Block.count', 'Cms::File.count'] do
+      page.update_attributes!(
+        :blocks_attributes => [
+          { :label    => 'file',
+            :content  => fixture_file_upload('files/invalid_file.gif') }
+        ]
+      )
+      page.reload
+      block = page.blocks.first
+      assert_equal 1, block.files.count
+      assert_equal 'invalid_file.gif', block.files.first.file_file_name
+    end
+  end
+  
+  def test_creation_and_update_via_nested_attributes_with_files
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '{{cms:page_file:files}}')
+    
+    page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       assert_difference 'Cms::File.count', 2 do
         page = Cms::Page.create!(
           :site       => cms_sites(:default),
-          :layout     => cms_layouts(:default),
+          :layout     => layout,
           :label      => 'test page',
           :slug       => 'test_page',
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => [
-            {
-              :label    => 'default_page_text',
-              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] 
-            }
+            { :label    => 'file',
+              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
           ]
         )
         assert_equal 1, page.blocks.count
         block = page.blocks.first
-        assert_equal 'default_page_text', block.label
+        assert_equal 'file', block.label
         assert_equal nil, block.content
         assert_equal 2, block.files.count
+        assert_equal ['valid_image.jpg', 'invalid_file.gif'], block.files.collect(&:file_file_name)
+      end
+    end
+    
+    assert_no_difference 'Cms::Block.count' do
+      assert_difference 'Cms::File.count', 2 do
+        page.update_attributes!(
+          :blocks_attributes => [
+            { :label    => 'file',
+              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+          ]
+        )
+        page.reload
+        block = page.blocks.first
+        assert_equal 4, block.files.count
+        assert_equal ['valid_image.jpg', 'invalid_file.gif', 'valid_image.jpg', 'invalid_file.gif'], 
+          block.files.collect(&:file_file_name)
       end
     end
   end
