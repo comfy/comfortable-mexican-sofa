@@ -33,6 +33,7 @@ class ActiveSupport::TestCase
       config.revisions_limit      = 25
       config.locales              = { :en => 'English', :es => 'Español' }
       config.admin_locale         = nil
+      config.upload_file_options  = { }
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

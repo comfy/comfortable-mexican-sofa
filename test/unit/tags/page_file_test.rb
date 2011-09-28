@@ -43,25 +43,24 @@ class PageFileTagTest < ActiveSupport::TestCase
       ]
     )
     file = tag.block.files.first
-    time = file.updated_at.to_f.to_i
     
     assert_equal file, tag.content
-    assert_equal "/system/files/#{file.id}/original/valid_image.jpg?#{time}", tag.render
+    assert_equal "/system/files/#{file.id}/original/valid_image.jpg", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link }}')
-    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg?#{time}' target='_blank'>file</a>", 
+    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg' target='_blank'>file</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link:link label }}')
-    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg?#{time}' target='_blank'>link label</a>", 
+    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg' target='_blank'>link label</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image }}')
-    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg?#{time}' alt='file' />", 
+    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg' alt='file' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image:image alt }}')
-    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg?#{time}' alt='image alt' />", 
+    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg' alt='image alt' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')

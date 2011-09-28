@@ -9,7 +9,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   def index
     return redirect_to :action => :new if @site.pages.count == 0
     if params[:category].present?
-      @pages = @site.pages.for_category(params[:category]).all(:order => 'label')
+      @pages = @site.pages.includes(:categories).for_category(params[:category]).all(:order => 'label')
     else
       @pages = [@site.pages.root].compact
     end

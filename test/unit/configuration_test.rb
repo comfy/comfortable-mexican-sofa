@@ -18,6 +18,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal ({:en => 'English', :es => 'Español'}), config.locales
     assert_equal nil, config.admin_locale
     assert_equal nil, config.database_config
+    assert_equal ({}), config.upload_file_options
   end
   
   def test_initialization_overrides
