@@ -1,3 +1,12 @@
 <% block ||= page_form %>
 
-<%= debug block.files %>
+<% if (files = block.files).present? %>
+  <div class='files'>
+    <% files.each do |file| %>
+      <div class='file <%= dom_id(file) %>'>
+        <%= link_to file.file_file_name, file.file.url, :target => '_blank' %>
+        <%= link_to 'x', cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

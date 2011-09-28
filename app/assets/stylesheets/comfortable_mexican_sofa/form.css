@@ -67,6 +67,46 @@
 #cms_body #form_blocks .no_tags code {
   color: #B85042;
 }
+#cms_body #form_blocks .files {
+  overflow: hidden;
+  margin-top: 5px;
+  background-color: #252525;
+  padding: 5px 5px 0px 10px;
+  border-radius: 5px;
+  color: #fff;
+  min-height: 20px;
+}
+#cms_body #form_blocks .files .file {
+  float: left;
+  overflow: hidden;
+  background-color: #484848;
+  border-radius: 3px;
+  color: #fff;
+  height: 9px;
+  padding: 3px 5px;
+  margin: 0px 5px 5px 0px;
+}
+#cms_body #form_blocks .files .file a {
+  float: left;
+  color: #a3a3a3;
+  font: 9px/9px Arial, serif;
+  text-transform: uppercase;
+}
+#cms_body #form_blocks .files .file a:hover {
+  color: #fff;
+}
+#cms_body #form_blocks .files .file a.delete {
+  float: right;
+  margin-left: 5px;
+  background-color: #b7b7b7;
+  color: #000;
+  font: bold 7px/7px Arial, sans-serif;
+  padding: 1px 3px;
+  border-radius: 4px;
+}
+#cms_body #form_blocks .files .file a.delete:hover {
+  background-color: #fff;
+}
 #cms_body .form_element.field_date_time .label,
 #cms_body .form_element.field_integer .label,
 #cms_body .form_element.field_string .label,
@@ -77,7 +117,10 @@
 #cms_body .form_element.page_integer .label,
 #cms_body .form_element.page_string .label,
 #cms_body .form_element.page_text .label,
-#cms_body .form_element.page_rich_text .label {
+#cms_body .form_element.page_rich_text .label,
+#cms_body .form_element.collection .label,
+#cms_body .form_element.page_file .label,
+#cms_body .form_element.page_files .label {
   border-color: #3F7300;
 }
 #cms_body .form_error {

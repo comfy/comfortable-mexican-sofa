@@ -110,6 +110,22 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][label]'][value='test_label']"
   end
   
+  def test_get_new_with_page_file
+    cms_layouts(:default).update_attribute(:content, '{{cms:page_file:test_label}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "input[type='file'][name='page[blocks_attributes][0][content]']"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][label]'][value='test_label']"
+  end
+  
+  def test_get_new_with_page_files
+    cms_layouts(:default).update_attribute(:content, '{{cms:page_files:test_label}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "input[type='file'][name='page[blocks_attributes][0][content][]'][multiple=multiple]"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][label]'][value='test_label']"
+  end
+  
   def test_get_new_with_collection
     snippet = cms_snippets(:default)
     cms_layouts(:default).update_attribute(:content, '{{cms:collection:snippet:cms/snippet}}')

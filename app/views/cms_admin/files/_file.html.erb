@@ -1,4 +1,4 @@
-<div class='file' id='<%= dom_id(file) %>'>
+<div class='file <%= dom_id(file) %>'>
   <%  file_name = file.file_file_name 
       file_ext  = file.file_file_name.split('.').last
       if (file_name.size - file_ext.size) > 30

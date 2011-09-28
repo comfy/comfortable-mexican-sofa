@@ -197,6 +197,8 @@ en:
       form:
         create: Upload File
         update: Update File
+      page_form:
+        are_you_sure: Are you sure?
         
     categories:
       index:
