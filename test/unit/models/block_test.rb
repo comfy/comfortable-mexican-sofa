@@ -79,7 +79,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       block = page.blocks.first
       assert_equal 'file', block.label
       assert_equal nil, block.content
-      assert_equal 1, block.files.count, 'huh'
+      assert_equal 1, block.files.count
       assert_equal 'valid_image.jpg', block.files.first.file_file_name
     end
     

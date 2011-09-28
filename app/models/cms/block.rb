@@ -37,7 +37,7 @@ protected
     
     temp_files.each do |file|
       self.files.collect{|f| f.mark_for_destruction } if single_file
-      self.files.new(:site => self.page.site, :file => file)
+      self.files.build(:site => self.page.site, :file => file)
     end
     self.content = nil unless self.content.is_a?(String)
   end

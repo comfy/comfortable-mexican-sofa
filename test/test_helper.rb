@@ -6,6 +6,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   
+  # Shut the fuck up
   $stdout_orig = $stdout
   $stderr_orig = $stderr
   $stdout = StringIO.new
