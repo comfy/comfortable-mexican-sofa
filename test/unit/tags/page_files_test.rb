@@ -28,9 +28,11 @@ class PageFilesTagTest < ActiveSupport::TestCase
   
   def test_content_and_render
     page = cms_pages(:default)
-    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-      page, '{{ cms:page_files:files }}'
-    )
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial }}')
+    assert_equal "<%= render :partial => 'partials/page_files', :locals => {:identifier => []} %>", tag.render
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files }}')
     assert_equal [], tag.content
     assert_equal '', tag.render
     
@@ -42,29 +44,30 @@ class PageFilesTagTest < ActiveSupport::TestCase
     )
     files = tag.block.files
     file_a, file_b = files 
-    timestamp = file_a.updated_at.to_f.to_i
+    time_a = file_a.updated_at.to_f.to_i
+    time_b = file_b.updated_at.to_f.to_i
     
     assert_equal files, tag.content
-    assert_equal "/system/files/#{file_a.id}/original/valid_image.jpg?#{timestamp}, /system/files/#{file_b.id}/original/invalid_file.gif?#{timestamp}", tag.render
+    assert_equal "/system/files/#{file_a.id}/original/valid_image.jpg?#{time_a}, /system/files/#{file_b.id}/original/invalid_file.gif?#{time_b}", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:link }}')
-    assert_equal "<a href='/system/files/#{file_a.id}/original/valid_image.jpg?#{timestamp}' target='_blank'>Valid Image</a> <a href='/system/files/#{file_b.id}/original/invalid_file.gif?#{timestamp}' target='_blank'>Invalid File</a>", 
+    assert_equal "<a href='/system/files/#{file_a.id}/original/valid_image.jpg?#{time_a}' target='_blank'>Valid Image</a> <a href='/system/files/#{file_b.id}/original/invalid_file.gif?#{time_b}' target='_blank'>Invalid File</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:image }}')
-    assert_equal "<img src='/system/files/#{file_a.id}/original/valid_image.jpg?#{timestamp}' alt='Valid Image' /> <img src='/system/files/#{file_b.id}/original/invalid_file.gif?#{timestamp}' alt='Invalid File' />", 
+    assert_equal "<img src='/system/files/#{file_a.id}/original/valid_image.jpg?#{time_a}' alt='Valid Image' /> <img src='/system/files/#{file_b.id}/original/invalid_file.gif?#{time_b}' alt='Invalid File' />", 
       tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial }}')
-    assert_equal "<%= render :partial => 'partials/page_files', :locals => {:identifier => #{files.collect(&:id)}} %>", 
+    assert_equal "<%= render :partial => 'partials/page_files', :locals => {:identifier => [#{files.collect(&:id).join(',')}]} %>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial:path/to/partial }}')
-    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => #{files.collect(&:id)}} %>", 
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => [#{files.collect(&:id).join(',')}]} %>", 
       tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial:path/to/partial:a:b }}')
-    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => #{files.collect(&:id)}, :param_1 => 'a', :param_2 => 'b'} %>", 
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => [#{files.collect(&:id).join(',')}], :param_1 => 'a', :param_2 => 'b'} %>", 
       tag.render
   end
   

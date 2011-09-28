@@ -20,24 +20,24 @@ class ComfortableMexicanSofa::Tag::PageFile
   end
   
   def render
-    if file = block.files.first
-      case self.type
-      when 'url'
-        file.file.url
-      when 'link'
-        text = params[1] || label
-        "<a href='#{file.file.url}' target='_blank'>#{text}</a>"
-      when 'image'
-        text = params[1] || label
-        "<img src='#{file.file.url}' alt='#{text}' />"
-      when 'partial'
-        path = params[1] || 'partials/page_file'
-        ps = (self.params[2..-1] || []).collect_with_index{|p, i| ":param_#{i+1} => '#{p}'"}.join(', ')
-        ps = ps.present?? ", #{ps}" : ''
-        "<%= render :partial => '#{path}', :locals => {:identifier => #{file.id}#{ps}} %>"
-      end
-    else
-      ''
+    file = block.files.first
+    case self.type
+    when 'url'
+      return '' unless file
+      file.file.url
+    when 'link'
+      return '' unless file
+      text = params[1] || label
+      "<a href='#{file.file.url}' target='_blank'>#{text}</a>"
+    when 'image'
+      return '' unless file
+      text = params[1] || label
+      "<img src='#{file.file.url}' alt='#{text}' />"
+    when 'partial'
+      path = params[1] || 'partials/page_file'
+      ps = (self.params[2..-1] || []).collect_with_index{|p, i| ":param_#{i+1} => '#{p}'"}.join(', ')
+      ps = ps.present?? ", #{ps}" : ''
+      "<%= render :partial => '#{path}', :locals => {:identifier => #{file.try(:id) || 'nil'}#{ps}} %>"
     end
   end
   
