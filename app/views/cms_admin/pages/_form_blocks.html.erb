@@ -8,8 +8,8 @@
     </div>
   <% else %>
     <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
-      <% block_tags.each do |tag| %>
-        <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag)%>
+      <% block_tags.each_with_index do |tag, index| %>
+        <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil %>
       <% end %>
     <% end %>
   <% end %>

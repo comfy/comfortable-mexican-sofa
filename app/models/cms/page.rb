@@ -84,6 +84,7 @@ class Cms::Page < ActiveRecord::Base
   #     { :label => 'block_2', :content => 'block content' }
   #   ]
   def blocks_attributes=(block_hashes = [])
+    block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
     block_hashes.each do |block_hash|
       block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
       block = self.blocks.detect{|b| b.label == block_hash[:label]} || self.blocks.build(:label => block_hash[:label])
