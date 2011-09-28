@@ -99,7 +99,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_and_update_via_nested_attributes_with_files
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{cms:page_file:files}}')
+    layout.update_attribute(:content, '{{cms:page_files:files}}')
     
     page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
