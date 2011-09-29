@@ -195,6 +195,7 @@ en:
       edit:
         title: Editing File
       form:
+        current_file: Current File
         create: Upload File
         update: Update File
       page_form:

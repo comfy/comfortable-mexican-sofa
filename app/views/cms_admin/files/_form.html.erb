@@ -1,11 +1,12 @@
 <%= form.text_field :label %>
-<% if @file.new_record? %>
-  <%= form.file_field :file, :multiple => true %>
-<% else %>
-  <%= form.simple_field 'File', nil do %>
+<%= form.file_field :file, :multiple => @file.new_record? %>
+
+<% unless @file.new_record? %>
+  <%= form.simple_field t('.current_file'), nil do %>
     <%= link_to @file.file.url, @file.file.url, :target => '_blank' %>
   <% end %>
 <% end %>
+
 <%= form.text_area :description %>
 
 <%= render :partial => 'cms_admin/categories/form', :object => form %>

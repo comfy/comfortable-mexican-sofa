@@ -1,4 +1,7 @@
 /* -- jqueryIU ----------------------------------------------------------- */
+.ui-widget-content {
+  background: #f1f1f1;
+}
 .ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
 .ui-timepicker-div dl{ text-align: left; }
 .ui-timepicker-div dl dt{ height: 25px; }

@@ -195,6 +195,7 @@ es:
       edit:
         title: Editar Archivo
       form:
+        current_file: Archivo Actual
         create: Subir Archivo
         update: Actualizar Archivo
       page_form:
