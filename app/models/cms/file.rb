@@ -18,8 +18,10 @@ class Cms::File < ActiveRecord::Base
   validates_attachment_presence :file
   
   # -- Callbacks ------------------------------------------------------------
-  before_save :assign_label
+  before_save   :assign_label
   before_create :assign_position
+  after_save    :reload_page_cache
+  after_destroy :reload_page_cache
   
   # -- Scopes ---------------------------------------------------------------
   default_scope order(:position)
@@ -33,6 +35,12 @@ protected
   def assign_position
     max = Cms::File.maximum(:position)
     self.position = max ? max + 1 : 0
+  end
+  
+  # FIX: Terrible, but no way of creating cached page content overwise
+  def reload_page_cache
+    return unless self.block
+    self.block.page.save!
   end
   
 end

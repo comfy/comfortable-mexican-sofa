@@ -142,7 +142,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       :id => nil
     )
     content << @template.hidden_field_tag("page[blocks_attributes][#{index}][label]", tag.label, :id => nil)
-    simple_field(tag.label, content, :class => tag.class.to_s.demodulize.underscore )
+    simple_field(tag.label.titleize, content, :class => tag.class.to_s.demodulize.underscore )
   end
   
 end
