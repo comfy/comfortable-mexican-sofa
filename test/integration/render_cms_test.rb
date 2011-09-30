@@ -8,6 +8,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       get '/render-explicit'  => 'render_test#explicit'
       get '/render-text'      => 'render_test#render_text'
       get '/render-update'    => 'render_test#render_update'
+      get '/render-layout'    => 'render_test#render_layout'
     end
     super
   end
@@ -17,6 +18,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   end
   
   class ::RenderTestController < ApplicationController
+    append_view_path(File.expand_path('../fixtures/views', File.dirname(__FILE__)))
+    
     def implicit
       render
     end
@@ -30,6 +33,9 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       render :update do |page|
         page.alert('rendered text')
       end
+    end
+    def render_layout
+      render :cms_layout => 'default', :default_page_text => 'default'
     end
   end
   
@@ -79,6 +85,12 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     return 'Not supported >= 3.1' if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1
     get '/render-update'
     assert_response :success
+  end
+  
+  def test_get_render_with_cms_layout
+    get '/render-layout'
+    assert_response :success
+    assert_equal "\nlayout_content_a\nDefault Template\nlayout_content_b\ndefault_snippet_content\nlayout_content_c", response.body
   end
   
 end
