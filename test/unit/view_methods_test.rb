@@ -28,6 +28,11 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal 'hello', action_result('test_cms_snippet_content')
   end
   
+  def test_cms_snippet_content_with_file_tag
+    cms_snippets(:default).update_attribute(:content, '{{cms:file:sample.jpg}}')
+    assert_equal cms_files(:default).file.url, action_result('test_cms_snippet_content')
+  end
+  
   def test_cms_page_content
     assert_equal 'default_field_text_content', action_result('test_cms_page_content')
   end

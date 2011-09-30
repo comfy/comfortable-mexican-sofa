@@ -25,7 +25,7 @@ module ComfortableMexicanSofa::ViewMethods
     else
       return '' unless snippet = cms_site.snippets.find_by_slug(snippet_slug)
     end
-    render :inline => ComfortableMexicanSofa::Tag.process_content(Cms::Page.new, snippet.content)
+    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet.content)
   end
   
   # Content of a page block. This is how you get content from page:field
