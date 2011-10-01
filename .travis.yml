@@ -8,6 +8,7 @@ rvm:
 gemfile:
   - test/gemfiles/Gemfile.rails-3.0.x
   - test/gemfiles/Gemfile.rails-3.1.x
+  - test/gemfiles/Gemfile.rails-3.1.x.rc
 notifications:
   recipients:
     - oleg@twg.ca
