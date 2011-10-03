@@ -1,9 +1,8 @@
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class ViewMethodsTest < ActionView::TestCase
-  include ComfortableMexicanSofa::ViewMethods
   
-  class HelpersTestController < ActionController::Base
+  class ::HelpersTestController < ActionController::Base
     helper { def hello; 'hello' end }
     def test_cms_snippet_content
       render :inline => '<%= cms_snippet_content(:default) %>'

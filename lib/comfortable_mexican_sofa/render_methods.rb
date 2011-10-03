@@ -1,4 +1,4 @@
-module ComfortableMexicanSofa::ControllerMethods
+module ComfortableMexicanSofa::RenderMethods
   
   def self.included(base)
     
@@ -21,19 +21,22 @@ module ComfortableMexicanSofa::ControllerMethods
     #
     # Or how about not worrying about setting up CMS pages and rendering 
     # application view using a CMS layout?
-    #   render :cms_layout => 'layout_slug', :block_label => 'template/view'
-    # This way you are populating page block content with `render :template` and
-    # rendering an instantialized CMS page.
+    #   render :cms_layout => 'layout_slug', :cms_blocks => {
+    #     :block_label_a => 'content text',
+    #     :block_label_b => { :template => 'path/to/template' },
+    #     :block_label_c => { :partial  => 'path/to/partial' }
+    #   }
+    # This way you are populating page block content and rendering 
+    # an instantialized CMS page.
     def render(options = {}, locals = {}, &block)
       if options.is_a?(Hash) && path = options.delete(:cms_page)
         @cms_site = Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
-          render_options = { }
-          render_options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          render_options[:inline] = @cms_page.content
-          super(render_options, locals, &block)
+          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+          options[:inline] = @cms_page.content
+          super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingPage.new(path)
         end
@@ -43,16 +46,19 @@ module ComfortableMexicanSofa::ControllerMethods
         if @cms_layout = @cms_site && @cms_site.layouts.find_by_slug(slug)
           cms_app_layout = @cms_layout.try(:app_layout)
           cms_page = @cms_site.pages.build(:layout => @cms_layout)
-          options.each do |block_label, template|
-            cms_page.blocks.build(
-              :label    => block_label.to_s,
-              :content  => render_to_string(template)
-            )
+          
+          cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string }
+          cms_blocks.each do |block_label, value|
+            content = if value.is_a?(Hash)
+              render_to_string(value.keys.first.to_sym => value[value.keys.first])
+            else
+              value.to_s
+            end
+            cms_page.blocks.build(:label => block_label.to_s, :content => content)
           end
-          render_options = { }
-          render_options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          render_options[:inline] = cms_page.content(true)
-          super(render_options, locals, &block)
+          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+          options[:inline] = cms_page.content(true)
+          super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingLayout.new(slug)
         end
@@ -64,4 +70,4 @@ module ComfortableMexicanSofa::ControllerMethods
   end
 end
 
-ActionController::Base.send :include, ComfortableMexicanSofa::ControllerMethods
+ActionController::Base.send :include, ComfortableMexicanSofa::RenderMethods

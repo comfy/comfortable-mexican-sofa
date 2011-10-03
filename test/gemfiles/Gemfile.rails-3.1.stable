@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails',          '~>3.1.1.rc2'
+gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 gem 'active_link_to', '~>1.0.0'
-gem 'paperclip',      '~>2.4.2'
+gem 'paperclip',      '~>2.3.0'
 
 group :test do
   gem 'sqlite3'

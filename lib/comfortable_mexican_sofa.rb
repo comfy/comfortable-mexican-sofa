@@ -8,7 +8,7 @@ end
   'comfortable_mexican_sofa/configuration',
   'comfortable_mexican_sofa/authentication/http_auth',
   'comfortable_mexican_sofa/authentication/dummy_auth',
-  'comfortable_mexican_sofa/controller_methods',
+  'comfortable_mexican_sofa/render_methods',
   'comfortable_mexican_sofa/view_hooks',
   'comfortable_mexican_sofa/view_methods',
   'comfortable_mexican_sofa/form_builder',

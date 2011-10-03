@@ -23,10 +23,10 @@ class Cms::Page < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
-                    :assign_parent,
-                    :assign_full_path
+                    :assign_parent
   before_create :assign_position
-  before_save :set_cached_content
+  before_save :assign_full_path,
+              :set_cached_content
   after_save  :sync_child_pages
   
   # -- Validations ----------------------------------------------------------
@@ -37,12 +37,10 @@ class Cms::Page < ActiveRecord::Base
   validates :slug,
     :presence   => true,
     :format     => /^\w[a-z0-9_-]*$/i,
+    :uniqueness => { :scope => :parent_id },
     :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
     :presence   => true
-  validates :full_path,
-    :presence   => true,
-    :uniqueness => { :scope => :site_id }
   validate :validate_target_page
   
   # -- Scopes ---------------------------------------------------------------
