@@ -138,6 +138,9 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-layout?type=layout_defaults'
     assert_response :success
     assert_equal 'TestTemplate TestValue', response.body
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
   end
   
   def test_cms_layout
@@ -145,12 +148,18 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-layout?type=layout'
     assert_response :success
     assert_equal 'TestText TestPartial TestValue TestTemplate TestValue', response.body
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
   end
   
   def test_cms_layout_with_status
     get '/render-layout?type=layout_with_status'
     assert_response 404
     assert_equal 'TestTemplate TestValue', response.body
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
   end
   
   def test_cms_layout_failure
