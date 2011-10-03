@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.5.3"
+  s.version = "1.5.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2011-09-30"
+  s.date = "2011-10-03"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -206,7 +206,6 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/authentication/dummy_auth.rb",
     "lib/comfortable_mexican_sofa/authentication/http_auth.rb",
     "lib/comfortable_mexican_sofa/configuration.rb",
-    "lib/comfortable_mexican_sofa/controller_methods.rb",
     "lib/comfortable_mexican_sofa/engine.rb",
     "lib/comfortable_mexican_sofa/error.rb",
     "lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb",
@@ -216,6 +215,7 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/extensions/rails.rb",
     "lib/comfortable_mexican_sofa/fixtures.rb",
     "lib/comfortable_mexican_sofa/form_builder.rb",
+    "lib/comfortable_mexican_sofa/render_methods.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
     "lib/comfortable_mexican_sofa/tags/asset.rb",
     "lib/comfortable_mexican_sofa/tags/collection.rb",
@@ -254,6 +254,8 @@ Gem::Specification.new do |s|
     "test/fixtures/files/valid_image.jpg",
     "test/fixtures/views/_nav_hook.html.erb",
     "test/fixtures/views/_nav_hook_2.html.erb",
+    "test/fixtures/views/render_test/_test.html.erb",
+    "test/fixtures/views/render_test/render_layout.html.erb",
     "test/functional/cms_admin/base_controller_test.rb",
     "test/functional/cms_admin/categories_controller_test.rb",
     "test/functional/cms_admin/files_controller_test.rb",
@@ -264,6 +266,7 @@ Gem::Specification.new do |s|
     "test/functional/cms_admin/snippets_controller_test.rb",
     "test/functional/cms_content_controller_test.rb",
     "test/gemfiles/Gemfile.rails-3.0.x",
+    "test/gemfiles/Gemfile.rails-3.1.stable",
     "test/gemfiles/Gemfile.rails-3.1.x",
     "test/integration/authentication_test.rb",
     "test/integration/fixtures_test.rb",
@@ -317,16 +320,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
       s.add_runtime_dependency(%q<active_link_to>, ["~> 1.0.0"])
-      s.add_runtime_dependency(%q<paperclip>, ["~> 2.4.1"])
+      s.add_runtime_dependency(%q<paperclip>, ["~> 2.3.0"])
     else
       s.add_dependency(%q<rails>, [">= 3.0.0"])
       s.add_dependency(%q<active_link_to>, ["~> 1.0.0"])
-      s.add_dependency(%q<paperclip>, ["~> 2.4.1"])
+      s.add_dependency(%q<paperclip>, ["~> 2.3.0"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.0.0"])
     s.add_dependency(%q<active_link_to>, ["~> 1.0.0"])
-    s.add_dependency(%q<paperclip>, ["~> 2.4.1"])
+    s.add_dependency(%q<paperclip>, ["~> 2.3.0"])
   end
 end
 
