@@ -1,5 +1,7 @@
 class Cms::File < ActiveRecord::Base
   
+  IMAGE_MIMETYPES = %w(gif jpeg pjpeg png svg+xml tiff).collect{|subtype| "image/#{subtype}"}
+  
   ComfortableMexicanSofa.establish_connection(self)
     
   set_table_name :cms_files
@@ -24,7 +26,8 @@ class Cms::File < ActiveRecord::Base
   after_destroy :reload_page_cache
   
   # -- Scopes ---------------------------------------------------------------
-  default_scope order(:position)
+  scope :images,      where(:file_content_type => IMAGE_MIMETYPES)
+  scope :not_images,  where('file_content_type NOT IN (?)', IMAGE_MIMETYPES)
   
 protected
   

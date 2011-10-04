@@ -6,13 +6,13 @@ Rails.application.routes.draw do
       resources :pages do
         get  :form_blocks,    :on => :member
         get  :toggle_branch,  :on => :member
-        post :reorder,        :on => :collection
+        put :reorder,        :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end
       end
       resources :files do
-        post :reorder, :on => :collection
+        put :reorder, :on => :collection
       end
       resources :layouts do
         post :reorder, :on => :collection
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         end
       end
       resources :snippets do
-        post :reorder, :on => :collection
+        put :reorder, :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member
         end

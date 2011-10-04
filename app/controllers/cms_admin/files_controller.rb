@@ -6,7 +6,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   def index
     return redirect_to :action => :new if @site.files.count == 0
-    @files = @site.files.includes(:categories).for_category(params[:category]).all(:order => 'cms_files.label')
+    @files = @site.files.includes(:categories).for_category(params[:category]).all(:order => 'cms_files.position')
   end
   
   def new

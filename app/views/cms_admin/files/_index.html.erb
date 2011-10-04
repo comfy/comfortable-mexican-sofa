@@ -6,8 +6,21 @@
   <% end %>
   
   <div id='uploaded_files'>
-    <% Cms::File.order('label').all.each do |file| %>
-      <%= render :partial => 'cms_admin/files/file', :object => file %>
+    <% if (images = Cms::File.images.order(:label)).present? %>
+      <div class='section images'>
+        <h3>Images</h3>
+        <% images.each do |file| %>
+          <%= render :partial => 'cms_admin/files/file', :object => file %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if (images = Cms::File.not_images.order(:label)).present? %>
+      <div class='section other'>
+        <h3>Files</h3>
+        <% images.each do |file| %>
+          <%= render :partial => 'cms_admin/files/file', :object => file %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

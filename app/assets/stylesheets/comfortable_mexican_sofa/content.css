@@ -37,14 +37,17 @@
   max-height: 500px;
   overflow-y: auto;
 }
+#cms_body #file_uploads #uploaded_files h3 {
+  margin-top: 5px;
+  font: 11px/20px Arial, sans-serif;
+  text-transform: uppercase;
+}
 #cms_body #file_uploads #uploaded_files .file {
-  position: relative;
   overflow: hidden;
-  font-size: 11px;
+  font: 11px/11px Arial, serif;
   background-color: #252525;
-  margin-top: 2px;
-  padding: 0px 3px;
-  opacity: 0.5;
+  margin-top: 1px;
+  padding: 3px 5px;
   border-radius: 2px;
   -moz-border-radius: 2px;
 }
@@ -52,22 +55,28 @@
   opacity: 0.3;
 }
 #cms_body #file_uploads #uploaded_files .file:hover {
-  opacity: 1;
+  background-color: #000;
 }
 #cms_body #file_uploads #uploaded_files .file a {
   color: #fff;
 }
-#cms_body #file_uploads #uploaded_files .file a.delete {
-  position: absolute;
-  display: block;
-  right: 0px;
-  top: 0px;
-  height: 13px;
-  width: 13px;
-  font-weight: bold;
+#cms_body #file_uploads #uploaded_files .file a.filename {
+  float: left;
+  width: 175px;
+  overflow: hidden;
 }
-#cms_body #file_uploads #uploaded_files .file:hover a.delete {
-  color: #9e0b0f;
+#cms_body #file_uploads #uploaded_files .file a.delete {
+  float: right;
+  margin-left: 7px;
+  background-color: #b7b7b7;
+  color: #000;
+  font: 8px/8px Arial, sans-serif;
+  padding: 1px 3px;
+  border-radius: 5px;
+}
+#cms_body #file_uploads #uploaded_files .file a.delete:hover {
+  background-color: #fff;
+  color: #9E0B0F;
 }
 /* -- Categories Widget -------------------------------------------------- */
 #cms_body .categories_widget {

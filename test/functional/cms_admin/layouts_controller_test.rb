@@ -111,7 +111,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_equal 0, layout_one.position
     assert_equal 1, layout_two.position
 
-    post :reorder, :site_id => cms_sites(:default), :cms_layout => [layout_two.id, layout_one.id]
+    put :reorder, :site_id => cms_sites(:default), :cms_layout => [layout_two.id, layout_one.id]
     assert_response :success
     layout_one.reload
     layout_two.reload

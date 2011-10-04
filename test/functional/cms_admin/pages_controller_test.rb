@@ -406,7 +406,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_equal 0, page_one.position
     assert_equal 1, page_two.position
 
-    post :reorder, :site_id => cms_sites(:default), :cms_page => [page_two.id, page_one.id]
+    put :reorder, :site_id => cms_sites(:default), :cms_page => [page_two.id, page_one.id]
     assert_response :success
     page_one.reload
     page_two.reload

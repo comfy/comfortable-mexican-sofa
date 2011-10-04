@@ -31,4 +31,20 @@ class CmsFileTest < ActiveSupport::TestCase
       cms_sites(:default).files.create(:file => '')
     end
   end
+  
+  def test_image_mimetypes
+    assert_equal %w(image/gif image/jpeg image/pjpeg image/png image/svg+xml image/tiff),
+      Cms::File::IMAGE_MIMETYPES
+  end
+  
+  def test_images_scope
+    file = cms_files(:default)
+    assert_equal 'image/jpeg', file.file_content_type
+    assert_equal 1, Cms::File.images.count
+    assert_equal 0, Cms::File.not_images.count
+    
+    file.update_attribute(:file_content_type, 'application/pdf')
+    assert_equal 0, Cms::File.images.count
+    assert_equal 1, Cms::File.not_images.count
+  end
 end
