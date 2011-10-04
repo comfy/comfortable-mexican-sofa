@@ -200,6 +200,8 @@ en:
         update: Update File
       page_form:
         are_you_sure: Are you sure?
+      file:
+        are_you_sure: Are you sure?
         
     categories:
       index:

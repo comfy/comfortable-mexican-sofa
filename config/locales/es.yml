@@ -200,6 +200,8 @@ es:
         update: Actualizar Archivo
       page_form:
         are_you_sure: ¿Estás seguro?
+      file:
+        are_you_sure: ¿Estás seguro?
           
     categories:
       index:
