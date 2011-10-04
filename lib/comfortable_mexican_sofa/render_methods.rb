@@ -46,10 +46,10 @@ module ComfortableMexicanSofa::RenderMethods
         if @cms_layout = @cms_site && @cms_site.layouts.find_by_slug(slug)
           cms_app_layout = @cms_layout.try(:app_layout)
           cms_page = @cms_site.pages.build(:layout => @cms_layout)
-          cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string }
+          cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string(:layout => false)}
           cms_blocks.each do |block_label, value|
             content = if value.is_a?(Hash)
-              render_to_string(value.keys.first.to_sym => value[value.keys.first])
+              render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false)
             else
               value.to_s
             end
