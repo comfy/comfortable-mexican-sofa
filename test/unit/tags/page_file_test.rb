@@ -7,11 +7,20 @@ class PageFileTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page_file:label }}'
     )
     assert 'url', tag.type
+    assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
       cms_pages(:default), '{{ cms:page_file:label:partial }}'
     )
     assert 'partial', tag.type
+  end
+  
+  def test_initialize_tag_with_dimentions
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
+      cms_pages(:default), '{{ cms:page_file:label:image[100x100#] }}'
+    )
+    assert_equal 'image', tag.type
+    assert_equal '100x100#', tag.dimensions
   end
   
   def test_initialize_tag_failure
@@ -39,28 +48,28 @@ class PageFileTagTest < ActiveSupport::TestCase
     page.update_attributes!(
       :blocks_attributes => [
         { :label    => 'file',
-          :content  => fixture_file_upload('files/valid_image.jpg') }
+          :content  => fixture_file_upload('files/image.jpg') }
       ]
     )
     file = tag.block.files.first
     
     assert_equal file, tag.content
-    assert_equal "/system/files/#{file.id}/original/valid_image.jpg", tag.render
+    assert_equal "/system/files/#{file.id}/original/image.jpg", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link }}')
-    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg' target='_blank'>file</a>", 
+    assert_equal "<a href='/system/files/#{file.id}/original/image.jpg' target='_blank'>file</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link:link label }}')
-    assert_equal "<a href='/system/files/#{file.id}/original/valid_image.jpg' target='_blank'>link label</a>", 
+    assert_equal "<a href='/system/files/#{file.id}/original/image.jpg' target='_blank'>link label</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image }}')
-    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg' alt='file' />", 
+    assert_equal "<img src='/system/files/#{file.id}/original/image.jpg' alt='file' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image:image alt }}')
-    assert_equal "<img src='/system/files/#{file.id}/original/valid_image.jpg' alt='image alt' />", 
+    assert_equal "<img src='/system/files/#{file.id}/original/image.jpg' alt='image alt' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')
@@ -74,6 +83,24 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial:path/to/partial:a:b }}')
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => #{file.id}, :param_1 => 'a', :param_2 => 'b'} %>", 
       tag.render
+  end
+  
+  def test_content_and_render_with_dimentions
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '{{ cms:page_file:file:image[10x10#] }}')
+    page = cms_pages(:default)
+    
+    assert_difference 'Cms::File.count' do
+      page.update_attributes!(
+        :blocks_attributes => [
+          { :label    => 'file',
+            :content  => fixture_file_upload('files/image.jpg') }
+        ]
+      )
+      file = Cms::File.last
+      assert_equal 'image.jpg', file.file_file_name
+      assert_equal 3624, file.file_file_size
+    end
   end
   
 end

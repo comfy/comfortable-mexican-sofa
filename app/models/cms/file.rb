@@ -8,8 +8,15 @@ class Cms::File < ActiveRecord::Base
   
   cms_is_categorized
   
+  attr_accessor :dimensions
+  
   # -- AR Extensions --------------------------------------------------------
-  has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options
+  has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
+    # dimensions accessor needs to be set before file assignment for this to work
+    :styles => lambda { |f|
+      f.instance.dimensions.blank?? { } : { :original => f.instance.dimensions }
+    }
+  )
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site

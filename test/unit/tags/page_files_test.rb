@@ -7,11 +7,20 @@ class PageFilesTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page_files:label }}'
     )
     assert 'url', tag.type
+    assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
       cms_pages(:default), '{{ cms:page_files:label:partial }}'
     )
     assert 'partial', tag.type
+  end
+  
+  def test_initialize_tag_with_dimentions
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
+      cms_pages(:default), '{{ cms:page_files:label:image[100x100#] }}'
+    )
+    assert_equal 'image', tag.type
+    assert_equal '100x100#', tag.dimensions
   end
   
   def test_initialize_tag_failure
@@ -39,21 +48,21 @@ class PageFilesTagTest < ActiveSupport::TestCase
     page.update_attributes!(
       :blocks_attributes => [
         { :label    => 'files',
-          :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+          :content  => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
       ]
     )
     files = tag.block.files
     file_a, file_b = files
     
     assert_equal files, tag.content
-    assert_equal "/system/files/#{file_a.id}/original/valid_image.jpg, /system/files/#{file_b.id}/original/invalid_file.gif", tag.render
+    assert_equal "/system/files/#{file_a.id}/original/image.jpg, /system/files/#{file_b.id}/original/image.gif", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:link }}')
-    assert_equal "<a href='/system/files/#{file_a.id}/original/valid_image.jpg' target='_blank'>Valid Image</a> <a href='/system/files/#{file_b.id}/original/invalid_file.gif' target='_blank'>Invalid File</a>", 
+    assert_equal "<a href='/system/files/#{file_a.id}/original/image.jpg' target='_blank'>Image</a> <a href='/system/files/#{file_b.id}/original/image.gif' target='_blank'>Image</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:image }}')
-    assert_equal "<img src='/system/files/#{file_a.id}/original/valid_image.jpg' alt='Valid Image' /> <img src='/system/files/#{file_b.id}/original/invalid_file.gif' alt='Invalid File' />", 
+    assert_equal "<img src='/system/files/#{file_a.id}/original/image.jpg' alt='Image' /> <img src='/system/files/#{file_b.id}/original/image.gif' alt='Image' />", 
       tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial }}')

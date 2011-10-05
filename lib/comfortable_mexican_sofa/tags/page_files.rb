@@ -6,8 +6,14 @@ class ComfortableMexicanSofa::Tag::PageFiles
     /\{\{\s*cms:page_files:(#{label}):?(.*?)\s*\}\}/
   end
   
+  # Type of the tag controls how file is rendered
   def type
-    %w(partial url image link).member?(params[0]) ? params[0] : 'url'
+    s = params[0].to_s.gsub(/\[.*?\]/, '')
+    %w(partial url image link).member?(s) ? s : 'url'
+  end
+  
+  def dimensions
+    params[0].to_s.match(/\[(.*?)\]/)[1] rescue nil
   end
   
   def content

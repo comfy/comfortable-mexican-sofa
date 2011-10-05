@@ -72,7 +72,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
           { :label    => 'file',
-            :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+            :content  => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/document.pdf')] }
         ]
       )
       assert_equal 1, page.blocks.count
@@ -80,7 +80,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       assert_equal 'file', block.label
       assert_equal nil, block.content
       assert_equal 1, block.files.count
-      assert_equal 'valid_image.jpg', block.files.first.file_file_name
+      assert_equal 'image.jpg', block.files.first.file_file_name
       
       page.reload
       assert_equal block.files.first.file.url, page.content
@@ -90,13 +90,13 @@ class CmsBlockTest < ActiveSupport::TestCase
       page.update_attributes!(
         :blocks_attributes => [
           { :label    => 'file',
-            :content  => fixture_file_upload('files/invalid_file.gif') }
+            :content  => fixture_file_upload('files/document.pdf') }
         ]
       )
       page.reload
       block = page.blocks.first
       assert_equal 1, block.files.count
-      assert_equal 'invalid_file.gif', block.files.first.file_file_name
+      assert_equal 'document.pdf', block.files.first.file_file_name
       assert_equal block.files.first.file.url, page.content
     end
   end
@@ -116,7 +116,7 @@ class CmsBlockTest < ActiveSupport::TestCase
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => [
             { :label    => 'files',
-              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+              :content  => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
           ]
         )
         assert_equal 1, page.blocks.count
@@ -124,7 +124,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         assert_equal 'files', block.label
         assert_equal nil, block.content
         assert_equal 2, block.files.count
-        assert_equal ['valid_image.jpg', 'invalid_file.gif'], block.files.collect(&:file_file_name)
+        assert_equal ['image.jpg', 'image.gif'], block.files.collect(&:file_file_name)
       end
     end
     
@@ -133,13 +133,13 @@ class CmsBlockTest < ActiveSupport::TestCase
         page.update_attributes!(
           :blocks_attributes => [
             { :label    => 'files',
-              :content  => [fixture_file_upload('files/valid_image.jpg'), fixture_file_upload('files/invalid_file.gif')] }
+              :content  => [fixture_file_upload('files/document.pdf'), fixture_file_upload('files/image.gif')] }
           ]
         )
         page.reload
         block = page.blocks.first
         assert_equal 4, block.files.count
-        assert_equal ['valid_image.jpg', 'invalid_file.gif', 'valid_image.jpg', 'invalid_file.gif'], 
+        assert_equal ['image.jpg', 'image.gif', 'document.pdf', 'image.gif'], 
           block.files.collect(&:file_file_name)
       end
     end

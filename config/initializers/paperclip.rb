@@ -1,5 +1,5 @@
 Paperclip.options[:command_path] = case Rails.env
-  when 'development' then "/usr/local/bin"  
+  when 'development', 'test' then '/usr/local/bin'
 end
 
 if Rails.env.test?

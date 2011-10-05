@@ -61,7 +61,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       post :create, :site_id => cms_sites(:default), :file => {
         :label        => 'Test File',
         :description  => 'Test Description',
-        :file         => [fixture_file_upload('files/valid_image.jpg')]
+        :file         => [fixture_file_upload('files/image.jpg')]
       }
       assert_response :redirect
       file = Cms::File.last
@@ -90,16 +90,16 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
         :label        => 'Test File',
         :description  => 'Test Description',
         :file         => [
-          fixture_file_upload('files/valid_image.jpg'),
-          fixture_file_upload('files/invalid_file.gif')
+          fixture_file_upload('files/image.jpg'),
+          fixture_file_upload('files/image.gif')
         ]
       }
       assert_response :redirect
       file_a, file_b = Cms::File.all
       assert_equal cms_sites(:default), file_a.site
       
-      assert_equal 'valid_image.jpg', file_a.file_file_name
-      assert_equal 'invalid_file.gif', file_b.file_file_name
+      assert_equal 'image.jpg', file_a.file_file_name
+      assert_equal 'image.gif', file_b.file_file_name
       assert_equal 'Test File 1', file_a.label
       assert_equal 'Test File 2', file_b.label
       assert_equal 'Test Description', file_a.description
@@ -111,15 +111,17 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   end
   
   def test_create_as_xhr
-    request.env['HTTP_X_FILE_NAME'] = 'test.pdf'
-    request.env['CONTENT_TYPE'] = 'application/pdf'
+    request.env['HTTP_X_FILE_NAME'] = 'image.jpg'
+    request.env['CONTENT_TYPE'] = 'image/jpeg'
+    request.env['RAW_POST_DATA'] = File.open(File.expand_path('../../fixtures/files/image.jpg', File.dirname(__FILE__))).read
     
     assert_difference 'Cms::File.count' do
       xhr :post, :create, :site_id => cms_sites(:default)
       assert_response :success
       
       file = Cms::File.last
-      assert_equal 'test.pdf', file.file_file_name
+      assert_equal 'image.jpg', file.file_file_name
+      assert_equal 'image/jpeg', file.file_content_type
     end
   end
   
@@ -168,7 +170,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   def test_reorder
     file_one = cms_files(:default)
     file_two = cms_sites(:default).files.create(
-      :file => fixture_file_upload('files/valid_image.jpg')
+      :file => fixture_file_upload('files/image.jpg')
     )
     assert_equal 0, file_one.position
     assert_equal 1, file_two.position
