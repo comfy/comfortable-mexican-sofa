@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.5.6"
+  s.version = "1.5.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2011-10-04"
+  s.date = "2011-10-05"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -250,8 +250,9 @@ Gem::Specification.new do |s|
     "test/fixtures/cms/revisions.yml",
     "test/fixtures/cms/sites.yml",
     "test/fixtures/cms/snippets.yml",
-    "test/fixtures/files/invalid_file.gif",
-    "test/fixtures/files/valid_image.jpg",
+    "test/fixtures/files/document.pdf",
+    "test/fixtures/files/image.gif",
+    "test/fixtures/files/image.jpg",
     "test/fixtures/views/_nav_hook.html.erb",
     "test/fixtures/views/_nav_hook_2.html.erb",
     "test/fixtures/views/render_test/_test.html.erb",
