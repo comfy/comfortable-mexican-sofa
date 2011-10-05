@@ -24,7 +24,7 @@ class CmsFileTest < ActiveSupport::TestCase
       assert_equal 'Image', file.label
       assert_equal 'image.jpg', file.file_file_name
       assert_equal 'image/jpeg', file.file_content_type
-      assert_equal 6400, file.file_file_size
+      assert file.file_file_size > 6000
       assert_equal 1, file.position
     end
   end
@@ -38,7 +38,7 @@ class CmsFileTest < ActiveSupport::TestCase
       assert_equal 'Image', file.label
       assert_equal 'image.jpg', file.file_file_name
       assert_equal 'image/jpeg', file.file_content_type
-      assert_equal 3624, file.file_file_size
+      assert file.file_file_size < 6000
       assert_equal 1, file.position
     end
   end

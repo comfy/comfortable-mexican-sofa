@@ -78,4 +78,22 @@ class PageFilesTagTest < ActiveSupport::TestCase
       tag.render
   end
   
+  def test_content_and_render_with_dimentions
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '{{ cms:page_files:file:image[10x10#] }}')
+    page = cms_pages(:default)
+    
+    assert_difference 'Cms::File.count' do
+      page.update_attributes!(
+        :blocks_attributes => [
+          { :label    => 'file',
+            :content  => fixture_file_upload('files/image.jpg') }
+        ]
+      )
+      file = Cms::File.last
+      assert_equal 'image.jpg', file.file_file_name
+      assert file.file_file_size < 6000
+    end
+  end
+  
 end
