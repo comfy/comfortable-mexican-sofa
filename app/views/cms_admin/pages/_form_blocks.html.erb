@@ -1,4 +1,4 @@
-<% block_tags = @page.tags(true).select{ |t| t.is_cms_block? } %>
+<% block_tags = @page.tags(true).select{ |t| t.is_cms_block? }.uniq_by{|t| t.label} %>
 
 <div id='form_blocks'>
   <% if block_tags.empty? %>

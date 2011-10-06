@@ -162,6 +162,16 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  def test_get_new_with_repeated_tag
+    cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label}}{{cms:page:test_label}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='code']"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][label]'][value='test_label']"
+    assert_select "textarea[name='page[blocks_attributes][1][content]'][class='code']", 0
+    assert_select "input[type='hidden'][name='page[blocks_attributes][1][label]'][value='test_label']", 0
+  end
+  
   def test_get_new_as_child_page
     get :new, :site_id => cms_sites(:default), :parent_id => cms_pages(:default)
     assert_response :success
