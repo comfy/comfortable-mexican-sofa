@@ -61,8 +61,8 @@
 .el-rte .toolbar ul{position:relative;display:inline-block;display:-moz-inline-stack;display:inline-block;vertical-align:top;zoom:1;*display:inline;margin:0;list-style:none;padding:0 2px 0 5px;background:url('/assets/comfortable_mexican_sofa/elrte/elrte-toolbar.png') -934px -2px no-repeat}
 .el-rte .toolbar ul.first{background:transparent;padding-left:0}
 .el-rte .toolbar ul li{display:inline-block;display:-moz-inline-stack;display:inline-block;height:22px;width:22px;vertical-align:top;zoom:1;*display:inline;margin:1px 1px;padding:0;background:url('/assets/comfortable_mexican_sofa/elrte/elrte-toolbar.png') no-repeat;border:1px solid #ccc;z-index:100}
-.el-rte .toolbar ul li.hover{border:1px solid #54b9bf}
-.el-rte .toolbar ul li.active{background-color:#c3dbef;border:1px solid #fff}
+.el-rte .toolbar ul li.hover{border:1px solid #484848}
+.el-rte .toolbar ul li.active{background-color:#fff;border:1px solid #ccc}
 .el-rte .toolbar ul li.disabled{opacity:alpha(0.3);opacity:.3;filter:Alpha(Opacity=30)}
 .el-rte .toolbar ul li.about{background-position:-829px -5px}
 .el-rte .toolbar ul li.save{background-position:-30px -2px}

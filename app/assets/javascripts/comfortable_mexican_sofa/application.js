@@ -75,7 +75,17 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      $('textarea.rich_text').elrte();
+      elRTE.prototype.options.panels.style_sofa     = ['bold', 'italic', 'underline', 'strikethrough'];
+      elRTE.prototype.options.panels.format_sofa    = ['formatblock'];
+      elRTE.prototype.options.panels.copypaste_sofa = ['pasteformattext'];
+      elRTE.prototype.options.panels.links_sofa     = ['link', 'unlink'];
+      
+      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'format_sofa', 'style_sofa', 'alignment', 'lists', 'copypaste_sofa', 'links_sofa'];
+      
+      $('textarea.rich_text').elrte({ 
+        toolbar:      'sofa',
+        styleWithCSS: false
+      });
     },
     
     enable_codemirror: function(){
