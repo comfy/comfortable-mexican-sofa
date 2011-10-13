@@ -84,7 +84,8 @@ $.CMS = function(){
       
       elRTE.prototype.options.toolbars.sofa = ['undoredo', 'format_sofa', 'style_sofa', 'alignment', 'lists', 'copypaste_sofa', 'links_sofa'];
       
-      $('textarea.rich_text').elrte({ 
+      $('textarea.rich_text').elrte({
+        height:       300,
         toolbar:      'sofa',
         styleWithCSS: false
       });
