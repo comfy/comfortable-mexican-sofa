@@ -130,11 +130,10 @@
 .el-rte.small textarea{min-height:250px}
 .el-rte iframe{width:100%;height:400px;display:block;outline:0;border:0 solid;padding:0;margin:0;background:#fff}
 .el-rte.small iframe{min-height:250px}
-.el-rte .statusbar{height:21px;padding:0 9px;font:11px/21px 'monaco','andale mono','lucida console',monospace;background-color:#eee;border-top:1px solid #ccc;border-top:0}
-.el-rte-rtl .statusbar{direction:rtl}
+.el-rte .statusbar{display:none}
 .el-rte .tabsbar{display:block}
-.el-rte .tabsbar .tab{float:left;margin-right:2px;padding:6px 17px;font-size:.82em;font-weight:bold;color:#777;text-align:center;border:1px solid #eee;border-top:0;background:#fff;cursor:default}
-.el-rte .tabsbar div.active{background:#eee;color:#444}
+.el-rte .tabsbar .tab{float:left;margin-right:2px;padding:3px 10px;font-size:11px;color:#777;text-align:center;border:1px solid #eee;border-top:0;background:#eee;cursor:default}
+.el-rte .tabsbar div.active{background:#fff;color:#444;margin-top:-1px}
 .el-rte-rtl .tabsbar .tab{float:right}
 .el-rte .toolbar ul li.el-select{height:22px;width:120px;border:1px solid #ccc;font-size:.82em;cursor:default;background-position:-475px -30px}
 .el-rte .toolbar ul li.el-select.hover{background-color:#fefefe}
