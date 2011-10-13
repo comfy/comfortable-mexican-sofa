@@ -5,6 +5,8 @@
 //= require comfortable_mexican_sofa/codemirror/codemirror.js
 //= require comfortable_mexican_sofa/elrte/elrte.js
 //= require comfortable_mexican_sofa/elrte/elrte.codemirror.js
+//= require comfortable_mexican_sofa/elrte/elrte.sofa_link.js
+//= require comfortable_mexican_sofa/elrte/elrte.sofa_image.js
 
 $.CMS = function(){
   var current_path = window.location.pathname;
@@ -77,12 +79,12 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      elRTE.prototype.options.panels.style_sofa     = ['bold', 'italic', 'underline', 'strikethrough'];
-      elRTE.prototype.options.panels.format_sofa    = ['formatblock'];
-      elRTE.prototype.options.panels.copypaste_sofa = ['pasteformattext'];
-      elRTE.prototype.options.panels.links_sofa     = ['link', 'unlink'];
+      elRTE.prototype.options.panels.sofa_style     = ['bold', 'italic', 'underline', 'strikethrough'];
+      elRTE.prototype.options.panels.sofa_format    = ['formatblock'];
+      elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
+      elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
-      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'format_sofa', 'style_sofa', 'alignment', 'lists', 'copypaste_sofa', 'links_sofa'];
+      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
       
       $('textarea.rich_text').elrte({
         height:       300,
