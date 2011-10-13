@@ -3,6 +3,8 @@
 //= require comfortable_mexican_sofa/jquery_ui_timepicker.js
 //= require comfortable_mexican_sofa/rails.js
 //= require comfortable_mexican_sofa/codemirror/codemirror.js
+//= require comfortable_mexican_sofa/elrte/elrte.js
+//= require comfortable_mexican_sofa/elrte/elrte.codemirror.js
 
 $.CMS = function(){
   var current_path = window.location.pathname;

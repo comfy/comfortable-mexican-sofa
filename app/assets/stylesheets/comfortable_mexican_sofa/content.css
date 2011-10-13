@@ -44,7 +44,7 @@
 }
 #cms_body #file_uploads #uploaded_files .file {
   overflow: hidden;
-  font: 11px/11px Arial, serif;
+  font: 11px/11px Arial, sans-serif;
   background-color: #252525;
   margin-top: 1px;
   padding: 3px 5px;
