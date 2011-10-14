@@ -64,7 +64,7 @@ html, body#cms_body {
   border-radius: 3px;
   -moz-border-radius: 3px;
   margin-bottom: 10px;
-  overflow: hidden;
+  overflow: auto;
   color: #fff;
 }
 /* -- Flash Messages ----------------------------------------------------- */

@@ -1,0 +1,66 @@
+#cms_body .right_column_content .file_uploads.box {
+  overflow: visible;
+}
+#cms_body .file_uploads form {
+  position: relative;
+  height: 21px;
+  overflow: hidden
+}
+#cms_body .file_uploads form input {
+  position: absolute;
+  margin-top: -1px;
+  right: 0px;
+  top: 0px;
+  font-size: 220px;
+  opacity: 0;
+}
+/* -- Right Column Widget ------------------------------------------------ */
+#cms_body .right_column_content .file_uploads .file {
+  position: relative;
+  background-color: #252525;
+  font: 12px/12px Arial, sans-serif;
+  height: 11px;
+  margin-top: 1px;
+  padding: 3px 5px;
+  border-radius: 2px;
+}
+#cms_body .right_column_content .file_uploads .file a {
+  color: #f1f1f1;
+}
+#cms_body .right_column_content .file_uploads .file a.filename {
+  float: left;
+  width: 190px;
+  overflow: hidden;
+}
+#cms_body .right_column_content .file_uploads .file a.delete {
+  float: right;
+  font: 9px/7px Arial, sans-serif;
+  padding: 2px 3px;
+  border-radius: 5px;
+  color: #000;
+  background-color: #b7b7b7;
+}
+#cms_body .right_column_content .file_uploads .file .thumb {
+  display: none;
+  position: absolute;
+  top: -35px;
+  left: -118px;
+  padding: 5px;
+  z-index: 99;
+  background-color: #e6e6e6;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+#cms_body .right_column_content .file_uploads .file .thumb img {
+  display: block;
+  border: 1px dotted #bbb;
+  height: 75px;
+  width: 100px;
+}
+#cms_body .right_column_content .file_uploads .file:hover {
+  background-color: #000;
+}
+#cms_body .right_column_content .file_uploads .file:hover .thumb {
+  display: block;
+}
+/* -- Dialog Widget ------------------------------------------------------ */

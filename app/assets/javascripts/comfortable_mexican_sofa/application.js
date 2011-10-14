@@ -79,12 +79,13 @@ $.CMS = function(){
     },
     
     enable_rich_text: function(){
-      elRTE.prototype.options.panels.sofa_style     = ['bold', 'italic', 'underline', 'strikethrough'];
+      elRTE.prototype.options.panels.sofa_style     = ['bold', 'italic', 'underline'];
+      elRTE.prototype.options.panels.sofa_alignment = ['justifyleft', 'justifycenter', 'justifyright'];
       elRTE.prototype.options.panels.sofa_format    = ['formatblock'];
       elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
-      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
+      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
       
       $('textarea.rich_text').elrte({
         height:       300,
@@ -161,8 +162,8 @@ $.CMS = function(){
     },
 
     enable_uploader : function(){
-      var action = $('#file_uploads form').attr('action');
-      $('#file_uploads input#file_file').change(function(){
+      var action = $('.file_uploads form').attr('action');
+      $('.file_uploads input[type=file]').change(function(){
         var files = $($(this).get(0).files);
         files.each(function(i, file){
           var xhr = new XMLHttpRequest();

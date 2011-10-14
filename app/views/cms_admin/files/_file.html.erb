@@ -1,10 +1,9 @@
-<div class='file <%= dom_id(file) %>'>
-  <%  file_name = file.file_file_name 
-      file_ext  = file.file_file_name.split('.').last
-      if (file_name.size - file_ext.size) > 30
-        file_name = file_name.truncate(30) + file_ext
-      end 
-  %>
-  <%= link_to file_name, file.file.url, :target => '_blank', :class => 'filename' %>
+<div class='file <%= dom_id(file) %> <%= file.is_image?? 'image' : nil %>'>
+  <% if file.is_image? %>
+    <div class='thumb'>
+      <%= image_tag file.file.url(:cms_thumb) %>
+    </div>
+  <% end %>
+  <%= link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename' %>
   <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
 </div>

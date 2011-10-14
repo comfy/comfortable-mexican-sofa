@@ -7,19 +7,22 @@
       
       var cms_dialog = jQuery(jQuery('#cms_dialog').get(0) || jQuery('<div id="cms_dialog"></div>'));
       cms_dialog.dialog({
+        title         : rte.i18n('Image'),
         modal         : true,
         resizable     : false,
+        width         : 800,
         closeOnEscape : true,
         autoOpen      : false
       });
       
       jQuery.ajax({
-        url: '/' + $('meta[name="cms-admin-path"]').attr('content') + 
-          '/sites/' +
-          $('meta[name="cms-site-id"]').attr('content') +
-          '/dialogs/images'
+        url: '/' + $('meta[name="cms-admin-path"]').attr('content') + '/sites/' + $('meta[name="cms-site-id"]').attr('content') + '/dialog/image',
+        success: function(data){
+          cms_dialog.html(data);
+          cms_dialog.dialog('open');
+          $.CMS.enable_uploader();
+        }
       })
-      
     }
     
     this.update = function(){

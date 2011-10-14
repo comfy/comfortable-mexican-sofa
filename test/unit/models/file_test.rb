@@ -64,4 +64,10 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_equal 0, Cms::File.images.count
     assert_equal 1, Cms::File.not_images.count
   end
+  
+  def test_image?
+    file = cms_files(:default)
+    assert_equal 'image/jpeg', file.file_content_type
+    assert file.is_image?
+  end
 end
