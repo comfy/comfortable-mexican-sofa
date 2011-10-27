@@ -42,6 +42,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
       end
     end
   rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     respond_to do |format|
       format.html do
         flash.now[:error] = I18n.t('cms.files.creation_failure')
@@ -58,6 +59,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
     flash[:notice] = I18n.t('cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.files.update_failure')
     render :action => :edit
   end

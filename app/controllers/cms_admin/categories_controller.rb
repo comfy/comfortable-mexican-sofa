@@ -8,13 +8,15 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   
   def create
     @category = Cms::Category.create!(params[:category])
-  rescue
+  rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     render :nothing => true
   end
   
   def update
     @category.update_attributes!(params[:category])
-  rescue
+  rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     render :nothing => true
   end
   

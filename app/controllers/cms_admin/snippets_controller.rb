@@ -21,6 +21,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
     flash[:notice] = I18n.t('cms.snippets.created')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.snippets.creation_failure')
     render :action => :new
   end
@@ -30,6 +31,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
     flash[:notice] = I18n.t('cms.snippets.updated')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
+    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.snippets.update_failure')
     render :action => :edit
   end
