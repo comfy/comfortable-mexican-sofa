@@ -58,6 +58,32 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
+  def test_creation_via_page_nested_attributes_as_hash_with_duplicates
+    assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
+      page = Cms::Page.create!(
+        :site       => cms_sites(:default),
+        :layout     => cms_layouts(:default),
+        :label      => 'test page',
+        :slug       => 'test_page',
+        :parent_id  => cms_pages(:default).id,
+        :blocks_attributes => {
+          '0' => {
+            :label    => 'default_page_text',
+            :content  => 'test_content'
+          },
+          '1' => {
+            :label    => 'default_page_text',
+            :content  => 'test_content'
+          }
+        }
+      )
+      assert_equal 1, page.blocks.count
+      block = page.blocks.first
+      assert_equal 'default_page_text', block.label
+      assert_equal 'test_content', block.content
+    end
+  end
+  
   def test_creation_and_update_via_nested_attributes_with_file
     layout = cms_layouts(:default)
     layout.update_attribute(:content, '{{cms:page_file:file}}')
