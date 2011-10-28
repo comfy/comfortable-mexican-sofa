@@ -50,7 +50,8 @@ protected
   # FIX: Terrible, but no way of creating cached page content overwise
   def reload_page_cache
     return unless self.block
-    self.block.page.save!
+    p = self.block.page
+    p.update_column(:content, p.content(true))
   end
   
 end

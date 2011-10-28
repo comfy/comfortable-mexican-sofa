@@ -6,7 +6,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   
-  # Shut the fuck up
+  # Disabling the noise
   $stdout_orig = $stdout
   $stderr_orig = $stderr
   $stdout = StringIO.new

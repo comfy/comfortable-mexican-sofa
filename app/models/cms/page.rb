@@ -18,8 +18,8 @@ class Cms::Page < ActiveRecord::Base
   belongs_to :target_page,
     :class_name => 'Cms::Page'
   has_many :blocks,
-    :dependent  => :destroy,
-    :autosave   => true
+    :autosave   => true,
+    :dependent  => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,

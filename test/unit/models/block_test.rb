@@ -171,4 +171,35 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
   end
   
+  def test_creation_via_nested_attributes_with_file
+    layout = cms_layouts(:default)
+    layout.update_attribute(:content, '{{cms:page:header}}{{cms:page_file:file}}{{cms:page:footer}}')
+    
+    assert_difference 'Cms::Page.count' do
+      assert_difference 'Cms::Block.count', 3 do
+        page = Cms::Page.create!(
+          :site       => cms_sites(:default),
+          :layout     => layout,
+          :label      => 'test page',
+          :slug       => 'test_page',
+          :parent_id  => cms_pages(:default).id,
+          :blocks_attributes => {
+            '0' => {
+              :label    => 'header',
+              :content  => 'header content'
+            },
+            '1' => {
+              :label    => 'file',
+              :content  => fixture_file_upload('files/document.pdf')
+            },
+            '2' => {
+              :label    => 'footer',
+              :content  => 'footer content'
+            }
+          }
+        )
+      end
+    end
+  end
+  
 end
