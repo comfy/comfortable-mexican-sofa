@@ -51,7 +51,7 @@ protected
   def reload_page_cache
     return unless self.block
     p = self.block.page
-    p.update_column(:content, p.content(true))
+    Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
   end
   
 end
