@@ -34,12 +34,24 @@ ComfortableMexicanSofa.configure do |config|
   #   config.upload_file_options = {:storage => :filesystem}
   
   # Sofa allows you to setup entire site from files. Database is updated with each
-  # request (if nessesary). Please note that database entries are destroyed if there's
+  # request (if necessary). Please note that database entries are destroyed if there's
   # no corresponding file. Fixtures are disabled by default.
   #   config.enable_fixtures = false
   
   # Path where fixtures can be located.
   #   config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
+  
+  # Importing fixtures into Database  
+  # To load fixtures into the database just run this rake task:
+  #   local: $ rake comfortable_mexican_sofa:fixtures:import FROM=example.local TO=localhost
+  #   Heroku: $ heroku run rake comfortable_mexican_sofa:fixtures:import FROM=example.local TO=yourapp.herokuapp.com
+  # From indicates folder the fixtures are in and to is the Site hostname you have defined in the database.
+
+  # Exporting fixtures into Files
+  # If you need to dump database contents into fixture files run:
+  #   local: $ rake comfortable_mexican_sofa:fixtures:export FROM=localhost TO=example.local
+  #   Heroku: $ heroku run rake comfortable_mexican_sofa:fixtures:export FROM=yourapp.herokuapp.com TO=example.local
+  # This will create example.local folder and dump all content from example.com Site.
   
   # Content for Layouts, Pages and Snippets has a revision history. You can revert
   # a previous version using this system. You can control how many revisions per
