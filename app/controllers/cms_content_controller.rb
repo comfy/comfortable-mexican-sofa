@@ -52,11 +52,6 @@ protected
     end
   end
   
-  def load_fixtures
-    return unless ComfortableMexicanSofa.config.enable_fixtures
-    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
-  end
-  
   def load_cms_page
     @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
     return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
