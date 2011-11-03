@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2011-10-28"
+  s.date = "2011-11-03"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -266,9 +266,8 @@ Gem::Specification.new do |s|
     "test/functional/cms_admin/sites_controller_test.rb",
     "test/functional/cms_admin/snippets_controller_test.rb",
     "test/functional/cms_content_controller_test.rb",
-    "test/gemfiles/Gemfile.rails-3.0.x",
-    "test/gemfiles/Gemfile.rails-3.1.stable",
-    "test/gemfiles/Gemfile.rails-3.1.x",
+    "test/gemfiles/Gemfile.rails-3.0.10",
+    "test/gemfiles/Gemfile.rails-3.1.1",
     "test/integration/authentication_test.rb",
     "test/integration/fixtures_test.rb",
     "test/integration/mirrors_test.rb",
