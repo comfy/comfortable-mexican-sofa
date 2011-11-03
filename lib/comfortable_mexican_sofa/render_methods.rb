@@ -26,10 +26,30 @@ module ComfortableMexicanSofa::RenderMethods
     #     :block_label_b => { :template => 'path/to/template' },
     #     :block_label_c => { :partial  => 'path/to/partial' }
     #   }
-    # This way you are populating page block content and rendering 
+    #
+    # This way you are populating page block content and rendering
     # an instantialized CMS page.
+    #
+    # Also you can render a cms_page directly in your Application, using:
+    # render cms_page: cms_path, cms_site: site_path
+    # For example: render 'about-us', cms_site: 'en'
+    #
     def render(options = {}, locals = {}, &block)
-      if options.is_a?(Hash) && path = options.delete(:cms_page)
+      if options.is_a?(Hash) && site_path = options.delete(:cms_site)
+        path = options.delete(:cms_page)
+        @cms_site = Cms::Site.find_by_path(site_path)
+
+        if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
+          @cms_layout = @cms_page.layout
+          cms_app_layout = @cms_layout.try(:app_layout)
+          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+          options[:inline] = @cms_page.content
+          super(options, locals, &block)
+        else
+          raise ComfortableMexicanSofa::MissingPage.new(path)
+        end
+
+      elsif options.is_a?(Hash) && path = options.delete(:cms_page)
         @cms_site = Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
           @cms_layout = @cms_page.layout
