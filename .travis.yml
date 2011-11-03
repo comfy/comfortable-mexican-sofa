@@ -2,13 +2,12 @@ rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-  - rbx-2.0
+  # - rbx-2.0
   - ree
   # - jruby
 gemfile:
-  - test/gemfiles/Gemfile.rails-3.0.x
-  - test/gemfiles/Gemfile.rails-3.1.x
-  - test/gemfiles/Gemfile.rails-3.1.stable
+  - test/gemfiles/Gemfile.rails-3.0.10
+  - test/gemfiles/Gemfile.rails-3.1.1
 notifications:
   recipients:
     - oleg@twg.ca
