@@ -22,14 +22,17 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   def create_site_b
     site = cms_sites(:default).dup
     site.update_attributes!(
+      :id       => nil,
       :hostname => 'site-b.host',
       :label    => 'site-b')
     layout = cms_layouts(:default).dup
     layout.update_attributes!(
+      :id       => nil,
       :site     => site,
       :content  => 'site-b {{cms:page:content}}')
     page = cms_pages(:default).dup
     page.update_attributes!(
+      :id     => nil,
       :site   => site,
       :layout => layout,
       :blocks_attributes => [{ :label => 'content', :content => 'SiteBContent' }])
