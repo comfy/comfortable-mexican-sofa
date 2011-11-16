@@ -30,27 +30,21 @@ module ComfortableMexicanSofa::RenderMethods
     # This way you are populating page block content and rendering
     # an instantialized CMS page.
     #
-    # Also you can render a cms_page directly in your Application, using:
-    # render cms_page: cms_path, cms_site: site_path
-    # For example: render 'about-us', cms_site: 'en'
-    #
+    # Site is loaded automatically based on the request. However you can force
+    # it by passing :cms_site parameter with site's slug. For example:
+    #   render :cms_page => '/path/to/page', :cms_site => 'default'
+    # 
     def render(options = {}, locals = {}, &block)
-      if options.is_a?(Hash) && site_path = options.delete(:cms_site)
-        path = options.delete(:cms_page)
-        @cms_site = Cms::Site.find_by_path(site_path)
-
-        if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
-          @cms_layout = @cms_page.layout
-          cms_app_layout = @cms_layout.try(:app_layout)
-          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = @cms_page.content
-          super(options, locals, &block)
-        else
-          raise ComfortableMexicanSofa::MissingPage.new(path)
+      
+      # TODO: add slug to Cms::Site as well
+      if options.is_a?(Hash) && site_slug = options.delete(:cms_site)
+        unless @cms_site = Cms::Site.find_by_label(site_slug)
+          raise ComfortableMexicanSofa::MissingSite.new(site_slug)
         end
-
-      elsif options.is_a?(Hash) && path = options.delete(:cms_page)
-        @cms_site = Cms::Site.find_site(request.host.downcase, request.fullpath)
+      end
+      
+      if options.is_a?(Hash) && path = options.delete(:cms_page)
+        @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
@@ -62,7 +56,7 @@ module ComfortableMexicanSofa::RenderMethods
         end
         
       elsif options.is_a?(Hash) && slug = options.delete(:cms_layout)
-        @cms_site = Cms::Site.find_site(request.host.downcase, request.fullpath)
+        @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_layout = @cms_site && @cms_site.layouts.find_by_slug(slug)
           cms_app_layout = @cms_layout.try(:app_layout)
           cms_page = @cms_site.pages.build(:layout => @cms_layout)

@@ -19,6 +19,22 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     load(File.expand_path('config/routes.rb', Rails.root))
   end
   
+  def create_site_b
+    site = cms_sites(:default).dup
+    site.update_attributes!(
+      :hostname => 'site-b.host',
+      :label    => 'site-b')
+    layout = cms_layouts(:default).dup
+    layout.update_attributes!(
+      :site     => site,
+      :content  => 'site-b {{cms:page:content}}')
+    page = cms_pages(:default).dup
+    page.update_attributes!(
+      :site   => site,
+      :layout => layout,
+      :blocks_attributes => [{ :label => 'content', :content => 'SiteBContent' }])
+  end
+  
   class ::RenderTestController < ApplicationController
     append_view_path(File.expand_path('../fixtures/views', File.dirname(__FILE__)))
     
@@ -43,6 +59,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
         render :cms_page => '/test-page'
       when 'page_explicit_with_status'
         render :cms_page => '/test-page', :status => 404
+      when 'page_explicit_with_site'
+        render :cms_page => '/', :cms_site => 'site-b'
       else
         raise 'Invalid or no param[:type] provided'
       end
@@ -63,6 +81,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
         render :cms_layout => 'default', :status => 404
       when 'layout_invalid'
         render :cms_layout => 'invalid'
+      when 'layout_defaults_with_site'
+        render :cms_layout => 'default', :cms_site => 'site-b'
       else
         raise 'Invalid or no param[:type] provided'
       end
@@ -133,6 +153,21 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_explicit_with_site
+    create_site_b
+    get '/render-page?type=page_explicit_with_site'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal 'site-b', assigns(:cms_site).label
+    assert_equal 'site-b SiteBContent', response.body
+  end
+  
+  def test_explicit_with_site_failure
+    assert_exception_raised ComfortableMexicanSofa::MissingSite do
+      get '/render-page?type=page_explicit_with_site'
+    end
+  end
+  
   # -- Layout Render Tests --------------------------------------------------
   def test_cms_layout_defaults
     get '/render-layout?type=layout_defaults'
@@ -165,6 +200,21 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   def test_cms_layout_failure
     assert_exception_raised ComfortableMexicanSofa::MissingLayout do
       get '/render-layout?type=layout_invalid'
+    end
+  end
+  
+  def test_cms_layout_defaults_with_site
+    create_site_b
+    get '/render-layout?type=layout_defaults_with_site'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal 'site-b', assigns(:cms_site).label
+    assert_equal 'site-b TestTemplate TestValue', response.body
+  end
+  
+  def test_cms_layout_defaults_with_site_failure
+    assert_exception_raised ComfortableMexicanSofa::MissingSite do
+      get '/render-layout?type=layout_defaults_with_site'
     end
   end
   
