@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.5.10"
+  s.version = "1.5.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2011-11-03"
+  s.date = "2011-11-17"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -240,6 +240,7 @@ Gem::Specification.new do |s|
     "lib/generators/README",
     "lib/generators/cms_generator.rb",
     "lib/tasks/comfortable_mexican_sofa.rake",
+    "rvmrc.example",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
     "test/fixtures/cms/categories.yml",
