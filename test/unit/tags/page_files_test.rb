@@ -76,6 +76,9 @@ class PageFilesTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial:path/to/partial:a:b }}')
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => [#{files.collect(&:id).join(',')}], :param_1 => 'a', :param_2 => 'b'} %>", 
       tag.render
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:field }}')
+    assert_equal '', tag.render
   end
   
   def test_content_and_render_with_dimentions

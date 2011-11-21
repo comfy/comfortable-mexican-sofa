@@ -9,7 +9,7 @@ class ComfortableMexicanSofa::Tag::PageFiles
   # Type of the tag controls how file is rendered
   def type
     s = params[0].to_s.gsub(/\[.*?\]/, '')
-    %w(partial url image link).member?(s) ? s : 'url'
+    %w(partial url image link field).member?(s) ? s : 'url'
   end
   
   def dimensions
@@ -44,6 +44,8 @@ class ComfortableMexicanSofa::Tag::PageFiles
       ps = ps.present?? ", #{ps}" : ''
       ids = files.present?? files.collect(&:id).join(',') : ''
       "<%= render :partial => '#{path}', :locals => {:identifier => [#{ids}]#{ps}} %>"
+    when 'field'
+      ''
     end
   end
   
