@@ -6,8 +6,8 @@ rvm:
   - ree
   # - jruby
 gemfile:
-  - test/gemfiles/Gemfile.rails-3.0.10
-  - test/gemfiles/Gemfile.rails-3.1.1
+  - test/gemfiles/Gemfile.rails-3.0
+  - test/gemfiles/Gemfile.rails-3.1
 notifications:
   recipients:
     - oleg@twg.ca
