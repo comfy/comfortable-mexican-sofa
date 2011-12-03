@@ -65,7 +65,7 @@ protected
   end
 
   def load_cms_layout
-    @cms_layout = @cms_site.layouts.find_by_slug!(params[:layout_slug])
+    @cms_layout = @cms_site.layouts.find_by_identifier!(params[:identifier])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true, :status => 404
   end

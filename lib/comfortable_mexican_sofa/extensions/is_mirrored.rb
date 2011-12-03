@@ -22,7 +22,7 @@ module ComfortableMexicanSofa::IsMirrored
       return [] unless self.site.is_mirrored?
       (Cms::Site.mirrored - [self.site]).collect do |site|
         case self
-          when Cms::Layout  then site.layouts.find_by_slug(self.slug)
+          when Cms::Layout  then site.layouts.find_by_identifier(self.identifier)
           when Cms::Page    then site.pages.find_by_full_path(self.full_path)
           when Cms::Snippet then site.snippets.find_by_slug(self.slug)
         end
@@ -38,10 +38,10 @@ module ComfortableMexicanSofa::IsMirrored
       (Cms::Site.mirrored - [self.site]).each do |site|
         mirror = case self
         when Cms::Layout
-          m = site.layouts.find_by_slug(self.slug_was || self.slug) || site.layouts.new
+          m = site.layouts.find_by_identifier(self.identifier_was || self.identifier) || site.layouts.new
           m.attributes = {
-            :slug       => self.slug,
-            :parent_id  => site.layouts.find_by_slug(self.parent.try(:slug)).try(:id)
+            :identifier => self.identifier,
+            :parent_id  => site.layouts.find_by_identifier(self.parent.try(:identifier)).try(:id)
           }
           m
         when Cms::Page
@@ -50,7 +50,7 @@ module ComfortableMexicanSofa::IsMirrored
             :slug       => self.slug,
             :label      => self.slug.blank?? self.label : m.label,
             :parent_id  => site.pages.find_by_full_path(self.parent.try(:full_path)).try(:id),
-            :layout     => site.layouts.find_by_slug(self.layout.slug)
+            :layout     => site.layouts.find_by_identifier(self.layout.identifier)
           }
           m
         when Cms::Snippet

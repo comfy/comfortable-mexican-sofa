@@ -8,13 +8,13 @@ class FixturesTest < ActiveSupport::TestCase
     assert_difference 'Cms::Layout.count', 2 do
       ComfortableMexicanSofa::Fixtures.import_layouts('test.host', 'example.com')
       
-      assert layout = Cms::Layout.find_by_slug('default')
+      assert layout = Cms::Layout.find_by_identifier('default')
       assert_equal 'Default Fixture Layout', layout.label
       assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       
-      assert nested_layout = Cms::Layout.find_by_slug('nested')
+      assert nested_layout = Cms::Layout.find_by_identifier('nested')
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
       assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
@@ -47,7 +47,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
       
-      assert_nil Cms::Layout.find_by_slug('child')
+      assert_nil Cms::Layout.find_by_identifier('child')
     end
   end
   
@@ -66,7 +66,7 @@ class FixturesTest < ActiveSupport::TestCase
     
     ComfortableMexicanSofa::Fixtures.import_layouts('test.host', 'example.com')
     layout.reload
-    assert_equal 'default', layout.slug
+    assert_equal 'default', layout.identifier
     assert_equal 'Default Layout', layout.label
     assert_equal "{{cms:field:default_field_text:text}}\nlayout_content_a\n{{cms:page:default_page_text:text}}\nlayout_content_b\n{{cms:snippet:default}}\nlayout_content_c", layout.content
     assert_equal 'default_css', layout.css

@@ -20,11 +20,11 @@ module ComfortableMexicanSofa::Fixtures
     end
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
-      slug = path.split('/').last
-      layout = site.layouts.find_by_slug(slug) || site.layouts.new(:slug => slug)
+      identifier = path.split('/').last
+      layout = site.layouts.find_by_identifier(identifier) || site.layouts.new(:identifier => identifier)
       
       # updating attributes
-      if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
+      if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           layout.label      = attributes[:label] || slug.titleize
@@ -56,7 +56,7 @@ module ComfortableMexicanSofa::Fixtures
       layout.parent = parent
       if layout.changed?
         layout.save!
-        Rails.logger.debug "[Fixtures] Saved Layout {#{layout.slug}}"
+        Rails.logger.debug "[Fixtures] Saved Layout {#{layout.identifier}}"
       end
       layout_ids << layout.id
       
@@ -94,7 +94,7 @@ module ComfortableMexicanSofa::Fixtures
         if page.new_record? || File.mtime(file_path) > page.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           page.label = attributes[:label] || slug.titleize
-          page.layout = site.layouts.find_by_slug(attributes[:layout]) || parent.try(:layout)
+          page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
           page.is_published = attributes[:is_published].present?? attributes[:is_published] : true
         end
@@ -186,14 +186,14 @@ module ComfortableMexicanSofa::Fixtures
     FileUtils.mkdir_p(path)
     
     site.layouts.each do |layout|
-      layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.slug}, layout.slug)
+      layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
       FileUtils.mkdir_p(layout_path)
       
-      open(File.join(layout_path, "_#{layout.slug}.yml"), 'w') do |f|
+      open(File.join(layout_path, "_#{layout.identifier}.yml"), 'w') do |f|
         f.write({
           'label'       => layout.label,
           'app_layout'  => layout.app_layout,
-          'parent'      => layout.parent.try(:slug)
+          'parent'      => layout.parent.try(:identifier)
         }.to_yaml)
       end
       open(File.join(layout_path, 'content.html'), 'w') do |f|
@@ -222,7 +222,7 @@ module ComfortableMexicanSofa::Fixtures
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
         f.write({
           'label'         => page.label,
-          'layout'        => page.layout.try(:slug),
+          'layout'        => page.layout.try(:identifier),
           'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
           'target_page'   => page.target_page.try(:slug),
           'is_published'  => page.is_published

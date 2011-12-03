@@ -11,11 +11,14 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_validations
     layout = cms_sites(:default).layouts.create
     assert layout.errors.present?
-    assert_has_errors_on layout, [:label, :slug]
+    assert_has_errors_on layout, [:label, :identifier]
   end
   
   def test_label_assignment
-    layout = cms_sites(:default).layouts.new(:slug => 'test', :content => '{{cms:page:content}}')
+    layout = cms_sites(:default).layouts.new(
+      :identifier => 'test',
+      :content    => '{{cms:page:content}}'
+    )
     assert layout.valid?
     assert_equal 'Test', layout.label
   end
@@ -23,14 +26,14 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_creation
     assert_difference 'Cms::Layout.count' do
       layout = cms_sites(:default).layouts.create(
-        :label    => 'New Layout',
-        :slug     => 'new-layout',
-        :content  => '{{cms:page:content}}',
-        :css      => 'css',
-        :js       => 'js'
+        :label      => 'New Layout',
+        :identifier => 'new-layout',
+        :content    => '{{cms:page:content}}',
+        :css        => 'css',
+        :js         => 'js'
       )
       assert_equal 'New Layout', layout.label
-      assert_equal 'new-layout', layout.slug
+      assert_equal 'new-layout', layout.identifier
       assert_equal '{{cms:page:content}}', layout.content
       assert_equal 'css', layout.css
       assert_equal 'js', layout.js

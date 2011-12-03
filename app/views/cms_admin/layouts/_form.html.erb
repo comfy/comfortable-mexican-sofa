@@ -3,7 +3,7 @@
 <% end %>
 
 <%= form.text_field :label, :id => (@layout.new_record?? 'slugify' : nil)%>
-<%= form.text_field :slug, :id => 'slug' %>
+<%= form.text_field :identifier, :id => 'slug' %>
 <% if (options = Cms::Layout.options_for_select(@site, @layout)).present? %>
   <%= form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options %>
 <% end %>

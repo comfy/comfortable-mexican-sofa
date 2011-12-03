@@ -10,14 +10,14 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def test_layout_creation
     assert_difference 'Cms::Layout.count', 2 do
-      layout = @site_a.layouts.create!(:slug => 'test')
+      layout = @site_a.layouts.create!(:identifier => 'test')
       assert_equal 1, layout.mirrors.size
-      assert_equal 'test', layout.mirrors.first.slug
+      assert_equal 'test', layout.mirrors.first.identifier
     end
   end
   
   def test_page_creation
-    layout = @site_a.layouts.create!(:slug => 'test')
+    layout = @site_a.layouts.create!(:identifier => 'test')
     
     assert_difference 'Cms::Page.count', 2 do
       page = @site_a.pages.create!(
@@ -38,9 +38,9 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_layout_update
-    layout_1a = @site_a.layouts.create!(:slug => 'test_a')
-    layout_1b = @site_a.layouts.create!(:slug => 'test_b')
-    layout_1c = @site_a.layouts.create!(:slug => 'nested', :parent => layout_1a)
+    layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
+    layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
+    layout_1c = @site_a.layouts.create!(:identifier => 'nested', :parent => layout_1a)
     
     assert layout_2a = layout_1a.mirrors.first
     assert layout_2b = layout_1b.mirrors.first
@@ -48,19 +48,19 @@ class MirrorsTest < ActiveSupport::TestCase
     assert_equal layout_2a, layout_2c.parent
     
     layout_1c.update_attributes!(
-      :slug     => 'updated',
-      :parent   => layout_1b,
-      :content  => 'updated content'
+      :identifier => 'updated',
+      :parent     => layout_1b,
+      :content    => 'updated content'
     )
     layout_2c.reload
-    assert_equal 'updated', layout_2c.slug
+    assert_equal 'updated', layout_2c.identifier
     assert_equal layout_2b, layout_2c.parent
     assert_not_equal 'updated content', layout_2c
   end
   
   def test_page_update
-    layout_1a = @site_a.layouts.create!(:slug => 'test_a')
-    layout_1b = @site_a.layouts.create!(:slug => 'test_b')
+    layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
+    layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
     
     page_1r = @site_a.pages.create!(:slug => 'root', :layout => layout_1a)
     page_1a = @site_a.pages.create!(:slug => 'test_a', :layout => layout_1a)
@@ -96,9 +96,9 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_layout_destroy
-    layout_1a = @site_a.layouts.create!(:slug => 'test_a')
-    layout_1b = @site_a.layouts.create!(:slug => 'test_b')
-    layout_1c = @site_a.layouts.create!(:slug => 'nested', :parent => layout_1b)
+    layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
+    layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
+    layout_1c = @site_a.layouts.create!(:identifier => 'nested', :parent => layout_1b)
     
     assert layout_2a = layout_1a.mirrors.first
     assert layout_2b = layout_1b.mirrors.first
@@ -116,7 +116,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_page_destroy
-    layout = @site_a.layouts.create!(:slug => 'test')
+    layout = @site_a.layouts.create!(:identifier => 'test')
     page_1r = @site_a.pages.create!(:slug => 'root', :layout => layout)
     page_1a = @site_a.pages.create!(:slug => 'test_a', :layout => layout)
     page_1b = @site_a.pages.create!(:slug => 'test_b', :layout => layout)

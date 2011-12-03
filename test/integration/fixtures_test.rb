@@ -13,7 +13,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
       assert_response :success
       
       assert_equal 'Default Page', Cms::Page.root.label
-      assert_equal 'Default Layout', Cms::Layout.find_by_slug('default').label
+      assert_equal 'Default Layout', Cms::Layout.find_by_identifier('default').label
       assert_equal 'Default Snippet', Cms::Snippet.find_by_slug('default').label
     end
   end
@@ -31,7 +31,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
           assert_response :success
           
           assert_equal 'Home Fixture Page', Cms::Page.root.label
-          assert_equal 'Default Fixture Layout', Cms::Layout.find_by_slug('default').label
+          assert_equal 'Default Fixture Layout', Cms::Layout.find_by_identifier('default').label
           assert_equal 'Default Fixture Snippet', Cms::Snippet.find_by_slug('default').label
           
           assert_equal "<html>\n  <body>\n    Home Page Fixture Content\nFixture Content for Default Snippet\n  </body>\n</html>", response.body

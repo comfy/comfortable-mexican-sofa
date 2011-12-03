@@ -23,7 +23,7 @@ class Cms::Layout < ActiveRecord::Base
     :presence   => true
   validates :label,
     :presence   => true
-  validates :slug,
+  validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
@@ -73,7 +73,7 @@ class Cms::Layout < ActiveRecord::Base
 protected
   
   def assign_label
-    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
   
   def assign_position

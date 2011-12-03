@@ -14,20 +14,20 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|
-      t.integer :site_id
+      t.integer :site_id,     :null => false
       t.integer :parent_id
       t.string  :app_layout
-      t.string  :label
-      t.string  :slug
+      t.string  :label,       :null => false
+      t.string  :identifier,  :null => false
       t.text    :content
       t.text    :css
       t.text    :js
-      t.integer :position,  :null => false, :default => 0
-      t.boolean :is_shared, :null => false, :default => false
+      t.integer :position,    :null => false, :default => 0
+      t.boolean :is_shared,   :null => false, :default => false
       t.timestamps
     end
     add_index :cms_layouts, [:parent_id, :position]
-    add_index :cms_layouts, [:site_id, :slug], :unique => true
+    add_index :cms_layouts, [:site_id, :identifier], :unique => true
     
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|

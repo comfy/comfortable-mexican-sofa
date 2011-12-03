@@ -1,5 +1,5 @@
 <h1> <%= t('.title') %> <%= @record.class.to_s.demodulize %></h1>
-<h2> <%= @record.is_a?(Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.slug}" %> </h2>
+<h2> <%= @record.is_a?(Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}" %> </h2>
 
 <% content_for :right_column do %>
   <h2><%= pluralize(@record.revisions.count, t('.revision')) %></h2>

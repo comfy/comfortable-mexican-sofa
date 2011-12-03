@@ -1,7 +1,7 @@
 default:
   site: default
   label: Default Layout
-  slug: default
+  identifier: default
   parent:
   content: |-
     {{cms:field:default_field_text:text}}
@@ -17,7 +17,7 @@ default:
 nested:
   site: default
   label: Nested Layout
-  slug: nested
+  identifier: nested
   parent:
   content: |-
     {{cms:page:header}}
@@ -29,7 +29,7 @@ nested:
 child:
   site: default
   label: Child Layout
-  slug: child
+  identifier: child
   parent: nested
   content: |-
     {{cms:page:left_column}}

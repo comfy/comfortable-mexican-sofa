@@ -225,8 +225,8 @@ class TagTest < ActiveSupport::TestCase
     
     site = cms_sites(:default)
     layout = site.layouts.create!(
-      :slug     => 'no-irb-layout',
-      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
+      :identifier => 'no-irb-layout',
+      :content    => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
       :slug     => 'no-irb-snippet',
@@ -251,8 +251,8 @@ class TagTest < ActiveSupport::TestCase
     
     site = cms_sites(:default)
     layout = site.layouts.create!(
-      :slug     => 'irb-layout',
-      :content  => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
+      :identifier => 'irb-layout',
+      :content    => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
       :slug     => 'irb-snippet',

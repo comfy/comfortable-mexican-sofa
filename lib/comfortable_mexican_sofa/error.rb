@@ -10,8 +10,8 @@ module ComfortableMexicanSofa
   end
   
   class MissingLayout < ComfortableMexicanSofa::Error
-    def initialize(slug)
-      super "Cannot find CMS Layout with slug: #{slug}"
+    def initialize(identifier)
+      super "Cannot find CMS Layout with identifier: #{identifier}"
     end
   end
   

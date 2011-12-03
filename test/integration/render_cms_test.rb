@@ -24,8 +24,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       :label    => 'SiteB',
       :hostname => 'site-b.test')
     layout  = site.layouts.create!(
-      :slug     => 'default',
-      :content  => 'site-b {{cms:page:content}}')
+      :identifier => 'default',
+      :content    => 'site-b {{cms:page:content}}')
     page    = site.pages.create!(
       :label  => 'default',
       :layout => layout,

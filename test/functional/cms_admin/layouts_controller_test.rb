@@ -46,9 +46,9 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
   def test_creation
     assert_difference 'Cms::Layout.count' do
       post :create, :site_id => cms_sites(:default), :layout => {
-        :label    => 'Test Layout',
-        :slug     => 'test',
-        :content  => 'Test {{cms:page:content}}'
+        :label      => 'Test Layout',
+        :identifier => 'test',
+        :content    => 'Test {{cms:page:content}}'
       }
       assert_response :redirect
       layout = Cms::Layout.last
@@ -84,12 +84,12 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
   def test_update_failure
     layout = cms_layouts(:default)
     put :update, :site_id => cms_sites(:default), :id => layout, :layout => {
-      :slug    => ''
+      :identifier => ''
     }
     assert_response :success
     assert_template :edit
     layout.reload
-    assert_not_equal '', layout.slug
+    assert_not_equal '', layout.identifier
     assert_equal 'Failed to update layout', flash[:error]
   end
   
@@ -105,8 +105,8 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
   def test_reorder
     layout_one = cms_layouts(:default)
     layout_two = cms_sites(:default).layouts.create!(
-      :label  => 'test',
-      :slug   => 'test'
+      :label      => 'test',
+      :identifier => 'test'
     )
     assert_equal 0, layout_one.position
     assert_equal 1, layout_two.position

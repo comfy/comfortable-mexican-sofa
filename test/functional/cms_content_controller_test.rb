@@ -134,26 +134,26 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_css
-    get :render_css, :site_id => cms_sites(:default).id, :layout_slug => cms_layouts(:default).slug
+    get :render_css, :site_id => cms_sites(:default).id, :identifier => cms_layouts(:default).identifier
     assert_response :success
     assert_match %r{text\/css}, response.headers["Content-Type"]
     assert_equal cms_layouts(:default).css, response.body
   end
   
   def test_render_css_not_found
-    get :render_css, :site_id => cms_sites(:default).id, :layout_slug => 'bogus'
+    get :render_css, :site_id => cms_sites(:default).id, :identifier => 'bogus'
     assert_response 404
   end
   
   def test_render_js
-    get :render_js, :site_id => cms_sites(:default).id, :layout_slug => cms_layouts(:default).slug
+    get :render_js, :site_id => cms_sites(:default).id, :identifier => cms_layouts(:default).identifier
     assert_response :success
     assert_match %r{text\/javascript}, response.headers["Content-Type"]
     assert_equal cms_layouts(:default).js, response.body
   end
   
   def test_render_js_not_found
-    get :render_js, :site_id => cms_sites(:default).id, :layout_slug => 'bogus'
+    get :render_js, :site_id => cms_sites(:default).id, :identifier => 'bogus'
     assert_response 404
   end
   
