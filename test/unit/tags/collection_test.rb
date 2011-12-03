@@ -4,7 +4,7 @@ class CollectionTagTest < ActiveSupport::TestCase
   
   module TestCollectionScope
     def self.included(base)
-      base.scope :cms_collection, lambda{|*args| base.where(:slug => args.first) if args.first }
+      base.scope :cms_collection, lambda{|*args| base.where(:identifier => args.first) if args.first }
     end
   end
   Cms::Snippet.send(:include, TestCollectionScope)
@@ -23,13 +23,14 @@ class CollectionTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag_detailed
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), '{{ cms:collection:snippet:cms/snippet:path/to/partial:title:slug:param_a:param_b }}'
+      cms_pages(:default),
+      '{{ cms:collection:snippet:cms/snippet:path/to/partial:title:identifier:param_a:param_b }}'
     )
     assert_equal 'snippet',         tag.label
     assert_equal 'Cms::Snippet',    tag.collection_class
     assert_equal 'path/to/partial', tag.collection_partial
     assert_equal 'title',           tag.collection_title
-    assert_equal 'slug',            tag.collection_identifier
+    assert_equal 'identifier',      tag.collection_identifier
     assert_equal ['param_a', 'param_b'], tag.collection_params
   end
   
@@ -57,7 +58,8 @@ class CollectionTagTest < ActiveSupport::TestCase
   
   def test_collection_objects_with_scope
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
-      cms_pages(:default), "{{ cms:collection:snippet:cms/snippet:path/to/partial:label:slug:#{cms_snippets(:default).slug} }}"
+      cms_pages(:default),
+      "{{ cms:collection:snippet:cms/snippet:path/to/partial:label:identifier:#{cms_snippets(:default).identifier} }}"
     )
     assert snippets = tag.collection_objects
     assert_equal 1, snippets.count
@@ -90,10 +92,10 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag.block.content.blank?
     
     snippet = cms_snippets(:default)
-    tag.block.content = snippet.slug
-    assert_equal snippet.slug, tag.block.content
-    assert_equal snippet.slug, tag.content
-    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.slug}', :param_1 => 'param_a', :param_2 => 'param_b'} %>", tag.render
+    tag.block.content = snippet.identifier
+    assert_equal snippet.identifier, tag.block.content
+    assert_equal snippet.identifier, tag.content
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.identifier}', :param_1 => 'param_a', :param_2 => 'param_b'} %>", tag.render
   end
   
   def test_content_and_render_with_no_content

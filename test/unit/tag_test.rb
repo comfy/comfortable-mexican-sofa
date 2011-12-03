@@ -229,8 +229,8 @@ class TagTest < ActiveSupport::TestCase
       :content    => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
-      :slug     => 'no-irb-snippet',
-      :content  => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
+      :identifier => 'no-irb-snippet',
+      :content    => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
     )
     page = site.pages.create!(
       :slug       => 'no-irb-page',
@@ -255,8 +255,8 @@ class TagTest < ActiveSupport::TestCase
       :content    => '<% 1 + 1 %> {{cms:page:content}} {{cms:collection:snippet:cms/snippet}} <%= 1 + 1 %>'
     )
     snippet = site.snippets.create!(
-      :slug     => 'irb-snippet',
-      :content  => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
+      :identifier => 'irb-snippet',
+      :content    => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
     )
     page = site.pages.create!(
       :slug       => 'irb-page',

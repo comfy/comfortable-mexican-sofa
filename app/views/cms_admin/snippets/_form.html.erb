@@ -3,7 +3,7 @@
 <% end %>
 
 <%= form.text_field :label, :id => (@snippet.new_record?? 'slugify' : nil) %>
-<%= form.text_field :slug, :id => 'slug', :class => 'delimiter-underscore' %>
+<%= form.text_field :identifier, :id => 'slug', :class => 'delimiter-underscore' %>
 <%= form.text_area :content, :class => 'code' %>
 
 <%= render :partial => 'cms_admin/categories/form', :object => form %>

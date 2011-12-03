@@ -63,9 +63,9 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   def test_create
     assert_difference 'Cms::Snippet.count' do
       post :create, :site_id => cms_sites(:default), :snippet => {
-        :label    => 'Test Snippet',
-        :slug     => 'test-snippet',
-        :content  => 'Test Content'
+        :label      => 'Test Snippet',
+        :identifier => 'test-snippet',
+        :content    => 'Test Content'
       }
       assert_response :redirect
       snippet = Cms::Snippet.last
@@ -101,12 +101,12 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   def test_update_failure
     snippet = cms_snippets(:default)
     put :update, :site_id => snippet.site, :id => snippet, :snippet => {
-      :slug => ''
+      :identifier => ''
     }
     assert_response :success
     assert_template :edit
     snippet.reload
-    assert_not_equal '', snippet.slug
+    assert_not_equal '', snippet.identifier
     assert_equal 'Failed to update snippet', flash[:error]
   end
 
@@ -122,8 +122,8 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   def test_reorder
     snippet_one = cms_snippets(:default)
     snippet_two = cms_sites(:default).snippets.create!(
-      :label  => 'test',
-      :slug   => 'test'
+      :label      => 'test',
+      :identifier => 'test'
     )
     assert_equal 0, snippet_one.position
     assert_equal 1, snippet_two.position

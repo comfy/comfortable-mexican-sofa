@@ -1,6 +1,6 @@
 default:
   site: default
   label: Default Snippet
-  slug: default
+  identifier: default
   content: default_snippet_content
   position: 0

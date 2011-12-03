@@ -31,9 +31,9 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def test_snippet_creation
     assert_difference 'Cms::Snippet.count', 2 do
-      snippet = @site_a.snippets.create(:slug => 'test')
+      snippet = @site_a.snippets.create(:identifier => 'test')
       assert_equal 1, snippet.mirrors.size
-      assert_equal 'test', snippet.mirrors.first.slug
+      assert_equal 'test', snippet.mirrors.first.identifier
     end
   end
   
@@ -84,14 +84,14 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_snippet_update
-    snippet_1 = @site_a.snippets.create(:slug => 'test')
+    snippet_1 = @site_a.snippets.create(:identifier => 'test')
     assert snippet_2 = snippet_1.mirrors.first
     snippet_1.update_attributes!(
-      :slug     => 'updated',
-      :content  => 'updated content'
+      :identifier => 'updated',
+      :content    => 'updated content'
     )
     snippet_2.reload
-    assert_equal 'updated', snippet_2.slug
+    assert_equal 'updated', snippet_2.identifier
     assert_not_equal 'updated content', snippet_2.content
   end
   
@@ -137,7 +137,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_snippet_destroy
-    snippet_1 = @site_a.snippets.create(:slug => 'test')
+    snippet_1 = @site_a.snippets.create(:identifier => 'test')
     assert snippet_2 = snippet_1.mirrors.first
     
     assert_difference ['@site_a.snippets.count', '@site_b.snippets.count'], -1 do

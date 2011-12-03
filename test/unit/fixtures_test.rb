@@ -139,7 +139,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert_difference 'Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
       assert snippet = Cms::Snippet.last
-      assert_equal 'default', snippet.slug
+      assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
     end
@@ -148,14 +148,14 @@ class FixturesTest < ActiveSupport::TestCase
   def test_import_snippets_updating
     snippet = cms_snippets(:default)
     snippet.update_attribute(:updated_at, 10.years.ago)
-    assert_equal 'default', snippet.slug
+    assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
     assert_equal 'default_snippet_content', snippet.content
     
     assert_no_difference 'Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
       snippet.reload
-      assert_equal 'default', snippet.slug
+      assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
     end
@@ -163,16 +163,16 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_snippets_deleting
     snippet = cms_snippets(:default)
-    snippet.update_attribute(:slug, 'old')
+    snippet.update_attribute(:identifier, 'old')
     
     assert_no_difference 'Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
       assert snippet = Cms::Snippet.last
-      assert_equal 'default', snippet.slug
+      assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
       
-      assert_nil Cms::Snippet.find_by_slug('old')
+      assert_nil Cms::Snippet.find_by_identifier('old')
     end
   end
   
@@ -187,7 +187,7 @@ class FixturesTest < ActiveSupport::TestCase
     
     ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
     snippet.reload
-    assert_equal 'default', snippet.slug
+    assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
     assert_equal 'default_snippet_content', snippet.content
   end

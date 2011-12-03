@@ -22,7 +22,7 @@ class Cms::Snippet < ActiveRecord::Base
     :presence   => true
   validates :label,
     :presence   => true
-  validates :slug,
+  validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /^\w[a-z0-9_-]*$/i }
@@ -33,14 +33,16 @@ class Cms::Snippet < ActiveRecord::Base
 protected
   
   def assign_label
-    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
   
   # Note: This might be slow. We have no idea where the snippet is used, so
   # gotta reload every single page. Kinda sucks, but might be ok unless there
   # are hundreds of pages.
   def clear_cached_page_content
-    site.pages.all.each{ |page| page.save }
+    site.pages.all.each do |p|
+      Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
+    end
   end
   
   def assign_position

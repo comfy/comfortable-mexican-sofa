@@ -146,11 +146,11 @@ module ComfortableMexicanSofa::Fixtures
     
     snippet_ids = []
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
-      slug = path.split('/').last
-      snippet = site.snippets.find_by_slug(slug) || site.snippets.new(:slug => slug)
+      identifier = path.split('/').last
+      snippet = site.snippets.find_by_identifier(identifier) || site.snippets.new(:identifier => identifier)
       
       # updating attributes
-      if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
+      if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
           snippet.label = attributes[:label] || slug.titleize
@@ -169,7 +169,7 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       if snippet.changed?
         snippet.save!
-        Rails.logger.debug "[Fixtures] Saved Snippet {#{snippet.slug}}"
+        Rails.logger.debug "[Fixtures] Saved Snippet {#{snippet.identifier}}"
       end
       snippet_ids << snippet.id
     end
@@ -243,8 +243,8 @@ module ComfortableMexicanSofa::Fixtures
     FileUtils.mkdir_p(path)
     
     site.snippets.each do |snippet|
-      FileUtils.mkdir_p(snippet_path = File.join(path, snippet.slug))
-      open(File.join(snippet_path, "_#{snippet.slug}.yml"), 'w') do |f|
+      FileUtils.mkdir_p(snippet_path = File.join(path, snippet.identifier))
+      open(File.join(snippet_path, "_#{snippet.identifier}.yml"), 'w') do |f|
         f.write({'label' => snippet.label}.to_yaml)
       end
       open(File.join(snippet_path, 'content.html'), 'w') do |f|

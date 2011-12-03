@@ -24,7 +24,7 @@
           <%= link_to snippet.label, edit_cms_admin_site_snippet_path(@site, snippet) %>
           <%= render :partial => '/cms_admin/categories/categories', :object => snippet %>
           <div class='sublabel'>
-            <%= link_to snippet.slug, edit_cms_admin_site_snippet_path(@site, snippet) %>
+            <%= link_to snippet.identifier, edit_cms_admin_site_snippet_path(@site, snippet) %>
           </div>
         </div>
       </div>

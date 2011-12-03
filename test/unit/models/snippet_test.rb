@@ -12,12 +12,12 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = Cms::Snippet.new
     snippet.save
     assert snippet.invalid?
-    assert_has_errors_on snippet, [:label, :slug]
+    assert_has_errors_on snippet, [:label, :identifier]
   end
   
   def test_label_assignment
     snippet = cms_sites(:default).snippets.new(
-      :slug   => 'test'
+      :identifier => 'test'
     )
     assert snippet.valid?
     assert_equal 'Test', snippet.label
@@ -26,12 +26,12 @@ class CmsSnippetTest < ActiveSupport::TestCase
   def test_create
     assert_difference 'Cms::Snippet.count' do
       snippet = cms_sites(:default).snippets.create(
-        :label    => 'Test Snippet',
-        :slug     => 'test',
-        :content  => 'Test Content'
+        :label      => 'Test Snippet',
+        :identifier => 'test',
+        :content    => 'Test Content'
       )
       assert_equal 'Test Snippet', snippet.label
-      assert_equal 'test', snippet.slug
+      assert_equal 'test', snippet.identifier
       assert_equal 'Test Content', snippet.content
       assert_equal 1, snippet.position
     end

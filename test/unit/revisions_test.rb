@@ -107,9 +107,9 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference 'Cms::Snippet.count' do
       assert_no_difference 'Cms::Revision.count' do
         snippet = cms_sites(:default).snippets.create!(
-          :label    => 'test snippet',
-          :slug     => 'test_snippet',
-          :content  => 'test content'
+          :label      => 'test snippet',
+          :identifier => 'test_snippet',
+          :content    => 'test content'
         )
         assert_equal 0, snippet.revisions.count
       end
