@@ -41,7 +41,7 @@ module ComfortableMexicanSofa::Tag
   module InstanceMethods
     
     # String indentifier of the tag
-    def identifier
+    def id
       "#{self.class.to_s.demodulize.underscore}_#{self.label}"
     end
     
@@ -105,7 +105,7 @@ private
       if tag_signature
         if tag = self.initialize_tag(page, tag_signature)
           tag.parent = parent_tag if parent_tag
-          if tag.ancestors.select{|a| a.identifier == tag.identifier}.blank?
+          if tag.ancestors.select{|a| a.id == tag.id}.blank?
             page.tags << tag
             self.process_content(page, tag.render, tag)
           end
