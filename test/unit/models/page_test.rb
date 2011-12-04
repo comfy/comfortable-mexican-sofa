@@ -62,8 +62,8 @@ class CmsPageTest < ActiveSupport::TestCase
         :parent => cms_pages(:default),
         :layout => cms_layouts(:default),
         :blocks_attributes => [
-          { :label    => 'default_page_text',
-            :content  => 'test' }
+          { :identifier => 'default_page_text',
+            :content    => 'test' }
         ]
       )
       assert page.is_published?
@@ -165,7 +165,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_cms_blocks_attributes_accessor
     page = cms_pages(:default)
     assert_equal page.blocks.count, page.blocks_attributes.size
-    assert_equal 'default_field_text', page.blocks_attributes.first[:label]
+    assert_equal 'default_field_text', page.blocks_attributes.first[:identifier]
     assert_equal 'default_field_text_content', page.blocks_attributes.first[:content]
   end
   

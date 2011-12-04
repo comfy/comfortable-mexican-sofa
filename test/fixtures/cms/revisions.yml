@@ -9,10 +9,10 @@ page:
   record: default (Cms::Page)
   data: <%= {
     'blocks_attributes' => [
-      { 'label'   => 'default_page_text',
-        'content' => 'revision page content' },
-      { 'label'   => 'default_field_text',
-        'content' => 'revision field content'}
+      { 'identifier'  => 'default_page_text',
+        'content'     => 'revision page content' },
+      { 'identifier'  => 'default_field_text',
+        'content'     => 'revision field content'}
     ]}.to_yaml.inspect %>
       
 snippet:

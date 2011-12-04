@@ -115,8 +115,8 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
       
       page.reload
       assert_equal [
-        { :label => 'default_field_text', :content => 'revision field content'  },
-        { :label => 'default_page_text',  :content => 'revision page content'   }
+        { :identifier => 'default_field_text', :content => 'revision field content'  },
+        { :identifier => 'default_page_text',  :content => 'revision page content'   }
       ], page.blocks_attributes
     end
   end

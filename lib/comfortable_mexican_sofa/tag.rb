@@ -73,7 +73,8 @@ module ComfortableMexicanSofa::Tag
     
     # Find or initialize Cms::Block object
     def block
-      page.blocks.detect{|b| b.label == self.label.to_s} || page.blocks.build(:label => self.label.to_s)
+      page.blocks.detect{|b| b.identifier == self.label.to_s} || 
+      page.blocks.build(:identifier => self.label.to_s)
     end
     
     # Checks if this tag is using Cms::Block

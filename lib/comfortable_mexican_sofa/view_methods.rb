@@ -32,9 +32,9 @@ module ComfortableMexicanSofa::ViewMethods
   # Example:
   #   cms_page_content(:left_column, CmsPage.first)
   #   cms_page_content(:left_column) # if @cms_page is present
-  def cms_page_content(block_label, page = nil)
+  def cms_page_content(identifier, page = nil)
     return '' unless page ||= @cms_page
-    return '' unless block = page.blocks.find_by_label(block_label)
+    return '' unless block = page.blocks.find_by_identifier(identifier)
     render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
   end
 end

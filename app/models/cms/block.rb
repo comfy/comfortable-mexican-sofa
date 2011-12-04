@@ -14,14 +14,14 @@ class Cms::Block < ActiveRecord::Base
   before_save :prepare_files
   
   # -- Validations ----------------------------------------------------------
-  validates :label,
+  validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :page_id }
     
   # -- Instance Methods -----------------------------------------------------
   # Tag object that is using this block
   def tag
-    @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.label == label}
+    @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.label == identifier}
   end
     
 protected

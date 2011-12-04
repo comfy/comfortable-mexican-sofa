@@ -51,9 +51,8 @@ class CmsContentControllerTest < ActionController::TestCase
       :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
-        { :label    => 'default_page_text',
-          :type     => 'CmsTag::PageText',
-          :content  => 'custom 404 page content' }
+        { :identifier => 'default_page_text',
+          :content    => 'custom 404 page content' }
       ]
     )
     assert_equal '/404', page.full_path
@@ -105,8 +104,8 @@ class CmsContentControllerTest < ActionController::TestCase
       :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
-        { :label    => 'default_page_text',
-          :content  => 'text <%= 2 + 2 %> text' }
+        { :identifier => 'default_page_text',
+          :content    => 'text <%= 2 + 2 %> text' }
       ]
     )
     get :render_html, :cms_path => 'irb'
@@ -124,8 +123,8 @@ class CmsContentControllerTest < ActionController::TestCase
       :layout_id  => cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
-        { :label    => 'default_page_text',
-          :content  => 'text <%= 2 + 2 %> text' }
+        { :identifier => 'default_page_text',
+          :content    => 'text <%= 2 + 2 %> text' }
       ]
     )
     get :render_html, :cms_path => 'irb'

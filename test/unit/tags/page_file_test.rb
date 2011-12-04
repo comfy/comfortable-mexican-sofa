@@ -47,8 +47,8 @@ class PageFileTagTest < ActiveSupport::TestCase
     
     page.update_attributes!(
       :blocks_attributes => [
-        { :label    => 'file',
-          :content  => fixture_file_upload('files/image.jpg') }
+        { :identifier => 'file',
+          :content    => fixture_file_upload('files/image.jpg') }
       ]
     )
     file = tag.block.files.first
@@ -96,8 +96,8 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_difference 'Cms::File.count' do
       page.update_attributes!(
         :blocks_attributes => [
-          { :label    => 'file',
-            :content  => fixture_file_upload('files/image.jpg') }
+          { :identifier => 'file',
+            :content    => fixture_file_upload('files/image.jpg') }
         ]
       )
       file = Cms::File.last

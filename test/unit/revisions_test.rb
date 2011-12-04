@@ -9,8 +9,8 @@ class RevisionsTest < ActiveSupport::TestCase
       'js'      => 'revision js' }), cms_revisions(:layout).data
       
     assert_equal ({'blocks_attributes' => [
-      { 'label' => 'default_page_text',   'content' => 'revision page content'  },
-      { 'label' => 'default_field_text',  'content' => 'revision field content' }
+      { 'identifier' => 'default_page_text',   'content' => 'revision page content'  },
+      { 'identifier' => 'default_field_text',  'content' => 'revision field content' }
     ]}), cms_revisions(:page).data
     
     assert_equal ({
@@ -59,8 +59,8 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference 'page.revisions.count' do
       page.update_attributes!(
         :blocks_attributes => [
-          { :label    => 'default_page_text',
-            :content  => 'new content' }
+          { :identifier => 'default_page_text',
+            :content    => 'new content' }
         ]
       )
       page.reload
@@ -68,10 +68,10 @@ class RevisionsTest < ActiveSupport::TestCase
       revision = page.revisions.first
       assert_equal ({
         'blocks_attributes' => [
-          { :label    => 'default_field_text',
-            :content  => 'default_field_text_content' },
-          { :label    => 'default_page_text',
-            :content  => "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }]
+          { :identifier => 'default_field_text',
+            :content    => 'default_field_text_content' },
+          { :identifier => 'default_page_text',
+            :content    => "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }]
       }), revision.data
     end
   end
@@ -137,8 +137,8 @@ class RevisionsTest < ActiveSupport::TestCase
       page.restore_from_revision(revision)
       page.reload
       assert_equal [
-        { :label => 'default_field_text', :content => 'revision field content'  },
-        { :label => 'default_page_text',  :content => 'revision page content'   }
+        { :identifier => 'default_field_text', :content => 'revision field content'  },
+        { :identifier => 'default_page_text',  :content => 'revision page content'   }
       ], page.blocks_attributes
     end
   end

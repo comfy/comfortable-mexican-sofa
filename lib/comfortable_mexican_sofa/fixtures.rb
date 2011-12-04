@@ -107,10 +107,10 @@ module ComfortableMexicanSofa::Fixtures
       blocks_attributes = [ ]
       Dir.glob("#{path}/*.html").each do |file_path|
         if page.new_record? || File.mtime(file_path) > page.updated_at
-          label = file_path.split('/').last.split('.').first
+          identifier = file_path.split('/').last.split('.').first
           blocks_attributes << {
-            :label    => label,
-            :content  => File.open(file_path, 'rb').read
+            :identifier => identifier,
+            :content    => File.open(file_path, 'rb').read
           }
         end
       end
@@ -229,7 +229,7 @@ module ComfortableMexicanSofa::Fixtures
         }.to_yaml)
       end
       page.blocks_attributes.each do |block|
-        open(File.join(page_path, "#{block[:label]}.html"), 'w') do |f|
+        open(File.join(page_path, "#{block[:identifier]}.html"), 'w') do |f|
           f.write(block[:content])
         end
       end

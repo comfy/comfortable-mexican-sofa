@@ -70,22 +70,24 @@ class Cms::Page < ActiveRecord::Base
   def blocks_attributes(was = false)
     self.blocks.collect do |block|
       block_attr = {}
-      block_attr[:label]    = block.label
-      block_attr[:content]  = was ? block.content_was : block.content
+      block_attr[:identifier] = block.identifier
+      block_attr[:content]    = was ? block.content_was : block.content
       block_attr
     end
   end
   
   # Array of block hashes in the following format:
   #   [
-  #     { :label => 'block_1', :content => 'block content' },
-  #     { :label => 'block_2', :content => 'block content' }
+  #     { :identifier => 'block_1', :content => 'block content' },
+  #     { :identifier => 'block_2', :content => 'block content' }
   #   ]
   def blocks_attributes=(block_hashes = [])
     block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
     block_hashes.each do |block_hash|
       block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-      block = self.blocks.detect{|b| b.label == block_hash[:label]} || self.blocks.build(:label => block_hash[:label])
+      block = 
+        self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
+        self.blocks.build(:identifier => block_hash[:identifier])
       block.content = block_hash[:content]
       self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
     end

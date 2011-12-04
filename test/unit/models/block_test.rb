@@ -24,14 +24,14 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
           {
-            :label    => 'default_page_text',
-            :content  => 'test_content'
+            :identifier => 'default_page_text',
+            :content    => 'test_content'
           }
         ]
       )
       assert_equal 1, page.blocks.count
       block = page.blocks.first
-      assert_equal 'default_page_text', block.label
+      assert_equal 'default_page_text', block.identifier
       assert_equal 'test_content', block.content
     end
   end
@@ -46,14 +46,14 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => {
           '0' => {
-            :label    => 'default_page_text',
-            :content  => 'test_content'
+            :identifier => 'default_page_text',
+            :content    => 'test_content'
           }
         }
       )
       assert_equal 1, page.blocks.count
       block = page.blocks.first
-      assert_equal 'default_page_text', block.label
+      assert_equal 'default_page_text', block.identifier
       assert_equal 'test_content', block.content
     end
   end
@@ -68,18 +68,18 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => {
           '0' => {
-            :label    => 'default_page_text',
-            :content  => 'test_content'
+            :identifier => 'default_page_text',
+            :content    => 'test_content'
           },
           '1' => {
-            :label    => 'default_page_text',
-            :content  => 'test_content'
+            :identifier => 'default_page_text',
+            :content    => 'test_content'
           }
         }
       )
       assert_equal 1, page.blocks.count
       block = page.blocks.first
-      assert_equal 'default_page_text', block.label
+      assert_equal 'default_page_text', block.identifier
       assert_equal 'test_content', block.content
     end
   end
@@ -97,13 +97,13 @@ class CmsBlockTest < ActiveSupport::TestCase
         :slug       => 'test_page',
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
-          { :label    => 'file',
-            :content  => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/document.pdf')] }
+          { :identifier => 'file',
+            :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/document.pdf')] }
         ]
       )
       assert_equal 1, page.blocks.count
       block = page.blocks.first
-      assert_equal 'file', block.label
+      assert_equal 'file', block.identifier
       assert_equal nil, block.content
       assert_equal 1, block.files.count
       assert_equal 'image.jpg', block.files.first.file_file_name
@@ -115,8 +115,8 @@ class CmsBlockTest < ActiveSupport::TestCase
     assert_no_difference ['Cms::Block.count', 'Cms::File.count'] do
       page.update_attributes!(
         :blocks_attributes => [
-          { :label    => 'file',
-            :content  => fixture_file_upload('files/document.pdf') }
+          { :identifier => 'file',
+            :content    => fixture_file_upload('files/document.pdf') }
         ]
       )
       page.reload
@@ -141,13 +141,13 @@ class CmsBlockTest < ActiveSupport::TestCase
           :slug       => 'test_page',
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => [
-            { :label    => 'files',
-              :content  => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
+            { :identifier => 'files',
+              :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
           ]
         )
         assert_equal 1, page.blocks.count
         block = page.blocks.first
-        assert_equal 'files', block.label
+        assert_equal 'files', block.identifier
         assert_equal nil, block.content
         assert_equal 2, block.files.count
         assert_equal ['image.jpg', 'image.gif'], block.files.collect(&:file_file_name)
@@ -158,8 +158,8 @@ class CmsBlockTest < ActiveSupport::TestCase
       assert_difference 'Cms::File.count', 2 do
         page.update_attributes!(
           :blocks_attributes => [
-            { :label    => 'files',
-              :content  => [fixture_file_upload('files/document.pdf'), fixture_file_upload('files/image.gif')] }
+            { :identifier => 'files',
+              :content    => [fixture_file_upload('files/document.pdf'), fixture_file_upload('files/image.gif')] }
           ]
         )
         page.reload
@@ -185,16 +185,16 @@ class CmsBlockTest < ActiveSupport::TestCase
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => {
             '0' => {
-              :label    => 'header',
-              :content  => 'header content'
+              :identifier => 'header',
+              :content    => 'header content'
             },
             '1' => {
-              :label    => 'file',
-              :content  => fixture_file_upload('files/document.pdf')
+              :identifier => 'file',
+              :content    => fixture_file_upload('files/document.pdf')
             },
             '2' => {
-              :label    => 'footer',
-              :content  => 'footer content'
+              :identifier => 'footer',
+              :content    => 'footer content'
             }
           }
         )

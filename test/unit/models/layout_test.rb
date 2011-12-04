@@ -90,10 +90,10 @@ class CmsLayoutTest < ActiveSupport::TestCase
       :layout_id    => layout_1.id,
       :is_published => '1',
       :blocks_attributes => [
-        { :label    => 'header',
-          :content  => 'header_content' },
-        { :label    => 'content',
-          :content  => 'content_content' }
+        { :identifier => 'header',
+          :content    => 'header_content' },
+        { :identifier => 'content',
+          :content    => 'content_content' }
       ]
     )
     page_2 = cms_sites(:default).pages.create!(
@@ -103,12 +103,12 @@ class CmsLayoutTest < ActiveSupport::TestCase
       :layout_id      => layout_2.id,
       :is_published   => '1',
       :blocks_attributes => [
-        { :label    => 'header',
-          :content  => 'header_content' },
-        { :label    => 'left_column',
-          :content  => 'left_column_content' },
-        { :label    => 'right_column',
-          :content  => 'left_column_content' }
+        { :identifier => 'header',
+          :content    => 'header_content' },
+        { :identifier => 'left_column',
+          :content    => 'left_column_content' },
+        { :identifier => 'right_column',
+          :content    => 'left_column_content' }
       ]
     )
     assert_equal "header_content\ncontent_content", page_1.content

@@ -10,7 +10,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     end
     cms_layouts(:default).update_attribute(:content, '{{cms:page:content}}')
     cms_pages(:child).update_attribute(:blocks_attributes, [
-      { :label => 'content', :content => 'TestBlockContent' }
+      { :identifier => 'content', :content => 'TestBlockContent' }
     ])
     super
   end
@@ -29,7 +29,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     page    = site.pages.create!(
       :label  => 'default',
       :layout => layout,
-      :blocks_attributes  => [{ :label => 'content', :content => 'SiteBContent' }])
+      :blocks_attributes  => [{ :identifier => 'content', :content => 'SiteBContent' }])
   end
   
   class ::RenderTestController < ApplicationController

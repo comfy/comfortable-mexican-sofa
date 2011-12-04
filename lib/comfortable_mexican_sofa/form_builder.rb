@@ -81,7 +81,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     else
       content << @template.send(method, "page[blocks_attributes][#{index}][content]", tag.content, :id => nil, :class => input_class)
     end
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][label]", tag.label, :id => nil)
+    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.label, :id => nil)
     
     simple_field(label, content, :class => css_class)
   end
@@ -141,7 +141,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       @template.options_for_select(options, :selected => tag.content),
       :id => nil
     )
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][label]", tag.label, :id => nil)
+    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.label, :id => nil)
     simple_field(tag.label.titleize, content, :class => tag.class.to_s.demodulize.underscore )
   end
   
