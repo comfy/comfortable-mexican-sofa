@@ -6,15 +6,15 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
       cms_pages(:default), '{{ cms:field:content:datetime }}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
       cms_pages(:default), '{{cms:field:content:datetime}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
       cms_pages(:default), '{{cms:field:dash-content:datetime}}'
     )
-    assert_equal 'dash-content', tag.label
+    assert_equal 'dash-content', tag.identifier
   end
   
   def test_initialize_tag_failure

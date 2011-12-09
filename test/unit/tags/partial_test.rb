@@ -6,22 +6,22 @@ class PartialTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
       cms_pages(:default), '{{ cms:partial:partial_name }}'
     )
-    assert_equal 'partial_name', tag.label
+    assert_equal 'partial_name', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
       cms_pages(:default), '{{cms:partial:path/to/partial}}'
     )
-    assert_equal 'path/to/partial', tag.label
+    assert_equal 'path/to/partial', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
       cms_pages(:default), '{{cms:partial:path/to/dashed-partial}}'
     )
-    assert_equal 'path/to/dashed-partial', tag.label
+    assert_equal 'path/to/dashed-partial', tag.identifier
   end
   
   def test_initialize_tag_with_parameters
     assert tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
       cms_pages(:default), '{{cms:partial:path/to/partial:param1:param2}}'
     )
-    assert tag.label = 'path/to/partial'
+    assert tag.identifier = 'path/to/partial'
     assert tag.params = 'param1:param2'
   end
   

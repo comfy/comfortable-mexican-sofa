@@ -1,13 +1,13 @@
 class ComfortableMexicanSofa::Tag::Helper
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:helper:(#{label}):?(.*?)\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:helper:(#{identifier}):?(.*?)\s*\}\}/
   end
   
   def content
-    "<%= #{label}(#{params.collect{|p| "'#{p}'"}.join(', ')}) %>"
+    "<%= #{identifier}(#{params.collect{|p| "'#{p}'"}.join(', ')}) %>"
   end
   
 end

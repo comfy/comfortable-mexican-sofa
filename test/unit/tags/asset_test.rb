@@ -6,7 +6,7 @@ class AssetTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
       cms_pages(:default), '{{ cms:asset:default:css:html_tag }}'
     )
-    assert_equal 'default', tag.label
+    assert_equal 'default', tag.identifier
     assert_equal ['css', 'html_tag'], tag.params
   end
   

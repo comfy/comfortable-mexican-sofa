@@ -11,7 +11,7 @@ module ComfortableMexicanSofa::Tag
   TOKENIZER_REGEX = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
   
   attr_accessor :page,
-                :label,
+                :identifier,
                 :params,
                 :parent
   
@@ -20,19 +20,19 @@ module ComfortableMexicanSofa::Tag
     # Example:
     #   /\{\{\s*?cms:page:(\w+)\}\}/
     # will match tags like these:
-    #   {{cms:page:my_label}}
-    def regex_tag_signature(label = nil)
+    #   {{cms:page:my_identifier}}
+    def regex_tag_signature(identifier = nil)
       nil
     end
     
     # Initializing tag object for a particular Tag type
-    # First capture group in the regex is the tag label
+    # First capture group in the regex is the tag identifier
     def initialize_tag(page, tag_signature)
       if match = tag_signature.match(regex_tag_signature)
         tag = self.new
-        tag.page    = page
-        tag.label   = match[1]
-        tag.params  = match[2].to_s.split(':')
+        tag.page        = page
+        tag.identifier  = match[1]
+        tag.params      = match[2].to_s.split(':')
         tag
       end
     end
@@ -42,7 +42,7 @@ module ComfortableMexicanSofa::Tag
     
     # String indentifier of the tag
     def id
-      "#{self.class.to_s.demodulize.underscore}_#{self.label}"
+      "#{self.class.to_s.demodulize.underscore}_#{self.identifier}"
     end
     
     # Ancestors of this tag constructed during rendering process.
@@ -54,9 +54,9 @@ module ComfortableMexicanSofa::Tag
     
     # Regex that is used to identify instance of the tag
     # Example:
-    #   /<\{\s*?cms:page:tag_label\}/
+    #   /<\{\s*?cms:page:tag_identifier\}/
     def regex_tag_signature
-      self.class.regex_tag_signature(label)
+      self.class.regex_tag_signature(identifier)
     end
     
     # Content that is accociated with Tag instance.
@@ -73,8 +73,8 @@ module ComfortableMexicanSofa::Tag
     
     # Find or initialize Cms::Block object
     def block
-      page.blocks.detect{|b| b.identifier == self.label.to_s} || 
-      page.blocks.build(:identifier => self.label.to_s)
+      page.blocks.detect{|b| b.identifier == self.identifier.to_s} || 
+      page.blocks.build(:identifier => self.identifier.to_s)
     end
     
     # Checks if this tag is using Cms::Block

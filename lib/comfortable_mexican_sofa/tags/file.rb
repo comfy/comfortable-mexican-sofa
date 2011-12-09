@@ -1,21 +1,21 @@
 class ComfortableMexicanSofa::Tag::File
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-\.]+/
-    /\{\{\s*cms:file:(#{label}):?(.*?)\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-\.]+/
+    /\{\{\s*cms:file:(#{identifier}):?(.*?)\s*\}\}/
   end
   
   # Initializing Cms::File object
   def file
-    page.site.files.detect{|f| f.file_file_name == self.label.to_s}
+    page.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
   end
   
   def content
     return unless file
     
     format  = params[0]
-    text    = params[1] || label
+    text    = params[1] || identifier
     
     case format
     when 'link'

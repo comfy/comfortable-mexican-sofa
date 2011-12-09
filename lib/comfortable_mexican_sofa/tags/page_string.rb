@@ -1,9 +1,9 @@
 class ComfortableMexicanSofa::Tag::PageString
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:page:(#{label}):string\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:page:(#{identifier}):string\s*\}\}/
   end
   
   def content

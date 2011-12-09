@@ -120,16 +120,13 @@ class TagTest < ActiveSupport::TestCase
     assert page.blocks.blank?
     assert page.tags.blank?
     page.blocks_attributes = [
-      {
-        :identifier => 'default_field_text',
+      { :identifier => 'default_field_text',
         :content    => 'new_default_field_content'
       },
-      {
-        :identifier => 'default_page_text',
+      { :identifier => 'default_page_text',
         :content    => "new_default_page_text_content\n{{cms:snippet:default}}"
       },
-      {
-        :identifier => 'bogus_field_that_never_will_get_rendered',
+      { :identifier => 'bogus_field_that_never_will_get_rendered',
         :content    => 'some_content_that_doesnot_matter'
       }
     ]

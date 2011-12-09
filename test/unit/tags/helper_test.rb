@@ -6,18 +6,18 @@ class HelperTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{ cms:helper:method_name }}'
     )
-    assert_equal 'method_name', tag.label
+    assert_equal 'method_name', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{ cms:helper:method-name }}'
     )
-    assert_equal 'method-name', tag.label
+    assert_equal 'method-name', tag.identifier
   end
   
   def test_initialize_tag_with_parameters
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{ cms:helper:method_name:param1:param2 }}'
     )
-    assert_equal 'method_name', tag.label
+    assert_equal 'method_name', tag.identifier
     assert_equal ['param1', 'param2'], tag.params
   end
   

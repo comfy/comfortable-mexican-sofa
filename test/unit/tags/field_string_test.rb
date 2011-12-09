@@ -6,19 +6,19 @@ class FieldStringTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::FieldString.initialize_tag(
       cms_pages(:default), '{{ cms:field:content:string }}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldString.initialize_tag(
       cms_pages(:default), '{{cms:field:content:string}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldString.initialize_tag(
       cms_pages(:default), '{{cms:field:content}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldString.initialize_tag(
       cms_pages(:default), '{{cms:field:dash-content}}'
     )
-    assert_equal 'dash-content', tag.label
+    assert_equal 'dash-content', tag.identifier
   end
   
   def test_initialize_tag_failure

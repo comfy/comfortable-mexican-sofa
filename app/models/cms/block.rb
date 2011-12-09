@@ -21,7 +21,7 @@ class Cms::Block < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   # Tag object that is using this block
   def tag
-    @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.label == identifier}
+    @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
     
 protected

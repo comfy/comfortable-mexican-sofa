@@ -1,9 +1,9 @@
 class ComfortableMexicanSofa::Tag::FieldInteger
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:field:(#{label}):integer\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:field:(#{identifier}):integer\s*\}\}/
   end
   
   def content

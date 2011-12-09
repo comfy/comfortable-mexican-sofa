@@ -6,15 +6,15 @@ class PageIntegerTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::PageInteger.initialize_tag(
       cms_pages(:default), '{{ cms:page:content:integer }}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageInteger.initialize_tag(
       cms_pages(:default), '{{cms:page:content:integer}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageInteger.initialize_tag(
       cms_pages(:default), '{{cms:page:dash-content:integer}}'
     )
-    assert_equal 'dash-content', tag.label
+    assert_equal 'dash-content', tag.identifier
   end
   
   def test_initialize_tag_failure

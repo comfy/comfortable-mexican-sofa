@@ -7,9 +7,9 @@ class ComfortableMexicanSofa::Tag::Collection
   #   {{ cms:collection:album:foo/my_album }}
   # A more complete example of the above:
   #   {{ cms:collection:album:foo/my_album:albums/show:title:slug:param_a:param_b }}
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\/\-]+/
-    /\{\{\s*cms:collection:(#{label}):(.*?)\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\/\-]+/
+    /\{\{\s*cms:collection:(#{identifier}):(.*?)\s*\}\}/
   end
   
   # Class definitition. It's basically `Herp::DerpityDerp.undescore` so an example

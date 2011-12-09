@@ -1,9 +1,9 @@
 class ComfortableMexicanSofa::Tag::FieldDateTime
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:field:(#{label}):datetime\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:field:(#{identifier}):datetime\s*\}\}/
   end
   
   def content

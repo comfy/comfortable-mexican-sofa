@@ -5,9 +5,9 @@ class ComfortableMexicanSofa::Tag::PageFile
   #   {{ cms:page_file:some_label:type:params }}
   # Simple tag can be:
   #   {{ cms:page_file:some_label }}
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:page_file:(#{label}):?(.*?)\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:page_file:(#{identifier}):?(.*?)\s*\}\}/
   end
   
   # Type of the tag controls how file is rendered
@@ -32,11 +32,11 @@ class ComfortableMexicanSofa::Tag::PageFile
       file.file.url
     when 'link'
       return '' unless file
-      text = params[1] || label
+      text = params[1] || identifier
       "<a href='#{file.file.url}' target='_blank'>#{text}</a>"
     when 'image'
       return '' unless file
-      text = params[1] || label
+      text = params[1] || identifier
       "<img src='#{file.file.url}' alt='#{text}' />"
     when 'partial'
       path = params[1] || 'partials/page_file'

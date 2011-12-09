@@ -7,7 +7,7 @@ class FileTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:file:sample.jpg:image:alt text }}'
     )
     assert_equal cms_files(:default), tag.file
-    assert_equal 'sample.jpg', tag.label
+    assert_equal 'sample.jpg', tag.identifier
     assert_equal ['image', 'alt text'], tag.params
   end
   

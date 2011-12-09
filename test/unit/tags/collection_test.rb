@@ -13,7 +13,7 @@ class CollectionTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
-    assert_equal 'snippet',               tag.label
+    assert_equal 'snippet',               tag.identifier
     assert_equal 'Cms::Snippet',          tag.collection_class
     assert_equal 'partials/cms/snippets', tag.collection_partial
     assert_equal 'label',                 tag.collection_title
@@ -26,7 +26,7 @@ class CollectionTagTest < ActiveSupport::TestCase
       cms_pages(:default),
       '{{ cms:collection:snippet:cms/snippet:path/to/partial:title:identifier:param_a:param_b }}'
     )
-    assert_equal 'snippet',         tag.label
+    assert_equal 'snippet',         tag.identifier
     assert_equal 'Cms::Snippet',    tag.collection_class
     assert_equal 'path/to/partial', tag.collection_partial
     assert_equal 'title',           tag.collection_title

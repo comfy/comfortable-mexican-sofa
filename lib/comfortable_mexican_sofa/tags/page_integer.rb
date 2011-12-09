@@ -1,9 +1,9 @@
 class ComfortableMexicanSofa::Tag::PageInteger
   include ComfortableMexicanSofa::Tag
   
-  def self.regex_tag_signature(label = nil)
-    label ||= /[\w\-]+/
-    /\{\{\s*cms:page:(#{label}):integer\s*\}\}/
+  def self.regex_tag_signature(identifier = nil)
+    identifier ||= /[\w\-]+/
+    /\{\{\s*cms:page:(#{identifier}):integer\s*\}\}/
   end
   
   def content

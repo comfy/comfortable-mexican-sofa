@@ -6,19 +6,19 @@ class PageTextTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
       cms_pages(:default), '{{ cms:page:content:text }}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
       cms_pages(:default), '{{cms:page:content}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
       cms_pages(:default), '{{cms:page:content:text}}'
     )
-    assert_equal 'content', tag.label
+    assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
       cms_pages(:default), '{{cms:page:dash-content}}'
     )
-    assert_equal 'dash-content', tag.label
+    assert_equal 'dash-content', tag.identifier
   end
   
   def test_initialize_tag_failure

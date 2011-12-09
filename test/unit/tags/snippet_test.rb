@@ -6,15 +6,15 @@ class SnippetTagTest < ActiveSupport::TestCase
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
       cms_pages(:default), '{{ cms:snippet:label }}'
     )
-    assert_equal 'label', tag.label
+    assert_equal 'label', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
       cms_pages(:default), '{{cms:snippet:label}}'
     )
-    assert_equal 'label', tag.label
+    assert_equal 'label', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
       cms_pages(:default), '{{cms:snippet:dash-label}}'
     )
-    assert_equal 'dash-label', tag.label
+    assert_equal 'dash-label', tag.identifier
   end
   
   def test_initialize_tag_failure
