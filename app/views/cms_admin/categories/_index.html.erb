@@ -11,13 +11,13 @@
     <div class='category all <%= (params[:category].blank?? 'active' : nil ) %>'>
       <%= link_to t('.all'), :category => nil %>
     </div>
-    <% Cms::Category.of_type(type).each do |category| %>
+    <% @site.categories.of_type(type).each do |category| %>
       <%= render :partial => 'cms_admin/categories/show', :object => category, :locals => { :read => true } %>
     <% end %>
   </div>
   
   <div class='categories editable' style='display:none'>
-    <% Cms::Category.of_type(type).each do |category| %>
+    <% @site.categories.of_type(type).each do |category| %>
       <%= render :partial => 'cms_admin/categories/show', :object => category %>
     <% end %>
     <div class='category new'>

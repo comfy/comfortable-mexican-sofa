@@ -5,10 +5,11 @@ class Cms::Site < ActiveRecord::Base
   set_table_name :cms_sites
   
   # -- Relationships --------------------------------------------------------
-  has_many :layouts,  :dependent => :destroy
-  has_many :pages,    :dependent => :destroy
-  has_many :snippets, :dependent => :destroy
-  has_many :files,    :dependent => :destroy
+  has_many :layouts,    :dependent => :destroy
+  has_many :pages,      :dependent => :destroy
+  has_many :snippets,   :dependent => :destroy
+  has_many :files,      :dependent => :destroy
+  has_many :categories, :dependent => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label

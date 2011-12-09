@@ -17,7 +17,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_index_with_category
-    category = Cms::Category.create!(:label => 'Test Category', :categorized_type => 'Cms::Page')
+    category = cms_sites(:default).categories.create!(:label => 'Test Category', :categorized_type => 'Cms::Page')
     category.categorizations.create!(:categorized => cms_pages(:child))
     
     get :index, :site_id => cms_sites(:default), :category => category.label

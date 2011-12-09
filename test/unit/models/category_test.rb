@@ -11,12 +11,12 @@ class CmsCategoryTest < ActiveSupport::TestCase
   def test_validation
     category = Cms::Category.new
     assert category.invalid?
-    assert_has_errors_on category, [:label, :categorized_type]
+    assert_has_errors_on category, [:site_id, :label, :categorized_type]
   end
   
   def test_creation
     assert_difference 'Cms::Category.count' do
-      Cms::Category.create(
+      cms_sites(:default).categories.create(
         :label => 'Test Category',
         :categorized_type => 'Cms::Snippet'
       )

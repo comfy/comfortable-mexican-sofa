@@ -31,13 +31,13 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|
-      t.integer :site_id
+      t.integer :site_id,         :null => false
       t.integer :layout_id
       t.integer :parent_id
       t.integer :target_page_id
       t.string  :label
       t.string  :slug
-      t.string  :full_path
+      t.string  :full_path,       :null => false
       t.text    :content
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
@@ -98,10 +98,11 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Categories ---------------------------------------------------------
     create_table :cms_categories, :force => true do |t|
-      t.string :label
-      t.string :categorized_type
+      t.string :site_id,          :null => false
+      t.string :label,            :null => false
+      t.string :categorized_type, :null => false
     end
-    add_index :cms_categories, [:categorized_type, :label], :unique => true
+    add_index :cms_categories, [:site_id, :categorized_type, :label], :unique => true
     
     create_table :cms_categorizations, :force => true do |t|
       t.integer :category_id

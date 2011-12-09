@@ -7,7 +7,7 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   end
   
   def create
-    @category = Cms::Category.create!(params[:category])
+    @category = @site.categories.create!(params[:category])
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     render :nothing => true
@@ -27,7 +27,7 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
 protected
   
   def load_category
-    @category = Cms::Category.find(params[:id])
+    @category = @site.categories.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true
   end

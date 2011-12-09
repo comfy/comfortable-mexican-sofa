@@ -65,7 +65,9 @@ class CmsSiteTest < ActiveSupport::TestCase
       assert_difference 'Cms::Layout.count', -3 do
         assert_difference 'Cms::Page.count', -2 do
           assert_difference 'Cms::Snippet.count', -1 do
-            cms_sites(:default).destroy
+            assert_difference 'Cms::Category.count', -1 do
+              cms_sites(:default).destroy
+            end
           end
         end
       end

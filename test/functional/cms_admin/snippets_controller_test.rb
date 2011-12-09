@@ -17,7 +17,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
   end
   
   def test_get_index_with_category
-    category = Cms::Category.create!(:label => 'Test Category', :categorized_type => 'Cms::Snippet')
+    category = cms_sites(:default).categories.create!(:label => 'Test Category', :categorized_type => 'Cms::Snippet')
     category.categorizations.create!(:categorized => cms_snippets(:default))
     
     get :index, :site_id => cms_sites(:default), :category => category.label
