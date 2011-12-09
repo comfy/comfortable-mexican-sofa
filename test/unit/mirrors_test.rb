@@ -4,8 +4,8 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def setup
     Cms::Site.delete_all
-    @site_a = Cms::Site.create!(:label => 'Site A', :hostname => 'site-a.host', :is_mirrored => true)
-    @site_b = Cms::Site.create!(:label => 'Site B', :hostname => 'site-b.host', :is_mirrored => true)
+    @site_a = Cms::Site.create!(:identifier => 'site_a', :hostname => 'site-a.host', :is_mirrored => true)
+    @site_b = Cms::Site.create!(:identifier => 'site_b', :hostname => 'site-b.host', :is_mirrored => true)
   end
   
   def test_layout_creation

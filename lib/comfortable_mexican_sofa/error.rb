@@ -4,8 +4,8 @@ module ComfortableMexicanSofa
   end
   
   class MissingSite < ComfortableMexicanSofa::Error
-    def initialize(slug)
-      super "Cannot find CMS Site with slug: #{slug}"
+    def initialize(identifier)
+      super "Cannot find CMS Site with identifier: #{identifier}"
     end
   end
   

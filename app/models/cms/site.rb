@@ -16,6 +16,10 @@ class Cms::Site < ActiveRecord::Base
   before_save :clean_path
   
   # -- Validations ----------------------------------------------------------
+  validates :identifier,
+    :presence   => true,
+    :uniqueness => true,
+    :format     => { :with => /^\w[a-z0-9_-]*$/i }
   validates :label,
     :presence   => true
   validates :hostname,
@@ -45,7 +49,7 @@ class Cms::Site < ActiveRecord::Base
 protected
   
   def assign_label
-    self.label = self.label.blank?? self.hostname : self.label
+    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
   
   def clean_path

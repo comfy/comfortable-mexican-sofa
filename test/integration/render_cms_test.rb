@@ -21,8 +21,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def create_site_b
     site    = Cms::Site.create!(
-      :label    => 'SiteB',
-      :hostname => 'site-b.test')
+      :identifier => 'site-b',
+      :hostname   => 'site-b.test')
     layout  = site.layouts.create!(
       :identifier => 'default',
       :content    => 'site-b {{cms:page:content}}')
@@ -57,7 +57,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       when 'page_explicit_with_status'
         render :cms_page => '/test-page', :status => 404
       when 'page_explicit_with_site'
-        render :cms_page => '/', :cms_site => 'SiteB'
+        render :cms_page => '/', :cms_site => 'site-b'
       else
         raise 'Invalid or no param[:type] provided'
       end
@@ -79,7 +79,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       when 'layout_invalid'
         render :cms_layout => 'invalid'
       when 'layout_defaults_with_site'
-        render :cms_layout => 'default', :cms_site => 'SiteB'
+        render :cms_layout => 'default', :cms_site => 'site-b'
       else
         raise 'Invalid or no param[:type] provided'
       end
@@ -155,7 +155,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-page?type=page_explicit_with_site'
     assert_response :success
     assert assigns(:cms_site)
-    assert_equal 'SiteB', assigns(:cms_site).label
+    assert_equal 'site-b', assigns(:cms_site).identifier
     assert_equal 'site-b SiteBContent', response.body
   end
   
@@ -205,7 +205,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-layout?type=layout_defaults_with_site'
     assert_response :success
     assert assigns(:cms_site)
-    assert_equal 'SiteB', assigns(:cms_site).label
+    assert_equal 'site-b', assigns(:cms_site).identifier
     assert_equal 'site-b TestTemplate TestValue', response.body
   end
   

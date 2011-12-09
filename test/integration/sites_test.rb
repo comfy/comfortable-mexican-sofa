@@ -28,9 +28,9 @@ class SitesTest < ActionDispatch::IntegrationTest
   
   def test_get_public_page_with_sites_with_different_paths
     Cms::Site.delete_all
-    site_a = Cms::Site.create!(:label => 'Site A', :hostname => 'test.host', :path => '')
-    site_b = Cms::Site.create!(:label => 'Site B', :hostname => 'test.host', :path => 'path-b')
-    site_c = Cms::Site.create!(:label => 'Site C', :hostname => 'test.host', :path => 'path-c/child')
+    site_a = Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host', :path => '')
+    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host', :path => 'path-b')
+    site_c = Cms::Site.create!(:identifier => 'site-c', :hostname => 'test.host', :path => 'path-c/child')
     
     %w(/ /path-a /path-a/child /path-c).each do |path|
       get path

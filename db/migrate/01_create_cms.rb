@@ -3,8 +3,9 @@ class CreateCms < ActiveRecord::Migration
   def self.up
     # -- Sites --------------------------------------------------------------
     create_table :cms_sites do |t|
-      t.string :label
-      t.string :hostname
+      t.string :label,        :null => false
+      t.string :identifier,   :null => false
+      t.string :hostname,     :null => false
       t.string :path
       t.string :locale,       :null => false, :default => 'en'
       t.boolean :is_mirrored, :null => false, :default => false
@@ -35,7 +36,7 @@ class CreateCms < ActiveRecord::Migration
       t.integer :layout_id
       t.integer :parent_id
       t.integer :target_page_id
-      t.string  :label
+      t.string  :label,           :null => false
       t.string  :slug
       t.string  :full_path,       :null => false
       t.text    :content
@@ -72,14 +73,14 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Files --------------------------------------------------------------
     create_table :cms_files do |t|
-      t.integer :site_id
+      t.integer :site_id,           :null => false
       t.integer :block_id
-      t.string  :label
-      t.string  :file_file_name
-      t.string  :file_content_type
-      t.integer :file_file_size
-      t.string  :description, :limit => 2048
-      t.integer :position,    :null => false, :default => 0
+      t.string  :label,             :null => false
+      t.string  :file_file_name,    :null => false
+      t.string  :file_content_type, :null => false
+      t.integer :file_file_size,    :null => false
+      t.string  :description,       :limit => 2048
+      t.integer :position,          :null => false, :default => 0
       t.timestamps
     end
     add_index :cms_files, [:site_id, :label]
@@ -89,8 +90,8 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Revisions -----------------------------------------------------------
     create_table :cms_revisions, :force => true do |t|
-      t.string    :record_type
-      t.integer   :record_id
+      t.string    :record_type, :null => false
+      t.integer   :record_id,   :null => false
       t.text      :data
       t.datetime  :created_at
     end
@@ -105,9 +106,9 @@ class CreateCms < ActiveRecord::Migration
     add_index :cms_categories, [:site_id, :categorized_type, :label], :unique => true
     
     create_table :cms_categorizations, :force => true do |t|
-      t.integer :category_id
-      t.string  :categorized_type
-      t.integer :categorized_id
+      t.integer :category_id,       :null => false
+      t.string  :categorized_type,  :null => false
+      t.integer :categorized_id,    :null => false
     end
     add_index :cms_categorizations, [:category_id, :categorized_type, :categorized_id], :unique => true,
       :name => 'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'

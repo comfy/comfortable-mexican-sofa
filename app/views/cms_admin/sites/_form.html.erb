@@ -1,4 +1,5 @@
-<%= form.text_field :label %>
+<%= form.text_field :label, :id => (@site.new_record?? 'slugify' : nil) %>
+<%= form.text_field :identifier, :id => 'slug' %>
 <%= form.text_field :hostname %>
 <%= form.text_field :path %>
 <%= form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| [l[1], l[0]]} %>

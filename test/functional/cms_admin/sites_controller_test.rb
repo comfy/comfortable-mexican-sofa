@@ -44,8 +44,9 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
   def test_create
     assert_difference 'Cms::Site.count' do
       post :create, :site => {
-        :label    => 'Test Site',
-        :hostname => 'test.site.local'
+        :label      => 'Test Site',
+        :identifier => 'test-site',
+        :hostname   => 'test.site.local'
       }
       assert_response :redirect
       site = Cms::Site.last

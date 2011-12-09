@@ -11,51 +11,58 @@ class CmsSiteTest < ActiveSupport::TestCase
   def test_validation
     site = Cms::Site.new
     assert site.invalid?
-    assert_has_errors_on site, [:label, :hostname]
+    assert_has_errors_on site, [:identifier, :label, :hostname]
     
-    site = Cms::Site.new(:label => 'My Site', :hostname => 'http://my-site.host')
+    site = Cms::Site.new(:identifier => 'test', :hostname => 'http://site.host')
     assert site.invalid?
     assert_has_errors_on site, :hostname
     
-    site = Cms::Site.new(:label => 'My Site', :hostname => 'my-site.host')
-    assert site.valid?
+    site = Cms::Site.new(:identifier => cms_sites(:default).identifier, :hostname => 'site.host')
+    assert site.invalid?
+    assert_has_errors_on site, :identifier
+    
+    site = Cms::Site.new(:identifier => 'test', :hostname => 'site.host')
+    assert site.valid?, site.errors.to_yaml
   end
   
   def test_validation_path_uniqueness
     s1 = cms_sites(:default)
     s2 = Cms::Site.new(
-      :hostname => s1.hostname,
-      :path     => s1.path
+      :identifier => 'test',
+      :hostname   => s1.hostname,
+      :path       => s1.path
     )
     assert s2.invalid?
     assert_has_errors_on s2, :hostname
     
     s2 = Cms::Site.new(
-      :hostname => s1.hostname,
-      :path     => '/en'
+      :identifier => 'test',
+      :hostname   => s1.hostname,
+      :path       => '/en'
     )
     assert s2.valid?
   end
   
   def test_label_assignment
-    site = Cms::Site.new(:hostname => 'my-site.host')
+    site = Cms::Site.new(:identifier => 'test', :hostname => 'my-site.host')
     assert site.valid?
-    assert_equal 'my-site.host', site.label
+    assert_equal 'Test', site.label
   end
   
   def test_clean_path
-    site = Cms::Site.create!(:hostname => 'test.host', :path => '/en///test//')
+    site = Cms::Site.create!(:identifier => 'test_a', :hostname => 'test.host', :path => '/en///test//')
     assert_equal '/en/test', site.path
     
-    site = Cms::Site.create!(:hostname => 'my-site.host', :path => '/')
+    site = Cms::Site.create!(:identifier => 'test_b', :hostname => 'my-site.host', :path => '/')
     assert_equal '', site.path
   end
   
   def test_creation
     assert_difference 'Cms::Site.count' do
       Cms::Site.create!(
-        :label    => 'Test Site',
-        :hostname => 'test.test'
+        :identifier => 'test',
+        :label      => 'Test Site',
+        :hostname   => 'test.test'
       )
     end
   end
@@ -91,8 +98,8 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal site_a, Cms::Site.find_site('test.host', '/some/path')
     assert_equal site_a, Cms::Site.find_site('test99.host', '/some/path')
     
-    site_b = Cms::Site.create!(:hostname => 'test2.host', :path => 'en')
-    site_c = Cms::Site.create!(:hostname => 'test2.host', :path => 'fr')
+    site_b = Cms::Site.create!(:identifier => 'test_a', :hostname => 'test2.host', :path => 'en')
+    site_c = Cms::Site.create!(:identifier => 'test_b', :hostname => 'test2.host', :path => 'fr')
     
     assert_equal site_a,  Cms::Site.find_site('test.host')
     assert_equal site_a,  Cms::Site.find_site('test.host', '/some/path')
