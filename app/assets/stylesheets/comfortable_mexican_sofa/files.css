@@ -4,7 +4,8 @@
 #cms_body .file_uploads form {
   position: relative;
   height: 21px;
-  overflow: hidden
+  overflow: hidden;
+  margin-bottom: 5px;
 }
 #cms_body .file_uploads form input {
   position: absolute;
@@ -14,48 +15,69 @@
   font-size: 220px;
   opacity: 0;
 }
+#cms_body .file_uploads .file a.delete {
+  float: right;
+  height: 11px;
+  width: 11px;
+  background: url(/assets/comfortable_mexican_sofa/x.png);
+}
+#cms_body .file_uploads .file a.delete:hover {
+  background-position: 0px 11px;
+}
+#cms_body .file_uploads .file a.delete span {
+ display: none;
+}
+#cms_body .file_uploads .file .thumb img {
+  display: block;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  background-color: #fff;
+  height: 100px;
+  width: 133px;
+  margin-bottom: 2px;
+}
+#cms_body .file_uploads .file .thumb input {
+  width: 133px;
+  border: 1px solid #bbb;
+  font-size: 10px;
+  color: #252525;
+  opacity: 0.2;
+}
+#cms_body .file_uploads .file .thumb:hover input {
+ opacity: 1; 
+}
+#cms_body .uploaded_files {
+  max-height: 500px;
+  overflow: auto;
+}
 /* -- Right Column Widget ------------------------------------------------ */
-#cms_body .right_column_content .file_uploads .file {
+#cms_body .right_column_content .file_uploads {
   position: relative;
+}
+#cms_body .right_column_content .file_uploads .file {
   background-color: #252525;
-  font: 12px/12px Arial, sans-serif;
+  font: 11px/11px Arial, sans-serif;
   height: 11px;
   margin-top: 1px;
   padding: 3px 5px;
   border-radius: 2px;
 }
-#cms_body .right_column_content .file_uploads .file a {
-  color: #f1f1f1;
-}
 #cms_body .right_column_content .file_uploads .file a.filename {
+  color: #f1f1f1;
   float: left;
-  width: 190px;
+  width: 180px;
   overflow: hidden;
-}
-#cms_body .right_column_content .file_uploads .file a.delete {
-  float: right;
-  font: 9px/7px Arial, sans-serif;
-  padding: 2px 3px;
-  border-radius: 5px;
-  color: #000;
-  background-color: #b7b7b7;
 }
 #cms_body .right_column_content .file_uploads .file .thumb {
   display: none;
   position: absolute;
-  top: -35px;
-  left: -118px;
+  left: -140px;
   padding: 5px;
+  margin-top: -50px;
   z-index: 99;
   background-color: #e6e6e6;
   border: 1px solid #bbb;
   border-radius: 3px;
-}
-#cms_body .right_column_content .file_uploads .file .thumb img {
-  display: block;
-  border: 1px dotted #bbb;
-  height: 75px;
-  width: 100px;
 }
 #cms_body .right_column_content .file_uploads .file:hover {
   background-color: #000;
@@ -64,3 +86,31 @@
   display: block;
 }
 /* -- Dialog Widget ------------------------------------------------------ */
+#cms_body #cms_dialog .uploaded_files .file {
+  padding: 5px;
+  float: left;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0px 5px 5px 0px;
+}
+#cms_body #cms_dialog .uploaded_files .file a.filename {
+  float: left;
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#cms_body #cms_dialog .uploaded_files .file .thumb {
+  clear: both;
+  margin: 2px 0px;
+}
+#cms_body #cms_dialog .uploaded_files .file .thumb img:hover {
+  cursor: pointer;
+  border-color: #252525;
+}
+#cms_body .file_uploads .file a.delete {
+  background-position: 0px 11px;
+}
+#cms_body .file_uploads .file a.delete:hover {
+  background-position: 0px 0px;
+}

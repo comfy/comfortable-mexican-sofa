@@ -15,7 +15,7 @@ class Cms::File < ActiveRecord::Base
     # dimensions accessor needs to be set before file assignment for this to work
     :styles => lambda { |f|
       (f.instance.dimensions.blank?? { } : { :original => f.instance.dimensions }).merge(
-        :cms_thumb => '100x75#'
+        :cms_thumb => '133x100#'
       )
     }
   )

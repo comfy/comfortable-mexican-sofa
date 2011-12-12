@@ -1,9 +1,10 @@
 <div class='file <%= dom_id(file) %> <%= file.is_image?? 'image' : nil %>'>
+  <%= link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename' %>
+  <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
   <% if file.is_image? %>
     <div class='thumb'>
       <%= image_tag file.file.url(:cms_thumb) %>
+      <input type='text' value='http://<%= @site.hostname %><%= file.file.url %>'/>
     </div>
   <% end %>
-  <%= link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename' %>
-  <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
 </div>
