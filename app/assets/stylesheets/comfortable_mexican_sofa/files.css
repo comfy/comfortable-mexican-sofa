@@ -58,8 +58,8 @@
   background-color: #252525;
   font: 11px/11px Arial, sans-serif;
   height: 11px;
-  margin-top: 1px;
   padding: 3px 5px;
+  border-bottom: 1px solid #484848;
   border-radius: 2px;
 }
 #cms_body .right_column_content .file_uploads .file a.filename {
@@ -68,13 +68,16 @@
   width: 180px;
   overflow: hidden;
 }
-#cms_body .right_column_content .file_uploads .file .thumb {
+#cms_body .right_column_content .file_uploads .file .thumb_container {
   display: none;
   position: absolute;
-  left: -140px;
+  top: 30px;
+  left: -142px;
+  z-index: 9999;
+  height: 500px;
+}
+#cms_body .right_column_content .file_uploads .file .thumb {
   padding: 5px;
-  margin-top: -50px;
-  z-index: 99;
   background-color: #e6e6e6;
   border: 1px solid #bbb;
   border-radius: 3px;
@@ -82,7 +85,7 @@
 #cms_body .right_column_content .file_uploads .file:hover {
   background-color: #000;
 }
-#cms_body .right_column_content .file_uploads .file:hover .thumb {
+#cms_body .right_column_content .file_uploads .file:hover .thumb_container {
   display: block;
 }
 /* -- Dialog Widget ------------------------------------------------------ */
