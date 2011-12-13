@@ -3,16 +3,29 @@
   elRTE.prototype.ui.prototype.buttons.sofa_image = function(rte, name) {
     this.constructor.prototype.constructor.call(this, rte, name);
     
-    var self    = this;
-    self.rte    = rte;
-    self.img    = null;
-    self.dialog = null;
+    var self      = this;
+    self.rte      = rte;
+    self.img_src  = null;
+    self.dialog   = null;
+    
+    // attaching event handler to the image insertion form
+    $(document).on('submit', '#cms_dialog form.image_url', function(){
+      self.img_src = $(this).find('input[name=image_url]').val();
+      self.set();
+      return false;
+    });
+    
+    // attaching event handlers to images
+    $(document).on('click', '#cms_dialog .uploaded_files img', function(){
+      self.img_src = $(this).data('url');
+      self.set();
+      return false;
+    });
     
     this.set = function(){
-      var src = self.img.data('url');
       self.rte.history.add();
       var img = $(self.rte.doc.createElement('img'));
-      img.attr('src', src);
+      img.attr('src', self.img_src);
       self.rte.selection.insertNode(img[0]);
       self.rte.ui.update();
       self.dialog.dialog('close');
@@ -35,11 +48,6 @@
           self.dialog.html(data);
           self.dialog.dialog('open');
           $.CMS.enable_uploader();
-          
-          $('#cms_dialog .uploaded_files img').click(function(){
-            self.img = $(this);
-            self.set(this);
-          });
         }
       })
     }
