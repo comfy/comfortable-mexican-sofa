@@ -21,6 +21,19 @@
           cms_dialog.html(data);
           cms_dialog.dialog('open');
           $.CMS.enable_uploader();
+          var opts = {
+            rte   : rte,
+            dialog: cms_dialog
+          }
+          $('#cms_dialog .uploaded_files img').click(opts, function(){
+            var src = $(this).attr('src');
+            opts.rte.history.add();
+            var img = $(opts.rte.doc.createElement('img'));
+            img.attr('src', src);
+            opts.rte.selection.insertNode(img[0]);
+            opts.rte.ui.update();
+            opts.dialog.dialog('close');
+          });
         }
       })
     }
