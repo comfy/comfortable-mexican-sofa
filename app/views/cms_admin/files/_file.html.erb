@@ -4,8 +4,8 @@
   <% if file.is_image? %>
     <div class='thumb_container'>
       <div class='thumb'>
-        <%= image_tag file.file.url(:cms_thumb) %>
-        <input type='text' value='http://<%= @site.hostname %><%= file.file.url %>'/>
+        <%= image_tag file.file.url(:cms_thumb), :data => {:url => file.file.url} %>
+        <input type='text' value='<%= file.file.url %>'/>
       </div>
     </div>
   <% end %>

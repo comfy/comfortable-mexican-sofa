@@ -3,10 +3,24 @@
   elRTE.prototype.ui.prototype.buttons.sofa_image = function(rte, name) {
     this.constructor.prototype.constructor.call(this, rte, name);
     
+    var self    = this;
+    self.rte    = rte;
+    self.img    = null;
+    self.dialog = null;
+    
+    this.set = function(){
+      var src = self.img.data('url');
+      self.rte.history.add();
+      var img = $(self.rte.doc.createElement('img'));
+      img.attr('src', src);
+      self.rte.selection.insertNode(img[0]);
+      self.rte.ui.update();
+      self.dialog.dialog('close');
+    }
+    
     this.command = function(){
-      
-      var cms_dialog = jQuery(jQuery('#cms_dialog').get(0) || jQuery('<div id="cms_dialog"></div>'));
-      cms_dialog.dialog({
+      self.dialog = jQuery(jQuery('#cms_dialog').get(0) || jQuery('<div id="cms_dialog"></div>'));
+      self.dialog.dialog({
         title         : rte.i18n('Image'),
         modal         : true,
         resizable     : false,
@@ -18,21 +32,13 @@
       jQuery.ajax({
         url: '/' + $('meta[name="cms-admin-path"]').attr('content') + '/sites/' + $('meta[name="cms-site-id"]').attr('content') + '/dialog/image',
         success: function(data){
-          cms_dialog.html(data);
-          cms_dialog.dialog('open');
+          self.dialog.html(data);
+          self.dialog.dialog('open');
           $.CMS.enable_uploader();
-          var opts = {
-            rte   : rte,
-            dialog: cms_dialog
-          }
-          $('#cms_dialog .uploaded_files img').click(opts, function(){
-            var src = $(this).attr('src');
-            opts.rte.history.add();
-            var img = $(opts.rte.doc.createElement('img'));
-            img.attr('src', src);
-            opts.rte.selection.insertNode(img[0]);
-            opts.rte.ui.update();
-            opts.dialog.dialog('close');
+          
+          $('#cms_dialog .uploaded_files img').click(function(){
+            self.img = $(this);
+            self.set(this);
           });
         }
       })
