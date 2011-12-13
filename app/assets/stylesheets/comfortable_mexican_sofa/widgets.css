@@ -7,3 +7,8 @@
 .ui-timepicker-div dl dt{ height: 25px; }
 .ui-timepicker-div dl dd{ margin: -25px 10px 10px 65px; }
 .ui-timepicker-div td { font-size: 90%; }
+
+/* -- elrte -------------------------------------------------------------- */
+.el-rte .toolbar ul li.sofa_image {
+  background-position: -384px -2px
+}

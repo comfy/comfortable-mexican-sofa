@@ -1,8 +1,7 @@
 <form class='image_url'>
-  <label> URL:
-    <input type='text' name='image_url'/>
-  </label>
-  <input type='submit' value='Insert Image'/>
+  <label for='image_url'> URL </label>
+  <input type='text' name='image_url' id='image_url'/>
+  <input type='submit' value='<%= t('.insert') %>'/>
 </form>
 
 <%= render :partial => 'cms_admin/files/index' %>

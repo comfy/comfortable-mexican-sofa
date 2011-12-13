@@ -32,7 +32,10 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
         redirect_to :action => :edit, :id => @file
       end
       format.js do
-        io = request.env['rack.input'].clone
+        # FIX: No idea why this cannot be simulated in the test
+        io = Rails.env.test??
+          request.env['RAW_POST_DATA'].clone :
+          request.env['rack.input'].clone
         io.class.class_eval { attr_accessor :original_filename, :content_type }
         io.original_filename  = request.env['HTTP_X_FILE_NAME']
         io.content_type       = request.env['CONTENT_TYPE']

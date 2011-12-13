@@ -111,9 +111,21 @@
   cursor: pointer;
   border-color: #252525;
 }
-#cms_body .file_uploads .file a.delete {
+#cms_body #cms_dialog .uploaded_files .file a.delete {
   background-position: 0px 11px;
 }
-#cms_body .file_uploads .file a.delete:hover {
+#cms_body #cms_dialog .uploaded_files .file a.delete:hover {
   background-position: 0px 0px;
+}
+#cms_body #cms_dialog form.image_url {
+  position: absolute;
+  z-index: 9999;
+  width: 650px;
+}
+#cms_body #cms_dialog form.image_url label {
+  font: 13px/19px 'Lucida Grande', Tahoma, sans-serif;
+  padding: 0px 10px;
+}
+#cms_body #cms_dialog form.image_url input[type=text] {
+  width: 300px;
 }

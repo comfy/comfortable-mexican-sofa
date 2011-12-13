@@ -216,3 +216,7 @@ es:
         save: Guardar
       form:
         label: Categorias
+        
+    dialogs:
+      image:
+        insert: Insertar Imagen

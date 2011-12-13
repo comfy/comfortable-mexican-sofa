@@ -216,4 +216,8 @@ en:
         save: Save
       form:
         label: Categories
+        
+    dialogs:
+      image:
+        insert: Insert Image
       

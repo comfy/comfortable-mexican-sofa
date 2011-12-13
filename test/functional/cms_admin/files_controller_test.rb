@@ -113,7 +113,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   def test_create_as_xhr
     request.env['HTTP_X_FILE_NAME'] = 'image.jpg'
     request.env['CONTENT_TYPE'] = 'image/jpeg'
-    request.env['RAW_POST_DATA'] = File.open(File.expand_path('../../fixtures/files/image.jpg', File.dirname(__FILE__))).read
+    request.env['RAW_POST_DATA'] = File.open(File.expand_path('../../fixtures/files/image.jpg', File.dirname(__FILE__)))
     
     assert_difference 'Cms::File.count' do
       xhr :post, :create, :site_id => cms_sites(:default)
