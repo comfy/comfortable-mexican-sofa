@@ -29,8 +29,11 @@ $.CMS = function(){
   });
 
   return {
-    cms_config: {
-      "elRTE": {
+    
+    // Configuration that can be overriden from the outside. For example:
+    //   $.CMS.config.elRTE.toolbar = ['undoredo']
+    config: {
+      'elRTE': {
         toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image']
       }
     },
@@ -91,7 +94,7 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
-      elRTE.prototype.options.toolbars.sofa = $.CMS.cms_config['elRTE']['toolbar'];
+      elRTE.prototype.options.toolbars.sofa = $.CMS.config.elRTE.toolbar;
       
       $('textarea.rich_text').elrte({
         height:       300,
