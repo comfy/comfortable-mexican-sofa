@@ -16,8 +16,6 @@ cms_config['elRTE'] = {
 
 $.CMS = function(){
   
-  /* User-definable options. */
-  
   var current_path = window.location.pathname;
   var admin_path_prefix = $('meta[name="cms-admin-path"]').attr('content');
 
