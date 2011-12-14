@@ -4,6 +4,9 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# No need to add cache-busters in test environment
+Paperclip::Attachment.default_options[:use_timestamp] = false
+
 class ActiveSupport::TestCase
   
   # Disabling the noise

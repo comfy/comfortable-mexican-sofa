@@ -90,7 +90,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
       page.update_attributes!(
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => fixture_file_upload('files/image.jpg') }
+            :content    => fixture_file_upload('files/image.jpg', 'image/jpeg') }
         ]
       )
       file = Cms::File.last

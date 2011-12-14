@@ -43,6 +43,17 @@ class CmsFileTest < ActiveSupport::TestCase
     end
   end
   
+  def test_create_with_non_image
+    assert_difference 'Cms::File.count' do
+      file = cms_sites(:default).files.create!(
+        :file => fixture_file_upload('files/data.zip', 'application/zip')
+      )
+      assert_equal 'Data', file.label
+      assert_equal 'data.zip', file.file_file_name
+      assert_equal 'application/zip', file.file_content_type
+    end
+  end
+  
   def test_create_failure
     assert_no_difference 'Cms::File.count' do
       cms_sites(:default).files.create(:file => '')
@@ -70,4 +81,5 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_equal 'image/jpeg', file.file_content_type
     assert file.is_image?
   end
+  
 end

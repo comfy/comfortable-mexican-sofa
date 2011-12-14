@@ -9,6 +9,12 @@
 .ui-timepicker-div td { font-size: 90%; }
 
 /* -- elrte -------------------------------------------------------------- */
+.el-dialogform-content iframe {
+  background: #fff;
+}
 .el-rte .toolbar ul li.sofa_image {
   background-position: -384px -2px
+}
+.el-rte .toolbar ul li.sofa_link {
+  background-position:-244px -29px
 }

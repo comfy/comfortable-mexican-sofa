@@ -1,6 +1,6 @@
 class CmsAdmin::DialogsController < CmsAdmin::BaseController
   
-  TEMPLATES = %w(image)
+  TEMPLATES = %w(image link)
   
   def show
     if template = TEMPLATES.include?(params[:type])? params[:type] : nil

@@ -220,4 +220,6 @@ en:
     dialogs:
       image:
         insert: Insert Image
+      link:
+        create: Create Link
       

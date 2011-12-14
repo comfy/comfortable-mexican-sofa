@@ -19,6 +19,7 @@ class Cms::File < ActiveRecord::Base
       )
     }
   )
+  before_post_process :is_image?
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site

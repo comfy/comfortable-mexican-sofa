@@ -4,7 +4,6 @@
     this.constructor.prototype.constructor.call(this, rte, name);
     
     var self      = this;
-    self.rte      = rte;
     self.img_src  = null;
     self.dialog   = null;
     
