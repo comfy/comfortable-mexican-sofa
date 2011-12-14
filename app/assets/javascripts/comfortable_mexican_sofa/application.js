@@ -8,7 +8,16 @@
 //= require comfortable_mexican_sofa/elrte/elrte.sofa_link.js
 //= require comfortable_mexican_sofa/elrte/elrte.sofa_image.js
 
+var cms_config = { };
+
+cms_config['elRTE'] = {
+  toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image']
+}
+
 $.CMS = function(){
+  
+  /* User-definable options. */
+  
   var current_path = window.location.pathname;
   var admin_path_prefix = $('meta[name="cms-admin-path"]').attr('content');
 
@@ -85,11 +94,7 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
-      if(typeof user_options != 'undefined' && typeof user_options['elRTE'] != 'undefined') {
-        elRTE.prototype.options.toolbars.sofa = user_options['elRTE'];
-      } else {
-        elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
-      }
+      elRTE.prototype.options.toolbars.sofa = cms_config['elRTE']['toolbar'];
       
       $('textarea.rich_text').elrte({
         height:       300,
