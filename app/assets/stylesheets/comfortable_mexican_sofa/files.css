@@ -1,6 +1,3 @@
-#cms_body .right_column_content .file_uploads.box {
-  overflow: visible;
-}
 #cms_body .file_uploads form {
   position: relative;
   height: 21px;
@@ -15,6 +12,78 @@
   font-size: 220px;
   opacity: 0;
 }
+#cms_body .uploaded_files {
+  max-height: 500px;
+  overflow: auto;
+}
+#cms_body .uploaded_files .file {
+}
+#cms_body .uploaded_files .file .file_name {
+  background-color: #252525;
+  font: 11px/11px Arial, sans-serif;
+  height: 11px;
+  padding: 3px 5px;
+  border-top: 1px solid #484848;
+  border-radius: 2px;
+}
+#cms_body .uploaded_files .file:hover .file_name {
+  background-color: #000;
+}
+#cms_body .uploaded_files .file .file_name a.filename {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  float: left;
+  color: #eee;
+}
+#cms_body .uploaded_files .file .file_name a.delete {
+  float: right;
+  height: 11px;
+  width: 11px;
+  background: url(/assets/comfortable_mexican_sofa/x.png);
+}
+#cms_body .file_uploads .file a.delete:hover {
+  background-position: 0px 11px;
+}
+#cms_body .uploaded_files .file .file_name a.delete span {
+  display: none;
+}
+#cms_body .uploaded_files .file .file_info {
+  display: none;
+  overflow: hidden;
+  font: 11px/18px Arial, sans-serif;
+  background-color: #484848;
+  border: 1px solid #252525;
+  padding: 2px;
+}
+#cms_body .uploaded_files .file:hover .file_info {
+  display: block;
+}
+#cms_body .uploaded_files .file .file_info .thumb {
+  float: left;
+  height: 60px;
+  width: 80px;
+  background: url(/assets/comfortable_mexican_sofa/checkerboard.gif);
+}
+#cms_body .uploaded_files .file .file_info .thumb img {
+  display: block;
+}
+#cms_body .uploaded_files .file .file_info .details {
+  margin-left: 85px;
+}
+#cms_body .uploaded_files .file .file_info .details input {
+  border: 0px;
+  width: 100%;
+  background-color: #e6e6e6;
+  margin-bottom: 3px;
+}
+
+
+
+
+/*
+
+
 #cms_body .file_uploads .file a.delete {
   float: right;
   height: 11px;
@@ -27,14 +96,22 @@
 #cms_body .file_uploads .file a.delete span {
  display: none;
 }
-#cms_body .file_uploads .file .thumb img {
-  display: block;
+
+#cms_body .file_uploads .file_info {
+  background-color: #e6e6e6;
+}
+
+
+#cms_body .file_uploads .file .thumb {
   border: 1px solid #bbb;
   border-radius: 3px;
-  background-color: #fff;
+  margin-bottom: 2px;
+}
+#cms_body .file_uploads .file .thumb img {
+  display: block;
   height: 100px;
   width: 133px;
-  margin-bottom: 2px;
+  border-radius: 3px;
 }
 #cms_body .file_uploads .file .thumb input {
   width: 133px;
@@ -50,7 +127,12 @@
   max-height: 500px;
   overflow: auto;
 }
+
+*/
+
 /* -- Right Column Widget ------------------------------------------------ */
+
+/*
 #cms_body .right_column_content .file_uploads {
   position: relative;
 }
@@ -62,13 +144,16 @@
   border-bottom: 1px solid #484848;
   border-radius: 2px;
 }
+
+
 #cms_body .right_column_content .file_uploads .file a.filename {
   color: #f1f1f1;
   float: left;
   width: 180px;
+  white-space: nowrap;
   overflow: hidden;
 }
-#cms_body .right_column_content .file_uploads .file .thumb_container {
+#cms_body .right_column_content .file_uploads .file .file_container {
   display: none;
   position: absolute;
   top: 30px;
@@ -85,10 +170,14 @@
 #cms_body .right_column_content .file_uploads .file:hover {
   background-color: #000;
 }
-#cms_body .right_column_content .file_uploads .file:hover .thumb_container {
+#cms_body .right_column_content .file_uploads .file:hover .file_container {
   display: block;
 }
+
+*/
 /* -- Dialog Widget ------------------------------------------------------ */
+
+/*
 #cms_body #cms_dialog .uploaded_files .file {
   padding: 5px;
   float: left;
@@ -129,3 +218,4 @@
 #cms_body #cms_dialog form.image_url input[type=text] {
   width: 300px;
 }
+*/
