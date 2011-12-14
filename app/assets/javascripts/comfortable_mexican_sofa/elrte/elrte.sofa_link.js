@@ -14,9 +14,7 @@
     
     this.set = function(){
       self.rte.history.add();
-      
-      var link = $(this.rte.dom.create('a')).attr('href', href);
-      
+      self.rte.doc.execCommand('createLink', false, self.link_url);
       self.rte.ui.update();
       self.dialog.dialog('close');
     }

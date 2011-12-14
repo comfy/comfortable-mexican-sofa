@@ -1,0 +1,45 @@
+#cms_body #cms_dialog form.image_url,
+#cms_body #cms_dialog form.link_url {
+  position: absolute;
+  z-index: 9999;
+  width: 650px;
+}
+#cms_body #cms_dialog form.image_url label,
+#cms_body #cms_dialog form.link_url label {
+  font: 13px/19px 'Lucida Grande', Tahoma, sans-serif;
+  padding: 0px 10px;
+}
+#cms_body #cms_dialog form.image_url input[type=text],
+#cms_body #cms_dialog form.link_url input[type=text] {
+  width: 300px;
+}
+/* -- Files -------------------------------------------------------------- */
+#cms_body #cms_dialog .uploaded_files .file {
+  width: 185px;
+  float: left;
+  margin: 0px 5px 5px 0px;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_name {
+  border-radius: 0px;
+  background-color: #ccc;
+  border-top: 0px;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_name a.filename {
+  color: #252525;
+  width: 155px;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_info {
+  background-color: #eee;
+  border-color: #ccc;
+  display: block;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_info .details {
+  color: #444;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_info input {
+  display: none;
+}
+#cms_body #cms_dialog .uploaded_files .file .file_info:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}

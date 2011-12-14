@@ -34,7 +34,7 @@ $.CMS = function(){
     //   $.CMS.config.elRTE.toolbar = ['undoredo']
     config: {
       'elRTE': {
-        toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image']
+        toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_image', 'sofa_links']
       }
     },
 
