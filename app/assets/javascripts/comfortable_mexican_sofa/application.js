@@ -85,7 +85,11 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
-      elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
+      if(typeof user_options != 'undefined' && typeof user_options['elRTE'] != 'undefined') {
+        elRTE.prototype.options.toolbars.sofa = user_options['elRTE'];
+      } else {
+        elRTE.prototype.options.toolbars.sofa = ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_links', 'sofa_image'];
+      }
       
       $('textarea.rich_text').elrte({
         height:       300,
