@@ -15,7 +15,7 @@
     });
     
     // attaching event handlers to images
-    $(document).on('click', '#cms_dialog .uploaded_files img', function(){
+    $(document).on('click', '#cms_dialog .uploaded_files .file_info', function(){
       self.img_src = $(this).data('url');
       self.set();
       return false;

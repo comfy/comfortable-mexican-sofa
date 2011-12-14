@@ -5,9 +5,9 @@
     <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
   </div>
   
-  <div class='file_info'>
+  <div class='file_info' data-url='<%= file.file.url %>'>
     <div class='thumb'>
-      <%= image_tag file.file.url(:cms_thumb), :data => {:url => file.file.url} if file.is_image? %>
+      <%= image_tag file.file.url(:cms_thumb) if file.is_image? %>
     </div>
     <div class='details'>
       <input type='text' value='<%= file.file.url %>'/>
