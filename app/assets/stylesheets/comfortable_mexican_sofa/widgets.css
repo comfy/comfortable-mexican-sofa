@@ -18,3 +18,12 @@
 .el-rte .toolbar ul li.sofa_link {
   background-position:-244px -29px
 }
+#cms_body .el-rte .toolbar ul li.formatblock h1,
+#cms_body .el-rte .toolbar ul li.formatblock h2 {
+  font: normal 11px 'Trebuchet MS', Verdana, Geneva, sans-serif;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  letter-spacing: normal;
+  text-shadow: none;
+}
