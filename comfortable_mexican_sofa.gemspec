@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.5.11"
+  s.version = "1.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2011-11-17"
+  s.date = "2011-12-15"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -25,6 +25,31 @@ Gem::Specification.new do |s|
     "VERSION",
     "app/assets/images/comfortable_mexican_sofa/arrow_bottom.gif",
     "app/assets/images/comfortable_mexican_sofa/arrow_right.gif",
+    "app/assets/images/comfortable_mexican_sofa/checkerboard.gif",
+    "app/assets/images/comfortable_mexican_sofa/elrte/elrte-toolbar.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/google-maps.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/iframe.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-director.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-flash.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-quicktime.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-realaudio.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-rutube.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-vimeo.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-winmedia.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/media-youtube.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/outline-div.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/outline-p.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/pagebreak.gif",
+    "app/assets/images/comfortable_mexican_sofa/elrte/pixel.gif",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/evilgrin.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/grin.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/happy.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/smile.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/surprised.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/tongue.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/unhappy.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/waii.png",
+    "app/assets/images/comfortable_mexican_sofa/elrte/smileys/wink.png",
     "app/assets/images/comfortable_mexican_sofa/icon_layout.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_move.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_regular.gif",
@@ -43,55 +68,23 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_454545_256x240.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_888888_256x240.png",
     "app/assets/images/comfortable_mexican_sofa/jquery_ui/ui-icons_cd0a0a_256x240.png",
-    "app/assets/images/comfortable_mexican_sofa/wym_icons.png",
+    "app/assets/images/comfortable_mexican_sofa/x.png",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
     "app/assets/javascripts/comfortable_mexican_sofa/codemirror/codemirror.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/elrte/elrte.codemirror.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/elrte/elrte.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/elrte/elrte.sofa_image.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/elrte/elrte.sofa_link.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery_ui.js",
     "app/assets/javascripts/comfortable_mexican_sofa/jquery_ui_timepicker.js",
     "app/assets/javascripts/comfortable_mexican_sofa/rails.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-blockquote.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h1.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h2.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h3.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h4.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h5.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-h6.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-p.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/lbl-pre.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/wymiframe.css",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/iframe/default/wymiframe.html",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/jquery.wymeditor.cms.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/jquery.wymeditor.embed.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/jquery.wymeditor.pack.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/bg.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/ca.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/cs.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/cy.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/de.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/en.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/es.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fa.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fi.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/fr.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/gl.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/he.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/hr.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/hu.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/it.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nb.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nl.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/nn.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pl.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pt-br.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/pt.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/ru.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/sv.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/tr.js",
-    "app/assets/javascripts/comfortable_mexican_sofa/wymeditor/lang/zh_cn.js",
     "app/assets/stylesheets/comfortable_mexican_sofa/application.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/codemirror.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/content.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/dialogs.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/elrte.css",
+    "app/assets/stylesheets/comfortable_mexican_sofa/files.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/form.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/jquery_ui.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/reset.css",
@@ -101,6 +94,7 @@ Gem::Specification.new do |s|
     "app/controllers/application_controller.rb",
     "app/controllers/cms_admin/base_controller.rb",
     "app/controllers/cms_admin/categories_controller.rb",
+    "app/controllers/cms_admin/dialogs_controller.rb",
     "app/controllers/cms_admin/files_controller.rb",
     "app/controllers/cms_admin/layouts_controller.rb",
     "app/controllers/cms_admin/pages_controller.rb",
@@ -126,6 +120,8 @@ Gem::Specification.new do |s|
     "app/views/cms_admin/categories/destroy.js.erb",
     "app/views/cms_admin/categories/edit.js.erb",
     "app/views/cms_admin/categories/update.js.erb",
+    "app/views/cms_admin/dialogs/image.html.erb",
+    "app/views/cms_admin/dialogs/link.html.erb",
     "app/views/cms_admin/files/_file.html.erb",
     "app/views/cms_admin/files/_form.html.erb",
     "app/views/cms_admin/files/_index.html.erb",
@@ -199,6 +195,7 @@ Gem::Specification.new do |s|
     "db/migrate/upgrades/04_upgrade_to_1_3_0.rb",
     "db/migrate/upgrades/05_upgrade_to_1_4_0.rb",
     "db/migrate/upgrades/06_upgrade_to_1_5_0.rb",
+    "db/migrate/upgrades/07_upgrade_to_1_6_0.rb",
     "db/seeds.rb",
     "doc/preview.png",
     "doc/sofa.png",
@@ -251,6 +248,7 @@ Gem::Specification.new do |s|
     "test/fixtures/cms/revisions.yml",
     "test/fixtures/cms/sites.yml",
     "test/fixtures/cms/snippets.yml",
+    "test/fixtures/files/data.zip",
     "test/fixtures/files/document.pdf",
     "test/fixtures/files/image.gif",
     "test/fixtures/files/image.jpg",
@@ -260,6 +258,7 @@ Gem::Specification.new do |s|
     "test/fixtures/views/render_test/render_layout.html.erb",
     "test/functional/cms_admin/base_controller_test.rb",
     "test/functional/cms_admin/categories_controller_test.rb",
+    "test/functional/cms_admin/dialogs_controller_test.rb",
     "test/functional/cms_admin/files_controller_test.rb",
     "test/functional/cms_admin/layouts_controller_test.rb",
     "test/functional/cms_admin/pages_controller_test.rb",
@@ -267,8 +266,8 @@ Gem::Specification.new do |s|
     "test/functional/cms_admin/sites_controller_test.rb",
     "test/functional/cms_admin/snippets_controller_test.rb",
     "test/functional/cms_content_controller_test.rb",
-    "test/gemfiles/Gemfile.rails-3.0.10",
-    "test/gemfiles/Gemfile.rails-3.1.1",
+    "test/gemfiles/Gemfile.rails-3.0",
+    "test/gemfiles/Gemfile.rails-3.1",
     "test/integration/authentication_test.rb",
     "test/integration/fixtures_test.rb",
     "test/integration/mirrors_test.rb",
@@ -321,16 +320,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
       s.add_runtime_dependency(%q<active_link_to>, ["~> 1.0.0"])
-      s.add_runtime_dependency(%q<paperclip>, ["~> 2.3.0"])
+      s.add_runtime_dependency(%q<paperclip>, [">= 2.3.0"])
     else
       s.add_dependency(%q<rails>, [">= 3.0.0"])
       s.add_dependency(%q<active_link_to>, ["~> 1.0.0"])
-      s.add_dependency(%q<paperclip>, ["~> 2.3.0"])
+      s.add_dependency(%q<paperclip>, [">= 2.3.0"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.0.0"])
     s.add_dependency(%q<active_link_to>, ["~> 1.0.0"])
-    s.add_dependency(%q<paperclip>, ["~> 2.3.0"])
+    s.add_dependency(%q<paperclip>, [">= 2.3.0"])
   end
 end
 
