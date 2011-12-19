@@ -1,4 +1,4 @@
-class UpgradeTo150 < ActiveRecord::Migration
+class UpgradeTo160 < ActiveRecord::Migration
   def self.up
     add_column :cms_sites, :identifier, :string, :null => false
     add_index :cms_sites, :identifier
