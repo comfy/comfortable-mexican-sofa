@@ -99,9 +99,9 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Categories ---------------------------------------------------------
     create_table :cms_categories, :force => true do |t|
-      t.string :site_id,          :null => false
-      t.string :label,            :null => false
-      t.string :categorized_type, :null => false
+      t.integer :site_id,          :null => false
+      t.string  :label,            :null => false
+      t.string  :categorized_type, :null => false
     end
     add_index :cms_categories, [:site_id, :categorized_type, :label], :unique => true
     
