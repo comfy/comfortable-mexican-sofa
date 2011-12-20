@@ -1,6 +1,6 @@
 class UpgradeTo160 < ActiveRecord::Migration
   def self.up
-    add_column :cms_sites, :identifier, :string, :null => false
+    add_column :cms_sites, :identifier, :string
     add_index :cms_sites, :identifier
     
     rename_column :cms_layouts, :slug, :identifier
