@@ -2,7 +2,7 @@ class Cms::Category < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
   
-  set_table_name :cms_categories
+  self.table_name = 'cms_categories'
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site

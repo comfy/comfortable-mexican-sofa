@@ -2,7 +2,7 @@ class Cms::Layout < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
     
-  set_table_name :cms_layouts
+  self.table_name = 'cms_layouts'
   
   cms_acts_as_tree
   cms_is_mirrored

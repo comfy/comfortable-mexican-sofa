@@ -2,7 +2,7 @@ class Cms::Site < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
   
-  set_table_name :cms_sites
+  self.table_name = 'cms_sites'
   
   # -- Relationships --------------------------------------------------------
   has_many :layouts,    :dependent => :destroy

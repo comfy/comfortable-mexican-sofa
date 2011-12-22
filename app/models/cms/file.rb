@@ -4,7 +4,7 @@ class Cms::File < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
     
-  set_table_name :cms_files
+  self.table_name = 'cms_files'
   
   cms_is_categorized
   
