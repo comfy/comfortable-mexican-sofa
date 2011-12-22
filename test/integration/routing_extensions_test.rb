@@ -4,21 +4,23 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
   
   def teardown
     reset_config
-    load(File.expand_path('config/routes.rb', Rails.root))
+    Rails.application.reload_routes!
   end
   
   def test_get_admin_with_admin_route_prefix
     ComfortableMexicanSofa.config.admin_route_prefix = 'custom-admin'
-    load(File.expand_path('config/routes.rb', Rails.root))
+    Rails.application.reload_routes!
     
-    assert_equal '/custom-admin/sites', cms_admin_sites_path
-    http_auth :get, cms_admin_sites_path
+    http_auth :get, '/cms-admin/sites'
+    assert_response 404
+    
+    http_auth :get, '/custom-admin/sites'
     assert_response :success
   end
   
   def test_get_admin_with_admin_route_redirect
     ComfortableMexicanSofa.config.admin_route_redirect = '/cms-admin/sites'
-    load(File.expand_path('config/routes.rb', Rails.root))
+    Rails.application.reload_routes!
     
     http_auth :get, '/cms-admin'
     assert_response :redirect
@@ -27,7 +29,7 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_admin_route_prefix_disabled
     ComfortableMexicanSofa.config.admin_route_prefix = ''
-    load(File.expand_path('config/routes.rb', Rails.root))
+    Rails.application.reload_routes!
     
     http_auth :get, '/cms-admin'
     assert_response 404
