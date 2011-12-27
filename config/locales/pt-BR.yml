@@ -3,9 +3,10 @@ pt-BR:
   # -- Models ---------------------------------------------------------------
   attributes:
     label: Nome
-    slug: Identificador
     parent_id: Pai
     content: Conteúdo
+    slug: Identificador
+    identifier: Identificador
   activerecord:
     models:
       cms/site: Site
@@ -30,6 +31,11 @@ pt-BR:
         slug: Identificador
         target_page_id: Redirecionar para a Página
         is_published: Publicada
+      cms/file:
+        file: Arquivo
+        description: Descrição
+      cms/snippet:
+        identifier: Identificador
         
   # -- Controllers ----------------------------------------------------------
   cms:
