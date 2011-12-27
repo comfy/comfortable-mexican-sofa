@@ -22,8 +22,8 @@ pt-BR:
         label: Nome do Leiaute
         app_layout: Leiaute da Aplicação
         parent_id: Leiaute Pai
-        css: CSS
-        js: JavaScript
+        css: Stylesheet
+        js: Javascript
       cms/page:
         label: Título
         layout_id: Leiaute
