@@ -44,50 +44,50 @@ pt-BR:
       fixtures_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
       
     sites:
-      created: Site criado
-      creation_failure: Não foi possível criar site
-      updated: Site atualizado
-      update_failure: Não foi possível atualizar site
-      deleted: Site excluído
-      not_found: Site não encontrado
+      created: Site criado com sucesso.
+      creation_failure: Não foi possível criar site.
+      updated: Site atualizado com sucesso.
+      update_failure: Não foi possível atualizar site.
+      deleted: Site excluído com sucesso.
+      not_found: Site não encontrado.
       
     layouts:
-      created: Leiaute criado
-      creation_failure: Não foi possível criar leiaute
-      updated: Leiaute atualizado
-      update_failure: Não foi possível atualizar leiaute
-      deleted: Leiaute excluído
-      not_found: Leiaute não encontrado
+      created: Leiaute criado com sucesso.
+      creation_failure: Não foi possível criar leiaute.
+      updated: Leiaute atualizado com sucesso.
+      update_failure: Não foi possível atualizar leiaute.
+      deleted: Leiaute excluído com sucesso.
+      not_found: Leiaute não encontrado.
       
     pages:
-      created: Página criada
-      creation_failure: Não foi possível criar página
-      updated: Página atualizada
-      update_failure: Não foi possível atualizar página
-      deleted: Página excluída
-      not_found: Página não encontrada
-      layout_not_found: "Nenhum leiaute encontrado. Por favor, crie um."
+      created: Página criada com sucesso.
+      creation_failure: Não foi possível criar página.
+      updated: Página atualizada com sucesso.
+      update_failure: Não foi possível atualizar página.
+      deleted: Página excluída com sucesso.
+      not_found: Página não encontrada.
+      layout_not_found: "Nenhum leiaute foi encontrado. Por favor, crie um."
       
     snippets:
-      created: Fragmento criado
-      creation_failure: Não foi possível criar fragmento
-      updated: Fragmento atualizado
-      update_failure: Não foi possível atualizar fragmento
-      deleted: Fragmento excluído
-      not_found: Fragmento não encontrado
+      created: Fragmento criado com sucesso.
+      creation_failure: Não foi possível criar fragmento.
+      updated: Fragmento atualizado com sucesso.
+      update_failure: Não foi possível atualizar fragmento.
+      deleted: Fragmento excluído com sucesso.
+      not_found: Fragmento não encontrado.
       
     revisions:
-      reverted: Conteúdo Revertido
-      record_not_found: Registro Não Encontrado
-      not_found: Revisão Não Encontrada
+      reverted: Conteúdo revertido com sucesso.
+      record_not_found: Registro não encontrado.
+      not_found: Revisão não encontrada.
       
     files:
-      created: Arquivo enviado
-      creation_failure: Não foi possível enviar arquivo
-      updated: Arquivo atualizado
-      update_failure: Não foi possível atualizar arquivo
-      deleted: Arquivo excluído
-      not_found: Arquivo não encontrado
+      created: Arquivo enviado com sucesso.
+      creation_failure: Não foi possível enviar arquivo.
+      updated: Arquivo atualizado com sucesso.
+      update_failure: Não foi possível atualizar arquivo.
+      deleted: Arquivo excluído com sucesso.
+      not_found: Arquivo não encontrado.
       
     content:
       site_not_found: Site Não Encontrado
@@ -155,7 +155,7 @@ pt-BR:
         title: Editando Página
         revision: Revisão
       form:
-        select_target_page: Sem Redirecionar
+        select_target_page: Não Redirecionar
         preview: Pré-visualização
         create: Criar Página
         update: Atualizar Página
