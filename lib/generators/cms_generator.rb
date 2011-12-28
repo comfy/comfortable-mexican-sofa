@@ -28,17 +28,17 @@ class CmsGenerator < Rails::Generators::Base
     directory 'app/assets/javascripts/comfortable_mexican_sofa',  'public/javascripts/comfortable_mexican_sofa'
     directory 'app/assets/images/comfortable_mexican_sofa',       'public/images/comfortable_mexican_sofa'
     
-    gsub_file 'public/stylesheets/comfortable_mexican_sofa/content.css',
-      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
-    gsub_file 'public/stylesheets/comfortable_mexican_sofa/widgets.css',
-      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
-    gsub_file 'public/stylesheets/comfortable_mexican_sofa/jquery_ui.css',
-      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
-    gsub_file 'public/stylesheets/comfortable_mexican_sofa/elrte.css',
-      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'  
-    gsub_file 'public/stylesheets/comfortable_mexican_sofa/files.css',
-      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'  
-
+    files_to_be_changed = [
+      'public/stylesheets/comfortable_mexican_sofa/content.css', 
+      'public/stylesheets/comfortable_mexican_sofa/widgets.css',
+      'public/stylesheets/comfortable_mexican_sofa/jquery_ui.css',
+      'public/stylesheets/comfortable_mexican_sofa/elrte.css',
+      'public/stylesheets/comfortable_mexican_sofa/files.css'
+    ]
+    
+    files_to_be_changed.each do |file_path|
+      gsub_file file_path, '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
+    end
   end
   
   def generate_cms_seeds
