@@ -82,8 +82,8 @@ pt-BR:
       not_found: Revisão Não Encontrada
       
     files:
-      created: Arquivos enviados
-      creation_failure: Não foi possível enviar arquivos
+      created: Arquivo enviado
+      creation_failure: Não foi possível enviar arquivo
       updated: Arquivo atualizado
       update_failure: Não foi possível atualizar arquivo
       deleted: Arquivo excluído
@@ -107,7 +107,7 @@ pt-BR:
       index:
         title: Sites
         new_link: Criar Novo Site
-        select: Selecione o Site
+        select: Selecionar Site
         edit: Editar
         delete: Excluir
         are_you_sure: Tem certeza que deseja excluir este site?
