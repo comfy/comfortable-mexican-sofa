@@ -34,6 +34,11 @@ class CmsGenerator < Rails::Generators::Base
       '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
     gsub_file 'public/stylesheets/comfortable_mexican_sofa/jquery_ui.css',
       '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'
+    gsub_file 'public/stylesheets/comfortable_mexican_sofa/elrte.css',
+      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'  
+    gsub_file 'public/stylesheets/comfortable_mexican_sofa/files.css',
+      '/assets/comfortable_mexican_sofa/', '/images/comfortable_mexican_sofa/'  
+
   end
   
   def generate_cms_seeds
