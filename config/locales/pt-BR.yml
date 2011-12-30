@@ -1,0 +1,230 @@
+# encoding: utf-8
+pt-BR:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: Nome
+    parent_id: Pai
+    content: Conteúdo
+    slug: Identificador
+    identifier: Identificador
+  activerecord:
+    models:
+      cms/site: Site
+      cms/layout: Leiaute
+      cms/page: Página
+      cms/snippet: Fragmento
+    attributes:
+      cms/site:
+        hostname: Nome do Host
+        path: Caminho
+        locale: Idioma
+        is_mirrored: Espelhado
+      cms/layout:
+        label: Nome do Leiaute
+        app_layout: Leiaute da Aplicação
+        parent_id: Leiaute Pai
+        css: Stylesheet
+        js: Javascript
+      cms/page:
+        label: Título
+        layout_id: Leiaute
+        slug: Identificador
+        target_page_id: Redirecionar para a Página
+        is_published: Publicada
+      cms/file:
+        file: Arquivo
+        description: Descrição
+      cms/snippet:
+        identifier: Identificador
+        
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: Site não encontrado
+      fixtures_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
+      
+    sites:
+      created: Site criado
+      creation_failure: Não foi possível criar site
+      updated: Site atualizado
+      update_failure: Não foi possível atualizar site
+      deleted: Site excluído
+      not_found: Site não encontrado
+      
+    layouts:
+      created: Leiaute criado
+      creation_failure: Não foi possível criar leiaute
+      updated: Leiaute atualizado
+      update_failure: Não foi possível atualizar leiaute
+      deleted: Leiaute excluído
+      not_found: Leiaute não encontrado
+      
+    pages:
+      created: Página criada
+      creation_failure: Não foi possível criar página
+      updated: Página atualizada
+      update_failure: Não foi possível atualizar página
+      deleted: Página excluída
+      not_found: Página não encontrada
+      layout_not_found: "Nenhum leiaute encontrado. Por favor, crie um."
+      
+    snippets:
+      created: Fragmento criado
+      creation_failure: Não foi possível criar fragmento
+      updated: Fragmento atualizado
+      update_failure: Não foi possível atualizar fragmento
+      deleted: Fragmento excluído
+      not_found: Fragmento não encontrado
+      
+    revisions:
+      reverted: Conteúdo Revertido
+      record_not_found: Registro Não Encontrado
+      not_found: Revisão Não Encontrada
+      
+    files:
+      created: Arquivo enviado
+      creation_failure: Não foi possível enviar arquivo
+      updated: Arquivo atualizado
+      update_failure: Não foi possível atualizar arquivo
+      deleted: Arquivo excluído
+      not_found: Arquivo não encontrado
+      
+    content:
+      site_not_found: Site Não Encontrado
+      layout_not_found: Leiaute Não Encontrado
+      page_not_found: Página Não Encontrada
+  
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Sites
+      layouts: Leiautes
+      pages: Páginas
+      snippets: Fragmentos
+      files: Arquivos
+      
+    sites:
+      index:
+        title: Sites
+        new_link: Criar Novo Site
+        select: Selecionar Site
+        edit: Editar
+        delete: Excluir
+        are_you_sure: Tem certeza que deseja excluir este site?
+      new:
+        title: Novo Site
+      edit:
+        title: Editando Site
+      form:
+        create: Criar Site
+        update: Atualizar Site
+        
+    layouts:
+      index:
+        title: Leiautes
+        new_link: Criar Novo Leiaute
+      index_branch:
+        add_child_layout: Adicionar Leiaute Filho
+        edit: Editar
+        delete: Excluir
+        are_you_sure: Tem certeza?
+      new:
+        title: Novo Leiaute
+      edit:
+        title: Editando Leiaute
+        revision: Revisão
+      form:
+        select_parent_layout: Selecione o Leiaute Pai
+        select_app_layout: Selecione o Leiaute da Aplicação
+        create: Criar Leiaute
+        update: Atualizar Leiaute
+      
+    pages:
+      index:
+        title: Páginas
+        new_link: Criar Nova Página
+      index_branch:
+        toggle: Alterar
+        add_child_page: Adicionar Página Filha
+        edit: Editar
+        delete: Excluir
+        are_you_sure: Tem certeza?
+      new:
+        title: Nova Página
+      edit:
+        title: Editando Página
+        revision: Revisão
+      form:
+        select_target_page: Sem Redirecionar
+        preview: Pré-visualização
+        create: Criar Página
+        update: Atualizar Página
+      form_blocks:
+        no_tags: |-
+          O leiaute não possui tags de conteúdo definidas.<br/>
+          Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
+      
+    snippets:
+      index:
+        title: Fragmentos
+        new_link: Criar Novo Fragmento
+        edit: Editar
+        delete: Excluir
+        are_you_sure: Tem certeza?
+      new:
+        title: Novo Fragmento
+      edit:
+        title: Editando Fragmento
+        revision: Revisão
+      form:
+        create: Criar Fragmento
+        update: Atualizar Fragmento
+          
+    revisions:
+      show:
+        title: Revisões de
+        revision: Revisão
+        full_path: Caminho completo
+        slug: Identificador
+        update: Atualizar para esta revisão
+      
+    files:
+      index:
+        title: Arquivos
+        new_link: Enviar Novo Arquivo
+        edit: Editar
+        delete: Excluir
+        are_you_sure: Tem certeza?
+        button: Enviar Arquivos
+      new:
+        title: Novo Arquivo
+      edit:
+        title: Editando Arquivo
+      form:
+        current_file: Arquivo Atual
+        create: Enviar Arquivo
+        update: Atualizar Arquivo
+      page_form:
+        are_you_sure: Tem certeza?
+      file:
+        are_you_sure: Tem certeza?
+        
+    categories:
+      index:
+        label: Categorias
+        edit: Editar
+        done: Pronto
+        all: Todas
+        add: Adicionar
+      show:
+        are_you_sure: Tem certeza?
+      edit:
+        save: Salvar
+      form:
+        label: Categorias
+        
+    dialogs:
+      image:
+        insert: Inserir Imagem
+      link:
+        create: Criar Link
