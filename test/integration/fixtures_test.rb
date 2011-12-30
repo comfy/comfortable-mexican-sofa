@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class FixturesTest < ActionDispatch::IntegrationTest
@@ -34,7 +36,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
           assert_equal 'Default Fixture Layout', Cms::Layout.find_by_identifier('default').label
           assert_equal 'Default Fixture Snippet', Cms::Snippet.find_by_identifier('default').label
           
-          assert_equal "<html>\n  <body>\n    Home Page Fixture Content\nFixture Content for Default Snippet\n  </body>\n</html>", response.body
+          assert_equal "<html>\n  <body>\n    Home Page Fixture Contént\nFixture Content for Default Snippet\n  </body>\n</html>", response.body
         end
       end
     end
