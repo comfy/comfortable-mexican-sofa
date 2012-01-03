@@ -12,7 +12,8 @@ class Cms::Site < ActiveRecord::Base
   has_many :categories, :dependent => :destroy
   
   # -- Callbacks ------------------------------------------------------------
-  before_validation :assign_label
+  before_validation :assign_identifier,
+                    :assign_label
   before_save :clean_path
   
   # -- Validations ----------------------------------------------------------
@@ -47,6 +48,10 @@ class Cms::Site < ActiveRecord::Base
   end
   
 protected
+
+  def assign_identifier
+    self.identifier = self.identifier.blank?? self.hostname.try(:idify) : self.identifier
+  end
   
   def assign_label
     self.label = self.label.blank?? self.identifier.try(:titleize) : self.label

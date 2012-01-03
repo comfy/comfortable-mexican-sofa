@@ -208,6 +208,20 @@ class FixturesTest < ActiveSupport::TestCase
     end
   end
   
+  def test_import_all_with_no_site
+    cms_sites(:default).destroy
+    
+    assert_difference 'Cms::Site.count', 1 do
+      assert_difference 'Cms::Layout.count', 2 do
+        assert_difference 'Cms::Page.count', 2 do
+          assert_difference 'Cms::Snippet.count', 1 do
+            ComfortableMexicanSofa::Fixtures.import_all('test.host', 'example.com')
+          end
+        end
+      end
+    end
+  end
+  
   def test_export_layouts
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
     layout_1_attr_path    = File.join(host_path, 'layouts/nested/_nested.yml')

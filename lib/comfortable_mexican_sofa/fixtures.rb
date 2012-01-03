@@ -55,8 +55,11 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       layout.parent = parent
       if layout.changed?
-        layout.save!
-        Rails.logger.debug "[Fixtures] Saved Layout {#{layout.identifier}}"
+        if layout.save
+          $stdout.puts "[Fixtures] Saved Layout {#{layout.identifier}}"
+        else
+          $stderr.puts "[Fixtures] Failed to save Layout {#{layout.errors.inspect}}"
+        end
       end
       layout_ids << layout.id
       
@@ -118,8 +121,11 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
       if page.changed? || blocks_attributes.present?
-        page.save! 
-        Rails.logger.debug "[Fixtures] Saved Page {#{page.full_path}}"
+        if page.save
+          $stdout.puts "[Fixtures] Saved Page {#{page.full_path}}"
+        else
+          $stderr.puts "[Fixtures] Failed to save Page {#{page.errors.inspect}}"
+        end
       end
       page_ids << page.id
       
@@ -168,8 +174,11 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       if snippet.changed?
-        snippet.save!
-        Rails.logger.debug "[Fixtures] Saved Snippet {#{snippet.identifier}}"
+        if snippet.save
+          $stdout.puts "[Fixtures] Saved Snippet {#{snippet.identifier}}"
+        else
+          $stderr.puts "[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}"
+        end
       end
       snippet_ids << snippet.id
     end
