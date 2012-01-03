@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
-      $stderr.puts 'Cannot find fixtures'
+      $stdout.puts 'Cannot find Layout fixtures'
       return
     end
     
@@ -58,7 +58,7 @@ module ComfortableMexicanSofa::Fixtures
         if layout.save
           $stdout.puts "[Fixtures] Saved Layout {#{layout.identifier}}"
         else
-          $stderr.puts "[Fixtures] Failed to save Layout {#{layout.errors.inspect}}"
+          $stdout.puts "[Fixtures] Failed to save Layout {#{layout.errors.inspect}}"
         end
       end
       layout_ids << layout.id
@@ -80,7 +80,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
-      $stderr.puts 'Cannot find fixtures'
+      $stdout.puts 'Cannot find Page fixtures'
       return
     end
     
@@ -124,7 +124,7 @@ module ComfortableMexicanSofa::Fixtures
         if page.save
           $stdout.puts "[Fixtures] Saved Page {#{page.full_path}}"
         else
-          $stderr.puts "[Fixtures] Failed to save Page {#{page.errors.inspect}}"
+          $stdout.puts "[Fixtures] Failed to save Page {#{page.errors.inspect}}"
         end
       end
       page_ids << page.id
@@ -146,7 +146,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_snippets(to_hostname, from_hostname = nil)
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
-      $stdout.puts 'Cannot find fixtures'
+      $stdout.puts 'Cannot find Snippet fixtures'
       return
     end
     
@@ -177,7 +177,7 @@ module ComfortableMexicanSofa::Fixtures
         if snippet.save
           $stdout.puts "[Fixtures] Saved Snippet {#{snippet.identifier}}"
         else
-          $stderr.puts "[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}"
+          $stdout.puts "[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}"
         end
       end
       snippet_ids << snippet.id
