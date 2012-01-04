@@ -26,7 +26,7 @@ module ComfortableMexicanSofa::Fixtures
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
-          attributes = YAML.load_file(file_path).symbolize_keys!
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           layout.label      = attributes[:label] || identifier.titleize
           layout.app_layout = attributes[:app_layout] || parent.try(:app_layout) 
         end
@@ -59,6 +59,7 @@ module ComfortableMexicanSofa::Fixtures
           $stdout.puts "[Fixtures] Saved Layout {#{layout.identifier}}"
         else
           $stdout.puts "[Fixtures] Failed to save Layout {#{layout.errors.inspect}}"
+          return
         end
       end
       layout_ids << layout.id
@@ -95,7 +96,7 @@ module ComfortableMexicanSofa::Fixtures
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
         if page.new_record? || File.mtime(file_path) > page.updated_at
-          attributes = YAML.load_file(file_path).symbolize_keys!
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           page.label = attributes[:label] || slug.titleize
           page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
@@ -125,6 +126,7 @@ module ComfortableMexicanSofa::Fixtures
           $stdout.puts "[Fixtures] Saved Page {#{page.full_path}}"
         else
           $stdout.puts "[Fixtures] Failed to save Page {#{page.errors.inspect}}"
+          return
         end
       end
       page_ids << page.id
@@ -158,7 +160,7 @@ module ComfortableMexicanSofa::Fixtures
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
-          attributes = YAML.load_file(file_path).symbolize_keys!
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           snippet.label = attributes[:label] || identifier.titleize
         end
       elsif snippet.new_record?
@@ -178,6 +180,7 @@ module ComfortableMexicanSofa::Fixtures
           $stdout.puts "[Fixtures] Saved Snippet {#{snippet.identifier}}"
         else
           $stdout.puts "[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}"
+          return
         end
       end
       snippet_ids << snippet.id
