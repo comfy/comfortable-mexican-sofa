@@ -27,11 +27,11 @@ module ComfortableMexicanSofa::Fixtures
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
-          layout.label      = attributes[:label] || slug.titleize
+          layout.label      = attributes[:label] || identifier.titleize
           layout.app_layout = attributes[:app_layout] || parent.try(:app_layout) 
         end
       elsif layout.new_record?
-        layout.label      = slug.titleize
+        layout.label      = identifier.titleize
         layout.app_layout = parent.try(:app_layout) 
       end
       
@@ -159,10 +159,10 @@ module ComfortableMexicanSofa::Fixtures
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
           attributes = YAML.load_file(file_path).symbolize_keys!
-          snippet.label = attributes[:label] || slug.titleize
+          snippet.label = attributes[:label] || identifier.titleize
         end
       elsif snippet.new_record?
-        snippet.label = slug.titleize
+        snippet.label = identifier.titleize
       end
       
       # updating content
