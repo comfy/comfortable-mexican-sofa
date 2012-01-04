@@ -63,10 +63,10 @@ class Cms::Layout < ActiveRecord::Base
       if parent.merged_content.match(regex)
         parent.merged_content.gsub(regex, content.to_s)
       else
-        content
+        content.to_s
       end
     else
-      content
+      content.to_s
     end
   end
   
