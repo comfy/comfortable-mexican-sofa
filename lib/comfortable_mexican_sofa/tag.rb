@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-# used for parsing tags
 require 'csv'
 
 # This module provides all Tag classes with neccessary methods.
@@ -35,7 +34,7 @@ module ComfortableMexicanSofa::Tag
         tag = self.new
         tag.page        = page
         tag.identifier  = match[1]
-        tag.params      = match[2].to_s.parse_csv(:col_sep => ':') || []
+        tag.params      = CSV.parse_line(match[2].to_s, (RUBY_VERSION < '1.9.2' ? ':' : {:col_sep => ':'})) || []
         tag
       end
     end
