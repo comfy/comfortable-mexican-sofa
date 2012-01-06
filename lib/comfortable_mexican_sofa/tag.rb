@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+# used for parsing tags
+require 'csv'
+
 # This module provides all Tag classes with neccessary methods.
 # Example class that will behave as a Tag:
 #   class MySpecialTag
@@ -32,7 +35,7 @@ module ComfortableMexicanSofa::Tag
         tag = self.new
         tag.page        = page
         tag.identifier  = match[1]
-        tag.params      = match[2].to_s.split(':')
+        tag.params      = match[2].to_s.parse_csv(:col_sep => ':') || []
         tag
       end
     end
