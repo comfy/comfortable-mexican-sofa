@@ -20,6 +20,15 @@ class HelperTagTest < ActiveSupport::TestCase
     assert_equal 'method_name', tag.identifier
     assert_equal ['param1', 'param2'], tag.params
   end
+
+  def test_initialize_tag_with_complex_parameters
+    assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{ cms:helper:method_name:param1:"param:2" }}'
+    )
+    assert_equal 'method_name', tag.identifier
+    assert_equal ['param1', 'param:2'], tag.params
+
+  end
   
   def test_initialize_tag_failure
     [
