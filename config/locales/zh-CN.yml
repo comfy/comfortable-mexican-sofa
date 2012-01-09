@@ -215,7 +215,7 @@ zh-CN:
         all: 全部
         add: 创建
       show:
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该分类吗？
       edit:
         save: 保存
       form:
