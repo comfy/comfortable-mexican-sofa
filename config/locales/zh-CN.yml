@@ -6,12 +6,14 @@ zh-CN:
     slug: 嵌条
     parent_id: 上级
     content: 内容
+    identifier: 标识符
   activerecord:
     models:
       cms/site: 站点
       cms/layout: 布局
       cms/page: 页面
       cms/snippet: 片段
+      cms/file: 文件
     attributes:
       cms/site:
         hostname: 主机名
@@ -25,11 +27,13 @@ zh-CN:
         css: 样式
         js: Javascript
       cms/page:
-        label: 标签
         layout_id: 布局
-        slug: 嵌条
         target_page_id: 跳转至
-        is_published: 已发布
+        is_published: 发布
+      cms/file:
+        file: 文件
+        description: 描述
+        
 
   # -- Controllers ----------------------------------------------------------
   cms:
@@ -104,7 +108,7 @@ zh-CN:
         select: 选择站点
         edit: 编辑
         delete: 删除
-        are_you_sure: 确定需要删除该站点吗？
+        are_you_sure: 确定删除该站点吗？
       new:
         title: 新站点
       edit:
@@ -121,7 +125,7 @@ zh-CN:
         add_child_layout: 创建子布局
         edit: 编辑
         delete: 删除
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该布局吗？
       new:
         title: 新布局
       edit:
@@ -142,7 +146,7 @@ zh-CN:
         add_child_page: 创建子页面
         edit: 编辑
         delete: 删除
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该页面吗？
       new:
         title: 新页面
       edit:
@@ -164,7 +168,7 @@ zh-CN:
         new_link: 创建新片段
         edit: 编辑
         delete: 删除
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该片段吗？
       new:
         title: 新片段
       edit:
@@ -188,7 +192,7 @@ zh-CN:
         new_link: 上传新文件
         edit: 编辑
         delete: 删除
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该文件吗？
         button: 上传文件
       new:
         title: 新文件
