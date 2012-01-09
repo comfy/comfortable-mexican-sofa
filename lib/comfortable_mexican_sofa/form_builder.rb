@@ -57,7 +57,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, index, options = {})
     method    = options.delete(:method) || :text_field_tag
-    label     = tag.identifier.to_s.titleize
+    label     = tag.page.class.human_attribute_name(tag.identifier.to_s)
     css_class = tag.class.to_s.demodulize.underscore
     content   = ''
     
