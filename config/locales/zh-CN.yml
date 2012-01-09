@@ -203,9 +203,9 @@ zh-CN:
         create: 上传文件
         update: 更新文件
       page_form:
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该文件吗？
       file:
-        are_you_sure: 确定吗？
+        are_you_sure: 确定删除该文件吗？
 
     categories:
       index:
