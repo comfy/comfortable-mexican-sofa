@@ -62,7 +62,7 @@ class ComfortableMexicanSofa::Configuration
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit      = 25
-    @locales              = { :en => 'English', :es => 'Español', 'pt-BR' => 'Brazilian Portuguese' }
+    @locales              = { :en => 'English', :es => 'Español', 'pt-BR' => 'Brazilian Portuguese', 'zh-CN' => '简体中文' }
     @admin_locale         = nil
     @database_config      = nil
   end
