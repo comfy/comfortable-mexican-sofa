@@ -20,9 +20,9 @@ class CreateCms < ActiveRecord::Migration
       t.string  :app_layout
       t.string  :label,       :null => false
       t.string  :identifier,  :null => false
-      t.text    :content
-      t.text    :css
-      t.text    :js
+      t.text    :content,     :limit => 16777215
+      t.text    :css,         :limit => 16777215
+      t.text    :js,          :limit => 16777215
       t.integer :position,    :null => false, :default => 0
       t.boolean :is_shared,   :null => false, :default => false
       t.timestamps
@@ -39,7 +39,7 @@ class CreateCms < ActiveRecord::Migration
       t.string  :label,           :null => false
       t.string  :slug
       t.string  :full_path,       :null => false
-      t.text    :content
+      t.text    :content,         :limit => 16777215
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true
@@ -92,7 +92,7 @@ class CreateCms < ActiveRecord::Migration
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type, :null => false
       t.integer   :record_id,   :null => false
-      t.text      :data
+      t.text      :data,        :limit => 16777215
       t.datetime  :created_at
     end
     add_index :cms_revisions, [:record_type, :record_id, :created_at]
