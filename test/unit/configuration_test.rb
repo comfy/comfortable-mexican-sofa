@@ -6,7 +6,7 @@ class ConfigurationTest < ActiveSupport::TestCase
   
   def test_configuration_presense
     assert config = ComfortableMexicanSofa.configuration
-    assert_equal 'ComfortableMexicanSofa MicroCMS', config.cms_title
+    assert_equal 'ComfortableMexicanSofa CMS Engine', config.cms_title
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.admin_auth
     assert_equal 'ComfortableMexicanSofa::DummyAuth', config.public_auth
     assert_equal 'cms-admin', config.admin_route_prefix

@@ -25,7 +25,7 @@ class ActiveSupport::TestCase
   # resetting default configuration
   def reset_config
     ComfortableMexicanSofa.configure do |config|
-      config.cms_title            = 'ComfortableMexicanSofa MicroCMS'
+      config.cms_title            = 'ComfortableMexicanSofa CMS Engine'
       config.admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
       config.public_auth          = 'ComfortableMexicanSofa::DummyAuth'
       config.admin_route_prefix   = 'cms-admin'

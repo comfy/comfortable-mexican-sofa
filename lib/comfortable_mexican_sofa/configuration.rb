@@ -51,7 +51,7 @@ class ComfortableMexicanSofa::Configuration
   
   # Configuration defaults
   def initialize
-    @cms_title            = 'ComfortableMexicanSofa MicroCMS'
+    @cms_title            = 'ComfortableMexicanSofa CMS Engine'
     @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
