@@ -18,27 +18,31 @@ class CmsFileTest < ActiveSupport::TestCase
   
   def test_create
     assert_difference 'Cms::File.count' do
+      upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
+      
       file = cms_sites(:default).files.create(
-        :file => fixture_file_upload('files/image.jpg', 'image/jpeg')
+        :file => upload
       )
       assert_equal 'Image', file.label
       assert_equal 'image.jpg', file.file_file_name
       assert_equal 'image/jpeg', file.file_content_type
-      assert file.file_file_size > 6000
+      assert_equal upload.size, file.file_file_size
       assert_equal 1, file.position
     end
   end
   
   def test_create_with_dimensions
     assert_difference 'Cms::File.count' do
+      upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
+      
       file = cms_sites(:default).files.create!(
         :dimensions => '10x10#',
-        :file       => fixture_file_upload('files/image.jpg', 'image/jpeg')
+        :file       => upload
       )
       assert_equal 'Image', file.label
       assert_equal 'image.jpg', file.file_file_name
       assert_equal 'image/jpeg', file.file_content_type
-      assert file.file_file_size < 6000
+      assert file.file_file_size < upload.size
       assert_equal 1, file.position
     end
   end

@@ -15,7 +15,12 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
-    assert_equal ({:en => 'English', :es => 'Español'}), config.locales
+    assert_equal ({ 
+      'en'    => 'English',
+      'es'    => 'Español',
+      'pt-BR' => 'Português Brasileiro',
+      'zh-CN' => '简体中文' 
+    }), config.locales
     assert_equal nil, config.admin_locale
     assert_equal nil, config.database_config
     assert_equal ({}), config.upload_file_options
