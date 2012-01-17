@@ -1,4 +1,6 @@
 class CreateCms < ActiveRecord::Migration
+
+
   
   def self.up
     # -- Sites --------------------------------------------------------------
@@ -20,9 +22,17 @@ class CreateCms < ActiveRecord::Migration
       t.string  :app_layout
       t.string  :label,       :null => false
       t.string  :identifier,  :null => false
-      t.text    :content,     :limit => 16777215
-      t.text    :css,         :limit => 16777215
-      t.text    :js,          :limit => 16777215
+
+      case ActiveRecord::Base.connection.adapter_name
+      when 'PostgreSQL'
+        t.text    :content
+        t.text    :css
+        t.text    :js
+      else
+        t.text    :content,     :limit => 16777215
+        t.text    :css,         :limit => 16777215
+        t.text    :js,          :limit => 16777215
+      end
       t.integer :position,    :null => false, :default => 0
       t.boolean :is_shared,   :null => false, :default => false
       t.timestamps
@@ -39,7 +49,12 @@ class CreateCms < ActiveRecord::Migration
       t.string  :label,           :null => false
       t.string  :slug
       t.string  :full_path,       :null => false
-      t.text    :content,         :limit => 16777215
+      case ActiveRecord::Base.connection.adapter_name
+      when 'PostgreSQL'
+        t.text    :content
+      else
+        t.text    :content,         :limit => 16777215
+      end
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true
@@ -79,7 +94,12 @@ class CreateCms < ActiveRecord::Migration
       t.string  :file_file_name,    :null => false
       t.string  :file_content_type, :null => false
       t.integer :file_file_size,    :null => false
-      t.string  :description,       :limit => 2048
+      case ActiveRecord::Base.connection.adapter_name
+      when 'PostgreSQL'
+        t.string  :description
+      else
+        t.string  :description,       :limit => 2048
+      end
       t.integer :position,          :null => false, :default => 0
       t.timestamps
     end
@@ -92,7 +112,12 @@ class CreateCms < ActiveRecord::Migration
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type, :null => false
       t.integer   :record_id,   :null => false
-      t.text      :data,        :limit => 16777215
+      case ActiveRecord::Base.connection.adapter_name
+      when 'PostgreSQL'
+        t.text      :data
+      else
+        t.text      :data,        :limit => 16777215
+      end
       t.datetime  :created_at
     end
     add_index :cms_revisions, [:record_type, :record_id, :created_at]
@@ -126,3 +151,4 @@ class CreateCms < ActiveRecord::Migration
     drop_table :cms_categorizations
   end
 end
+
