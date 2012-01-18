@@ -4,7 +4,7 @@ class CreateCms < ActiveRecord::Migration
     
     text_limit = case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL'
-        nil
+        { }
       else
         { :limit => 16777215 }
       end
