@@ -70,7 +70,10 @@ ComfortableMexicanSofa.configure do |config|
   # add a database_config. For example, setting it to 'cms' will look for a cms_#{Rails.env}
   # definition in your database.yml file
   #   config.database_config = nil
-  
+
+  # If you need to skip any before, after, around filters inherited
+  # from your main app on your content pages
+  #   config.content_skip_filters = []
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

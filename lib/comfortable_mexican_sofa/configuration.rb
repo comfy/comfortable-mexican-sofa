@@ -48,7 +48,12 @@ class ComfortableMexicanSofa::Configuration
   # Setting this to `cms` will look for a cms_#{Rails.env} database definition
   # in your database.yml file
   attr_accessor :database_config
-  
+
+  # Skip filters. If you have before or after filters in your
+  # application controller that you don't want to run for cms
+  # content pages
+  attr_accessor :content_skip_filters
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -70,6 +75,7 @@ class ComfortableMexicanSofa::Configuration
     }
     @admin_locale         = nil
     @database_config      = nil
+    @content_skip_filters  = []
   end
   
 end
