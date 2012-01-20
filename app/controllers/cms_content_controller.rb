@@ -9,6 +9,7 @@ class CmsContentController < ApplicationController
     :only => :render_html
   before_filter :load_cms_layout,
     :only => [:render_css, :render_js]
+  ComfortableMexicanSofa.config.content_skip_filters.each {|f| skip_filter f}
   
   def render_html(status = 200)
     if @cms_layout = @cms_page.layout
