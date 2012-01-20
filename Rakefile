@@ -14,7 +14,7 @@ begin
     gem.summary     = 'ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications'
     gem.description = ''
     gem.email       = 'oleg@theworkinggroup.ca'
-    gem.homepage    = 'http://github.com/twg/comfortable-mexican-sofa'
+    gem.homepage    = 'http://github.com/comfy/comfortable-mexican-sofa'
     gem.authors     = ['Oleg Khabarov', 'The Working Group Inc']
   end
   Jeweler::GemcutterTasks.new
