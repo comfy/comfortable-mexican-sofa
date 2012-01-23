@@ -19,6 +19,9 @@ class CmsContentController < ApplicationController
     end
   end
 
+  def render_sitemap
+  end
+
   def render_css
     render :text => @cms_layout.css, :content_type => 'text/css'
   end
