@@ -5,7 +5,8 @@ class CmsContentController < ApplicationController
   
   before_filter :load_cms_site,
                 :load_fixtures
-  before_filter :load_cms_page, :authenticate,
+  before_filter :load_cms_page,
+                :authenticate,
     :only => :render_html
   before_filter :load_cms_layout,
     :only => [:render_css, :render_js]
@@ -20,6 +21,7 @@ class CmsContentController < ApplicationController
   end
 
   def render_sitemap
+    render
   end
 
   def render_css
@@ -46,7 +48,8 @@ protected
     
     if @cms_site
       if params[:cms_path].present?
-        params[:cms_path].gsub!(/^#{@cms_site.path}/, '').gsub!(/^\//, '')
+        params[:cms_path].gsub!(/^#{@cms_site.path}/, '')
+        params[:cms_path].to_s.gsub!(/^\//, '')
       end
       I18n.locale = @cms_site.locale
     else

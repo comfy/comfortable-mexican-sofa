@@ -163,11 +163,23 @@ class CmsContentControllerTest < ActionController::TestCase
   end
 
   def test_render_sitemap_with_path
-    @request.host = 'test.path.host'
-    get :render_sitemap, :cms_path => cms_sites(:site_with_path).path, :format => :xml
+    site = cms_sites(:default)
+    site.update_attribute(:path, 'en')
+    
+    get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
-    assert_equal cms_sites(:site_with_path), assigns(:cms_site)
-    assert !response.body.include?("<loc>"), "No pages, no loc's in the sitemap"
+    assert_equal cms_sites(:default), assigns(:cms_site)
+    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
+  end
+  
+  def test_render_sitemap_with_path_invalid_with_single_site
+    site = cms_sites(:default)
+    site.update_attribute(:path, 'en')
+    
+    get :render_sitemap, :cms_path => 'fr', :format => :xml
+    assert_response :success
+    assert_equal cms_sites(:default), assigns(:cms_site)
+    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
   end
 
 end

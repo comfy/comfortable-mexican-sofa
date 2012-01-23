@@ -4,10 +4,3 @@ default:
   hostname: test.host
   path:
   is_mirrored: false
-
-site_with_path:
-  label: Site With Path
-  identifier: site-with-path
-  hostname: test.path.host
-  path: standard-path
-  is_mirrored: false
