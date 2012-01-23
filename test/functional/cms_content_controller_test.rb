@@ -170,4 +170,21 @@ class CmsContentControllerTest < ActionController::TestCase
     assert !response.body.include?("<loc>"), "No pages, no loc's in the sitemap"
   end
 
+  class TestRenderException
+    def self.callback(cms_site, view, xml)
+      xml.url do
+        # make sure we have the view
+        xml.loc view.url_for("http://test.host/test_render")
+        xml.lastmod 2.days.ago.strftime('%Y-%m-%d')
+      end
+    end
+  end
+
+  def test_rendering_sitemap_with_extensions
+    ComfortableMexicanSofa::Sitemap.register_extension(TestRenderException.method(:callback))
+    get :render_sitemap, :format => :xml
+    assert_response :success
+    assert_match '<loc>http://test.host/test_render</loc>', response.body
+  end
+
 end
