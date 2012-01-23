@@ -155,5 +155,19 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_js, :site_id => cms_sites(:default).id, :identifier => 'bogus'
     assert_response 404
   end
-  
+
+  def test_render_sitemap
+    get :render_sitemap, :format => :xml
+    assert_response :success
+    assert_match '<loc>http://test.host/child-page</loc>', response.body
+  end
+
+  def test_render_sitemap_with_path
+    @request.host = 'test.path.host'
+    get :render_sitemap, :cms_path => cms_sites(:site_with_path).path, :format => :xml
+    assert_response :success
+    assert_equal cms_sites(:site_with_path), assigns(:cms_site)
+    assert !response.body.include?("<loc>"), "No pages, no loc's in the sitemap"
+  end
+
 end
