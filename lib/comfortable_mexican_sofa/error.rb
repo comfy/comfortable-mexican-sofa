@@ -22,8 +22,8 @@ module ComfortableMexicanSofa
   end
 
   class MigrationRequired < ComfortableMexicanSofa::Error
-    def initialize
-      super "This installation of ComfortableMexicanSofa needs to be upgraded."
+    def initialize(message)
+      super message
     end
   end
   
