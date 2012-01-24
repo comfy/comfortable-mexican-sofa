@@ -6,7 +6,9 @@ require 'mime/types'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
-    # ...
+    initializer 'comfortable-mexican-sofa:check_migrations' do
+      ComfortableMexicanSofa::Version.check!
+    end
   end
 end
 

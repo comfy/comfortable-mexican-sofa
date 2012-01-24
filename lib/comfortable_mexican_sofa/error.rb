@@ -20,5 +20,11 @@ module ComfortableMexicanSofa
       super "Cannot find CMS Page at #{path}"
     end
   end
+
+  class MigrationRequired < ComfortableMexicanSofa::Error
+    def initialize
+      super "This installation of ComfortableMexicanSofa needs to be upgraded."
+    end
+  end
   
 end
