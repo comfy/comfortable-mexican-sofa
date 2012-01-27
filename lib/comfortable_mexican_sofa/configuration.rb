@@ -27,7 +27,7 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :allowed_helpers
 
   # Disabling specific helpers, used only if allow_irb=false and no allowed_helpers given
-  # Default is /eval|puts|print/
+  # Default is /eval|send|call|puts|print/
   attr_accessor :disabled_helpers
   
   # Upload settings
@@ -67,7 +67,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_redirect = ''
     @allow_irb            = false
     @allowed_helpers      = nil
-    @disabled_helpers      = /eval|puts|print/
+    @disabled_helpers      = /eval|send|call|puts|print/
     @upload_file_options  = {}
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)

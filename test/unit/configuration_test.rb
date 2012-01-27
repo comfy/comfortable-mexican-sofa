@@ -13,7 +13,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal '', config.admin_route_redirect
     assert_equal false, config.allow_irb
     assert_equal nil, config.allowed_helpers
-    assert_equal /eval|puts|print/, config.disabled_helpers
+    assert_equal /eval|send|call|puts|print/, config.disabled_helpers
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
