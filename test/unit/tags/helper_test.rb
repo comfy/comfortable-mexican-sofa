@@ -7,10 +7,6 @@ class HelperTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:helper:method_name }}'
     )
     assert_equal 'method_name', tag.identifier
-    assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{ cms:helper:method-name }}'
-    )
-    assert_equal 'method-name', tag.identifier
   end
   
   def test_initialize_tag_with_parameters
@@ -64,6 +60,20 @@ class HelperTagTest < ActiveSupport::TestCase
     assert_equal "", tag.render
   end
 
+  def test_helper_name_sanitization
+    ComfortableMexicanSofa.configuration.allowed_helpers = /^curr/
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:current_user.class.delete_all}}'
+    )
+    assert_equal "<%= current_user('.class.delete_all') %>", tag.content, "no dots in helper name"
+
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:current-eval:"User.first.inspect"}}'
+    )
+    assert_equal "<%= current('-eval', 'User.first.inspect') %>", tag.content, "no minus signs in helper name"
+
+  end
+
   def test_escaping_of_parameters
     tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
@@ -71,7 +81,6 @@ class HelperTagTest < ActiveSupport::TestCase
 
     assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.content
     assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
-
   end
 
 end

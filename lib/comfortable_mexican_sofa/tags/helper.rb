@@ -2,7 +2,7 @@ class ComfortableMexicanSofa::Tag::Helper
   include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(identifier = nil)
-    identifier ||= /[\w\-]+/
+    identifier ||= /\w+/
     /\{\{\s*cms:helper:(#{identifier}):?(.*?)\s*\}\}/
   end
   
