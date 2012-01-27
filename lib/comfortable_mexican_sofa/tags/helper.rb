@@ -7,7 +7,9 @@ class ComfortableMexicanSofa::Tag::Helper
   end
   
   def content
-    if identifier =~ ComfortableMexicanSofa.configuration.allowed_helpers || ComfortableMexicanSofa.configuration.allow_irb
+    if ComfortableMexicanSofa.configuration.allow_irb ||
+          (!ComfortableMexicanSofa.configuration.allowed_helpers.nil? && identifier =~ ComfortableMexicanSofa.configuration.allowed_helpers) ||
+          (ComfortableMexicanSofa.configuration.allowed_helpers.nil? && identifier !~ ComfortableMexicanSofa.configuration.disabled_helpers)
       "<%= #{identifier}(#{params.collect{|p| "'#{self.class.sanitize_parameter(p)}'"}.join(', ')}) %>"
     else
       ""

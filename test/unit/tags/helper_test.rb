@@ -2,14 +2,6 @@ require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class HelperTagTest < ActiveSupport::TestCase
 
-  def setup
-    @allowed_helpers_original = ComfortableMexicanSofa.configuration.allowed_helpers
-  end
-
-  def teardown
-    ComfortableMexicanSofa.configuration.allowed_helpers = @allowed_helpers_original
-  end
-  
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{ cms:helper:example_helper_url }}'
@@ -68,8 +60,23 @@ class HelperTagTest < ActiveSupport::TestCase
     assert_equal "", tag.render
   end
 
+  def test_using_allowed_helpers_regexp
+    ComfortableMexicanSofa.configuration.allowed_helpers = /^puts_info/
+
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:puts_info}}'
+    )
+    assert_equal "<%= puts_info() %>", tag.content, "should allow helper in allowed_helper"
+
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:translate}}'
+    )
+    assert_equal "", tag.content, "should only allow helpers in allowed_helper"
+
+    ComfortableMexicanSofa.configuration.allowed_helpers = nil
+  end
+
   def test_helper_name_sanitization
-    ComfortableMexicanSofa.configuration.allowed_helpers = /^curr/
     tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
       cms_pages(:default), '{{cms:helper:current_user.class.delete_all}}'
     )
@@ -79,7 +86,6 @@ class HelperTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{cms:helper:current-eval:"User.first.inspect"}}'
     )
     assert_equal "<%= current('-eval', 'User.first.inspect') %>", tag.content, "no minus signs in helper name"
-
   end
 
   def test_escaping_of_parameters
