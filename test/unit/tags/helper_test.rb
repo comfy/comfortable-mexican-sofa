@@ -27,7 +27,6 @@ class HelperTagTest < ActiveSupport::TestCase
     )
     assert_equal 'method_name', tag.identifier
     assert_equal ['param1', 'param:2'], tag.params
-
   end
   
   def test_initialize_tag_failure
@@ -55,5 +54,24 @@ class HelperTagTest < ActiveSupport::TestCase
     assert_equal "<%= method_name('param1', 'param2') %>", tag.content
     assert_equal "<%= method_name('param1', 'param2') %>", tag.render
   end
-  
+
+  def test_no_eval_in_default_config
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:eval:"User.first.inspect"}}'
+    )
+
+    assert_equal "", tag.content
+    assert_equal "", tag.render
+  end
+
+  def test_escaping_of_parameters
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
+    )
+
+    assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.content
+    assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
+
+  end
+
 end

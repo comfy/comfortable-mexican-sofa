@@ -38,6 +38,11 @@ module ComfortableMexicanSofa::Tag
         tag
       end
     end
+
+    # Sanitizing '-characters from parameters, used with Partial and Helper tags
+    def sanitize_parameter(param)
+      param.to_s.gsub(/'/, "\\\\'")
+    end
   end
   
   module InstanceMethods
@@ -127,7 +132,7 @@ private
       content.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
     end
   end
-  
+
   def self.included(tag)
     tag.send(:include, ComfortableMexicanSofa::Tag::InstanceMethods)
     tag.send(:extend, ComfortableMexicanSofa::Tag::ClassMethods)

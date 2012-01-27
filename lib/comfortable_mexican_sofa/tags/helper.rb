@@ -7,7 +7,11 @@ class ComfortableMexicanSofa::Tag::Helper
   end
   
   def content
-    "<%= #{identifier}(#{params.collect{|p| "'#{p}'"}.join(', ')}) %>"
+    if identifier =~ ComfortableMexicanSofa.configuration.allowed_helpers || ComfortableMexicanSofa.configuration.allow_irb
+      "<%= #{identifier}(#{params.collect{|p| "'#{self.class.sanitize_parameter(p)}'"}.join(', ')}) %>"
+    else
+      ""
+    end
   end
   
 end
