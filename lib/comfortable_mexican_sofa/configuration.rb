@@ -23,6 +23,7 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :allow_irb
 
   # Allowing only specific helpers. Allowing everything if allow_irb.
+  # Regexp of allowed helpers. Default is /^number|^t|^link|^h|url|path/
   attr_accessor :allowed_helpers
   
   # Upload settings
@@ -61,7 +62,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = ''
     @allow_irb            = false
-    @allowed_helpers      = /^m|^number|^t|^link|^h/
+    @allowed_helpers      = /^number|^t|^link|^h|url|path/
     @upload_file_options  = {}
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)

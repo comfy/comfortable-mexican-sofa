@@ -232,12 +232,12 @@ class TagTest < ActiveSupport::TestCase
       :layout_id  => layout.id,
       :blocks_attributes => [
         { :identifier => 'content',
-          :content    => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
+          :content    => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:example_url }} text' },
         { :identifier => 'snippet',
           :content    => snippet.id }
       ]
     )
-    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
+    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= example_url() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
   end
   
   def test_content_with_irb_enabled
@@ -258,12 +258,12 @@ class TagTest < ActiveSupport::TestCase
       :layout_id  => layout.id,
       :blocks_attributes => [
         { :identifier => 'content',
-          :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
+          :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:example_url }} text' },
         { :identifier => 'snippet',
           :content    => snippet.id }
       ]
     )
-    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
+    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= example_url() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
   end
   
 end

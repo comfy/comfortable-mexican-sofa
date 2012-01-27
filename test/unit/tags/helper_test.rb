@@ -1,34 +1,42 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class HelperTagTest < ActiveSupport::TestCase
+
+  def setup
+    @allowed_helpers_original = ComfortableMexicanSofa.configuration.allowed_helpers
+  end
+
+  def teardown
+    ComfortableMexicanSofa.configuration.allowed_helpers = @allowed_helpers_original
+  end
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{ cms:helper:method_name }}'
+      cms_pages(:default), '{{ cms:helper:example_helper_url }}'
     )
-    assert_equal 'method_name', tag.identifier
+    assert_equal 'example_helper_url', tag.identifier
   end
   
   def test_initialize_tag_with_parameters
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{ cms:helper:method_name:param1:param2 }}'
+      cms_pages(:default), '{{ cms:helper:example_helper_url:param1:param2 }}'
     )
-    assert_equal 'method_name', tag.identifier
+    assert_equal 'example_helper_url', tag.identifier
     assert_equal ['param1', 'param2'], tag.params
   end
 
   def test_initialize_tag_with_complex_parameters
     assert tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{ cms:helper:method_name:param1:"param:2" }}'
+      cms_pages(:default), '{{ cms:helper:example_helper_url:param1:"param:2" }}'
     )
-    assert_equal 'method_name', tag.identifier
+    assert_equal 'example_helper_url', tag.identifier
     assert_equal ['param1', 'param:2'], tag.params
   end
   
   def test_initialize_tag_failure
     [
       '{{cms:helper}}',
-      '{{cms:not_helper:method_name}}',
+      '{{cms:not_helper:example_helper_url}}',
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::Helper.initialize_tag(
@@ -39,16 +47,16 @@ class HelperTagTest < ActiveSupport::TestCase
   
   def test_content_and_render
     tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{cms:helper:method_name}}'
+      cms_pages(:default), '{{cms:helper:example_helper_url}}'
     )
-    assert_equal "<%= method_name() %>", tag.content
-    assert_equal "<%= method_name() %>", tag.render
+    assert_equal "<%= example_helper_url() %>", tag.content
+    assert_equal "<%= example_helper_url() %>", tag.render
     
     tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{cms:helper:method_name:param1:param2}}'
+      cms_pages(:default), '{{cms:helper:example_helper_url:param1:param2}}'
     )
-    assert_equal "<%= method_name('param1', 'param2') %>", tag.content
-    assert_equal "<%= method_name('param1', 'param2') %>", tag.render
+    assert_equal "<%= example_helper_url('param1', 'param2') %>", tag.content
+    assert_equal "<%= example_helper_url('param1', 'param2') %>", tag.render
   end
 
   def test_no_eval_in_default_config

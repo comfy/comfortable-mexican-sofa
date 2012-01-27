@@ -12,6 +12,10 @@ class ViewMethodsTest < ActionView::TestCase
       render :inline => '<%= cms_page_content(:default_field_text) %>'
     end
   end
+
+  def setup
+    ComfortableMexicanSofa.configuration.allowed_helpers = /.*/
+  end
   
   # Simulating a call and getting resulting output
   def action_result(action)
