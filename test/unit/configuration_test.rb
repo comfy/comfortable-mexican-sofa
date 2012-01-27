@@ -12,6 +12,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'cms-admin', config.admin_route_prefix
     assert_equal '', config.admin_route_redirect
     assert_equal false, config.allow_irb
+    assert_equal /^m|^number|^t|^link|^h/, config.allowed_helpers
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit

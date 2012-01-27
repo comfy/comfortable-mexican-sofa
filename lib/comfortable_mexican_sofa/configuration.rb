@@ -21,6 +21,9 @@ class ComfortableMexicanSofa::Configuration
   
   # Not allowing irb code to be run inside page content. False by default.
   attr_accessor :allow_irb
+
+  # Allowing only specific helpers. Allowing everything if allow_irb.
+  attr_accessor :allowed_helpers
   
   # Upload settings
   attr_accessor :upload_file_options
@@ -58,6 +61,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = ''
     @allow_irb            = false
+    @allowed_helpers      = /^m|^number|^t|^link|^h/
     @upload_file_options  = {}
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
