@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_layouts(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, layout_ids = [])
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
-      $stdout.puts 'Cannot find Layout fixtures'
+      ComfortableMexicanSofa.logger.warn('Cannot find Layout fixtures')
       return
     end
     
@@ -56,9 +56,9 @@ module ComfortableMexicanSofa::Fixtures
       layout.parent = parent
       if layout.changed?
         if layout.save
-          $stdout.puts "[Fixtures] Saved Layout {#{layout.identifier}}"
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
         else
-          $stdout.puts "[Fixtures] Failed to save Layout {#{layout.errors.inspect}}"
+          ComfortableMexicanSofa.logger.error("[Fixtures] Failed to save Layout {#{layout.errors.inspect}}")
           return
         end
       end
@@ -71,7 +71,7 @@ module ComfortableMexicanSofa::Fixtures
     # removing all db entries that are not in fixtures
     if root
       site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } 
-      $stdout.puts 'Imported Layouts!'
+      ComfortableMexicanSofa.logger.warn('Imported Layouts!')
     end
     
     # returning ids of layouts in fixtures
@@ -81,7 +81,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_pages(to_hostname, from_hostname = nil, path = nil, root = true, parent = nil, page_ids = [])
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
-      $stdout.puts 'Cannot find Page fixtures'
+      ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
       return
     end
     
@@ -123,9 +123,9 @@ module ComfortableMexicanSofa::Fixtures
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
       if page.changed? || blocks_attributes.present?
         if page.save
-          $stdout.puts "[Fixtures] Saved Page {#{page.full_path}}"
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
         else
-          $stdout.puts "[Fixtures] Failed to save Page {#{page.errors.inspect}}"
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Page {#{page.errors.inspect}}")
           return
         end
       end
@@ -138,7 +138,7 @@ module ComfortableMexicanSofa::Fixtures
     # removing all db entries that are not in fixtures
     if root
       site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy }
-      $stdout.puts 'Imported Pages!'
+      ComfortableMexicanSofa.logger.warn('Imported Pages!')
     end
     
     # returning ids of layouts in fixtures
@@ -148,7 +148,7 @@ module ComfortableMexicanSofa::Fixtures
   def self.import_snippets(to_hostname, from_hostname = nil)
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
-      $stdout.puts 'Cannot find Snippet fixtures'
+      ComfortableMexicanSofa.logger.warn('Cannot find Snippet fixtures')
       return
     end
     
@@ -177,9 +177,9 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       if snippet.changed?
         if snippet.save
-          $stdout.puts "[Fixtures] Saved Snippet {#{snippet.identifier}}"
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Snippet {#{snippet.identifier}}")
         else
-          $stdout.puts "[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}"
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}")
           return
         end
       end
@@ -188,7 +188,7 @@ module ComfortableMexicanSofa::Fixtures
     
     # removing all db entries that are not in fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
-    $stdout.puts 'Imported Snippets!'
+    ComfortableMexicanSofa.logger.warn('Imported Snippets!')
   end
   
   def self.export_layouts(from_hostname, to_hostname = nil)

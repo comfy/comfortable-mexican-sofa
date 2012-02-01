@@ -8,13 +8,6 @@ require 'rails/test_help'
 Paperclip::Attachment.default_options[:use_timestamp] = false
 
 class ActiveSupport::TestCase
-  
-  # Disabling the noise
-  $stdout_orig = $stdout
-  $stderr_orig = $stderr
-  $stdout = StringIO.new
-  $stderr = StringIO.new
-  
   fixtures :all
   include ActionDispatch::TestProcess
   
