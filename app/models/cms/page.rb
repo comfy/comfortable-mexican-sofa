@@ -44,7 +44,7 @@ class Cms::Page < ActiveRecord::Base
   validate :validate_target_page
   
   # -- Scopes ---------------------------------------------------------------
-  default_scope order(:position)
+  default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)
   
   # -- Class Methods --------------------------------------------------------
