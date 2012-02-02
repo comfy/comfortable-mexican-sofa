@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.6.8"
+  s.version = "1.6.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2012-01-18"
+  s.date = "2012-02-02"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -154,6 +154,7 @@ Gem::Specification.new do |s|
     "app/views/cms_admin/snippets/edit.html.erb",
     "app/views/cms_admin/snippets/index.html.erb",
     "app/views/cms_admin/snippets/new.html.erb",
+    "app/views/cms_content/render_sitemap.xml.builder",
     "app/views/layouts/cms_admin.html.erb",
     "app/views/layouts/cms_admin/_body.html.erb",
     "app/views/layouts/cms_admin/_center.html.erb",
@@ -312,7 +313,7 @@ Gem::Specification.new do |s|
     "test/unit/tags/snippet_test.rb",
     "test/unit/view_methods_test.rb"
   ]
-  s.homepage = "http://github.com/twg/comfortable-mexican-sofa"
+  s.homepage = "http://github.com/comfy/comfortable-mexican-sofa"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
   s.summary = "ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails 3 applications"
