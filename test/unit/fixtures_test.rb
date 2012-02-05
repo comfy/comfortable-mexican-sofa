@@ -41,6 +41,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
+      assert_equal 0, layout.position
       
       nested_layout.reload
       assert_equal layout, nested_layout.parent
@@ -48,6 +49,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
+      assert_equal 42, nested_layout.position
       
       assert_nil Cms::Layout.find_by_identifier('child')
     end
@@ -250,7 +252,8 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal ({
       'label'       => 'Nested Layout',
       'app_layout'  => nil,
-      'parent'      => nil
+      'parent'      => nil,
+      'position'    => 0
     }), YAML.load_file(layout_1_attr_path)
     assert_equal cms_layouts(:nested).content, IO.read(layout_1_content_path)
     assert_equal cms_layouts(:nested).css, IO.read(layout_1_css_path)
@@ -259,7 +262,8 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal ({
       'label'       => 'Child Layout',
       'app_layout'  => nil,
-      'parent'      => 'nested'
+      'parent'      => 'nested',
+      'position'    => 0
     }), YAML.load_file(layout_2_attr_path)
     assert_equal cms_layouts(:child).content, IO.read(layout_2_content_path)
     assert_equal cms_layouts(:child).css, IO.read(layout_2_css_path)

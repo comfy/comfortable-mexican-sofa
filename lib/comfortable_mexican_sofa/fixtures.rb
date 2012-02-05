@@ -28,7 +28,8 @@ module ComfortableMexicanSofa::Fixtures
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
           attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           layout.label      = attributes[:label] || identifier.titleize
-          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout) 
+          layout.app_layout = attributes[:app_layout] || parent.try(:app_layout)
+          layout.position   = attributes[:position] if attributes[:position]
         end
       elsif layout.new_record?
         layout.label      = identifier.titleize
@@ -206,7 +207,8 @@ module ComfortableMexicanSofa::Fixtures
         f.write({
           'label'       => layout.label,
           'app_layout'  => layout.app_layout,
-          'parent'      => layout.parent.try(:identifier)
+          'parent'      => layout.parent.try(:identifier),
+          'position'    => layout.position
         }.to_yaml)
       end
       open(File.join(layout_path, 'content.html'), 'w') do |f|
