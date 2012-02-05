@@ -101,6 +101,7 @@ module ComfortableMexicanSofa::Fixtures
           page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
           page.is_published = attributes[:is_published].present?? attributes[:is_published] : true
+          page.position = attributes[:position] if attributes[:position]
         end
       elsif page.new_record?
         page.label = slug.titleize
@@ -237,7 +238,8 @@ module ComfortableMexicanSofa::Fixtures
           'layout'        => page.layout.try(:identifier),
           'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
           'target_page'   => page.target_page.try(:slug),
-          'is_published'  => page.is_published
+          'is_published'  => page.is_published,
+          'position'      => page.position
         }.to_yaml)
       end
       page.blocks_attributes.each do |block|

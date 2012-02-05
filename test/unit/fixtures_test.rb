@@ -91,6 +91,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content
+      assert_equal 0, page.position
       assert page.is_published?
       
       assert child_page = Cms::Page.find_by_full_path('/child')
@@ -98,6 +99,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug
       assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content
+      assert_equal 42, child_page.position
     end
   end
   
@@ -280,7 +282,8 @@ class FixturesTest < ActiveSupport::TestCase
       'layout'        => 'default',
       'parent'        => nil,
       'target_page'   => nil,
-      'is_published'  => true
+      'is_published'  => true,
+      'position'      => 0
     }), YAML.load_file(page_1_attr_path)
     assert_equal cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
     assert_equal cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
@@ -290,7 +293,8 @@ class FixturesTest < ActiveSupport::TestCase
       'layout'        => 'default',
       'parent'        => 'index',
       'target_page'   => nil,
-      'is_published'  => true
+      'is_published'  => true,
+      'position'      => 0
     }), YAML.load_file(page_2_attr_path)
     
     FileUtils.rm_rf(host_path)
