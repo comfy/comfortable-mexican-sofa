@@ -83,10 +83,20 @@ class SitesTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_forced_locale
     ComfortableMexicanSofa.config.admin_locale = :en
+    
     cms_sites(:default).update_attribute(:locale, 'fr')
     http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
+
+    I18n.default_locale = :fr
+    I18n.locale = :fr
+    http_auth :get, cms_admin_sites_path()
+    assert_response :success
+    assert_equal :en, I18n.locale
+
+    I18n.default_locale = :en
+
   end
   
 end

@@ -7,6 +7,7 @@ class CmsAdmin::BaseController < ApplicationController
 
   before_filter :authenticate,
                 :load_admin_site,
+                :set_locale,
                 :load_fixtures,
                 :except => :jump
   
@@ -27,7 +28,11 @@ protected
       flash[:error] = I18n.t('cms.base.site_not_found')
       return redirect_to(new_cms_admin_site_path)
     end
-    I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
+  end
+
+  def set_locale
+    I18n.locale = ComfortableMexicanSofa.config.admin_locale || (@site && @site.locale)
+    true
   end
 
   def load_fixtures
