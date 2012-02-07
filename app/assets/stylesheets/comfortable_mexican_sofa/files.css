@@ -35,7 +35,7 @@
   white-space: nowrap;
   overflow: hidden;
   float: left;
-  color: #eee;
+  color: #8a8a8a;
 }
 #cms_body .uploaded_files .file .file_name a.delete {
   float: right;

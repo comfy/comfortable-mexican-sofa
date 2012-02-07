@@ -10,7 +10,7 @@
   font: 13px/19px 'Lucida Grande', 'Tahoma', sans-serif;
   text-shadow: #fff 1px 1px;
   padding: 0px 10px;
-  background-color: #f1f1f1;
+  background-color: #f6f5f5;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px ;
   -moz-border-radius-topleft: 3px;
@@ -37,6 +37,9 @@
 }
 #cms_body .form_element .value textarea {
   height: 300px;
+}
+#cms_body .form_element .value textarea.short {
+  height: 100px;
 }
 #cms_body .form_element .value .CodeMirror-wrapping {
   background-color: #fff;
@@ -142,7 +145,7 @@
 }
 #cms_body .form_element.submit_element .value {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: #f6f5f5;
   border-radius: 3px;
   -moz-border-radius: 3px;
   padding: 5px;

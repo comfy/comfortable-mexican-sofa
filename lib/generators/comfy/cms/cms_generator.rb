@@ -4,7 +4,7 @@ class CmsGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
   include Thor::Actions
   
-  source_root File.expand_path('../../..', __FILE__)
+  source_root File.expand_path('../../../../..', __FILE__)
   
   def generate_migration
     destination   = File.expand_path('db/migrate/01_create_cms.rb', self.destination_root)
@@ -19,14 +19,18 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def generate_initialization
-    copy_file 'config/initializers/comfortable_mexican_sofa.rb', 'config/initializers/comfortable_mexican_sofa.rb'
+    copy_file 'config/initializers/comfortable_mexican_sofa.rb',
+      'config/initializers/comfortable_mexican_sofa.rb'
   end
   
   def generate_public_assets
     return if ComfortableMexicanSofa.asset_pipeline_enabled?
-    directory 'app/assets/stylesheets/comfortable_mexican_sofa',  'public/stylesheets/comfortable_mexican_sofa'
-    directory 'app/assets/javascripts/comfortable_mexican_sofa',  'public/javascripts/comfortable_mexican_sofa'
-    directory 'app/assets/images/comfortable_mexican_sofa',       'public/images/comfortable_mexican_sofa'
+    directory 'app/assets/stylesheets/comfortable_mexican_sofa',
+      'public/stylesheets/comfortable_mexican_sofa'
+    directory 'app/assets/javascripts/comfortable_mexican_sofa',
+      'public/javascripts/comfortable_mexican_sofa'
+    directory 'app/assets/images/comfortable_mexican_sofa',
+      'public/images/comfortable_mexican_sofa'
     
     files_to_be_changed = [
       'public/stylesheets/comfortable_mexican_sofa/content.css', 
@@ -46,7 +50,7 @@ class CmsGenerator < Rails::Generators::Base
   end
   
   def show_readme
-    readme 'lib/generators/README'
+    readme 'lib/generators/comfy/cms/README'
   end
   
   def self.next_migration_number(dirname)

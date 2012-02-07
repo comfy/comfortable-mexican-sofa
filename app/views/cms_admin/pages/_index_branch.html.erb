@@ -15,7 +15,7 @@
         end
       %>
     </div>
-    <div class='icon'>
+    <div class='icon <%= page.is_published?? 'published' : 'draft' %>'>
       <% if !category_view && has_siblings %>
         <div class='dragger'><span><%= t('cms.views.pages.drag') %></span></div>
       <% end %>

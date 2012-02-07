@@ -1,5 +1,6 @@
 default:
   site: default
+  block:
   label: Sample
   file_file_name: sample.jpg
   file_content_type: image/jpeg

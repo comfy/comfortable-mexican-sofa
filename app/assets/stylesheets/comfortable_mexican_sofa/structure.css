@@ -29,29 +29,37 @@ html, body#cms_body {
   position: fixed;
 }
 #cms_body .left_column_content {
-  padding: 25px 0px 25px 10px;
-  width: 165px;
+  padding: 25px 0px;
+  width: 175px;
   position: fixed;
 }
 #cms_body .left_column_content ul.nav a {
+  position: relative;
   display: block;
-  padding: 3px 10px;
-  margin-bottom: 5px;
+  padding: 5px 15px;
   font: 15px/25px 'Lucida Grande', 'Tahoma', sans-serif;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  background: #2D2D2D;
-  background: -moz-linear-gradient(left, #2D2D2D 0%, #484848 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#2D2D2D), color-stop(100%,#484848));
-  color: #fff;
-  opacity: 0.3;
+  color: #8a8a8a;
+  text-shadow: 0px 1px 0px #000;
+  border-bottom: 1px solid #1a1a1a;
 }
 #cms_body .left_column_content ul.nav a:hover,
 #cms_body .left_column_content ul.nav a.active {
-  color: #fff;
-  opacity: 1;
+  color: #ddd;
+}
+#cms_body .left_column_content ul.nav a.active {
+  background-color: #1f1f1f;
+  box-shadow: inset 0px 0px 10px #000;
+}
+#cms_body .left_column_content ul.nav a.active:after {
+  position: absolute;
+  top: 10px;
+  right: -8px;
+  z-index: 9999;
+  content: '';
+  display: block;
+  height: 16px;
+  width: 8px;
+  background: transparent url(/assets/comfortable_mexican_sofa/nav_arrow.png);
 }
 #cms_body .right_column_content h2 {
   color: #d8d8d8;
