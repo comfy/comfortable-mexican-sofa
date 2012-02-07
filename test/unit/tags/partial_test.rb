@@ -56,5 +56,13 @@ class PartialTagTest < ActiveSupport::TestCase
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1', :param_2 => 'param2'} %>", tag.content
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1', :param_2 => 'param2'} %>", tag.render
   end
+
+  def test_escaping_of_parameters
+    tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
+      cms_pages(:default), '{{cms:partial:path/to/partial:"\'+User.first.inspect+\'"}}'
+    )
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => '\\'+User.first.inspect+\\''} %>", tag.content
+    assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => '\\'+User.first.inspect+\\''} %>", tag.render
+  end
   
 end
