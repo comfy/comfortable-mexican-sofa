@@ -20,5 +20,11 @@ module ComfortableMexicanSofa
       super "Cannot find CMS Page at #{path}"
     end
   end
+
+  class MigrationRequired < ComfortableMexicanSofa::Error
+    def initialize(message)
+      super message
+    end
+  end
   
 end
