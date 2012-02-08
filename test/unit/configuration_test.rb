@@ -23,7 +23,9 @@ class ConfigurationTest < ActiveSupport::TestCase
     }), config.locales
     assert_equal nil, config.admin_locale
     assert_equal nil, config.database_config
-    assert_equal ({}), config.upload_file_options
+    assert_equal ({
+      :url => '/system/:class/:id/:attachment/:style/:filename'
+    }), config.upload_file_options
   end
   
   def test_initialization_overrides

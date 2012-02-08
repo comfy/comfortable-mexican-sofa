@@ -58,7 +58,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = ''
     @allow_irb            = false
-    @upload_file_options  = {}
+    @upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit      = 25

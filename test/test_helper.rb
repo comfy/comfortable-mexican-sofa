@@ -34,7 +34,7 @@ class ActiveSupport::TestCase
         'zh-CN' => '简体中文' 
       }
       config.admin_locale         = nil
-      config.upload_file_options  = { }
+      config.upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'
