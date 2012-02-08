@@ -11,8 +11,9 @@
       this.source.val(html);
         
       this.codeMirror = CodeMirror.fromTextArea(this.source[0], {
-        mode:     'htmlmixed',
-        tabMode:  'indent'
+        mode:         'htmlmixed',
+        tabMode:      'indent',
+        lineWrapping: true
       });
       for (var i = 0, e = this.codeMirror.lineCount(); i < e; ++i) this.codeMirror.indentLine(i);
       
