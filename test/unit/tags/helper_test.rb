@@ -67,7 +67,7 @@ class HelperTagTest < ActiveSupport::TestCase
     end
   end
   
-  def test_protected_methods_with_irb_enabled
+  def test_protected_methods_with_irb_disabled
     ComfortableMexicanSofa::Tag::Helper::PROTECTED_METHODS.each do |method|
       tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
         cms_pages(:default), "{{ cms:helper:#{method}:Rails.env }}"
