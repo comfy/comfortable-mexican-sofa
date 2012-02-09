@@ -77,6 +77,7 @@ protected
   end
   
   def assign_position
+    return if self.position.to_i > 0
     max = self.site.layouts.where(:parent_id => self.parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
