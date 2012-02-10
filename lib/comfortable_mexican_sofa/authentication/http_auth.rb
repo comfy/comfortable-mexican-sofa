@@ -14,4 +14,9 @@ module ComfortableMexicanSofa::HttpAuth
       username == self.username && password == self.password
     end
   end
+
+  # The list of sites this authorization is allowed to edit.
+  def available_sites
+    Cms::Site.all
+  end
 end
