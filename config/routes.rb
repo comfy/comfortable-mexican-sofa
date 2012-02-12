@@ -39,6 +39,6 @@ Rails.application.routes.draw do
       :constraints  => {:format => /xml/},
       :format       => :xml
     get '/' => :render_html,  :as => 'cms_html',  :path => "(*cms_path)"
-  end
+  end if ComfortableMexicanSofa.config.include_default_routes
   
 end
