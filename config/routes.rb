@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   namespace :cms_admin, :path => ComfortableMexicanSofa.config.admin_route_prefix, :except => :show do
     get '/', :to => 'base#jump'
     resources :sites do
@@ -39,6 +39,6 @@ Rails.application.routes.draw do
       :constraints  => {:format => /xml/},
       :format       => :xml
     get '/' => :render_html,  :as => 'cms_html',  :path => "(*cms_path)"
-  end if ComfortableMexicanSofa.config.include_default_routes
+  end
   
-end
+end if ComfortableMexicanSofa.config.include_default_routes
