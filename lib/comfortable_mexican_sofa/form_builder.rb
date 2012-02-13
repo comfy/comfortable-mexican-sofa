@@ -35,7 +35,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   def simple_field(label = nil, content = nil, options = {}, &block)
     content ||= @template.capture(&block) if block_given?
     %(
-      <div class='form_element #{options.delete(:class)}'>
+      <div class='form_element simple_field #{options.delete(:class)}'>
         <div class='label'>#{label}</div>
         <div class='value'>#{content}</div>
       </div>

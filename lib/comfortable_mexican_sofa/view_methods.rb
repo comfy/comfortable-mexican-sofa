@@ -1,6 +1,6 @@
 module ComfortableMexicanSofa::ViewMethods
   # Wrapper around CmsFormBuilder
-  def cms_form_for(record_or_name_or_array, *args, &proc)
+  def comfy_form_for(record_or_name_or_array, *args, &proc)
     options = args.extract_options!
     form_for(record_or_name_or_array, *(args << options.merge(:builder => ComfortableMexicanSofa::FormBuilder)), &proc)
   end

@@ -1,5 +1,5 @@
 <h1><%= t('.title') %></h1>
 
-<%= cms_form_for @layout, :as => :layout, :url => {:action => :create} do |form| %>
+<%= comfy_form_for @layout, :as => :layout, :url => {:action => :create} do |form| %>
   <%= render :partial => 'form', :object => form %>
 <% end %>

@@ -4,7 +4,7 @@ class FormBuilderTest < ActionView::TestCase
   include ComfortableMexicanSofa::ViewMethods
   
   def test_form_render_basic
-    concat( cms_form_for(cms_pages(:child), :url => '#') do |f|
+    concat( comfy_form_for(cms_pages(:child), :url => '#') do |f|
       f.text_area(:label) +
       f.text_field(:slug) +
       f.select(:parent_id, [['1', 'Parent']])
@@ -27,7 +27,7 @@ class FormBuilderTest < ActionView::TestCase
   end
   
   def test_form_render_with_custom_ids
-    concat( cms_form_for(cms_pages(:child), :url => '#') do |f|
+    concat( comfy_form_for(cms_pages(:child), :url => '#') do |f|
       f.text_field(:label, :id => 'slugify') +
       f.text_field(:slug)
     end )
@@ -38,13 +38,13 @@ class FormBuilderTest < ActionView::TestCase
   end
   
   def test_form_label_with_html_safe_labels
-    cms_form_for(cms_pages(:child), :url => '#') do |f|
+    comfy_form_for(cms_pages(:child), :url => '#') do |f|
       assert f.label_for(:is_published).html_safe?
     end
   end
   
   def test_form_label_custom_override
-    concat( cms_form_for(cms_pages(:child), :url => '#') do |f|
+    concat( comfy_form_for(cms_pages(:child), :url => '#') do |f|
       f.text_field(:slug, :label => 'Custom')
     end )
     assert_select 'label[for="cms_page_slug"]', 'Custom'
@@ -55,7 +55,7 @@ class FormBuilderTest < ActionView::TestCase
       :attributes => { :slug => "Gulsty" },
       :activerecord => { :attributes => { :'cms/page' => { :label => 'Titlumtimpin' } } }
     } do
-      concat( cms_form_for(cms_pages(:child), :url => '#') do |f|
+      concat( comfy_form_for(cms_pages(:child), :url => '#') do |f|
         f.text_field(:label) +
         f.text_field(:slug) +
         f.text_field(:parent_id)

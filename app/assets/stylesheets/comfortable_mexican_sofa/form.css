@@ -177,3 +177,6 @@
   color: #fff;
   margin-bottom: 3px;
 }
+#cms_body .form_element.simple_field .value input {
+  margin-bottom: 3px;
+}
