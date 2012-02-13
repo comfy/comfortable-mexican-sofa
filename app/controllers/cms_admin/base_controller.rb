@@ -12,6 +12,8 @@ class CmsAdmin::BaseController < ApplicationController
                 :except => :jump
   
   layout 'cms_admin'
+
+  cache_sweeper ComfortableMexicanSofa.config.admin_sweeper.to_s.constantize if ComfortableMexicanSofa.config.admin_sweeper
   
   def jump
     path = ComfortableMexicanSofa.config.admin_route_redirect
