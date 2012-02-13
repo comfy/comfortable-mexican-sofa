@@ -7,9 +7,6 @@ class ComfortableMexicanSofa::Configuration
   
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
-
-  # A class that is included as a sweeper to admin base controller if it's set
-  attr_accessor :admin_sweeper
   
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
@@ -56,11 +53,13 @@ class ComfortableMexicanSofa::Configuration
   # in your database.yml file
   attr_accessor :database_config
   
+  # A class that is included as a sweeper to admin base controller if it's set
+  attr_accessor :admin_cache_sweeper
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
     @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
-    @admin_sweeper        = false
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
     @admin_route_prefix   = 'cms-admin'
@@ -79,6 +78,7 @@ class ComfortableMexicanSofa::Configuration
     }
     @admin_locale         = nil
     @database_config      = nil
+    @admin_cache_sweeper  = nil
   end
   
 end

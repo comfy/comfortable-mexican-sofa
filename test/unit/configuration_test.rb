@@ -27,6 +27,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal ({
       :url => '/system/:class/:id/:attachment/:style/:filename'
     }), config.upload_file_options
+    assert_equal nil, config.admin_cache_sweeper
   end
   
   def test_initialization_overrides

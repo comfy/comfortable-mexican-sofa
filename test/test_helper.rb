@@ -36,6 +36,7 @@ class ActiveSupport::TestCase
       }
       config.admin_locale         = nil
       config.upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
+      config.admin_cache_sweeper  = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

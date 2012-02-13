@@ -75,6 +75,9 @@ ComfortableMexicanSofa.configure do |config|
   # definition in your database.yml file
   #   config.database_config = nil
   
+  # A class that is included as a sweeper to admin base controller if it's set
+  #   config.admin_cache_sweeper = nil
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
