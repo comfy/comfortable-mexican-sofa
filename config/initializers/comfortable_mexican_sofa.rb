@@ -22,6 +22,10 @@ ComfortableMexicanSofa.configure do |config|
   # for example '/cms-admin/users'
   #   config.admin_route_redirect = ''
   
+  # Normally we include default routes from https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/routes.rb
+  # If you want to include the routes manually set this to false
+  #   config.use_default_routes = true
+  
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...

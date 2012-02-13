@@ -23,6 +23,7 @@ class ActiveSupport::TestCase
       config.public_auth          = 'ComfortableMexicanSofa::DummyAuth'
       config.admin_route_prefix   = 'cms-admin'
       config.admin_route_redirect = ''
+      config.use_default_routes   = true
       config.allow_irb            = false
       config.enable_fixtures      = false
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)

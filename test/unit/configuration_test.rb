@@ -10,6 +10,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.admin_auth
     assert_equal 'ComfortableMexicanSofa::DummyAuth', config.public_auth
     assert_equal 'cms-admin', config.admin_route_prefix
+    assert_equal true, config.use_default_routes
     assert_equal '', config.admin_route_redirect
     assert_equal false, config.allow_irb
     assert_equal false, config.enable_fixtures

@@ -35,4 +35,13 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     assert_response 404
   end
   
+  def test_get_admin_with_all_routes_disabled
+    ComfortableMexicanSofa.config.use_default_routes = false
+    Rails.application.reload_routes!
+    
+    assert_exception_raised ActionController::RoutingError do
+      http_auth :get, '/'
+    end
+  end
+  
 end

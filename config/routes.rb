@@ -41,4 +41,4 @@ Rails.application.routes.draw do
     get '/' => :render_html,  :as => 'cms_html',  :path => "(*cms_path)"
   end
   
-end if ComfortableMexicanSofa.config.include_default_routes
+end if ComfortableMexicanSofa.config.use_default_routes
