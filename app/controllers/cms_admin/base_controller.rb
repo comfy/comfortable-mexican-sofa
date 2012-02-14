@@ -13,7 +13,9 @@ class CmsAdmin::BaseController < ApplicationController
   
   layout 'cms_admin'
   
-  cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper
+  if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
+    cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper
+  end
   
   def jump
     path = ComfortableMexicanSofa.config.admin_route_redirect
