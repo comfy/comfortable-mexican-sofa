@@ -1,7 +1,7 @@
 class ComfortableMexicanSofa::Tag::Helper
   include ComfortableMexicanSofa::Tag
   
-  BLACKLIST = %w(eval class_eval instance_eval)
+  BLACKLIST = %w(eval class_eval instance_eval render)
   
   def self.regex_tag_signature(identifier = nil)
     identifier ||= /[\w\-]+/

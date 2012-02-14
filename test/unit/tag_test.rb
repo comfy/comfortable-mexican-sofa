@@ -266,4 +266,12 @@ class TagTest < ActiveSupport::TestCase
     assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
   end
   
+  def test_escaping_of_parameters
+    tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+      cms_pages(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
+    )
+    assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.content
+    assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
+  end
+  
 end

@@ -31,10 +31,17 @@ module ComfortableMexicanSofa::Tag
     # First capture group in the regex is the tag identifier
     def initialize_tag(page, tag_signature)
       if match = tag_signature.match(regex_tag_signature)
+        
+        params = begin
+          (CSV.parse_line(match[2].to_s, (RUBY_VERSION < '1.9.2' ? ':' : {:col_sep => ':'})) || []).compact
+        rescue
+          []
+        end.map{|p| p.gsub(/\\|'/) { |c| "\\#{c}" } }
+        
         tag = self.new
         tag.page        = page
         tag.identifier  = match[1]
-        tag.params      = (CSV.parse_line(match[2].to_s, (RUBY_VERSION < '1.9.2' ? ':' : {:col_sep => ':'})) || []).compact rescue []
+        tag.params      = params
         tag
       end
     end
