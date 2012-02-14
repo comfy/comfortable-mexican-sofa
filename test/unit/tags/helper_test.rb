@@ -82,5 +82,13 @@ class HelperTagTest < ActiveSupport::TestCase
     assert_equal "<%= invalid('Rails.env') %>", tag.content
     assert_equal nil, tag.render
   end
+
+  def test_escaping_of_parameters
+ 	  tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
+ 	    cms_pages(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
+    )
+ 	  assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.content
+ 	  assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
+  end
   
 end
