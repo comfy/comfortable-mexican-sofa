@@ -24,7 +24,6 @@ class ActiveSupport::TestCase
       config.admin_route_prefix   = 'cms-admin'
       config.admin_route_redirect = ''
       config.use_default_routes   = true
-      config.allow_irb            = false
       config.enable_fixtures      = false
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit      = 25
@@ -37,6 +36,9 @@ class ActiveSupport::TestCase
       config.admin_locale         = nil
       config.upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
       config.admin_cache_sweeper  = nil
+      config.allow_irb            = false
+      config.allowed_helpers      = nil
+      config.allowed_partials     = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

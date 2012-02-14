@@ -36,7 +36,6 @@ module ComfortableMexicanSofa::RenderMethods
     # 
     def render(options = {}, locals = {}, &block)
       
-      # TODO: add slug to Cms::Site as well
       if options.is_a?(Hash) && identifier = options.delete(:cms_site)
         unless @cms_site = Cms::Site.find_by_identifier(identifier)
           raise ComfortableMexicanSofa::MissingSite.new(identifier)

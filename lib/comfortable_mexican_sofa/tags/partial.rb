@@ -11,4 +11,13 @@ class ComfortableMexicanSofa::Tag::Partial
     "<%= render :partial => '#{identifier}'#{ps.blank?? nil : ", :locals => {#{ps}}"} %>"
   end
   
+  def render
+    whitelist = ComfortableMexicanSofa.config.allowed_partials
+    if whitelist.is_a?(Array)
+      content if whitelist.member?(identifier)
+    else
+      content
+    end
+  end
+  
 end

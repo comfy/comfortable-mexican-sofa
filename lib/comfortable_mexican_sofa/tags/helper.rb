@@ -1,7 +1,7 @@
 class ComfortableMexicanSofa::Tag::Helper
   include ComfortableMexicanSofa::Tag
   
-  PROTECTED_METHODS = %w(eval class_eval instance_eval)
+  BLACKLIST = %w(eval class_eval instance_eval)
   
   def self.regex_tag_signature(identifier = nil)
     identifier ||= /[\w\-]+/
@@ -13,7 +13,12 @@ class ComfortableMexicanSofa::Tag::Helper
   end
   
   def render
-    content if !PROTECTED_METHODS.member?(identifier) || ComfortableMexicanSofa.config.allow_irb
+    whitelist = ComfortableMexicanSofa.config.allowed_helpers
+    if whitelist.is_a?(Array)
+      content if whitelist.map!(&:to_s).member?(identifier)
+    else 
+      content unless BLACKLIST.member?(identifier)
+    end
   end
   
 end

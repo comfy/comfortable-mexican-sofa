@@ -26,11 +26,6 @@ ComfortableMexicanSofa.configure do |config|
   # If you want to include the routes manually set this to false
   #   config.use_default_routes = true
   
-  # By default you cannot have irb code inside your layouts/pages/snippets.
-  # Generally this is to prevent putting something like this:
-  # <% User.delete_all %> but if you really want to allow it...
-  #   config.allow_irb = false
-  
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for 
@@ -77,6 +72,20 @@ ComfortableMexicanSofa.configure do |config|
   
   # A class that is included as a sweeper to admin base controller if it's set
   #   config.admin_cache_sweeper = nil
+  
+  # By default you cannot have irb code inside your layouts/pages/snippets.
+  # Generally this is to prevent putting something like this:
+  # <% User.delete_all %> but if you really want to allow it...
+  #   config.allow_irb = false
+  
+  # Whitelist of all helper methods that can be used via {{cms:helper}} tag. By default
+  # all helpers are allowed except `eval`, `send`, `call` and few others. Empty array
+  # will prevent rendering of all helpers.
+  #   config.allowed_helpers = nil
+  
+  # Whitelist of partials paths that can be used via {{cms:partial}} tag. All partials
+  # are accessible by default. Empty array will prevent rendering of all partials.
+  #   config.allowed_partials = nil
   
 end
 

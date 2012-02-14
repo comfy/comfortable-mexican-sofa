@@ -57,4 +57,20 @@ class PartialTagTest < ActiveSupport::TestCase
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:param_1 => 'param1', :param_2 => 'param2'} %>", tag.render
   end
   
+  def test_whitelisted_paths
+    ComfortableMexicanSofa.config.allowed_partials = ['safe/path']
+    
+    tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
+      cms_pages(:default), '{{cms:partial:safe/path}}'
+    )
+    assert_equal "<%= render :partial => 'safe/path' %>", tag.content
+    assert_equal "<%= render :partial => 'safe/path' %>", tag.render
+    
+    tag = ComfortableMexicanSofa::Tag::Partial.initialize_tag(
+      cms_pages(:default), '{{cms:partial:unsafe/path}}'
+    )
+    assert_equal "<%= render :partial => 'unsafe/path' %>", tag.content
+    assert_equal nil, tag.render
+  end
+  
 end
