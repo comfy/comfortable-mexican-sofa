@@ -52,6 +52,8 @@ For more information please [see Wiki pages](https://github.com/comfy/comfortabl
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
+---
+
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE) 
 
 Copyright 2009-2011 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
