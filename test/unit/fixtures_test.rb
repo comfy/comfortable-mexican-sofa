@@ -124,7 +124,14 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_import_pages_ignoring
-    page = cms_pages(:default)
+    Cms::Page.destroy_all
+    
+    page = cms_sites(:default).pages.create!(
+      :label  => 'Test',
+      :layout => cms_layouts(:default),
+      :blocks_attributes => [ { :identifier => 'content', :content => 'test content' } ]
+    )
+    
     page_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, 'example.com', 'pages', 'index')
     attr_file_path    = File.join(page_path, '_index.yml')
     content_file_path = File.join(page_path, 'content.html')
@@ -134,9 +141,31 @@ class FixturesTest < ActiveSupport::TestCase
     
     ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
     page.reload
+    
     assert_equal nil, page.slug
-    assert_equal 'Default Page', page.label
-    assert_equal "\nlayout_content_a\ndefault_page_text_content_a\ndefault_snippet_content\ndefault_page_text_content_b\nlayout_content_b\ndefault_snippet_content\nlayout_content_c", page.content
+    assert_equal 'Test', page.label
+    block = page.blocks.where(:identifier => 'content').first
+    assert_equal 'test content', block.content
+  end
+  
+  def test_import_pages_removing_deleted_blocks
+    Cms::Page.destroy_all
+    
+    page = cms_sites(:default).pages.create!(
+      :label  => 'Test',
+      :layout => cms_layouts(:default),
+      :blocks_attributes => [ { :identifier => 'to_delete', :content => 'test content' } ]
+    )
+    page.update_attribute(:updated_at, 10.years.ago)
+    
+    ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
+    page.reload
+    
+    block = page.blocks.where(:identifier => 'content').first
+    assert_equal "Home Page Fixture Contént\n{{ cms:snippet:default }}", block.content
+    
+    block = page.blocks.where(:identifier => 'to_delete').first
+    assert_equal nil, block.content
   end
   
   def test_import_snippets_creating

@@ -175,6 +175,29 @@
 #cms_body ul.list li .item:hover {
   background-color: #fff;
 }
+/* -- Tables ------------------------------------------------------------ */
+#cms_body table.formatted {
+  width: 100%;
+}
+#cms_body table.formatted th, #cms_body table.formatted td {
+  white-space: nowrap;
+  padding: 6px;
+  background-color: #f1f1f1;
+  border-bottom: 2px solid #e6e6e6;
+  vertical-align: top;
+}
+#cms_body table.formatted th.main, #cms_body table.formatted td.main {
+  white-space: normal;
+  width: 100%;
+}
+#cms_body table.formatted th {
+  color: #000;
+  border-color: #9f9f9f;
+}
+#cms_body table.formatted tr:hover td {
+  background-color: #fff
+}
+
 /* -- Missing Translations ---------------------------------------------- */
 #cms_body .translation_missing {
   text-decoration: blink;

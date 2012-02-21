@@ -18,6 +18,9 @@ body#cms_body {
 #cms_body h1 + h2 {
   margin-top: -15px;
 }
+#cms_body p {
+  margin-bottom: 15px;
+}
 #cms_body a {
   text-decoration: none;
   color: #384E66;
