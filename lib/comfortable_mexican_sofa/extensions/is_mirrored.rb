@@ -33,7 +33,7 @@ module ComfortableMexicanSofa::IsMirrored
     # but content is unique. When updating need to grab mirrors based on
     # self.slug_was, new objects will use self.slug.
     def sync_mirror
-      return if self.is_mirrored
+      return if self.is_mirrored || !self.site.is_mirrored?
       
       (Cms::Site.mirrored - [self.site]).each do |site|
         mirror = case self
@@ -68,7 +68,7 @@ module ComfortableMexicanSofa::IsMirrored
     
     # Mirrors should be destroyed
     def destroy_mirror
-      return if self.is_mirrored
+      return if self.is_mirrored || !self.site.is_mirrored?
       mirrors.each do |mirror|
         mirror.is_mirrored = true
         mirror.destroy

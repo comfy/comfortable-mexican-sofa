@@ -46,8 +46,8 @@ module ComfortableMexicanSofa::ActsAsTree
             end
           end
         end
-        
       EOV
+      
     end
   end
   

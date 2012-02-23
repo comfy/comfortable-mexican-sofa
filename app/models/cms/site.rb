@@ -5,16 +5,17 @@ class Cms::Site < ActiveRecord::Base
   self.table_name = 'cms_sites'
   
   # -- Relationships --------------------------------------------------------
-  has_many :layouts,    :dependent => :destroy
-  has_many :pages,      :dependent => :destroy
-  has_many :snippets,   :dependent => :destroy
+  has_many :layouts,    :dependent => :delete_all
+  has_many :pages,      :dependent => :delete_all
+  has_many :snippets,   :dependent => :delete_all
   has_many :files,      :dependent => :destroy
-  has_many :categories, :dependent => :destroy
+  has_many :categories, :dependent => :delete_all
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
                     :assign_label
   before_save :clean_path
+  after_save  :sync_mirrors
   
   # -- Validations ----------------------------------------------------------
   validates :identifier,
@@ -61,6 +62,18 @@ protected
     self.path ||= ''
     self.path.squeeze!('/')
     self.path.gsub!(/\/$/, '')
+  end
+  
+  # When site is marked as a mirror we need to sync its structure
+  # with other mirrors.
+  def sync_mirrors
+    return unless is_mirrored_changed? && is_mirrored?
+    
+    [self, Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
+      (site.layouts(:reload).roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
+      (site.pages(:reload).roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
+      site.snippets(:reload).map(&:sync_mirror)
+    end
   end
   
 end

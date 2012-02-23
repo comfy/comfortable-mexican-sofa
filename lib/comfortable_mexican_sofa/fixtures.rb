@@ -16,7 +16,7 @@ module ComfortableMexicanSofa::Fixtures
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'layouts')
       ComfortableMexicanSofa.logger.warn('Cannot find Layout fixtures')
-      return
+      return []
     end
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
@@ -60,7 +60,7 @@ module ComfortableMexicanSofa::Fixtures
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
         else
           ComfortableMexicanSofa.logger.error("[Fixtures] Failed to save Layout {#{layout.errors.inspect}}")
-          return
+          next
         end
       end
       layout_ids << layout.id
@@ -83,7 +83,7 @@ module ComfortableMexicanSofa::Fixtures
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path ||= find_fixtures_path((from_hostname || to_hostname), 'pages')
       ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
-      return
+      return []
     end
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
@@ -138,7 +138,7 @@ module ComfortableMexicanSofa::Fixtures
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
         else
           ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Page {#{page.errors.inspect}}")
-          return
+          next
         end
       end
       page_ids << page.id
@@ -161,7 +161,7 @@ module ComfortableMexicanSofa::Fixtures
     site = Cms::Site.find_or_create_by_hostname(to_hostname)
     unless path = find_fixtures_path((from_hostname || to_hostname), 'snippets')
       ComfortableMexicanSofa.logger.warn('Cannot find Snippet fixtures')
-      return
+      return []
     end
     
     snippet_ids = []
@@ -192,7 +192,7 @@ module ComfortableMexicanSofa::Fixtures
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Snippet {#{snippet.identifier}}")
         else
           ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}")
-          return
+          next
         end
       end
       snippet_ids << snippet.id

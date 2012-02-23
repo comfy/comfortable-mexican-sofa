@@ -2,13 +2,8 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 
 class MirrorsTest < ActiveSupport::TestCase
   
-  def setup
-    Cms::Site.delete_all
-    @site_a = Cms::Site.create!(:identifier => 'site_a', :hostname => 'site-a.host', :is_mirrored => true)
-    @site_b = Cms::Site.create!(:identifier => 'site_b', :hostname => 'site-b.host', :is_mirrored => true)
-  end
-  
   def test_layout_creation
+    setup_sites
     assert_difference 'Cms::Layout.count', 2 do
       layout = @site_a.layouts.create!(:identifier => 'test')
       assert_equal 1, layout.mirrors.size
@@ -17,6 +12,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_page_creation
+    setup_sites
     layout = @site_a.layouts.create!(:identifier => 'test')
     
     assert_difference 'Cms::Page.count', 2 do
@@ -30,6 +26,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_snippet_creation
+    setup_sites
     assert_difference 'Cms::Snippet.count', 2 do
       snippet = @site_a.snippets.create(:identifier => 'test')
       assert_equal 1, snippet.mirrors.size
@@ -38,6 +35,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_layout_update
+    setup_sites
     layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
     layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
     layout_1c = @site_a.layouts.create!(:identifier => 'nested', :parent => layout_1a)
@@ -59,6 +57,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_page_update
+    setup_sites
     layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
     layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
     
@@ -84,6 +83,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_snippet_update
+    setup_sites
     snippet_1 = @site_a.snippets.create(:identifier => 'test')
     assert snippet_2 = snippet_1.mirrors.first
     snippet_1.update_attributes!(
@@ -96,6 +96,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_layout_destroy
+    setup_sites
     layout_1a = @site_a.layouts.create!(:identifier => 'test_a')
     layout_1b = @site_a.layouts.create!(:identifier => 'test_b')
     layout_1c = @site_a.layouts.create!(:identifier => 'nested', :parent => layout_1b)
@@ -116,6 +117,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_page_destroy
+    setup_sites
     layout = @site_a.layouts.create!(:identifier => 'test')
     page_1r = @site_a.pages.create!(:slug => 'root', :layout => layout)
     page_1a = @site_a.pages.create!(:slug => 'test_a', :layout => layout)
@@ -137,6 +139,7 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_snippet_destroy
+    setup_sites
     snippet_1 = @site_a.snippets.create(:identifier => 'test')
     assert snippet_2 = snippet_1.mirrors.first
     
@@ -144,6 +147,96 @@ class MirrorsTest < ActiveSupport::TestCase
       snippet_1.destroy
       assert_nil Cms::Snippet.find_by_id(snippet_2.id)
     end
+  end
+  
+  def test_site_creation_as_mirror
+    site = cms_sites(:default)
+    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    
+    assert_difference 'Cms::Site.count' do
+      assert_difference 'Cms::Layout.count', site.layouts.count do
+        assert_difference 'Cms::Page.count', site.pages.count do
+          assert_difference 'Cms::Snippet.count', site.snippets.count do
+            mirror = Cms::Site.create!(
+              :identifier   => 'mirror',
+              :hostname     => 'mirror.host',
+              :is_mirrored  => true
+            )
+          end
+        end
+      end
+    end
+  end
+  
+  def test_site_update_to_mirror
+    site = cms_sites(:default)
+    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    
+    mirror = Cms::Site.create!(
+      :identifier => 'mirror',
+      :hostname   => 'mirror.host'
+    )
+    layout = mirror.layouts.create!(
+      :identifier => 'mirror_layout'
+    )
+    home_page = mirror.pages.create!(
+      :label  => 'mirror home',
+      :layout => layout
+    )
+    child_page = mirror.pages.create!(
+      :label  => 'mirror child',
+      :layout => layout,
+      :slug   => 'mirror-child',
+      :parent => home_page
+    )
+    snippet = mirror.snippets.create!(
+      :identifier => 'mirror_snippet'
+    )
+    
+    assert_difference ['site.layouts.count', 'site.pages.count', 'site.snippets.count'], 1 do
+      assert_difference 'mirror.layouts.count', 3 do
+        assert_difference 'mirror.pages.count', 1 do
+          assert_difference 'mirror.snippets.count', 1 do
+            
+            mirror.update_attribute(:is_mirrored, true)
+            
+            site.reload
+            assert site.layouts.where(:identifier => 'mirror_layout').present?
+            assert site.pages.where(:slug => 'mirror-child').present?
+            assert site.snippets.where(:identifier => 'mirror_snippet').present?
+            
+            mirror.reload
+            assert mirror.layouts.where(:identifier => 'default').present?
+            assert mirror.pages.where(:slug => 'child-page').present?
+            assert mirror.snippets.where(:identifier => 'default').present?
+          end
+        end
+      end
+    end
+  end
+  
+  def test_site_destruction
+    site = cms_sites(:default)
+    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    
+    mirror = Cms::Site.create!(
+      :identifier   => 'mirror',
+      :hostname     => 'mirror.host',
+      :is_mirrored  => true
+    )
+    mirror.reload
+    
+    assert_no_difference ['site.layouts.count', 'site.pages.count', 'site.snippets.count'] do
+      mirror.destroy
+    end
+  end
+  
+protected
+  
+  def setup_sites
+    Cms::Site.delete_all
+    @site_a = Cms::Site.create!(:identifier => 'site_a', :hostname => 'site-a.host', :is_mirrored => true)
+    @site_b = Cms::Site.create!(:identifier => 'site_b', :hostname => 'site-b.host', :is_mirrored => true)
   end
   
 end
