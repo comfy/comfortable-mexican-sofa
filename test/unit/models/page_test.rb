@@ -44,6 +44,15 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, :target_page_id
   end
   
+  def test_validation_of_slug
+    page = cms_pages(:child)
+    page.slug = 'slug.with.d0ts-and_things'
+    assert page.valid?
+    
+    page.slug = 'inva lid'
+    assert page.invalid?
+  end
+  
   def test_label_assignment
     page = cms_sites(:default).pages.new(
       :slug   => 'test',
