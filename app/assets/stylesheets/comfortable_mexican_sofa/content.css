@@ -122,29 +122,35 @@
 #cms_body ul.list li .item .toggle.open a {
   background-image: url(/assets/comfortable_mexican_sofa/arrow_bottom.gif);
 }
-#cms_body ul.list li .item .icon {
+#cms_body ul.list li .item .icon,
+#cms_body table.formatted td .icon {
   float: left;
   width: 28px;
   height: 28px;
   background: url(/assets/comfortable_mexican_sofa/icon_regular.gif);
 }
-#cms_body ul.list li .item .icon.draft {
+#cms_body ul.list li .item .icon.draft,
+#cms_body table.formatted td .icon.draft {
   background: url(/assets/comfortable_mexican_sofa/icon_draft.gif);
 }
-#cms_body ul.list li .item .icon .dragger {
+#cms_body ul.list li .item .icon .dragger,
+#cms_body table.formatted td .icon .dragger {
   width: 28px;
   height: 28px;
   background: url(/assets/comfortable_mexican_sofa/icon_move.gif);
   cursor: move;
   display: none;
 }
-#cms_body ul.list li .item .icon:hover .dragger {
+#cms_body ul.list li .item .icon:hover .dragger,
+#cms_body table.formatted td .icon:hover .dragger {
   display: block;
 }
-#cms_body ul.list li .item .icon .dragger span {
+#cms_body ul.list li .item .icon .dragger span,
+#cms_body table.formatted td .icon .dragger span {
   display: none;
 }
-#cms_body ul.list li .item .label {
+#cms_body ul.list li .item .label,
+#cms_body table.formatted td .label {
   margin-left: 32px;
   font-size: 14px;
   font-weight: bold;
@@ -158,7 +164,8 @@
   text-transform: uppercase;
   color: #888;
 }
-#cms_body ul.list li .item .label .sublabel {
+#cms_body ul.list li .item .label .sublabel,
+#cms_body table.formatted td .label .sublabel {
   font-size: 10px;
   font-weight: normal;
 }
