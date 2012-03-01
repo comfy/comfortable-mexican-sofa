@@ -204,6 +204,12 @@
 #cms_body table.formatted tr:hover td {
   background-color: #fff
 }
+#cms_body table.formatted tr td.action_links a {
+  opacity: 0.2;
+}
+#cms_body table.formatted tr:hover td.action_links a {
+  opacity: 1;
+}
 
 /* -- Missing Translations ---------------------------------------------- */
 #cms_body .translation_missing {
