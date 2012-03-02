@@ -13,7 +13,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page = Cms::Page.new
     page.save
     assert page.invalid?
-    assert_has_errors_on page, [:layout, :slug, :label]
+    assert_has_errors_on page, :site_id, :layout, :slug, :label
   end
   
   def test_validation_of_parent_presence
