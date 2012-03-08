@@ -14,7 +14,7 @@ class Cms::Category < ActiveRecord::Base
     :presence   => true
   validates :label,
     :presence   => true,
-    :uniqueness => { :scope => :categorized_type }
+    :uniqueness => { :scope => [:categorized_type, :site_id] }
   validates :categorized_type,
     :presence   => true
     
