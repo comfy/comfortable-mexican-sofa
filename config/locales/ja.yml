@@ -1,0 +1,225 @@
+# encoding: utf-8
+ja:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: ラベル
+    slug: スラッグ
+    parent_id: 親
+    content: コンテンツ
+  activerecord:
+    models:
+      cms/site: サイト
+      cms/layout: レイアウト
+      cms/page: ページ
+      cms/snippet: スニペット
+    attributes:
+      cms/site:
+        hostname: ホスト名
+        path: パス
+        locale: 言語
+        is_mirrored: ミラーリング済み
+      cms/layout:
+        label: レイアウト名
+        app_layout: アプリケーションレイアウト
+        parent_id: 親レイアウト
+        css: スタイルシート
+        js: Javascript
+      cms/page:
+        label: ラベル
+        layout_id: レイアウト
+        slug: スラッグ
+        target_page_id: ページにリダイレクト
+        is_published: パブリッシュ済み
+        
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: サイトが見つかりません
+      fixtures_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
+      
+    sites:
+      created: サイトが作成されました
+      creation_failure: サイトの作成に失敗しました
+      updated: サイトが更新されました
+      update_failure: サイトの更新に失敗しました
+      deleted: サイトが削除されました
+      not_found: サイトが見つかりません
+      
+    layouts:
+      created: レイアウトが作成されました
+      creation_failure: レイアウトの作成に失敗しました
+      updated: レイアウトが更新されました
+      update_failure: レイアウトの更新に失敗しました
+      deleted: レイアウトが削除されました
+      not_found: レイアウトが見つかりません
+      
+    pages:
+      created: ページが作成されました
+      creation_failure: ページの作成に失敗しました
+      updated: ページが更新されました
+      update_failure: ページの更新に失敗しました
+      deleted: ページが削除されました
+      not_found: ページが見つかりません
+      layout_not_found: レイアウトが見つかりません。 レイアウトを作成してください。
+      
+    snippets:
+      created: スニペットが作成されました
+      creation_failure: スニペットの作成に失敗しました
+      updated: スニペットが更新されました
+      update_failure: スニペットの更新に失敗しました
+      deleted: スニペットが削除されました
+      not_found: スニペットが見つかりません
+      
+    revisions:
+      reverted: コンテンツが元に戻りました
+      record_not_found: レコードが見つかりません
+      not_found: リビジョンが見つかりません
+      
+    files:
+      created: ファイルがアップロードされました
+      creation_failure: ファイルのアップロードに失敗しました
+      updated: ファイルが更新されました
+      update_failure: ファイルの更新に失敗しました
+      deleted: ファイルが削除されました
+      not_found: ファイルが見つかりません
+      
+    content:
+      site_not_found: サイトが見つかりません
+      layout_not_found: レイアウトが見つかりません
+      page_not_found: ページが見つかりません
+  
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: サイト
+      layouts: レイアウト
+      pages: ページ
+      snippets: スニペット
+      files: ファイル
+      
+    sites:
+      index:
+        title: サイト
+        new_link: 新規サイトを作成
+        select: サイトを選択
+        edit: 編集
+        delete: 削除
+        are_you_sure: このサイトを削除してもよろしいですか？
+      new:
+        title: 新規サイト
+      edit:
+        title: サイトを編集
+      form:
+        create: サイトを作成
+        update: サイトを更新
+        
+    layouts:
+      index:
+        title: レイアウト
+        new_link: 新規レイアウトを作成
+      index_branch:
+        add_child_layout: 子レイアウトを追加
+        edit: 編集
+        delete: 削除
+        are_you_sure: よろしいですか？
+      new:
+        title: 新規レイアウト
+      edit:
+        title: レイアウトを編集
+        revision: リビジョン
+      form:
+        select_parent_layout: 親レイアウトを選択
+        select_app_layout: アプリケーションレイアウトを選択
+        create: レイアウトを作成
+        update: レイアウトを更新
+      
+    pages:
+      index:
+        title: ページ
+        new_link: 新規ページを作成
+      index_branch:
+        toggle: 切り替え
+        add_child_page: 子ページを追加
+        edit: 編集
+        delete: 削除
+        are_you_sure: よろしいですか？
+      new:
+        title: 新規ページ
+      edit:
+        title: ページを編集
+        revision: リビジョン
+      form:
+        select_target_page: リダイレクトなし
+        preview: プレビュー
+        create: ページを作成
+        update: ページを更新
+      form_blocks:
+        no_tags: |-
+          レイアウトにはコンテンツタグが定義されていません。<br/>
+          コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:page:content}}</code>
+      
+    snippets:
+      index:
+        title: スニペット
+        new_link: 新規スニペットを作成
+        edit: 編集
+        delete: 削除
+        are_you_sure: よろしいですか？
+      new:
+        title: 新規スニペット
+      edit:
+        title: スニペットを編集
+        revision: リビジョン
+      form:
+        create: スニペットを作成
+        update: スニペットを更新
+          
+    revisions:
+      show:
+        title: リビジョン
+        revision: リビジョン
+        full_path: フルパス
+        slug: スラッグ
+        update: このリビジョンに更新
+      
+    files:
+      index:
+        title: ファイル
+        new_link: 新規ファイルをアップロード
+        edit: 編集
+        delete: 削除
+        are_you_sure: よろしいですか？
+        button: ファイルをアップロード
+      new:
+        title: 新規ファイル
+      edit:
+        title: ファイルを編集
+      form:
+        current_file: 現在のファイル
+        create: ファイルをアップロード
+        update: ファイルを更新
+      page_form:
+        are_you_sure: よろしいですか？
+      file:
+        are_you_sure: よろしいですか？
+        
+    categories:
+      index:
+        label: カテゴリー
+        edit: 編集
+        done: 完了
+        all: すべて
+        add: 追加
+      show:
+        are_you_sure: よろしいですか？
+      edit:
+        save: 保存
+      form:
+        label: カテゴリー
+        
+    dialogs:
+      image:
+        insert: 画像を挿入
+      link:
+        create: リンクを作成
+      
