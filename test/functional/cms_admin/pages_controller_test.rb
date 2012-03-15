@@ -78,7 +78,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
-  def test_get_new_with_rich_page_text
+  def test_get_new_with_field_rich_text
     cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
@@ -146,7 +146,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='snippet']"
   end
 
-  def test_get_new_with_rich_page_text
+  def test_get_new_with_page_rich_text
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success

@@ -6,19 +6,23 @@ ja:
     slug: スラッグ
     parent_id: 親
     content: コンテンツ
+    identifier: Identifier
   activerecord:
     models:
       cms/site: サイト
       cms/layout: レイアウト
       cms/page: ページ
       cms/snippet: スニペット
+      cms/file: File
     attributes:
       cms/site:
+        identifier: Identifier
         hostname: ホスト名
         path: パス
         locale: 言語
         is_mirrored: ミラーリング済み
       cms/layout:
+        identifier: Identifier
         label: レイアウト名
         app_layout: アプリケーションレイアウト
         parent_id: 親レイアウト
@@ -30,6 +34,11 @@ ja:
         slug: スラッグ
         target_page_id: ページにリダイレクト
         is_published: パブリッシュ済み
+      cms/file:
+        file: File
+        description: Description
+      cms/snippet:
+        identifier: Identifier
         
   # -- Controllers ----------------------------------------------------------
   cms:

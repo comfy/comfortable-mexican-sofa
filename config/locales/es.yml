@@ -6,19 +6,23 @@ es:
     slug: Identificador
     parent_id: Padre
     content: Contenido
+    identifier: Identifier
   activerecord:
     models:
       cms/site: Sitio
       cms/layout: Plantilla
       cms/page: Página
       cms/snippet: Fragmento
+      cms/file: File
     attributes:
       cms/site:
+        identifier: Identifier
         hostname: Dirección
         path: Ruta
         locale: Lengua
         is_mirrored: Espejo
       cms/layout:
+        identifier: Identifier
         label: Nombre de Plantilla
         app_layout: Plantilla Base
         parent_id: Plantilla Padre
@@ -30,6 +34,11 @@ es:
         slug: Ruta
         target_page_id: Redirigir a
         is_published: Publicada
+      cms/file:
+        file: File
+        description: Description
+      cms/snippet:
+        identifier: Identifier
 
   # -- Controllers ----------------------------------------------------------
   cms:

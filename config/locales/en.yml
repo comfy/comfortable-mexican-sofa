@@ -13,6 +13,7 @@ en:
       cms/layout: Layout
       cms/page: Page
       cms/snippet: Snippet
+      cms/file: File
     attributes:
       cms/site:
         identifier: Identifier

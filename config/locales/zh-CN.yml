@@ -16,25 +16,30 @@ zh-CN:
       cms/file: 文件
     attributes:
       cms/site:
+        identifier: 标识符
         hostname: 主机名
         path: 路径
         locale: 语言
         is_mirrored: 镜像
       cms/layout:
+        identifier: 标识符
         label: 布局名称
         app_layout: 应用布局
         parent_id: 上级布局
         css: 样式
         js: Javascript
       cms/page:
+        label: 布局名称
         layout_id: 布局
+        slug: Slug
         target_page_id: 跳转至
         is_published: 发布
       cms/file:
         file: 文件
         description: 描述
+      cms/snippet:
+        identifier: 标识符
         
-
   # -- Controllers ----------------------------------------------------------
   cms:
     base:
@@ -226,4 +231,3 @@ zh-CN:
         insert: 插入图片
       link:
         create: 创建链接
-

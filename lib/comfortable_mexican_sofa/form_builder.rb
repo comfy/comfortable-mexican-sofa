@@ -66,7 +66,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       'datetime'
     when ComfortableMexicanSofa::Tag::PageText, ComfortableMexicanSofa::Tag::FieldText
       'code'
-    when ComfortableMexicanSofa::Tag::PageRichText
+    when ComfortableMexicanSofa::Tag::PageRichText, ComfortableMexicanSofa::Tag::FieldRichText
       'rich_text'
     end
     
@@ -99,6 +99,10 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def field_text(tag, index)
+    default_tag_field(tag, index, :method => :text_area_tag)
+  end
+  
+  def field_rich_text(tag, index)
     default_tag_field(tag, index, :method => :text_area_tag)
   end
   
