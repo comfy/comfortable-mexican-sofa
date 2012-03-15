@@ -49,7 +49,7 @@ class Cms::Layout < ActiveRecord::Base
   def self.app_layouts_for_select
     Dir.glob(File.expand_path('app/views/layouts/**/*.html.*', Rails.root)).collect do |filename|
       filename.gsub!("#{File.expand_path('app/views/layouts', Rails.root)}/", '')
-      filename.split('/').last[0...1] == '_' ? nil : filename
+      filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
     end.compact.sort
   end
   
