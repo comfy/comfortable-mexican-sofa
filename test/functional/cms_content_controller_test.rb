@@ -38,9 +38,9 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_not_found
-    get :render_html, :cms_path => 'doesnotexist'
-    assert_response 404
-    assert_equal 'Page Not Found', response.body
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+      get :render_html, :cms_path => 'doesnotexist'
+    end
   end
   
   def test_render_page_not_found_with_custom_404
@@ -66,9 +66,9 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_page_with_no_site
     Cms::Site.destroy_all
     
-    get :render_html, :cms_path => ''
-    assert_response 404
-    assert_equal 'Site Not Found', response.body
+    assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
+      get :render_html, :cms_path => ''
+    end
   end
   
   def test_render_page_with_no_layout
@@ -90,8 +90,10 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_page_unpublished
     page = cms_pages(:default)
     page.update_attribute(:is_published, false)
-    get :render_html, :cms_path => ''
-    assert_response 404
+    
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+      get :render_html, :cms_path => ''
+    end
   end
   
   def test_render_page_with_irb_disabled

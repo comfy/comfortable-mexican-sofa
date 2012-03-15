@@ -11,8 +11,9 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     ComfortableMexicanSofa.config.admin_route_prefix = 'custom-admin'
     Rails.application.reload_routes!
     
-    http_auth :get, '/cms-admin/sites'
-    assert_response 404
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+      http_auth :get, '/cms-admin/sites'
+    end
     
     http_auth :get, '/custom-admin/sites'
     assert_response :success
@@ -31,8 +32,9 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     ComfortableMexicanSofa.config.admin_route_prefix = ''
     Rails.application.reload_routes!
     
-    http_auth :get, '/cms-admin'
-    assert_response 404
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+      http_auth :get, '/cms-admin'
+    end
   end
   
   def test_get_admin_with_all_routes_disabled

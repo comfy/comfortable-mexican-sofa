@@ -54,7 +54,7 @@ protected
       I18n.locale = @cms_site.locale
     else
       I18n.locale = I18n.default_locale
-      render :text => I18n.t('cms.content.site_not_found'), :status => 404
+      raise ActionController::RoutingError.new('Site Not Found')
     end
   end
   
@@ -66,7 +66,7 @@ protected
     if @cms_page = @cms_site.pages.published.find_by_full_path('/404')
       render_html(404)
     else
-      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+      raise ActionController::RoutingError.new('Page Not Found')
     end
   end
 

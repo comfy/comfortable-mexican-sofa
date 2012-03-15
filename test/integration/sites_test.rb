@@ -32,9 +32,14 @@ class SitesTest < ActionDispatch::IntegrationTest
     site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host', :path => 'path-b')
     site_c = Cms::Site.create!(:identifier => 'site-c', :hostname => 'test.host', :path => 'path-c/child')
     
+    [site_a, site_b, site_c].each do |site|
+      layout  = site.layouts.create!(:identifier => 'test')
+      site.pages.create!(:label => 'index', :layout => layout)
+      site.pages.create!(:label => '404', :slug => '404', :layout => layout)
+    end
+    
     %w(/ /path-a /path-a/child /path-c).each do |path|
       get path
-      assert_response 404
       assert assigns(:cms_site), path
       assert_equal site_a, assigns(:cms_site)
       assert_equal path.gsub(/^\//, ''), @controller.params[:cms_path].to_s
@@ -42,7 +47,6 @@ class SitesTest < ActionDispatch::IntegrationTest
     
     %w(/path-b /path-b/child).each do |path|
       get path
-      assert_response 404
       assert assigns(:cms_site), path
       assert_equal site_b, assigns(:cms_site)
       assert_equal path.gsub(/^\/path-b/, '').gsub(/^\//, ''), @controller.params[:cms_path].to_s
@@ -50,7 +54,6 @@ class SitesTest < ActionDispatch::IntegrationTest
     
     %w(/path-c/child /path-c/child/child).each do |path|
       get path
-      assert_response 404
       assert assigns(:cms_site), path
       assert_equal site_c, assigns(:cms_site)
       assert_equal path.gsub(/^\/path-c\/child/, '').gsub(/^\//, ''), @controller.params[:cms_path].to_s
