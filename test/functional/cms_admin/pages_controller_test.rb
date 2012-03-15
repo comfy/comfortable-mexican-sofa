@@ -77,6 +77,14 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "textarea[name='page[blocks_attributes][0][content]'][class='code']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
+  
+  def test_get_new_with_rich_page_text
+    cms_layouts(:default).update_attribute(:content, '{{cms:field:test_label:rich_text}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='rich_text']"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
+  end
 
   def test_get_new_with_page_datetime
     cms_layouts(:default).update_attribute(:content, '{{cms:page:test_label:datetime}}')
