@@ -22,7 +22,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_app_layout
-    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
+    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin')
     get :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
@@ -30,7 +30,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_xhr
-    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin.html.erb')
+    cms_layouts(:default).update_attribute(:app_layout, 'cms_admin')
     xhr :get, :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
