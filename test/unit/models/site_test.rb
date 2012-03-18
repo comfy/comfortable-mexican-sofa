@@ -119,6 +119,12 @@ class CmsSiteTest < ActiveSupport::TestCase
     
     assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr')
     assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr/some/path')
+
+    site_aliases_org = ComfortableMexicanSofa.config.site_aliases
+ 	  ComfortableMexicanSofa.config.site_aliases=[['test.host', 'test99.host']]
+ 	  assert_equal site_a,     Cms::Site.find_site('test99.host', '/some/path')
+    ComfortableMexicanSofa.config.site_aliases = site_aliases_org
+
   end
   
 end
