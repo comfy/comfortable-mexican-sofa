@@ -64,6 +64,12 @@ class ComfortableMexicanSofa::Configuration
   # Whitelist of partials paths that can be used via {{cms:partial}} tag. All partials
   # are accessible by default. Empty array will prevent rendering of all partials.
   attr_accessor :allowed_partials
+
+  # Site aliases, if you want to have aliases for your site, All find_site calls
+ 	# are converted to the first one on array. Good for harmozing production env with dev/testing envs.
+  # e.g. site_aliases = [['domain.com', 'domain.inv'], ['seconddomain.com', 'desconddomain.lvh.me']]
+  # Default is nil (not used)
+ 	attr_accessor :site_aliases
   
   # Configuration defaults
   def initialize
@@ -91,6 +97,7 @@ class ComfortableMexicanSofa::Configuration
     @allow_irb            = false
     @allowed_helpers      = nil
     @allowed_partials     = nil
+    @site_aliases         = nil
   end
   
 end
