@@ -19,6 +19,7 @@ class CmsContentControllerTest < ActionController::TestCase
       default_snippet_content
       layout_content_c'
     ), response.body
+    assert_equal 'text/html', response.content_type
   end
   
   def test_render_page_with_app_layout
@@ -137,7 +138,7 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_css
     get :render_css, :site_id => cms_sites(:default).id, :identifier => cms_layouts(:default).identifier
     assert_response :success
-    assert_match %r{text\/css}, response.headers["Content-Type"]
+    assert_match 'text/css', response.content_type
     assert_equal cms_layouts(:default).css, response.body
   end
   
@@ -149,7 +150,7 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_js
     get :render_js, :site_id => cms_sites(:default).id, :identifier => cms_layouts(:default).identifier
     assert_response :success
-    assert_match %r{text\/javascript}, response.headers["Content-Type"]
+    assert_equal 'text/javascript', response.content_type
     assert_equal cms_layouts(:default).js, response.body
   end
   
