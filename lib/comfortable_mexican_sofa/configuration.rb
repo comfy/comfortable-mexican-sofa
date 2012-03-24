@@ -23,6 +23,10 @@ class ComfortableMexicanSofa::Configuration
   # If you want to include the routes manually set this to false
   attr_accessor :use_default_routes
   
+  # /sitemap.xml that is used by search engines for indexing. It's enabled by
+  # default, but you may turn it off.
+  attr_accessor :enable_sitemap
+  
   # Upload settings
   attr_accessor :upload_file_options
   
@@ -80,6 +84,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = ''
     @use_default_routes   = true
+    @enable_sitemap       = true
     @upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)

@@ -24,6 +24,7 @@ class ActiveSupport::TestCase
       config.admin_route_prefix   = 'cms-admin'
       config.admin_route_redirect = ''
       config.use_default_routes   = true
+      config.enable_sitemap       = true
       config.enable_fixtures      = false
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit      = 25

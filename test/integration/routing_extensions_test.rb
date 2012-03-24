@@ -46,4 +46,16 @@ class RoutingExtensionsTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_get_sitemap
+    get '/sitemap', :format => 'xml'
+    assert_response :success
+    
+    ComfortableMexicanSofa.config.enable_sitemap = false
+    Rails.application.reload_routes!
+    
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+      get '/sitemap', :format => 'xml'
+    end
+  end
+  
 end
