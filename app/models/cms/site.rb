@@ -48,16 +48,16 @@ class Cms::Site < ActiveRecord::Base
     return cms_site
   end
 
+protected
+  
   def self.real_host_from_aliases(host)
-    if ComfortableMexicanSofa.config.site_aliases
-      ComfortableMexicanSofa.config.site_aliases.each_with_index do |array, index|
-        return ComfortableMexicanSofa.config.site_aliases[index].first if array.include?(host)
+    if aliases = ComfortableMexicanSofa.config.hostname_aliases
+      aliases.each do |alias_host, aliases|
+        return alias_host if aliases.include?(host)
       end
     end
     host
   end
-
-protected
 
   def assign_identifier
     self.identifier = self.identifier.blank?? self.hostname.try(:idify) : self.identifier

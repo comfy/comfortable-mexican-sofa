@@ -65,11 +65,11 @@ class ComfortableMexicanSofa::Configuration
   # are accessible by default. Empty array will prevent rendering of all partials.
   attr_accessor :allowed_partials
 
-  # Site aliases, if you want to have aliases for your site, All find_site calls
- 	# are converted to the first one on array. Good for harmozing production env with dev/testing envs.
-  # e.g. site_aliases = [['domain.com', 'domain.inv'], ['seconddomain.com', 'desconddomain.lvh.me']]
+  # Site aliases, if you want to have aliases for your site. Good for harmonizing 
+  # production env with dev/testing envs.
+  # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
- 	attr_accessor :site_aliases
+  attr_accessor :hostname_aliases
   
   # Configuration defaults
   def initialize
@@ -97,7 +97,7 @@ class ComfortableMexicanSofa::Configuration
     @allow_irb            = false
     @allowed_helpers      = nil
     @allowed_partials     = nil
-    @site_aliases         = nil
+    @hostname_aliases     = nil
   end
   
 end
