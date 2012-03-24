@@ -2,7 +2,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
   
   helpers = field_helpers -
     %w(hidden_field fields_for) +
-    %w(select)
+    %w(select collection_select)
     
   helpers.each do |name|
     class_eval %Q^
