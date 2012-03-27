@@ -190,6 +190,7 @@ zh-CN:
         full_path: 全路径
         slug: 嵌条
         update: 更新到该修订版本
+        current: Current
 
     files:
       index:

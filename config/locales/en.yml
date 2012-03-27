@@ -190,6 +190,7 @@ en:
         full_path: Full Path
         slug: Slug
         update: Update to this Revision
+        current: Current
       
     files:
       index:
