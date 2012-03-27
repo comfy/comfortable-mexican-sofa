@@ -16,8 +16,14 @@
     
     // attaching event handlers to images
     $(document).on('click', '#cms_dialog .uploaded_files .file_info', function(){
-      self.img_src = $(this).data('url');
-      self.set();
+      console.log($(this))
+      console.log($(this).parents('#cms_dialog'))
+      ui_control = $(this).parents('#cms_dialog').data('ui_control')
+      if (ui_control) {
+        ui_control.img_src = $(this).data('url');
+        ui_control.set();
+        $(this).parents('#cms_dialog').data('ui_control', null)
+      }
       return false;
     });
     
@@ -46,6 +52,8 @@
         success: function(data){
           self.dialog.html(data);
           self.dialog.dialog('open');
+          console.log($(self.dialog))
+          $(self.dialog).data('ui_control', self)
           $.CMS.enable_uploader();
         }
       })

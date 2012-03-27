@@ -91,7 +91,7 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_style     = ['bold', 'italic', 'underline'];
       elRTE.prototype.options.panels.sofa_alignment = ['justifyleft', 'justifycenter', 'justifyright'];
       elRTE.prototype.options.panels.sofa_format    = ['formatblock'];
-      elRTE.prototype.options.panels.sofa_copypaste = ['pasteformattext'];
+      elRTE.prototype.options.panels.sofa_copypaste = ['pastetext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
       
       elRTE.prototype.options.toolbars.sofa = $.CMS.config.elRTE.toolbar;
