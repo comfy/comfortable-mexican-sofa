@@ -32,7 +32,8 @@ class ActiveSupport::TestCase
         'en'    => 'English',
         'es'    => 'Español',
         'pt-BR' => 'Português Brasileiro',
-        'zh-CN' => '简体中文' 
+        'zh-CN' => '简体中文',
+        'ja'    => '日本語'
       }
       config.admin_locale         = nil
       config.upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
