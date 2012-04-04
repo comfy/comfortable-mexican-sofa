@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsPageTest < ActiveSupport::TestCase
@@ -51,6 +52,9 @@ class CmsPageTest < ActiveSupport::TestCase
     
     page.slug = 'inva lid'
     assert page.invalid?
+
+    page.slug = 'acción'
+    assert page.valid?
   end
   
   def test_label_assignment
@@ -203,6 +207,21 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_url
     assert_equal 'http://test.host/', cms_pages(:default).url
     assert_equal 'http://test.host/child-page', cms_pages(:child).url
+  end
+
+  def test_unicode_slug_escaping
+    page = cms_pages(:child)
+    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'tést-ünicode-slug'))
+    assert_equal CGI::escape('tést-ünicode-slug'), page_1.slug
+    assert_equal CGI::escape('/child-page/tést-ünicode-slug').gsub('%2F', '/'), page_1.full_path
+  end
+
+  def test_unicode_slug_unescaping
+    page = cms_pages(:child)
+    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'tést-ünicode-slug'))
+    found_page = cms_sites(:default).pages.where(:slug => CGI::escape('tést-ünicode-slug')).first
+    assert_equal 'tést-ünicode-slug', found_page.slug
+    assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
   end
   
 protected
