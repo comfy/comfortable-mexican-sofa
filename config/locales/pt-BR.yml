@@ -190,6 +190,7 @@ pt-BR:
         full_path: Caminho completo
         slug: Identificador
         update: Atualizar para esta revisão
+        current: Atual
       
     files:
       index:

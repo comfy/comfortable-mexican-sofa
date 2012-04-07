@@ -190,6 +190,7 @@ ja:
         full_path: フルパス
         slug: スラッグ
         update: このリビジョンに更新
+        current: Current
       
     files:
       index:

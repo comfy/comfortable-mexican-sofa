@@ -190,6 +190,7 @@ es:
         full_path: Ruta completa
         slug: Identificador
         update: Actualizar a esta versión
+        current: Corriente
         
     files:
       index:
