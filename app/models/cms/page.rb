@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Cms::Page < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
@@ -24,10 +25,12 @@ class Cms::Page < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent
+  after_validation :escape_slug
   before_create :assign_position
   before_save :assign_full_path,
               :set_cached_content
   after_save  :sync_child_pages
+  after_find :unescape_slug_and_path
   
   # -- Validations ----------------------------------------------------------
   validates :site_id, 
@@ -36,7 +39,7 @@ class Cms::Page < ActiveRecord::Base
     :presence   => true
   validates :slug,
     :presence   => true,
-    :format     => /^\w[\.a-z0-9_-]*$/i,
+    :format     => /^\p{Alnum}[\.\p{Alnum}_-]*$/i,
     :uniqueness => { :scope => :parent_id },
     :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
@@ -139,7 +142,7 @@ protected
   end
   
   def assign_full_path
-    self.full_path = self.parent ? "#{self.parent.full_path}/#{self.slug}".squeeze('/') : '/'
+    self.full_path = self.parent ? "#{CGI::escape(self.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
   end
   
   def assign_position
@@ -165,6 +168,17 @@ protected
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
+  end
+
+  # Escape slug unless it's nonexistent (root)
+  def escape_slug
+    self.slug = CGI::escape(self.slug) unless self.slug.nil?
+  end
+
+  # Unescape the slug and full path back into their original forms unless they're nonexistent
+  def unescape_slug_and_path
+    self.slug = CGI::unescape(self.slug) unless self.slug.nil?
+    self.full_path = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
   
 end
