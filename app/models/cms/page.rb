@@ -63,7 +63,8 @@ class Cms::Page < ActiveRecord::Base
   end
   
   # -- Instance Methods -----------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set
+  # For previewing purposes sometimes we need to have full_path set. This
+  # full path take care of the pages and its childs but not of the site path
   def full_path
     self.read_attribute(:full_path) || self.assign_full_path
   end
@@ -122,7 +123,7 @@ class Cms::Page < ActiveRecord::Base
   
   # Full url for a page
   def url
-    "http://#{self.site.hostname}#{self.full_path}"
+    "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
   
   # Method to collect prevous state of blocks for revisions
