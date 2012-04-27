@@ -13,7 +13,7 @@ pt-BR:
       cms/layout: Leiaute
       cms/page: Página
       cms/snippet: Fragmento
-      cms/file: File
+      cms/file: Arquivo
     attributes:
       cms/site:
         identifier: Identificador
