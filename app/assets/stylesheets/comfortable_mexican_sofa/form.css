@@ -24,6 +24,8 @@
 #cms_body .form_element .value input[type='password'],
 #cms_body .form_element .value input[type='datetime'],
 #cms_body .form_element .value input[type='number'],
+#cms_body .form_element .value input[type='email'],
+#cms_body .form_element .value input[type='url'],
 #cms_body .form_element .value select,
 #cms_body .form_element .value textarea {
   border: 0px;
