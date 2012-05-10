@@ -34,7 +34,7 @@
     </div>
   </div>
   <% if !category_view && has_children && branch_open %>
-    <ul>
+    <ul class="children">
       <%= render :partial => 'index_branch', :collection => page.children %>
     </ul>
   <% end %>
