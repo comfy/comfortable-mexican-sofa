@@ -12,7 +12,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   def new
     @file = @site.files.new
   end
-  
+
   def create
     respond_to do |format|
       format.html do
@@ -36,11 +36,26 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
         io = Rails.env.test??
           request.env['RAW_POST_DATA'].clone :
           request.env['rack.input'].clone
-        io.class.class_eval { attr_accessor :original_filename, :content_type }
-        io.original_filename  = request.env['HTTP_X_FILE_NAME']
-        io.content_type       = request.env['CONTENT_TYPE']
+        # Unfortunately, this ends up copying the data twice.
+        # Once from the stream to the tempfile here, and second, in
+        # the file to another tempfile down in PaperClip UploadFileAdapter..
+        file = Tempfile.new(request.env["HTTP_X_FILE_NAME"])
+        file.binmode
+        # FileUtils.copy_stream ends up throwing Conversion Errors from ASCII-8BIT to UTF-8
+        # FileUtils.copy_stream(io, file)
+        while data = io.read(16*1024)
+          file.write(data)
+        end
+        file.rewind
+        # We use a delegation class on the file returned
+        upload = ActionDispatch::Http::UploadedFile.new(
+            :filename => request.env['HTTP_X_FILE_NAME'],
+            :tempfile => file,
+            :type => request.env['CONTENT_TYPE'],
+            :head => request.headers # Not really needed
+        )
         @file = @site.files.create!(
-          (params[:file] || { }).merge(:file => io)
+          (params[:file] || { }).merge(:file => upload)
         )
       end
     end

@@ -98,7 +98,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/document.pdf')] }
+            :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/document.pdf', "application/pdf")] }
         ]
       )
       assert_equal 1, page.blocks.count
@@ -116,7 +116,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       page.update_attributes!(
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => fixture_file_upload('files/document.pdf') }
+            :content    => fixture_file_upload('files/document.pdf', "application/pdf") }
         ]
       )
       page.reload
@@ -142,7 +142,7 @@ class CmsBlockTest < ActiveSupport::TestCase
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => [
             { :identifier => 'files',
-              :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
+              :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/image.gif', "image/gif")] }
           ]
         )
         assert_equal 1, page.blocks.count
@@ -159,7 +159,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         page.update_attributes!(
           :blocks_attributes => [
             { :identifier => 'files',
-              :content    => [fixture_file_upload('files/document.pdf'), fixture_file_upload('files/image.gif')] }
+              :content    => [fixture_file_upload('files/document.pdf', "application/pdf"), fixture_file_upload('files/image.gif', "image/gif")] }
           ]
         )
         page.reload
@@ -190,7 +190,7 @@ class CmsBlockTest < ActiveSupport::TestCase
             },
             '1' => {
               :identifier => 'file',
-              :content    => fixture_file_upload('files/document.pdf')
+              :content    => fixture_file_upload('files/document.pdf', "application/pdf")
             },
             '2' => {
               :identifier => 'footer',

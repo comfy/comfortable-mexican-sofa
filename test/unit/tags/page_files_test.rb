@@ -48,7 +48,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
     page.update_attributes!(
       :blocks_attributes => [
         { :identifier => 'files',
-          :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
+          :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/image.gif', "image/gif")] }
       ]
     )
     files = tag.block.files
