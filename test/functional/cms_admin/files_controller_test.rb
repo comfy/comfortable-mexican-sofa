@@ -61,7 +61,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       post :create, :site_id => cms_sites(:default), :file => {
         :label        => 'Test File',
         :description  => 'Test Description',
-        :file         => [fixture_file_upload('files/image.jpg')]
+        :file         => [fixture_file_upload('files/image.jpg', "image/jpeg")]
       }
       assert_response :redirect
       file = Cms::File.last
@@ -90,8 +90,8 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
         :label        => 'Test File',
         :description  => 'Test Description',
         :file         => [
-          fixture_file_upload('files/image.jpg'),
-          fixture_file_upload('files/image.gif')
+          fixture_file_upload('files/image.jpg', "image/jpeg"),
+          fixture_file_upload('files/image.gif', "image/gif")
         ]
       }
       assert_response :redirect
@@ -170,7 +170,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   def test_reorder
     file_one = cms_files(:default)
     file_two = cms_sites(:default).files.create(
-      :file => fixture_file_upload('files/image.jpg')
+      :file => fixture_file_upload('files/image.jpg', "image/jpeg")
     )
     assert_equal 0, file_one.position
     assert_equal 1, file_two.position
