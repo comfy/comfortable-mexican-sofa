@@ -12,7 +12,7 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_no_difference 'Cms::File.count' do
       file = Cms::File.create
       assert file.errors.present?
-      assert_has_errors_on file, :site_id, :file_file_name, :file
+      assert_has_errors_on file, :site_id, :file
     end
   end
   
@@ -60,7 +60,7 @@ class CmsFileTest < ActiveSupport::TestCase
   
   def test_create_failure
     assert_no_difference 'Cms::File.count' do
-      cms_sites(:default).files.create(:file => '')
+      cms_sites(:default).files.create
     end
   end
   

@@ -39,6 +39,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
         io.class.class_eval { attr_accessor :original_filename, :content_type }
         io.original_filename  = request.env['HTTP_X_FILE_NAME']
         io.content_type       = request.env['CONTENT_TYPE']
+        
         @file = @site.files.create!(
           (params[:file] || { }).merge(:file => io)
         )
