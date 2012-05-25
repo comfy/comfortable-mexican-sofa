@@ -5,6 +5,12 @@ class Cms::Page < ActiveRecord::Base
     
   self.table_name = 'cms_pages'
   
+  attr_accessible :layout, :layout_id,
+                  :label,
+                  :slug,
+                  :parent, :parent_id,
+                  :blocks_attributes
+  
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
   cms_is_mirrored
@@ -25,12 +31,12 @@ class Cms::Page < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent
-  after_validation :escape_slug
-  before_create :assign_position
-  before_save :assign_full_path,
-              :set_cached_content
-  after_save  :sync_child_pages
-  after_find :unescape_slug_and_path
+  after_validation  :escape_slug
+  before_create     :assign_position
+  before_save       :assign_full_path,
+                    :set_cached_content
+  after_save        :sync_child_pages
+  after_find        :unescape_slug_and_path
   
   # -- Validations ----------------------------------------------------------
   validates :site_id, 

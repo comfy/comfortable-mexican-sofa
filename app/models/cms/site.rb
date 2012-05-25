@@ -4,6 +4,12 @@ class Cms::Site < ActiveRecord::Base
   
   self.table_name = 'cms_sites'
   
+  attr_accessible :identifier,
+                  :label,
+                  :hostname,
+                  :path,
+                  :is_mirrored
+  
   # -- Relationships --------------------------------------------------------
   has_many :layouts,    :dependent => :delete_all
   has_many :pages,      :dependent => :delete_all

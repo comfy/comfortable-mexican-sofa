@@ -8,6 +8,10 @@ class Cms::Snippet < ActiveRecord::Base
   cms_is_mirrored
   cms_has_revisions_for :content
   
+  attr_accessible :identifier,
+                  :label,
+                  :content
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   

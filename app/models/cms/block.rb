@@ -4,6 +4,9 @@ class Cms::Block < ActiveRecord::Base
   
   self.table_name = 'cms_blocks'
   
+  attr_accessible :identifier,
+                  :content
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :page
   has_many :files,
