@@ -8,7 +8,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert assigns(:pages)
     assert_template :index
   end
-
+  
   def test_get_index_with_no_pages
     Cms::Page.delete_all
     get :index, :site_id => cms_sites(:default)
