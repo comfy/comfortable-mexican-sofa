@@ -184,8 +184,8 @@ protected
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent
   def unescape_slug_and_path
-    self.slug = CGI::unescape(self.slug) unless self.slug.nil?
-    self.full_path = CGI::unescape(self.full_path) unless self.full_path.nil?
+    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
+    self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
   
 end
