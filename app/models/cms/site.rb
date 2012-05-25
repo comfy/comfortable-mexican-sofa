@@ -8,6 +8,7 @@ class Cms::Site < ActiveRecord::Base
                   :label,
                   :hostname,
                   :path,
+                  :locale,
                   :is_mirrored
   
   # -- Relationships --------------------------------------------------------

@@ -214,6 +214,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert assigns(:page).layout
   end
   
+  def test_get_edit_with_non_english_locale
+    site = cms_sites(:default)
+    site.update_attribute(:locale, 'es')
+    get :edit, :site_id => site, :id => cms_pages(:default)
+    assert_response :success
+  end
+  
   def test_creation
     assert_difference 'Cms::Page.count' do
       assert_difference 'Cms::Block.count', 2 do

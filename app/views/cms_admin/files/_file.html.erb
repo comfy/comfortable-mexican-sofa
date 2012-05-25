@@ -12,7 +12,7 @@
     <div class='details'>
       <input type='text' value='<%= file.file.url %>'/>
       <div class='file_type'><%= file.file_content_type %></div>
-      <div class='file_size'><%= number_to_human_size(file.file_file_size) %></div>
+      <div class='file_size'><%= number_to_human_size(file.file_file_size, :locale => :en) %></div>
     </div>
   </div>
 </div>
