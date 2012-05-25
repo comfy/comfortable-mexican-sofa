@@ -13,7 +13,8 @@ class Cms::Layout < ActiveRecord::Base
                   :content,
                   :css,
                   :js,
-                  :parent, :parent_id
+                  :parent, :parent_id,
+                  :app_layout
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
