@@ -14,7 +14,8 @@ class Cms::File < ActiveRecord::Base
                   :file,
                   :dimentions,
                   :label,
-                  :description
+                  :description,
+                  :category_ids
   
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
