@@ -10,7 +10,8 @@ class Cms::Snippet < ActiveRecord::Base
   
   attr_accessible :identifier,
                   :label,
-                  :content
+                  :content,
+                  :category_ids
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
