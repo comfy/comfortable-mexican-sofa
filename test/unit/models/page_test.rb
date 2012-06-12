@@ -56,7 +56,15 @@ class CmsPageTest < ActiveSupport::TestCase
     page.slug = 'acción'
     assert page.valid?
   end
-  
+
+  def test_validation_of_slug_allows_unicode_accent_characters
+    page = cms_pages(:child)
+    thai_character_ko_kai = "\u0e01"
+    thai_character_mai_tho = "\u0E49"
+    page.slug = thai_character_ko_kai + thai_character_mai_tho
+    assert page.valid?
+  end
+
   def test_label_assignment
     page = cms_sites(:default).pages.new(
       :slug   => 'test',
