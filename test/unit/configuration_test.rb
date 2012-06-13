@@ -33,6 +33,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal nil, config.allowed_helpers
     assert_equal nil, config.allowed_partials
     assert_equal nil, config.hostname_aliases
+	  assert_equal nil, config.default_site	  
   end
   
   def test_initialization_overrides

@@ -46,6 +46,10 @@ protected
       Cms::Site.find_site(request.host.downcase, request.fullpath)
     end
     
+    if @cms_site.nil? && !ComfortableMexicanSofa.config.default_site.nil?
+      @cms_site = Cms::Site.find_by_identifier(ComfortableMexicanSofa.config.default_site)
+    end
+    
     if @cms_site
       if params[:cms_path].present?
         params[:cms_path].gsub!(/^#{@cms_site.path}/, '')
