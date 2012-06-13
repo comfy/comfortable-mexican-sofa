@@ -17,6 +17,7 @@ class Cms::Site < ActiveRecord::Base
   has_many :snippets,   :dependent => :delete_all
   has_many :files,      :dependent => :destroy
   has_many :categories, :dependent => :delete_all
+	has_many :site_aliases, :dependent => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
@@ -44,7 +45,7 @@ class Cms::Site < ActiveRecord::Base
   def self.find_site(host, path = nil)
     return Cms::Site.first if Cms::Site.count == 1
     cms_site = nil
-    Cms::Site.find_all_by_hostname(real_host_from_aliases(host)).each do |site|
+	  Cms::Site.find_aliased_sites_by_hostname(real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
       elsif "#{path}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
@@ -56,6 +57,10 @@ class Cms::Site < ActiveRecord::Base
   end
 
 protected
+
+	def self.find_aliased_sites_by_hostname(hostname)
+		return Cms::Site.includes(:site_aliases).where(Cms::Site.arel_table[:hostname].eq(hostname).or(Cms::SiteAlias.arel_table[:hostname].eq(hostname)))
+	end
   
   def self.real_host_from_aliases(host)
     if aliases = ComfortableMexicanSofa.config.hostname_aliases

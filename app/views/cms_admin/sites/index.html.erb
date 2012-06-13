@@ -10,6 +10,7 @@
           <%= link_to t('.select'),  cms_admin_site_pages_path(site) %>
           <%= link_to t('.edit'), edit_cms_admin_site_path(site) %>
           <%= link_to t('.delete'), cms_admin_site_path(site), :method => :delete, :confirm => t('.are_you_sure') %>
+          <%= link_to t('.add_site_alias'), new_cms_admin_site_site_alias_path(site) %>
         </div>
         <div class='label'>
           <%= link_to site.label, cms_admin_site_pages_path(site) %>
@@ -18,6 +19,24 @@
           </div>
         </div>
       </div>
+      <% if site.site_aliases.count > 0  %>
+        <ul>
+          <% site.site_aliases.each do |site_alias|  %>
+            <li id='cms_site_<%= site.id %>'>
+              <div class='item'>
+                <div class='icon'></div>
+                <div class='action_links'>
+                  <%= link_to t('.edit'), edit_cms_admin_site_site_alias_path(site, site_alias) %>
+                  <%= link_to t('.delete'), cms_admin_site_site_alias_path(site, site_alias), :method => :delete, :confirm => t('.are_you_sure') %>
+                </div>
+                <div class='label'>
+                  <%= site_alias.hostname %>
+                </div>
+              </div>
+            </li>
+          <% end  %>
+        </ul>
+      <% end  %>
     </li>
   <% end %>
 </ul>

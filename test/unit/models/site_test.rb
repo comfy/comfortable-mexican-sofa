@@ -79,12 +79,14 @@ class CmsSiteTest < ActiveSupport::TestCase
         assert_difference 'Cms::Page.count', -2 do
           assert_difference 'Cms::Snippet.count', -1 do
             assert_difference 'Cms::Category.count', -1 do
+              assert_difference 'Cms::SiteAlias.count', -1 do
               cms_sites(:default).destroy
             end
           end
         end
       end
     end
+  end
   end
   
   def test_scope_mirrored

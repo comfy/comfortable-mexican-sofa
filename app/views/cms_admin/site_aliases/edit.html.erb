@@ -1,0 +1,5 @@
+<h1><%= t('.title') %></h1>
+
+<%= comfy_form_for @site_alias, :as => :site_alias, :url => {:action => :update} do |form| %>
+  <%= render :partial => 'form', :object => form %>
+<% end %>

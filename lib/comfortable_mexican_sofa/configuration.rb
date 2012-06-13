@@ -75,6 +75,11 @@ class ComfortableMexicanSofa::Configuration
   # Default is nil (not used)
   attr_accessor :hostname_aliases
   
+  # Default site identifier. If you have multiple sites and want to use
+  # particular site as default (when none of the defined sites match hostname
+  # and or path), set this to its identifier
+	attr_accessor :default_site
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -103,6 +108,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @default_site         = nil
   end
   
 end

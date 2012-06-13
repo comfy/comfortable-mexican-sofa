@@ -26,6 +26,38 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_equal 'test.host', assigns(:cms_site).hostname
   end
   
+  def test_get_public_with_aliased_site
+    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.hostx', :path => '')
+
+    host! 'bogus.alias'
+    get '/'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal 'test.host', assigns(:cms_site).hostname
+
+    host! 'bogus.aliasx'
+	  assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
+			get '/'
+		end
+  end
+
+  def test_get_public_with_default_site
+    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.hostx', :path => '')
+
+    ComfortableMexicanSofa.config.default_site = cms_sites(:default).identifier
+    host! 'bogus.aliasx'
+    get '/'
+    assert_response :success
+    assert assigns(:cms_site)
+    assert_equal 'test.host', assigns(:cms_site).hostname
+
+    ComfortableMexicanSofa.config.default_site = nil
+    host! 'bogus.aliasx'
+	  assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
+			get '/'
+		end
+  end
+
   def test_get_public_page_with_sites_with_different_paths
     Cms::Site.delete_all
     site_a = Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host', :path => '')

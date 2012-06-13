@@ -21,6 +21,14 @@ class CreateCms < ActiveRecord::Migration
     add_index :cms_sites, :hostname
     add_index :cms_sites, :is_mirrored
     
+    # -- Site Aliasess ------------------------------------------------------
+    create_table :cms_site_aliases do |t|
+      t.integer :site_id,     :null => false
+      t.string :hostname,     :null => false
+    end
+    add_index :cms_site_aliases, :hostname
+    add_index :cms_site_aliases, :site_id
+
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|
       t.integer :site_id,     :null => false
@@ -124,6 +132,7 @@ class CreateCms < ActiveRecord::Migration
   
   def self.down
     drop_table :cms_sites
+    drop_table :cms_site_aliases
     drop_table :cms_layouts
     drop_table :cms_pages
     drop_table :cms_snippets

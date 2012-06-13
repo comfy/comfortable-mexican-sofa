@@ -1,0 +1,3 @@
+default:
+  site: default
+  hostname: bogus.alias
