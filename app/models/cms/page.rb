@@ -48,7 +48,7 @@ class Cms::Page < ActiveRecord::Base
     :presence   => true
   validates :slug,
     :presence   => true,
-    :format     => /^\p{Alnum}[\.\p{Alnum}_-]*$/i,
+    :format     => /^[\w][\w\._-]*$/ui,
     :uniqueness => { :scope => :parent_id },
     :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
