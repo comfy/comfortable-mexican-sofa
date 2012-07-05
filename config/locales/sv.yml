@@ -166,6 +166,7 @@ sv:
         no_tags: |-
           Layout har inga innehållstaggar definierade.<br/>
           Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
+          
     snippets:
       index:
         title: Snippets

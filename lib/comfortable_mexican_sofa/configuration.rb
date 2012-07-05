@@ -94,7 +94,8 @@ class ComfortableMexicanSofa::Configuration
       'es'    => 'Español',
       'pt-BR' => 'Português Brasileiro',
       'zh-CN' => '简体中文',
-      'ja'    => '日本語'
+      'ja'    => '日本語',
+      'sv'    => 'Svenska'
     }
     @admin_locale         = nil
     @database_config      = nil
