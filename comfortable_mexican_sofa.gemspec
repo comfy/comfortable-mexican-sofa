@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.6.20"
+  s.version = "1.6.21"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2012-05-28"
+  s.date = "2012-07-05"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -178,6 +178,7 @@ Gem::Specification.new do |s|
     "config/locales/es.yml",
     "config/locales/ja.yml",
     "config/locales/pt-BR.yml",
+    "config/locales/sv.yml",
     "config/locales/zh-CN.yml",
     "config/routes.rb",
     "db/cms_fixtures/example.com/layouts/default/_default.yml",
