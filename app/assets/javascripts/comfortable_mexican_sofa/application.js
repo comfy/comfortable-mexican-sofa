@@ -195,7 +195,7 @@ $.CMS = function(){
           xhr.open('POST', action, true);
           xhr.setRequestHeader('Accept', 'application/javascript');
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name=csrf-token]').attr('content'));
-          xhr.setRequestHeader('Content-Type', file.content_type);
+          xhr.setRequestHeader('Content-Type', file.content_type || file.type);
           xhr.setRequestHeader('X-File-Name', file.name);
           xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
           xhr.send(file);
