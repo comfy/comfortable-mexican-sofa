@@ -12,7 +12,7 @@ class Cms::File < ActiveRecord::Base
   
   attr_accessible :site, :site_id,
                   :file,
-                  :dimentions,
+                  :dimensions,
                   :label,
                   :description,
                   :category_ids
