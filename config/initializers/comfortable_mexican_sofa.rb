@@ -97,6 +97,11 @@ ComfortableMexicanSofa.configure do |config|
   # Default is nil (not used)
   #   config.hostname_aliases = nil
   
+  # Default site identifier. If you have multiple sites and want to use
+  # particular site as default (when none of the defined sites match hostname
+  # and or path), set this to its identifier
+  #   config.default_site = nil
+
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
