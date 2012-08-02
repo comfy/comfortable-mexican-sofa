@@ -33,11 +33,11 @@ class Cms::Page < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
-                    :assign_parent
-  after_validation  :escape_slug
+                    :assign_parent,
+                    :escape_slug,
+                    :assign_full_path
   before_create     :assign_position
-  before_save       :assign_full_path,
-                    :set_cached_content
+  before_save       :set_cached_content
   after_save        :sync_child_pages
   after_find        :unescape_slug_and_path
   
@@ -48,13 +48,27 @@ class Cms::Page < ActiveRecord::Base
     :presence   => true
   validates :slug,
     :presence   => true,
-    :format     => /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i,
     :uniqueness => { :scope => :parent_id },
     :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
     :presence   => true
   validate :validate_target_page
-  
+  validate :format_of_unescaped_slug
+
+  def self.validate_length_of_column column_name
+    column = self.columns.find {|c| column_name.to_s == c.name.to_s }
+    validates column_name,
+      :length => {:maximum => column.limit}
+  end
+  validate_length_of_column :slug
+  validate_length_of_column :full_path
+
+  def format_of_unescaped_slug
+    return unless slug.present?
+    unescaped_slug = CGI::unescape(self.slug)
+    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
+  end
+
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)
