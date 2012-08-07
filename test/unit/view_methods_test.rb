@@ -23,12 +23,12 @@ class ViewMethodsTest < ActionView::TestCase
   end
   
   def test_cms_snippet_content_with_tags
-    cms_snippets(:default).update_attribute(:content, '{{cms:helper:hello}}')
+    cms_snippets(:default).update_column(:content, '{{cms:helper:hello}}')
     assert_equal 'hello', action_result('test_cms_snippet_content')
   end
   
   def test_cms_snippet_content_with_file_tag
-    cms_snippets(:default).update_attribute(:content, '{{cms:file:sample.jpg}}')
+    cms_snippets(:default).update_column(:content, '{{cms:file:sample.jpg}}')
     assert_equal cms_files(:default).file.url, action_result('test_cms_snippet_content')
   end
   
@@ -37,7 +37,7 @@ class ViewMethodsTest < ActionView::TestCase
   end
   
   def test_cms_page_content_with_tags
-    cms_blocks(:default_field_text).update_attribute(:content, '{{cms:helper:hello}}')
+    cms_blocks(:default_field_text).update_column(:content, '{{cms:helper:hello}}')
     assert_equal 'hello', action_result('test_cms_page_content')
   end
   

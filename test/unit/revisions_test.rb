@@ -49,7 +49,7 @@ class RevisionsTest < ActiveSupport::TestCase
   def test_creation_for_layout_ignore
     layout = cms_layouts(:default)
     assert_no_difference 'layout.revisions.count' do
-      layout.update_attribute(:label, 'new label')
+      layout.update_attributes(:label => 'new label')
     end
   end
   
@@ -79,7 +79,7 @@ class RevisionsTest < ActiveSupport::TestCase
   def test_creation_for_page_ignore
     page = cms_pages(:default)
     assert_no_difference 'page.revisions.count' do
-      page.update_attribute(:label, 'new label')
+      page.update_attributes(:label => 'new label')
     end
   end
   
@@ -88,7 +88,7 @@ class RevisionsTest < ActiveSupport::TestCase
     old_attributes  = snippet.attributes.slice('content')
     
     assert_difference 'snippet.revisions.count' do
-      snippet.update_attribute(:content, 'new content')
+      snippet.update_attributes(:content => 'new content')
       snippet.reload
       assert_equal 2, snippet.revisions.count
       revision = snippet.revisions.first
@@ -99,7 +99,7 @@ class RevisionsTest < ActiveSupport::TestCase
   def test_creation_for_snippet_ignore
     snippet = cms_snippets(:default)
     assert_no_difference 'snippet.revisions.count' do
-      snippet.update_attribute(:label, 'new label')
+      snippet.update_attributes(:label => 'new label')
     end
   end
   
@@ -173,7 +173,7 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal 1, snippet.revisions.count
     
     assert_no_difference 'snippet.revisions.count' do
-      snippet.update_attribute(:content, 'new content')
+      snippet.update_attributes(:content => 'new content')
       assert_nil Cms::Revision.find_by_id(revision.id)
       
       snippet.reload

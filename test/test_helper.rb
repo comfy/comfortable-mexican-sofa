@@ -122,3 +122,18 @@ class ActionDispatch::IntegrationTest
     send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
   end
 end
+
+
+# Injecting `update_column` for installs on Rails < 3.1
+module ComfortableMexicanSofa
+  module Deprication
+    module ActiveRecord
+      def update_column(name, value)
+        update_attribute(name, value)
+      end
+    end
+  end
+end
+unless Cms::Page.new.respond_to?(:update_column)
+  ActiveRecord::Base.send :include, ComfortableMexicanSofa::Deprication::ActiveRecord
+end

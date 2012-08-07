@@ -91,7 +91,7 @@ class CmsSiteTest < ActiveSupport::TestCase
     site = cms_sites(:default)
     assert !site.is_mirrored
     assert_equal 0, Cms::Site.mirrored.count
-    site.update_attribute(:is_mirrored, true)
+    site.update_column(:is_mirrored, true)
     assert_equal 1, Cms::Site.mirrored.count
   end
   

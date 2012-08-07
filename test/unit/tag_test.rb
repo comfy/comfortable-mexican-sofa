@@ -183,7 +183,7 @@ class TagTest < ActiveSupport::TestCase
   def test_content_with_cyclical_tags
     page = cms_pages(:default)
     snippet = cms_snippets(:default)
-    snippet.update_attribute(:content, "infinite {{cms:page:default}} loop")
+    snippet.update_attributes(:content => "infinite {{cms:page:default}} loop")
     assert_equal rendered_content_formatter(
       '
       layout_content_a

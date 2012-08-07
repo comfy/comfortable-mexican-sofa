@@ -41,7 +41,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = cms_snippets(:default)
     page = cms_pages(:default)
     assert_match snippet.content, page.content
-    snippet.update_attribute(:content, 'new_snippet_content')
+    snippet.update_attributes(:content => 'new_snippet_content')
     page.reload
     assert_match /new_snippet_content/, page.content
   end

@@ -90,7 +90,7 @@ class PageFileTagTest < ActiveSupport::TestCase
   
   def test_content_and_render_with_dimentions
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{ cms:page_file:file:image[10x10#] }}')
+    layout.update_attributes(:content => '{{ cms:page_file:file:image[10x10#] }}')
     page = cms_pages(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     

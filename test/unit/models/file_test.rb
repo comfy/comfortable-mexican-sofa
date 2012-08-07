@@ -75,7 +75,7 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_equal 1, Cms::File.images.count
     assert_equal 0, Cms::File.not_images.count
     
-    file.update_attribute(:file_content_type, 'application/pdf')
+    file.update_column(:file_content_type, 'application/pdf')
     assert_equal 0, Cms::File.images.count
     assert_equal 1, Cms::File.not_images.count
   end

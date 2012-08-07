@@ -213,7 +213,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)
     
-    page.update_attribute(:content, 'changed')
+    page.update_attributes(:content => 'changed')
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)
     assert_not_equal 'changed', page.read_attribute(:content)
@@ -221,7 +221,7 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_scope_published
     assert_equal 2, Cms::Page.published.count
-    cms_pages(:child).update_attribute(:is_published, false)
+    cms_pages(:child).update_column(:is_published, false)
     assert_equal 1, Cms::Page.published.count
   end
   
@@ -236,7 +236,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'http://test.host/', cms_pages(:default).url
     assert_equal 'http://test.host/child-page', cms_pages(:child).url
     
-    site.update_attribute(:path, '/en/site')
+    site.update_column(:path, '/en/site')
     cms_pages(:default).reload
     cms_pages(:child).reload
     
