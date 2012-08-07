@@ -9,7 +9,7 @@
 //= require comfortable_mexican_sofa/elrte/elrte.sofa_image.js
 
 $.CMS = function(){
-  
+
   var current_path = window.location.pathname;
   var admin_path_prefix = $('meta[name="cms-admin-path"]').attr('content');
 
@@ -21,15 +21,15 @@ $.CMS = function(){
     $.CMS.enable_codemirror();
     $.CMS.enable_date_picker();
     $.CMS.enable_sortable_list();
-    if($('form#page_edit, form#page_new').get(0)) $.CMS.enable_page_save_form();
-    if($('#mirrors').get(0))            $.CMS.enable_mirrors_widget();
-    if($('#page_save').get(0))          $.CMS.enable_page_save_widget();
-    if($('#uploader_button').get(0))    $.CMS.enable_uploader();
-    if($('.categories_widget').get(0))  $.CMS.enable_categories_widget();
+    if($('#page_new, #page_edit, #new_page, #edit_page').length) $.CMS.enable_page_save_form();
+    if($('#mirrors').length)            $.CMS.enable_mirrors_widget();
+    if($('#page_save').length)          $.CMS.enable_page_save_widget();
+    if($('#uploader_button').length)    $.CMS.enable_uploader();
+    if($('.categories_widget').length)  $.CMS.enable_categories_widget();
   });
 
   return {
-    
+
     // Configuration that can be overriden from the outside. For example:
     //   $.CMS.config.elRTE.toolbar = ['undoredo']
     config: {
@@ -86,16 +86,16 @@ $.CMS = function(){
         })
       });
     },
-    
+
     enable_rich_text: function(){
       elRTE.prototype.options.panels.sofa_style     = ['bold', 'italic', 'underline'];
       elRTE.prototype.options.panels.sofa_alignment = ['justifyleft', 'justifycenter', 'justifyright'];
       elRTE.prototype.options.panels.sofa_format    = ['formatblock'];
       elRTE.prototype.options.panels.sofa_copypaste = ['pastetext'];
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
-      
+
       elRTE.prototype.options.toolbars.sofa = $.CMS.config.elRTE.toolbar;
-      
+
       // BUG: Need to set content to an empty <p> for IE
       if ($.browser.msie){
         $('textarea.rich_text').each(function(){
@@ -104,14 +104,14 @@ $.CMS = function(){
           }
         })
       }
-      
+
       $('textarea.rich_text').elrte({
         height:       300,
         toolbar:      'sofa',
         styleWithCSS: false
       });
     },
-    
+
     enable_codemirror: function(){
       $('textarea.code').each(function(i, element){
         var mode = 'htmlmixed';
@@ -149,7 +149,7 @@ $.CMS = function(){
         })
       });
     },
-    
+
     enable_mirrors_widget: function(){
       $('#mirrors select').change(function(){
         window.location = $(this).val();
@@ -191,7 +191,7 @@ $.CMS = function(){
               eval(xhr.responseText);
             }
           }
-          
+
           xhr.open('POST', action, true);
           xhr.setRequestHeader('Accept', 'application/javascript');
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name=csrf-token]').attr('content'));
@@ -202,7 +202,7 @@ $.CMS = function(){
         });
       });
     },
-    
+
     enable_categories_widget : function(){
       $('.categories_widget a.action_link').click(function(){
         if($(this).data('state') == 'edit'){
