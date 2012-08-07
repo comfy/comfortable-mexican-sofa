@@ -55,6 +55,24 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page.slug = 'acción'
     assert page.valid?
+
+    page.slug = 'a'*256
+    assert page.invalid?
+    assert page.errors[:slug].present?
+
+    page.slug = 'a'*254
+    assert page.valid?
+  end
+
+
+  def test_validation_of_full_path
+    page = cms_pages(:child)
+    page.slug = 'a'*255
+    assert page.invalid?
+    assert page.errors[:full_path].present?
+
+    page.slug = 'a'*254
+    assert page.valid?
   end
 
   def test_validation_of_slug_allows_unicode_accent_characters
