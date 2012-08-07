@@ -108,7 +108,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   # -- Page Render Test -----------------------------------------------------
   def test_implicit_cms_page
     page = cms_pages(:child)
-    page.update_attributes(slug: 'render-basic')
+    page.update_attributes(:slug => 'render-basic')
     get '/render-basic?type=page_implicit'
     assert_response :success
     assert assigns(:cms_site)
@@ -132,7 +132,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def test_explicit_cms_page_with_status
     page = cms_pages(:child)
-    page.update_attributes(slug: 'test-page')
+    page.update_attributes(:slug => 'test-page')
     get '/render-page?type=page_explicit_with_status'
     assert_response 404
     assert assigns(:cms_site)
@@ -144,7 +144,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def test_explicit_cms_page_failure
     page = cms_pages(:child)
-    page.update_attributes(slug: 'invalid')
+    page.update_attributes(:slug => 'invalid')
     assert_exception_raised ComfortableMexicanSofa::MissingPage do
       get '/render-page?type=page_explicit'
     end

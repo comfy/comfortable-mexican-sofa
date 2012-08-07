@@ -1,4 +1,16 @@
 # encoding: utf-8
+
+class ColumnLimitValidator < ActiveModel::EachValidator
+  # Ensuring that slug and full path are not longer than what database
+  # can store. We want to avoid magical invisible truncation
+  def validate_each(record, attribute, value)
+    column_limit = record.class.columns_hash[attribute.to_s].limit
+    if value.to_s.length > column_limit
+      record.errors.add(attribute, :too_long, :count => column_limit)
+    end
+  end
+end
+
 class Cms::Page < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
@@ -53,21 +65,9 @@ class Cms::Page < ActiveRecord::Base
   validates :layout,
     :presence   => true
   validate :validate_target_page
-  validate :format_of_unescaped_slug
-
-  def self.validate_length_of_column column_name
-    column = self.columns.find {|c| column_name.to_s == c.name.to_s }
-    validates column_name,
-      :length => {:maximum => column.limit}
-  end
-  validate_length_of_column :slug
-  validate_length_of_column :full_path
-
-  def format_of_unescaped_slug
-    return unless slug.present?
-    unescaped_slug = CGI::unescape(self.slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
-  end
+  validate :validate_format_of_unescaped_slug
+  validates :slug, :full_path,
+    :column_limit => true
 
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_pages.position')
@@ -182,6 +182,12 @@ protected
     while p.target_page do
       return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
     end
+  end
+  
+  def validate_format_of_unescaped_slug
+    return unless slug.present?
+    unescaped_slug = CGI::unescape(self.slug)
+    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
   
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
