@@ -23,7 +23,7 @@
     <div class='action_links'>
       <%= link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id) %>
       <%= link_to t('.edit'), edit_cms_admin_site_page_path(@site, page) %>
-      <%= link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :confirm => t('.are_you_sure') %>
+      <%= link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')} %>
     </div>
     <div class='label'>
       <%= link_to page.label, edit_cms_admin_site_page_path(@site, page) %>
