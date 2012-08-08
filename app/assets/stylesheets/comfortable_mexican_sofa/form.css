@@ -191,3 +191,40 @@
 #cms_body .form_element.simple_field .value input {
   margin-bottom: 3px;
 }
+/* -- Tabs --------------------------------------------------------------- */
+#cms_body #tag_namespaces {
+  padding: 0px;
+  border: 0px;
+  background: transparent;
+}
+#cms_body #tag_namespaces ul.ui-tabs-nav {
+  margin: 0px 0px 5px 150px;
+  padding: 5px 5px 0px 5px;
+  background: #484848;
+  border: 0px;
+  border-radius: 0px;
+}
+#cms_body #tag_namespaces ul.ui-tabs-nav li {
+  background: transparent;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  top: 0px;
+}
+#cms_body #tag_namespaces ul.ui-tabs-nav a {
+  margin-right: 2px;
+  font: 13px/19px 'Lucida Grande','Tahoma', sans-serif;
+  background-color: #252525;
+  color: #8a8a8a;
+  border-radius: 3px 3px 0px 0px;
+}
+#cms_body #tag_namespaces ul.ui-tabs-nav a:hover {
+  color: #fff;
+}
+#cms_body #tag_namespaces ul.ui-tabs-nav li.ui-tabs-selected a {
+  background-color: #fff;
+  color: #000;
+}
+#cms_body #tag_namespaces .ui-tabs-panel {
+  padding: 0px;
+}

@@ -21,7 +21,7 @@ $.CMS = function(){
     $.CMS.enable_codemirror();
     $.CMS.enable_date_picker();
     $.CMS.enable_sortable_list();
-    if($('#page_new, #page_edit, #new_page, #edit_page').length) $.CMS.enable_page_save_form();
+    if($('#page_new, #page_edit, #new_page, #edit_page').length) $.CMS.enable_page_form();
     if($('#mirrors').length)            $.CMS.enable_mirrors_widget();
     if($('#page_save').length)          $.CMS.enable_page_save_widget();
     if($('#uploader_button').length)    $.CMS.enable_uploader();
@@ -171,7 +171,8 @@ $.CMS = function(){
       })
     },
 
-    enable_page_save_form : function(){
+    enable_page_form : function(){
+      $('#tag_namespaces').tabs();
       $('input[name=commit]').click(function() {
         $(this).parents('form').attr('target', '');
       });
