@@ -10,10 +10,12 @@ require 'csv'
 #   end
 module ComfortableMexicanSofa::Tag
   
-  TOKENIZER_REGEX = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
+  TOKENIZER_REGEX   = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
+  IDENTIFIER_REGEX  = /\w+[\-\.\w]+\w+/
   
   attr_accessor :page,
                 :identifier,
+                :namespace,
                 :params,
                 :parent
   
@@ -29,6 +31,8 @@ module ComfortableMexicanSofa::Tag
     
     # Initializing tag object for a particular Tag type
     # First capture group in the regex is the tag identifier
+    # Namespace is the string separated by a dot. So if identifier is:
+    # 'sidebar.about' namespace is: 'sidebar'
     def initialize_tag(page, tag_signature)
       if match = tag_signature.match(regex_tag_signature)
         
@@ -41,6 +45,7 @@ module ComfortableMexicanSofa::Tag
         tag = self.new
         tag.page        = page
         tag.identifier  = match[1]
+        tag.namespace   = (ns = tag.identifier.split('.')[0...-1].join('.')).blank?? nil : ns
         tag.params      = params
         tag
       end

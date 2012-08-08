@@ -274,4 +274,30 @@ class TagTest < ActiveSupport::TestCase
     assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
   end
   
+  def test_tag_initialization_with_namespace
+    assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
+      cms_pages(:default), '{{ cms:page:content:string }}'
+    )
+    assert_equal 'content', tag.identifier
+    assert_equal nil, tag.namespace
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
+      cms_pages(:default), '{{ cms:page:home.content:string }}'
+    )
+    assert_equal 'home.content', tag.identifier
+    assert_equal 'home', tag.namespace
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
+      cms_pages(:default), '{{ cms:page:home.main.content:string }}'
+    )
+    assert_equal 'home.main.content', tag.identifier
+    assert_equal 'home.main', tag.namespace
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
+      cms_pages(:default), '{{ cms:page:ho-me.ma-in.con-tent:string }}'
+    )
+    assert_equal 'ho-me.ma-in.con-tent', tag.identifier
+    assert_equal 'ho-me.ma-in', tag.namespace
+  end
+  
 end

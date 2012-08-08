@@ -7,6 +7,7 @@ class PageIntegerTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page:content:integer }}'
     )
     assert_equal 'content', tag.identifier
+    assert_nil tag.namespace
     assert tag = ComfortableMexicanSofa::Tag::PageInteger.initialize_tag(
       cms_pages(:default), '{{cms:page:content:integer}}'
     )
@@ -15,6 +16,11 @@ class PageIntegerTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{cms:page:dash-content:integer}}'
     )
     assert_equal 'dash-content', tag.identifier
+    assert tag = ComfortableMexicanSofa::Tag::PageInteger.initialize_tag(
+      cms_pages(:default), '{{cms:page:namespace.content:integer}}'
+    )
+    assert_equal 'namespace.content', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_failure

@@ -7,12 +7,20 @@ class PageFilesTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page_files:label }}'
     )
     assert 'url', tag.type
+    assert_equal 'label', tag.identifier
+    assert_equal nil, tag.namespace
     assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
       cms_pages(:default), '{{ cms:page_files:label:partial }}'
     )
     assert 'partial', tag.type
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
+      cms_pages(:default), '{{ cms:page_files:namespace.label:partial }}'
+    )
+    assert_equal 'namespace.label', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_with_dimentions

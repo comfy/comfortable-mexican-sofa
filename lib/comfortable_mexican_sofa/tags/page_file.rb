@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::PageFile
   # Simple tag can be:
   #   {{ cms:page_file:some_label }}
   def self.regex_tag_signature(identifier = nil)
-    identifier ||= /[\w\-]+/
+    identifier ||= IDENTIFIER_REGEX
     /\{\{\s*cms:page_file:(#{identifier}):?(.*?)\s*\}\}/
   end
   
