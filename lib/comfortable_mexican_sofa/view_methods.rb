@@ -35,7 +35,16 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_page_content(identifier, page = nil)
     return '' unless page ||= @cms_page
     return '' unless block = page.blocks.find_by_identifier(identifier)
-    render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
+    # If block is a page_file(s) we will return objects instead of attempting
+    # to render them out
+    case block.tag
+    when ComfortableMexicanSofa::Tag::PageFile
+      block.files.first
+    when ComfortableMexicanSofa::Tag::PageFiles
+      block.files
+    else
+      render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
+    end
   end
 end
 
