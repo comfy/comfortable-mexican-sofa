@@ -95,7 +95,8 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
 
       elRTE.prototype.options.toolbars.sofa = $.CMS.config.elRTE.toolbar;
-
+      elRTE.prototype.options.cssfiles = $.CMS.config.elRTE.cssfiles;
+      
       // BUG: Need to set content to an empty <p> for IE
       if ($.browser.msie){
         $('textarea.rich_text').each(function(){
