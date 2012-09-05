@@ -34,7 +34,8 @@ $.CMS = function(){
     //   $.CMS.config.elRTE.toolbar = ['undoredo']
     config: {
       'elRTE': {
-        toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_image', 'sofa_links']
+        toolbar: ['undoredo', 'sofa_format', 'sofa_style', 'sofa_alignment', 'lists', 'sofa_copypaste', 'sofa_image', 'sofa_links'],
+        cssfiles: []
       }
     },
 
@@ -173,7 +174,6 @@ $.CMS = function(){
     },
 
     enable_page_form : function(){
-      $('#tag_namespaces').tabs();
       $('input[name=commit]').click(function() {
         $(this).parents('form').attr('target', '');
       });
