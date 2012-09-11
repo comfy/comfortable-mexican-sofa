@@ -1,0 +1,12 @@
+<h1><%= t('.title') %></h1>
+
+<% @hooks.each do |hook| %> 
+  <ul class='list sortable'>
+    <li>
+    <div class="item">
+      <p><strong><%= hook.first %></strong></p>
+      <%= render :partial => 'index_branch', :collection => hook.last, :as => :hook %>
+    </div>
+    </li>
+  </ul>
+<% end %>
