@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         end
       end
       resources :categories
+      resources :hooks
       get 'dialog/:type' => 'dialogs#show', :as => 'dialog'
     end
   end unless ComfortableMexicanSofa.config.admin_route_prefix.blank?

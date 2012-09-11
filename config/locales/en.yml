@@ -105,6 +105,7 @@ en:
       pages: Pages
       snippets: Snippets
       files: Files
+      hooks: Hooks
       
     sites:
       index:
@@ -232,4 +233,7 @@ en:
         insert: Insert Image
       link:
         create: Create Link
-      
+
+    hooks:
+      index:
+        title: Hooks
