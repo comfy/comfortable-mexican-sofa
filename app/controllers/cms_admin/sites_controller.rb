@@ -9,7 +9,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   def index
     return redirect_to :action => :new if Cms::Site.count == 0
     @site = Cms::Site.find_by_id(session[:site_id])
-    @sites = Cms::Site.all
+    @sites ||= Cms::Site.all
   end
 
   def new
