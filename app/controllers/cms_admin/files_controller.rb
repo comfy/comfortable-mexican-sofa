@@ -3,6 +3,8 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   skip_before_filter :load_fixtures
   
   before_filter :load_file, :only => [:edit, :update, :destroy]
+
+  cache_sweeper :file_sweeper
   
   def index
     return redirect_to :action => :new if @site.files.count == 0
