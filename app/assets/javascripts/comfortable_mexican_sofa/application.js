@@ -174,6 +174,9 @@ $.CMS = function(){
     },
 
     enable_page_form : function(){
+      if ($('#tag_namespaces>ul>li').size() > 1){
+        $('#tag_namespaces').tabs();
+      }
       $('input[name=commit]').click(function() {
         $(this).parents('form').attr('target', '');
       });
