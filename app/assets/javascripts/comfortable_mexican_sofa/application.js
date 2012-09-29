@@ -174,7 +174,7 @@ $.CMS = function(){
     },
 
     enable_page_form : function(){
-      if ($('#tag_namespaces>ul>li').size() > 1){
+      if ($('#tag_namespaces>ul>li').size() > 0){
         $('#tag_namespaces').tabs();
       }
       $('input[name=commit]').click(function() {
