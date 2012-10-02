@@ -1,7 +1,9 @@
-<% 
-  page        ||= index_branch 
-  has_children  = page.children.present?
-  has_siblings  = page.siblings.present?
+<%
+  page        ||= index_branch
+  children      = @pages_by_parent[page.id]
+  siblings      = @pages_by_parent[page.parent_id]
+  has_children  = children.present?
+  has_siblings  = siblings.size > 1
   branch_open   = (session[:cms_page_tree] || []).member?(page.id.to_s) || page.root?
   category_view = params[:category].present?
 %>
@@ -9,7 +11,7 @@
 <li id='<%= dom_id(page) %>'>
   <div class='item'>
     <div class='toggle <%= 'open' if branch_open %>'>
-      <%= 
+      <%=
         if !category_view && has_children && !page.root?
           link_to span_tag(t('.toggle')), toggle_branch_cms_admin_site_page_path(@site, page), :remote => true
         end
@@ -35,7 +37,7 @@
   </div>
   <% if !category_view && has_children && branch_open %>
     <ul>
-      <%= render :partial => 'index_branch', :collection => page.children %>
+      <%= render :partial => 'index_branch', :collection => children %>
     </ul>
   <% end %>
 </li>
