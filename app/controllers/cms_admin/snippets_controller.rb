@@ -6,6 +6,12 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   def index
     return redirect_to :action => :new if @site.snippets.count == 0
     @snippets = @site.snippets.includes(:categories).for_category(params[:category])
+    @search_snippet = Cms::Snippet.new
+  end
+  
+  def search
+    @search_snippet = Cms::Snippet.new params[:cms_snippet]
+    @snippets = @site.snippets.where "content LIKE ?", "%#{@search_snippet.content}%"
   end
 
   def new

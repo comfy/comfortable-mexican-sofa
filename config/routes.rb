@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         end
       end
       resources :snippets do
+        post :search, :on => :collection
         put :reorder, :on => :collection
         resources :revisions, :only => [:index, :show, :revert] do
           put :revert, :on => :member

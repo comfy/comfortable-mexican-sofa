@@ -174,7 +174,6 @@ en:
         new_link: Create New Snippet
         edit: Edit
         delete: Delete
-        are_you_sure: Are you sure?
       new:
         title: New Snippet
       edit:
@@ -183,6 +182,8 @@ en:
       form:
         create: Create Snippet
         update: Update Snippet
+      results:
+        are_you_sure: Are you sure?
           
     revisions:
       show:
