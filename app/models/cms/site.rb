@@ -54,6 +54,12 @@ class Cms::Site < ActiveRecord::Base
     end
     return cms_site
   end
+  
+  def mirrored_sites
+    first_part_of_id = self.identifier.gsub(/^([.[^-]]*)/).first
+    self.class.mirrored.where('identifier LIKE ? and identifier != ?', 
+    "#{first_part_of_id}%", self.identifier)
+  end
 
 protected
   
