@@ -80,9 +80,14 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
         render :cms_layout => 'invalid'
       when 'layout_defaults_with_site'
         render :cms_layout => 'default', :cms_site => 'site-b'
+      when 'layout_with_action'
+        render :cms_layout => 'default', :action => :new
       else
         raise 'Invalid or no param[:type] provided'
       end
+    end
+
+    def new
     end
   end
   
@@ -189,6 +194,16 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-layout?type=layout_with_status'
     assert_response 404
     assert_equal 'TestTemplate TestValue', response.body
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
+  end
+
+  def test_cms_layout_with_action
+    cms_layouts(:default).update_column(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
+    get '/render-layout?type=layout_with_action'
+    assert_response :success
+    assert_equal "Can render CMS layout and specify action\n  ", response.body
     assert assigns(:cms_site)
     assert assigns(:cms_layout)
     assert_equal cms_layouts(:default), assigns(:cms_layout)
