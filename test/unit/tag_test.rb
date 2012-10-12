@@ -212,6 +212,11 @@ class TagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:snippet:label }}'
     )
     assert !tag.is_cms_block?
+
+    tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
+      cms_pages(:default), '{{ cms:file:sample.jpg }}'
+    )
+    assert !tag.is_cms_block?
   end
   
   def test_content_with_irb_disabled
