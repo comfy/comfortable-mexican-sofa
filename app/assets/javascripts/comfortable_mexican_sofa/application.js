@@ -96,7 +96,7 @@ $.CMS = function(){
       elRTE.prototype.options.panels.sofa_links     = ['sofa_link', 'unlink'];
 
       elRTE.prototype.options.toolbars.sofa = $.CMS.config.elRTE.toolbar;
-      elRTE.prototype.options.cssfiles = $.CMS.config.elRTE.cssfiles;
+      elRTE.prototype.options.cssfiles      = $.CMS.config.elRTE.cssfiles;
       
       // BUG: Need to set content to an empty <p> for IE
       if ($.browser.msie){
@@ -174,9 +174,7 @@ $.CMS = function(){
     },
 
     enable_page_form : function(){
-      if ($('#tag_namespaces>ul>li').size() > 0){
-        $('#tag_namespaces').tabs();
-      }
+      $('#tag_namespaces').tabs();
       $('input[name=commit]').click(function() {
         $(this).parents('form').attr('target', '');
       });

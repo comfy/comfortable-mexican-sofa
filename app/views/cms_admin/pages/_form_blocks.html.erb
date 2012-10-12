@@ -5,6 +5,7 @@
     namespace[tag.namespace || 'default'] ||= []
     namespace[tag.namespace || 'default'] << tag
   end
+  has_namespaces = namespace.size > 1
 %>
 
 <div id='form_blocks'>
@@ -16,8 +17,8 @@
   
   <% else %>
     <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
-      <div id='tag_namespaces'>
-        <% if namespace.size > 1 %>
+      <div id='<%= has_namespaces ? 'tag_namespaces' : 'no_tag_namespaces' %>'>
+        <% if has_namespaces %>
           <ul>
             <% namespace.each do |name, tags| %>
               <li><%= link_to name.humanize, "#ns-#{name}" %></li>
