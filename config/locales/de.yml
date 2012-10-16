@@ -98,7 +98,6 @@ de:
       page_not_found: Seite nicht gefunden
 
   # -- Views ----------------------------------------------------------------
-
   cms_admin:
     base:
       sites: Web-Sites
@@ -106,7 +105,6 @@ de:
       pages: Seiten
       snippets: Schnipsel
       files: Datei
-      hooks: Haken
 
     sites:
       index:
@@ -234,7 +232,3 @@ de:
         insert: Bild einfügen
       link:
         create: Link erstellen
-
-    hooks:
-      index:
-        title: Haken
