@@ -43,3 +43,6 @@
   background-color: #ccc;
   cursor: pointer;
 }
+#cms_body form.search_snippet {
+  margin-bottom: 20px;
+}

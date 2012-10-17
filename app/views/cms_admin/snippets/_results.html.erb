@@ -1,0 +1,41 @@
+<%= link_to span_tag(t('.new_link')), new_cms_admin_site_snippet_path(@site), :class => 'big button' %>
+<h1><%= t('.title')%></h1>
+
+<div>
+  <%= form_for @search_snippet, :url => { :action => :search }, :html => { :class => 'search_snippet' } do |form| %>
+    <%= form.label :content, 'Search by content'  %>
+    <%= form.text_field :content %>
+    <%= form.submit 'Search' %>
+  <% end %>
+</div>
+
+<% content_for :right_column do %>
+  <%= render :partial => 'cms_admin/sites/mirrors' %>
+<% end %>
+
+<%= render :partial => 'cms_admin/categories/index', :object => 'Cms::Snippet' %>
+
+<ul class='list sortable'>
+  <% @snippets.each do |snippet| %>
+    <li id='cms_snippet_<%= snippet.id %>'>
+      <div class='item'>
+        <div class='icon'>
+          <% if !params[:category].present? %>
+            <div class='dragger'><span><%= t('cms.views.pages.drag') %></span></div>
+          <% end %>
+        </div>
+        <div class='action_links'>
+          <%= link_to t('.edit'), edit_cms_admin_site_snippet_path(@site, snippet) %>
+          <%= link_to t('.delete'), cms_admin_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')} %>
+        </div>
+        <div class='label'>
+          <%= link_to snippet.label, edit_cms_admin_site_snippet_path(@site, snippet) %>
+          <%= render :partial => '/cms_admin/categories/categories', :object => snippet %>
+          <div class='sublabel'>
+            <%= link_to snippet.identifier, edit_cms_admin_site_snippet_path(@site, snippet) %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
