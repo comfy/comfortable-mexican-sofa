@@ -96,6 +96,10 @@ ComfortableMexicanSofa.configure do |config|
   # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   #   config.hostname_aliases = nil
+
+  # Skips thumbnail generation and image validation for uploads of image files
+  # Setting this to true allows you to run CMS and Paperclip without installing ImageMagick
+  #   config.skip_thumbnails = true
   
 end
 

@@ -75,6 +75,10 @@ class ComfortableMexicanSofa::Configuration
   # Default is nil (not used)
   attr_accessor :hostname_aliases
 
+  # Skips thumbnail generation and image validation for uploads of image files
+  # Setting this to true allows you to run CMS with Paperclip without installing ImageMagick
+  attr_accessor :skip_thumbnails
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -108,6 +112,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @skip_thumbnails      = false
   end
 
 end

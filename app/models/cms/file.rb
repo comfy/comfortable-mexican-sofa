@@ -22,7 +22,8 @@ class Cms::File < ActiveRecord::Base
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
     # dimensions accessor needs to be set before file assignment for this to work
     :styles => lambda { |f|
-      (f.instance.dimensions.blank?? { } : { :original => f.instance.dimensions }).merge(
+      (f.instance.dimensions.blank? || ComfortableMexicanSofa.config.skip_thumbnails ?
+       { } : { :original => f.instance.dimensions }).merge(
         :cms_thumb => '80x60#'
       )
     }
@@ -49,7 +50,7 @@ class Cms::File < ActiveRecord::Base
   
   # -- Instance Methods -----------------------------------------------------
   def is_image?
-    IMAGE_MIMETYPES.include?(file_content_type)
+    IMAGE_MIMETYPES.include?(file_content_type) and !ComfortableMexicanSofa.config.skip_thumbnails
   end
   
 protected
