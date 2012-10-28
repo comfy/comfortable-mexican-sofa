@@ -34,7 +34,7 @@ class Cms::Site < ActiveRecord::Base
   validates :hostname,
     :presence   => true,
     :uniqueness => { :scope => :path },
-    :format     => { :with => /^[\w\.\-]+$/ }
+    :format     => { :with => /^[\w\.\-]+(?:\:\d+)?$/ }
     
   # -- Scopes ---------------------------------------------------------------
   scope :mirrored, where(:is_mirrored => true)
