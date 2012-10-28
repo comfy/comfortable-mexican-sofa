@@ -91,6 +91,7 @@ class ComfortableMexicanSofa::Configuration
     @revisions_limit      = 25
     @locales              = {
       'en'    => 'English',
+      'fr'    => 'Français',
       'es'    => 'Español',
       'pt-BR' => 'Português Brasileiro',
       'zh-CN' => '简体中文',
