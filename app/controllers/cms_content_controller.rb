@@ -43,7 +43,7 @@ protected
     @cms_site ||= if params[:site_id]
       Cms::Site.find_by_id(params[:site_id])
     else
-      Cms::Site.find_site(request.host.downcase, request.fullpath)
+      Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
     end
     
     if @cms_site
