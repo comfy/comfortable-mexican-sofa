@@ -59,8 +59,8 @@ $.CMS = function(){
       function slugify(str, delimiter){
         var opposite_delimiter = (delimiter == '-') ? '_' : '-';
         str = str.replace(/^\s+|\s+$/g, '');
-        var from = "ÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛàáäâèéëêìíïîòóöôùúüûÑñÇç";
-        var to   = "aaaaeeeeiiiioooouuuuaaaaeeeeiiiioooouuuunncc";
+        var from = "ÀÁÄÂÃÈÉËÊÌÍÏÎÒÓÖÔÕÙÚÜÛàáäâãèéëêìíïîòóöôõùúüûÑñÇç";
+        var to   = "aaaaaeeeeiiiiooooouuuuaaaaaeeeeiiiiooooouuuunncc";
         for (var i=0, l=from.length ; i<l ; i++) {
           str = str.replace(new RegExp(from[i], "g"), to[i]);
         }
