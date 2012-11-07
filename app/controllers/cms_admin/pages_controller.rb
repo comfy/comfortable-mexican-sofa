@@ -8,6 +8,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 
   def index
     return redirect_to :action => :new if @site.pages.count == 0
+    @pages_by_parent = @site.pages.includes(:categories).all.group_by(&:parent_id)
     if params[:category].present?
       @pages = @site.pages.includes(:categories).for_category(params[:category]).all(:order => 'label')
     else
@@ -55,6 +56,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def toggle_branch
+    @pages_by_parent = @site.pages.includes(:categories).all.group_by(&:parent_id)
     @page = @site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
     id  = @page.id.to_s

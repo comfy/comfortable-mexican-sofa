@@ -8,7 +8,7 @@ class ComfortableMexicanSofa::Tag::Collection
   # A more complete example of the above:
   #   {{ cms:collection:album:foo/my_album:albums/show:title:slug:param_a:param_b }}
   def self.regex_tag_signature(identifier = nil)
-    identifier ||= /[\w\/\-]+/
+    identifier ||= IDENTIFIER_REGEX
     /\{\{\s*cms:collection:(#{identifier}):(.*?)\s*\}\}/
   end
   

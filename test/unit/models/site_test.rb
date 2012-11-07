@@ -4,7 +4,7 @@ class CmsSiteTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
     Cms::Site.all.each do |site|
-      assert site.valid?, site.errors.full_messages.to_s
+      assert site.valid?, site.errors.inspect
     end
   end
   
@@ -22,7 +22,10 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_has_errors_on site, :identifier
     
     site = Cms::Site.new(:identifier => 'test', :hostname => 'site.host')
-    assert site.valid?, site.errors.to_yaml
+    assert site.valid?, site.errors.inspect
+    
+    site = Cms::Site.new(:identifier => 'test', :hostname => 'localhost:3000')
+    assert site.valid?, site.errors.inspect
   end
   
   def test_validation_path_uniqueness
@@ -91,7 +94,7 @@ class CmsSiteTest < ActiveSupport::TestCase
     site = cms_sites(:default)
     assert !site.is_mirrored
     assert_equal 0, Cms::Site.mirrored.count
-    site.update_attribute(:is_mirrored, true)
+    site.update_column(:is_mirrored, true)
     assert_equal 1, Cms::Site.mirrored.count
   end
   

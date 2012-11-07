@@ -14,11 +14,18 @@ class CollectionTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:collection:snippet:cms/snippet }}'
     )
     assert_equal 'snippet',               tag.identifier
+    assert_nil                            tag.namespace
     assert_equal 'Cms::Snippet',          tag.collection_class
     assert_equal 'partials/cms/snippets', tag.collection_partial
     assert_equal 'label',                 tag.collection_title
     assert_equal 'id',                    tag.collection_identifier
     assert_equal [],                      tag.collection_params
+    
+    assert tag = ComfortableMexicanSofa::Tag::Collection.initialize_tag(
+      cms_pages(:default), '{{ cms:collection:namespace.snippet:cms/snippet }}'
+    )
+    assert_equal 'namespace.snippet', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_detailed

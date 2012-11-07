@@ -1,0 +1,234 @@
+# encoding: utf-8
+ru:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: Название
+    slug: Ссылка
+    parent_id: Родитель
+    content: Контент
+    identifier: Идентификатор
+  activerecord:
+    models:
+      cms/site: Сайт
+      cms/layout: Шаблон
+      cms/page: Страница
+      cms/snippet: Сниппет
+      cms/file: Файл
+    attributes:
+      cms/site:
+        identifier: Идентификатор
+        hostname: Имя хоста
+        path: Путь
+        locale: Язык
+        is_mirrored: Синхронизирован с другими сайтами
+      cms/layout:
+        identifier: Идентификатор
+        label: Название шаблона
+        app_layout: Шаблон приложения
+        parent_id: Родительский шаблон
+        css: CSS
+        js: Javascript
+      cms/page:
+        label: Название
+        layout_id: Шаблон
+        slug: Ссылка
+        target_page_id: Редирект на страницу
+        is_published: Опубликована
+      cms/file:
+        file: Файл
+        description: Описание
+      cms/snippet:
+        identifier: Идентификатор
+
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: Сайт не найден
+      fixtures_enabled: CMS Fixtures включены. Все изменения, сделанные здесь, будут отменены.
+
+    sites:
+      created: Сайт создан
+      creation_failure: Не удалось создать сайт
+      updated: Сайт обновлен
+      update_failure: Не удалось обновить сайт
+      deleted: Сайт удален
+      not_found: Сайт не найден
+
+    layouts:
+      created: Шаблон создан
+      creation_failure: Не удалось создать шаблон
+      updated: Шаблон обновлен
+      update_failure: Не удалось обновить шаблон
+      deleted: Шаблон удален
+      not_found: Шаблон не найден
+
+    pages:
+      created: Страница создана
+      creation_failure: Не удалось создать страницу
+      updated: Страница обновлена
+      update_failure: Не удалось обновить страницу
+      deleted: Страница удалена
+      not_found: Страница не найдена
+      layout_not_found: Шаблоны не найдены. Пожалуйста, создайте хотя бы один шаблон.
+
+    snippets:
+      created: Сниппет создан
+      creation_failure: Не удалось создать сниппет
+      updated: Сниппет обновлен
+      update_failure: Не удалось обновить сниппет
+      deleted: Сниппет удален
+      not_found: Сниппет не найден
+
+    revisions:
+      reverted: Контент возвращен в прежнее состояние
+      record_not_found: Запись не найдена
+      not_found: Ревизия не найдена
+
+    files:
+      created: Файлы загружены
+      creation_failure: Не удалось загрузить файлы
+      updated: Файл обновлен
+      update_failure: Не удалось обновить файл
+      deleted: Файл удален
+      not_found: Файл не найден
+
+    content:
+      site_not_found: Сайт не найден
+      layout_not_found: Шаблон не найден
+      page_not_found: Страница не найдена
+
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Сайты
+      layouts: Шаблоны
+      pages: Страницы
+      snippets: Сниппеты
+      files: Файлы
+
+    sites:
+      index:
+        title: Сайты
+        new_link: Создать новый сайт
+        select: Выбрать сайт
+        edit: Редактировать
+        delete: Удалить
+        are_you_sure: Вы уверены, что хотите удалить этот сайт?
+      new:
+        title: Новый сайт
+      edit:
+        title: Редактирование сайта
+      form:
+        create: Создать сайт
+        update: Обновить сайт
+
+    layouts:
+      index:
+        title: Шаблоны
+        new_link: Создать новый шаблон
+      index_branch:
+        add_child_layout: Добавить дочерний шаблон
+        edit: Редактировать
+        delete: Удалить
+        are_you_sure: Вы уверены?
+      new:
+        title: Новый шаблон
+      edit:
+        title: Редактирование шаблона
+        revision: Ревизия
+      form:
+        select_parent_layout: Выбрать родительский шаблон
+        select_app_layout: Выбрать шаблон приложения
+        create: Создать шаблон
+        update: Обновить шаблон
+
+    pages:
+      index:
+        title: Страницы
+        new_link: Создать новую страницу
+      index_branch:
+        toggle: Toggle
+        add_child_page: Добавить дочернюю страницу
+        edit: Редактировать
+        delete: Удалить
+        are_you_sure: Вы уверены?
+      new:
+        title: Новая страница
+      edit:
+        title: Редактирование страницы
+        revision: Ревизия
+      form:
+        select_target_page: Без редиректа
+        preview: Предпросмотр
+        create: Создать страницу
+        update: Обновить страницу
+      form_blocks:
+        no_tags: |-
+          Шаблон не содержит ни одного контент-тега.<br/>
+          Отредактируйте контент, вставив тег страницы или поля. Например: <code>{{cms:page:content}}</code>
+
+    snippets:
+      index:
+        title: Сниппеты
+        new_link: Создать новый сниппет
+        edit: Редактировать
+        delete: Удалить
+        are_you_sure: Вы уверены?
+      new:
+        title: Новый сниппет
+      edit:
+        title: Редактирование сниппета
+        revision: Ревизия
+      form:
+        create: Создать сниппет
+        update: Обновить сниппет
+
+    revisions:
+      show:
+        title: Ревизии для
+        revision: Ревизия
+        full_path: Полный путь
+        slug: Ссылка
+        update: Обновить до этой ревизии
+        current: Текущая
+
+    files:
+      index:
+        title: Файлы
+        new_link: Загрузить новый файл
+        edit: Редактировать
+        delete: Удалить
+        are_you_sure: Вы уверены?
+        button: Загрузить файлы
+      new:
+        title: Новый файл
+      edit:
+        title: Редактирование файла
+      form:
+        current_file: Текущий файл
+        create: Загрузить файл
+        update: Обновить файл
+      page_form:
+        are_you_sure: Вы уверены?
+      file:
+        are_you_sure: Вы уверены?
+
+    categories:
+      index:
+        label: Категории
+        edit: Редактировать
+        done: Применить
+        all: Все
+        add: Добавить
+      show:
+        are_you_sure: Вы уверены?
+      edit:
+        save: Сохранить
+      form:
+        label: Категории
+
+    dialogs:
+      image:
+        insert: Вставить изображение
+      link:
+        create: Создать ссылку

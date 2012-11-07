@@ -7,6 +7,7 @@ class PageTextTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page:content:text }}'
     )
     assert_equal 'content', tag.identifier
+    assert_nil tag.namespace
     assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
       cms_pages(:default), '{{cms:page:content}}'
     )
@@ -19,6 +20,11 @@ class PageTextTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{cms:page:dash-content}}'
     )
     assert_equal 'dash-content', tag.identifier
+    assert tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
+      cms_pages(:default), '{{cms:page:namespace.content}}'
+    )
+    assert_equal 'namespace.content', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_failure

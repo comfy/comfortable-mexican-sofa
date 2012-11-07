@@ -14,7 +14,7 @@
         </div>
         <div class='action_links'>
           <%= link_to t('.edit'), edit_cms_admin_site_file_path(@site, file) %>
-          <%= link_to t('.delete'), cms_admin_site_file_path(@site, file), :method => :delete, :confirm => t('.are_you_sure') %>
+          <%= link_to t('.delete'), cms_admin_site_file_path(@site, file), :method => :delete, :data => {:confirm => t('.are_you_sure')} %>
         </div>
         <div class='label'>
           <%= link_to file.label, edit_cms_admin_site_file_path(@site, file) %>

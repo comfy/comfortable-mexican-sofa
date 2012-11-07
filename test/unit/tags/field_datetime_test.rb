@@ -7,6 +7,7 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:field:content:datetime }}'
     )
     assert_equal 'content', tag.identifier
+    assert_nil tag.namespace
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
       cms_pages(:default), '{{cms:field:content:datetime}}'
     )
@@ -15,6 +16,11 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{cms:field:dash-content:datetime}}'
     )
     assert_equal 'dash-content', tag.identifier
+    assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
+      cms_pages(:default), '{{cms:field:namespace.content:datetime}}'
+    )
+    assert_equal 'namespace.content', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_failure

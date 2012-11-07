@@ -72,10 +72,10 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal "{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.content
     assert_equal "{{cms:page:header}}\n{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.merged_content
     
-    child_layout.update_attribute(:content, '{{cms:page:content}}')
+    child_layout.update_column(:content, '{{cms:page:content}}')
     assert_equal "{{cms:page:header}}\n{{cms:page:content}}", child_layout.merged_content
     
-    parent_layout.update_attribute(:content, '{{cms:page:whatever}}')
+    parent_layout.update_column(:content, '{{cms:page:whatever}}')
     child_layout.reload
     assert_equal '{{cms:page:content}}', child_layout.merged_content
   end
@@ -114,7 +114,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal "header_content\ncontent_content", page_1.content
     assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content
     
-    layout_1.update_attribute(:content, "Updated {{cms:page:content}}")
+    layout_1.update_attributes(:content => "Updated {{cms:page:content}}")
     page_1.reload
     page_2.reload
     

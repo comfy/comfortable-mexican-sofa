@@ -43,7 +43,7 @@ protected
     @cms_site ||= if params[:site_id]
       Cms::Site.find_by_id(params[:site_id])
     else
-      Cms::Site.find_site(request.host.downcase, request.fullpath)
+      Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
     end
     
     if @cms_site
@@ -60,7 +60,7 @@ protected
   
   def load_cms_page
     @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
-    return redirect_to(@cms_page.target_page.full_path) if @cms_page.target_page
+    return redirect_to(@cms_page.target_page.url) if @cms_page.target_page
     
   rescue ActiveRecord::RecordNotFound
     if @cms_page = @cms_site.pages.published.find_by_full_path('/404')

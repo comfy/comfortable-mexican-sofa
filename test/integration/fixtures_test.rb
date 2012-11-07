@@ -6,7 +6,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
   
   def setup
     host! 'example.com'
-    cms_sites(:default).update_attribute(:hostname, 'example.com')
+    cms_sites(:default).update_column(:hostname, 'example.com')
   end
   
   def test_fixtures_disabled

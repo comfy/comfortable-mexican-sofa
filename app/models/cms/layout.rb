@@ -8,6 +8,14 @@ class Cms::Layout < ActiveRecord::Base
   cms_is_mirrored
   cms_has_revisions_for :content, :css, :js
   
+  attr_accessible :label,
+                  :identifier,
+                  :content,
+                  :css,
+                  :js,
+                  :parent, :parent_id,
+                  :app_layout
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   has_many :pages, :dependent => :nullify

@@ -60,13 +60,29 @@ class SitesTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_get_public_page_with_host_with_port
+    Cms::Site.delete_all
+    site_a = Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host:3000')
+    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host')
+    
+    [site_a, site_b].each do |site|
+      layout  = site.layouts.create!(:identifier => 'test')
+      site.pages.create!(:label => 'index', :layout => layout)
+      site.pages.create!(:label => '404', :slug => '404', :layout => layout)
+    end
+    
+    get '/'
+    assert assigns(:cms_site)
+    assert_equal site_b, assigns(:cms_site)
+  end
+  
   def test_get_public_with_locale
     get '/'
     assert_response :success
     assert assigns(:cms_site)
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_attribute(:locale, 'fr')
+    cms_sites(:default).update_column(:locale, 'fr')
     get '/'
     assert_response :success
     assert assigns(:cms_site)
@@ -78,7 +94,7 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_attribute(:locale, 'fr')
+    cms_sites(:default).update_column(:locale, 'fr')
     http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :fr, I18n.locale
@@ -87,7 +103,7 @@ class SitesTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_forced_locale
     ComfortableMexicanSofa.config.admin_locale = :en
     
-    cms_sites(:default).update_attribute(:locale, 'fr')
+    cms_sites(:default).update_column(:locale, 'fr')
     http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
@@ -99,7 +115,6 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_equal :en, I18n.locale
 
     I18n.default_locale = :en
-
   end
   
 end

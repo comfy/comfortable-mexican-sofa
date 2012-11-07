@@ -2,7 +2,7 @@ class ComfortableMexicanSofa::Tag::File
   include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(identifier = nil)
-    identifier ||= /[\w\-\.]+/
+    identifier ||= IDENTIFIER_REGEX
     /\{\{\s*cms:file:(#{identifier}):?(.*?)\s*\}\}/
   end
   

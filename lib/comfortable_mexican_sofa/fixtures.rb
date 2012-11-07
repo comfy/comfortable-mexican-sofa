@@ -89,7 +89,7 @@ module ComfortableMexicanSofa::Fixtures
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
       page = if parent
-        parent.children.find_by_slug(slug) || parent.children.new(:slug => slug, :site => site)
+        parent.children.find_by_slug(slug) || site.pages.new(:parent => parent, :slug => slug)
       else
         site.pages.root || site.pages.new(:slug => slug)
       end

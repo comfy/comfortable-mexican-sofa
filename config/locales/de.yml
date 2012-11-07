@@ -1,0 +1,234 @@
+# encoding: utf-8
+de:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: Bezeichnung
+    slug: Slug
+    parent_id: Parent
+    content: Inhalt
+    identifier: Identifikator
+  activerecord:
+    models:
+      cms/site: Web-Site
+      cms/layout: Layout
+      cms/page: Seite
+      cms/snippet: Schnipsel
+      cms/file: Datei
+    attributes:
+      cms/site:
+        identifier: Identifikator
+        hostname: Hostname
+        path: Pfad
+        locale: Sprache
+        is_mirrored: Gespiegelt
+      cms/layout:
+        identifier: Identifikator
+        label: Layout Name
+        app_layout: App Layout
+        parent_id: Parent Layout
+        css: Stylesheet
+        js: Javascript
+      cms/page:
+        label: Bezeichnung
+        layout_id: Layout
+        slug: Slug
+        target_page_id: Weiterleiten zu Seite
+        is_published: Veröffentlicht
+      cms/file:
+        file: Datei
+        description: Beschreibung
+      cms/snippet:
+        identifier: Identifikator
+
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: Web-Site nicht gefunden
+      fixtures_enabled: CMS Fixtures are aktiviert. Alle Änderungen hier gespeichert werden verworfen.
+
+    sites:
+      created: Web-Site erstellt
+      creation_failure: Fehler beim erstellen der Web-Site
+      updated: Web-Site aktualisiert
+      update_failure: Fehler beim speichern der Web-Site
+      deleted: Web-Site gelöscht
+      not_found: Web-Site nicht gefunden
+
+    layouts:
+      created: Layout erstellt
+      creation_failure: Fehler beim erstellen des Layouts
+      updated: Layout aktualisiert
+      update_failure: Fehler beim speichern des Layouts
+      deleted: Layout gelöscht
+      not_found: Layout nicht gefunden
+
+    pages:
+      created: Seite erstellt
+      creation_failure: Fehler beim erstellen der Seite
+      updated: Seite aktualisiert
+      update_failure: Fehler beim speichern der Seite
+      deleted: Seite gelöscht
+      not_found: Seite nicht gefunden
+      layout_not_found: Kein Layout gefunden. Bitte erstellen Sie eines.
+
+    snippets:
+      created: Schnipsel erstellt
+      creation_failure: Fehler beim erstellen des Schnipsels
+      updated: Schnipsel aktualisiert
+      update_failure: Fehler beim speichern des Schnipsel
+      deleted: Schnipsel gelöscht
+      not_found: Schnipsel nicht gefunden
+
+    revisions:
+      reverted: Inhalt wiederhergestellt
+      record_not_found: Eintrag nicht gefunden
+      not_found: Revision nicht gefunden
+
+    files:
+      created: Datei hochgeladet
+      creation_failure: Fehler beim hochladen der Datei
+      updated: Datei hochgeladet
+      update_failure: Fehler beim hochladen der Datei
+      deleted: Datei gelöscht
+      not_found: Datei nicht gefunden
+
+    content:
+      site_not_found: Web-Site nicht gefunden
+      layout_not_found: Layout nicht gefunden
+      page_not_found: Seite nicht gefunden
+
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Web-Sites
+      layouts: Layouts
+      pages: Seiten
+      snippets: Schnipsel
+      files: Datei
+
+    sites:
+      index:
+        title: Web-Sites
+        new_link: Erstelle neue Web-Site
+        select: Wähle Web-Site
+        edit: Bearbeiten
+        delete: Löschen
+        are_you_sure: Sind Sie sicher, dass Sie diese Web-Site löschen wollen?
+      new:
+        title: Neue Web-Site
+      edit:
+        title: Web-Site bearbeiten
+      form:
+        create: Erstelle Web-Site
+        update: Web-Site speichern
+
+    layouts:
+      index:
+        title: Layouts
+        new_link: Erstelle neue Layout
+      index_branch:
+        add_child_layout: Erstelle untergeordnetes Layout
+        edit: Bearbeiten
+        delete: Löschen
+        are_you_sure: Sind Sie sicher?
+      new:
+        title: Neues Layout
+      edit:
+        title: Layout bearbeiten
+        revision: Revision
+      form:
+        select_parent_layout: Select Parent Layout
+        select_app_layout: Select Application Layout
+        create: Erstelle Layout
+        update: Layout speichern
+
+    pages:
+      index:
+        title: Seiten
+        new_link: Erstelle neue Seite
+      index_branch:
+        toggle: Toggle
+        add_child_page: Erstelle untergeordnete Seite
+        edit: Bearbeiten
+        delete: Löschen
+        are_you_sure: Sind Sie sicher?
+      new:
+        title: Neue Seite
+      edit:
+        title: Seite bearbeiten
+        revision: Revision
+      form:
+        select_target_page: Keine Weiterleitung
+        preview: Vorschau
+        create: Erstelle Seite
+        update: Seite speichern
+      form_blocks:
+        no_tags: |-
+          Layout has hat keine Inhalt-Tags definiert.<br/>
+          Bearbeiten den Inhalt des Layout um ein Inhalt-Tag hinzuzufügen. Zum Beispiel: <code>{{cms:page:content}}</code>
+
+    snippets:
+      index:
+        title: Schnipsels
+        new_link: Erstelle neuen Schnipsel
+        edit: Bearbeiten
+        delete: Löschen
+        are_you_sure: Sind Sie sicher?
+      new:
+        title: Neuer Schnipsel
+      edit:
+        title: Schnipsel bearbeiten
+        revision: Revision
+      form:
+        create: Erstelle Schnipsel
+        update: Schnipsel speichern
+
+    revisions:
+      show:
+        title: Revisionen von
+        revision: Revision
+        full_path: Completer Pfad
+        slug: Slug
+        update: Zurücksetzen auf diese Revision
+        current: Aktuell
+
+    files:
+      index:
+        title: Datei
+        new_link: Neue Datei hochladen
+        edit: Bearbeiten
+        delete: Löschen
+        are_you_sure: Sind Sie sicher?
+        button: Datei hochladen
+      new:
+        title: Neue Datei
+      edit:
+        title: Datei bearbeiten
+      form:
+        current_file: Aktuelle Datei
+        create: Lade Datei hoch
+        update: Datei speichern
+      page_form:
+        are_you_sure: Sind Sie sicher?
+      file:
+        are_you_sure: Sind Sie sicher?
+
+    categories:
+      index:
+        label: Kategorien
+        edit: Bearbeiten
+        done: Erledigt
+        all: Alle
+        add: Hinzuzufügen
+      show:
+        are_you_sure: Sind Sie sicher?
+      edit:
+        save: Speichern
+      form:
+        label: Kategorien
+
+    dialogs:
+      image:
+        insert: Bild einfügen
+      link:
+        create: Link erstellen

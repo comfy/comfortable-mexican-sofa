@@ -14,6 +14,7 @@
 <div class='page_form_extras'>
   <% unless @site.pages.count == 0 || @site.pages.root == @page%>
     <%= form.text_field :slug, :id => 'slug' %>
+    <%= form.text_field :full_path, :id => 'full-path', :disabled => true %>
   <% end %>
   <% if (options = Cms::Layout.options_for_select(@site)).present? %>
     <%= form.select :layout_id, options, {}, 'data-url' => form_blocks_cms_admin_site_page_path(@site, @page.id.to_i) %>

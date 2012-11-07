@@ -8,8 +8,8 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       get '/render-page'    => 'render_test#render_page'
       get '/render-layout'  => 'render_test#render_layout'
     end
-    cms_layouts(:default).update_attribute(:content, '{{cms:page:content}}')
-    cms_pages(:child).update_attribute(:blocks_attributes, [
+    cms_layouts(:default).update_column(:content, '{{cms:page:content}}')
+    cms_pages(:child).update_attributes(:blocks_attributes => [
       { :identifier => 'content', :content => 'TestBlockContent' }
     ])
     super
@@ -80,9 +80,14 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
         render :cms_layout => 'invalid'
       when 'layout_defaults_with_site'
         render :cms_layout => 'default', :cms_site => 'site-b'
+      when 'layout_with_action'
+        render :cms_layout => 'default', :action => :new
       else
         raise 'Invalid or no param[:type] provided'
       end
+    end
+
+    def new
     end
   end
   
@@ -108,7 +113,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   # -- Page Render Test -----------------------------------------------------
   def test_implicit_cms_page
     page = cms_pages(:child)
-    page.update_attribute(:slug, 'render-basic')
+    page.update_attributes(:slug => 'render-basic')
     get '/render-basic?type=page_implicit'
     assert_response :success
     assert assigns(:cms_site)
@@ -120,7 +125,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def test_explicit_cms_page
     page = cms_pages(:child)
-    page.update_attribute(:slug, 'test-page')
+    page.update_attributes(slug: 'test-page')
     get '/render-page?type=page_explicit'
     assert_response :success
     assert assigns(:cms_site)
@@ -132,7 +137,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def test_explicit_cms_page_with_status
     page = cms_pages(:child)
-    page.update_attribute(:slug, 'test-page')
+    page.update_attributes(:slug => 'test-page')
     get '/render-page?type=page_explicit_with_status'
     assert_response 404
     assert assigns(:cms_site)
@@ -144,7 +149,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def test_explicit_cms_page_failure
     page = cms_pages(:child)
-    page.update_attribute(:slug, 'invalid')
+    page.update_attributes(:slug => 'invalid')
     assert_exception_raised ComfortableMexicanSofa::MissingPage do
       get '/render-page?type=page_explicit'
     end
@@ -176,7 +181,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   end
   
   def test_cms_layout
-    cms_layouts(:default).update_attribute(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
+    cms_layouts(:default).update_column(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
     get '/render-layout?type=layout'
     assert_response :success
     assert_equal 'TestText TestPartial TestValue TestTemplate TestValue', response.body
@@ -189,6 +194,16 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     get '/render-layout?type=layout_with_status'
     assert_response 404
     assert_equal 'TestTemplate TestValue', response.body
+    assert assigns(:cms_site)
+    assert assigns(:cms_layout)
+    assert_equal cms_layouts(:default), assigns(:cms_layout)
+  end
+
+  def test_cms_layout_with_action
+    cms_layouts(:default).update_column(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
+    get '/render-layout?type=layout_with_action'
+    assert_response :success
+    assert_equal "Can render CMS layout and specify action\n  ", response.body
     assert assigns(:cms_site)
     assert assigns(:cms_layout)
     assert_equal cms_layouts(:default), assigns(:cms_layout)

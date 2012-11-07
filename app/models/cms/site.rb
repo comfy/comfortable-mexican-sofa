@@ -4,6 +4,13 @@ class Cms::Site < ActiveRecord::Base
   
   self.table_name = 'cms_sites'
   
+  attr_accessible :identifier,
+                  :label,
+                  :hostname,
+                  :path,
+                  :locale,
+                  :is_mirrored
+  
   # -- Relationships --------------------------------------------------------
   has_many :layouts,    :dependent => :delete_all
   has_many :pages,      :dependent => :delete_all
@@ -27,7 +34,7 @@ class Cms::Site < ActiveRecord::Base
   validates :hostname,
     :presence   => true,
     :uniqueness => { :scope => :path },
-    :format     => { :with => /^[\w\.\-]+$/ }
+    :format     => { :with => /^[\w\.\-]+(?:\:\d+)?$/ }
     
   # -- Scopes ---------------------------------------------------------------
   scope :mirrored, where(:is_mirrored => true)

@@ -7,12 +7,20 @@ class PageFilesTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:page_files:label }}'
     )
     assert 'url', tag.type
+    assert_equal 'label', tag.identifier
+    assert_equal nil, tag.namespace
     assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
       cms_pages(:default), '{{ cms:page_files:label:partial }}'
     )
     assert 'partial', tag.type
+    
+    assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
+      cms_pages(:default), '{{ cms:page_files:namespace.label:partial }}'
+    )
+    assert_equal 'namespace.label', tag.identifier
+    assert_equal 'namespace', tag.namespace
   end
   
   def test_initialize_tag_with_dimentions
@@ -48,7 +56,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
     page.update_attributes!(
       :blocks_attributes => [
         { :identifier => 'files',
-          :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
+          :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/image.gif', "image/gif")] }
       ]
     )
     files = tag.block.files
@@ -83,7 +91,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
   
   def test_content_and_render_with_dimentions
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{ cms:page_files:file:image[10x10#] }}')
+    layout.update_attributes(:content => '{{ cms:page_files:file:image[10x10#] }}')
     page = cms_pages(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     

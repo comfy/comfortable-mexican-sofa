@@ -50,7 +50,7 @@ module ComfortableMexicanSofa::IsMirrored
             :slug       => self.slug,
             :label      => self.slug.blank?? self.label : m.label,
             :parent_id  => site.pages.find_by_full_path(self.parent.try(:full_path)).try(:id),
-            :layout     => site.layouts.find_by_identifier(self.layout.identifier)
+            :layout     => site.layouts.find_by_identifier(self.layout.try(:identifier))
           }
           m
         when Cms::Snippet
@@ -62,7 +62,11 @@ module ComfortableMexicanSofa::IsMirrored
         end
         
         mirror.is_mirrored = true
-        mirror.save!
+        begin
+          mirror.save!
+        rescue ActiveRecord::RecordInvalid
+          logger.detailed_error($!)
+        end
       end
     end
     

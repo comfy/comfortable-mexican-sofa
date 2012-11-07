@@ -1,0 +1,234 @@
+# encoding: utf-8
+pl:
+  # -- Models ---------------------------------------------------------------
+  attributes:
+    label: Tytuł
+    slug: Ścieżka
+    parent_id: Rodzic
+    content: Zawartość
+    identifier: Identyfikator
+  activerecord:
+    models:
+      cms/site: Witryna
+      cms/layout: Szablin
+      cms/page: Strona
+      cms/snippet: Snippet
+      cms/file: Plik
+    attributes:
+      cms/site:
+        identifier: Identyfikator
+        hostname: Nazwa hosta
+        path: Ścieżka
+        locale: Język
+        is_mirrored: Mirror
+      cms/layout:
+        identifier: Identyfikator
+        label: Nazwa layout'u
+        app_layout: Nazwa aplikacji
+        parent_id: Rodzic
+        css: Style
+        js: Javascript
+      cms/page:
+        label: Tytuł
+        layout_id: Identyfikator szablonu
+        slug: Ścieżka
+        target_page_id: Przekieruj do strony
+        is_published: Opublikowana
+      cms/file:
+        file: Plik
+        description: Opis
+      cms/snippet:
+        identifier: Identyfikator
+        
+  # -- Controllers ----------------------------------------------------------
+  cms:
+    base:
+      site_not_found: Strona nie została znaleziona
+      fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
+      
+    sites:
+      created: Witryna została utworzona
+      creation_failure: Błąd przy tworzeniu witryny
+      updated: Witryna została uaktulaniona
+      update_failure: Błąd przy uaktualnianiu witryny
+      deleted: Witryna została usunięta
+      not_found: Nie znaleziono witryny
+      
+    layouts:
+      created: Szablon został utworzony
+      creation_failure: Błąd przy tworzeniu layoutu
+      updated: Szanlon został uaktualniony
+      update_failure: Błąd przy uaktualnianiu layoutu
+      deleted: Szablon został usunięty
+      not_found: Nie znaleziono layoutu
+      
+    pages:
+      created: Strona została utworzona
+      creation_failure: Błąd przy tworzeniu strony
+      updated: Strona została uaktualniona
+      update_failure: Błąd przy uaktualnianiu strony
+      deleted: Strona została usunięta
+      not_found: Nie znaleziono strony
+      layout_not_found: Brakuje layoutu. Proszę utworzyć
+      
+    snippets:
+      created: Snippet został utworzony
+      creation_failure: Błąd przy tworzeniu snippeta
+      updated: Snippet został uaktualniony
+      update_failure: Błąd przy uaktualnianiu snippeta
+      deleted: Snippet został usunięty
+      not_found: Nie znaleziono snippeta
+      
+    revisions:
+      reverted: Zawartość zostala przywrócona
+      record_not_found: Wpis nie został znaleziony
+      not_found: Wersja nie została znaleziona
+      
+    files:
+      created: Plik wrzucony na serwer
+      creation_failure: Błąd przy wrzucaniu pliku
+      updated: Plik został uaktualniony
+      update_failure: Błąd przy uaktualnianiu pliku
+      deleted: Plik został usunięty
+      not_found: Plik nie został znaleziony
+      
+    content:
+      site_not_found: Witryna nie została znaleziona
+      layout_not_found: Szablon nie został znaleziony
+      page_not_found: Strona nie została znaleziona
+  
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Witryny
+      layouts: Szablony
+      pages: Pages
+      snippets: Snippets
+      files: Files
+      
+    sites:
+      index:
+        title: Witryny
+        new_link: Utwórz nowa witrynę
+        select: Wybierz witrynę
+        edit: Edytuj
+        delete: Usuń
+        are_you_sure: Jesteś pewien, że chce usunąć tą witrynę?
+      new:
+        title: Nowa witryna
+      edit:
+        title: Edytuj witrynę
+      form:
+        create: Utwórz witrynę
+        update: Uaktualnij witrynę
+        
+    layouts:
+      index:
+        title: Szablony
+        new_link: Utwórz nowy szablon
+      index_branch:
+        add_child_layout: Dodaj podszablon
+        edit: Edytuj
+        delete: Usuń
+        are_you_sure: Jesteś pewien?
+      new:
+        title: Nowy szablon
+      edit:
+        title: Edytuj szablon
+        revision: Wersje
+      form:
+        select_parent_layout: Wybierz szablon rodzic
+        select_app_layout: Wybierz szablon aplikacji
+        create: Stwórz szablon
+        update: Uaktualnij szablon
+      
+    pages:
+      index:
+        title: Strony
+        new_link: Utwórz nową stronę
+      index_branch:
+        toggle: Przełącz
+        add_child_page: Dodaj podstronę
+        edit: Edytuj
+        delete: Usuń
+        are_you_sure: Jesteś pewien?
+      new:
+        title: Nowa strona
+      edit:
+        title: Edytuj stronę
+        revision: Wersje
+      form:
+        select_target_page: Bez przekierowania
+        preview: Podgląd
+        create: Utwórz stronę
+        update: Uaktualnij stronę
+      form_blocks:
+        no_tags: |-
+          Szablon nie ma zdefiniowanych tagów<br/>
+          Wyedytuj treść aby dodać stronę lub pole np. <code>{{cms:page:content}}</code>
+      
+    snippets:
+      index:
+        title: Snippets
+        new_link: Utwórz nowy snippet
+        edit: Edytuj
+        delete: Usuń
+        are_you_sure: Jesteś pewien?
+      new:
+        title: Nowy snippet
+      edit:
+        title: Edytuj snippet
+        revision: Wersje
+      form:
+        create: Utwórz snippet
+        update: Uaktualnij snippet
+          
+    revisions:
+      show:
+        title: Wersje dla
+        revision: Wersja
+        full_path: Pełna ścieżka
+        slug: Ścieżka
+        update: Uaktualnij do tej wersji
+        current: Aktualna
+      
+    files:
+      index:
+        title: Pliki
+        new_link: Wrzuć nowy plik
+        edit: Edytuj
+        delete: Usuń
+        are_you_sure: Jesteś pewien?
+        button: Wrzuć plik
+      new:
+        title: Nowy plik
+      edit:
+        title: Edytuj plik
+      form:
+        current_file: Aktualny plik
+        create: Wrzuć plik
+        update: Uaktualnij plik
+      page_form:
+        are_you_sure: Jesteś pewien?
+      file:
+        are_you_sure: Jesteś pewien?
+        
+    categories:
+      index:
+        label: Kategorie
+        edit: Edytuj
+        done: Zrobione
+        all: Wszystko
+        add: Dodaj
+      show:
+        are_you_sure: Jesteś pewien?
+      edit:
+        save: Zapisz
+      form:
+        label: Tytuł
+        
+    dialogs:
+      image:
+        insert: Dodaj obrazek
+      link:
+        create: Utwórz link

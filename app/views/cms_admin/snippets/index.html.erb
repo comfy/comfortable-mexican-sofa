@@ -18,7 +18,7 @@
         </div>
         <div class='action_links'>
           <%= link_to t('.edit'), edit_cms_admin_site_snippet_path(@site, snippet) %>
-          <%= link_to t('.delete'), cms_admin_site_snippet_path(@site, snippet), :method => :delete, :confirm => t('.are_you_sure') %>
+          <%= link_to t('.delete'), cms_admin_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')} %>
         </div>
         <div class='label'>
           <%= link_to snippet.label, edit_cms_admin_site_snippet_path(@site, snippet) %>

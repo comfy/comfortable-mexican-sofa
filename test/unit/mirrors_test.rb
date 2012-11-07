@@ -198,7 +198,7 @@ class MirrorsTest < ActiveSupport::TestCase
         assert_difference 'mirror.pages.count', 1 do
           assert_difference 'mirror.snippets.count', 1 do
             
-            mirror.update_attribute(:is_mirrored, true)
+            mirror.update_attributes(:is_mirrored => true)
             
             site.reload
             assert site.layouts.where(:identifier => 'mirror_layout').present?

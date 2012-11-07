@@ -16,8 +16,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_via_page_nested_attributes
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
-      page = Cms::Page.create!(
-        :site       => cms_sites(:default),
+      page = cms_sites(:default).pages.create!(
         :layout     => cms_layouts(:default),
         :label      => 'test page',
         :slug       => 'test_page',
@@ -38,8 +37,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_via_page_nested_attributes_as_hash
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
-      page = Cms::Page.create!(
-        :site       => cms_sites(:default),
+      page = cms_sites(:default).pages.create!(
         :layout     => cms_layouts(:default),
         :label      => 'test page',
         :slug       => 'test_page',
@@ -60,8 +58,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_via_page_nested_attributes_as_hash_with_duplicates
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
-      page = Cms::Page.create!(
-        :site       => cms_sites(:default),
+      page = cms_sites(:default).pages.create!(
         :layout     => cms_layouts(:default),
         :label      => 'test page',
         :slug       => 'test_page',
@@ -86,19 +83,18 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_and_update_via_nested_attributes_with_file
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{cms:page_file:file}}')
+    layout.update_column(:content, '{{cms:page_file:file}}')
     
     page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count', 'Cms::File.count'] do
-      page = Cms::Page.create!(
-        :site       => cms_sites(:default),
+      page = cms_sites(:default).pages.create!(
         :layout     => layout,
         :label      => 'test page',
         :slug       => 'test_page',
         :parent_id  => cms_pages(:default).id,
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/document.pdf')] }
+            :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/document.pdf', "application/pdf")] }
         ]
       )
       assert_equal 1, page.blocks.count
@@ -116,7 +112,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       page.update_attributes!(
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => fixture_file_upload('files/document.pdf') }
+            :content    => fixture_file_upload('files/document.pdf', "application/pdf") }
         ]
       )
       page.reload
@@ -129,20 +125,19 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_and_update_via_nested_attributes_with_files
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{cms:page_files:files}}')
+    layout.update_column(:content, '{{cms:page_files:files}}')
     
     page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
       assert_difference 'Cms::File.count', 2 do
-        page = Cms::Page.create!(
-          :site       => cms_sites(:default),
+        page = cms_sites(:default).pages.create!(
           :layout     => layout,
           :label      => 'test page',
           :slug       => 'test_page',
           :parent_id  => cms_pages(:default).id,
           :blocks_attributes => [
             { :identifier => 'files',
-              :content    => [fixture_file_upload('files/image.jpg'), fixture_file_upload('files/image.gif')] }
+              :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/image.gif', "image/gif")] }
           ]
         )
         assert_equal 1, page.blocks.count
@@ -159,7 +154,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         page.update_attributes!(
           :blocks_attributes => [
             { :identifier => 'files',
-              :content    => [fixture_file_upload('files/document.pdf'), fixture_file_upload('files/image.gif')] }
+              :content    => [fixture_file_upload('files/document.pdf', "application/pdf"), fixture_file_upload('files/image.gif', "image/gif")] }
           ]
         )
         page.reload
@@ -173,12 +168,11 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_via_nested_attributes_with_file
     layout = cms_layouts(:default)
-    layout.update_attribute(:content, '{{cms:page:header}}{{cms:page_file:file}}{{cms:page:footer}}')
+    layout.update_column(:content, '{{cms:page:header}}{{cms:page_file:file}}{{cms:page:footer}}')
     
     assert_difference 'Cms::Page.count' do
       assert_difference 'Cms::Block.count', 3 do
-        page = Cms::Page.create!(
-          :site       => cms_sites(:default),
+        page = cms_sites(:default).pages.create!(
           :layout     => layout,
           :label      => 'test page',
           :slug       => 'test_page',
@@ -190,7 +184,7 @@ class CmsBlockTest < ActiveSupport::TestCase
             },
             '1' => {
               :identifier => 'file',
-              :content    => fixture_file_upload('files/document.pdf')
+              :content    => fixture_file_upload('files/document.pdf', "application/pdf")
             },
             '2' => {
               :identifier => 'footer',
