@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::IsMirrored
     # Mirrors of the object found on other sites
     def mirrors
       return [] unless self.site.is_mirrored?
-      (Cms::Site.mirrored - [self.site]).collect do |site|
+      (self.site.mirrored_sites).collect do |site|
         case self
           when Cms::Layout  then site.layouts.find_by_identifier(self.identifier)
           when Cms::Page    then site.pages.find_by_full_path(self.full_path)
@@ -35,7 +35,7 @@ module ComfortableMexicanSofa::IsMirrored
     def sync_mirror
       return if self.is_mirrored || !self.site.is_mirrored?
       
-      (Cms::Site.mirrored - [self.site]).each do |site|
+      (self.site.mirrored_sites).each do |site|
         mirror = case self
         when Cms::Layout
           m = site.layouts.find_by_identifier(self.identifier_was || self.identifier) || site.layouts.new

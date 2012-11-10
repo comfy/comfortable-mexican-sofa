@@ -54,6 +54,12 @@ class Cms::Site < ActiveRecord::Base
     end
     return cms_site
   end
+  
+  def mirrored_sites
+    first_part_of_id = self.identifier.gsub(/^([.[^-]]*)/).first
+    self.class.mirrored.where('identifier LIKE ? and identifier != ?', 
+    "#{first_part_of_id}%", self.identifier)
+  end
 
 protected
   
@@ -85,7 +91,7 @@ protected
   def sync_mirrors
     return unless is_mirrored_changed? && is_mirrored?
     
-    [self, Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
+    self.mirrored_sites.each do |site|
       (site.layouts(:reload).roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       (site.pages(:reload).roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       site.snippets(:reload).map(&:sync_mirror)
