@@ -113,7 +113,7 @@ module ComfortableMexicanSofa::Fixtures
       blocks_to_clear = page.blocks.collect(&:identifier)
       blocks_attributes = [ ]
       Dir.glob("#{path}/*.html").each do |file_path|
-        identifier = file_path.split('/').last.split('.').first
+        identifier = file_path.split('/').last.gsub(/\.html$/, '')
         blocks_to_clear.delete(identifier)
         if page.new_record? || File.mtime(file_path) > page.updated_at
           blocks_attributes << {
