@@ -52,6 +52,12 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal 'my_site_host', site.identifier
   end
   
+  def test_hostname_assignment
+    site = Cms::Site.new(:identifier => 'test-site')
+    assert site.valid?
+    assert_equal 'test-site', site.hostname
+  end
+  
   def test_label_assignment
     site = Cms::Site.new(:identifier => 'test', :hostname => 'my-site.host')
     assert site.valid?

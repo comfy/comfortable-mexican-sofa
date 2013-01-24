@@ -8,7 +8,7 @@ class FixturesTest < ActiveSupport::TestCase
     Cms::Layout.delete_all
     
     assert_difference 'Cms::Layout.count', 2 do
-      ComfortableMexicanSofa::Fixtures.import_layouts('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
       
       assert layout = Cms::Layout.find_by_identifier('default')
       assert_equal 'Default Fixture Layout', layout.label
@@ -34,7 +34,7 @@ class FixturesTest < ActiveSupport::TestCase
     child_layout.update_column(:updated_at, 10.years.ago)
     
     assert_difference 'Cms::Layout.count', -1 do
-      ComfortableMexicanSofa::Fixtures.import_layouts('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
       
       layout.reload
       assert_equal 'Default Fixture Layout', layout.label
@@ -57,7 +57,7 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_layouts_ignoring
     layout = cms_layouts(:default)
-    layout_path       = File.join(ComfortableMexicanSofa.config.fixtures_path, 'example.com', 'layouts', 'default')
+    layout_path       = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'layouts', 'default')
     attr_file_path    = File.join(layout_path, '_default.yml')
     content_file_path = File.join(layout_path, 'content.html')
     css_file_path     = File.join(layout_path, 'css.css')
@@ -68,7 +68,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert layout.updated_at >= File.mtime(css_file_path)
     assert layout.updated_at >= File.mtime(js_file_path)
     
-    ComfortableMexicanSofa::Fixtures.import_layouts('test.host', 'example.com')
+    ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
     layout.reload
     assert_equal 'default', layout.identifier
     assert_equal 'Default Layout', layout.label
@@ -87,7 +87,7 @@ class FixturesTest < ActiveSupport::TestCase
     nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
     
     assert_difference 'Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
       
       assert page = Cms::Page.find_by_full_path('/')
       assert_equal layout, page.layout
@@ -114,7 +114,7 @@ class FixturesTest < ActiveSupport::TestCase
     child.update_column(:slug, 'old')
     
     assert_no_difference 'Cms::Page.count' do
-      ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
       
       page.reload
       assert_equal 'Home Fixture Page', page.label
@@ -132,14 +132,14 @@ class FixturesTest < ActiveSupport::TestCase
       :blocks_attributes => [ { :identifier => 'content', :content => 'test content' } ]
     )
     
-    page_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, 'example.com', 'pages', 'index')
+    page_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'pages', 'index')
     attr_file_path    = File.join(page_path, '_index.yml')
     content_file_path = File.join(page_path, 'content.html')
     
     assert page.updated_at >= File.mtime(attr_file_path)
     assert page.updated_at >= File.mtime(content_file_path)
     
-    ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
+    ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
     page.reload
     
     assert_equal nil, page.slug
@@ -158,7 +158,7 @@ class FixturesTest < ActiveSupport::TestCase
     )
     page.update_column(:updated_at, 10.years.ago)
     
-    ComfortableMexicanSofa::Fixtures.import_pages('test.host', 'example.com')
+    ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
     page.reload
     
     block = page.blocks.where(:identifier => 'content').first
@@ -172,7 +172,7 @@ class FixturesTest < ActiveSupport::TestCase
     Cms::Snippet.delete_all
     
     assert_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
       assert snippet = Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -188,7 +188,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal 'default_snippet_content', snippet.content
     
     assert_no_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
       snippet.reload
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -201,7 +201,7 @@ class FixturesTest < ActiveSupport::TestCase
     snippet.update_column(:identifier, 'old')
     
     assert_no_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
+      ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
       assert snippet = Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -213,14 +213,14 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_snippets_ignoring
     snippet = cms_snippets(:default)
-    snippet_path      = File.join(ComfortableMexicanSofa.config.fixtures_path, 'example.com', 'snippets', 'default')
+    snippet_path      = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'snippets', 'default')
     attr_file_path    = File.join(snippet_path, '_default.yml')
     content_file_path = File.join(snippet_path, 'content.html')
     
     assert snippet.updated_at >= File.mtime(attr_file_path)
     assert snippet.updated_at >= File.mtime(content_file_path)
     
-    ComfortableMexicanSofa::Fixtures.import_snippets('test.host', 'example.com')
+    ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
     snippet.reload
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
@@ -235,7 +235,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert_difference 'Cms::Layout.count', 2 do
       assert_difference 'Cms::Page.count', 2 do
         assert_difference 'Cms::Snippet.count', 1 do
-          ComfortableMexicanSofa::Fixtures.import_all('test.host', 'example.com')
+          ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
         end
       end
     end
@@ -248,7 +248,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_difference 'Cms::Layout.count', 2 do
         assert_difference 'Cms::Page.count', 2 do
           assert_difference 'Cms::Snippet.count', 1 do
-            ComfortableMexicanSofa::Fixtures.import_all('test.host', 'example.com')
+            ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
           end
         end
       end
@@ -256,7 +256,7 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_export_layouts
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     layout_1_attr_path    = File.join(host_path, 'layouts/nested/_nested.yml')
     layout_1_content_path = File.join(host_path, 'layouts/nested/content.html')
     layout_1_css_path     = File.join(host_path, 'layouts/nested/css.css')
@@ -266,7 +266,7 @@ class FixturesTest < ActiveSupport::TestCase
     layout_2_css_path     = File.join(host_path, 'layouts/nested/child/css.css')
     layout_2_js_path      = File.join(host_path, 'layouts/nested/child/js.js')
     
-    ComfortableMexicanSofa::Fixtures.export_layouts('test.host', 'test.test')
+    ComfortableMexicanSofa::Fixtures.export_layouts('default-site', 'test-site')
     
     assert File.exists?(layout_1_attr_path)
     assert File.exists?(layout_1_content_path)
@@ -302,13 +302,13 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_export_pages
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     page_1_attr_path    = File.join(host_path, 'pages/index/_index.yml')
     page_1_block_a_path = File.join(host_path, 'pages/index/default_field_text.html')
     page_1_block_b_path = File.join(host_path, 'pages/index/default_page_text.html')
     page_2_attr_path    = File.join(host_path, 'pages/index/child-page/_child-page.yml')
     
-    ComfortableMexicanSofa::Fixtures.export_pages('test.host', 'test.test')
+    ComfortableMexicanSofa::Fixtures.export_pages('default-site', 'test-site')
     
     assert_equal ({
       'label'         => 'Default Page',
@@ -334,11 +334,11 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_export_snippets
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     attr_path     = File.join(host_path, 'snippets/default/_default.yml')
     content_path  = File.join(host_path, 'snippets/default/content.html')
     
-    ComfortableMexicanSofa::Fixtures.export_snippets('test.host', 'test.test')
+    ComfortableMexicanSofa::Fixtures.export_snippets('default-site', 'test-site')
     
     assert File.exists?(attr_path)
     assert File.exists?(content_path)
@@ -349,8 +349,8 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_export_all
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test.test')
-    ComfortableMexicanSofa::Fixtures.export_all('test.host', 'test.test')
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
+    ComfortableMexicanSofa::Fixtures.export_all('default-site', 'test-site')
     FileUtils.rm_rf(host_path)
   end
   

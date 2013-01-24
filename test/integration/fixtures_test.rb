@@ -5,8 +5,7 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 class FixturesTest < ActionDispatch::IntegrationTest
   
   def setup
-    host! 'example.com'
-    cms_sites(:default).update_column(:hostname, 'example.com')
+    cms_sites(:default).update_column(:identifier, 'sample-site')
   end
   
   def test_fixtures_disabled

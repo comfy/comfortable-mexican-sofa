@@ -6,7 +6,7 @@ end
 namespace :comfortable_mexican_sofa do
   namespace :fixtures do
     
-    desc 'Import Fixture data into database (options: FROM=example.local TO=example.com)'
+    desc 'Import Fixture data into database (options: FROM=folder_name TO=site_identifier)'
 
     task :import => :environment do
       to    = ENV['TO'] || ENV['FROM']
@@ -23,7 +23,7 @@ namespace :comfortable_mexican_sofa do
       ComfortableMexicanSofa.logger = logger_org
     end
     
-    desc 'Export database data into Fixtures (options: FROM=example.com TO=example.local)'
+    desc 'Export database data into Fixtures (options: FROM=site_identifier.com TO=folder_name)'
     task :export => :environment do
       to    = ENV['TO'] || ENV['FROM']
       from  = ENV['FROM']

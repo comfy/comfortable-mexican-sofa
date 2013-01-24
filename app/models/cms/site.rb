@@ -22,6 +22,7 @@ class Cms::Site < ActiveRecord::Base
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
+                    :assign_hostname,
                     :assign_label
   before_save :clean_path
   after_save  :sync_mirrors
@@ -78,6 +79,10 @@ protected
 
   def assign_identifier
     self.identifier = self.identifier.blank?? self.hostname.try(:idify) : self.identifier
+  end
+  
+  def assign_hostname
+    self.hostname ||= self.identifier
   end
   
   def assign_label

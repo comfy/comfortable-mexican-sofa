@@ -36,7 +36,7 @@ protected
 
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
-    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.hostname)
+    ComfortableMexicanSofa::Fixtures.import_all(@cms_site.identifier)
   end
   
   def load_cms_site
