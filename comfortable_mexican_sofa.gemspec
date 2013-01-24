@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "comfortable_mexican_sofa"
-  s.version = "1.6.25"
+  s.version = "1.6.26"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2012-10-12"
+  s.date = "2013-01-24"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -177,6 +177,7 @@ Gem::Specification.new do |s|
     "config/locales/de.yml",
     "config/locales/en.yml",
     "config/locales/es.yml",
+    "config/locales/fr.yml",
     "config/locales/ja.yml",
     "config/locales/pl.yml",
     "config/locales/pt-BR.yml",
@@ -184,21 +185,21 @@ Gem::Specification.new do |s|
     "config/locales/sv.yml",
     "config/locales/zh-CN.yml",
     "config/routes.rb",
-    "db/cms_fixtures/example.com/layouts/default/_default.yml",
-    "db/cms_fixtures/example.com/layouts/default/content.html",
-    "db/cms_fixtures/example.com/layouts/default/css.css",
-    "db/cms_fixtures/example.com/layouts/default/js.js",
-    "db/cms_fixtures/example.com/layouts/default/nested/_nested.yml",
-    "db/cms_fixtures/example.com/layouts/default/nested/content.html",
-    "db/cms_fixtures/example.com/layouts/default/nested/css.css",
-    "db/cms_fixtures/example.com/layouts/default/nested/js.js",
-    "db/cms_fixtures/example.com/pages/index/_index.yml",
-    "db/cms_fixtures/example.com/pages/index/child/_child.yml",
-    "db/cms_fixtures/example.com/pages/index/child/left.html",
-    "db/cms_fixtures/example.com/pages/index/child/right.html",
-    "db/cms_fixtures/example.com/pages/index/content.html",
-    "db/cms_fixtures/example.com/snippets/default/_default.yml",
-    "db/cms_fixtures/example.com/snippets/default/content.html",
+    "db/cms_fixtures/sample-site/layouts/default/_default.yml",
+    "db/cms_fixtures/sample-site/layouts/default/content.html",
+    "db/cms_fixtures/sample-site/layouts/default/css.css",
+    "db/cms_fixtures/sample-site/layouts/default/js.js",
+    "db/cms_fixtures/sample-site/layouts/default/nested/_nested.yml",
+    "db/cms_fixtures/sample-site/layouts/default/nested/content.html",
+    "db/cms_fixtures/sample-site/layouts/default/nested/css.css",
+    "db/cms_fixtures/sample-site/layouts/default/nested/js.js",
+    "db/cms_fixtures/sample-site/pages/index/_index.yml",
+    "db/cms_fixtures/sample-site/pages/index/child/_child.yml",
+    "db/cms_fixtures/sample-site/pages/index/child/left.html",
+    "db/cms_fixtures/sample-site/pages/index/child/right.html",
+    "db/cms_fixtures/sample-site/pages/index/content.html",
+    "db/cms_fixtures/sample-site/snippets/default/_default.yml",
+    "db/cms_fixtures/sample-site/snippets/default/content.html",
     "db/migrate/01_create_cms.rb",
     "db/seeds.rb",
     "db/upgrade_migrations/02_upgrade_to_1_1_0.rb",
@@ -249,7 +250,6 @@ Gem::Specification.new do |s|
     "lib/generators/comfy/cms/README",
     "lib/generators/comfy/cms/cms_generator.rb",
     "lib/tasks/comfortable_mexican_sofa.rake",
-    "rvmrc.example",
     "script/rails",
     "test/fixtures/cms/blocks.yml",
     "test/fixtures/cms/categories.yml",
