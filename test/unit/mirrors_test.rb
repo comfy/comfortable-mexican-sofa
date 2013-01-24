@@ -225,9 +225,9 @@ class MirrorsTest < ActiveSupport::TestCase
       :is_mirrored  => true
     )
     mirror.reload
-    
     assert_no_difference ['site.layouts.count', 'site.pages.count', 'site.snippets.count'] do
       mirror.destroy
+      site.reload
     end
   end
   

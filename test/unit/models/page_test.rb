@@ -184,7 +184,9 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_cascading_destroy
     assert_difference 'Cms::Page.count', -2 do
-      cms_pages(:default).destroy
+      assert_difference 'Cms::Block.count', -2 do
+        cms_pages(:default).destroy
+      end
     end
   end
   

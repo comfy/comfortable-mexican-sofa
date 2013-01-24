@@ -12,11 +12,13 @@ class Cms::Site < ActiveRecord::Base
                   :is_mirrored
   
   # -- Relationships --------------------------------------------------------
-  has_many :layouts,    :dependent => :delete_all
-  has_many :pages,      :dependent => :delete_all
-  has_many :snippets,   :dependent => :delete_all
-  has_many :files,      :dependent => :destroy
-  has_many :categories, :dependent => :delete_all
+  with_options :dependent => :destroy do |site|
+    site.has_many :layouts
+    site.has_many :pages
+    site.has_many :snippets
+    site.has_many :files
+    site.has_many :categories
+  end
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
@@ -53,6 +55,14 @@ class Cms::Site < ActiveRecord::Base
       end
     end
     return cms_site
+  end
+  
+  # -- Instance Methods -----------------------------------------------------
+  # When removing entire site, let's not destroy content from other sites
+  # Since before_destroy doesn't really work, this does the trick
+  def destroy
+    self.class.update_all({:is_mirrored => false}, :id => self.id) if self.is_mirrored?
+    super
   end
 
 protected
