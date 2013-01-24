@@ -106,6 +106,7 @@ ComfortableMexicanSofa::HttpAuth.password = 'password'
 
 # If you need to inject some html in cms admin views you can define what partial
 # should be rendered into the following areas:
+#   ComfortableMexicanSofa::ViewHooks.add(:header, '/layouts/admin/header')
 #   ComfortableMexicanSofa::ViewHooks.add(:navigation, '/layouts/admin/navigation')
 #   ComfortableMexicanSofa::ViewHooks.add(:html_head, '/layouts/admin/html_head')
 #   ComfortableMexicanSofa::ViewHooks.add(:page_form, '/layouts/admin/page_form')
