@@ -15,6 +15,6 @@
 <%= form.text_area :css, :class => 'code css' %>
 <%= form.text_area :js, :class => 'code js' %>
 
-<%= form.simple_field nil, nil, :class => 'submit_element' do %>
+<%= form.element false, nil, :class => 'submit_element' do %>
   <%= form.submit t(@layout.new_record?? '.create' : '.update'), :disable_builder => true %>
 <% end %>

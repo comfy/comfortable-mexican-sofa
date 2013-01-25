@@ -1,58 +1,4 @@
-class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
-  
-  helpers = field_helpers -
-    %w(hidden_field fields_for) +
-    %w(select collection_select)
-    
-  helpers.each do |name|
-    class_eval %Q^
-      def #{name}(field, *args)
-        options = args.extract_options!
-        args << options
-        return super if options.delete(:disable_builder)
-        default_field('#{name}', field, options){ super }
-      end
-    ^
-  end
-  
-  def default_field(type, field, options = {}, &block)
-    errors = if object.respond_to?(:errors) && object.errors[field].present?
-      "<div class='errors'>#{[object.errors[field]].flatten.first}</div>"
-    end
-    if desc = options.delete(:desc)
-      desc = "<div class='desc'>#{desc}</div>"
-    end
-    %(
-      <div class='form_element #{type}_element #{'errors' if errors}'>
-        <div class='label'>#{label_for(field, options)}</div>
-        <div class='value'>#{yield}</div>
-        #{desc}
-        #{errors}
-      </div>
-    ).html_safe
-  end
-  
-  def simple_field(label = nil, content = nil, options = {}, &block)
-    content ||= @template.capture(&block) if block_given?
-    %(
-      <div class='form_element simple_field #{options.delete(:class)}'>
-        <div class='label'>#{label}</div>
-        <div class='value'>#{content}</div>
-      </div>
-    ).html_safe
-  end
-  
-  def label_for(field, options={})
-    label = options.delete(:label) || object.class.human_attribute_name(field)
-    for_value = options[:id] || "#{object_name}_#{field}"
-    %Q{<label for="#{for_value}">#{label}</label>}.html_safe
-  end
-  
-  def submit(value, options = {}, &block)
-    return super if options.delete(:disable_builder)
-    extra_content = @template.capture(&block) if block_given?
-    simple_field(nil, "#{super(value, options)} #{extra_content}", :class => 'submit_element')
-  end
+class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, index, options = {})
@@ -83,7 +29,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
     end
     content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
     
-    simple_field(label, content, :class => css_class)
+    element(label, content.html_safe, :class => css_class)
   end
   
   def field_date_time(tag, index)
@@ -146,7 +92,7 @@ class ComfortableMexicanSofa::FormBuilder < ActionView::Helpers::FormBuilder
       :id => nil
     )
     content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    simple_field(tag.identifier.titleize, content, :class => tag.class.to_s.demodulize.underscore )
+    element(tag.identifier.titleize, content, :class => tag.class.to_s.demodulize.underscore )
   end
   
 end

@@ -1,6 +1,6 @@
 <% object = form.object %>
 <% if (categories = @site.categories.of_type(object.class.to_s)).present? %>
-  <%= form.simple_field t('.label'), nil, :class => 'categories' do %>
+  <%= form.element t('.label'), nil, :class => 'categories' do %>
     <% categories.each do |category| %>
       <%= hidden_field_tag "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]", 0, :id => nil %>
       <label>

@@ -37,12 +37,6 @@ class FormBuilderTest < ActionView::TestCase
     assert_select "input#slugify[name='cms_page[label]']"
   end
   
-  def test_form_label_with_html_safe_labels
-    comfy_form_for(cms_pages(:child), :url => '#') do |f|
-      assert f.label_for(:is_published).html_safe?
-    end
-  end
-  
   def test_form_label_custom_override
     concat( comfy_form_for(cms_pages(:child), :url => '#') do |f|
       f.text_field(:slug, :label => 'Custom')

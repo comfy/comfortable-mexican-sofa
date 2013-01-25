@@ -11,7 +11,7 @@
 <% end %>
 
 <%= comfy_form_for @revision, :url => {:action => :revert} do |form| %>
-  <%= form.simple_field do %>
+  <%= form.element false do %>
     <div class='current'>
       <div class='title'><%= t('.current') %></div>
     </div>
@@ -22,7 +22,7 @@
   
   <% @current_content.each do |label, content| %>
   
-    <%= form.simple_field Cms::Layout.human_attribute_name(label) do %>
+    <%= form.element Cms::Layout.human_attribute_name(label) do %>
       <div class='current'>
         <div class='content'><%= content %></div>
       </div>

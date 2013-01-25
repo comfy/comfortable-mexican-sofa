@@ -31,9 +31,9 @@
 
 <%= render :partial => 'form_blocks' %>
 
-<%= form.simple_field nil, nil, :class => 'submit_element' do %>
+<%= form.element false, nil, :class => 'submit_element' do %>
   <%= form.check_box :is_published, :disable_builder => true %>
-  <%= form.label_for :is_published %>
+  <%-# form.label_for :is_published %>
   <%= form.submit t('.preview'), :name => 'preview', :id => nil, :disable_builder => true %>
   <%= form.submit t(@page.new_record?? '.create' : '.update'), :id => 'cms_page_submit', :disable_builder => true %>
 <% end %>
