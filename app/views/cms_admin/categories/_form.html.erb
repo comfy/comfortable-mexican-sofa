@@ -3,7 +3,7 @@
   <%= form.element t('.label'), nil, :class => 'categories' do %>
     <% categories.each do |category| %>
       <%= hidden_field_tag "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]", 0, :id => nil %>
-      <label>
+      <label class='checkbox inline'>
         <%= check_box_tag "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]", 1, object.categories.member?(category), :id => nil %>
         <%= category.label %>
       </label>
