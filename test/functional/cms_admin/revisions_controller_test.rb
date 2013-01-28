@@ -95,7 +95,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
       put :revert, :site_id => cms_sites(:default), :layout_id => layout, :id => cms_revisions(:layout)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_site_layout_path(layout.site, layout)
-      assert_equal 'Content Reverted', flash[:notice]
+      assert_equal 'Content Reverted', flash[:success]
       
       layout.reload
       assert_equal 'revision {{cms:page:default_page_text}}', layout.content
@@ -111,7 +111,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
       put :revert, :site_id => cms_sites(:default), :page_id => page, :id => cms_revisions(:page)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_site_page_path(page.site, page)
-      assert_equal 'Content Reverted', flash[:notice]
+      assert_equal 'Content Reverted', flash[:success]
       
       page.reload
       assert_equal [
@@ -128,7 +128,7 @@ class CmsAdmin::RevisionsControllerTest < ActionController::TestCase
       put :revert, :site_id => cms_sites(:default), :snippet_id => snippet, :id => cms_revisions(:snippet)
       assert_response :redirect
       assert_redirected_to edit_cms_admin_site_snippet_path(snippet.site, snippet)
-      assert_equal 'Content Reverted', flash[:notice]
+      assert_equal 'Content Reverted', flash[:success]
       
       snippet.reload
       assert_equal 'revision content', snippet.content

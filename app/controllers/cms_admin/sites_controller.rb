@@ -22,7 +22,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 
   def create
     @site.save!
-    flash[:notice] = I18n.t('cms.sites.created')
+    flash[:success] = I18n.t('cms.sites.created')
     redirect_to cms_admin_site_layouts_path(@site)
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -32,7 +32,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 
   def update
     @site.update_attributes!(params[:site])
-    flash[:notice] = I18n.t('cms.sites.updated')
+    flash[:success] = I18n.t('cms.sites.updated')
     redirect_to :action => :edit, :id => @site
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -42,7 +42,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 
   def destroy
     @site.destroy
-    flash[:notice] = I18n.t('cms.sites.deleted')
+    flash[:success] = I18n.t('cms.sites.deleted')
     redirect_to :action => :index
   end
 

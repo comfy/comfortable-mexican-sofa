@@ -20,7 +20,7 @@ class CmsAdmin::RevisionsController < CmsAdmin::BaseController
   
   def revert
     @record.restore_from_revision(@revision)
-    flash[:notice] = I18n.t('cms.revisions.reverted')
+    flash[:success] = I18n.t('cms.revisions.reverted')
     redirect_to_record
   end
   

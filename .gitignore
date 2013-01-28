@@ -11,4 +11,4 @@ rdoc
 public/*
 Gemfile.lock
 .rvmrc
-/coverage
+/.sass-cache

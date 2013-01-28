@@ -1,0 +1,34 @@
+- content_for :right_column do
+  #page_save.box
+    %label
+      %input{:type => 'checkbox'}
+      = Cms::Page.human_attribute_name(:is_published)
+    %button.btn
+  = render :partial => 'cms_admin/files/index'
+
+= form.text_field :label, :id => (@page.new_record?? 'slugify' : nil)
+
+- unless @site.pages.count == 0 || @site.pages.root == @page
+  = form.text_field :slug, :id => 'slug'
+  = form.text_field :full_path, :id => 'full-path', :disabled => true
+
+- if (options = Cms::Layout.options_for_select(@site)).present?
+  = form.select :layout_id, options, {}, 'data-url' => form_blocks_cms_admin_site_page_path(@site, @page.id.to_i)
+  
+- if (options = Cms::Page.options_for_select(@site, @page)).present?
+  = form.select :parent_id, options
+
+- if (options = Cms::Page.options_for_select(@site, @page, nil, 0, false)).present?
+  = form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options
+
+= cms_hook :page_form, :object => form
+
+= render :partial => 'cms_admin/categories/form', :object => form
+
+= render :partial => 'form_blocks'
+
+= form.check_box :is_published
+
+.form-actions
+  = form.submit t('.preview'), :name => 'preview', :id => nil, :class => 'btn'
+  = form.submit t(@page.new_record?? '.create' : '.update'), :class => 'btn btn-primary'

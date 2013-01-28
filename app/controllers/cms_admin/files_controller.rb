@@ -28,7 +28,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
           @file = @site.files.create!(file_params.merge(:label => label))
         end
         
-        flash[:notice] = I18n.t('cms.files.created')
+        flash[:success] = I18n.t('cms.files.created')
         redirect_to :action => :edit, :id => @file
       end
       format.js do
@@ -74,7 +74,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   def update
     @file.update_attributes!(params[:file])
-    flash[:notice] = I18n.t('cms.files.updated')
+    flash[:success] = I18n.t('cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -87,7 +87,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
     respond_to do |format|
       format.js
       format.html do
-        flash[:notice] = I18n.t('cms.files.deleted')
+        flash[:success] = I18n.t('cms.files.deleted')
         redirect_to :action => :index
       end
     end

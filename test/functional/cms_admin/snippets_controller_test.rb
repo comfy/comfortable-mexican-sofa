@@ -71,7 +71,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
       snippet = Cms::Snippet.last
       assert_equal cms_sites(:default), snippet.site
       assert_redirected_to :action => :edit, :id => snippet
-      assert_equal 'Snippet created', flash[:notice]
+      assert_equal 'Snippet created', flash[:success]
     end
   end
 
@@ -92,7 +92,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :site_id => snippet.site, :id => snippet
-    assert_equal 'Snippet updated', flash[:notice]
+    assert_equal 'Snippet updated', flash[:success]
     snippet.reload
     assert_equal 'New-Snippet', snippet.label
     assert_equal 'New Content', snippet.content
@@ -115,7 +115,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
       delete :destroy, :site_id => cms_sites(:default), :id => cms_snippets(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
-      assert_equal 'Snippet deleted', flash[:notice]
+      assert_equal 'Snippet deleted', flash[:success]
     end
   end
   

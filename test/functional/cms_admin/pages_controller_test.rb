@@ -240,7 +240,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         page = Cms::Page.last
         assert_equal cms_sites(:default), page.site
         assert_redirected_to :action => :edit, :id => page
-        assert_equal 'Page created', flash[:notice]
+        assert_equal 'Page created', flash[:success]
       end
     end
   end
@@ -274,7 +274,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       page.reload
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => page
-      assert_equal 'Page updated', flash[:notice]
+      assert_equal 'Page updated', flash[:success]
       assert_equal 'Updated Label', page.label
     end
   end
@@ -295,7 +295,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       page.reload
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => page
-      assert_equal 'Page updated', flash[:notice]
+      assert_equal 'Page updated', flash[:success]
       assert_equal 'Updated Label', page.label
       assert_equal ['content', 'default_field_text', 'default_page_text', 'header'], page.blocks.collect{|b| b.identifier}
     end
@@ -317,7 +317,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
         delete :destroy, :site_id => cms_sites(:default), :id => cms_pages(:default)
         assert_response :redirect
         assert_redirected_to :action => :index
-        assert_equal 'Page deleted', flash[:notice]
+        assert_equal 'Page deleted', flash[:success]
       end
     end
   end

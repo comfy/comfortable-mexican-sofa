@@ -69,7 +69,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       assert_equal 'Test File', file.label
       assert_equal 'Test Description', file.description
       assert_redirected_to :action => :edit, :id => file
-      assert_equal 'Files uploaded', flash[:notice]
+      assert_equal 'Files uploaded', flash[:success]
     end
   end
   
@@ -106,7 +106,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       assert_equal 'Test Description', file_b.description
       
       assert_redirected_to :action => :edit, :id => file_b
-      assert_equal 'Files uploaded', flash[:notice]
+      assert_equal 'Files uploaded', flash[:success]
     end
   end
   
@@ -133,7 +133,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :site_id => file.site, :id => file
-    assert_equal 'File updated', flash[:notice]
+    assert_equal 'File updated', flash[:success]
     file.reload
     assert_equal 'New File', file.label
     assert_equal 'New Description', file.description
@@ -156,7 +156,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       delete :destroy, :site_id => cms_sites(:default), :id => cms_files(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
-      assert_equal 'File deleted', flash[:notice]
+      assert_equal 'File deleted', flash[:success]
     end
   end
   

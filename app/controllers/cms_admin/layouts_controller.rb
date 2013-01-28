@@ -18,7 +18,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
   def create
     @layout.save!
-    flash[:notice] = I18n.t('cms.layouts.created')
+    flash[:success] = I18n.t('cms.layouts.created')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -28,7 +28,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
   def update
     @layout.update_attributes!(params[:layout])
-    flash[:notice] = I18n.t('cms.layouts.updated')
+    flash[:success] = I18n.t('cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -38,7 +38,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
   def destroy
     @layout.destroy
-    flash[:notice] = I18n.t('cms.layouts.deleted')
+    flash[:success] = I18n.t('cms.layouts.deleted')
     redirect_to :action => :index
   end
   

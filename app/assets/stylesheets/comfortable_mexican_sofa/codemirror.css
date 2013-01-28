@@ -9,11 +9,6 @@
 }
 
 /* -- Defaults ----------------------------------------------------------- */
-.CodeMirror {
-  line-height: 1em;
-  font-family: monospace;
-}
-
 .CodeMirror-scroll {
   overflow: auto;
   height: 300px;
@@ -87,7 +82,6 @@ div.CodeMirror-selected { background: #d9d9d9; }
 }
 
 /* Default theme */
-
 .cm-s-default span.cm-keyword {color: #708;}
 .cm-s-default span.cm-atom {color: #219;}
 .cm-s-default span.cm-number {color: #164;}
@@ -119,3 +113,46 @@ span.cm-link {text-decoration: underline;}
 
 div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
 div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
+
+/* Bootstrap integration */
+.CodeMirror {
+  line-height: 1.3em;
+  font-family: monospace;
+
+  /* Necessary so the scrollbar can be absolutely positioned within the wrapper on Lion. */
+  position: relative;
+  /* This prevents unwanted scrollbars from showing up on the body and wrapper in IE. */
+  overflow: hidden;
+  background-color: white;
+  width: 100%;
+
+  /* Copied from Bootstrap's textarea */
+  display: inline-block;
+  padding: 4px 6px;
+  margin-bottom: 9px;
+  color: #555555;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;  
+}
+
+.CodeMirror-focused {
+  /* Copied from Bootstrap's textarea */
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);  
+}

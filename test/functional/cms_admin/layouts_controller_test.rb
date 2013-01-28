@@ -54,7 +54,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       layout = Cms::Layout.last
       assert_equal cms_sites(:default), layout.site
       assert_redirected_to :action => :edit, :site_id => layout.site, :id => layout
-      assert_equal 'Layout created', flash[:notice]
+      assert_equal 'Layout created', flash[:success]
     end
   end
   
@@ -75,7 +75,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :site_id => layout.site, :id => layout
-    assert_equal 'Layout updated', flash[:notice]
+    assert_equal 'Layout updated', flash[:success]
     layout.reload
     assert_equal 'New Label', layout.label
     assert_equal 'New {{cms:page:content}}', layout.content
@@ -98,7 +98,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
       delete :destroy, :site_id => cms_sites(:default), :id => cms_layouts(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
-      assert_equal 'Layout deleted', flash[:notice]
+      assert_equal 'Layout deleted', flash[:success]
     end
   end
   

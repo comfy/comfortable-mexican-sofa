@@ -51,7 +51,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
       assert_response :redirect
       site = Cms::Site.last
       assert_redirected_to cms_admin_site_layouts_path(site)
-      assert_equal 'Site created', flash[:notice]
+      assert_equal 'Site created', flash[:success]
     end
   end
 
@@ -74,7 +74,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => site
-    assert_equal 'Site updated', flash[:notice]
+    assert_equal 'Site updated', flash[:success]
     site.reload
     assert_equal 'New Site', site.label
     assert_equal 'new.site.local', site.hostname
@@ -99,7 +99,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
       delete :destroy, :id => cms_sites(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
-      assert_equal 'Site deleted', flash[:notice]
+      assert_equal 'Site deleted', flash[:success]
     end
   end
 end

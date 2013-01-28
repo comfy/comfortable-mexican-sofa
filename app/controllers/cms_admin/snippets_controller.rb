@@ -18,7 +18,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def create
     @snippet.save!
-    flash[:notice] = I18n.t('cms.snippets.created')
+    flash[:success] = I18n.t('cms.snippets.created')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -28,7 +28,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def update
     @snippet.update_attributes!(params[:snippet])
-    flash[:notice] = I18n.t('cms.snippets.updated')
+    flash[:success] = I18n.t('cms.snippets.updated')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -38,7 +38,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 
   def destroy
     @snippet.destroy
-    flash[:notice] = I18n.t('cms.snippets.deleted')
+    flash[:success] = I18n.t('cms.snippets.deleted')
     redirect_to :action => :index
   end
   

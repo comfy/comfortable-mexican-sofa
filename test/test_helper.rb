@@ -86,21 +86,6 @@ class ActiveSupport::TestCase
     string.gsub(/^[ ]+/, '')
   end
 
-  # Example usage:
-  #   with_translations(:en, :sections => { :products => "Our Products" }) do
-  #     assert_equal I18n.translate('products', :scope => 'sections'), "Our Products"
-  #     assert_equal I18n.translate('sections'), { :products => "Our Products" }
-  #   end
-  def with_translations(locale, translations, &block)
-    begin
-      I18n.backend.store_translations locale, translations
-      I18n.locale = locale
-      yield
-    ensure
-      I18n.reload!
-    end
-  end
-
 end
 
 class ActionController::TestCase

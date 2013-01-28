@@ -1,0 +1,21 @@
+$selectors: 'select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input'
+
+#cms_body
+  // -- Setting up border-box sizing, letting fields size themselves --------
+  *
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+  #{$selectors}
+    height: auto
+    padding: 6px
+  form.form-horizontal
+    .control-group
+      margin-bottom: 5px
+      .controls
+        #{$selectors}
+          width: 100%
+  // -- Alerts --------------------------------------------------------------
+  .alert
+    margin-bottom: 0px
+    text-align: center

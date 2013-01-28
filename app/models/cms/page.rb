@@ -1,16 +1,5 @@
 # encoding: utf-8
 
-class ColumnLimitValidator < ActiveModel::EachValidator
-  # Ensuring that slug and full path are not longer than what database
-  # can store. We want to avoid magical invisible truncation
-  def validate_each(record, attribute, value)
-    column_limit = record.class.columns_hash[attribute.to_s].limit
-    if value.to_s.length > column_limit
-      record.errors.add(attribute, :too_long, :count => column_limit)
-    end
-  end
-end
-
 class Cms::Page < ActiveRecord::Base
   
   ComfortableMexicanSofa.establish_connection(self)
@@ -66,9 +55,7 @@ class Cms::Page < ActiveRecord::Base
     :presence   => true
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
-  validates :slug, :full_path,
-    :column_limit => true
-
+  
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)

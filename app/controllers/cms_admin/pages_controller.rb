@@ -26,7 +26,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 
   def create
     @page.save!
-    flash[:notice] = I18n.t('cms.pages.created')
+    flash[:success] = I18n.t('cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -36,7 +36,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 
   def update
     @page.save!
-    flash[:notice] = I18n.t('cms.pages.updated')
+    flash[:success] = I18n.t('cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
@@ -46,7 +46,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
 
   def destroy
     @page.destroy
-    flash[:notice] = I18n.t('cms.pages.deleted')
+    flash[:success] = I18n.t('cms.pages.deleted')
     redirect_to :action => :index
   end
 

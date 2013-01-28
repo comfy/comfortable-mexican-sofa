@@ -46,11 +46,6 @@ module ComfortableMexicanSofa
     end
     alias :config :configuration
     
-    # Checking if Rails3.1+ asset pipeline is enabled
-    def asset_pipeline_enabled?
-      Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1 && Rails.configuration.assets.enabled
-    end
-    
     # Establishing database connection if custom one is defined
     def establish_connection(klass)
       if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
