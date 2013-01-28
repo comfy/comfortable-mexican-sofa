@@ -60,24 +60,25 @@ class PageFileTagTest < ActiveSupport::TestCase
       ]
     )
     file = tag.block.files.first
+    file_url = file.file.url
     
     assert_equal file, tag.content
-    assert_equal "/system/cms/files/#{file.id}/files/original/image.jpg", tag.render
+    assert_match file_url, tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link }}')
-    assert_equal "<a href='/system/cms/files/#{file.id}/files/original/image.jpg' target='_blank'>file</a>", 
+    assert_equal "<a href='#{file_url}' target='_blank'>file</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link:link label }}')
-    assert_equal "<a href='/system/cms/files/#{file.id}/files/original/image.jpg' target='_blank'>link label</a>", 
+    assert_equal "<a href='#{file_url}' target='_blank'>link label</a>", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image }}')
-    assert_equal "<img src='/system/cms/files/#{file.id}/files/original/image.jpg' alt='file' />", 
+    assert_equal "<img src='#{file_url}' alt='file' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image:image alt }}')
-    assert_equal "<img src='/system/cms/files/#{file.id}/files/original/image.jpg' alt='image alt' />", 
+    assert_equal "<img src='#{file_url}' alt='image alt' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')

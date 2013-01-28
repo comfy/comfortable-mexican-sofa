@@ -36,7 +36,7 @@ class ActiveSupport::TestCase
         'ja'    => '日本語'
       }
       config.admin_locale         = nil
-      config.upload_file_options  = { :url => '/system/:class/:id/:attachment/:style/:filename' }
+      config.upload_file_options  = { }
       config.admin_cache_sweeper  = nil
       config.allow_irb            = false
       config.allowed_helpers      = nil
