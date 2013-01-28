@@ -1,8 +1,10 @@
 module ComfortableMexicanSofa::ViewMethods
-  # Wrapper around CmsFormBuilder
-  def comfy_form_for(record_or_name_or_array, *args, &proc)
-    options = args.extract_options!
-    form_for(record_or_name_or_array, *(args << options.merge(:builder => ComfortableMexicanSofa::FormBuilder)), &proc)
+  
+  # Wrapper around ComfortableMexicanSofa::FormBuilder
+  def comfy_form_for(record, options = {}, &proc)
+    options[:builder] = ComfortableMexicanSofa::FormBuilder
+    options[:type] ||= :horizontal
+    formatted_form_for(record, options, &proc)
   end
   
   # Wrapper for <span>
