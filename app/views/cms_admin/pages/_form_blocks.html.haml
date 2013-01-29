@@ -1,0 +1,27 @@
+- namespace = { }
+- tags = @page.tags(true).select{ |t| t.is_cms_block? }.uniq_by{|t| t.identifier} 
+- tags.each do |tag|
+  - namespace[tag.namespace || 'default'] ||= []
+  - namespace[tag.namespace || 'default'] << tag
+- has_namespaces = namespace.size > 1
+
+#form_blocks
+  - if tags.empty?
+    .no_tags
+      = link_to @page.layout.label, edit_cms_admin_site_layout_path(@site, @page.layout)
+      = t('.no_tags').html_safe
+  
+  - else
+    = fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks|
+      %div{:id => has_namespaces ? 'tag_namespaces' : 'no_tag_namespaces'}
+        - if has_namespaces
+          %ul
+            - namespace.each do |name, tags|
+              %li= link_to name.humanize, "#ns-#{name}"
+          
+        - index = 0
+        - namespace.each do |name, tags|
+          %div{:id => "ns-#{name}"}
+            - tags.each do |tag|
+              = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil
+              - index += 1

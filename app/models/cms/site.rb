@@ -78,7 +78,7 @@ protected
   end
 
   def assign_identifier
-    self.identifier = self.identifier.blank?? self.hostname.try(:idify) : self.identifier
+    self.identifier = self.identifier.blank?? self.hostname.try(:slugify) : self.identifier
   end
   
   def assign_hostname

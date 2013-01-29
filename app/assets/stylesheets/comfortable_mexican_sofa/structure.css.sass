@@ -1,0 +1,83 @@
+// -- Containers ------------------------------------------------------------
+html, body#comfy
+  height: 100%
+  background-color: #252525
+
+body#comfy
+  .body-wrapper
+    height: 100%
+    .left-column
+      width: 175px
+      float: left
+      .left-column-content
+        padding: 25px 0px
+        width: 175px
+        position: fixed
+    .center-column
+      position: relative
+      margin: 0px 250px 0px 175px
+      min-height: 100%
+      background-color: #fff
+      .center-column-content
+        padding: 25px
+    .right-column
+      width: 250px
+      float: right
+      .right-column-content
+        padding: 25px 10px
+        width: 230px
+        position: fixed
+  
+  // -- Navigation ----------------------------------------------------------
+  .left-column-content ul.navigation
+    list-style: none
+    margin: 0
+    a
+      position: relative
+      display: block
+      padding: 7px 15px
+      color: #777
+      border-bottom: 1px solid #1a1a1a
+      text-decoration: none
+    a:hover, a.active
+      color: #ddd
+    a.active
+      background-color: #1f1f1f
+      box-shadow: inset 0px 0px 10px #000
+    a.active:after
+      position: absolute
+      top: 10px
+      right: -8px
+      z-index: 9999
+      content: ''
+      display: block
+      height: 16px
+      width: 8px
+      background: transparent url(/assets/comfortable_mexican_sofa/nav_arrow.png)
+  
+  // -- Right Side boxes ----------------------------------------------------
+  .right-column-content .box
+    background-color: #484848
+    padding: 5px
+    border-radius: 3px
+    margin-bottom: 10px
+    overflow: auto
+    color: #fff
+    
+  // -- Sofa Version --------------------------------------------------------
+  .center-column .sofa
+    position: absolute
+    background: #000
+    bottom: 0px
+    left: -175px
+    width: 175px
+    padding: 5px 10px
+    font-size: 10px
+    a
+      color: #484848
+      text-decoration: none
+    a:hover
+      color: #f1f1f1
+    span.version
+      color: #f1f1f1
+      margin-left: 2px

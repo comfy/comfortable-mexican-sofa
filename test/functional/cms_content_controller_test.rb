@@ -27,7 +27,7 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
-    assert_select "body[class='c_cms_content a_render_html']"
+    assert_select "body[class='c-cms-content a-render-html']"
   end
   
   def test_render_page_with_xhr
