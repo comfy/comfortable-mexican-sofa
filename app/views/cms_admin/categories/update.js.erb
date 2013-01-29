@@ -1,4 +1,4 @@
-$('.categories.editable .category#<%= dom_id(@category) %>').replaceWith(
+$('.categories.editable form#<%= dom_id(@category) %>').replaceWith(
   '<%= escape_javascript(render :partial => "show", :object => @category ) %>'
 );
 $('.categories.read .category#<%= dom_id(@category) %>').replaceWith(

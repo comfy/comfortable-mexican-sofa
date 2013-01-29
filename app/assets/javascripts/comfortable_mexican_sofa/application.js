@@ -25,7 +25,7 @@ $.CMS = function(){
     if($('#mirrors').length)            $.CMS.enable_mirrors_widget();
     if($('#page_save').length)          $.CMS.enable_page_save_widget();
     if($('#uploader_button').length)    $.CMS.enable_uploader();
-    if($('.categories_widget').length)  $.CMS.enable_categories_widget();
+    if($('.categories-widget').length)  $.CMS.enable_categories_widget();
   });
 
   return {
@@ -207,18 +207,11 @@ $.CMS = function(){
     },
 
     enable_categories_widget : function(){
-      $('.categories_widget a.action_link').click(function(){
-        if($(this).data('state') == 'edit'){
-          $('.categories.read').hide();
-          $('.categories.editable').show();
-          $(this).hide();
-          $('a.action_link.done').show();
-        } else {
-          $('.categories.editable').hide();
-          $('.categories.read').show();
-          $(this).hide();
-          $('a.action_link.edit').show();
-        }
+      $('a', '.categories-widget .action-links').click(function(){
+        $('.categories.read', '.categories-widget').toggle();
+        $('.categories.editable', '.categories-widget').toggle();
+        $('.edit', '.categories-widget').toggle();
+        $('.done', '.categories-widget').toggle();
         return false;
       });
     }
