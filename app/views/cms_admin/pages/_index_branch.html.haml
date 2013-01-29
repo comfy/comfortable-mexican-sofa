@@ -17,15 +17,15 @@
         .dragger
           %span= t('cms.views.pages.drag')
           
-    .action_links
-      = link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id)
-      = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page)
-      = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}
+    .btn-group
+      = link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
+      = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page), :class => 'btn btn-small'
+      = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
       
-    .label
-      = link_to page.label, edit_cms_admin_site_page_path(@site, page)
+    .item-content
+      = link_to page.label, edit_cms_admin_site_page_path(@site, page), :class => 'item-label'
       = render :partial => '/cms_admin/categories/categories', :object => page
-      .sublabel
+      .item-meta
         = link_to page.url, page.url, :target => '_blank'
         
   - if !category_view && has_children && branch_open
