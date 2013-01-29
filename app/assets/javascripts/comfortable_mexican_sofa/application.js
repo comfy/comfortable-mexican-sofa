@@ -1,7 +1,5 @@
-//= require comfortable_mexican_sofa/jquery.js
-//= require comfortable_mexican_sofa/jquery_ui.js
-//= require comfortable_mexican_sofa/jquery_ui_timepicker.js
-//= require comfortable_mexican_sofa/rails.js
+//= require jquery
+//= require comfortable_mexican_sofa/bootstrap
 //= require comfortable_mexican_sofa/codemirror/codemirror.js
 
 $.CMS = function(){
