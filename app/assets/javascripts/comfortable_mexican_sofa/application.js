@@ -1,4 +1,6 @@
 //= require jquery
+//= require jquery_ujs
+//= require jquery-ui
 //= require comfortable_mexican_sofa/bootstrap
 //= require comfortable_mexican_sofa/codemirror/codemirror.js
 
@@ -92,8 +94,8 @@ $.CMS = function(){
     },
 
     enable_date_picker: function(){
-      $('input[type=text].datetime').datetimepicker({ dateFormat: 'yy-mm-dd' });
-      $('input[type=text].date').datepicker({ dateFormat: 'yy-mm-dd' });
+      // $('input[type=text].datetime').datetimepicker({ dateFormat: 'yy-mm-dd' });
+      // $('input[type=text].date').datepicker({ dateFormat: 'yy-mm-dd' });
     },
 
     tree_methods: function(){

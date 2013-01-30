@@ -3,9 +3,8 @@
 - tags.each do |tag|
   - namespace[tag.namespace || 'default'] ||= []
   - namespace[tag.namespace || 'default'] << tag
-- has_namespaces = namespace.size > 1
 
-#form_blocks
+#form-blocks
   - if tags.empty?
     .no_tags
       = link_to @page.layout.label, edit_cms_admin_site_layout_path(@site, @page.layout)
@@ -13,15 +12,17 @@
   
   - else
     = fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks|
-      %div{:id => has_namespaces ? 'tag_namespaces' : 'no_tag_namespaces'}
-        - if has_namespaces
-          %ul
-            - namespace.each do |name, tags|
-              %li= link_to name.humanize, "#ns-#{name}"
-          
-        - index = 0
-        - namespace.each do |name, tags|
-          %div{:id => "ns-#{name}"}
-            - tags.each do |tag|
-              = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil
-              - index += 1
+      
+      .tabbable
+        - if namespace.size > 1
+          %ul.nav.nav-tabs
+            - namespace.each_with_index do |(name, tags), index|
+              %li{:class => index == 0 ? 'active' : nil}
+                = link_to name.humanize, "#ns-#{name}", :data => {:toggle => 'tab'}
+        .tab-content
+          - index = 0
+          - namespace.each_with_index do |(name, tags), index|
+            .tab-pane{:id => "ns-#{name}", :class => index == 0 ? 'active' : nil}
+              - tags.each do |tag|
+                = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil
+                - index += 1
