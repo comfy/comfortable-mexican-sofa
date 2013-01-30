@@ -1,8 +1,11 @@
 html, body#comfy
   height: 100%
-  background-color: #252525
+  
 
 body#comfy
+  background-color: #252525
+  
+  // -- Containers ----------------------------------------------------------
   .body-wrapper
     height: 100%
     .left-column
@@ -54,7 +57,7 @@ body#comfy
       width: 8px
       background: transparent url(/assets/comfortable_mexican_sofa/nav_arrow.png)
   
-  // -- Right Side boxes ----------------------------------------------------
+  // -- Right Side Boxes ----------------------------------------------------
   .right-column-content .box
     background-color: #484848
     padding: 5px
@@ -70,6 +73,7 @@ body#comfy
       color: #000
   .item-meta
     font-size: 11px
+    line-height: 14px
   
   // -- Sofa Version --------------------------------------------------------
   .center-column .sofa
@@ -132,6 +136,65 @@ body#comfy
           line-height: 14px
           padding: 3px
           
+  // -- Sortable List -------------------------------------------------------
+  ul.list
+    margin: 0
+    list-style: none
+    .item
+      overflow: hidden
+      padding: 5px
+      border-radius: 3px
+      margin-bottom: 5px
+      border: 1px solid #ddd
+      &:hover
+        background-color: #f5f5f5
+      .toggle
+        float: left
+        height: 28px
+        width: 28px
+        &.open a
+          background-image: url(/assets/comfortable_mexican_sofa/arrow_bottom.gif)
+        a
+          display: block
+          height: 28px
+          width: 28px
+          background: url(/assets/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat
+          span
+            display: none
+      .icon
+        float: left
+        width: 28px
+        height: 28px
+        background: url(/assets/comfortable_mexican_sofa/icon_regular.gif)
+        &.draft
+          background: url(/assets/comfortable_mexican_sofa/icon_draft.gif)
+        .dragger
+          width: 28px
+          height: 28px
+          background: url(/assets/comfortable_mexican_sofa/icon_move.gif)
+          cursor: move
+          display: none
+          span
+            display: none
+        &:hover .dragger
+          display: block
+      .item-content
+        margin-left: 60px
+        a.item-label
+          color: #000
+        .category
+          display: inline-block
+          font-size: 11px
+          border: 1px solid #ddd
+          padding: 0 5px
+          background-color: #fff
+          border-radius: 3px
+      .btn-group
+        float: right
+    li ul
+      list-style: none
+      margin: 0 0 0 28px
+          
   // -- Sites ---------------------------------------------------------------
   &.c-cms-admin-sites
     table .icon
@@ -139,67 +202,24 @@ body#comfy
       height: 28px
       background: url(/assets/comfortable_mexican_sofa/icon_regular.gif)
       
+  // -- Layouts -------------------------------------------------------------
+  &.c-cms-admin-layouts
+    ul.list
+      .item
+        .icon
+          background: url(/assets/comfortable_mexican_sofa/icon_layout.gif)
+        .item-content
+          margin-left: 35px
+      
   // -- Pages ---------------------------------------------------------------
   &.c-cms-admin-pages
-    ul.list
-      margin: 0
-      list-style: none
-      .item
-        overflow: hidden
-        padding: 5px
-        border-radius: 3px
-        margin-bottom: 5px
-        border: 1px solid #ddd
-        &:hover
-          background-color: #f5f5f5
-        .toggle
-          float: left
-          height: 28px
-          width: 28px
-          &.open a
-            background-image: url(/assets/comfortable_mexican_sofa/arrow_bottom.gif)
-          a
-            display: block
-            height: 28px
-            width: 28px
-            background: url(/assets/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat
-            span
-              display: none
-        .icon
-          float: left
-          width: 28px
-          height: 28px
-          background: url(/assets/comfortable_mexican_sofa/icon_regular.gif)
-          &.draft
-            background: url(/assets/comfortable_mexican_sofa/icon_draft.gif)
-          .dragger
-            width: 28px
-            height: 28px
-            background: url(/assets/comfortable_mexican_sofa/icon_move.gif)
-            cursor: move
-            display: none
-            span
-              display: none
-          &:hover .dragger
-            display: block
-        .item-content
-          margin-left: 60px
-          a.item-label
-            color: #000
-          .category
-            display: inline-block
-            font-size: 11px
-            border: 1px solid #ddd
-            padding: 0 5px
-            background-color: #fff
-            border-radius: 3px
-        .btn-group
-          float: right
-      li ul
-        list-style: none
-        margin: 0 0 0 28px
-        
     #form-blocks
       ul.nav-tabs
         margin-left: 180px
+      .no-tags
+        margin-left: 180px
+        text-align: center
+        padding: 10px
+        background-color: #f5f5f5
+        margin-bottom: 10px
     

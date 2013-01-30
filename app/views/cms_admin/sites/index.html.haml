@@ -11,7 +11,12 @@
         .item-title
           = link_to site.label, cms_admin_site_pages_path(site)
         .item-meta
-          = link_to "http://#{site.hostname}/#{site.path}", "http://#{site.hostname}/#{site.path}", :target => '_blank'
+          .identifier
+            = site.identifier
+            = "(#{site.locale})"
+          .host
+            - host = "http://#{site.hostname}/#{site.path}"
+            = link_to host, host, :target => '_blank'
       %td
         .btn-group
           = link_to t('.select'),  cms_admin_site_pages_path(site), :class => 'btn btn-small'

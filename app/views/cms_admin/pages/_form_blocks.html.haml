@@ -6,7 +6,7 @@
 
 #form-blocks
   - if tags.empty?
-    .no_tags
+    .no-tags
       = link_to @page.layout.label, edit_cms_admin_site_layout_path(@site, @page.layout)
       = t('.no_tags').html_safe
   
