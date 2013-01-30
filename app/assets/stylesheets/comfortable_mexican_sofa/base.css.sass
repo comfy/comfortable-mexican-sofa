@@ -67,6 +67,33 @@ body#comfy
     color: #fff
     
   // -- Common Elements -----------------------------------------------------
+  table.table, ul.list
+    .icon
+      width: 28px
+      height: 28px
+      background: url(/assets/comfortable_mexican_sofa/icon_regular.gif)
+      .dragger
+        width: 28px
+        height: 28px
+        background: url(/assets/comfortable_mexican_sofa/icon_move.gif)
+        cursor: move
+        display: none
+        span
+          display: none
+      &:hover .dragger
+        display: block
+    .category
+      display: inline-block
+      vertical-align: top
+      font-size: 11px
+      line-height: 11px
+      border: 1px solid #ddd
+      padding: 2px 5px
+      background-color: #fff
+      border-radius: 3px
+      border-left-width: 7px
+        
+    
   .item-title
     color: #000
     a
@@ -163,32 +190,12 @@ body#comfy
             display: none
       .icon
         float: left
-        width: 28px
-        height: 28px
-        background: url(/assets/comfortable_mexican_sofa/icon_regular.gif)
         &.draft
           background: url(/assets/comfortable_mexican_sofa/icon_draft.gif)
-        .dragger
-          width: 28px
-          height: 28px
-          background: url(/assets/comfortable_mexican_sofa/icon_move.gif)
-          cursor: move
-          display: none
-          span
-            display: none
-        &:hover .dragger
-          display: block
       .item-content
         margin-left: 60px
         a.item-label
           color: #000
-        .category
-          display: inline-block
-          font-size: 11px
-          border: 1px solid #ddd
-          padding: 0 5px
-          background-color: #fff
-          border-radius: 3px
       .btn-group
         float: right
     li ul

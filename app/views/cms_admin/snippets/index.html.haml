@@ -1,0 +1,28 @@
+.page-header
+  = link_to t('.new_link'), new_cms_admin_site_snippet_path(@site), :class => 'btn pull-right'
+  %h2= t('.title')
+
+- content_for :right_column do
+  = render :partial => 'cms_admin/sites/mirrors'
+
+= render :partial => 'cms_admin/categories/index', :object => 'Cms::Snippet'
+
+%table.table.table-hover.table-bordered
+  %tbody.sortable
+    - @snippets.each do |snippet|
+      %tr
+        %td
+          .icon
+            - if !params[:category].present?
+              .dragger
+                %span= t('cms.views.pages.drag')
+        %td.main
+          .item-title
+            = link_to snippet.label, edit_cms_admin_site_snippet_path(@site, snippet)
+            = render :partial => '/cms_admin/categories/categories', :object => snippet
+          .item-meta
+            = snippet.identifier
+        %td
+          .btn-group
+            = link_to t('.edit'), edit_cms_admin_site_snippet_path(@site, snippet), :class => 'btn btn-small'
+            = link_to t('.delete'), cms_admin_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
