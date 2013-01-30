@@ -23,8 +23,9 @@
       = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
       
     .item-content
-      = link_to page.label, edit_cms_admin_site_page_path(@site, page), :class => 'item-label'
-      = render :partial => '/cms_admin/categories/categories', :object => page
+      .item-title
+        = link_to page.label, edit_cms_admin_site_page_path(@site, page), :class => 'item-label'
+        = render :partial => '/cms_admin/categories/categories', :object => page
       .item-meta
         = link_to page.url, page.url, :target => '_blank'
         

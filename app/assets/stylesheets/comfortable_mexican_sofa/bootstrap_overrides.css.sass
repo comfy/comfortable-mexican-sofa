@@ -4,7 +4,11 @@ body#comfy
   
   h1, h2, h3, h4, h5, .page-header
     margin-top: 0
-    
+  
+  table.table
+    th.main, td.main
+      width: 100%
+  
   // -- Setting up border-box sizing, letting fields size themselves --------
   *
     outline: none
@@ -20,6 +24,7 @@ body#comfy
       .controls
         #{$form_fields}
           width: 100%
+  
   // -- Alerts --------------------------------------------------------------
   .alert
     margin-bottom: 0px
