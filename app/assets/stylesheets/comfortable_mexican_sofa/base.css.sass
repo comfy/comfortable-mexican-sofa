@@ -55,7 +55,7 @@ body#comfy
       display: block
       height: 16px
       width: 8px
-      background: transparent url(/assets/comfortable_mexican_sofa/nav_arrow.png)
+      background: transparent image-url("comfortable_mexican_sofa/nav_arrow.png")
   
   // -- Right Side Boxes ----------------------------------------------------
   .right-column-content .box
@@ -71,11 +71,11 @@ body#comfy
     .icon
       width: 28px
       height: 28px
-      background: url(/assets/comfortable_mexican_sofa/icon_page.gif)
+      background: image-url("comfortable_mexican_sofa/icon_page.gif")
       .dragger
         width: 28px
         height: 28px
-        background: url(/assets/comfortable_mexican_sofa/icon_move.gif)
+        background: image-url("comfortable_mexican_sofa/icon_move.gif")
         cursor: move
         display: none
         span
@@ -137,6 +137,7 @@ body#comfy
       .category
         display: inline-block
         font-size: 11px
+        line-height: 20px
         border-radius: 3px
         background-color: #fff
         padding: 0 7px
@@ -178,18 +179,18 @@ body#comfy
         height: 28px
         width: 28px
         &.open a
-          background-image: url(/assets/comfortable_mexican_sofa/arrow_bottom.gif)
+          background-image: image-url("comfortable_mexican_sofa/arrow_bottom.gif")
         a
           display: block
           height: 28px
           width: 28px
-          background: url(/assets/comfortable_mexican_sofa/arrow_right.gif) center center no-repeat
+          background: image-url("comfortable_mexican_sofa/arrow_right.gif") center center no-repeat
           span
             display: none
       .icon
         float: left
         &.draft
-          background: url(/assets/comfortable_mexican_sofa/icon_draft.gif)
+          background: image-url("comfortable_mexican_sofa/icon_draft.gif")
       .item-content
         margin-left: 60px
         a.item-label
@@ -203,14 +204,14 @@ body#comfy
   // -- Sites ---------------------------------------------------------------
   &.c-cms-admin-sites
     table .icon
-      background: url(/assets/comfortable_mexican_sofa/icon_site.gif)
+      background: image-url("comfortable_mexican_sofa/icon_site.gif")
       
   // -- Layouts -------------------------------------------------------------
   &.c-cms-admin-layouts
     ul.list
       .item
         .icon
-          background: url(/assets/comfortable_mexican_sofa/icon_layout.gif)
+          background: image-url("comfortable_mexican_sofa/icon_layout.gif")
         .item-content
           margin-left: 35px
       
@@ -225,14 +226,23 @@ body#comfy
         padding: 10px
         background-color: #f5f5f5
         margin-bottom: 10px
+      .files
+        margin: 5px 0
+        .file
+          display: inline-block
+          border: 1px solid #ccc
+          border-radius: 3px
+          padding: 0 5px
+          margin-bottom: 5px
+          font-size: 12px
         
   // -- Snippets ------------------------------------------------------------
   &.c-cms-admin-snippets
     table .icon
-      background: url(/assets/comfortable_mexican_sofa/icon_snippet.gif)
+      background: image-url("comfortable_mexican_sofa/icon_snippet.gif")
       
   // -- Files ---------------------------------------------------------------
   &.c-cms-admin-files
     table .icon
-      background: url(/assets/comfortable_mexican_sofa/icon_file.gif)
+      background: image-url("comfortable_mexican_sofa/icon_file.gif")
     
