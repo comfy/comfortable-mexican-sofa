@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require comfortable_mexican_sofa/bootstrap
-//= require comfortable_mexican_sofa/codemirror/codemirror.js
+//= require comfortable_mexican_sofa/codemirror
 
 $.CMS = function(){
 
@@ -81,14 +81,13 @@ $.CMS = function(){
 
     enable_codemirror: function(){
       $('textarea.code').each(function(i, element){
-        var mode = 'htmlmixed';
+        var mode = 'text/html';
         if ($(element).hasClass('css'))  mode = 'css';
         if ($(element).hasClass('js'))   mode = 'javascript';
         CodeMirror.fromTextArea(element, {
-          htmlMode:     true,
-          mode:         mode,
-          tabMode:      'indent',
-          lineWrapping: true
+          mode:           mode,
+          lineWrapping:   true,
+          autoCloseTags:  true
         });
       });
     },
