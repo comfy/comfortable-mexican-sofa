@@ -1,5 +1,5 @@
 - layout      ||= index_branch
-- has_siblings  = layout.siblings.count > 0
+- has_siblings  = layout.siblings.select{|l| l.site_id == @site.id}.size > 0
 
 %li{:id => dom_id(layout)}
   .item

@@ -13,7 +13,7 @@
       %tr
         %td
           .icon
-            - if !params[:category].present?
+            - if !params[:category].present? && @site.snippets.count > 1
               .dragger
                 %span= t('cms.views.pages.drag')
         %td.main
