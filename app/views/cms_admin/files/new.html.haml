@@ -1,0 +1,5 @@
+.page-header
+  %h2= t('.title')
+
+= comfy_form_for @file, :as => :file, :url => {:action => :create}, :html => {:multipart => true} do |form|
+  = render form
