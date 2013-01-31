@@ -2,7 +2,7 @@
   
   <div class='file_name'>
     <%= link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename' %>
-    <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' %>
+    <%= link_to 'x', cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' %>
   </div>
   
   <div class='file_info' data-url='<%= file.file.url %>'>

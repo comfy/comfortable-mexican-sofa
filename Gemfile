@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails',          '>= 3.2.0'
 gem 'jquery-rails',   '>= 2.2.0'
-
 gem 'haml-rails',     '>= 0.3.0'
 gem 'coffee-rails',   '>= 3.2.0'
 gem 'active_link_to', '>= 1.0.0'

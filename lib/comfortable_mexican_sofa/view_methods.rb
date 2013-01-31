@@ -7,11 +7,6 @@ module ComfortableMexicanSofa::ViewMethods
     formatted_form_for(record, options, &proc)
   end
   
-  # Wrapper for <span>
-  def span_tag(*args)
-    content_tag(:span, *args)
-  end
-  
   # Injects some content somewhere inside cms admin area
   def cms_hook(name, options = {})
     ComfortableMexicanSofa::ViewHooks.render(name, self, options)
