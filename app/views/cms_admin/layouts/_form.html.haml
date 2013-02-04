@@ -9,9 +9,9 @@
 - if (options = Cms::Layout.app_layouts_for_select).present?
   = form.select :app_layout, [["---- #{t('.select_app_layout')} ----", nil]] + options
 
-= form.text_area :content, :class => 'code'
-= form.text_area :css, :class => 'code css'
-= form.text_area :js, :class => 'code js'
+= form.text_area :content, :data => {:cm_mode => 'text/html'}
+= form.text_area :css, :data => {:cm_mode => 'css'}
+= form.text_area :js, :data => {:cm_mode => 'javascript'}
 
 .form-actions
   = form.submit t(@layout.new_record?? '.create' : '.update'), :class => 'btn btn-primary'

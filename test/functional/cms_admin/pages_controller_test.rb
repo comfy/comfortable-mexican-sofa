@@ -50,7 +50,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:field:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][class='datetime']"
+    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -74,7 +74,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:field:test_label:text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='code']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode='text/html']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -82,7 +82,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:field:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='rich_text']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -90,7 +90,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:page:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][class='datetime']"
+    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -114,7 +114,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='code']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/html]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -150,7 +150,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:page:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='rich_text']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -174,9 +174,9 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_column(:content, '{{cms:page:test_label}}{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][class='code']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
-    assert_select "textarea[name='page[blocks_attributes][1][content]'][class='code']", 0
+    assert_select "textarea[name='page[blocks_attributes][1][content]']", 0
     assert_select "input[type='hidden'][name='page[blocks_attributes][1][identifier]'][value='test_label']", 0
   end
   

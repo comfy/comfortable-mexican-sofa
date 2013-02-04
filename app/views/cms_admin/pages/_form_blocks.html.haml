@@ -20,9 +20,9 @@
               %li{:class => index == 0 ? 'active' : nil}
                 = link_to name.humanize, "#ns-#{name}", :data => {:toggle => 'tab'}
         .tab-content
-          - index = 0
+          - block_index = 0
           - namespace.each_with_index do |(name, tags), index|
             .tab-pane{:id => "ns-#{name}", :class => index == 0 ? 'active' : nil}
               - tags.each do |tag|
-                = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil
-                - index += 1
+                = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, block_index) rescue nil
+                - block_index += 1

@@ -1,8 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require comfortable_mexican_sofa/bootstrap
-//= require comfortable_mexican_sofa/codemirror
+//= require comfortable_mexican_sofa/lib/bootstrap
+//= require comfortable_mexican_sofa/lib/codemirror
+//= require comfortable_mexican_sofa/lib/wysihtml5
+//= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
 
 $.CMS = function(){
 
@@ -73,18 +75,22 @@ $.CMS = function(){
     },
 
     enable_rich_text: function(){
-      // TODO
+      $('textarea[data-rich-text]').each(function(i, element){
+        $(element).wysihtml5({
+          'html':         true,
+          'color':        false,
+          'stylesheets':  []
+        });
+      });
     },
 
     enable_codemirror: function(){
-      $('textarea.code').each(function(i, element){
-        var mode = 'text/html';
-        if ($(element).hasClass('css'))  mode = 'css';
-        if ($(element).hasClass('js'))   mode = 'javascript';
+      $('textarea[data-cm-mode]').each(function(i, element){
         CodeMirror.fromTextArea(element, {
-          mode:           mode,
+          mode:           $(element).data('cm-mode'),
           lineWrapping:   true,
-          autoCloseTags:  true
+          autoCloseTags:  true,
+          lineNumbers:    true
         });
       });
     },
