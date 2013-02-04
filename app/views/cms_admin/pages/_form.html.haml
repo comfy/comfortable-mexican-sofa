@@ -1,9 +1,9 @@
 - content_for :right_column do
-  #page_save.box
-    %label
+  #form-save.box
+    %label.checkbox.inline
       %input{:type => 'checkbox'}
       = Cms::Page.human_attribute_name(:is_published)
-    %button.btn
+    %button.btn.btn-small.btn-primary.pull-right
   = render :partial => 'cms_admin/files/index'
 
 = form.text_field :label, :data => {:slugify => @page.new_record?}

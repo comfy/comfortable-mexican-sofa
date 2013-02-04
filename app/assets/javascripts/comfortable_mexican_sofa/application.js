@@ -21,7 +21,7 @@ $.CMS = function(){
     $.CMS.enable_sortable_list();
     if($('#page_new, #page_edit, #new_page, #edit_page').length) $.CMS.enable_page_form();
     if($('#mirrors').length)            $.CMS.enable_mirrors_widget();
-    if($('#page_save').length)          $.CMS.enable_page_save_widget();
+    if($('#form-save').length)          $.CMS.enable_form_save_widget();
     if($('#uploader_button').length)    $.CMS.enable_uploader();
     if($('.categories-widget').length)  $.CMS.enable_categories_widget();
   });
@@ -125,19 +125,20 @@ $.CMS = function(){
       })
     },
 
-    enable_page_save_widget : function(){
-      $('#page_save input').attr('checked', $('input#page_is_published').is(':checked'));
-      $('#page_save button').html($('input#cms_page_submit').val());
+    enable_form_save_widget : function(){
+      var widget = $('#form-save');
+      $('input', widget).prop('checked', $('input#page_is_published').is(':checked'));
+      $('button', widget).html($('input[name=commit]').val());
 
-      $('#page_save input').bind('click', function(){
-        $('input#page_is_published').attr('checked', $(this).is(':checked'));
-      })
-      $('input#page_is_published').bind('click', function(){
-        $('#page_save input').attr('checked', $(this).is(':checked'));
-      })
-      $('#page_save button').bind('click', function(){
-        $('input#cms_page_submit').click();
-      })
+      $('input', widget).click(function(){
+        $('input#page_is_published').prop('checked', $(this).is(':checked'));
+      });
+      $('input#page_is_published').click(function(){
+        $('input', widget).prop('checked', $(this).is(':checked'));
+      });
+      $('button', widget).click(function(){
+        $('input[name=commit]').click();
+      });
     },
 
     enable_page_form : function(){

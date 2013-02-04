@@ -26,7 +26,7 @@ body#comfy
       float: right
       .right-column-content
         padding: 25px 10px
-        width: 230px
+        width: 250px
         position: fixed
   
   // -- Navigation ----------------------------------------------------------
@@ -57,13 +57,18 @@ body#comfy
       background: transparent image-url("comfortable_mexican_sofa/nav_arrow.png")
   
   // -- Right Side Boxes ----------------------------------------------------
-  .right-column-content .box
-    background-color: #484848
-    padding: 5px
-    border-radius: 3px
-    margin-bottom: 10px
-    overflow: auto
-    color: #fff
+  .right-column-content
+    .box
+      background-color: #fff
+      padding: 5px
+      border-radius: 3px
+      margin-bottom: 10px
+      overflow: auto
+    #mirrors select
+      margin-bottom: 0
+    #form-save
+      label
+        padding-top: 0
     
   // -- Common Elements -----------------------------------------------------
   table.table, ul.list
