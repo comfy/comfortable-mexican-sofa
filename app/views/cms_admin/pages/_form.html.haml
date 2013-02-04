@@ -6,10 +6,10 @@
     %button.btn
   = render :partial => 'cms_admin/files/index'
 
-= form.text_field :label, :id => (@page.new_record?? 'slugify' : nil)
+= form.text_field :label, :data => {:slugify => @page.new_record?}
 
 - unless @site.pages.count == 0 || @site.pages.root == @page
-  = form.text_field :slug, :id => 'slug'
+  = form.text_field :slug, :data => {:slug => true}
   - unless @page.new_record?
     = form.text_field :full_path, :id => 'full-path', :disabled => true
 

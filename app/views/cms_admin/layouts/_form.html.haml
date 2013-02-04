@@ -1,8 +1,8 @@
 - content_for :right_column do
   = render :partial => 'cms_admin/files/index'
 
-= form.text_field :label, :id => (@layout.new_record?? 'slugify' : nil)
-= form.text_field :identifier, :id => 'slug'
+= form.text_field :label, :data => {:slugify => @layout.new_record?}
+= form.text_field :identifier, :data => {:slug => true}
 - if (options = Cms::Layout.options_for_select(@site, @layout)).present?
   = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options
 

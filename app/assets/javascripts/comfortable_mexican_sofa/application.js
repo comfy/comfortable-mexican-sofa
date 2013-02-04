@@ -37,24 +37,21 @@ $.CMS = function(){
     },
 
     slugify: function(){
-      $('input#slugify').bind('keyup.cms', function() {
-        var slug_input = $('input#slug');
-        var delimiter = slug_input.hasClass('delimiter-underscore') ? '_' : '-';
-        slug_input.val( slugify( $(this).val(), delimiter ) );
+      $('input[data-slugify=true]').bind('keyup.cms', function() {
+        $('input[data-slug=true]').val(slugify($(this).val()));
       });
 
-      function slugify(str, delimiter){
-        var opposite_delimiter = (delimiter == '-') ? '_' : '-';
+      function slugify(str){
         str = str.replace(/^\s+|\s+$/g, '');
         var from = "ÀÁÄÂÃÈÉËÊÌÍÏÎÒÓÖÔÕÙÚÜÛàáäâãèéëêìíïîòóöôõùúüûÑñÇç";
         var to   = "aaaaaeeeeiiiiooooouuuuaaaaaeeeeiiiiooooouuuunncc";
-        for (var i=0, l=from.length ; i<l ; i++) {
+        for (var i = 0, l = from.length; i < l; i++){
           str = str.replace(new RegExp(from[i], "g"), to[i]);
         }
-        var chars_to_replace_with_delimiter = new RegExp('[·/,:;'+ opposite_delimiter +']', 'g');
-        str = str.replace(chars_to_replace_with_delimiter, delimiter);
-        var chars_to_remove = new RegExp('[^a-zA-Z0-9 '+ delimiter +']', 'g');
-        str = str.replace(chars_to_remove, '').replace(/\s+/g, delimiter).toLowerCase();
+        var chars_to_replace_with_delimiter = new RegExp('[·/,:;_]', 'g');
+        str = str.replace(chars_to_replace_with_delimiter, '-');
+        var chars_to_remove = new RegExp('[^a-zA-Z0-9 -]', 'g');
+        str = str.replace(chars_to_remove, '').replace(/\s+/g, '-').toLowerCase();
         return str;
       }
     },
