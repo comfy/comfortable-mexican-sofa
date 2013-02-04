@@ -69,6 +69,65 @@ body#comfy
     #form-save
       label
         padding-top: 0
+        
+  // -- File Uploads --------------------------------------------------------
+  .right-column-content .file-uploader
+    form
+      margin-bottom: 5px
+      .btn-file
+        width: 100%
+        position: relative
+        overflow: hidden
+        input
+          position: absolute
+          top: 0
+          left: 0
+          margin: 0
+          font-size: 23px
+          cursor: pointer
+          opacity: 0
+    .uploaded-files
+      margin: 0 -5px
+      max-height: 500px
+      overflow: auto
+      padding: 0 5px
+      .file
+        overflow: hidden
+        padding-bottom: 2px
+        &:hover .file-info
+          display: block
+        .file-name
+          overflow: hidden
+          border: 1px solid #ddd
+          border-radius: 3px
+          padding: 0 7px
+          &:hover
+            background-color: #f5f5f5
+          a.filename
+            display: block
+            margin-right: 20px
+            white-space: nowrap
+            overflow: hidden
+            font-size: 11px
+          a.delete
+            float: right
+        .file-info
+          display: none
+          padding: 1px 0
+          .thumb
+            height: 60px
+            width: 80px
+            float: left
+            background: image-url("comfortable_mexican_sofa/checkboard.gif")
+          .details
+            margin-left: 85px
+            font-size: 11px
+            line-height: 16px
+            input
+              padding: 2px
+              margin: 0
+              font-size: 11px
+              width: 100%
     
   // -- Common Elements -----------------------------------------------------
   table.table, ul.list

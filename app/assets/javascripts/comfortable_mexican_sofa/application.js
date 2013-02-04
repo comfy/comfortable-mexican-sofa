@@ -22,7 +22,7 @@ $.CMS = function(){
     if($('#page_new, #page_edit, #new_page, #edit_page').length) $.CMS.enable_page_form();
     if($('#mirrors').length)            $.CMS.enable_mirrors_widget();
     if($('#form-save').length)          $.CMS.enable_form_save_widget();
-    if($('#uploader_button').length)    $.CMS.enable_uploader();
+    if($('.file-uploader').length)      $.CMS.enable_uploader();
     if($('.categories-widget').length)  $.CMS.enable_categories_widget();
   });
 
@@ -142,7 +142,6 @@ $.CMS = function(){
     },
 
     enable_page_form : function(){
-      $('#tag_namespaces').tabs();
       $('input[name=commit]').click(function() {
         $(this).parents('form').attr('target', '');
       });
@@ -152,8 +151,14 @@ $.CMS = function(){
     },
 
     enable_uploader : function(){
-      var action = $('.file_uploads form').attr('action');
-      $('.file_uploads input[type=file]').change(function(){
+      
+      console.log('main screen turn on');
+      var action = $('.file-uploader form').attr('action');
+      $('.file-uploader input[type=file]').change(function(){
+        
+        console.log('doing thangs');
+        
+        
         var files = $($(this).get(0).files);
         files.each(function(i, file){
           var xhr = new XMLHttpRequest();
@@ -162,7 +167,6 @@ $.CMS = function(){
               eval(xhr.responseText);
             }
           }
-
           xhr.open('POST', action, true);
           xhr.setRequestHeader('Accept', 'application/javascript');
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name=csrf-token]').attr('content'));
