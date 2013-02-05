@@ -151,14 +151,8 @@ $.CMS = function(){
     },
 
     enable_uploader : function(){
-      
-      console.log('main screen turn on');
       var action = $('.file-uploader form').attr('action');
       $('.file-uploader input[type=file]').change(function(){
-        
-        console.log('doing thangs');
-        
-        
         var files = $($(this).get(0).files);
         files.each(function(i, file){
           var xhr = new XMLHttpRequest();
