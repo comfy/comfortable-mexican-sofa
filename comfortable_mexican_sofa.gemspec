@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/comfortable_mexican_sofa/lib/wysihtml5.js",
     "app/assets/stylesheets/comfortable_mexican_sofa/application.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/base.css.sass",
+    "app/assets/stylesheets/comfortable_mexican_sofa/base_overrides.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/bootstrap_overrides.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/codemirror_overrides.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/lib/bootstrap-wysihtml5.css",
