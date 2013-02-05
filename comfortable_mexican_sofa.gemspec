@@ -288,32 +288,35 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.2.0"])
-      s.add_runtime_dependency(%q<jquery-rails>, [">= 2.2.0"])
-      s.add_runtime_dependency(%q<haml-rails>, [">= 0.3.0"])
-      s.add_runtime_dependency(%q<coffee-rails>, [">= 3.2.0"])
+      s.add_runtime_dependency(%q<formatted_form>, [">= 2.1.0"])
       s.add_runtime_dependency(%q<active_link_to>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<paperclip>, [">= 3.4.0"])
-      s.add_runtime_dependency(%q<formatted_form>, [">= 2.1.0"])
       s.add_runtime_dependency(%q<redcarpet>, [">= 2.2.0"])
+      s.add_runtime_dependency(%q<jquery-rails>, [">= 2.2.0"])
+      s.add_runtime_dependency(%q<haml-rails>, [">= 0.3.0"])
+      s.add_runtime_dependency(%q<sass-rails>, [">= 3.2.0"])
+      s.add_runtime_dependency(%q<coffee-rails>, [">= 3.2.0"])
     else
       s.add_dependency(%q<rails>, [">= 3.2.0"])
-      s.add_dependency(%q<jquery-rails>, [">= 2.2.0"])
-      s.add_dependency(%q<haml-rails>, [">= 0.3.0"])
-      s.add_dependency(%q<coffee-rails>, [">= 3.2.0"])
+      s.add_dependency(%q<formatted_form>, [">= 2.1.0"])
       s.add_dependency(%q<active_link_to>, [">= 1.0.0"])
       s.add_dependency(%q<paperclip>, [">= 3.4.0"])
-      s.add_dependency(%q<formatted_form>, [">= 2.1.0"])
       s.add_dependency(%q<redcarpet>, [">= 2.2.0"])
+      s.add_dependency(%q<jquery-rails>, [">= 2.2.0"])
+      s.add_dependency(%q<haml-rails>, [">= 0.3.0"])
+      s.add_dependency(%q<sass-rails>, [">= 3.2.0"])
+      s.add_dependency(%q<coffee-rails>, [">= 3.2.0"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.2.0"])
-    s.add_dependency(%q<jquery-rails>, [">= 2.2.0"])
-    s.add_dependency(%q<haml-rails>, [">= 0.3.0"])
-    s.add_dependency(%q<coffee-rails>, [">= 3.2.0"])
+    s.add_dependency(%q<formatted_form>, [">= 2.1.0"])
     s.add_dependency(%q<active_link_to>, [">= 1.0.0"])
     s.add_dependency(%q<paperclip>, [">= 3.4.0"])
-    s.add_dependency(%q<formatted_form>, [">= 2.1.0"])
     s.add_dependency(%q<redcarpet>, [">= 2.2.0"])
+    s.add_dependency(%q<jquery-rails>, [">= 2.2.0"])
+    s.add_dependency(%q<haml-rails>, [">= 0.3.0"])
+    s.add_dependency(%q<sass-rails>, [">= 3.2.0"])
+    s.add_dependency(%q<coffee-rails>, [">= 3.2.0"])
   end
 end
 
