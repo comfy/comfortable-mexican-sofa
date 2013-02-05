@@ -154,6 +154,14 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
+  def test_get_new_with_page_markdown
+    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:markdown}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/x-markdown]"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
+  end
+  
   def test_get_new_with_several_tag_fields
     cms_layouts(:default).update_column(:content, '{{cms:page:label_a}}{{cms:page:label_b}}')
     get :new, :site_id => cms_sites(:default)

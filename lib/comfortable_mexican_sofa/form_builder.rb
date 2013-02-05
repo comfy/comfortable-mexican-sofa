@@ -75,6 +75,10 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
     default_tag_field(tag, index, :file_field_tag, :multiple => true)
   end
   
+  def page_markdown(tag, index)
+    default_tag_field(tag, index, :text_area_tag, :data => {:cm_mode => 'text/x-markdown'})
+  end
+  
   def collection(tag, index)
     options = [["---- Select #{tag.collection_class.titleize} ----", nil]] + 
       tag.collection_objects.collect do |m| 
