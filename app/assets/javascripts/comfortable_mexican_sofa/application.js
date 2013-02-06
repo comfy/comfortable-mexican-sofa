@@ -5,6 +5,7 @@
 //= require comfortable_mexican_sofa/lib/codemirror
 //= require comfortable_mexican_sofa/lib/wysihtml5
 //= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
+//= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
 
 $.CMS = function(){
 
@@ -96,8 +97,16 @@ $.CMS = function(){
     },
 
     enable_date_picker: function(){
-      // $('input[type=text].datetime').datetimepicker({ dateFormat: 'yy-mm-dd' });
-      // $('input[type=text].date').datepicker({ dateFormat: 'yy-mm-dd' });
+      $('input[type=text][data-datetime]').datetimepicker({
+        format:     'yyyy-mm-dd hh:ii',
+        minView:    'day',
+        autoclose:  true
+      });
+      $('input[type=text][data-date]').datetimepicker({
+        format:     'yyyy-mm-dd',
+        minView:    'minute',
+        autoclose:  true
+      });
     },
 
     tree_methods: function(){
