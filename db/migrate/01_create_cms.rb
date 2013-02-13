@@ -61,7 +61,7 @@ class CreateCms < ActiveRecord::Migration
     create_table :cms_blocks do |t|
       t.integer   :page_id,     :null => false
       t.string    :identifier,  :null => false
-      t.text      :content
+      t.text      :content,     text_limit
       t.timestamps
     end
     add_index :cms_blocks, [:page_id, :identifier]
