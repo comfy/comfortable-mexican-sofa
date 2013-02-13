@@ -12,11 +12,11 @@ class ColumnLimitValidator < ActiveModel::EachValidator
 end
 
 class Cms::Page < ActiveRecord::Base
-  
+
   ComfortableMexicanSofa.establish_connection(self)
-    
+
   self.table_name = 'cms_pages'
-  
+
   attr_accessible :layout, :layout_id,
                   :label,
                   :slug,
@@ -25,15 +25,15 @@ class Cms::Page < ActiveRecord::Base
                   :is_published,
                   :target_page_id,
                   :category_ids
-  
+
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
   cms_is_mirrored
   cms_has_revisions_for :blocks_attributes
-  
+
   attr_accessor :tags,
                 :blocks_attributes_changed
-  
+
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
@@ -42,7 +42,7 @@ class Cms::Page < ActiveRecord::Base
   has_many :blocks,
     :autosave   => true,
     :dependent  => :destroy
-  
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent,
@@ -52,9 +52,9 @@ class Cms::Page < ActiveRecord::Base
   before_save       :set_cached_content
   after_save        :sync_child_pages
   after_find        :unescape_slug_and_path
-  
+
   # -- Validations ----------------------------------------------------------
-  validates :site_id, 
+  validates :site_id,
     :presence   => true
   validates :label,
     :presence   => true
@@ -72,7 +72,9 @@ class Cms::Page < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)
-  
+  scope :unpublished, where(:is_published => false)
+  scope :blog_pages, where(:parent_id => self.find_by_slug('blog'))
+
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages
   def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
@@ -84,14 +86,19 @@ class Cms::Page < ActiveRecord::Base
     end
     return out.compact
   end
-  
+
+  def content_for_block(block_label)
+    label_index = self.blocks.index {|x| x.label == block_label}
+    ( label_index.nil? ? nil  : self.blocks[label_index].content)
+  end
+
   # -- Instance Methods -----------------------------------------------------
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path
     self.read_attribute(:full_path) || self.assign_full_path
   end
-  
+
   # Transforms existing cms_block information into a hash that can be used
   # during form processing. That's the only way to modify cms_blocks.
   def blocks_attributes(was = false)
@@ -102,7 +109,7 @@ class Cms::Page < ActiveRecord::Base
       block_attr
     end
   end
-  
+
   # Array of block hashes in the following format:
   #   [
   #     { :identifier => 'block_1', :content => 'block content' },
@@ -112,15 +119,15 @@ class Cms::Page < ActiveRecord::Base
     block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
     block_hashes.each do |block_hash|
       block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-      block = 
-        self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
+      block =
+        self.blocks.detect{|b| b.identifier == block_hash[:identifier]} ||
         self.blocks.build(:identifier => block_hash[:identifier])
       block.content = block_hash[:content]
       self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
     end
   end
-  
-  # Processing content will return rendered content and will populate 
+
+  # Processing content will return rendered content and will populate
   # self.cms_tags with instances of CmsTag
   def content(force_reload = false)
     @content = force_reload ? nil : read_attribute(:content)
@@ -136,46 +143,46 @@ class Cms::Page < ActiveRecord::Base
       end
     end
   end
-  
+
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
   def tags(force_reload = false)
     self.content(true) if force_reload
     @tags ||= []
   end
-  
+
   # Full url for a page
   def url
     "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
-  
+
   # Method to collect prevous state of blocks for revisions
   def blocks_attributes_was
     blocks_attributes(true)
   end
-  
+
 protected
-  
+
   def assigns_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
   end
-  
+
   def assign_parent
     return unless site
     self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count == 0
   end
-  
+
   def assign_full_path
     self.full_path = self.parent ? "#{CGI::escape(self.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
   end
-  
+
   def assign_position
     return unless self.parent
     return if self.position.to_i > 0
     max = self.parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end
-  
+
   def validate_target_page
     return unless self.target_page
     p = self
@@ -183,18 +190,18 @@ protected
       return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
     end
   end
-  
+
   def validate_format_of_unescaped_slug
     return unless slug.present?
     unescaped_slug = CGI::unescape(self.slug)
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
-  
+
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
     write_attribute(:content, self.content(true))
   end
-  
+
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
@@ -210,5 +217,5 @@ protected
     self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
-  
+
 end

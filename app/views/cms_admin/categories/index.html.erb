@@ -1,0 +1,30 @@
+<%= link_to span_tag(t('.new_link')), new_cms_admin_site_category_path(@site), :class => 'big button' %>
+
+<h1> <%= t('.title')%> </h1>
+
+<% content_for :right_column do %>
+  <%= render :partial => 'cms_admin/sites/mirrors' %>
+<% end %>
+
+<div class='category_scopes'>
+  <div class='label'><%= t('.type') %> </div>
+  <div class='categorized_type'>
+      <% categorized_types.each do |type| %>
+        <div class='type <%= collected_type == type ? 'active' :  nil %>'>
+          <%= link_to type, cms_admin_site_categories_path(@site, :type => type) %>
+        </div>
+      <% end -%>
+  </div>
+</div>
+
+<ul class='list sortable_unitary'>
+  <%= render :partial => 'index_branch', :collection => @categories if @categories.any? %>
+  <%= t('.no_records', :type => collected_type) unless @categories.any? %>
+</ul>
+
+<div style="display:none" id="errormessage">
+  <%= t('.synch_failed')%>
+</div>
+
+<%= javascript_include_tag 'comfortable_mexican_sofa/sort_categories' %>
+<%= stylesheet_link_tag 'comfortable_mexican_sofa/categories' %>

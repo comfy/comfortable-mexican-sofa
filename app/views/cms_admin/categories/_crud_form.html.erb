@@ -1,0 +1,8 @@
+<div class="field">
+  <%= hidden_field :from_crud, :value => true %>
+  <%= form.text_field :label %>
+</div>
+
+<%= form.simple_field nil, nil, :class => 'submit_element' do %>
+  <%= form.submit :id => 'cms_category_submit', :disable_builder => true %>
+<% end %>

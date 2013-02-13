@@ -1,28 +1,30 @@
 module ComfortableMexicanSofa::Fixtures
-  
+
   def self.import_all(to_site, from_folder = nil)
     import_layouts  to_site, from_folder
     import_pages    to_site, from_folder
     import_snippets to_site, from_folder
+    import_categories to_site, from_folder
   end
-  
+
   def self.export_all(from_site, to_folder = nil)
     export_layouts  from_site, to_folder
     export_pages    from_site, to_folder
     export_snippets from_site, to_folder
+    export_categories from_site, to_folder
   end
-  
+
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [])
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'layouts')
       ComfortableMexicanSofa.logger.warn('Cannot find Layout fixtures')
       return []
     end
-    
+
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       identifier = path.split('/').last
       layout = site.layouts.find_by_identifier(identifier) || site.layouts.new(:identifier => identifier)
-      
+
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
@@ -33,9 +35,9 @@ module ComfortableMexicanSofa::Fixtures
         end
       elsif layout.new_record?
         layout.label      = identifier.titleize
-        layout.app_layout = parent.try(:app_layout) 
+        layout.app_layout = parent.try(:app_layout)
       end
-      
+
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at
@@ -52,7 +54,7 @@ module ComfortableMexicanSofa::Fixtures
           layout.js = File.open(file_path).read
         end
       end
-      
+
       # saving
       layout.parent = parent
       if layout.changed?
@@ -64,28 +66,28 @@ module ComfortableMexicanSofa::Fixtures
         end
       end
       layout_ids << layout.id
-      
+
       # checking for nested fixtures
       layout_ids += import_layouts(to_site, from_folder, path, false, layout, layout_ids)
     end
-    
+
     # removing all db entries that are not in fixtures
     if root
-      site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy } 
+      site.layouts.where('id NOT IN (?)', layout_ids.uniq).each{ |l| l.destroy }
       ComfortableMexicanSofa.logger.warn('Imported Layouts!')
     end
-    
+
     # returning ids of layouts in fixtures
     layout_ids.uniq
   end
-  
+
   def self.import_pages(to_site, from_folder = nil, path = nil, root = true, parent = nil, page_ids = [])
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'pages')
       ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
       return []
     end
-    
+
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
       page = if parent
@@ -93,7 +95,7 @@ module ComfortableMexicanSofa::Fixtures
       else
         site.pages.root || site.pages.new(:slug => slug)
       end
-      
+
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
         if page.new_record? || File.mtime(file_path) > page.updated_at
@@ -108,7 +110,7 @@ module ComfortableMexicanSofa::Fixtures
         page.label = slug.titleize
         page.layout = parent.try(:layout)
       end
-      
+
       # updating content
       blocks_to_clear = page.blocks.collect(&:identifier)
       blocks_attributes = [ ]
@@ -122,7 +124,7 @@ module ComfortableMexicanSofa::Fixtures
           }
         end
       end
-      
+
       # clearing removed blocks
       blocks_to_clear.each do |identifier|
         blocks_attributes << {
@@ -130,7 +132,7 @@ module ComfortableMexicanSofa::Fixtures
           :content    => nil
         }
       end
-      
+
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
       if page.changed? || blocks_attributes.present?
@@ -142,33 +144,33 @@ module ComfortableMexicanSofa::Fixtures
         end
       end
       page_ids << page.id
-      
+
       # checking for nested fixtures
       page_ids += import_pages(to_site, from_folder, path, false, page, page_ids)
     end
-    
+
     # removing all db entries that are not in fixtures
     if root
       site.pages.where('id NOT IN (?)', page_ids.uniq).each{ |p| p.destroy }
       ComfortableMexicanSofa.logger.warn('Imported Pages!')
     end
-    
+
     # returning ids of layouts in fixtures
     page_ids.uniq
   end
-  
+
   def self.import_snippets(to_site, from_folder = nil)
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path = find_fixtures_path((from_folder || to_site), 'snippets')
       ComfortableMexicanSofa.logger.warn('Cannot find Snippet fixtures')
       return []
     end
-    
+
     snippet_ids = []
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       identifier = path.split('/').last
       snippet = site.snippets.find_by_identifier(identifier) || site.snippets.new(:identifier => identifier)
-      
+
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
@@ -178,14 +180,14 @@ module ComfortableMexicanSofa::Fixtures
       elsif snippet.new_record?
         snippet.label = identifier.titleize
       end
-      
+
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
         if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
           snippet.content = File.open(file_path).read
         end
       end
-      
+
       # saving
       if snippet.changed?
         if snippet.save
@@ -197,22 +199,59 @@ module ComfortableMexicanSofa::Fixtures
       end
       snippet_ids << snippet.id
     end
-    
+
     # removing all db entries that are not in fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
     ComfortableMexicanSofa.logger.warn('Imported Snippets!')
   end
-  
+
+  def self.import_categories(to_site, from_folder = nil)
+    site = Cms::Site.find_or_create_by_identifier(to_site)
+    unless path = find_fixtures_path((from_folder || to_site), 'categories')
+      ComfortableMexicanSofa.logger.warn('Cannot find Categories fixtures')
+      return []
+    end
+
+    categories_ids = []
+    Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
+      label = path.split('/').last
+      category = site.categories.find_by_label(label) || site.categories.new(:label => label)
+
+      # updating attributes
+      if File.exists?(file_path = File.join(path, "_#{label}.yml"))
+        if category.new_record? || File.mtime(file_path) > category.updated_at
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
+          category.label = attributes[:label]
+          category.categorized_type = attributes[:categorized_type]
+          category.position = attributes[:position]
+        end
+      end
+
+      # saving
+      if category.changed?
+        if category.save
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Category {#{category.label}}")
+        else
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Category {#{category.errors.inspect}}")
+          next
+        end
+      end
+      categories_ids << category.id
+    end
+
+    ComfortableMexicanSofa.logger.warn('Imported Categories!')
+  end
+
   def self.export_layouts(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'layouts')
     FileUtils.rm_rf(path)
     FileUtils.mkdir_p(path)
-    
+
     site.layouts.each do |layout|
       layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
       FileUtils.mkdir_p(layout_path)
-      
+
       open(File.join(layout_path, "_#{layout.identifier}.yml"), 'w') do |f|
         f.write({
           'label'       => layout.label,
@@ -232,18 +271,18 @@ module ComfortableMexicanSofa::Fixtures
       end
     end
   end
-  
+
   def self.export_pages(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'pages')
     FileUtils.rm_rf(path)
     FileUtils.mkdir_p(path)
-    
+
     site.pages.each do |page|
       page.slug = 'index' if page.slug.blank?
       page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
       FileUtils.mkdir_p(page_path)
-      
+
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
         f.write({
           'label'         => page.label,
@@ -261,13 +300,13 @@ module ComfortableMexicanSofa::Fixtures
       end
     end
   end
-  
+
   def self.export_snippets(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'snippets')
     FileUtils.rm_rf(path)
     FileUtils.mkdir_p(path)
-    
+
     site.snippets.each do |snippet|
       FileUtils.mkdir_p(snippet_path = File.join(path, snippet.identifier))
       open(File.join(snippet_path, "_#{snippet.identifier}.yml"), 'w') do |f|
@@ -278,12 +317,30 @@ module ComfortableMexicanSofa::Fixtures
       end
     end
   end
-  
+
+  def self.export_categories(from_site, to_folder = nil)
+    return unless site = Cms::Site.find_by_identifier(from_site)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'categories')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+
+    site.categories.each do |category|
+      FileUtils.mkdir_p(category_path = File.join(path, category.label))
+      open(File.join(category_path, "_#{category.label}.yml"), 'w') do |f|
+        f.write({
+          'label' => category.label,
+          'categorized_type' => category.categorized_type,
+          'position' => category.position
+          }.to_yaml)
+      end
+    end
+  end
+
 protected
-  
+
   def self.find_fixtures_path(identifier, dir)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, identifier, dir)
     File.exists?(path) ? path : nil
   end
-  
+
 end

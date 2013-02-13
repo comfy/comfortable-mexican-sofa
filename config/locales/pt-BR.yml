@@ -39,13 +39,13 @@ pt-BR:
         description: Descrição
       cms/snippet:
         identifier: Identificador
-        
+
   # -- Controllers ----------------------------------------------------------
   cms:
     base:
       site_not_found: Site não encontrado
       fixtures_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
-      
+
     sites:
       created: Site criado com sucesso.
       creation_failure: Não foi possível criar site.
@@ -53,7 +53,7 @@ pt-BR:
       update_failure: Não foi possível atualizar site.
       deleted: Site excluído com sucesso.
       not_found: Site não encontrado.
-      
+
     layouts:
       created: Leiaute criado com sucesso.
       creation_failure: Não foi possível criar leiaute.
@@ -61,7 +61,7 @@ pt-BR:
       update_failure: Não foi possível atualizar leiaute.
       deleted: Leiaute excluído com sucesso.
       not_found: Leiaute não encontrado.
-      
+
     pages:
       created: Página criada com sucesso.
       creation_failure: Não foi possível criar página.
@@ -70,7 +70,7 @@ pt-BR:
       deleted: Página excluída com sucesso.
       not_found: Página não encontrada.
       layout_not_found: "Nenhum leiaute foi encontrado. Por favor, crie um."
-      
+
     snippets:
       created: Fragmento criado com sucesso.
       creation_failure: Não foi possível criar fragmento.
@@ -78,12 +78,12 @@ pt-BR:
       update_failure: Não foi possível atualizar fragmento.
       deleted: Fragmento excluído com sucesso.
       not_found: Fragmento não encontrado.
-      
+
     revisions:
       reverted: Conteúdo revertido com sucesso.
       record_not_found: Registro não encontrado.
       not_found: Revisão não encontrada.
-      
+
     files:
       created: Arquivo enviado com sucesso.
       creation_failure: Não foi possível enviar arquivo.
@@ -91,12 +91,20 @@ pt-BR:
       update_failure: Não foi possível atualizar arquivo.
       deleted: Arquivo excluído com sucesso.
       not_found: Arquivo não encontrado.
-      
+
     content:
       site_not_found: Site Não Encontrado
       layout_not_found: Leiaute Não Encontrado
       page_not_found: Página Não Encontrada
-  
+
+    categories:
+      created: Categoria criada com sucesso.
+      creation_failure: Não foi possível criar categoria.
+      updated: Categoria atualizada com sucesso.
+      update_failure: Não foi possível atualizar a categoria.
+      deleted: Categoria excluída com sucesso.
+      not_found: Categoria não encontrada.
+
   # -- Views ----------------------------------------------------------------
   cms_admin:
     base:
@@ -105,7 +113,7 @@ pt-BR:
       pages: Páginas
       snippets: Fragmentos
       files: Arquivos
-      
+
     sites:
       index:
         title: Sites
@@ -121,7 +129,7 @@ pt-BR:
       form:
         create: Criar Site
         update: Atualizar Site
-        
+
     layouts:
       index:
         title: Leiautes
@@ -141,7 +149,7 @@ pt-BR:
         select_app_layout: Selecione o Leiaute da Aplicação
         create: Criar Leiaute
         update: Atualizar Leiaute
-      
+
     pages:
       index:
         title: Páginas
@@ -166,7 +174,7 @@ pt-BR:
         no_tags: |-
           O leiaute não possui tags de conteúdo definidas.<br/>
           Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
-      
+
     snippets:
       index:
         title: Fragmentos
@@ -182,7 +190,7 @@ pt-BR:
       form:
         create: Criar Fragmento
         update: Atualizar Fragmento
-          
+
     revisions:
       show:
         title: Revisões de
@@ -191,7 +199,7 @@ pt-BR:
         slug: Identificador
         update: Atualizar para esta revisão
         current: Atual
-      
+
     files:
       index:
         title: Arquivos
@@ -212,21 +220,34 @@ pt-BR:
         are_you_sure: Tem certeza?
       file:
         are_you_sure: Tem certeza?
-        
+
     categories:
       index:
+        title: Categorias
+        type: Tipo de Categoria
+        new_link: Criar Nova Categoria
         label: Categorias
         edit: Editar
         done: Pronto
         all: Todas
         add: Adicionar
+        no_records: 'Não foram encontradas categorias para o tipo %{type}'
+        synch_failed: 'Não foi possível gravar a alteração. Tente novamente. Se o erro persistir, atualize da página.'
+      index_branch:
+        edit: Editar
+        type: Tipo de Categoria
+        delete: Excluir
+        are_you_sure: Tem certeza?
+      new:
+        title: Nova Categoria
       show:
         are_you_sure: Tem certeza?
       edit:
+        title: Editar Categoria
         save: Salvar
       form:
         label: Categorias
-        
+
     dialogs:
       image:
         insert: Inserir Imagem
