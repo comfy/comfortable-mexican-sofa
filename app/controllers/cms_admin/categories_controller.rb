@@ -21,13 +21,13 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
     begin
       @category = @site.categories.new(params[:category])
       @category.save!
-      if params[:type].present?
+      unless request.xhr?
         flash[:notice] = I18n.t('cms.categories.created')
         redirect_to cms_admin_site_categories_path(:type => collected_type)
       end
     rescue ActiveRecord::RecordInvalid
       logger.detailed_error($!)
-      if params[:type].present?
+      unless request.xhr?
         flash.now[:error] = I18n.t('cms.categories.creation_failure')
         @category = Cms::Category.new
         render :action => :new
@@ -40,13 +40,13 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   def update
     begin
       @category.update_attributes!(params[:category])
-      if params[:type].present?
+      unless request.xhr?
         flash[:notice] = I18n.t('cms.categories.updated')
         redirect_to cms_admin_site_categories_path(:type => collected_type)
       end
     rescue ActiveRecord::RecordInvalid
       logger.detailed_error($!)
-       if params[:type].present?
+       unless request.xhr?
         flash.now[:error] = I18n.t('cms.categories.update_failure')
         render :action => :edit
       else
@@ -57,7 +57,7 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
 
   def destroy
     @category.destroy
-    if params[:type].present?
+    unless request.xhr?
       flash[:notice] = I18n.t('cms.categories.deleted')
       redirect_to cms_admin_site_categories_path(:type => collected_type)
     end
