@@ -63,7 +63,8 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   end
 
   def reorder
-    Cms::Category.find(params[:id]).insert_at(params[:position].to_i)
+
+    Cms::Category.find(params[:id]).insert_at(params[:position].to_i) if params[:position]
     render :nothing => true
   rescue ActiveRecord::RecordNotFound
     render :nothing => true
@@ -76,7 +77,7 @@ protected
       current_type = params.fetch(:type, categorized_types.first)
       session[:current_type] = current_type
     end
-    session[:current_type]
+    session[:current_type] || categorized_types.first
   end
 
   def collected_type_formatted
