@@ -73,7 +73,6 @@ class Cms::Page < ActiveRecord::Base
   default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)
   scope :unpublished, where(:is_published => false)
-  scope :blog_pages, where(:parent_id => self.find_by_slug('blog'))
 
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

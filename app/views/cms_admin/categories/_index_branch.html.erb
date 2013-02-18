@@ -7,9 +7,13 @@
       </div>
     </div>
     <div class='action_links'>
-      <%= link_to t('.edit'), edit_cms_admin_site_category_path(@site, category) %>
-      <%= link_to t('.delete'), cms_admin_site_category_path(@site, category, :from_crud => true),
+
+      <%= link_to t('.edit'), edit_cms_admin_site_category_path(@site, category,
+        :type => collected_type) %>
+
+      <%= link_to t('.delete'), cms_admin_site_category_path(@site, category,:type => collected_type),
         :method => :delete, :data => {:confirm => t('.are_you_sure')} %>
+
     </div>
     <div class='label'>
       <%= category.label %>

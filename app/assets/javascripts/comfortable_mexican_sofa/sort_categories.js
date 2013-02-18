@@ -1,3 +1,9 @@
+/*
+* This Sort Strategy is done with just two database updates
+* The first one to update all the records bellow the current category
+* The second one to update all the records upon the current category
+*/
+
 (function($) {
   $('.sortable_unitary').sortable({
     handle: '.dragger',
@@ -5,18 +11,20 @@
     previous_position: null,
 
     start: function(event, ui) {
+      // the start position before the drag operation
       this.previous_position = ui.item.siblings().andSelf().index(ui.item);
     },
 
     update: function(event, ui){
       var self = this;
-      var position = ui.item.siblings().andSelf().index(ui.item) + 1; //acts_as_list top position is 1
+      //acts_as_list top position is 1
+      var position = ui.item.siblings().andSelf().index(ui.item) + 1;
       ui.item.find('.dragger').addClass('processing');
       var item_id = parseInt(ui.item.attr('id').split('_').pop());
       $('.sortable_unitary').sortable("disable");
       var current_path = window.location.pathname;
       $.post(current_path + '/reorder', '_method=put&id=' + item_id + '&position=' + position)
-        .error(function(){
+        .error(function() {
           var siblings = ui.item.siblings();
           var last_element;
           var offset;

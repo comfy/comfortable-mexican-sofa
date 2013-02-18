@@ -1,4 +1,5 @@
-<%= link_to span_tag(t('.new_link')), new_cms_admin_site_category_path(@site), :class => 'big button' %>
+<%= link_to span_tag(t('.new_link')),
+  new_cms_admin_site_category_path(@site, :type => collected_type), :class => 'big button' %>
 
 <h1> <%= t('.title')%> </h1>
 

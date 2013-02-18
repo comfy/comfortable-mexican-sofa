@@ -4,6 +4,7 @@
   <%= render :partial => 'cms_admin/sites/mirrors', :object => @category %>
 <% end %>
 
-<%= comfy_form_for @category, :as => :category, :url => {:action => :update}, :html => {:multipart => true} do |form| %>
-  <%= render :partial => 'crud_form', :locals => { :form => form }  %>
+<%= comfy_form_for @category, :as => :category,
+  :url => {:action => :update}, :html => {:multipart => true} do |form| %>
+  <%= render :partial => 'category_form', :locals => { :form => form }  %>
 <% end %>

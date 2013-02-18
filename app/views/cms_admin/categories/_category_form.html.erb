@@ -1,6 +1,7 @@
 <div class="field">
-  <%= hidden_field :from_crud, :value => true %>
+  <%= hidden_field_tag :type, params[:type] %>
   <%= form.text_field :label %>
+  <%= form.hidden_field :categorized_type, :value => collected_type_formatted(params[:type]) %>
 </div>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>

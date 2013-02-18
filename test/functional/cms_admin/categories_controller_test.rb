@@ -79,6 +79,7 @@ class CmsAdmin::CategoriesControllerTest < ActionController::TestCase
     category_A.reload
     category_B.reload
 
+    # the positions must to switch after the reorder request
     assert_equal category_A.position, 2
     assert_equal category_B.position, 1
   end
@@ -88,6 +89,7 @@ class CmsAdmin::CategoriesControllerTest < ActionController::TestCase
     category_A = site.categories.create(:label => "A", :categorized_type => "Cms::File", :position => 1)
     category_B = site.categories.create(:label => "B", :categorized_type => "Cms::File", :position => 2)
 
+    # a reorder request without a position parameter
     put :reorder, {:site_id => site, :id => category_B}
     assert_response :success
 
@@ -95,6 +97,7 @@ class CmsAdmin::CategoriesControllerTest < ActionController::TestCase
     category_A.reload
     category_B.reload
 
+    # the positions must to stay unchanged after the reorder request
     assert_equal category_A.position, 1
     assert_equal category_B.position, 2
   end
