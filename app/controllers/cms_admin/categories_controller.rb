@@ -68,8 +68,8 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   # params: +position+ the position to be take by the category
   # +id+ the ID of category to be reorder.
   def reorder
-    unless params[:position].blank?
-      Cms::Category.find(params[:id].to_i).insert_at(params[:position].to_i)
+    if params[:position].present?
+      Cms::Category.find(params[:id]).insert_at(params[:position].to_i)
     end
     render :nothing => true
   rescue ActiveRecord::RecordNotFound
