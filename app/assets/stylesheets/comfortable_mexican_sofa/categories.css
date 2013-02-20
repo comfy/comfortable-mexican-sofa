@@ -1,0 +1,60 @@
+#cms_body ul.list li .item .icon .dragger.processing{
+  background-image: none;
+  background-image: url(/assets/comfortable_mexican_sofa/cms_activity.gif);
+  background-repeat: no-repeat;
+  background-position: 2px;
+  cursor: default;
+  display: block;
+}
+
+#cms_body .category_scopes {
+  margin-bottom: 10px;
+  background-color: #252525;
+  padding: 5px 5px 0px 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+#cms_body .category_scopes .label {
+  float: left;
+  font: 12px 'Lucida Grande', Tahoma, sans-serif;
+  width: 100px;
+ }
+
+#cms_body .category_scopes a.action_link {
+  float: right;
+  margin-left: 10px;
+  padding: 2px 4px;
+  border: 0px;
+ }
+
+#cms_body .category_scopes .categorized_type {
+  overflow: hidden;
+  margin: 0px 50px 0px 110px;
+}
+
+#cms_body .category_scopes .type {
+  float: left;
+  overflow: hidden;
+  border-radius: 3px;
+  background-color: #484848;
+  padding: 3px 5px;
+  margin: 0px 5px 5px 0px;
+}
+
+#cms_body .category_scopes .type.active {
+  background-color: #f7f7f7;
+}
+
+#cms_body .categories_widget .category.active a:hover {
+  color: #000;
+}
+#cms_body .category_scopes .type a {
+  float: left;
+  color: #a3a3a3;
+  font: 9px/9px Arial, serif;
+  text-transform: uppercase;
+}
+
+#cms_body .category_scopes .type a:hover {
+  color: #fff;
+}

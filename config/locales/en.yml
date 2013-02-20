@@ -39,13 +39,13 @@ en:
         description: Description
       cms/snippet:
         identifier: Identifier
-        
+
   # -- Controllers ----------------------------------------------------------
   cms:
     base:
       site_not_found: Site not found
       fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
-      
+
     sites:
       created: Site created
       creation_failure: Failed to create site
@@ -53,7 +53,7 @@ en:
       update_failure: Failed to update site
       deleted: Site deleted
       not_found: Site not found
-      
+
     layouts:
       created: Layout created
       creation_failure: Failed to create layout
@@ -61,7 +61,7 @@ en:
       update_failure: Failed to update layout
       deleted: Layout deleted
       not_found: Layout not found
-      
+
     pages:
       created: Page created
       creation_failure: Failed to create page
@@ -70,7 +70,7 @@ en:
       deleted: Page deleted
       not_found: Page not found
       layout_not_found: No Layouts found. Please create one.
-      
+
     snippets:
       created: Snippet created
       creation_failure: Failed to create snippet
@@ -78,12 +78,12 @@ en:
       update_failure: Failed to update snippet
       deleted: Snippet deleted
       not_found: Snippet not found
-      
+
     revisions:
       reverted: Content Reverted
       record_not_found: Record Not Found
       not_found: Revision Not Found
-      
+
     files:
       created: Files uploaded
       creation_failure: Failed to upload files
@@ -91,12 +91,20 @@ en:
       update_failure: Failed to update file
       deleted: File deleted
       not_found: File not found
-      
+
     content:
       site_not_found: Site Not Found
       layout_not_found: Layout Not Found
       page_not_found: Page Not Found
-  
+
+    categories:
+      created: Category created
+      creation_failure: Failed to create category
+      updated: Category updated
+      update_failure: Failed to update category
+      deleted: Category deleted
+      not_found: Category not found
+
   # -- Views ----------------------------------------------------------------
   cms_admin:
     base:
@@ -105,7 +113,7 @@ en:
       pages: Pages
       snippets: Snippets
       files: Files
-      
+
     sites:
       index:
         title: Sites
@@ -121,7 +129,7 @@ en:
       form:
         create: Create Site
         update: Update Site
-        
+
     layouts:
       index:
         title: Layouts
@@ -141,7 +149,7 @@ en:
         select_app_layout: Select Application Layout
         create: Create Layout
         update: Update Layout
-      
+
     pages:
       index:
         title: Pages
@@ -166,7 +174,7 @@ en:
         no_tags: |-
           Layout has no content tags defined.<br/>
           Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
-      
+
     snippets:
       index:
         title: Snippets
@@ -182,7 +190,7 @@ en:
       form:
         create: Create Snippet
         update: Update Snippet
-          
+
     revisions:
       show:
         title: Revisions for
@@ -191,7 +199,7 @@ en:
         slug: Slug
         update: Update to this Revision
         current: Current
-      
+
     files:
       index:
         title: Files
@@ -212,21 +220,39 @@ en:
         are_you_sure: Are you sure?
       file:
         are_you_sure: Are you sure?
-        
+
     categories:
       index:
+        type: Categorized Type
+        no_records: 'There are no categories of type %{type}'
+        title: Categories
+        new_link: Create New Category
         label: Categories
         edit: Edit
         done: Done
         all: All
         add: Add
+        synch_failed: "Please Try again..."
+      index_branch:
+        edit: Edit
+        type: Categorized Type
+        delete: Delete
+        are_you_sure: Are you Sure?
+      new:
+        title: New Category
+      action_new:
+        title: New Category
       show:
         are_you_sure: Are you sure?
       edit:
+        title: Edit Category
         save: Save
       form:
         label: Categories
-        
+      form_action:
+        cancel: Cancel
+        submit: Submit Category
+
     dialogs:
       image:
         insert: Insert Image

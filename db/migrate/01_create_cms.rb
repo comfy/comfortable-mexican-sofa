@@ -1,14 +1,14 @@
 class CreateCms < ActiveRecord::Migration
-  
+
   def self.up
-    
+
     text_limit = case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL'
         { }
       else
         { :limit => 16777215 }
       end
-    
+
     # -- Sites --------------------------------------------------------------
     create_table :cms_sites do |t|
       t.string :label,        :null => false
@@ -20,7 +20,7 @@ class CreateCms < ActiveRecord::Migration
     end
     add_index :cms_sites, :hostname
     add_index :cms_sites, :is_mirrored
-    
+
     # -- Layouts ------------------------------------------------------------
     create_table :cms_layouts do |t|
       t.integer :site_id,     :null => false
@@ -37,7 +37,7 @@ class CreateCms < ActiveRecord::Migration
     end
     add_index :cms_layouts, [:parent_id, :position]
     add_index :cms_layouts, [:site_id, :identifier], :unique => true
-    
+
     # -- Pages --------------------------------------------------------------
     create_table :cms_pages do |t|
       t.integer :site_id,         :null => false
@@ -56,7 +56,7 @@ class CreateCms < ActiveRecord::Migration
     end
     add_index :cms_pages, [:site_id, :full_path]
     add_index :cms_pages, [:parent_id, :position]
-    
+
     # -- Page Blocks --------------------------------------------------------
     create_table :cms_blocks do |t|
       t.integer   :page_id,     :null => false
@@ -65,7 +65,7 @@ class CreateCms < ActiveRecord::Migration
       t.timestamps
     end
     add_index :cms_blocks, [:page_id, :identifier]
-    
+
     # -- Snippets -----------------------------------------------------------
     create_table :cms_snippets do |t|
       t.integer :site_id,     :null => false
@@ -78,7 +78,7 @@ class CreateCms < ActiveRecord::Migration
     end
     add_index :cms_snippets, [:site_id, :identifier], :unique => true
     add_index :cms_snippets, [:site_id, :position]
-    
+
     # -- Files --------------------------------------------------------------
     create_table :cms_files do |t|
       t.integer :site_id,           :null => false
@@ -95,7 +95,7 @@ class CreateCms < ActiveRecord::Migration
     add_index :cms_files, [:site_id, :file_file_name]
     add_index :cms_files, [:site_id, :position]
     add_index :cms_files, [:site_id, :block_id]
-    
+
     # -- Revisions -----------------------------------------------------------
     create_table :cms_revisions, :force => true do |t|
       t.string    :record_type, :null => false
@@ -104,15 +104,16 @@ class CreateCms < ActiveRecord::Migration
       t.datetime  :created_at
     end
     add_index :cms_revisions, [:record_type, :record_id, :created_at]
-    
+
     # -- Categories ---------------------------------------------------------
     create_table :cms_categories, :force => true do |t|
       t.integer :site_id,          :null => false
       t.string  :label,            :null => false
       t.string  :categorized_type, :null => false
+      t.integer :position,         :null => false, :default => 0
     end
     add_index :cms_categories, [:site_id, :categorized_type, :label], :unique => true
-    
+
     create_table :cms_categorizations, :force => true do |t|
       t.integer :category_id,       :null => false
       t.string  :categorized_type,  :null => false
@@ -121,7 +122,7 @@ class CreateCms < ActiveRecord::Migration
     add_index :cms_categorizations, [:category_id, :categorized_type, :categorized_id], :unique => true,
       :name => 'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
   end
-  
+
   def self.down
     drop_table :cms_sites
     drop_table :cms_layouts
