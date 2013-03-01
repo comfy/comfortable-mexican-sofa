@@ -13,7 +13,6 @@ Features
 * [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
 * [Great reusable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area)
-* Almost no 3rd party library dependencies
 
 Installation
 ------------
@@ -56,4 +55,4 @@ For more information please [see Wiki pages](https://github.com/comfy/comfortabl
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE) 
 
-Copyright 2009-2011 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
+Copyright 2009-2013 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
