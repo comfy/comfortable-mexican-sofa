@@ -29,8 +29,10 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  unless Rails.version <= '3.2.0'
+    # Raise exception on mass assignment protection for Active Record models
+    config.active_record.mass_assignment_sanitizer = :strict
+  end
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr

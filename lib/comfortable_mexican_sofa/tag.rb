@@ -37,7 +37,7 @@ module ComfortableMexicanSofa::Tag
       if match = tag_signature.match(regex_tag_signature)
         
         params = begin
-          (CSV.parse_line(match[2].to_s, (RUBY_VERSION < '1.9.2' ? ':' : {:col_sep => ':'})) || []).compact
+          (CSV.parse_line(match[2].to_s, :col_sep => ':') || []).compact
         rescue
           []
         end.map{|p| p.gsub(/\\|'/) { |c| "\\#{c}" } }
