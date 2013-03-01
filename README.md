@@ -5,7 +5,7 @@ ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 
 Features
 --------
-* Simple integration with Rails 3 apps (with or without assets pipeline)
+* Simple integration with Rails 3 apps. Supports Rails 3.1, 3.2 running Ruby 1.9.2, 1.9.3 or 2.0.0
 * Build your application in Rails, not in CMS
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
