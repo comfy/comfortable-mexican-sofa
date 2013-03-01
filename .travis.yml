@@ -19,5 +19,4 @@ branches:
     - master
 matrix:
   allow_failures:
-    - rvm: 2.0.0
     - gemfile: test/gemfiles/Gemfile.rails.4.0
