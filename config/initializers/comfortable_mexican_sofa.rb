@@ -93,7 +93,7 @@ ComfortableMexicanSofa.configure do |config|
   
   # Site aliases, if you want to have aliases for your site. Good for harmonizing 
   # production env with dev/testing envs.
-  # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
+  # e.g. config.hostname_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   #   config.hostname_aliases = nil
   
