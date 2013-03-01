@@ -1,5 +1,5 @@
 %ul.navigation
-  %li= active_link_to t('cms_admin.base.sites'), cms_admin_sites_path, :active => :exclusive
+  %li= active_link_to t('cms_admin.base.sites'), cms_admin_sites_path, :active => ['cms_admin/sites']
   
   - if @site && !@site.new_record?
     %li= active_link_to t('cms_admin.base.layouts'), cms_admin_site_layouts_path(@site)
