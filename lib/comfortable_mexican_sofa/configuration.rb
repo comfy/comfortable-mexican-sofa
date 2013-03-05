@@ -85,7 +85,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_redirect = ''
     @use_default_routes   = true
     @enable_sitemap       = true
-    @upload_file_options  = { }
+    @upload_file_options  = { :s3_protocol => '' }
     @enable_fixtures      = false
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit      = 25
