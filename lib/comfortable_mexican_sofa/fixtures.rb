@@ -101,7 +101,7 @@ module ComfortableMexicanSofa::Fixtures
           page.label = attributes[:label] || slug.titleize
           page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
-          page.is_published = attributes[:is_published].present?? attributes[:is_published] : true
+          page.is_published = attributes[:is_published].nil?? true : attributes[:is_published]
           page.position = attributes[:position] if attributes[:position]
         end
       elsif page.new_record?
