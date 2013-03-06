@@ -10,6 +10,7 @@ module ComfortableMexicanSofa::Fixtures
     export_layouts  from_site, to_folder
     export_pages    from_site, to_folder
     export_snippets from_site, to_folder
+    export_categories from_site, to_folder
   end
   
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [])
@@ -101,7 +102,7 @@ module ComfortableMexicanSofa::Fixtures
           page.label = attributes[:label] || slug.titleize
           page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
-          page.is_published = attributes[:is_published].nil? ? true: attributes[:is_published]
+          page.is_published = attributes[:is_published].nil?? true : attributes[:is_published]
           page.position = attributes[:position] if attributes[:position]
         end
       elsif page.new_record?
@@ -260,6 +261,31 @@ module ComfortableMexicanSofa::Fixtures
         end
       end
     end
+  end
+
+  def self.export_categories(from_site, to_folder = nil)
+    return unless site = Cms::Site.find_by_identifier(from_site)
+    return unless category = Cms::Category.where(:site_id => site.id)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path,(to_folder || site.identifier),'categories')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    category.each do |site_category|
+      category_label = site_category.label
+      category_path = File.join(path,site_category.label)
+      FileUtils.mkdir_p(category_path)
+      pages = []
+      Cms::Categorization.where(:category_id => site_category.id).each do |page_refs|
+        pages << Cms::Page.where(:id => page_refs.categorized_id).first.slug
+      end
+      open(File.join(category_path,"_#{category_label}.yml"), 'w') do |f|
+        f.write({
+          'label' => category_label,
+          'site' => from_site,
+          'pages' => pages
+        }.to_yaml)
+      end
+    end
+
   end
   
   def self.export_snippets(from_site, to_folder = nil)
