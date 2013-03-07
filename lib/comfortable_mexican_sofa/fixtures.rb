@@ -214,19 +214,25 @@ module ComfortableMexicanSofa::Fixtures
     
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       identifier = path.split('/').last 
-      category = Cms::Category.where(:site_id => site.id).where(:label => identifier).where(:categorized_type => Cms::Page).first_or_create()     
     
-      #updating categoriztaions
+      #updating categorizations
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
         attributes =YAML.load_file(file_path).try(:symbolize_keys!) || {}
+        #category = Cms::Category.where(:site_id => site.id).where(:label => identifier).where(:categorized_type => attributes[:categorized_type]).first_or_create()     
+        category = Cms::Category.where(:site_id => site.id, :label => identifier, :categorized_type => attributes[:categorized_type]).first_or_create()
         attributes[:pages].each do |slug|
-          Cms::Categorization.where(:category_id => category.id).where(:categorized_type => Cms::Page).where(:categorized_id => site.pages.where(:slug => slug).first.id).first_or_create()
+          if site.pages.where(:slug => slug).present?
+            #Cms::Categorization.where(:category_id => category.id).where(:categorized_type => Cms::Page).where(:categorized_id => site.pages.where(:slug => slug).first.id).first_or_create()
+            Cms::Categorization.where(:category_id => category.id, :categorized_type => attributes[:categorized_type]).where(:categorized_id => site.pages.where(:slug => slug).first.id).first_or_create() 
+          else
+            ComfortableMexicanSofa.logger.warn("[Fixtures] failed to assign category \"#{identifier}\" to page \"#{slug}\" in \"#{to_site}\". Page does not exist!!")
+          end
         end
       end
     
     end
 
-
+    ComfortableMexicanSofa.logger.warn('Imported Categories')
   end
 
 
@@ -297,6 +303,7 @@ module ComfortableMexicanSofa::Fixtures
     FileUtils.mkdir_p(path)
     category.each do |site_category|
       category_label = site_category.label
+      category_categorized_type = site_category.categorized_type
       category_path = File.join(path,site_category.label)
       FileUtils.mkdir_p(category_path)
       pages = []
@@ -305,8 +312,7 @@ module ComfortableMexicanSofa::Fixtures
       end
       open(File.join(category_path,"_#{category_label}.yml"), 'w') do |f|
         f.write({
-          'label' => category_label,
-          'site' => from_site,
+          'categorized_type' => category_categorized_type,
           'pages' => pages
         }.to_yaml)
       end
