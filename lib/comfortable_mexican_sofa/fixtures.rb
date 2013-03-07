@@ -220,8 +220,9 @@ module ComfortableMexicanSofa::Fixtures
         attributes =YAML.load_file(file_path).try(:symbolize_keys!) || {}
         category = Cms::Category.where(:site_id => site.id, :label => identifier, :categorized_type => attributes[:categorized_type]).first_or_create()
         attributes[:pages].each do |slug|
-          if site.pages.where(:slug => slug).present?
-            Cms::Categorization.where(:category_id => category.id, :categorized_type => attributes[:categorized_type]).where(:categorized_id => site.pages.where(:slug => slug).first.id).first_or_create() 
+          page_from_slug = site.pages.where(:slug => slug)
+          if page_from_slug.present?
+            Cms::Categorization.where(:category_id => category.id, :categorized_type => attributes[:categorized_type], :categorized_id => page_from_slug.first.id).first_or_create() 
           else
             ComfortableMexicanSofa.logger.warn("[Fixtures] failed to assign category \"#{identifier}\" to page \"#{slug}\" in \"#{to_site}\". Page does not exist!!")
           end
