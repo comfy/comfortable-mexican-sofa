@@ -1,16 +1,16 @@
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_site, from_folder = nil)
-    import_layouts  to_site, from_folder
-    import_pages    to_site, from_folder
-    import_snippets to_site, from_folder
+    import_layouts    to_site, from_folder
+    import_pages      to_site, from_folder
+    import_snippets   to_site, from_folder
     import_categories to_site, from_folder
   end
   
   def self.export_all(from_site, to_folder = nil)
-    export_layouts  from_site, to_folder
-    export_pages    from_site, to_folder
-    export_snippets from_site, to_folder
+    export_layouts    from_site, to_folder
+    export_pages      from_site, to_folder
+    export_snippets   from_site, to_folder
     export_categories from_site, to_folder
   end
 
