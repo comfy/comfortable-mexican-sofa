@@ -4,6 +4,7 @@ module ComfortableMexicanSofa::Fixtures
     import_layouts  to_site, from_folder
     import_pages    to_site, from_folder
     import_snippets to_site, from_folder
+    import_categories to_site, from_folder
   end
   
   def self.export_all(from_site, to_folder = nil)
@@ -12,7 +13,7 @@ module ComfortableMexicanSofa::Fixtures
     export_snippets from_site, to_folder
     export_categories from_site, to_folder
   end
-  
+
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [])
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'layouts')
@@ -204,6 +205,31 @@ module ComfortableMexicanSofa::Fixtures
     ComfortableMexicanSofa.logger.warn('Imported Snippets!')
   end
   
+  def self.import_categories(to_site, from_folder = nil)
+    site = Cms::Site.find_by_identifier(to_site)
+    unless path = find_fixtures_path((from_folder || to_site), 'categories')
+      ComfortableMexicanSofa.logger.warn('Cannot find category fixtures')
+    return []
+    end
+    
+    Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
+      identifier = path.split('/').last 
+      category = Cms::Category.where(:site_id => site.id).where(:label => identifier).where(:categorized_type => Cms::Page).first_or_create()     
+    
+      #updating categoriztaions
+      if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
+        attributes =YAML.load_file(file_path).try(:symbolize_keys!) || {}
+        attributes[:pages].each do |slug|
+          Cms::Categorization.where(:category_id => category.id).where(:categorized_type => Cms::Page).where(:categorized_id => site.pages.where(:slug => slug).first.id).first_or_create()
+        end
+      end
+    
+    end
+
+
+  end
+
+
   def self.export_layouts(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'layouts')
