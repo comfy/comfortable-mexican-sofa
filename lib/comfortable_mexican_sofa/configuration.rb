@@ -11,21 +11,9 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
 
-  # Default url to access admin area is http://yourhost/cms-admin/
-  # You can change 'cms-admin' to 'admin', for example.
-  attr_accessor :admin_route_prefix
-
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
   attr_accessor :admin_route_redirect
-
-  # Normally we include default routes from https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/routes.rb
-  # If you want to include the routes manually set this to false
-  attr_accessor :use_default_routes
-
-  # /sitemap.xml that is used by search engines for indexing. It's enabled by
-  # default, but you may turn it off.
-  attr_accessor :enable_sitemap
 
   # Upload settings
   attr_accessor :upload_file_options
@@ -74,16 +62,14 @@ class ComfortableMexicanSofa::Configuration
   # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   attr_accessor :hostname_aliases
-
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
     @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
-    @admin_route_prefix   = 'cms-admin'
     @admin_route_redirect = ''
-    @use_default_routes   = true
     @enable_sitemap       = true
     @upload_file_options  = { }
     @enable_fixtures      = false

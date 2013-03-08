@@ -3,9 +3,6 @@
   %title= ComfortableMexicanSofa.config.cms_title
   = csrf_meta_tag
   
-  %meta{:name => "cms-admin-path", :content => ComfortableMexicanSofa.config.admin_route_prefix}
-  %meta{:name => "cms-site-id", :content => @site.try(:id)}
-  
   = stylesheet_link_tag 'comfortable_mexican_sofa/application'
   = javascript_include_tag 'comfortable_mexican_sofa/application'
   
