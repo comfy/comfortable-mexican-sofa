@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2013-03-02"
+  s.date = "2013-03-08"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -180,6 +180,7 @@ Gem::Specification.new do |s|
     "lib/comfortable_mexican_sofa/fixtures.rb",
     "lib/comfortable_mexican_sofa/form_builder.rb",
     "lib/comfortable_mexican_sofa/render_methods.rb",
+    "lib/comfortable_mexican_sofa/routing.rb",
     "lib/comfortable_mexican_sofa/sitemap.rb",
     "lib/comfortable_mexican_sofa/tag.rb",
     "lib/comfortable_mexican_sofa/tags/asset.rb",
@@ -242,7 +243,6 @@ Gem::Specification.new do |s|
     "test/integration/fixtures_test.rb",
     "test/integration/mirrors_test.rb",
     "test/integration/render_cms_test.rb",
-    "test/integration/routing_extensions_test.rb",
     "test/integration/sites_test.rb",
     "test/integration/view_hooks_test.rb",
     "test/test_helper.rb",
