@@ -117,6 +117,7 @@ Gem::Specification.new do |s|
     "app/views/layouts/cms_admin.html.haml",
     "app/views/layouts/cms_admin/_body.html.haml",
     "app/views/layouts/cms_admin/_center.html.haml",
+    "app/views/layouts/cms_admin/_footer.html.haml",
     "app/views/layouts/cms_admin/_head.html.haml",
     "app/views/layouts/cms_admin/_left.html.haml",
     "app/views/layouts/cms_admin/_right.html.haml",
