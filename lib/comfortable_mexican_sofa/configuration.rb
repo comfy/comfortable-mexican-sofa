@@ -75,6 +75,10 @@ class ComfortableMexicanSofa::Configuration
   # Default is nil (not used)
   attr_accessor :hostname_aliases
 
+  # Ability to activate or deactivate the feature catching all routes
+  # and searching for cms pages. True by default.
+  attr_accessor :enable_catch_all
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -108,6 +112,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @enable_catch_all     = true
   end
 
 end
