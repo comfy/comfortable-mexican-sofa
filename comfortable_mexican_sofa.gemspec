@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/icon_site.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_snippet.gif",
     "app/assets/images/comfortable_mexican_sofa/nav_arrow.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/admin/applications.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/admin/application.js",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/bootstrap-datetimepicker.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/bootstrap-wysihtml5.js",
