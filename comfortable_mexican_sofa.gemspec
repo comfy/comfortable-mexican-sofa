@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "The Working Group Inc"]
-  s.date = "2013-03-13"
+  s.date = "2013-03-15"
   s.description = ""
   s.email = "oleg@theworkinggroup.ca"
   s.extra_rdoc_files = [
@@ -36,14 +36,14 @@ Gem::Specification.new do |s|
     "app/assets/images/comfortable_mexican_sofa/icon_site.gif",
     "app/assets/images/comfortable_mexican_sofa/icon_snippet.gif",
     "app/assets/images/comfortable_mexican_sofa/nav_arrow.png",
-    "app/assets/javascripts/comfortable_mexican_sofa/admin.js",
+    "app/assets/javascripts/comfortable_mexican_sofa/admin/applications.js",
     "app/assets/javascripts/comfortable_mexican_sofa/application.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/bootstrap-datetimepicker.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/bootstrap-wysihtml5.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/bootstrap.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/codemirror.js",
     "app/assets/javascripts/comfortable_mexican_sofa/lib/wysihtml5.js",
-    "app/assets/stylesheets/comfortable_mexican_sofa/admin.css.sass",
+    "app/assets/stylesheets/comfortable_mexican_sofa/admin/application.css",
     "app/assets/stylesheets/comfortable_mexican_sofa/application.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/base.css.sass",
     "app/assets/stylesheets/comfortable_mexican_sofa/bootstrap_overrides.css.sass",
