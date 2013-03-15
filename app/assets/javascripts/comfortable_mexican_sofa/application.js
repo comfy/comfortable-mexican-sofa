@@ -6,7 +6,6 @@
 //= require comfortable_mexican_sofa/lib/wysihtml5
 //= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
 //= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
-//= require comfortable_mexican_sofa/admin
 
 $.CMS = function(){
 
