@@ -1,9 +1,9 @@
 module ComfortableMexicanSofa::Fixtures
   
-  def self.import_all(to_site, from_folder = nil)
-    import_layouts  to_site, from_folder
-    import_pages    to_site, from_folder
-    import_snippets to_site, from_folder
+  def self.import_all(to_site, from_folder = nil, force_import = false)
+    import_layouts  to_site, from_folder, force_import
+    import_pages    to_site, from_folder, force_import
+    import_snippets to_site, from_folder, force_import
   end
   
   def self.export_all(from_site, to_folder = nil)
@@ -12,7 +12,7 @@ module ComfortableMexicanSofa::Fixtures
     export_snippets from_site, to_folder
   end
   
-  def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [])
+  def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [], force_import = false)
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'layouts')
       ComfortableMexicanSofa.logger.warn('Cannot find Layout fixtures')
@@ -25,7 +25,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
-        if layout.new_record? || File.mtime(file_path) > layout.updated_at
+        if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
           attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           layout.label      = attributes[:label] || identifier.titleize
           layout.app_layout = attributes[:app_layout] || parent.try(:app_layout)
@@ -38,17 +38,17 @@ module ComfortableMexicanSofa::Fixtures
       
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
-        if layout.new_record? || File.mtime(file_path) > layout.updated_at
+        if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
           layout.content = File.open(file_path).read
         end
       end
       if File.exists?(file_path = File.join(path, 'css.css'))
-        if layout.new_record? || File.mtime(file_path) > layout.updated_at
+        if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
           layout.css = File.open(file_path).read
         end
       end
       if File.exists?(file_path = File.join(path, 'js.js'))
-        if layout.new_record? || File.mtime(file_path) > layout.updated_at
+        if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
           layout.js = File.open(file_path).read
         end
       end
@@ -79,7 +79,7 @@ module ComfortableMexicanSofa::Fixtures
     layout_ids.uniq
   end
   
-  def self.import_pages(to_site, from_folder = nil, path = nil, root = true, parent = nil, page_ids = [])
+  def self.import_pages(to_site, from_folder = nil, path = nil, root = true, parent = nil, page_ids = [], force_import = false)
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'pages')
       ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
@@ -96,7 +96,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
-        if page.new_record? || File.mtime(file_path) > page.updated_at
+        if page.new_record? || File.mtime(file_path) > page.updated_at || force_import
           attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           page.label = attributes[:label] || slug.titleize
           page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
@@ -115,7 +115,7 @@ module ComfortableMexicanSofa::Fixtures
       Dir.glob("#{path}/*.html").each do |file_path|
         identifier = file_path.split('/').last.gsub(/\.html$/, '')
         blocks_to_clear.delete(identifier)
-        if page.new_record? || File.mtime(file_path) > page.updated_at
+        if page.new_record? || File.mtime(file_path) > page.updated_at || force_import
           blocks_attributes << {
             :identifier => identifier,
             :content    => File.open(file_path).read
@@ -157,7 +157,7 @@ module ComfortableMexicanSofa::Fixtures
     page_ids.uniq
   end
   
-  def self.import_snippets(to_site, from_folder = nil)
+  def self.import_snippets(to_site, from_folder = nil, force_import = false)
     site = Cms::Site.find_or_create_by_identifier(to_site)
     unless path = find_fixtures_path((from_folder || to_site), 'snippets')
       ComfortableMexicanSofa.logger.warn('Cannot find Snippet fixtures')
@@ -171,7 +171,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{identifier}.yml"))
-        if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
+        if snippet.new_record? || File.mtime(file_path) > snippet.updated_at || force_import
           attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
           snippet.label = attributes[:label] || identifier.titleize
         end
@@ -181,7 +181,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # updating content
       if File.exists?(file_path = File.join(path, 'content.html'))
-        if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
+        if snippet.new_record? || File.mtime(file_path) > snippet.updated_at || force_import
           snippet.content = File.open(file_path).read
         end
       end
