@@ -205,9 +205,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_layouts(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'layouts')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'layouts', to_folder)
     
     site.layouts.each do |layout|
       layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
@@ -235,9 +233,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_pages(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'pages')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'pages', to_folder)
     
     site.pages.each do |page|
       page.slug = 'index' if page.slug.blank?
@@ -264,9 +260,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_snippets(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'snippets')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'snippets', to_folder)
     
     site.snippets.each do |snippet|
       FileUtils.mkdir_p(snippet_path = File.join(path, snippet.identifier))
@@ -280,6 +274,13 @@ module ComfortableMexicanSofa::Fixtures
   end
   
 protected
+
+  def self.prepare_export_path(site, subfolder, to_folder = nil)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), subfolder)
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    path
+  end
   
   def self.find_fixtures_path(identifier, dir)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, identifier, dir)
