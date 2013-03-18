@@ -10,6 +10,7 @@ module ComfortableMexicanSofa::Fixtures
     export_layouts  from_site, to_folder
     export_pages    from_site, to_folder
     export_snippets from_site, to_folder
+    export_files    from_site, to_folder
   end
   
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [])
@@ -269,6 +270,27 @@ module ComfortableMexicanSofa::Fixtures
       end
       open(File.join(snippet_path, 'content.html'), 'w') do |f|
         f.write(snippet.content)
+      end
+    end
+  end
+
+  def self.export_files(from_site, to_folder = nil)
+    require 'net/http'
+
+    return unless site = Cms::Site.find_by_identifier(from_site)
+    path = prepare_export_path(site, 'files', to_folder)
+    
+    site.files.each do |file|
+      target_file = "#{path}/#{file.id}_#{file.file_file_name}"
+      if file.file.options[:storage] == :filesystem
+        src_file = file.file.path
+        FileUtils.cp(src_file, target_file)
+      else
+        src_file = file.file.url(:original, false)
+        File.open(target_file, 'w') do |file|
+          response = Net::HTTP.get_response(URI.parse(src_file))
+          file.write response.body
+        end
       end
     end
   end
