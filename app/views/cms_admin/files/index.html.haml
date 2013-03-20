@@ -9,7 +9,9 @@
     - @files.each do |file|
       %tr{:id => dom_id(file)}
         %td
-          .icon
+          - if file.is_image?
+            - icon_style = "background: url('#{file.file.url(:cms_thumb)}') no-repeat scroll 0 0 / 100% auto transparent;"
+          .icon{style: icon_style}
             - if !params[:category].present? && @site.files.count > 1
               .dragger
                 %span &#8645;
