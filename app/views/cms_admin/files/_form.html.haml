@@ -2,9 +2,9 @@
 = form.file_field :file, :multiple => @file.new_record?
 
 - unless @file.new_record?
-  = form.element t('.current_file'), nil do
-    = link_to @file.file.url, @file.file.url, :target => '_blank'
+  = form.element t('.current_file') do
     = image_tag @file.file.url if @file.is_image?
+    = link_to @file.file.url, @file.file.url, :target => '_blank'
 
 = form.text_area :description
 
