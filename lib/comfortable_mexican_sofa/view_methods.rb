@@ -15,7 +15,11 @@ module ComfortableMexicanSofa::ViewMethods
   # Content of a snippet. Example:
   #   cms_snippet_content(:my_snippet)
   def cms_snippet_content(identifier, cms_site = nil)
-    return '' unless cms_site ||= (@cms_site || Cms::Site.find_site(request.host.downcase, request.fullpath))
+    unless cms_site
+      host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
+      cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
+    end
+    return '' unless cms_site 
     case identifier
     when Cms::Snippet
       snippet = identifier

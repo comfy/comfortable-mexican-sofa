@@ -6,12 +6,22 @@ class ViewMethodsTest < ActionView::TestCase
   
   class ::HelpersTestController < ActionController::Base
     helper { def hello; 'hello' end }
+
     def test_cms_snippet_content
       render :inline => '<%= cms_snippet_content(:default) %>'
     end
+
     def test_cms_page_content
       @cms_page = Cms::Page.root
       render :inline => '<%= cms_page_content(:default_field_text) %>'
+    end
+  end
+
+  class ::HelperTestMailer < ActionMailer::Base
+    def test_cms_snippet_content_in_mailer
+      mail(:to => "a@test.com", :subject => "test") do |format|
+        format.text { render :inline => '<%= cms_snippet_content(:default) %>' }
+      end
     end
   end
   
@@ -19,7 +29,15 @@ class ViewMethodsTest < ActionView::TestCase
   def action_result(action)
     HelpersTestController.action(action).call(ActionController::TestRequest.new.env).last.body
   end
-  
+
+  def mail_result(mail)
+    HelperTestMailer.send(mail).body.to_s
+  end
+
+  def test_cms_snippet_content_in_mailer
+    assert_equal 'default_snippet_content', mail_result('test_cms_snippet_content_in_mailer')
+  end
+
   def test_cms_snippet_content
     assert_equal 'default_snippet_content', action_result('test_cms_snippet_content')
   end
