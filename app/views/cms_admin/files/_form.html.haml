@@ -4,6 +4,7 @@
 - unless @file.new_record?
   = form.element t('.current_file'), nil do
     = link_to @file.file.url, @file.file.url, :target => '_blank'
+    = image_tag @file.file.url if @file.is_image?
 
 = form.text_area :description
 
