@@ -118,16 +118,21 @@ class CmsSiteTest < ActiveSupport::TestCase
     
     assert_equal site_a,  Cms::Site.find_site('test.host')
     assert_equal site_a,  Cms::Site.find_site('test.host', '/some/path')
+    assert_equal site_a,  Cms::Site.find_site('test.host', '/some/path')
     assert_equal nil,     Cms::Site.find_site('test99.host', '/some/path')
     
     assert_equal nil,     Cms::Site.find_site('test2.host')
     assert_equal nil,     Cms::Site.find_site('test2.host', '/some/path')
     assert_equal site_b,  Cms::Site.find_site('test2.host', '/en')
-    assert_equal site_b,  Cms::Site.find_site('test2.host', '/en/some/path')
+    assert_equal site_b,  Cms::Site.find_site('test2.host', '/en?a=b')
+    assert_equal site_b,  Cms::Site.find_site('test2.host', '/en/some/path?a=b')
+    
     assert_equal nil,     Cms::Site.find_site('test2.host', '/english/some/path')
     
     assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr')
+    assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr?a=b')
     assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr/some/path')
+    assert_equal site_c,  Cms::Site.find_site('test2.host', '/fr/some/path?a=b')
   end
   
   def test_find_site_with_site_alias
