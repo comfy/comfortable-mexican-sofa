@@ -6,6 +6,7 @@ end
 [ 'comfortable_mexican_sofa/version',
   'comfortable_mexican_sofa/error',
   'comfortable_mexican_sofa/configuration',
+  'comfortable_mexican_sofa/routing',
   'comfortable_mexican_sofa/authentication/http_auth',
   'comfortable_mexican_sofa/authentication/dummy_auth',
   'comfortable_mexican_sofa/render_methods',

@@ -13,22 +13,9 @@ ComfortableMexicanSofa.configure do |config|
   # your logic. Default module doesn't do anything.
   #   config.public_auth = 'ComfortableMexicanSofa::DummyAuth'
   
-  # Default url to access admin area is http://yourhost/cms-admin/ 
-  # You can change 'cms-admin' to 'admin', for example. To disable admin area
-  # entirely set this to '' or nil
-  #   config.admin_route_prefix = 'cms-admin'
-  
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
   #   config.admin_route_redirect = ''
-  
-  # Normally we include default routes from https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/routes.rb
-  # If you want to include the routes manually set this to false
-  #   config.use_default_routes = true
-  
-  # /sitemap.xml that is used by search engines for indexing. It's enabled by
-  # default, but you may turn it off.
-  #   config.enable_sitemap = true
   
   # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:

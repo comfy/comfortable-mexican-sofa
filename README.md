@@ -13,7 +13,7 @@ Features
 * Multilingual
 * [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
-* [Great reusable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area)
+* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [WYSIHTML5](http://xing.github.com/wysihtml5/)
 
 Installation
 ------------
@@ -27,6 +27,13 @@ Then from the Rails project's root run:
     rails generate comfy:cms
     rake db:migrate
     
+Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item.
+
+```ruby
+ComfortableMexicanSofa::Routing.admin   :path => '/cms-admin'
+ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
+```
+
 When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)
     
 Quick Start Guide
@@ -39,12 +46,14 @@ Before creating pages and populating them with content we need to create a Site.
 
 After creating a Site, you need to make a Layout. Layout is the template of your pages; it defines some reusable content (like header and footer, for example) and places where the content goes. A very simple layout can look like this:
     
-    <html>
-      <body>
-        <h1>{{ cms:page:header:string }}</h1>
-        {{ cms:page:content:text }}
-      </body>
-    </html>
+```html
+<html>
+  <body>
+    <h1>{{ cms:page:header:string }}</h1>
+    {{ cms:page:content:text }}
+  </body>
+</html>
+```
 
 Once you have a layout, you may start creating pages and populating content. It's that easy.
 

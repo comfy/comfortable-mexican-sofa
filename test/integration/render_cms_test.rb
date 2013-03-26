@@ -3,6 +3,7 @@ require File.expand_path('../test_helper', File.dirname(__FILE__))
 class RenderCmsTest < ActionDispatch::IntegrationTest
   
   def setup
+    super
     Rails.application.routes.draw do
       get '/render-basic'   => 'render_test#render_basic'
       get '/render-page'    => 'render_test#render_page'
@@ -12,11 +13,10 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     cms_pages(:child).update_attributes(:blocks_attributes => [
       { :identifier => 'content', :content => 'TestBlockContent' }
     ])
-    super
   end
   
   def teardown
-    load(File.expand_path('config/routes.rb', Rails.root))
+    Rails.application.reload_routes!
   end
   
   def create_site_b

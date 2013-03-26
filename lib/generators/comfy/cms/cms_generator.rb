@@ -25,6 +25,14 @@ module Comfy
           'config/initializers/comfortable_mexican_sofa.rb'
       end
       
+      def generate_routing
+        route "
+  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
+  
+  # Make sure this routeset is defined last
+  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)"
+      end
+      
       def generate_cms_seeds
         directory 'db/cms_fixtures', 'db/cms_fixtures'
       end
