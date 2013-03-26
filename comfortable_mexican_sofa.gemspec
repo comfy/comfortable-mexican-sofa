@@ -11,9 +11,8 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
   s.summary       = "CMS Engine for Rails 3 apps"
   s.description   = "CMS Engine for Rails 3 apps"
-
   
-  s.files         = `git ls-files app lib`.split("\n")
+  s.files         = `git ls-files`.split("\n")
   s.platform      = Gem::Platform::RUBY
   s.require_paths = ['lib']
   s.rubyforge_project = '[none]'
