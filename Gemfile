@@ -6,5 +6,4 @@ gem 'paperclip',      '>= 2.3.0'
 
 group :test do
   gem 'sqlite3'
-  gem 'jeweler'
 end
