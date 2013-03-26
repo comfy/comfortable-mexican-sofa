@@ -12,3 +12,4 @@ public/*
 Gemfile.lock
 .rvmrc
 /.sass-cache
+/coverage
