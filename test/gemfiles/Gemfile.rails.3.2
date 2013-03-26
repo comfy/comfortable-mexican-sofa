@@ -12,5 +12,4 @@ gem 'coffee-rails',   '>= 3.1.0'
 
 group :test do
   gem 'sqlite3'
-  gem 'jeweler'
 end
