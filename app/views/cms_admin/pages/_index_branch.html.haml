@@ -31,5 +31,5 @@
         = link_to page.url, page.url, :target => '_blank'
         
   - if !category_view && has_children && branch_open
-    %ul.children
+    %ul.children.sortable
       = render :partial => 'index_branch', :collection => children
