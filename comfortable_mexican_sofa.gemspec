@@ -16,4 +16,8 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
   s.require_paths = ['lib']
   s.rubyforge_project = '[none]'
+  
+  s.add_dependency 'rails',          '>= 3.0.0'
+  s.add_dependency 'active_link_to', '~> 1.0.0'
+  s.add_dependency 'paperclip',      '>= 2.3.0'
 end
