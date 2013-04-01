@@ -1,12 +1,12 @@
 class CmsAdmin::FilesController < CmsAdmin::BaseController
   
-  skip_before_filter :load_fixtures
+  skip_before_action :load_fixtures
   
-  before_filter :load_file, :only => [:edit, :update, :destroy]
+  before_action :load_file, :only => [:edit, :update, :destroy]
   
   def index
     return redirect_to :action => :new if @site.files.count == 0
-    @files = @site.files.includes(:categories).for_category(params[:category]).all(:order => 'cms_files.position')
+    @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
   end
   
   def new

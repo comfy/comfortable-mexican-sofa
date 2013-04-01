@@ -1,7 +1,7 @@
 class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 
-  before_filter :build_layout,  :only => [:new, :create]
-  before_filter :load_layout,   :only => [:edit, :update, :destroy]
+  before_action :build_layout,  :only => [:new, :create]
+  before_action :load_layout,   :only => [:edit, :update, :destroy]
 
   def index
     return redirect_to :action => :new if @site.layouts.count == 0

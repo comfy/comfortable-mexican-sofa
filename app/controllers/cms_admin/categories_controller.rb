@@ -1,6 +1,6 @@
 class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   
-  before_filter :load_category,  :only => [:edit, :update, :destroy]
+  before_action :load_category,  :only => [:edit, :update, :destroy]
   
   def edit
     render

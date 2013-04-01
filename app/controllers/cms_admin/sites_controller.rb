@@ -1,10 +1,10 @@
 class CmsAdmin::SitesController < CmsAdmin::BaseController
 
-  skip_before_filter  :load_admin_site,
+  skip_before_action  :load_admin_site,
                       :load_fixtures
 
-  before_filter :build_site,  :only => [:new, :create]
-  before_filter :load_site,   :only => [:edit, :update, :destroy]
+  before_action :build_site,  :only => [:new, :create]
+  before_action :load_site,   :only => [:edit, :update, :destroy]
 
   def index
     return redirect_to :action => :new if Cms::Site.count == 0

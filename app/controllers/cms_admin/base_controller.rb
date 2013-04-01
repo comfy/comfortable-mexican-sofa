@@ -5,7 +5,7 @@ class CmsAdmin::BaseController < ApplicationController
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
 
-  before_filter :authenticate,
+  before_action :authenticate,
                 :load_admin_site,
                 :set_locale,
                 :load_fixtures,
