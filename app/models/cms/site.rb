@@ -55,7 +55,7 @@ class Cms::Site < ActiveRecord::Base
   # When removing entire site, let's not destroy content from other sites
   # Since before_destroy doesn't really work, this does the trick
   def destroy
-    self.class.where(:is_mirrored => false).update_all(:id => self.id) if self.is_mirrored?
+    self.class.where(:id => self.id).update_all(:is_mirrored => false) if self.is_mirrored?
     super
   end
 

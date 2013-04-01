@@ -69,7 +69,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     
     new_category = cms_sites(:default).categories.create!(:label => 'Test Category', :categorized_type => 'Cms::File')
     new_category.categorizations.create!(:categorized => cms_files(:default))
-    assert_equal 1, Cms::File.for_category(category.label, new_category.label).count
+    assert_equal 1, Cms::File.for_category(category.label, new_category.label).to_a.size
     assert_equal 1, Cms::File.for_category(category.label, new_category.label).count('cms_files.id', :distinct => true)
   end
   

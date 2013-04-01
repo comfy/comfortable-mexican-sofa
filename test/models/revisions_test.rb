@@ -68,10 +68,10 @@ class RevisionsTest < ActiveSupport::TestCase
       revision = page.revisions.first
       assert_equal ({
         'blocks_attributes' => [
-          { :identifier => 'default_field_text',
-            :content    => 'default_field_text_content' },
-          { :identifier => 'default_page_text',
-            :content    => "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }]
+          { 'identifier'  => 'default_field_text',
+            'content'     => 'default_field_text_content' },
+          { 'identifier'  => 'default_page_text',
+            'content'     => "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }]
       }), revision.data
     end
   end

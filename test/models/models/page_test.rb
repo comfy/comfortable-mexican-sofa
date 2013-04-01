@@ -197,7 +197,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)
     
-    page.update_attributes({:content => 'changed'}, :without_protection => true)
+    page.update_attributes(:content => 'changed')
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)
     assert_not_equal 'changed', page.read_attribute(:content)
