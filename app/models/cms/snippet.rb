@@ -28,7 +28,7 @@ class Cms::Snippet < ActiveRecord::Base
     :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_snippets.position')
+  default_scope -> { order('cms_snippets.position') }
   
 protected
   
@@ -40,7 +40,7 @@ protected
   # gotta reload every single page. Kinda sucks, but might be ok unless there
   # are hundreds of pages.
   def clear_cached_page_content
-    site.pages.all.each do |p|
+    site.pages.each do |p|
       Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
     end
   end

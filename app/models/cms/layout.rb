@@ -29,7 +29,7 @@ class Cms::Layout < ActiveRecord::Base
     :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_layouts.position')
+  default_scope -> { order('cms_layouts.position') }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts

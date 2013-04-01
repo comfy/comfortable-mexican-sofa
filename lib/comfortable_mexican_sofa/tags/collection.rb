@@ -44,7 +44,7 @@ class ComfortableMexicanSofa::Tag::Collection
   # `args` will be the set of `collection_params`
   def collection_objects
     klass = self.collection_class.constantize
-    klass.respond_to?(:cms_collection) ? klass.cms_collection(*collection_params).all : klass.all
+    klass.respond_to?(:cms_collection) ? klass.cms_collection(*collection_params) : klass.none
   end
   
   def content

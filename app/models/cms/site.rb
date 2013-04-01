@@ -33,14 +33,14 @@ class Cms::Site < ActiveRecord::Base
     :format     => { :with => /\A[\w\.\-]+(?:\:\d+)?\z/ }
     
   # -- Scopes ---------------------------------------------------------------
-  scope :mirrored, where(:is_mirrored => true)
+  scope :mirrored, -> { where(:is_mirrored => true) }
   
   # -- Class Methods --------------------------------------------------------
   # returning the Cms::Site instance based on host and path
   def self.find_site(host, path = nil)
     return Cms::Site.first if Cms::Site.count == 1
     cms_site = nil
-    Cms::Site.find_all_by_hostname(real_host_from_aliases(host)).each do |site|
+    Cms::Site.where(:hostname => real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
       elsif "#{path.to_s.split('?')[0]}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
@@ -55,7 +55,7 @@ class Cms::Site < ActiveRecord::Base
   # When removing entire site, let's not destroy content from other sites
   # Since before_destroy doesn't really work, this does the trick
   def destroy
-    self.class.update_all({:is_mirrored => false}, :id => self.id) if self.is_mirrored?
+    self.class.where(:is_mirrored => false).update_all(:id => self.id) if self.is_mirrored?
     super
   end
 

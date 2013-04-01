@@ -48,8 +48,8 @@ class Cms::Page < ActiveRecord::Base
   validate :validate_format_of_unescaped_slug
   
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_pages.position')
-  scope :published, where(:is_published => true)
+  default_scope -> { order('cms_pages.position') }
+  scope :published, -> { where(:is_published => true) }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

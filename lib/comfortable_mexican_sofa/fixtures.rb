@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::Fixtures
   end
   
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [], force_import = false)
-    site = Cms::Site.find_or_create_by_identifier(to_site)
+    site = Cms::Site.find_or_create_by(:identifier => to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'layouts')
       ComfortableMexicanSofa.logger.warn('Cannot find Layout fixtures')
       return []
@@ -80,7 +80,7 @@ module ComfortableMexicanSofa::Fixtures
   end
   
   def self.import_pages(to_site, from_folder = nil, path = nil, root = true, parent = nil, page_ids = [], force_import = false)
-    site = Cms::Site.find_or_create_by_identifier(to_site)
+    site = Cms::Site.find_or_create_by(:identifier => to_site)
     unless path ||= find_fixtures_path((from_folder || to_site), 'pages')
       ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
       return []
@@ -158,7 +158,7 @@ module ComfortableMexicanSofa::Fixtures
   end
   
   def self.import_snippets(to_site, from_folder = nil, force_import = false)
-    site = Cms::Site.find_or_create_by_identifier(to_site)
+    site = Cms::Site.find_or_create_by(:identifier => to_site)
     unless path = find_fixtures_path((from_folder || to_site), 'snippets')
       ComfortableMexicanSofa.logger.warn('Cannot find Snippet fixtures')
       return []
