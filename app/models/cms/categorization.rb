@@ -4,8 +4,6 @@ class Cms::Categorization < ActiveRecord::Base
   
   self.table_name = 'cms_categorizations'
   
-  attr_accessible :categorized
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :category
   belongs_to :categorized,

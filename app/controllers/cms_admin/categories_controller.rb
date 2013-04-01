@@ -7,14 +7,14 @@ class CmsAdmin::CategoriesController < CmsAdmin::BaseController
   end
   
   def create
-    @category = @site.categories.create!(params[:category])
+    @category = @site.categories.create!(category_params)
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     render :nothing => true
   end
   
   def update
-    @category.update_attributes!(params[:category])
+    @category.update_attributes!(category_params)
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     render :nothing => true
@@ -30,6 +30,10 @@ protected
     @category = @site.categories.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :nothing => true
+  end
+  
+  def category_params
+    params[:category].permit!
   end
   
 end

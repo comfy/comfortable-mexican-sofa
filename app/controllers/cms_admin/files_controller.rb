@@ -21,11 +21,11 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
         label       = params[:file][:label]
         
         file_array.each_with_index do |file, i|
-          file_params = params[:file].merge(:file => file)
-          if file_array.size > 1 && file_params[:label].present?
-            label = file_params[:label] + " #{i + 1}"
+          file_attrs = file_params.merge(:file => file)
+          if file_array.size > 1 && file_attrs[:label].present?
+            label = file_attrs[:label] + " #{i + 1}"
           end
-          @file = @site.files.create!(file_params.merge(:label => label))
+          @file = @site.files.create!(file_attrs.merge(:label => label))
         end
         
         flash[:success] = I18n.t('cms.files.created')
@@ -73,7 +73,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   end
   
   def update
-    @file.update_attributes!(params[:file])
+    @file.update_attributes!(file_params)
     flash[:success] = I18n.t('cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
@@ -110,4 +110,9 @@ protected
     flash[:error] = I18n.t('cms.files.not_found')
     redirect_to :action => :index
   end
+  
+  def file_params
+    params[:file].try(:permit!)
+  end
+  
 end

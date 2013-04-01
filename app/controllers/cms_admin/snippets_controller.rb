@@ -27,7 +27,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   end
 
   def update
-    @snippet.update_attributes!(params[:snippet])
+    @snippet.update_attributes!(snippet_params)
     flash[:success] = I18n.t('cms.snippets.updated')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
@@ -52,7 +52,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
 protected
 
   def build_snippet
-    @snippet = @site.snippets.new(params[:snippet])
+    @snippet = @site.snippets.new(snippet_params)
   end
 
   def load_snippet
@@ -60,5 +60,9 @@ protected
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.snippets.not_found')
     redirect_to :action => :index
+  end
+  
+  def snippet_params
+    params[:snippet].try(:permit!)
   end
 end

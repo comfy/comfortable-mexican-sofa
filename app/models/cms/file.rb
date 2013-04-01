@@ -10,14 +10,6 @@ class Cms::File < ActiveRecord::Base
   
   attr_accessor :dimensions
   
-  attr_accessible :site, :site_id,
-                  :file,
-                  :dimensions,
-                  :label,
-                  :description,
-                  :category_ids,
-                  :position
-  
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
     # dimensions accessor needs to be set before file assignment for this to work

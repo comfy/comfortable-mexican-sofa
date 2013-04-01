@@ -4,13 +4,6 @@ class Cms::Site < ActiveRecord::Base
   
   self.table_name = 'cms_sites'
   
-  attr_accessible :identifier,
-                  :label,
-                  :hostname,
-                  :path,
-                  :locale,
-                  :is_mirrored
-  
   # -- Relationships --------------------------------------------------------
   with_options :dependent => :destroy do |site|
     site.has_many :layouts
@@ -31,13 +24,13 @@ class Cms::Site < ActiveRecord::Base
   validates :identifier,
     :presence   => true,
     :uniqueness => true,
-    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
   validates :label,
     :presence   => true
   validates :hostname,
     :presence   => true,
     :uniqueness => { :scope => :path },
-    :format     => { :with => /^[\w\.\-]+(?:\:\d+)?$/ }
+    :format     => { :with => /\A[\w\.\-]+(?:\:\d+)?\z/ }
     
   # -- Scopes ---------------------------------------------------------------
   scope :mirrored, where(:is_mirrored => true)

@@ -27,7 +27,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
   end
 
   def update
-    @layout.update_attributes!(params[:layout])
+    @layout.update_attributes!(layout_params)
     flash[:success] = I18n.t('cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
@@ -52,7 +52,7 @@ class CmsAdmin::LayoutsController < CmsAdmin::BaseController
 protected
 
   def build_layout
-    @layout = @site.layouts.new(params[:layout])
+    @layout = @site.layouts.new(layout_params)
     @layout.parent  ||= Cms::Layout.find_by_id(params[:parent_id])
     @layout.content ||= '{{ cms:page:content:text }}'
   end
@@ -63,5 +63,9 @@ protected
     flash[:error] = I18n.t('cms.layouts.not_found')
     redirect_to :action => :index
   end
-
+  
+  def layout_params
+    params[:layout].try(:permit!)
+  end
+  
 end
