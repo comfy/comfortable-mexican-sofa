@@ -93,7 +93,7 @@ protected
 
   def load_cms_page
     @page = @site.pages.find(params[:id])
-    @page.attributes = params[:page]
+    @page.attributes = page_params
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.pages.not_found')
