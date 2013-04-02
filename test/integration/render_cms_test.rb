@@ -98,12 +98,6 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
     assert_equal 'TestText', response.body
   end
   
-  def test_update
-    return 'Not supported in >= 3.1' if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1
-    get '/render-basic?type=update'
-    assert_response :success
-  end
-  
   def test_implicit_cms_page_failure
     assert_exception_raised ActionView::MissingTemplate do
       get '/render-basic'
