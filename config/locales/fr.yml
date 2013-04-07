@@ -119,8 +119,8 @@ fr:
       edit:
         title: Modification du site
       form:
-        create: Créer
-        update: Modifier
+        create: Créer le site
+        update: Modifier le site
         
     layouts:
       index:
@@ -138,9 +138,9 @@ fr:
         revision: révision
       form:
         select_parent_layout: Sélectionner une mise en page parent
-        select_app_layout: Sélectionner une mise en page application
-        create: Créer
-        update: Modifier
+        select_app_layout: Sélectionner une mise en page de l'application
+        create: Créer la mise en page
+        update: Modifier la mise en page
       
     pages:
       index:
@@ -160,8 +160,8 @@ fr:
       form:
         select_target_page: Pas de redirection
         preview: Prévisualiser
-        create: Créer
-        update: Modifier
+        create: Créer la page
+        update: Modifier la page
       form_blocks:
         no_tags: |-
           Mise en page sans aucun tag de contenu.<br/>
@@ -175,13 +175,13 @@ fr:
         delete: Supprimer
         are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
       new:
-        title: Créer
+        title: Nouveau fragment
       edit:
         title: Modification du fragment
         revision: révision
       form:
-        create: Nouveau fragment
-        update: Modifier
+        create: Créer le fragment
+        update: Modifier le fragment
           
     revisions:
       show:
@@ -207,7 +207,7 @@ fr:
       form:
         current_file: Fichier actuel
         create: Envoyer
-        update: Modifier
+        update: Modifier le fichier
       page_form:
         are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
       file:
@@ -216,7 +216,7 @@ fr:
     categories:
       index:
         label: Catégories
-        edit: Modifier
+        edit: Modifier les catégories
         done: Terminé
         all: Tout
         add: Ajouter
