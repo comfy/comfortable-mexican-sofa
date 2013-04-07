@@ -121,6 +121,7 @@ pl:
       form:
         create: Utwórz witrynę
         update: Uaktualnij witrynę
+        is_mirrored: Mirror
         
     layouts:
       index:
@@ -162,6 +163,7 @@ pl:
         preview: Podgląd
         create: Utwórz stronę
         update: Uaktualnij stronę
+        is_published: Opublikowana
       form_blocks:
         no_tags: |-
           Szablon nie ma zdefiniowanych tagów<br/>

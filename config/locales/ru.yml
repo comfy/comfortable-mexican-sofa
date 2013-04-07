@@ -121,6 +121,7 @@ ru:
       form:
         create: Создать сайт
         update: Обновить сайт
+        is_mirrored: Синхронизирован с другими сайтами
 
     layouts:
       index:
@@ -162,6 +163,7 @@ ru:
         preview: Предпросмотр
         create: Создать страницу
         update: Обновить страницу
+        is_published: Опубликована
       form_blocks:
         no_tags: |-
           Шаблон не содержит ни одного контент-тега.<br/>

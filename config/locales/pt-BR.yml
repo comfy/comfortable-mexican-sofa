@@ -121,6 +121,7 @@ pt-BR:
       form:
         create: Criar Site
         update: Atualizar Site
+        is_mirrored: Espelhado
         
     layouts:
       index:
@@ -162,6 +163,7 @@ pt-BR:
         preview: Pré-visualização
         create: Criar Página
         update: Atualizar Página
+        is_published: Publicada
       form_blocks:
         no_tags: |-
           O leiaute não possui tags de conteúdo definidas.<br/>
