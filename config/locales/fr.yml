@@ -121,6 +121,7 @@ fr:
       form:
         create: Créer le site
         update: Modifier le site
+        is_mirrored: En miroir
         
     layouts:
       index:
@@ -162,6 +163,7 @@ fr:
         preview: Prévisualiser
         create: Créer la page
         update: Modifier la page
+        is_published: Publié
       form_blocks:
         no_tags: |-
           Mise en page sans aucun tag de contenu.<br/>

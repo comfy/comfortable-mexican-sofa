@@ -121,6 +121,7 @@ zh-CN:
       form:
         create: 创建站点
         update: 更新站点
+        is_mirrored: 镜像
 
     layouts:
       index:
@@ -162,6 +163,7 @@ zh-CN:
         preview: 预览
         create: 创建页面
         update: 更新页面
+        is_published: 发布
       form_blocks:
         no_tags: |-
           布局中没有定义内容标签。<br/>

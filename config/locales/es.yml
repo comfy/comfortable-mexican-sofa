@@ -121,6 +121,7 @@ es:
       form:
         create: Crear Sitio
         update: Actualizar Sitio
+        is_mirrored: Espejo
 
     layouts:
       index:
@@ -162,6 +163,7 @@ es:
         preview: Vista Previa
         create: Crear Página
         update: Actualizar Página
+        is_published: Publicada
       form_blocks:
         no_tags: |-
           La plantilla no tiene etiquetas de contenido definidas.<br/>
