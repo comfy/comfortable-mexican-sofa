@@ -11,4 +11,4 @@
     .details
       %input{:type => 'text', :value => file.file.url}
       .file-type= file.file_content_type
-      .file-size= number_to_human_size(file.file_file_size)
+      .file-size= number_to_human_size(file.file_file_size, :locale => :en)
