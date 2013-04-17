@@ -121,7 +121,8 @@ ja:
       form:
         create: サイトを作成
         update: サイトを更新
-        
+        is_mirrored: ミラーリング済み
+
     layouts:
       index:
         title: レイアウト
@@ -162,6 +163,7 @@ ja:
         preview: プレビュー
         create: ページを作成
         update: ページを更新
+        is_published: パブリッシュ済み
       form_blocks:
         no_tags: |-
           レイアウトにはコンテンツタグが定義されていません。<br/>
