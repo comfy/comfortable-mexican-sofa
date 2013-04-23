@@ -1,5 +1,5 @@
-# ComfortableMexicanSofa (Rails 3 CMS Engine) 
-[![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.png?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
+# ComfortableMexicanSofa (Rails 3 CMS Engine)
+[![Gem Version](https://badge.fury.io/rb/comfortable_mexican_sofa.png)](http://badge.fury.io/rb/comfortable_mexican_sofa) [![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.png?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
 
 ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 
