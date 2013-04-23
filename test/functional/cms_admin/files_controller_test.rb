@@ -31,6 +31,17 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     assert_equal 0, assigns(:files).count
   end
   
+  def test_get_index_as_ajax
+    get :index, :site_id => cms_sites(:default), :ajax => true
+    assert_response :success
+    r = JSON.parse(response.body)
+    file = cms_files(:default)
+    assert_equal [{
+      'thumb' => file.file.url(:cms_thumb),
+      'image' => file.file.url
+    }], r
+  end
+  
   def test_get_new
     site = cms_sites(:default)
     get :new, :site_id => site
@@ -61,7 +72,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       post :create, :site_id => cms_sites(:default), :file => {
         :label        => 'Test File',
         :description  => 'Test Description',
-        :file         => [fixture_file_upload('files/image.jpg', "image/jpeg")]
+        :file         => [fixture_file_upload('files/image.jpg', 'image/jpeg')]
       }
       assert_response :redirect
       file = Cms::File.last
@@ -90,8 +101,8 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
         :label        => 'Test File',
         :description  => 'Test Description',
         :file         => [
-          fixture_file_upload('files/image.jpg', "image/jpeg"),
-          fixture_file_upload('files/image.gif', "image/gif")
+          fixture_file_upload('files/image.jpg', 'image/jpeg'),
+          fixture_file_upload('files/image.gif', 'image/gif')
         ]
       }
       assert_response :redirect
@@ -110,18 +121,26 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     end
   end
   
-  def test_create_as_xhr
-    request.env['HTTP_X_FILE_NAME'] = 'image.jpg'
-    request.env['CONTENT_TYPE'] = 'image/jpeg'
-    request.env['RAW_POST_DATA'] = File.open(File.expand_path('../../fixtures/files/image.jpg', File.dirname(__FILE__)))
-    
+  def test_create_as_ajax
     assert_difference 'Cms::File.count' do
-      xhr :post, :create, :site_id => cms_sites(:default)
+      post :create,
+        :ajax     => true,
+        :site_id  => cms_sites(:default),
+        :file     => {
+          :file => [fixture_file_upload('files/image.jpg', 'image/jpeg')]
+        }
       assert_response :success
-      
       file = Cms::File.last
-      assert_equal 'image.jpg', file.file_file_name
-      assert_equal 'image/jpeg', file.file_content_type
+      r = JSON.parse(response.body)
+      assert_equal file.file.url, r['filelink']
+      assert_present r['view']
+    end
+  end
+  
+  def test_create_as_ajax_failure
+    assert_no_difference 'Cms::File.count' do
+      post :create, :ajax => true, :site_id => cms_sites(:default), :file => { }
+      assert_response :unprocessable_entity
     end
   end
   

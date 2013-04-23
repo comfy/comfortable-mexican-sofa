@@ -60,6 +60,12 @@ For more information please [see Wiki pages](https://github.com/comfy/comfortabl
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
+Help and Contact
+----------------
+
+GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
+Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
+
 ---
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE) 
