@@ -13,7 +13,6 @@ namespace :comfortable_mexican_sofa do
       from          = ENV['FROM']
       force_reload  = ENV['FORCE'].try(:downcase) != 'false'
 
-      
       puts "Importing CMS Fixtures from Folder [#{from}] to Site [#{to}] ..."
 
       # changing so that logger is going straight to screen
