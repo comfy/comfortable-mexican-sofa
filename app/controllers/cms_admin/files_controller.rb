@@ -6,10 +6,10 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   before_filter :load_file,   :only => [:edit, :update, :destroy]
   
   def index
-    @files = @site.files.includes(:categories).for_category(params[:category]).all(:order => 'cms_files.position')
+    @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
     
     if params[:ajax]
-      files = @files.collect do |file|
+      files = @files.images.collect do |file|
         { :thumb  => file.file.url(:cms_thumb),
           :image  => file.file.url }
       end
@@ -25,6 +25,14 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
 
   def create
     @files = []
+    
+    # Sometimes params[:file] comes in as a single file object
+    unless params[:file].is_a?(Hash)
+      uploaded_file = params[:file]
+      params[:file] = { }
+      params[:file][:file] = [uploaded_file]
+    end
+    
     file_array  = params[:file][:file] || [nil]
     label       = params[:file][:label]
         
