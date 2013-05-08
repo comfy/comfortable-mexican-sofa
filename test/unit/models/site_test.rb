@@ -105,9 +105,11 @@ class CmsSiteTest < ActiveSupport::TestCase
   end
   
   def test_find_site
-    site_a = cms_sites(:default)
+    Cms::Site.destroy_all
+    Cms::Site.create! identifier: "test_1", hostname: "test.host", path: nil
+    site_a = Cms::Site.first
     assert_equal 'test.host', site_a.hostname
-    assert_equal nil, site_a.path
+    assert_equal '', site_a.path
     
     assert_equal site_a, Cms::Site.find_site('test.host')
     assert_equal site_a, Cms::Site.find_site('test.host', '/some/path')

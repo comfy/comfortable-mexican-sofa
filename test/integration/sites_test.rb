@@ -19,6 +19,7 @@ class SitesTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_public_page_with_single_site
+    Cms::Site.where("hostname <> ?", 'test.host').destroy_all
     host! 'bogus.host'
     get '/'
     assert_response :success

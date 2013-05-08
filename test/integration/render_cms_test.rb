@@ -99,7 +99,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   end
   
   def test_update
-    return 'Not supported in >= 3.1' if Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1
+    return 'Not supported in >= 3.1' if Rails::VERSION::MAJOR > 3 || (Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR >= 1)
     get '/render-basic?type=update'
     assert_response :success
   end

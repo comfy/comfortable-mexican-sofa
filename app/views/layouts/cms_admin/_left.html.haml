@@ -6,5 +6,7 @@
     %li= active_link_to t('cms_admin.base.pages'), cms_admin_site_pages_path(@site)
     %li= active_link_to t('cms_admin.base.snippets'), cms_admin_site_snippets_path(@site)
     %li= active_link_to t('cms_admin.base.files'), cms_admin_site_files_path(@site)
+
+  %li= active_link_to t('cms_admin.base.users'), cms_admin_users_path
     
   = cms_hook :navigation

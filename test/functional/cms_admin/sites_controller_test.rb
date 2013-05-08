@@ -16,6 +16,14 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_redirected_to :action => :new
   end
 
+  def test_index_only_shows_users_site
+    sign_in cms_users(:normal_user)
+    get :index
+    assert_response :success
+    assert_equal 1, assigns(:sites).length
+    assert_equal [cms_sites(:users_site)], assigns(:sites)
+  end
+
   def test_get_new
     get :new
     assert_response :success
@@ -32,13 +40,6 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert assigns(:site)
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{site.id}]"
-  end
-
-  def test_get_edit_failure
-    get :edit, :id => 'not_found'
-    assert_response :redirect
-    assert_redirected_to :action => :index
-    assert_equal 'Site not found', flash[:error]
   end
   
   def test_create

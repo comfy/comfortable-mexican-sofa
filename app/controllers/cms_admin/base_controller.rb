@@ -23,11 +23,19 @@ class CmsAdmin::BaseController < ApplicationController
     load_admin_site
     redirect_to cms_admin_site_pages_path(@site) if @site
   end
+
+  def current_ability
+    @current_ability ||= Cms::Ability.new(current_cms_admin_user)
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to cms_admin_sites_path, :alert => exception.message
+  end
   
 protected
   
   def load_admin_site
-    if @site = Cms::Site.find_by_id(params[:site_id] || session[:site_id]) || Cms::Site.first
+    if @site = Cms::Site.accessible_by(current_ability).find_by_id(params[:site_id] || session[:site_id]) || Cms::Site.accessible_by(current_ability).first
       session[:site_id] = @site.id
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale

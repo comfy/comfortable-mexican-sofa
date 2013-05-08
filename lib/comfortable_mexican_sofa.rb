@@ -9,6 +9,7 @@ end
   'comfortable_mexican_sofa/routing',
   'comfortable_mexican_sofa/authentication/http_auth',
   'comfortable_mexican_sofa/authentication/dummy_auth',
+  'comfortable_mexican_sofa/authentication/devise_auth',
   'comfortable_mexican_sofa/render_methods',
   'comfortable_mexican_sofa/view_hooks',
   'comfortable_mexican_sofa/view_methods',

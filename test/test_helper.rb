@@ -22,7 +22,7 @@ class ActiveSupport::TestCase
   def reset_config
     ComfortableMexicanSofa.configure do |config|
       config.cms_title            = 'ComfortableMexicanSofa CMS Engine'
-      config.admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
+      config.admin_auth           = 'ComfortableMexicanSofa::DeviseAuth'
       config.public_auth          = 'ComfortableMexicanSofa::DummyAuth'
       config.admin_route_redirect = ''
       config.enable_fixtures      = false
@@ -43,8 +43,6 @@ class ActiveSupport::TestCase
       config.allowed_partials     = nil
       config.hostname_aliases     = nil
     end
-    ComfortableMexicanSofa::HttpAuth.username = 'username'
-    ComfortableMexicanSofa::HttpAuth.password = 'password'
   end
   
   # Example usage:
@@ -89,8 +87,14 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
+  include Devise::TestHelpers
+
   def setup
-    @request.env['HTTP_AUTHORIZATION'] = "Basic #{Base64.encode64('username:password')}"
+    sign_in an_admin
+  end
+
+  def an_admin
+    Cms::User.where(super_admin: true).first || raise("No admins in DB")
   end
 end
 
@@ -100,11 +104,22 @@ class ActionDispatch::IntegrationTest
     host! 'test.host'
     reset_config
   end
+
+  def login_as(user)
+    post_via_redirect '/cms-admin/users/sign_in', 'cms_admin_user[email]' => user.email,
+      'cms_admin_user[password]' => 'password'
+  end
+
+  def sign_out
+    delete destroy_cms_admin_user_session_path
+  end
   
   # Attaching http_auth stuff with request. Example use:
   #   http_auth :get, '/cms-admin/pages'
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
-    send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
+    admin = Cms::User.where(super_admin: true).first
+    post_via_redirect '/cms-admin/users/sign_in', 'cms_admin_user[email]' => admin.email, 'cms_admin_user[password]' => 'password'
+    send(method, path, options)
   end
 end
 

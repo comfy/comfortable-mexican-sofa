@@ -4,3 +4,10 @@ default:
   hostname: test.host
   path:
   is_mirrored: false
+
+users_site:
+  label: My Site
+  identifier: my-site
+  hostname: user-site.host
+  path:
+  is_mirrored: false

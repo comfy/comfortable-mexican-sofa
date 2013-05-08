@@ -15,25 +15,16 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_with_unauthorized_access
-    assert_equal 'ComfortableMexicanSofa::HttpAuth', ComfortableMexicanSofa.config.admin_auth
+    assert_equal 'ComfortableMexicanSofa::DeviseAuth', ComfortableMexicanSofa.config.admin_auth
+    delete '/cms-admin/users/sign_out'
     get '/cms-admin/sites'
-    assert_response :unauthorized
+    assert_response 302
     get '/'
     assert_response :success
   end
   
   def test_get_with_authorized_access
     http_auth :get, '/cms-admin/sites'
-    assert_response :success
-  end
-  
-  def test_get_with_changed_default_config
-    assert_equal 'ComfortableMexicanSofa::HttpAuth', ComfortableMexicanSofa.config.admin_auth
-    ComfortableMexicanSofa::HttpAuth.username = 'newuser'
-    ComfortableMexicanSofa::HttpAuth.password = 'newpass'
-    http_auth :get, '/cms-admin/sites'
-    assert_response :unauthorized
-    http_auth :get, '/cms-admin/sites', {}, 'newuser', 'newpass'
     assert_response :success
   end
   

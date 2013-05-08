@@ -151,7 +151,7 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def test_site_creation_as_mirror
     site = cms_sites(:default)
-    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    site.update_column(:is_mirrored, true) # bypassing callbacks
     
     assert_difference 'Cms::Site.count' do
       assert_difference 'Cms::Layout.count', site.layouts.count do

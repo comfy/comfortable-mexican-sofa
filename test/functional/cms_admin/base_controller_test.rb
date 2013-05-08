@@ -1,7 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsAdmin::BaseControllerTest < ActionController::TestCase
-
   def test_get_jump
     get :jump
     assert_response :redirect

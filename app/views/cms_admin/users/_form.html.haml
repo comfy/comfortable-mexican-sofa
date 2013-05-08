@@ -1,0 +1,7 @@
+= form.email_field :email
+= form.password_field :password
+= form.check_box :super_admin
+= form.text_field :site_tokens, label: t('.sites'), data: {load: @user.sites.map(&:attributes), source: cms_admin_sites_path(format: 'json')}
+
+.form-actions
+  = form.submit t(@user.new_record? ? '.create' : '.update'), class: 'btn btn-primary'

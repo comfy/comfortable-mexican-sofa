@@ -96,6 +96,12 @@ en:
       site_not_found: Site Not Found
       layout_not_found: Layout Not Found
       page_not_found: Page Not Found
+
+    users:
+      created: User created
+      creation_failure: Failed to create user
+      updated: User updated
+      update_failure: Failed to update user
   
   # -- Views ----------------------------------------------------------------
   cms_admin:
@@ -105,6 +111,7 @@ en:
       pages: Pages
       snippets: Snippets
       files: Files
+      users: Users
       
     sites:
       index:
@@ -228,6 +235,22 @@ en:
         save: Save
       form:
         label: Categories
+
+    users:
+      index:
+        title: Users
+        new_link: Create New User
+        edit: Edit
+        delete: Delete
+        are_you_sure: Are you sure you want to delete this user?
+      new:
+        title: New User
+      edit:
+        title: Editing User
+      form:
+        create: Create User
+        update: Update User
+        sites: Sites user can manage
         
     dialogs:
       image:

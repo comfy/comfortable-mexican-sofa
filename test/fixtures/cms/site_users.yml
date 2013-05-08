@@ -1,0 +1,3 @@
+normal_users_site:
+  site: users_site
+  user: normal_user

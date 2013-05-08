@@ -6,6 +6,8 @@ module ComfortableMexicanSofa::Routing
     Rails.application.routes.draw do
       namespace :cms_admin, :path => options[:path], :except => :show do
         get '/', :to => 'base#jump'
+        devise_for :users, class_name: "Cms::User", controllers: {sessions: "cms_admin/sessions"}
+        resources :users
         resources :sites do
           resources :pages do
             get  :form_blocks,    :on => :member

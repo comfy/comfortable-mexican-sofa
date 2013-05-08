@@ -176,6 +176,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_sitemap_with_path_invalid_with_single_site
+    Cms::Site.where("hostname <> ?", 'test.host').destroy_all
     site = cms_sites(:default)
     site.update_column(:path, 'en')
     

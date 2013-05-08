@@ -1,7 +1,6 @@
 require File.expand_path('../../test_helper', File.dirname(__FILE__))
 
 class CmsAdmin::CategoriesControllerTest < ActionController::TestCase
-  
   def test_get_edit
     xhr :get, :edit, :site_id => cms_sites(:default), :id => cms_categories(:default)
     assert_response :success

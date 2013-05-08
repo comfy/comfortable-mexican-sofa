@@ -36,4 +36,9 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Devise requires this.
+  config.action_mailer.default_url_options = { :host => 'localhost:5000' }
 end
+
+$stdout.sync = true

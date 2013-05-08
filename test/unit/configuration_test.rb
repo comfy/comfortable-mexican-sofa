@@ -7,7 +7,7 @@ class ConfigurationTest < ActiveSupport::TestCase
   def test_configuration_presence
     assert config = ComfortableMexicanSofa.configuration
     assert_equal 'ComfortableMexicanSofa CMS Engine', config.cms_title
-    assert_equal 'ComfortableMexicanSofa::HttpAuth', config.admin_auth
+    assert_equal 'ComfortableMexicanSofa::DeviseAuth', config.admin_auth
     assert_equal 'ComfortableMexicanSofa::DummyAuth', config.public_auth
     assert_equal '', config.admin_route_redirect
     assert_equal false, config.enable_fixtures

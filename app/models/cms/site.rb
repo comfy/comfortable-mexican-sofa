@@ -19,6 +19,9 @@ class Cms::Site < ActiveRecord::Base
     site.has_many :files
     site.has_many :categories
   end
+
+  has_many :site_users, dependent: :destroy, class_name: "Cms::SiteUser"
+  has_many :users, through: :site_users
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,

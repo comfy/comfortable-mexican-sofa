@@ -87,11 +87,6 @@ ComfortableMexicanSofa.configure do |config|
   
 end
 
-# Default credentials for ComfortableMexicanSofa::HttpAuth
-# YOU REALLY WANT TO CHANGE THIS BEFORE PUTTING YOUR SITE LIVE
-ComfortableMexicanSofa::HttpAuth.username = 'username'
-ComfortableMexicanSofa::HttpAuth.password = 'password'
-
 # If you need to inject some html in cms admin views you can define what partial
 # should be rendered into the following areas:
 #   ComfortableMexicanSofa::ViewHooks.add(:header, '/layouts/admin/header')

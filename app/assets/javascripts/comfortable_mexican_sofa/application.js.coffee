@@ -6,6 +6,7 @@
 #= require comfortable_mexican_sofa/lib/wysihtml5
 #= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
 #= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
+#= require comfortable_mexican_sofa/lib/jquery.tokeninput
 
 $ ->
   CMS.init()
@@ -25,6 +26,7 @@ window.CMS =
     CMS.page_update_preview()
     CMS.page_update_publish()
     CMS.categories()
+    CMS.users()
     CMS.uploader()
 
 
@@ -128,6 +130,11 @@ window.CMS.categories = ->
     $('.edit', '.categories-widget').toggle()
     $('.done', '.categories-widget').toggle()
 
+window.CMS.users = ->
+  $('#user_site_tokens').tokenInput $('#user_site_tokens').data('source'),
+    theme: 'facebook',
+    propertyToSearch: 'label',
+    prePopulate: $('#user_site_tokens').data('load')
 
 window.CMS.uploader = ->
   form    = $('.file-uploader form')

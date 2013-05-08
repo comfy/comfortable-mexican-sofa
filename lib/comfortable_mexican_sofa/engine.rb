@@ -9,6 +9,8 @@ require 'jquery-rails'
 require 'haml-rails'
 require 'sass-rails'
 require 'coffee-rails'
+require 'devise'
+require 'cancan'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine

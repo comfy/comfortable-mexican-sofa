@@ -19,8 +19,8 @@ class ViewMethodsTest < ActionView::TestCase
 
   class ::HelperTestMailer < ActionMailer::Base
     def test_cms_snippet_content_in_mailer
-      mail(:to => "a@test.com", :subject => "test") do |format|
-        format.text { render :inline => '<%= cms_snippet_content(:default) %>' }
+      m = mail(:to => "a@test.com", :subject => "test") do |format|
+        format.text { render :inline => '<%= cms_snippet_content(:default, Cms::Site.find_by_identifier("default-site")) %>' }
       end
     end
   end
