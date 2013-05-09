@@ -85,7 +85,9 @@ module ComfortableMexicanSofa::Fixtures
       ComfortableMexicanSofa.logger.warn('Cannot find Page fixtures')
       return []
     end
-    
+
+    target_page_resolver = {}
+
     Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
       slug = path.split('/').last
       page = if parent
@@ -103,6 +105,9 @@ module ComfortableMexicanSofa::Fixtures
           page.target_page = site.pages.find_by_full_path(attributes[:target_page])
           page.is_published = attributes[:is_published].nil?? true : attributes[:is_published]
           page.position = attributes[:position] if attributes[:position]
+
+          target_page_resolver[page] = attributes[:target_page]
+
         end
       elsif page.new_record?
         page.label = slug.titleize
@@ -145,6 +150,11 @@ module ComfortableMexicanSofa::Fixtures
       
       # checking for nested fixtures
       page_ids += import_pages(to_site, from_folder, path, false, page, page_ids)
+    end
+
+    target_page_resolver.each do |page, target_page_path|
+      page.target_page = site.pages.find_by_full_path(target_page_path)
+      page.save
     end
     
     # removing all db entries that are not in fixtures
@@ -243,13 +253,14 @@ module ComfortableMexicanSofa::Fixtures
       page.slug = 'index' if page.slug.blank?
       page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
       FileUtils.mkdir_p(page_path)
-      
+
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
         f.write({
           'label'         => page.label,
           'layout'        => page.layout.try(:identifier),
           'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-          'target_page'   => page.target_page.try(:slug),
+          #'target_page'   => page.target_page.try(:slug),
+          'target_page'   => page.target_page.try(:full_path),
           'is_published'  => page.is_published,
           'position'      => page.position
         }.to_yaml)
