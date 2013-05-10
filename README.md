@@ -15,6 +15,8 @@ version is not considered an 'upgrade' on vanilla. If you want to swap you must
 manually create a DB migration in your app to add the `cms_users` and
 `cms_site_users` tables.
 
+[Sample migration](https://github.com/homeserve-alliance/comfortable-mexican-sofa/blob/master/db/upgrade_migrations/add_devise.rb)
+
 Features
 --------
 * Simple integration with Rails 3 apps. Supports Rails 3.1, 3.2 running Ruby 1.9.2, 1.9.3 or 2.0.0
