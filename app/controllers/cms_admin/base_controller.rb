@@ -56,4 +56,5 @@ protected
       flash.now[:error] = I18n.t('cms.base.fixtures_enabled')
     end
   end
+
 end
