@@ -24,7 +24,7 @@ Full list of features added by this fork
 * Multi-user authentication through Devise and CanCan.
 * A hook called `snippet_form` to allow you to display some information on the
   snippet new/edit page in the administration panel.
-* Support for File fixtures.
+* Support for File fixtures but **no support for exporting. Import only**.
 
 Features
 --------

@@ -228,7 +228,7 @@ module ComfortableMexicanSofa::Fixtures
       end
       
       # updating file
-      if attributes[:file].present? and File.exists?(file_path = File.join(path, attributes[:file]))
+      if attributes and attributes[:file].present? and File.exists?(file_path = File.join(path, attributes[:file]))
         if file.new_record? || File.mtime(file_path) > file.updated_at || force_import
           f = File.open(file_path)
           file.file = f
