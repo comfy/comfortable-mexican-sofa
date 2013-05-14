@@ -6,9 +6,10 @@ ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 This fork
 ---------
 
-This fork of Comfy adds support for multi-user authentication through Devise
-and CanCan. This basically means you can have more than one user and users only
-have access to specific sites (set by a super admin).
+This fork of Comfy adds a few extra features, most notably support for
+multi-user authentication through Devise and CanCan. This basically means you
+can have more than one user and users only have access to specific sites (set
+by a super admin).
 
 **Important:** You cannot swap from the vanilla Comfy to this fork, as this
 version is not considered an 'upgrade' on vanilla. If you want to swap you must
@@ -16,6 +17,14 @@ manually create a DB migration in your app to add the `cms_users` and
 `cms_site_users` tables.
 
 [Sample migration](https://github.com/homeserve-alliance/comfortable-mexican-sofa/blob/master/db/upgrade_migrations/add_devise.rb)
+
+Full list of features added by this fork
+----------------------------------------
+
+* Multi-user authentication through Devise and CanCan.
+* A hook called `snippet_form` to allow you to display some information on the
+  snippet new/edit page in the administration panel.
+* Support for File fixtures.
 
 Features
 --------

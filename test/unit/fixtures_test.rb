@@ -226,16 +226,78 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal 'Default Snippet', snippet.label
     assert_equal 'default_snippet_content', snippet.content
   end
+
+  def test_import_files_creating
+    Cms::File.delete_all
+    
+    assert_difference 'Cms::File.count' do
+      ComfortableMexicanSofa::Fixtures.import_files('default-site', 'sample-site')
+      assert file = Cms::File.last
+      assert_equal 'default', file.label
+      assert_equal 'Default Fixture File', file.description
+      assert_equal 'image.jpg', file.file_file_name
+    end
+  end
+
+  def test_import_files_updating
+    file = cms_files(:default)
+    file.update_column(:updated_at, 10.years.ago)
+    assert_equal 'default', file.label
+    assert_equal 'Description', file.description
+    assert_equal 'sample.jpg', file.file_file_name
+    
+    assert_no_difference 'Cms::File.count' do
+      ComfortableMexicanSofa::Fixtures.import_files('default-site', 'sample-site')
+      file.reload
+      assert_equal 'default', file.label
+      assert_equal 'Default Fixture File', file.description
+      assert_equal 'image.jpg', file.file_file_name
+    end
+  end
+  
+  def test_import_files_deleting
+    file = cms_files(:default)
+    file.update_column(:label, 'old')
+    
+    assert_no_difference 'Cms::File.count' do
+      ComfortableMexicanSofa::Fixtures.import_files('default-site', 'sample-site')
+      assert file = Cms::File.last
+      assert_equal 'default', file.label
+      assert_equal 'Default Fixture File', file.description
+      assert_equal 'image.jpg', file.file_file_name
+      
+      assert_nil Cms::File.find_by_label('old')
+    end
+  end
+  
+  def test_import_files_ignoring
+    file = cms_files(:default)
+    file_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'files', 'default')
+    attr_file_path    = File.join(file_path, '_default.yml')
+    file_file_path    = File.join(file_path, 'image.jpg')
+    
+    assert file.updated_at >= File.mtime(attr_file_path)
+    assert file.updated_at >= File.mtime(file_file_path)
+    
+    ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
+    file.reload
+    assert_equal 'default', file.label
+    assert_equal 'Description', file.description
+    assert_equal 'sample.jpg', file.file_file_name
+  end
   
   def test_import_all
     Cms::Page.destroy_all
     Cms::Layout.destroy_all
     Cms::Snippet.destroy_all
+    Cms::File.destroy_all
     
     assert_difference 'Cms::Layout.count', 2 do
       assert_difference 'Cms::Page.count', 2 do
         assert_difference 'Cms::Snippet.count', 1 do
-          ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
+          assert_difference 'Cms::File.count', 1 do
+            ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
+          end
         end
       end
     end
@@ -248,7 +310,9 @@ class FixturesTest < ActiveSupport::TestCase
       assert_difference 'Cms::Layout.count', 2 do
         assert_difference 'Cms::Page.count', 2 do
           assert_difference 'Cms::Snippet.count', 1 do
-            ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
+            assert_difference 'Cms::File.count', 1 do
+              ComfortableMexicanSofa::Fixtures.import_all('default-site', 'sample-site')
+            end
           end
         end
       end

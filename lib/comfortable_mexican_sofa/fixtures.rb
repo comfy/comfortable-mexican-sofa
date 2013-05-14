@@ -4,6 +4,7 @@ module ComfortableMexicanSofa::Fixtures
     import_layouts  to_site, from_folder, nil, true, nil, [], force_import
     import_pages    to_site, from_folder, nil, true, nil, [], force_import
     import_snippets to_site, from_folder, force_import
+    import_files    to_site, from_folder, force_import
   end
   
   def self.export_all(from_site, to_folder = nil)
@@ -201,6 +202,55 @@ module ComfortableMexicanSofa::Fixtures
     # removing all db entries that are not in fixtures
     site.snippets.where('id NOT IN (?)', snippet_ids).each{ |s| s.destroy }
     ComfortableMexicanSofa.logger.warn('Imported Snippets!')
+  end
+
+  def self.import_files(to_site, from_folder = nil, force_import = false)
+    site = Cms::Site.find_or_create_by_identifier(to_site)
+    unless path = find_fixtures_path((from_folder || to_site), 'files')
+      ComfortableMexicanSofa.logger.warn('Cannot find Files fixtures')
+      return []
+    end
+    
+    file_ids = []
+    Dir.glob("#{path}/*").select{|f| File.directory?(f)}.each do |path|
+      label = path.split('/').last
+      file = site.files.find_by_label(label) || site.files.new(label: label)
+      
+      # updating attributes
+      if File.exists?(file_path = File.join(path, "_#{label}.yml"))
+        if file.new_record? || File.mtime(file_path) > file.updated_at || force_import
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
+          file.label = attributes[:label] || label
+          file.description = attributes[:description]
+        end
+      elsif file.new_record?
+        file.label = label
+      end
+      
+      # updating file
+      if attributes[:file].present? and File.exists?(file_path = File.join(path, attributes[:file]))
+        if file.new_record? || File.mtime(file_path) > file.updated_at || force_import
+          f = File.open(file_path)
+          file.file = f
+          f.close
+        end
+      end
+      
+      # saving
+      if file.changed?
+        if file.save
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Saved File {#{file.label}}")
+        else
+          ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save File {#{file.errors.inspect}}")
+          next
+        end
+      end
+      file_ids << file.id
+    end
+    
+    # removing all db entries that are not in fixtures
+    site.files.where('id NOT IN (?)', file_ids).each{ |s| s.destroy }
+    ComfortableMexicanSofa.logger.warn('Imported Files!')
   end
   
   def self.export_layouts(from_site, to_folder = nil)
