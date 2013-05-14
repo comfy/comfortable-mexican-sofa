@@ -13,6 +13,22 @@ default:
   css: default_css
   js: default_js
   position: 0
+
+users_default:
+  site: users_site
+  label: Default Layout
+  identifier: default
+  parent:
+  content: |-
+    {{cms:field:default_field_text:text}}
+    layout_content_a
+    {{cms:page:default_page_text:text}}
+    layout_content_b
+    {{cms:snippet:default}}
+    layout_content_c
+  css: default_css
+  js: default_js
+  position: 0
     
 nested:
   site: default

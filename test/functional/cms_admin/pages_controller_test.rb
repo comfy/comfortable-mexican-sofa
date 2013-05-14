@@ -206,6 +206,14 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_select "select[data-url=/cms-admin/sites/#{page.site.id}/pages/#{page.id}/form_blocks]"
   end
 
+  def test_get_edit_for_another_user
+    sign_in cms_users(:normal_user)
+    page = cms_pages(:default)
+    get :edit, :site_id => page.site, :id => page
+    assert_response 302
+    assert_match 'not authorized', flash[:error]
+  end
+
   def test_get_edit_failure
     get :edit, :site_id => cms_sites(:default), :id => 'not_found'
     assert_response :redirect
