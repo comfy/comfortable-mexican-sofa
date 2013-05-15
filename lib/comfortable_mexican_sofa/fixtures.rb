@@ -11,6 +11,7 @@ module ComfortableMexicanSofa::Fixtures
     export_layouts  from_site, to_folder
     export_pages    from_site, to_folder
     export_snippets from_site, to_folder
+    export_files    from_site, to_folder
   end
   
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [], force_import = false)
@@ -328,7 +329,26 @@ module ComfortableMexicanSofa::Fixtures
       end
     end
   end
-  
+
+  def self.export_files(from_site, to_folder = nil)
+    return unless site = Cms::Site.find_by_identifier(from_site)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'files')
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+
+    site.files.each do |file|
+      FileUtils.mkdir_p(file_path = File.join(path, file.label))
+      open(File.join(file_path, "_#{file.label}.yml"), "w") do |f|
+        f.write({
+          label: file.label,
+          description: file.description,
+          file: file.file_file_name
+        }.to_yaml)
+      end
+      file.file.copy_to_local_file :original, file_path
+    end
+  end
+
 protected
   
   def self.find_fixtures_path(identifier, dir)

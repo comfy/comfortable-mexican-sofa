@@ -12,14 +12,14 @@ class FixturesTest < ActiveSupport::TestCase
       
       assert layout = Cms::Layout.find_by_identifier('default')
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content.chomp
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       
       assert nested_layout = Cms::Layout.find_by_identifier('nested')
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content.chomp
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
     end
@@ -38,7 +38,7 @@ class FixturesTest < ActiveSupport::TestCase
       
       layout.reload
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content.chomp
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       assert_equal 0, layout.position
@@ -46,7 +46,7 @@ class FixturesTest < ActiveSupport::TestCase
       nested_layout.reload
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content.chomp
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
       assert_equal 42, nested_layout.position
@@ -411,9 +411,34 @@ class FixturesTest < ActiveSupport::TestCase
     
     FileUtils.rm_rf(host_path)
   end
+
+  def test_export_files
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
+    attr_path     = File.join(host_path, 'files/default/_default.yml')
+    file_path     = File.join(host_path, 'files/default/image.jpg')
+    label = 'default'
+
+    f = Cms::File.find_by_label(label)
+    f.file = File.open(Rails.root.join("test", "fixtures", "files", "image.jpg"))
+    f.save!
+    
+    ComfortableMexicanSofa::Fixtures.export_files('default-site', 'test-site')
+    
+    assert File.exists?(attr_path)
+    assert File.exists?(file_path)
+    assert_equal ({:label => label, :description => 'Description', :file => 'image.jpg'}), YAML.load_file(attr_path)
+    
+    FileUtils.rm_rf(host_path)
+  end
   
   def test_export_all
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
+
+    # Did no-one ever tell you not to talk to fixtures?
+    f = Cms::File.find_by_label('default')
+    f.file = File.open(Rails.root.join("test", "fixtures", "files", "image.jpg"))
+    f.save!
+
     ComfortableMexicanSofa::Fixtures.export_all('default-site', 'test-site')
     FileUtils.rm_rf(host_path)
   end
