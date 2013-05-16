@@ -144,28 +144,33 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_children_count_updating
     page_1 = cms_pages(:default)
     page_2 = cms_pages(:child)
-    assert_equal 1, page_1.children_count
-    assert_equal 0, page_2.children_count
+
+    page_1_start = 1
+    page_2_start = 1
+
+    assert_equal page_1_start, page_1.children_count
+    assert_equal page_2_start, page_2.children_count
     
     page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2))
     page_1.reload; page_2.reload
-    assert_equal 1, page_1.children_count
-    assert_equal 1, page_2.children_count
+    assert_equal page_1_start, page_1.children_count
+    assert_equal page_2_start+1, page_2.children_count
     assert_equal 0, page_3.children_count
     
     page_3.update_attributes!(:parent => page_1)
     page_1.reload; page_2.reload
-    assert_equal 2, page_1.children_count
-    assert_equal 0, page_2.children_count
+    assert_equal page_1_start+1, page_1.children_count
+    assert_equal page_2_start, page_2.children_count
     
     page_3.destroy
     page_1.reload; page_2.reload
-    assert_equal 1, page_1.children_count
-    assert_equal 0, page_2.children_count
+    assert_equal page_1_start, page_1.children_count
+    assert_equal page_2_start, page_2.children_count
   end
   
   def test_cascading_destroy
-    assert_difference 'Cms::Page.count', -2 do
+    p = Cms::Page.count
+    assert_difference 'Cms::Page.count', -p do
       assert_difference 'Cms::Block.count', -2 do
         cms_pages(:default).destroy
       end
@@ -173,7 +178,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_options_for_select
-    assert_equal ['Default Page', '. . Child Page'], 
+    assert_equal ['Default Page', '. . Child Page', '. . . . Child Child Page'], 
       Cms::Page.options_for_select(cms_sites(:default)).collect{|t| t.first }
     assert_equal ['Default Page'], 
       Cms::Page.options_for_select(cms_sites(:default), cms_pages(:child)).collect{|t| t.first }
@@ -204,9 +209,10 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_scope_published
-    assert_equal 2, Cms::Page.published.count
+    start_value = Cms::Page.published.count
+    assert_greater_than 0, Cms::Page.published.count
     cms_pages(:child).update_column(:is_published, false)
-    assert_equal 1, Cms::Page.published.count
+    assert_equal start_value-1, Cms::Page.published.count
   end
   
   def test_root?

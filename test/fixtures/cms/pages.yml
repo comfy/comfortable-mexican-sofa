@@ -27,7 +27,7 @@ child:
   label: Child Page
   slug: 'child-page'
   full_path: '/child-page'
-  children_count: 0
+  children_count: 1
   position: 0
   is_published: true
   content: |-
@@ -37,3 +37,18 @@ child:
     layout_content_b
     default_snippet_content
     layout_content_c
+
+childs_child:
+  site: default
+  parent: child
+  layout: default
+  label: Child Child Page
+  slug: 'child-child-page'
+  full_path: '/child-page/child-child-page'
+  children_count: 0
+  position: 0
+  is_published: true
+
+  content: |-
+    
+    Hello
