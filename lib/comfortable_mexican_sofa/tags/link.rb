@@ -1,15 +1,15 @@
-class ComfortableMexicanSofa::Tag::PageText
+class ComfortableMexicanSofa::Tag::Link
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)
-    identifier ||= /\/?\p{Alnum}[\.\p{Alnum}\p{Mark}_\-\/]*/
+    identifier ||= /\/?[\.\p{Alnum}\p{Mark}_\-\/]*/
     /\{\{\s*cms:link:(#{identifier})\s*\}\}/
   end
 
   def content
-    pages = Cms::Page.arel_table
-    if page = Cms::Page.where(pages[:full_path].matches("%#{self.identifier.to_s}")).first
-      page.url
+    pages_table = Cms::Page.arel_table
+    if p = page.site.pages.where(pages_table[:full_path].matches("%#{self.identifier.to_s}")).first
+      p.url
     else
       ""
     end
