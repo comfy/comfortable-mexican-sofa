@@ -34,7 +34,7 @@ class Cms::Layout < ActiveRecord::Base
   validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
-    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_layouts.position')
