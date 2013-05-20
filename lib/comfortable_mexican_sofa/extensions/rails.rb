@@ -16,7 +16,9 @@ module Enumerable
   end
 end
 
-class ActiveSupport::BufferedLogger
+ActiveSupportLogger = ActiveSupport::VERSION::MAJOR >= 4 ?
+  ActiveSupport::Logger : ActiveSupport::BufferedLogger
+class ActiveSupportLogger
   def detailed_error(e)
     error(e.message)
     e.backtrace.each{|line| error line }
