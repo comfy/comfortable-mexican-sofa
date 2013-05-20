@@ -85,7 +85,7 @@ class CmsSiteTest < ActiveSupport::TestCase
   def test_cascading_destroy
     assert_difference 'Cms::Site.count', -1 do
       assert_difference 'Cms::Layout.count', -3 do
-        assert_difference 'Cms::Page.count', -2 do
+        assert_difference 'Cms::Page.count', -3 do
           assert_difference 'Cms::Snippet.count', -1 do
             assert_difference 'Cms::Category.count', -1 do
               cms_sites(:default).destroy

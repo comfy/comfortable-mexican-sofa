@@ -26,6 +26,9 @@ class CmsContentController < ApplicationController
 
   def render_css
     render :text => @cms_layout.css, :content_type => 'text/css'
+
+  rescue Exception => e
+    render text: "Error constructing your CSS. Make sure your use of Comfy tags is OK and none of them expect a CMS page instead of a CMS layout as context. Error message is: #{e.message}"
   end
 
   def render_js

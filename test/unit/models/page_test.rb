@@ -186,7 +186,7 @@ class CmsPageTest < ActiveSupport::TestCase
       Cms::Page.options_for_select(cms_sites(:default), cms_pages(:default))
     
     page = Cms::Page.new(new_params(:parent => cms_pages(:default)))
-    assert_equal ['Default Page', '. . Child Page'],
+    assert_equal ['Default Page', '. . Child Page', '. . . . Child Child Page'],
       Cms::Page.options_for_select(cms_sites(:default), page).collect{|t| t.first }
   end
   

@@ -328,7 +328,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_destroy
-    assert_difference 'Cms::Page.count', -2 do
+    assert_difference 'Cms::Page.count', -3 do
       assert_difference 'Cms::Block.count', -2 do
         delete :destroy, :site_id => cms_sites(:default), :id => cms_pages(:default)
         assert_response :redirect

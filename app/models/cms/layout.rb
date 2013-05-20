@@ -7,6 +7,8 @@ class Cms::Layout < ActiveRecord::Base
   cms_acts_as_tree
   cms_is_mirrored
   cms_has_revisions_for :content, :css, :js
+
+  attr_accessor :tags
   
   attr_accessible :label,
                   :identifier,
@@ -77,6 +79,17 @@ class Cms::Layout < ActiveRecord::Base
       content.to_s
     end
   end
+
+  def css(force_reload = true)
+    @css = force_reload ? nil : read_attribute(:css)
+    @css ||= begin
+      self.tags = [] # resetting
+      ComfortableMexicanSofa::Tag.process_content(
+        self,
+        ComfortableMexicanSofa::Tag.sanitize_irb(read_attribute(:css))
+      )
+   end
+  end
   
 protected
   
@@ -95,5 +108,5 @@ protected
     self.pages.each{ |page| page.save! }
     self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
-  
+
 end

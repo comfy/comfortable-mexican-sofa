@@ -25,6 +25,10 @@ Full list of features added by this fork
 * A hook called `snippet_form` to allow you to display some information on the
   snippet new/edit page in the administration panel.
 * Support for File fixtures but **no support for exporting. Import only**.
+* Layout CSS is parsed for Comfy tags just like layout HTML. **Be careful with
+  this feature**: Some Comfy tags may expect to know about the **page** they
+  are being rendered on, and will produce unexpected results when they only
+  know about the **layout**.
 
 Features
 --------

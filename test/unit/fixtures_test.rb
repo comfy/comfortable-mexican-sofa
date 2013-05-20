@@ -113,14 +113,12 @@ class FixturesTest < ActiveSupport::TestCase
     child = cms_pages(:child)
     child.update_column(:slug, 'old')
     
-    assert_no_difference 'Cms::Page.count' do
-      ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
-      
-      page.reload
-      assert_equal 'Home Fixture Page', page.label
-      
-      assert_nil Cms::Page.find_by_slug('old')
-    end
+    ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
+    
+    page.reload
+    assert_equal 'Home Fixture Page', page.label
+    
+    assert_nil Cms::Page.find_by_slug('old')
   end
   
   def test_import_pages_ignoring

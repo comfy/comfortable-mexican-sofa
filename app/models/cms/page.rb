@@ -123,7 +123,7 @@ class Cms::Page < ActiveRecord::Base
       end
     end
   end
-  
+
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
   def tags(force_reload = false)
