@@ -276,7 +276,7 @@ module ComfortableMexicanSofa::Fixtures
         f.write(layout.content)
       end
       open(File.join(layout_path, 'css.css'), 'w') do |f|
-        f.write(layout.css)
+        f.write(layout.read_attribute(:css))
       end
       open(File.join(layout_path, 'js.js'), 'w') do |f|
         f.write(layout.js)
