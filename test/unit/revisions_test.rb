@@ -6,7 +6,8 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal ({
       'content' => 'revision {{cms:page:default_page_text}}', 
       'css'     => 'revision css',
-      'js'      => 'revision js' }), cms_revisions(:layout).data
+      'js'      => 'revision js',
+      'head'    => 'revision head' }), cms_revisions(:layout).data
       
     assert_equal ({'blocks_attributes' => [
       { 'identifier' => 'default_page_text',   'content' => 'revision page content'  },
@@ -19,7 +20,7 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_init_for_layouts
-    assert_equal ['content', 'css', 'js'], cms_layouts(:default).revision_fields
+    assert_equal ['content', 'css', 'js', 'head'], cms_layouts(:default).revision_fields
   end
   
   def test_init_for_pages
@@ -32,7 +33,7 @@ class RevisionsTest < ActiveSupport::TestCase
   
   def test_creation_for_layout
     layout = cms_layouts(:default)
-    old_attributes = layout.attributes.slice('content', 'css', 'js')
+    old_attributes = layout.attributes.slice('content', 'css', 'js', 'head')
     
     assert_difference 'layout.revisions.count' do
       layout.update_attributes!(

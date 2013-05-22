@@ -44,6 +44,11 @@ module ComfortableMexicanSofa::Fixtures
           layout.content = File.open(file_path).read
         end
       end
+      if File.exists?(file_path = File.join(path, 'head.html'))
+        if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
+          layout.head = File.open(file_path).read
+        end
+      end
       if File.exists?(file_path = File.join(path, 'css.css'))
         if layout.new_record? || File.mtime(file_path) > layout.updated_at || force_import
           layout.css = File.open(file_path).read
@@ -274,6 +279,9 @@ module ComfortableMexicanSofa::Fixtures
       end
       open(File.join(layout_path, 'content.html'), 'w') do |f|
         f.write(layout.content)
+      end
+      open(File.join(layout_path, 'head.html'), 'w') do |f|
+        f.write(layout.head)
       end
       open(File.join(layout_path, 'css.css'), 'w') do |f|
         f.write(layout.read_attribute(:css))

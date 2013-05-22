@@ -3,7 +3,8 @@ layout:
   data: <%= {
     'content' => 'revision {{cms:page:default_page_text}}',
     'css'     => 'revision css',
-    'js'      => 'revision js' }.to_yaml.inspect %>
+    'js'      => 'revision js',
+    'head'    => 'revision head' }.to_yaml.inspect %>
     
 page:
   record: default (Cms::Page)

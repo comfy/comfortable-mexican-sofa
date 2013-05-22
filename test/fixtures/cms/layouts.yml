@@ -40,6 +40,7 @@ nested:
     {{cms:page:content}}
   css: nested_css
   js: nested_js
+  head: nested_head
   position: 0
     
 child:

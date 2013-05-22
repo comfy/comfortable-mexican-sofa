@@ -29,6 +29,7 @@ class CreateCms < ActiveRecord::Migration
       t.string  :label,       :null => false
       t.string  :identifier,  :null => false
       t.text    :content,     text_limit
+      t.text    :head,        text_limit
       t.text    :css,         text_limit
       t.text    :js,          text_limit
       t.integer :position,    :null => false, :default => 0

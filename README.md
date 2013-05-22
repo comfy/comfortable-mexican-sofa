@@ -12,11 +12,16 @@ can have more than one user and users only have access to specific sites (set
 by a super admin).
 
 **Important:** You cannot swap from the vanilla Comfy to this fork, as this
-version is not considered an 'upgrade' on vanilla. If you want to swap you must
-manually create a DB migration in your app to add the `cms_users` and
-`cms_site_users` tables.
+version is not considered an 'upgrade' on vanilla. See 'using this fork'.
 
-[Sample migration](https://github.com/homeserve-alliance/comfortable-mexican-sofa/blob/master/db/upgrade_migrations/add_devise.rb)
+Using this fork
+---------------
+
+There are two database migrations that you will need to apply if upgrading
+from a vanilla Comfy:
+
+* [Migration for Devise](https://github.com/homeserve-alliance/comfortable-mexican-sofa/blob/master/db/upgrade_migrations/add_devise.rb).
+* [Migration for head field in layouts](https://github.com/homeserve-alliance/comfortable-mexican-sofa/blob/master/db/upgrade_migrations/add_head_field_to_layouts.rb).
 
 Full list of features added by this fork
 ----------------------------------------
@@ -29,6 +34,8 @@ Full list of features added by this fork
   this feature**: Some Comfy tags may expect to know about the **page** they
   are being rendered on, and will produce unexpected results when they only
   know about the **layout**.
+* A seperate `head` field on layouts that can optionally be rendered by an 
+  application layout.
 
 Features
 --------

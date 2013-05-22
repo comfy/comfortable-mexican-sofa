@@ -6,7 +6,7 @@ class Cms::Layout < ActiveRecord::Base
   
   cms_acts_as_tree
   cms_is_mirrored
-  cms_has_revisions_for :content, :css, :js
+  cms_has_revisions_for :content, :css, :js, :head
 
   attr_accessor :tags
   
@@ -14,6 +14,7 @@ class Cms::Layout < ActiveRecord::Base
                   :identifier,
                   :content,
                   :css,
+                  :head,
                   :js,
                   :parent, :parent_id,
                   :app_layout
@@ -77,6 +78,23 @@ class Cms::Layout < ActiveRecord::Base
       end
     else
       content.to_s
+    end
+  end
+
+  # Internal: Merge the head of this layout with the head of any parent
+  # layouts, to produce a final concatenated layout.
+  def merged_head
+    self.tags = []
+    # This is a little inefficient as the most inner content will get
+    # processed over and over.
+    processed_head = ComfortableMexicanSofa::Tag.process_content(
+      self,
+      ComfortableMexicanSofa::Tag.sanitize_irb(head.to_s)
+    )
+    if parent
+      parent.merged_head.concat(processed_head)
+    else
+      processed_head
     end
   end
 

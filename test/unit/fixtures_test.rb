@@ -15,6 +15,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content.chomp
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
+      assert_equal '<title>The Head</title>', layout.head.chomp
       
       assert nested_layout = Cms::Layout.find_by_identifier('nested')
       assert_equal layout, nested_layout.parent
@@ -41,6 +42,7 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content.chomp
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
+      assert_equal '<title>The Head</title>', layout.head.chomp
       assert_equal 0, layout.position
       
       nested_layout.reload
@@ -323,6 +325,7 @@ class FixturesTest < ActiveSupport::TestCase
     layout_1_content_path = File.join(host_path, 'layouts/nested/content.html')
     layout_1_css_path     = File.join(host_path, 'layouts/nested/css.css')
     layout_1_js_path      = File.join(host_path, 'layouts/nested/js.js')
+    layout_1_head_path    = File.join(host_path, 'layouts/nested/head.html')
     layout_2_attr_path    = File.join(host_path, 'layouts/nested/child/_child.yml')
     layout_2_content_path = File.join(host_path, 'layouts/nested/child/content.html')
     layout_2_css_path     = File.join(host_path, 'layouts/nested/child/css.css')
@@ -334,6 +337,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert File.exists?(layout_1_content_path)
     assert File.exists?(layout_1_css_path)
     assert File.exists?(layout_1_js_path)
+    assert File.exists?(layout_1_head_path)
     
     assert File.exists?(layout_2_attr_path)
     assert File.exists?(layout_2_content_path)
@@ -349,6 +353,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal cms_layouts(:nested).content, IO.read(layout_1_content_path)
     assert_equal cms_layouts(:nested).css, IO.read(layout_1_css_path)
     assert_equal cms_layouts(:nested).js, IO.read(layout_1_js_path)
+    assert_equal cms_layouts(:nested).head, IO.read(layout_1_head_path)
     
     assert_equal ({
       'label'       => 'Child Layout',
