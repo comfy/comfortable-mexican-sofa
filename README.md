@@ -35,7 +35,7 @@ Full list of features added by this fork
   are being rendered on, and will produce unexpected results when they only
   know about the **layout**.
 * A seperate `head` field on layouts that can optionally be rendered by an 
-  application layout.
+  application layout using the `cms_layout_head` helper method.
 
 Features
 --------

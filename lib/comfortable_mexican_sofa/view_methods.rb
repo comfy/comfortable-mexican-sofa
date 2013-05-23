@@ -11,6 +11,12 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_hook(name, options = {})
     ComfortableMexicanSofa::ViewHooks.render(name, self, options)
   end
+
+  def cms_layout_head
+    if @cms_page
+      render inline: @cms_page.layout.merged_head
+    end
+  end
   
   # Content of a snippet. Example:
   #   cms_snippet_content(:my_snippet)
