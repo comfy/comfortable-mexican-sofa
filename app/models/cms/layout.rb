@@ -83,16 +83,16 @@ class Cms::Layout < ActiveRecord::Base
 
   # Internal: Merge the head of this layout with the head of any parent
   # layouts, to produce a final concatenated layout.
-  def merged_head
-    self.tags = []
+  def merged_head(page)
+    page.tags ||= []
     # This is a little inefficient as the most inner content will get
     # processed over and over.
     processed_head = ComfortableMexicanSofa::Tag.process_content(
-      self,
+      page,
       ComfortableMexicanSofa::Tag.sanitize_irb(head.to_s)
     )
     if parent
-      parent.merged_head.concat(processed_head)
+      parent.merged_head(page).concat(processed_head)
     else
       processed_head
     end

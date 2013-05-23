@@ -14,7 +14,7 @@ module ComfortableMexicanSofa::ViewMethods
 
   def cms_layout_head
     if @cms_page
-      render inline: @cms_page.layout.merged_head
+      render inline: @cms_page.layout.merged_head(@cms_page)
     end
   end
   
