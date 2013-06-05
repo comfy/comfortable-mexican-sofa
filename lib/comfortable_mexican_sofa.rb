@@ -10,7 +10,6 @@
   'comfortable_mexican_sofa/view_methods',
   'comfortable_mexican_sofa/form_builder',
   'comfortable_mexican_sofa/tag',
-  'comfortable_mexican_sofa/sitemap',
   'comfortable_mexican_sofa/fixtures',
   'comfortable_mexican_sofa/extensions/rails',
   'comfortable_mexican_sofa/extensions/acts_as_tree',
