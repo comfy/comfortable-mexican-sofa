@@ -83,7 +83,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_and_update_via_nested_attributes_with_file
     layout = cms_layouts(:default)
-    layout.update_column(:content, '{{cms:page_file:file}}')
+    layout.update_columns(:content => '{{cms:page_file:file}}')
     
     page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count', 'Cms::File.count'] do
@@ -125,7 +125,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_and_update_via_nested_attributes_with_files
     layout = cms_layouts(:default)
-    layout.update_column(:content, '{{cms:page_files:files}}')
+    layout.update_columns(:content => '{{cms:page_files:files}}')
     
     page = nil
     assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
@@ -168,7 +168,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_creation_via_nested_attributes_with_file
     layout = cms_layouts(:default)
-    layout.update_column(:content, '{{cms:page:header}}{{cms:page_file:file}}{{cms:page:footer}}')
+    layout.update_columns(:content => '{{cms:page:header}}{{cms:page_file:file}}{{cms:page:footer}}')
     
     assert_difference 'Cms::Page.count' do
       assert_difference 'Cms::Block.count', 3 do

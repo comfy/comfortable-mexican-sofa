@@ -47,7 +47,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_field_datetime
-    cms_layouts(:default).update_column(:content, '{{cms:field:test_label:datetime}}')
+    cms_layouts(:default).update_columns(:content =>'{{cms:field:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
@@ -55,7 +55,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_field_integer
-    cms_layouts(:default).update_column(:content, '{{cms:field:test_label:integer}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:integer}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='number'][name='page[blocks_attributes][0][content]']"
@@ -63,7 +63,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_field_string
-    cms_layouts(:default).update_column(:content, '{{cms:field:test_label:string}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:string}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]']"
@@ -71,7 +71,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_field_text
-    cms_layouts(:default).update_column(:content, '{{cms:field:test_label:text}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode='text/html']"
@@ -79,7 +79,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_field_rich_text
-    cms_layouts(:default).update_column(:content, '{{cms:field:test_label:rich_text}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
@@ -87,7 +87,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_page_datetime
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:datetime}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
@@ -95,7 +95,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_page_integer
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:integer}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:integer}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='number'][name='page[blocks_attributes][0][content]']"
@@ -103,7 +103,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_page_string
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:string}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:string}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]']"
@@ -111,7 +111,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_page_text
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/html]"
@@ -119,7 +119,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_file
-    cms_layouts(:default).update_column(:content, '{{cms:page_file:test_label}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page_file:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='file'][name='page[blocks_attributes][0][content]']"
@@ -127,7 +127,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_files
-    cms_layouts(:default).update_column(:content, '{{cms:page_files:test_label}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page_files:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='file'][name='page[blocks_attributes][0][content][]'][multiple=multiple]"
@@ -136,7 +136,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_get_new_with_collection
     snippet = cms_snippets(:default)
-    cms_layouts(:default).update_column(:content, '{{cms:collection:snippet:cms/snippet}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:collection:snippet:cms/snippet}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "select[name='page[blocks_attributes][0][content]']" do
@@ -147,7 +147,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_with_page_rich_text
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:rich_text}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
@@ -155,7 +155,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_page_markdown
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label:markdown}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:markdown}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/x-markdown]"
@@ -163,7 +163,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_several_tag_fields
-    cms_layouts(:default).update_column(:content, '{{cms:page:label_a}}{{cms:page:label_b}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:label_a}}{{cms:page:label_b}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]']"
@@ -173,13 +173,13 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_crashy_tag
-    cms_layouts(:default).update_column(:content, '{{cms:collection:label:invalid}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:collection:label:invalid}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
   end
   
   def test_get_new_with_repeated_tag
-    cms_layouts(:default).update_column(:content, '{{cms:page:test_label}}{{cms:page:test_label}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:test_label}}{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]']"
@@ -215,7 +215,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
 
   def test_get_edit_with_blank_layout
     page = cms_pages(:default)
-    page.update_column(:layout_id, nil)
+    page.update_columns(:layout_id => nil)
     get :edit, :site_id => page.site, :id => page
     assert_response :success
     assert assigns(:page)
@@ -224,7 +224,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
   
   def test_get_edit_with_non_english_locale
     site = cms_sites(:default)
-    site.update_column(:locale, 'es')
+    site.update_columns(:locale => 'es')
     get :edit, :site_id => site, :id => cms_pages(:default)
     assert_response :success
   end

@@ -23,7 +23,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_app_layout
-    cms_layouts(:default).update_column(:app_layout, 'cms_admin')
+    cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
     get :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
@@ -31,7 +31,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_xhr
-    cms_layouts(:default).update_column(:app_layout, 'cms_admin')
+    cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
     xhr :get, :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
@@ -81,7 +81,7 @@ class CmsContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_redirect
-    cms_pages(:child).update_column(:target_page_id, cms_pages(:default).id)
+    cms_pages(:child).update_columns(:target_page_id => cms_pages(:default).id)
     assert_equal cms_pages(:default), cms_pages(:child).target_page
     get :render_html, :cms_path => 'child-page'
     assert_response :redirect
@@ -90,7 +90,7 @@ class CmsContentControllerTest < ActionController::TestCase
   
   def test_render_page_unpublished
     page = cms_pages(:default)
-    page.update_column(:is_published, false)
+    page.update_columns(:is_published => false)
     
     assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
       get :render_html, :cms_path => ''
@@ -167,7 +167,7 @@ class CmsContentControllerTest < ActionController::TestCase
 
   def test_render_sitemap_with_path
     site = cms_sites(:default)
-    site.update_column(:path, 'en')
+    site.update_columns(:path => 'en')
     
     get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
@@ -177,7 +177,7 @@ class CmsContentControllerTest < ActionController::TestCase
   
   def test_render_sitemap_with_path_invalid_with_single_site
     site = cms_sites(:default)
-    site.update_column(:path, 'en')
+    site.update_columns(:path => 'en')
     
     get :render_sitemap, :cms_path => 'fr', :format => :xml
     assert_response :success

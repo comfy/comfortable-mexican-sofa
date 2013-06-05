@@ -29,9 +29,9 @@ class FixturesTest < ActiveSupport::TestCase
     layout        = cms_layouts(:default)
     nested_layout = cms_layouts(:nested)
     child_layout  = cms_layouts(:child)
-    layout.update_column(:updated_at, 10.years.ago)
-    nested_layout.update_column(:updated_at, 10.years.ago)
-    child_layout.update_column(:updated_at, 10.years.ago)
+    layout.update_columns(:updated_at => 10.years.ago)
+    nested_layout.update_columns(:updated_at => 10.years.ago)
+    child_layout.update_columns(:updated_at => 10.years.ago)
     
     assert_difference 'Cms::Layout.count', -1 do
       ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
@@ -81,10 +81,10 @@ class FixturesTest < ActiveSupport::TestCase
     Cms::Page.delete_all
     
     layout = cms_layouts(:default)
-    layout.update_column(:content, '<html>{{cms:page:content}}</html>')
+    layout.update_columns(:content => '<html>{{cms:page:content}}</html>')
     
     nested = cms_layouts(:nested)
-    nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
+    nested.update_columns(:content => '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
     
     assert_difference 'Cms::Page.count', 2 do
       ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
@@ -107,11 +107,11 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_pages_updating_and_deleting
     page = cms_pages(:default)
-    page.update_column(:updated_at, 10.years.ago)
+    page.update_columns(:updated_at => 10.years.ago)
     assert_equal 'Default Page', page.label
     
     child = cms_pages(:child)
-    child.update_column(:slug, 'old')
+    child.update_columns(:slug => 'old')
     
     assert_no_difference 'Cms::Page.count' do
       ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
@@ -156,7 +156,7 @@ class FixturesTest < ActiveSupport::TestCase
       :layout => cms_layouts(:default),
       :blocks_attributes => [ { :identifier => 'to_delete', :content => 'test content' } ]
     )
-    page.update_column(:updated_at, 10.years.ago)
+    page.update_columns(:updated_at => 10.years.ago)
     
     ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
     page.reload
@@ -182,7 +182,7 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_snippets_updating
     snippet = cms_snippets(:default)
-    snippet.update_column(:updated_at, 10.years.ago)
+    snippet.update_columns(:updated_at => 10.years.ago)
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
     assert_equal 'default_snippet_content', snippet.content
@@ -198,7 +198,7 @@ class FixturesTest < ActiveSupport::TestCase
   
   def test_import_snippets_deleting
     snippet = cms_snippets(:default)
-    snippet.update_column(:identifier, 'old')
+    snippet.update_columns(:identifier => 'old')
     
     assert_no_difference 'Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')

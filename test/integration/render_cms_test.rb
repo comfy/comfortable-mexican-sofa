@@ -9,7 +9,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
       get '/render-page'    => 'render_test#render_page'
       get '/render-layout'  => 'render_test#render_layout'
     end
-    cms_layouts(:default).update_column(:content, '{{cms:page:content}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:content}}')
     cms_pages(:child).update_attributes(:blocks_attributes => [
       { :identifier => 'content', :content => 'TestBlockContent' }
     ])
@@ -175,7 +175,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   end
   
   def test_cms_layout
-    cms_layouts(:default).update_column(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
     get '/render-layout?type=layout'
     assert_response :success
     assert_equal 'TestText TestPartial TestValue TestTemplate TestValue', response.body
@@ -194,7 +194,7 @@ class RenderCmsTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_layout_with_action
-    cms_layouts(:default).update_column(:content, '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
+    cms_layouts(:default).update_columns(:content => '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
     get '/render-layout?type=layout_with_action'
     assert_response :success
     assert_equal "Can render CMS layout and specify action\n  ", response.body

@@ -43,7 +43,7 @@ class ViewMethodsTest < ActionView::TestCase
   end
   
   def test_cms_snippet_content_with_tags
-    cms_snippets(:default).update_column(:content, '{{cms:helper:hello}}')
+    cms_snippets(:default).update_columns(:content => '{{cms:helper:hello}}')
     assert_equal 'hello', action_result('test_cms_snippet_content')
   end
   
