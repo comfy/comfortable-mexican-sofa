@@ -85,7 +85,7 @@ class ActiveSupport::TestCase
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
-
+  
 end
 
 class ActionController::TestCase

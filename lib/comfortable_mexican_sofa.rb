@@ -1,9 +1,5 @@
-# Loading engine only if this is not a standalone installation
-unless defined? ComfortableMexicanSofa::Application
-  require File.expand_path('comfortable_mexican_sofa/engine', File.dirname(__FILE__))
-end
-
-[ 'comfortable_mexican_sofa/version',
+[ 'comfortable_mexican_sofa/engine',
+  'comfortable_mexican_sofa/version',
   'comfortable_mexican_sofa/error',
   'comfortable_mexican_sofa/configuration',
   'comfortable_mexican_sofa/routing',
