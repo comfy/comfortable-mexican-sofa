@@ -34,6 +34,7 @@ en:
         slug: Slug
         target_page_id: Redirect to Page
         is_published: Published
+        include_in_nav: Include
       cms/file:
         file: File
         description: Description

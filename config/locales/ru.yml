@@ -34,6 +34,7 @@ ru:
         slug: Ссылка
         target_page_id: Редирект на страницу
         is_published: Опубликована
+        include_in_nav: включать
       cms/file:
         file: Файл
         description: Описание

@@ -13,7 +13,8 @@ class Cms::Page < ActiveRecord::Base
                   :blocks_attributes,
                   :is_published,
                   :target_page_id,
-                  :category_ids
+                  :category_ids,
+                  :include_in_nav
   
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
@@ -59,6 +60,8 @@ class Cms::Page < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   default_scope order('cms_pages.position')
   scope :published, where(:is_published => true)
+
+  scope :include_in_nav?, where(:include_in_nav => true)
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

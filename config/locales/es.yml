@@ -34,6 +34,7 @@ es:
         slug: Ruta
         target_page_id: Redirigir a
         is_published: Publicada
+        include_in_nav: Incluir
       cms/file:
         file: File
         description: Description

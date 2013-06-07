@@ -210,9 +210,16 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_scope_published
     start_value = Cms::Page.published.count
-    assert_greater_than 0, Cms::Page.published.count
+    assert 0 < Cms::Page.published.count
     cms_pages(:child).update_column(:is_published, false)
     assert_equal start_value-1, Cms::Page.published.count
+  end
+
+  def test_scope_include_in_nav
+    start_value = Cms::Page.published.include_in_nav?.count
+    assert 0 < Cms::Page.published.include_in_nav?.count
+    cms_pages(:child).update_column(:include_in_nav, false)
+    assert_equal start_value-1, Cms::Page.published.include_in_nav?.count
   end
   
   def test_root?

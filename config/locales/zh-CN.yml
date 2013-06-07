@@ -34,6 +34,7 @@ zh-CN:
         slug: Slug
         target_page_id: 跳转至
         is_published: 发布
+        include_in_nav: 包括
       cms/file:
         file: 文件
         description: 描述

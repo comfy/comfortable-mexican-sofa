@@ -9,6 +9,7 @@ default:
   children_count: 1
   position: 0
   is_published: true
+  include_in_nav: true
   content: |-
     
     layout_content_a
@@ -30,6 +31,7 @@ child:
   children_count: 1
   position: 0
   is_published: true
+  include_in_nav: true
   content: |-
     
     layout_content_a
@@ -48,6 +50,7 @@ childs_child:
   children_count: 0
   position: 0
   is_published: true
+  include_in_nav: true
 
   content: |-
     

@@ -34,6 +34,7 @@ pt-BR:
         slug: Identificador
         target_page_id: Redirecionar para a Página
         is_published: Publicada
+        include_in_nav: Incluir
       cms/file:
         file: Arquivo
         description: Descrição
