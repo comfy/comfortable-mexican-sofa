@@ -378,23 +378,25 @@ class FixturesTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Fixtures.export_pages('default-site', 'test-site')
     
     assert_equal ({
-      'label'         => 'Default Page',
-      'layout'        => 'default',
-      'parent'        => nil,
-      'target_page'   => nil,
-      'is_published'  => true,
-      'position'      => 0
+      'label'          => 'Default Page',
+      'layout'         => 'default',
+      'parent'         => nil,
+      'target_page'    => nil,
+      'is_published'   => true,
+      "include_in_nav" => true,
+      'position'       => 0
     }), YAML.load_file(page_1_attr_path)
     assert_equal cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
     assert_equal cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
     
     assert_equal ({
-      'label'         => 'Child Page',
-      'layout'        => 'default',
-      'parent'        => 'index',
-      'target_page'   => nil,
-      'is_published'  => true,
-      'position'      => 0
+      'label'           => 'Child Page',
+      'layout'          => 'default',
+      'parent'          => 'index',
+      'target_page'     => nil,
+      'is_published'    => true,
+      "include_in_nav"  => true,
+      'position'        => 0
     }), YAML.load_file(page_2_attr_path)
     
     FileUtils.rm_rf(host_path)

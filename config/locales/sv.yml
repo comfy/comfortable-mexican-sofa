@@ -34,6 +34,7 @@ sv:
         slug: Slug
         target_page_id: Vidarebefodra till sida
         is_published: Publicerad
+        include_in_nav: inkludera
       cms/file:
         file: Fil
         description: Beskrivninig
