@@ -52,6 +52,7 @@ class CreateCms < ActiveRecord::Migration
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true
+      t.boolean :include_in_nav,  :default => true
       t.boolean :is_shared,       :null => false, :default => false
       t.timestamps
     end
