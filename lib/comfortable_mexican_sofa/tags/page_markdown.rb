@@ -11,6 +11,6 @@ class ComfortableMexicanSofa::Tag::PageMarkdown
   end
   
   def render
-    ::Kramdown::Document.new(content.to_s).to_html
+    Kramdown::Document.new(content.to_s).to_html
   end
 end
