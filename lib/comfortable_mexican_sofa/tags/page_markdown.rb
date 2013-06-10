@@ -1,6 +1,4 @@
 class ComfortableMexicanSofa::Tag::PageMarkdown
-  require 'kramdown'
-  
   include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(identifier = nil)
