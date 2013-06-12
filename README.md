@@ -29,13 +29,16 @@ Full list of features added by this fork
 * Multi-user authentication through Devise and CanCan.
 * A hook called `snippet_form` to allow you to display some information on the
   snippet new/edit page in the administration panel.
-* Support for File fixtures but **no support for exporting. Import only**.
+* Support for importing and exporting file fixtures
 * Layout CSS is parsed for Comfy tags just like layout HTML. **Be careful with
   this feature**: Some Comfy tags may expect to know about the **page** they
   are being rendered on, and will produce unexpected results when they only
   know about the **layout**.
 * A seperate `head` field on layouts that can optionally be rendered by an 
   application layout using the `cms_layout_head` helper method.
+* A boolean field on Pages called 'include in Nav'. This could be used (but
+  isn't used by default) if you are auto-generating navigation links but want
+  some pages to not appear in the navigation.
 
 Features
 --------

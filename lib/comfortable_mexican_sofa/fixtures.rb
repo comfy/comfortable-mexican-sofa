@@ -1,10 +1,10 @@
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_site, from_folder = nil, force_import = false)
+    import_files    to_site, from_folder, force_import
     import_layouts  to_site, from_folder, nil, true, nil, [], force_import
     import_pages    to_site, from_folder, nil, true, nil, [], force_import
     import_snippets to_site, from_folder, force_import
-    import_files    to_site, from_folder, force_import
   end
   
   def self.export_all(from_site, to_folder = nil)
@@ -73,7 +73,7 @@ module ComfortableMexicanSofa::Fixtures
       layout_ids << layout.id
       
       # checking for nested fixtures
-      layout_ids += import_layouts(to_site, from_folder, path, false, layout, layout_ids)
+      layout_ids += import_layouts(to_site, from_folder, path, false, layout, layout_ids, force_import)
     end
     
     # removing all db entries that are not in fixtures
@@ -151,7 +151,7 @@ module ComfortableMexicanSofa::Fixtures
       page_ids << page.id
       
       # checking for nested fixtures
-      page_ids += import_pages(to_site, from_folder, path, false, page, page_ids)
+      page_ids += import_pages(to_site, from_folder, path, false, page, page_ids, force_import)
     end
     
     # removing all db entries that are not in fixtures
