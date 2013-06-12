@@ -34,6 +34,7 @@ pl:
         slug: Ścieżka
         target_page_id: Przekieruj do strony
         is_published: Opublikowana
+        include_in_nav: zawierać
       cms/file:
         file: Plik
         description: Opis

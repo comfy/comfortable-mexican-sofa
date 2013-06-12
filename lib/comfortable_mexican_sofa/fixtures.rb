@@ -104,12 +104,13 @@ module ComfortableMexicanSofa::Fixtures
       # updating attributes
       if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
         if page.new_record? || File.mtime(file_path) > page.updated_at || force_import
-          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
-          page.label = attributes[:label] || slug.titleize
-          page.layout = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
-          page.target_page = site.pages.find_by_full_path(attributes[:target_page])
-          page.is_published = attributes[:is_published].nil?? true : attributes[:is_published]
-          page.position = attributes[:position] if attributes[:position]
+          attributes          = YAML.load_file(file_path).try(:symbolize_keys!) || { }
+          page.label          = attributes[:label] || slug.titleize
+          page.layout         = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
+          page.target_page    = site.pages.find_by_full_path(attributes[:target_page])
+          page.is_published   = attributes[:is_published].nil?? true : attributes[:is_published]
+          page.include_in_nav = attributes[:include_in_nav].nil? ? true : attributes[:include_in_nav]
+          page.position       = attributes[:position] if attributes[:position]
         end
       elsif page.new_record?
         page.label = slug.titleize
@@ -305,12 +306,13 @@ module ComfortableMexicanSofa::Fixtures
       
       open(File.join(page_path, "_#{page.slug}.yml"), 'w') do |f|
         f.write({
-          'label'         => page.label,
-          'layout'        => page.layout.try(:identifier),
-          'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-          'target_page'   => page.target_page.try(:slug),
-          'is_published'  => page.is_published,
-          'position'      => page.position
+          'label'           => page.label,
+          'layout'          => page.layout.try(:identifier),
+          'parent'          => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
+          'target_page'     => page.target_page.try(:slug),
+          'is_published'    => page.is_published,
+          'include_in_nav'  => page.include_in_nav,
+          'position'        => page.position
         }.to_yaml)
       end
       page.blocks_attributes.each do |block|

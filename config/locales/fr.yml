@@ -34,6 +34,7 @@ fr:
         slug: Identifiant
         target_page_id: Rediriger vers
         is_published: Publié
+        include_in_nav: Comprendre
       cms/file:
         file: Fichier
         description: Description
