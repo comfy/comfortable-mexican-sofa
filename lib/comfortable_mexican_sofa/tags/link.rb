@@ -8,8 +8,12 @@ class ComfortableMexicanSofa::Tag::Link
 
   def content
     pages_table = Cms::Page.arel_table
-    if p = page.site.pages.where(pages_table[:full_path].matches("%#{self.identifier.to_s}")).first
-      p.url
+    # Find pages that match
+    pages = page.site.pages.where(pages_table[:full_path].matches("%#{self.identifier.to_s}"))
+    # Find the one with the shortest full_path (more likely to be a direct
+    # match). TODO: Order the results in the SQL query instead?
+    if pages.length > 0
+      pages.to_a.sort{|a, b| a.full_path.length <=> b.full_path.length }.first.url
     else
       ""
     end
