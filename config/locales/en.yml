@@ -121,6 +121,7 @@ en:
       form:
         create: Create Site
         update: Update Site
+        is_mirrored: Mirrored
         
     layouts:
       index:
@@ -162,6 +163,7 @@ en:
         preview: Preview
         create: Create Page
         update: Update Page
+        is_published: Published
       form_blocks:
         no_tags: |-
           Layout has no content tags defined.<br/>

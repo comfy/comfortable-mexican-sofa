@@ -37,6 +37,13 @@ module Comfy
         directory 'db/cms_fixtures', 'db/cms_fixtures'
       end
       
+      def generate_assets
+        directory 'app/assets/javascripts/comfortable_mexican_sofa/admin',
+          'app/assets/javascripts/comfortable_mexican_sofa/admin'
+        directory 'app/assets/stylesheets/comfortable_mexican_sofa/admin',
+          'app/assets/stylesheets/comfortable_mexican_sofa/admin'
+      end
+      
       def show_readme
         readme 'lib/generators/comfy/cms/README'
       end

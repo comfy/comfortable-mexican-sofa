@@ -24,7 +24,7 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_equal '{{ cms:page:content:text }}', assigns(:layout).content
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/layouts]"
-    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files?ajax=true']"
   end
 
   def test_get_edit

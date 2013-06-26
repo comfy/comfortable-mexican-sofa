@@ -121,6 +121,7 @@ de:
       form:
         create: Erstelle Web-Site
         update: Web-Site speichern
+        is_mirrored: Gespiegelt
 
     layouts:
       index:
@@ -162,6 +163,7 @@ de:
         preview: Vorschau
         create: Erstelle Seite
         update: Seite speichern
+        is_published: Veröffentlicht
       form_blocks:
         no_tags: |-
           Layout has hat keine Inhalt-Tags definiert.<br/>

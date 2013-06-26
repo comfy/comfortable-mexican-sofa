@@ -43,7 +43,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/pages]"
     assert_select "select[data-url=/cms-admin/sites/#{site.id}/pages/0/form_blocks]"
-    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files?ajax=true']"
   end
 
   def test_get_new_with_field_datetime

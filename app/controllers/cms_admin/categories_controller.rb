@@ -33,7 +33,7 @@ protected
   end
   
   def category_params
-    params[:category].permit!
+    params.fetch(:category, {}).permit!
   end
   
 end

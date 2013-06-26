@@ -1,5 +1,5 @@
-# ComfortableMexicanSofa (Rails 3 CMS Engine) 
-[![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.png?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
+# ComfortableMexicanSofa (Rails 3 CMS Engine)
+[![Gem Version](https://badge.fury.io/rb/comfortable_mexican_sofa.png)](http://rubygems.org/gems/comfortable_mexican_sofa) [![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.png?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
 
 ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 
@@ -13,6 +13,16 @@ Features
 * [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
 * [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [WYSIHTML5](http://xing.github.com/wysihtml5/)
+
+Installation for Rails 4
+------------------------
+For Rails 4 apps feel free to use [2.0.0.beta1](https://github.com/comfy/comfortable-mexican-sofa/tree/2.0) release.
+
+    gem 'comfortable_mexican_sofa', '~> 2.0.0.beta1'
+    
+Or even better work with the latest 2.0 branch:
+
+    gem 'comfortable_mexican_sofa', :github => 'comfy/comfortable-mexican-sofa', :branch => '2.0'
 
 Installation
 ------------
@@ -59,6 +69,12 @@ Once you have a layout, you may start creating pages and populating content. It'
 For more information please [see Wiki pages](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
+
+Help and Contact
+----------------
+
+GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
+Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
 
 ---
 

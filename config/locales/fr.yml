@@ -2,8 +2,8 @@
 fr:
   # -- Models ---------------------------------------------------------------
   attributes:
-    label: Label
-    slug: Slug
+    label: Nom
+    slug: Identifiant
     parent_id: Parent
     content: Contenu
     identifier: Identifiant
@@ -12,30 +12,30 @@ fr:
       cms/site: Site
       cms/layout: Mise en page
       cms/page: Page
-      cms/snippet: Snippet
+      cms/snippet: Fragment
       cms/file: Fichier
     attributes:
       cms/site:
         identifier: Identifiant
-        hostname: Hostname
-        path: Chemin d'accès
-        locale: Langage
+        hostname: Nom d'hôte
+        path: Chemin
+        locale: Langue
         is_mirrored: En miroir
       cms/layout:
         identifier: Identifiant
-        label: Nom de la Mise en page
-        app_layout: Mise en page Application
-        parent_id: Mise en page Parent
-        css: Feuille de Style CSS
+        label: Nom de la mise en page
+        app_layout: Mise en page de l'application
+        parent_id: Mise en page parent
+        css: Feuille de style
         js: Javascript
       cms/page:
-        label: Label
+        label: Nom de la page
         layout_id: Mise en page
-        slug: Slug
-        target_page_id: Rediriger vers Page
+        slug: Identifiant
+        target_page_id: Rediriger vers
         is_published: Publié
       cms/file:
-        file: File
+        file: Fichier
         description: Description
       cms/snippet:
         identifier: Identifiant
@@ -43,59 +43,59 @@ fr:
   # -- Controllers ----------------------------------------------------------
   cms:
     base:
-      site_not_found: Site non trouvé
-      fixtures_enabled: Jeu de données Test activé. Toutes les modifications seront supprimées.
+      site_not_found: Site introuvable
+      fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
 
     sites:
       created: Site créé
-      creation_failure: Echec de la création du site
+      creation_failure: Échec de la création du site
       updated: Site modifié
-      update_failure: Echec de la modification du site
+      update_failure: Échec de la modification du site
       deleted: Site supprimé
-      not_found: Site non trouvé
+      not_found: Site introuvable
       
     layouts:
       created: Mise en page créée
-      creation_failure: Echec de la création de la Mise en page
+      creation_failure: Échec de la création de la mise en page
       updated: Mise en page modifiée
-      update_failure: Echec de la modification de la mise en page
+      update_failure: Échec de la modification de la mise en page
       deleted: Mise en page supprimée
-      not_found: Mise en page non trouvée
+      not_found: Mise en page introuvable
       
     pages:
       created: Page créée
-      creation_failure: Echec de la création de la page
+      creation_failure: Échec de la création de la page
       updated: Page modifiée
-      update_failure: Echec de la modification de la page
+      update_failure: Échec de la modification de la page
       deleted: Page supprimée
-      not_found: Page non trouvée
-      layout_not_found: Aucune Mise ne page disponible. SVP créez en une.
+      not_found: Page introuvable
+      layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
       
     snippets:
-      created: Snippet créé
-      creation_failure: Echec de la création du snippet
-      updated: Snippet modifié
-      update_failure: Echec de la modification du snippet
-      deleted: Snippet supprimé
-      not_found: Snippet non trouvé
+      created: Fragment créé
+      creation_failure: Échec de la création du fragment
+      updated: Fragment modifié
+      update_failure: Échec de la modification du fragment
+      deleted: Fragment supprimé
+      not_found: Fragment introuvable
       
     revisions:
-      reverted: Contenu Reverted
-      record_not_found: Enregistrement non trouvé
-      not_found: Revision non trouvée
+      reverted: Contenu restauré
+      record_not_found: Enregistrement introuvable
+      not_found: Révision introuvable
       
     files:
       created: Fichier téléchargé
-      creation_failure: Echec deu téléchargement de fichier
+      creation_failure: Échec du téléchargement du fichier
       updated: Fichier modifié
-      update_failure: Echec de la modification du fichier
+      update_failure: Échec de la modification du fichier
       deleted: Fichier supprimé
-      not_found: Fichier non trouvé
+      not_found: Fichier introuvable
       
     content:
-      site_not_found: Site non trouvé
-      layout_not_found: Mise en page non trouvée
-      page_not_found: Page non trouvée
+      site_not_found: Site introuvable
+      layout_not_found: Mise en page introuvable
+      page_not_found: Page introuvable
   
   # -- Views ----------------------------------------------------------------
   cms_admin:
@@ -103,125 +103,127 @@ fr:
       sites: Sites
       layouts: Mises en page
       pages: Pages
-      snippets: Snippets
+      snippets: Fragments
       files: Fichiers
       
     sites:
       index:
         title: Sites
-        new_link: Créer Nouveau Site
-        select: Sélectionner Site
+        new_link: Nouveau site
+        select: Sélectionner ce site
         edit: Modifier
         delete: Supprimer
-        are_you_sure: Confirmez-vous la suppression de ce site?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer ce site ?
       new:
-        title: Nouveau Site
+        title: Nouveau site
       edit:
-        title: Modification Site
+        title: Modification du site
       form:
-        create: Créer Site
-        update: Modifier Site
+        create: Créer le site
+        update: Modifier le site
+        is_mirrored: En miroir
         
     layouts:
       index:
-        title: Layouts
-        new_link: Créer Nouveau Layout
+        title: Mises en page
+        new_link: Nouvelle mise en page
       index_branch:
-        add_child_layout: Ajouter Mise en page Enfant
+        add_child_layout: Ajouter une mise en page enfant
         edit: Modifier
         delete: Supprimer
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer cette mise en page ?
       new:
-        title: Nouvelle Mise en page
+        title: Nouvelle mise en page
       edit:
-        title: Modification Mise en page
-        revision: Révision
+        title: Modification de la mise en page
+        revision: révision
       form:
-        select_parent_layout: Sélection Mise en page Parent
-        select_app_layout: Sélection Mise en page Application
-        create: Créer Mise en page
-        update: Modifier Mise en page
+        select_parent_layout: Sélectionner une mise en page parent
+        select_app_layout: Sélectionner une mise en page de l'application
+        create: Créer la mise en page
+        update: Modifier la mise en page
       
     pages:
       index:
         title: Pages
-        new_link: Créer Nouvelle Page
+        new_link: Nouvelle page
       index_branch:
         toggle: Basculer
-        add_child_page: Ajouter Page Enfant
+        add_child_page: Ajouter une page enfant
         edit: Modifier
         delete: Supprimer
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer cette page ?
       new:
-        title: Nouvelle Page
+        title: Nouvelle page
       edit:
-        title: Modification Page
-        revision: Révision
+        title: Modification de la page
+        revision: révision
       form:
-        select_target_page: Sans Redirection
+        select_target_page: Pas de redirection
         preview: Prévisualiser
-        create: Créer Page
-        update: Modifier Page
+        create: Créer la page
+        update: Modifier la page
+        is_published: Publié
       form_blocks:
         no_tags: |-
           Mise en page sans aucun tag de contenu.<br/>
-          Modifiez le contenu pour y ajouter un tag de page ou de champs. Par exemple: <code>{{cms:page:content}}</code>
+          Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
       
     snippets:
       index:
-        title: Snippets
-        new_link: Créer Nouveau Snippet
+        title: Fragments
+        new_link: Nouveau fragment
         edit: Modifier
         delete: Supprimer
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
       new:
-        title: Nouveau Snippet
+        title: Nouveau fragment
       edit:
-        title: Modification Snippet
-        revision: Révision
+        title: Modification du fragment
+        revision: révision
       form:
-        create: Créer Snippet
-        update: Modifier Snippet
+        create: Créer le fragment
+        update: Modifier le fragment
           
     revisions:
       show:
-        title: Révisions pour
-        revision: Révision
-        full_path: Chemin d'accès complet
-        slug: Nom unique
-        update: Update to this Révision
+        title: "Révisions :"
+        revision: révision
+        full_path: Chemin complet 
+        slug: Identifiant
+        update: Restaurer cette révision
         current: Actuel
       
     files:
       index:
         title: Fichiers
-        new_link: Télécharger Nouveau Fichier
+        new_link: Nouveau fichier
         edit: Modifier
         delete: Supprimer
-        are_you_sure: Confirmez-vous la suppression?
-        button: Télécharger Fichiers
+        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+        button: Ajouter des fichiers
       new:
-        title: Nouveau Fichier
+        title: Nouveau fichier
       edit:
-        title: Modification Fichier
+        title: Modification du fichier
       form:
         current_file: Fichier actuel
-        create: Télécharger Fichier
-        update: Modifier Fichier
+        create: Envoyer
+        update: Modifier le fichier
       page_form:
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
       file:
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
         
     categories:
       index:
         label: Catégories
-        edit: Modifier
-        done: Effectué
+        edit: Modifier les catégories
+        done: Terminé
         all: Tout
         add: Ajouter
       show:
-        are_you_sure: Confirmez-vous la suppression?
+        are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
       edit:
         save: Enregistrer
       form:
@@ -229,6 +231,6 @@ fr:
         
     dialogs:
       image:
-        insert: Insérer Image
+        insert: Insérer une image
       link:
-        create: Créer Lien
+        create: Insérer un lien

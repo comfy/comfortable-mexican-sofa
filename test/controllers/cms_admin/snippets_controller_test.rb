@@ -41,7 +41,7 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert assigns(:snippet)
     assert_template :new
     assert_select "form[action=/cms-admin/sites/#{site.id}/snippets]"
-    assert_select "form[action='/cms-admin/sites/#{site.id}/files']"
+    assert_select "form[action='/cms-admin/sites/#{site.id}/files?ajax=true']"
   end
 
   def test_get_edit

@@ -62,7 +62,7 @@ protected
   end
   
   def site_params
-    params[:site].try(:permit!)
+    params.fetch(:site, {}).permit!
   end
 
 end

@@ -111,6 +111,6 @@ protected
   end
   
   def page_params
-    params[:page].try(:permit!)
+    params.fetch(:page, {}).permit!
   end
 end

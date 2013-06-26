@@ -1,6 +1,5 @@
 .file{:class => "#{dom_id(file)} #{file.is_image?? 'image' : nil}"}
   .file-name
-    
     = link_to cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
       %i.icon-remove-circle
     = link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename'

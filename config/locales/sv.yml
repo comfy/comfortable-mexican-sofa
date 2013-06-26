@@ -121,6 +121,7 @@ sv:
       form:
         create: Skapa Site
         update: Uppdatera Site
+        is_mirrored: Speglad
         
     layouts:
       index:
@@ -162,6 +163,7 @@ sv:
         preview: Förhandsgranska
         create: Skapa sida
         update: Uppdatera sida
+        is_published: Publicerad
       form_blocks:
         no_tags: |-
           Layout har inga innehållstaggar definierade.<br/>

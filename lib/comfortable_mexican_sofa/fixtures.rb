@@ -1,8 +1,8 @@
 module ComfortableMexicanSofa::Fixtures
   
   def self.import_all(to_site, from_folder = nil, force_import = false)
-    import_layouts  to_site, from_folder, force_import
-    import_pages    to_site, from_folder, force_import
+    import_layouts  to_site, from_folder, nil, true, nil, [], force_import
+    import_pages    to_site, from_folder, nil, true, nil, [], force_import
     import_snippets to_site, from_folder, force_import
   end
   

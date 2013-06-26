@@ -65,7 +65,7 @@ protected
   end
   
   def layout_params
-    params[:layout].try(:permit!)
+    params.fetch(:layout, {}).permit!
   end
   
 end

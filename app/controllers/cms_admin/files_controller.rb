@@ -2,73 +2,58 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   
   skip_before_action :load_fixtures
   
-  before_action :load_file, :only => [:edit, :update, :destroy]
+  before_action :build_file,  :only => [:new, :create]
+  before_action :load_file,   :only => [:edit, :update, :destroy]
   
   def index
-    return redirect_to :action => :new if @site.files.count == 0
     @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
+    
+    if params[:ajax]
+      files = @files.images.collect do |file|
+        { :thumb => file.file.url(:cms_thumb),
+          :image => file.file.url }
+      end
+      render :json => files
+    else
+      return redirect_to :action => :new if @site.files.count == 0
+    end
   end
   
   def new
-    @file = @site.files.new
+    render
   end
 
   def create
-    respond_to do |format|
-      format.html do
-        @file = @site.files.new
-        file_array  = params[:file][:file] || [nil]
-        label       = params[:file][:label]
-        
-        file_array.each_with_index do |file, i|
-          file_attrs = file_params.merge(:file => file)
-          if file_array.size > 1 && file_attrs[:label].present?
-            label = file_attrs[:label] + " #{i + 1}"
-          end
-          @file = @site.files.create!(file_attrs.merge(:label => label))
-        end
-        
-        flash[:success] = I18n.t('cms.files.created')
-        redirect_to :action => :edit, :id => @file
-      end
-      format.js do
-        # FIX: No idea why this cannot be simulated in the test
-        io = Rails.env.test??
-          request.env['RAW_POST_DATA'].clone :
-          request.env['rack.input'].clone
-        # Unfortunately, this ends up copying the data twice.
-        # Once from the stream to the tempfile here, and second, in
-        # the file to another tempfile down in PaperClip UploadFileAdapter..
-        file = Tempfile.new(request.env["HTTP_X_FILE_NAME"])
-        file.binmode
-        # FileUtils.copy_stream ends up throwing Conversion Errors from ASCII-8BIT to UTF-8
-        # FileUtils.copy_stream(io, file)
-        while data = io.read(16*1024)
-          file.write(data)
-        end
-        file.rewind
-        # We use a delegation class on the file returned
-        upload = ActionDispatch::Http::UploadedFile.new(
-          :filename => request.env['HTTP_X_FILE_NAME'],
-          :tempfile => file,
-          :type     => request.env['CONTENT_TYPE'],
-          :head     => request.headers # Not really needed
-        )
-        @file = @site.files.create!(
-          (params[:file] || { }).merge(:file => upload)
-        )
-      end
+    @files = []
+    
+    files = [file_params[:file]].flatten
+    files.each_with_index do |file, i|
+      label = (files.size > 1 && file_params[:label].present?) ? 
+        "#{file_params[:label]} #{i + 1}" :
+        file_params[:label]
+      @file = @site.files.create!(
+        :file         => file, 
+        :label        => label,
+        :description  => file_params[:description]
+      )
+      @files << @file
     end
+    
+    if params[:ajax]
+      view = render_to_string(:partial => 'cms_admin/files/file', :collection => @files, :layout => false)
+      render :json => {:filelink => @file.file.url, :view => view.gsub("\n", '')}
+    else
+      flash[:success] = I18n.t('cms.files.created')
+      redirect_to :action => :edit, :id => @file
+    end
+    
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
-    respond_to do |format|
-      format.html do
-        flash.now[:error] = I18n.t('cms.files.creation_failure')
-        render :action => :new
-      end
-      format.js do
-        render :nothing => true
-      end
+    if params[:ajax]
+      render :nothing => true, :status => :unprocessable_entity
+    else
+      flash.now[:error] = I18n.t('cms.files.creation_failure')
+      render :action => :new
     end
   end
   
@@ -103,6 +88,10 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   end
   
 protected
+
+  def build_file
+    @file = @site.files.new
+  end
   
   def load_file
     @file = @site.files.find(params[:id])
@@ -112,7 +101,7 @@ protected
   end
   
   def file_params
-    params[:file].try(:permit!)
+    params.fetch(:file, {}).permit!
   end
   
 end

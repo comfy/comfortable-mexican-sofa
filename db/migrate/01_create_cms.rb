@@ -104,7 +104,7 @@ class CreateCms < ActiveRecord::Migration
       t.datetime  :created_at
     end
     add_index :cms_revisions, [:record_type, :record_id, :created_at],
-      :name => 'index_revisions_on_record_type_and_record_id_and_created_at'
+      :name => 'index_cms_revisions_on_rtype_and_rid_and_created_at'
     
     # -- Categories ---------------------------------------------------------
     create_table :cms_categories, :force => true do |t|

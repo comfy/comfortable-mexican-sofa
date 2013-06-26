@@ -130,18 +130,27 @@ window.CMS.categories = ->
 
 
 window.CMS.uploader = ->
-  action = $('.file-uploader form').attr('action')
-  $('.file-uploader input[type=file]').change ->
-    files = $($(this).get(0).files)
-    files.each (i, file) ->
-      xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = (e) ->
-        if (xhr.readyState == 4 && xhr.status == 200)
-          eval(xhr.responseText)
-      xhr.open('POST', action, true)
-      xhr.setRequestHeader('Accept', 'application/javascript')
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name=csrf-token]').attr('content'))
-      xhr.setRequestHeader('Content-Type', file.content_type || file.type)
-      xhr.setRequestHeader('X-File-Name', file.name)
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-      xhr.send(file)
+  form    = $('.file-uploader form')
+  iframe  = $('iframe#file-upload-frame')
+  
+  $('input[type=file]', form).change -> form.submit()
+    
+  iframe.load -> upload_loaded()
+  
+  upload_loaded = ->
+    i = iframe[0]
+    d = if i.contentDocument
+      i.contentDocument
+    else if i.contentWindow
+      i.contentWindow.document
+    else
+      i.document
+    
+    if d.body.innerHTML
+      raw_string  = d.body.innerHTML
+      json_string = raw_string.match(/\{(.|\n)*\}/)[0]
+      json = $.parseJSON(json_string)
+      files = $($('<div/>').html(json.view).text()).hide()
+      $('.uploaded-files').prepend(files)
+      files.map ->
+        $(this).fadeIn()
