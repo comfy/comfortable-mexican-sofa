@@ -150,7 +150,7 @@ window.CMS.uploader = ->
       raw_string  = d.body.innerHTML
       json_string = raw_string.match(/\{(.|\n)*\}/)[0]
       json = $.parseJSON(json_string)
-      files = $($('<div/>').html(json.view).text()).hide()
+      files = $('<div/>').html(json.view).hide()
       $('.uploaded-files').prepend(files)
       files.map ->
         $(this).fadeIn()
