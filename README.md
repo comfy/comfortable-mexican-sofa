@@ -5,7 +5,7 @@ ComfortableMexicanSofa is a powerful CMS Engine for your Rails 3 applications.
 
 Features
 --------
-* Simple integration with Rails 3 apps. Supports Rails 3.1, 3.2 running Ruby 1.9.2, 1.9.3 or 2.0.0
+* Simple integration with Rails 4 apps
 * Build your application in Rails, not in CMS
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
@@ -14,21 +14,12 @@ Features
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
 * [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [WYSIHTML5](http://xing.github.com/wysihtml5/)
 
-Installation for Rails 4
-------------------------
-For Rails 4 apps feel free to use [2.0.0.beta1](https://github.com/comfy/comfortable-mexican-sofa/tree/2.0) release.
-
-    gem 'comfortable_mexican_sofa', '~> 2.0.0.beta1'
-    
-Or even better work with the latest 2.0 branch:
-
-    gem 'comfortable_mexican_sofa', :github => 'comfy/comfortable-mexican-sofa', :branch => '2.0'
 
 Installation
 ------------
 Add gem definition to your Gemfile:
     
-    gem 'comfortable_mexican_sofa'
+    gem 'comfortable_mexican_sofa', '>= 2.0.0'
     
 Then from the Rails project's root run:
     
@@ -44,6 +35,12 @@ ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
 ```
 
 When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)
+
+Installation for Rails 3
+------------------------
+For Rails 3 apps feel free to use [1.8 release](https://github.com/comfy/comfortable-mexican-sofa/tree/1.8)
+    
+    gem 'comfortable_mexican_sofa', '~> 1.8'
     
 Quick Start Guide
 -----------------
