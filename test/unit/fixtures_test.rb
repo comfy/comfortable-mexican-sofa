@@ -279,7 +279,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert file.updated_at >= File.mtime(attr_file_path)
     assert file.updated_at >= File.mtime(file_file_path)
     
-    ComfortableMexicanSofa::Fixtures.import_snippets('default-site', 'sample-site')
+    ComfortableMexicanSofa::Fixtures.import_files('default-site', 'sample-site')
     file.reload
     assert_equal 'default', file.label
     assert_equal 'Description', file.description
