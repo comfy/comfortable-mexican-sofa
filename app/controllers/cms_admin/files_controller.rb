@@ -101,6 +101,11 @@ protected
   end
   
   def file_params
+    # single file upload
+    unless (file = params[:file]).is_a?(Hash)
+      params[:file] = { }
+      params[:file][:file] = [file]
+    end
     params.fetch(:file, {}).permit!
   end
   

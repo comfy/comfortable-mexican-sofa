@@ -144,6 +144,16 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
     end
   end
   
+  def test_create_as_ajax_as_single_file
+    assert_difference 'Cms::File.count' do
+      post :create,
+        :ajax     => true,
+        :site_id  => cms_sites(:default),
+        :file     => fixture_file_upload('files/image.jpg', 'image/jpeg')
+      assert_response :success
+    end
+  end
+  
   def test_update
     file = cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
@@ -161,7 +171,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
   def test_update_failure
     file = cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
-      :file         => nil
+      :file => nil
     }
     assert_response :success
     assert_template :edit
