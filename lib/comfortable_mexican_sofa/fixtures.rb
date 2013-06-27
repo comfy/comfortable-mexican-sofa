@@ -63,6 +63,9 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       layout.parent = parent
       if layout.changed?
+        # Touch the layout; sometimes you get weird situations where a file
+        # changed but the model itself didn't, so updated_at doesn't change.
+        layout.updated_at = Time.now
         if layout.save
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
         else
@@ -142,8 +145,6 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
       if page.changed? || blocks_attributes.present?
-        # Touch the page; sometimes you get weird situations where a file
-        # changed but the model itself didn't, so updated_at doesn't change.
         page.updated_at = Time.now
         if page.save
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
@@ -199,6 +200,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       if snippet.changed?
+        snippet.updated_at = Time.now
         if snippet.save
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Snippet {#{snippet.identifier}}")
         else
@@ -248,6 +250,7 @@ module ComfortableMexicanSofa::Fixtures
       
       # saving
       if file.changed?
+        file.updated_at = Time.now
         if file.save
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved File {#{file.label}}")
         else
