@@ -142,6 +142,8 @@ module ComfortableMexicanSofa::Fixtures
       # saving
       page.blocks_attributes = blocks_attributes if blocks_attributes.present?
       if page.changed? || blocks_attributes.present?
+        # Ensure that the timestamps match
+        page.updated_at = File.mtime(file_path)
         if page.save
           ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
         else
