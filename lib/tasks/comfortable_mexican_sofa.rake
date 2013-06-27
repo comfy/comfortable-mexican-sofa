@@ -11,9 +11,9 @@ namespace :comfortable_mexican_sofa do
     task :import => :environment do
       to            = ENV['TO'] || ENV['FROM']
       from          = ENV['FROM']
-      force_reload  = ENV['FORCE'].try(:downcase) != 'false'
+      force_reload  = ENV['FORCE'].try(:downcase) == "true"
 
-      puts "Importing CMS Fixtures from Folder [#{from}] to Site [#{to}] ..."
+      puts "#{force_reload ? "Force i" : "I"}mporting CMS Fixtures from Folder [#{from}] to Site [#{to}] ..."
 
       # changing so that logger is going straight to screen
       logger_org = ComfortableMexicanSofa.logger
