@@ -9,9 +9,17 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
     @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
     
     if params[:ajax]
-      files = @files.images.collect do |file|
-        { :thumb  => file.file.url(:cms_thumb),
-          :image  => file.file.url }
+      if params[:not_images]
+        files = @files.not_images.collect do |file|
+          { :label    => file.label,
+            :filename => file.file_file_name,
+            :url      => file.file.url }
+        end
+      else
+        files = @files.images.collect do |file|
+          { :thumb  => file.file.url(:cms_thumb),
+            :image  => file.file.url }
+        end
       end
       render :json => files
     else
@@ -47,7 +55,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
     
     if params[:ajax]
       view = render_to_string(:partial => 'cms_admin/files/file', :collection => @files, :layout => false)
-      render :json => {:filelink => @file.file.url, :view => view.gsub("\n", '')}
+      render :json => {:filelink => @file.file.url, :filename => @file.file_file_name, :view => view.gsub("\n", '')}
     else
       flash[:success] = I18n.t('cms.files.created')
       redirect_to :action => :edit, :id => @file
