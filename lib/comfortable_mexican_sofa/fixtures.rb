@@ -361,7 +361,7 @@ module ComfortableMexicanSofa::Fixtures
           file: file.file_file_name
         }.to_yaml)
       end
-      file.file.copy_to_local_file :original, file_path
+      file.file.copy_to_local_file :original, File.join(file_path, file.file_file_name)
     end
   end
 
