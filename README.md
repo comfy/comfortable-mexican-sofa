@@ -16,13 +16,13 @@ Features
 
 Installation for Rails 4
 ------------------------
-For Rails 4 apps feel free to use [2.0.0.beta1](https://github.com/comfy/comfortable-mexican-sofa/tree/2.0) release.
+For Rails 4 apps feel free to use [2.0.0.beta1](https://github.com/comfy/comfortable-mexican-sofa/tree/1.9) release.
 
     gem 'comfortable_mexican_sofa', '~> 2.0.0.beta1'
     
-Or even better work with the latest 2.0 branch:
+Or even better work with the latest 1.9 branch:
 
-    gem 'comfortable_mexican_sofa', :github => 'comfy/comfortable-mexican-sofa', :branch => '2.0'
+    gem 'comfortable_mexican_sofa', :github => 'comfy/comfortable-mexican-sofa', :branch => '1.9'
 
 Installation
 ------------
