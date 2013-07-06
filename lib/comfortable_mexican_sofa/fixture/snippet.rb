@@ -1,5 +1,6 @@
 module ComfortableMexicanSofa::Fixture::Snippet
   class Importer < ComfortableMexicanSofa::Fixture::Importer
+    
     def import!
       Dir[self.path].each do |path|
         identifier = path.split('/').last
@@ -38,6 +39,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
   end
 
   class Exporter < ComfortableMexicanSofa::Fixture::Exporter
+    
     def export!
       prepare_folder!(self.path)
       
