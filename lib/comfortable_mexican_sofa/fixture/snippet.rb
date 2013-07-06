@@ -2,7 +2,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     
     def import!
-      Dir[self.path].each do |path|
+      Dir["#{self.path}*/"].each do |path|
         identifier = path.split('/').last
         snippet = self.site.snippets.find_or_initialize(:identifier => identifier)
         

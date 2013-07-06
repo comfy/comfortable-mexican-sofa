@@ -8,15 +8,15 @@ class FixturesTest < ActiveSupport::TestCase
     Cms::Layout.delete_all
     
     assert_difference 'Cms::Layout.count', 2 do
-      ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
+      ComfortableMexicanSofa::Fixture::Layout::Importer.new('sample-site', 'default-site').import!
       
-      assert layout = Cms::Layout.find_by_identifier('default')
+      assert layout = Cms::Layout.where(:identifier => 'default').first
       assert_equal 'Default Fixture Layout', layout.label
       assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       
-      assert nested_layout = Cms::Layout.find_by_identifier('nested')
+      assert nested_layout = Cms::Layout.where(:identifier => 'nested').first
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
       assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content

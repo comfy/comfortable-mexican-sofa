@@ -2,10 +2,11 @@ module ComfortableMexicanSofa::Fixture::Page
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     
     def import!(path = self.path, parent = nil)
-      Dir[path].each do |path|
+      Dir["#{path}*/"].each do |path|
         slug = path.split('/').last
+        
         page = if parent
-          parent.children.find_or_initialize(:slug => slug)
+          parent.children.find_or_initialize_by_slug(slug)
         else
           site.pages.root || site.pages.new(:slug => slug)
         end

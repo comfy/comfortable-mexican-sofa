@@ -2,9 +2,11 @@ module ComfortableMexicanSofa::Fixture::Layout
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     
     def import!(path = self.path, parent = nil)
-      Dir[path].each do |path|
+      Dir["#{path}*/"].each do |path|
         identifier = path.split('/').last
-        layout = self.site.layouts.find_or_initialize(:identifier => identifier)
+        
+        layout = self.site.layouts.find_or_initialize_by_identifier(identifier)
+        layout.parent = parent
         
         # setting attributes
         if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
@@ -12,34 +14,34 @@ module ComfortableMexicanSofa::Fixture::Layout
             attrs = get_attributes(attrs_path)
             layout.label      = attrs[:label]
             layout.app_layout = attrs[:app_layout] || parent.try(:app_layout)
-            layout.position   = attrs[:position] if attributes[:position]
+            layout.position   = attrs[:position] if attrs[:position]
           end
         end
         
         # setting content
         if File.exists?(content_path = File.join(path, 'content.html'))
           if fresh_fixture?(layout, content_path)
-            layout.content = File.open(file_path).read
+            layout.content = File.open(content_path).read
           end
         end
         if File.exists?(content_path = File.join(path, 'stylesheet.css'))
           if fresh_fixture?(layout, content_path)
-            layout.css = File.open(file_path).read
+            layout.css = File.open(content_path).read
           end
         end
         if File.exists?(content_path = File.join(path, 'javascript.js'))
           if fresh_fixture?(layout, content_path)
-            layout.js = File.open(file_path).read
+            layout.js = File.open(content_path).read
           end
         end
         
         # saving
         if layout.changed?
-          if layout.save
+          if layout.save!
             self.fixture_ids << layout.id
             ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
           else
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Layout {#{snippet.errors.inspect}}")
+            ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Layout {#{layout.errors.inspect}}")
           end
         end
         
