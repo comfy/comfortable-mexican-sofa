@@ -10,6 +10,7 @@ module ComfortableMexicanSofa::Fixtures
     export_layouts  from_site, to_folder
     export_pages    from_site, to_folder
     export_snippets from_site, to_folder
+    export_files    from_site, to_folder
   end
   
   def self.import_layouts(to_site, from_folder = nil, path = nil, root = true, parent = nil, layout_ids = [], force_import = false)
@@ -205,9 +206,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_layouts(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'layouts')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'layouts', to_folder)
     
     site.layouts.each do |layout|
       layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
@@ -235,9 +234,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_pages(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'pages')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'pages', to_folder)
     
     site.pages.each do |page|
       page.slug = 'index' if page.slug.blank?
@@ -264,9 +261,7 @@ module ComfortableMexicanSofa::Fixtures
   
   def self.export_snippets(from_site, to_folder = nil)
     return unless site = Cms::Site.find_by_identifier(from_site)
-    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), 'snippets')
-    FileUtils.rm_rf(path)
-    FileUtils.mkdir_p(path)
+    path = prepare_export_path(site, 'snippets', to_folder)
     
     site.snippets.each do |snippet|
       FileUtils.mkdir_p(snippet_path = File.join(path, snippet.identifier))
@@ -278,8 +273,36 @@ module ComfortableMexicanSofa::Fixtures
       end
     end
   end
+
+  def self.export_files(from_site, to_folder = nil)
+    require 'net/http'
+
+    return unless site = Cms::Site.find_by_identifier(from_site)
+    path = prepare_export_path(site, 'files', to_folder)
+    
+    site.files.each do |file|
+      target_file = "#{path}/#{file.id}_#{file.file_file_name}"
+      if file.file.options[:storage] == :filesystem
+        src_file = file.file.path
+        FileUtils.cp(src_file, target_file)
+      else
+        src_file = file.file.url(:original, false)
+        File.open(target_file, 'w') do |file|
+          response = Net::HTTP.get_response(URI.parse(src_file))
+          file.write response.body
+        end
+      end
+    end
+  end
   
 protected
+
+  def self.prepare_export_path(site, subfolder, to_folder = nil)
+    path = File.join(ComfortableMexicanSofa.config.fixtures_path, (to_folder || site.identifier), subfolder)
+    FileUtils.rm_rf(path)
+    FileUtils.mkdir_p(path)
+    path
+  end
   
   def self.find_fixtures_path(identifier, dir)
     path = File.join(ComfortableMexicanSofa.config.fixtures_path, identifier, dir)
