@@ -13,4 +13,4 @@ Gemfile.lock
 .rvmrc
 .ruby-version
 /.sass-cache
-/coverage
+coverage/

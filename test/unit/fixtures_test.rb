@@ -77,6 +77,17 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal 'default_js', layout.js
   end
   
+  def test_import_layouts_forcing
+    layout = cms_layouts(:default)
+    ComfortableMexicanSofa::Fixture::Layout::Importer.new('sample-site', 'default-site').import!
+    layout.reload
+    assert_equal 'Default Layout', layout.label
+    
+    ComfortableMexicanSofa::Fixture::Layout::Importer.new('sample-site', 'default-site', :forced).import!
+    layout.reload
+    assert_equal 'Default Fixture Layout', layout.label
+  end
+  
   def test_import_pages_creating
     Cms::Page.delete_all
     
@@ -146,6 +157,17 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal 'Test', page.label
     block = page.blocks.where(:identifier => 'content').first
     assert_equal 'test content', block.content
+  end
+  
+  def test_import_pages_forcing
+    page = cms_pages(:default)
+    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    page.reload
+    assert_equal 'Default Page', page.label
+    
+    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site', :forced).import!
+    page.reload
+    assert_equal 'Home Fixture Page', page.label
   end
   
   def test_import_pages_removing_deleted_blocks
@@ -225,6 +247,17 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
     assert_equal 'default_snippet_content', snippet.content
+  end
+  
+  def test_import_snippets_forcing
+    snippet = cms_snippets(:default)
+    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+    snippet.reload
+    assert_equal 'Default Snippet', snippet.label
+    
+    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site', :forced).import!
+    snippet.reload
+    assert_equal 'Default Fixture Snippet', snippet.label
   end
   
   def test_import_all

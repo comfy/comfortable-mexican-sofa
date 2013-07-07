@@ -13,6 +13,7 @@ module ComfortableMexicanSofa::Fixture
       self.to           = to
       self.site         = Cms::Site.where(:identifier => to).first!
       self.fixture_ids  = []
+      self.force_import = force_import
       
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = File.join(ComfortableMexicanSofa.config.fixtures_path, from, dir, '/')
@@ -20,7 +21,7 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def fresh_fixture?(object, file_path)
-      object.new_record? || File.mtime(file_path) > object.updated_at
+      object.new_record? || self.force_import || File.mtime(file_path) > object.updated_at
     end
     
     def get_attributes(file_path)
