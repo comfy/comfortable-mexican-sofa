@@ -300,14 +300,18 @@ class FixturesTest < ActiveSupport::TestCase
     
     FileUtils.rm_rf(host_path)
   end
-  
+
   def test_export_pages
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     page_1_attr_path    = File.join(host_path, 'pages/index/_index.yml')
     page_1_block_a_path = File.join(host_path, 'pages/index/default_field_text.html')
     page_1_block_b_path = File.join(host_path, 'pages/index/default_page_text.html')
     page_2_attr_path    = File.join(host_path, 'pages/index/child-page/_child-page.yml')
-    
+
+    parent_page = Cms::Page.where(:slug => nil).first
+    child_page_with_redirect = parent_page.site.pages.create(:parent => parent_page, :target_page_id => parent_page.id, :slug => 'child-page-with-redirect', :layout => parent_page.layout)
+    child_page_with_redirect_attr_path = File.join(host_path, "pages/index/#{child_page_with_redirect.slug}/_#{child_page_with_redirect.slug}.yml")
+
     ComfortableMexicanSofa::Fixtures.export_pages('default-site', 'test-site')
     
     assert_equal ({
@@ -329,7 +333,16 @@ class FixturesTest < ActiveSupport::TestCase
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_2_attr_path)
-    
+
+    assert_equal ({
+      'label'         => 'Child Page With Redirect',
+      'layout'        => 'default',
+      'parent'        => 'index',
+      'target_page'   => '/',
+      'is_published'  => true,
+      'position'      => 1
+    }), YAML.load_file(child_page_with_redirect_attr_path)
+
     FileUtils.rm_rf(host_path)
   end
   
@@ -351,6 +364,39 @@ class FixturesTest < ActiveSupport::TestCase
   def test_export_all
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     ComfortableMexicanSofa::Fixtures.export_all('default-site', 'test-site')
+    FileUtils.rm_rf(host_path)
+  end
+
+
+  def test_export_pages_import_pages_with_redirects_and_target_page_last
+    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
+
+    child_page_org = Cms::Page.where('slug is not null').first
+
+    parent_page_org = Cms::Page.where(:slug => nil).first
+
+    parent_page_org.target_page = child_page_org
+    parent_page_org.save!
+
+    #child_page_with_redirect_org = parent_page_org.site.pages.create(:parent => parent_page_org, :target_page_id => parent_page_org.id, :slug => 'child-page-with-redirect', :layout => parent_page_org.layout)
+    #child_page_with_redirect_attr_path = File.join(host_path, "pages/index/#{child_page_with_redirect_org.slug}/_#{child_page_with_redirect_org.slug}.yml")
+
+    ComfortableMexicanSofa::Fixtures.export_pages('default-site', 'test-site')
+
+    Cms::Page.delete_all
+
+    ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'test-site')
+
+    assert child_page = Cms::Page.find_by_full_path(child_page_org.full_path)
+    assert_equal child_page_org.slug, child_page.slug
+
+    assert index_page = Cms::Page.find_by_full_path('/')
+    assert_equal 'index', index_page.slug
+    assert_equal child_page.id, index_page.target_page_id
+
+    #assert child_page_with_redirect = Cms::Page.find_by_full_path('/child-page-with-redirect')
+    #assert_equal index_page.id, child_page_with_redirect.target_page_id
+
     FileUtils.rm_rf(host_path)
   end
   
