@@ -6,7 +6,7 @@ module ComfortableMexicanSofa::Fixture::Page
         slug = path.split('/').last
         
         page = if parent
-          parent.children.find_or_initialize_by_slug(slug)
+          parent.children.where(:slug => slug).first || site.pages.new(:parent => parent, :slug => slug)
         else
           site.pages.root || site.pages.new(:slug => slug)
         end
@@ -17,9 +17,9 @@ module ComfortableMexicanSofa::Fixture::Page
             attrs = get_attributes(attrs_path)
             
             page.label        = attrs[:label]
-            page.layout       = site.layouts.find_by_identifier(attrs[:layout]) || parent.try(:layout)
+            page.layout       = site.layouts.where(:identifier => attrs[:layout]).first || parent.try(:layout)
             page.is_published = attrs[:is_published].nil?? true : attrs[:is_published]
-            page.position     = attrs[:position] if attributes[:position]
+            page.position     = attrs[:position] if attrs[:position]
           end
         end
         
@@ -32,7 +32,7 @@ module ComfortableMexicanSofa::Fixture::Page
           if fresh_fixture?(page, block_path)
             blocks_attributes << {
               :identifier => identifier,
-              :content    => File.open(file_path).read
+              :content    => File.open(block_path).read
             }
           end
         end
@@ -48,21 +48,23 @@ module ComfortableMexicanSofa::Fixture::Page
         
         # saving
         if page.changed?
-          if page.save
-            self.fixture_ids << page.id
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.identifier}}")
+          if page.save!
+            ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
           else
             ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Page {#{page.errors.inspect}}")
           end
         end
         
+        self.fixture_ids << page.id
+        
+        # importing child pages
         import!(path, page)
       end
       
       # cleaning up
       unless parent
         self.site.pages.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
-        ComfortableMexicanSofa.logger.warn('Imported Pages!')
+        ComfortableMexicanSofa.logger.warn('[Fixtures] Imported Pages!')
       end
     end
   end

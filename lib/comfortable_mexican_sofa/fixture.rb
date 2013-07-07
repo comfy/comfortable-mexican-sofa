@@ -47,7 +47,7 @@ module ComfortableMexicanSofa::Fixture
     ComfortableMexicanSofa::Fixture::Snippet::Importer.new(from, to, force_import).import!
   end
   
-  def self.export_all(to, from = to)
+  def self.export_all(from, to = from)
     ComfortableMexicanSofa::Fixture::Layout::Exporter.new( from, to).export!
     ComfortableMexicanSofa::Fixture::Page::Exporter.new(   from, to).export!
     ComfortableMexicanSofa::Fixture::Snippet::Exporter.new(from, to).export!

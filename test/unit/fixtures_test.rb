@@ -34,7 +34,7 @@ class FixturesTest < ActiveSupport::TestCase
     child_layout.update_column(:updated_at, 10.years.ago)
     
     assert_difference 'Cms::Layout.count', -1 do
-      ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
+      ComfortableMexicanSofa::Fixture::Layout::Importer.new('sample-site', 'default-site').import!
       
       layout.reload
       assert_equal 'Default Fixture Layout', layout.label
@@ -51,24 +51,24 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal '// nested js', nested_layout.js
       assert_equal 42, nested_layout.position
       
-      assert_nil Cms::Layout.find_by_identifier('child')
+      assert_nil Cms::Layout.where(:identifier => 'child').first
     end
   end
   
   def test_import_layouts_ignoring
     layout = cms_layouts(:default)
     layout_path       = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'layouts', 'default')
-    attr_file_path    = File.join(layout_path, '_default.yml')
+    attr_file_path    = File.join(layout_path, 'attributes.yml')
     content_file_path = File.join(layout_path, 'content.html')
-    css_file_path     = File.join(layout_path, 'css.css')
-    js_file_path      = File.join(layout_path, 'js.js')
+    css_file_path     = File.join(layout_path, 'stylesheet.css')
+    js_file_path      = File.join(layout_path, 'javascript.js')
     
     assert layout.updated_at >= File.mtime(attr_file_path)
     assert layout.updated_at >= File.mtime(content_file_path)
     assert layout.updated_at >= File.mtime(css_file_path)
     assert layout.updated_at >= File.mtime(js_file_path)
     
-    ComfortableMexicanSofa::Fixtures.import_layouts('default-site', 'sample-site')
+    ComfortableMexicanSofa::Fixture::Layout::Importer.new('sample-site', 'default-site').import!
     layout.reload
     assert_equal 'default', layout.identifier
     assert_equal 'Default Layout', layout.label
@@ -87,16 +87,16 @@ class FixturesTest < ActiveSupport::TestCase
     nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
     
     assert_difference 'Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Fixtures.import_pages('default-site', 'sample-site')
+      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
       
-      assert page = Cms::Page.find_by_full_path('/')
+      assert page = Cms::Page.where(:full_path => '/').first
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content
       assert_equal 0, page.position
       assert page.is_published?
       
-      assert child_page = Cms::Page.find_by_full_path('/child')
+      assert child_page = Cms::Page.where(:full_path => '/child').first
       assert_equal page, child_page.parent
       assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug

@@ -37,21 +37,23 @@ module ComfortableMexicanSofa::Fixture::Layout
         
         # saving
         if layout.changed?
-          if layout.save!
-            self.fixture_ids << layout.id
+          if layout.save
             ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
           else
             ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Layout {#{layout.errors.inspect}}")
           end
         end
         
+        self.fixture_ids << layout.id
+        
+        # importing child layouts
         import!(path, layout)
       end
       
       # cleaning up
       unless parent
         self.site.layouts.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
-        ComfortableMexicanSofa.logger.warn('Imported Layouts!')
+        ComfortableMexicanSofa.logger.warn('[Fixtures] Imported Layouts!')
       end
     end
   end
