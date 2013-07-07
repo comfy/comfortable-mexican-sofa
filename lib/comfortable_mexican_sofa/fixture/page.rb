@@ -1,6 +1,8 @@
 module ComfortableMexicanSofa::Fixture::Page
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     
+    attr_accessor :target_pages
+    
     def import!(path = self.path, parent = nil)
       Dir["#{path}*/"].each do |path|
         slug = path.split('/').last
@@ -20,6 +22,11 @@ module ComfortableMexicanSofa::Fixture::Page
             page.layout       = site.layouts.where(:identifier => attrs[:layout]).first || parent.try(:layout)
             page.is_published = attrs[:is_published].nil?? true : attrs[:is_published]
             page.position     = attrs[:position] if attrs[:position]
+            
+            if attrs[:target_page]
+              self.target_pages ||= {}
+              self.target_pages[page] = attrs[:target_page]
+            end
           end
         end
         
@@ -61,6 +68,16 @@ module ComfortableMexicanSofa::Fixture::Page
         import!(path, page)
       end
       
+      # linking up target pages
+      if self.target_pages.present?
+        self.target_pages.each do |page, target|
+          if target_page = self.site.pages.where(:full_path => target).first
+            page.target_page = target_page
+            page.save
+          end
+        end
+      end
+      
       # cleaning up
       unless parent
         self.site.pages.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
@@ -82,7 +99,7 @@ module ComfortableMexicanSofa::Fixture::Page
             'label'         => page.label,
             'layout'        => page.layout.try(:identifier),
             'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-            'target_page'   => page.target_page.try(:slug),
+            'target_page'   => page.target_page.try(:full_path),
             'is_published'  => page.is_published,
             'position'      => page.position
           }.to_yaml)

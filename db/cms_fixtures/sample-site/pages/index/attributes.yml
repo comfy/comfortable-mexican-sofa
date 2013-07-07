@@ -1,2 +1,3 @@
 label: Home Fixture Page
 layout: default
+target_page: '/child'

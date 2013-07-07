@@ -113,6 +113,8 @@ class FixturesTest < ActiveSupport::TestCase
       assert_equal 'child', child_page.slug
       assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content
       assert_equal 42, child_page.position
+      
+      assert_equal child_page, page.target_page
     end
   end
   
@@ -327,6 +329,8 @@ class FixturesTest < ActiveSupport::TestCase
   end
   
   def test_export_pages
+    cms_pages(:default).update_attribute(:target_page, cms_pages(:child))
+    
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     page_1_attr_path    = File.join(host_path, 'pages/index/attributes.yml')
     page_1_block_a_path = File.join(host_path, 'pages/index/default_field_text.html')
@@ -339,7 +343,7 @@ class FixturesTest < ActiveSupport::TestCase
       'label'         => 'Default Page',
       'layout'        => 'default',
       'parent'        => nil,
-      'target_page'   => nil,
+      'target_page'   => '/child-page',
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_1_attr_path)
