@@ -17,7 +17,6 @@ module ComfortableMexicanSofa::Fixture
       
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = File.join(ComfortableMexicanSofa.config.fixtures_path, from, dir, '/')
-      ComfortableMexicanSofa.logger.warn("Cannot find fixtures for #{dir}") unless File.directory?(self.path)
     end
     
     def fresh_fixture?(object, file_path)
@@ -44,7 +43,7 @@ module ComfortableMexicanSofa::Fixture
     def initialize(from, to = from)
       self.from = from
       self.to   = to
-      self.site = Cms::Site.where(:identifier => from).first
+      self.site = Cms::Site.where(:identifier => from).first!
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = File.join(ComfortableMexicanSofa.config.fixtures_path, to, dir)
     end

@@ -36,11 +36,11 @@ module ComfortableMexicanSofa::Fixture::Layout
         end
         
         # saving
-        if layout.changed?
+        if layout.changed? || self.force_import
           if layout.save
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Layout {#{layout.identifier}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Layout \t #{layout.identifier}")
           else
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Layout {#{layout.errors.inspect}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Layout \n#{layout.errors.inspect}")
           end
         end
         
@@ -53,7 +53,6 @@ module ComfortableMexicanSofa::Fixture::Layout
       # cleaning up
       unless parent
         self.site.layouts.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
-        ComfortableMexicanSofa.logger.warn('[Fixtures] Imported Layouts!')
       end
     end
   end
@@ -83,6 +82,8 @@ module ComfortableMexicanSofa::Fixture::Layout
         open(File.join(layout_path, 'javascript.js'), 'w') do |f|
           f.write(layout.js)
         end
+        
+        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Layout \t #{layout.identifier}")
       end
     end
   end

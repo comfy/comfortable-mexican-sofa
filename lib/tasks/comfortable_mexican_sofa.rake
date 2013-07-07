@@ -9,8 +9,8 @@ namespace :comfortable_mexican_sofa do
     desc 'Import Fixture data into database (options: FROM=folder_name TO=site_identifier)'
     
     task :import => :environment do
-      to    = ENV['TO'] || ENV['FROM']
       from  = ENV['FROM']
+      to    = ENV['TO'] || ENV['FROM']
       
       puts "Importing CMS Fixtures from Folder [#{from}] to Site [#{to}] ..."
       
@@ -25,8 +25,8 @@ namespace :comfortable_mexican_sofa do
     
     desc 'Export database data into Fixtures (options: FROM=site_identifier TO=folder_name)'
     task :export => :environment do
-      to    = ENV['TO'] || ENV['FROM']
       from  = ENV['FROM']
+      to    = ENV['TO'] || ENV['FROM']
       
       puts "Exporting CMS data from Site [#{from}] to Folder [#{to}] ..."
       
@@ -37,8 +37,6 @@ namespace :comfortable_mexican_sofa do
       ComfortableMexicanSofa::Fixture::Exporter.new(from, to).export!
       
       ComfortableMexicanSofa.logger = logger
-      
-      puts 'Done!'
     end
   end
 end

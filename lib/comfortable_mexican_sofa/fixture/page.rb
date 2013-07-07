@@ -47,11 +47,11 @@ module ComfortableMexicanSofa::Fixture::Page
         page.blocks_attributes = blocks_attributes if blocks_attributes.present?
         
         # saving
-        if page.changed?
+        if page.changed? || self.force_import
           if page.save!
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Page {#{page.full_path}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Page \t #{page.full_path}")
           else
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Page {#{page.errors.inspect}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
           end
         end
         
@@ -64,7 +64,6 @@ module ComfortableMexicanSofa::Fixture::Page
       # cleaning up
       unless parent
         self.site.pages.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
-        ComfortableMexicanSofa.logger.warn('[Fixtures] Imported Pages!')
       end
     end
   end
@@ -93,6 +92,8 @@ module ComfortableMexicanSofa::Fixture::Page
             f.write(block[:content])
           end
         end
+        
+        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Page \t #{page.full_path}")
       end
     end
   end

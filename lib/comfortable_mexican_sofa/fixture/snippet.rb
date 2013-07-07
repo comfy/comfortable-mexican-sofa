@@ -22,11 +22,11 @@ module ComfortableMexicanSofa::Fixture::Snippet
         end
         
         # saving
-        if snippet.changed?
+        if snippet.changed? || self.force_import
           if snippet.save
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Saved Snippet {#{snippet.identifier}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Snippet \t #{snippet.identifier}")
           else
-            ComfortableMexicanSofa.logger.warn("[Fixtures] Failed to save Snippet {#{snippet.errors.inspect}}")
+            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Snippet \n#{snippet.errors.inspect}")
           end
         end
         
@@ -35,7 +35,6 @@ module ComfortableMexicanSofa::Fixture::Snippet
       
       # cleaning up
       self.site.snippets.where('id NOT IN (?)', fixture_ids).each{ |s| s.destroy }
-      ComfortableMexicanSofa.logger.warn('Imported Snippets!')
     end
   end
 
@@ -57,6 +56,8 @@ module ComfortableMexicanSofa::Fixture::Snippet
         open(File.join(snippet_path, 'content.html'), 'w') do |f|
           f.write(snippet.content)
         end
+        
+        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Snippet \t #{snippet.identifier}")
       end
     end
   end

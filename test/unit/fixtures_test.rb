@@ -379,4 +379,12 @@ class FixturesTest < ActiveSupport::TestCase
     FileUtils.rm_rf(host_path)
   end
   
+  def test_import_all_with_no_site
+    cms_sites(:default).destroy
+    
+    assert_exception_raised ActiveRecord::RecordNotFound do
+      ComfortableMexicanSofa::Fixture::Exporter.new('sample-site', 'default-site').export!
+    end
+  end
+  
 end
