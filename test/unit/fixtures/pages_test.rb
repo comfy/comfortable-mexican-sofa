@@ -22,6 +22,8 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content
       assert_equal 0, page.position
       assert page.is_published?
+      assert_equal 2, page.categories.count
+      assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
       
       assert child_page = Cms::Page.where(:full_path => '/child').first
       assert_equal page, child_page.parent
@@ -110,6 +112,9 @@ class FixturePagesTest < ActiveSupport::TestCase
   
   def test_export
     cms_pages(:default).update_attribute(:target_page, cms_pages(:child))
+    cms_categories(:default).categorizations.create!(
+      :categorized => cms_pages(:default)
+    )
     
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     page_1_attr_path    = File.join(host_path, 'pages/index/attributes.yml')
@@ -124,6 +129,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       'layout'        => 'default',
       'parent'        => nil,
       'target_page'   => '/child-page',
+      'categories'    => ['Default'],
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_1_attr_path)
@@ -135,6 +141,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       'layout'        => 'default',
       'parent'        => 'index',
       'target_page'   => nil,
+      'categories'    => [],
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_2_attr_path)

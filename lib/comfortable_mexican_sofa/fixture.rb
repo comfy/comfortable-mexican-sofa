@@ -27,6 +27,16 @@ module ComfortableMexicanSofa::Fixture
       YAML.load_file(file_path).try(:symbolize_keys!) || { }
     end
     
+    def save_categorizations!(object, categories)
+      object.categorizations.delete_all
+      [categories].flatten.compact.each do |label|
+        category = self.site.categories.find_or_create_by_label_and_categorized_type!(label, object.class)
+        category.categorizations.create!(
+          :categorized => object
+        )
+      end
+    end
+    
     def import!
       ComfortableMexicanSofa::Fixture::Layout::Importer.new( from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Page::Importer.new(   from, to, force_import).import!

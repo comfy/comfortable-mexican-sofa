@@ -7,10 +7,12 @@ module ComfortableMexicanSofa::Fixture::Snippet
         snippet = self.site.snippets.find_or_initialize_by_identifier(identifier)
         
         # setting attributes
+        categories = []
         if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(snippet, attrs_path)
             attrs = get_attributes(attrs_path)
             snippet.label = attrs[:label]
+            categories    = attrs[:categories]
           end
         end
         
@@ -24,6 +26,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         # saving
         if snippet.changed? || self.force_import
           if snippet.save
+            save_categorizations!(snippet, categories)
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Snippet \t #{snippet.identifier}")
           else
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Snippet \n#{snippet.errors.inspect}")
@@ -49,7 +52,10 @@ module ComfortableMexicanSofa::Fixture::Snippet
         
         # writing attributes
         open(File.join(snippet_path, 'attributes.yml'), 'w') do |f|
-          f.write({'label' => snippet.label}.to_yaml)
+          f.write({
+            'label'       => snippet.label,
+            'categories'  => snippet.categories.map{|c| c.label}
+          }.to_yaml)
         end
         
         # writing content
