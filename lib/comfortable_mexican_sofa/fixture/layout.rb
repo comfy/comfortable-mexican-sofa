@@ -64,7 +64,7 @@ module ComfortableMexicanSofa::Fixture::Layout
       
       self.site.layouts.each do |layout|
         layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
-        prepare_folder!(layout_path)
+        FileUtils.mkdir_p(layout_path)
         
         # writing attributes
         open(File.join(layout_path, 'attributes.yml'), 'w') do |f|

@@ -76,7 +76,7 @@ module ComfortableMexicanSofa::Fixture::Page
       self.site.pages.each do |page|
         page.slug = 'index' if page.slug.blank?
         page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
-        prepare_folder!(page_path)
+        FileUtils.mkdir_p(page_path)
 
         open(File.join(page_path, 'attributes.yml'), 'w') do |f|
           f.write({
