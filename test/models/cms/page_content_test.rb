@@ -13,6 +13,10 @@ class CmsPageContentTest < ActiveSupport::TestCase
   def test_validations
   end
 
+  def test_delegations
+    assert_equal cms_sites(:default), cms_page_contents(:default).site
+  end
+
   def test_scope_for_variation_without_variations
     assert ComfortableMexicanSofa.config.variations.nil?
     assert_equal 1, Cms::PageContent.for_variation('en').count

@@ -4,7 +4,7 @@ class FileTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg:image:alt text }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg:image:alt text }}'
     )
     assert_equal cms_files(:default), tag.file
     assert_equal 'sample.jpg', tag.identifier
@@ -18,14 +18,14 @@ class FileTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::File.initialize_tag(
-        cms_pages(:default), tag_signature
+        cms_page_contents(:default), tag_signature
       )
     end
   end
   
   def test_render_for_invalid
     tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{cms:file:invalid.jpg}}'
+      cms_page_contents(:default), '{{cms:file:invalid.jpg}}'
     )
     assert_nil tag.file
     assert_equal '', tag.render
@@ -34,7 +34,7 @@ class FileTagTest < ActiveSupport::TestCase
   def test_render
     file = cms_files(:default)
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg }}'
     )
     assert_equal file.file.url, tag.render
   end
@@ -42,12 +42,12 @@ class FileTagTest < ActiveSupport::TestCase
   def test_render_for_link
     file = cms_files(:default)
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg:link }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg:link }}'
     )
     assert_equal "<a href='#{file.file.url}' target='_blank'>sample.jpg</a>", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg:link:link text }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg:link:link text }}'
     )
     assert_equal "<a href='#{file.file.url}' target='_blank'>link text</a>", tag.render
   end
@@ -55,12 +55,12 @@ class FileTagTest < ActiveSupport::TestCase
   def test_render_for_image
     file = cms_files(:default)
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg:image }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg:image }}'
     )
     assert_equal "<img src='#{file.file.url}' alt='sample.jpg' />", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg:image:alt text }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg:image:alt text }}'
     )
     assert_equal "<img src='#{file.file.url}' alt='alt text' />", tag.render
   end

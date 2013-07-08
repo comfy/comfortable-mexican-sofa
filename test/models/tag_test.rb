@@ -67,8 +67,8 @@ class TagTest < ActiveSupport::TestCase
   end
   
   def test_content_for_existing_page
-    page = cms_pages(:default)
-    assert page.tags.blank?
+    pc = cms_page_contents(:default)
+    assert pc.tags.blank?
     assert_equal rendered_content_formatter(
       '
       layout_content_a
@@ -78,28 +78,28 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content(true)
+    ), pc.content(true)
     
-    assert_equal 4, page.tags.size
-    assert_equal 'field_text_default_field_text', page.tags[0].id
-    assert_equal 'page_text_default_page_text', page.tags[1].id
-    assert_equal 'snippet_default', page.tags[2].id
-    assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'snippet_default', page.tags[3].id
+    assert_equal 4, pc.tags.size
+    assert_equal 'field_text_default_field_text', pc.tags[0].id
+    assert_equal 'page_text_default_page_text', pc.tags[1].id
+    assert_equal 'snippet_default', pc.tags[2].id
+    assert_equal pc.tags[1], pc.tags[2].parent
+    assert_equal 'snippet_default', pc.tags[3].id
   end
   
   def test_content_for_new_page
-    page = Cms::Page.new
-    assert page.blocks.blank?
-    assert page.tags.blank?
-    assert_equal '', page.content
-    assert page.tags.blank?
+    pc = Cms::PageContent.new
+    assert pc.blocks.blank?
+    assert pc.tags.blank?
+    assert_equal '', pc.content
+    assert pc.tags.blank?
   end
   
   def test_content_for_new_page_with_layout
-    page = cms_sites(:default).pages.new(:layout => cms_layouts(:default))
-    assert page.blocks.blank?
-    assert page.tags.blank?
+    pc = cms_pages(:default).page_contents.new
+    assert pc.blocks.blank?
+    assert pc.tags.blank?
     assert_equal rendered_content_formatter(
       '
       layout_content_a
@@ -107,19 +107,19 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content
+    ), pc.content
     
-    assert_equal 3, page.tags.size
-    assert_equal 'field_text_default_field_text', page.tags[0].id
-    assert_equal 'page_text_default_page_text', page.tags[1].id
-    assert_equal 'snippet_default', page.tags[2].id
+    assert_equal 3, pc.tags.size
+    assert_equal 'field_text_default_field_text', pc.tags[0].id
+    assert_equal 'page_text_default_page_text', pc.tags[1].id
+    assert_equal 'snippet_default', pc.tags[2].id
   end
   
   def test_content_for_new_page_with_initilized_cms_blocks
-    page = cms_sites(:default).pages.new(:layout => cms_layouts(:default))
-    assert page.blocks.blank?
-    assert page.tags.blank?
-    page.blocks_attributes = [
+    pc = cms_pages(:default).page_contents.new
+    assert pc.blocks.blank?
+    assert pc.tags.blank?
+    pc.blocks_attributes = [
       { :identifier => 'default_field_text',
         :content    => 'new_default_field_content'
       },
@@ -130,7 +130,7 @@ class TagTest < ActiveSupport::TestCase
         :content    => 'some_content_that_doesnot_matter'
       }
     ]
-    assert_equal 3, page.blocks.size
+    assert_equal 3, pc.blocks.size
     
     assert_equal rendered_content_formatter(
       '
@@ -140,20 +140,20 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content
+    ), pc.content
     
-    assert_equal 4, page.tags.size
-    assert_equal 'field_text_default_field_text', page.tags[0].id
-    assert_equal 'page_text_default_page_text', page.tags[1].id
-    assert_equal 'snippet_default', page.tags[2].id
-    assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'snippet_default', page.tags[3].id
+    assert_equal 4, pc.tags.size
+    assert_equal 'field_text_default_field_text', pc.tags[0].id
+    assert_equal 'page_text_default_page_text', pc.tags[1].id
+    assert_equal 'snippet_default', pc.tags[2].id
+    assert_equal pc.tags[1], pc.tags[2].parent
+    assert_equal 'snippet_default', pc.tags[3].id
   end
   
   def test_content_with_repeated_tags
-    page = cms_pages(:default)
-    page.layout.content << "\n{{cms:page:default_page_text:text}}"
-    page.layout.save!
+    pc = cms_page_contents(:default)
+    pc.page.layout.content << "\n{{cms:page:default_page_text:text}}"
+    pc.page.layout.save!
     
     assert_equal rendered_content_formatter(
       '
@@ -167,21 +167,21 @@ class TagTest < ActiveSupport::TestCase
       default_page_text_content_a
       default_snippet_content
       default_page_text_content_b'
-    ), page.content(true)
+    ), pc.content(true)
     
-    assert_equal 6, page.tags.size
-    assert_equal 'field_text_default_field_text', page.tags[0].id
-    assert_equal 'page_text_default_page_text', page.tags[1].id
-    assert_equal 'snippet_default', page.tags[2].id
-    assert_equal page.tags[1], page.tags[2].parent
-    assert_equal 'snippet_default', page.tags[3].id
-    assert_equal 'page_text_default_page_text', page.tags[4].id
-    assert_equal 'snippet_default', page.tags[5].id
-    assert_equal page.tags[4], page.tags[5].parent
+    assert_equal 6, pc.tags.size
+    assert_equal 'field_text_default_field_text', pc.tags[0].id
+    assert_equal 'page_text_default_page_text', pc.tags[1].id
+    assert_equal 'snippet_default', pc.tags[2].id
+    assert_equal pc.tags[1], pc.tags[2].parent
+    assert_equal 'snippet_default', pc.tags[3].id
+    assert_equal 'page_text_default_page_text', pc.tags[4].id
+    assert_equal 'snippet_default', pc.tags[5].id
+    assert_equal pc.tags[4], pc.tags[5].parent
   end
   
   def test_content_with_cyclical_tags
-    page = cms_pages(:default)
+    pc = cms_page_contents(:default)
     snippet = cms_snippets(:default)
     snippet.update_attributes(:content => "infinite {{cms:page:default}} loop")
     assert_equal rendered_content_formatter(
@@ -193,28 +193,28 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       infinite  loop
       layout_content_c'
-    ), page.content(true)
-    assert_equal 6, page.tags.size
+    ), pc.content(true)
+    assert_equal 6, pc.tags.size
   end
   
   def test_is_cms_block?
     tag = ComfortableMexicanSofa::Tag::PageText.initialize_tag(
-      cms_pages(:default), '{{ cms:page:content:text }}'
+      cms_page_contents(:default), '{{ cms:page:content:text }}'
     )
     assert tag.is_cms_block?
     
     tag = ComfortableMexicanSofa::Tag::FieldText.initialize_tag(
-      cms_pages(:default), '{{ cms:field:content:text }}'
+      cms_page_contents(:default), '{{ cms:field:content:text }}'
     )
     assert tag.is_cms_block?
     
     tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), '{{ cms:snippet:label }}'
+      cms_page_contents(:default), '{{ cms:snippet:label }}'
     )
     assert !tag.is_cms_block?
 
     tag = ComfortableMexicanSofa::Tag::File.initialize_tag(
-      cms_pages(:default), '{{ cms:file:sample.jpg }}'
+      cms_page_contents(:default), '{{ cms:file:sample.jpg }}'
     )
     assert !tag.is_cms_block?
   end
@@ -235,14 +235,16 @@ class TagTest < ActiveSupport::TestCase
       :slug       => 'no-irb-page',
       :parent_id  => cms_pages(:default).id,
       :layout_id  => layout.id,
-      :blocks_attributes => [
+      :page_content_attributes => {
+        :blocks_attributes => [
         { :identifier => 'content',
           :content    => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
         { :identifier => 'snippet',
           :content    => snippet.id }
-      ]
+        ]
+      }
     )
-    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.content
+    assert_equal "&lt;% 1 + 1 %&gt; text &lt;% 2 + 2 %&gt; snippet &lt;%= 2 + 2 %&gt; <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> &lt;%= 1 + 1 %&gt;", page.page_contents.last.content
   end
   
   def test_content_with_irb_enabled
@@ -261,19 +263,21 @@ class TagTest < ActiveSupport::TestCase
       :slug       => 'irb-page',
       :parent_id  => cms_pages(:default).id,
       :layout_id  => layout.id,
-      :blocks_attributes => [
-        { :identifier => 'content',
-          :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
-        { :identifier => 'snippet',
-          :content    => snippet.id }
-      ]
+      :page_content_attributes => {
+        :blocks_attributes => [
+          { :identifier => 'content',
+            :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
+          { :identifier => 'snippet',
+            :content    => snippet.id }
+        ]
+      }
     )
-    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
+    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.page_contents.last.content
   end
   
   def test_escaping_of_parameters
     tag = ComfortableMexicanSofa::Tag::Helper.initialize_tag(
-      cms_pages(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
+      cms_page_contents(:default), '{{cms:helper:h:"\'+User.first.inspect+\'"}}'
     )
     assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.content
     assert_equal %{<%= h('\\'+User.first.inspect+\\'') %>}, tag.render
@@ -281,25 +285,25 @@ class TagTest < ActiveSupport::TestCase
   
   def test_tag_initialization_with_namespace
     assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
-      cms_pages(:default), '{{ cms:page:content:string }}'
+      cms_page_contents(:default), '{{ cms:page:content:string }}'
     )
     assert_equal 'content', tag.identifier
     assert_equal nil, tag.namespace
     
     assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
-      cms_pages(:default), '{{ cms:page:home.content:string }}'
+      cms_page_contents(:default), '{{ cms:page:home.content:string }}'
     )
     assert_equal 'home.content', tag.identifier
     assert_equal 'home', tag.namespace
     
     assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
-      cms_pages(:default), '{{ cms:page:home.main.content:string }}'
+      cms_page_contents(:default), '{{ cms:page:home.main.content:string }}'
     )
     assert_equal 'home.main.content', tag.identifier
     assert_equal 'home.main', tag.namespace
     
     assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
-      cms_pages(:default), '{{ cms:page:ho-me.ma-in.con-tent:string }}'
+      cms_page_contents(:default), '{{ cms:page:ho-me.ma-in.con-tent:string }}'
     )
     assert_equal 'ho-me.ma-in.con-tent', tag.identifier
     assert_equal 'ho-me.ma-in', tag.namespace

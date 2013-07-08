@@ -5,7 +5,7 @@ class Cms::Block < ActiveRecord::Base
   self.table_name = 'cms_blocks'
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :page
+  belongs_to :page_content
   has_many :files,
     :autosave   => true,
     :dependent  => :destroy
@@ -16,12 +16,12 @@ class Cms::Block < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :identifier,
     :presence   => true,
-    :uniqueness => { :scope => :page_id }
+    :uniqueness => { :scope => :page_content_id }
     
   # -- Instance Methods -----------------------------------------------------
   # Tag object that is using this block
   def tag
-    @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
+    @tag ||= page_content.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
     
 protected
@@ -37,7 +37,7 @@ protected
     
     temp_files.each do |file|
       self.files.collect{|f| f.mark_for_destruction } if single_file
-      self.files.build(:site => self.page.site, :dimensions => self.tag.try(:dimensions), :file => file)
+      self.files.build(:site => self.page_content.site, :dimensions => self.tag.try(:dimensions), :file => file)
     end
     
     self.content = nil unless self.content.is_a?(String)

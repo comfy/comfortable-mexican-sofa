@@ -60,7 +60,7 @@ protected
   # FIX: Terrible, but no way of creating cached page content overwise
   def reload_page_cache
     return unless self.block
-    p = self.block.page
+    p = self.block.page_content
     Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
   end
   

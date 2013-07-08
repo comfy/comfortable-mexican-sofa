@@ -8,7 +8,7 @@ class ComfortableMexicanSofa::Tag::File
   
   # Initializing Cms::File object
   def file
-    page.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
+    page_content.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
   end
   
   def content

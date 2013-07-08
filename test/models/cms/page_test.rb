@@ -17,7 +17,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on page, :site_id, :layout, :slug, :label
   end
 
-
   def test_creation_of_page_content
     assert_difference ['Cms::Page.count', 'Cms::PageContent.count'] do 
       page = cms_sites(:default).pages.create!(

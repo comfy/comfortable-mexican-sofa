@@ -9,12 +9,11 @@ class Cms::Page < ActiveRecord::Base
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
   cms_is_mirrored
-  cms_has_revisions_for :blocks_attributes
+  # TODO
+  # cms_has_revisions_for :blocks_attributes
   
-  attr_accessor :page_content_attributes,
-                :tags,
-                :blocks_attributes_changed
-  
+  attr_accessor :page_content_attributes
+
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
@@ -23,9 +22,6 @@ class Cms::Page < ActiveRecord::Base
   has_many :page_contents,
     :autosave  => true,
     :dependent => :destroy
-  has_many :blocks,
-    :autosave   => true,
-    :dependent  => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
@@ -34,20 +30,7 @@ class Cms::Page < ActiveRecord::Base
                     :assign_full_path,
                     :assign_page_content
 
-  def assign_page_content
-    return unless self.page_content_attributes.is_a?(Hash)
-    pc_id = self.page_content_attributes.delete(:id)
-
-    pc = if !self.new_record? && pc_id
-      self.page_contents.detect{|pc| pc.id == pc_id}
-    else
-      self.page_contents.build
-    end
-    pc.attributes = self.page_content_attributes
-  end
-
   before_create     :assign_position
-  before_save       :set_cached_content
   after_save        :sync_child_pages
   after_find        :unescape_slug_and_path
   
@@ -87,71 +70,27 @@ class Cms::Page < ActiveRecord::Base
   def full_path
     self.read_attribute(:full_path) || self.assign_full_path
   end
-  
-  # Transforms existing cms_block information into a hash that can be used
-  # during form processing. That's the only way to modify cms_blocks.
-  def blocks_attributes(was = false)
-    self.blocks.collect do |block|
-      block_attr = {}
-      block_attr[:identifier] = block.identifier
-      block_attr[:content]    = was ? block.content_was : block.content
-      block_attr
-    end
-  end
-  
-  # Array of block hashes in the following format:
-  #   [
-  #     { :identifier => 'block_1', :content => 'block content' },
-  #     { :identifier => 'block_2', :content => 'block content' }
-  #   ]
-  def blocks_attributes=(block_hashes = [])
-    block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
-    block_hashes.each do |block_hash|
-      block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-      block = 
-        self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
-        self.blocks.build(:identifier => block_hash[:identifier])
-      block.content = block_hash[:content]
-      self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
-    end
-  end
-  
-  # Processing content will return rendered content and will populate 
-  # self.cms_tags with instances of CmsTag
-  def content(force_reload = false)
-    @content = force_reload ? nil : read_attribute(:content)
-    @content ||= begin
-      self.tags = [] # resetting
-      if layout
-        ComfortableMexicanSofa::Tag.process_content(
-          self,
-          ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
-        )
-      else
-        ''
-      end
-    end
-  end
-  
-  # Array of cms_tags for a page. Content generation is called if forced.
-  # These also include initialized cms_blocks if present
-  def tags(force_reload = false)
-    self.content(true) if force_reload
-    @tags ||= []
-  end
-  
+
   # Full url for a page
   def url
     "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
-  
-  # Method to collect prevous state of blocks for revisions
-  def blocks_attributes_was
-    blocks_attributes(true)
-  end
-  
+
 protected
-  
+
+  # TODO - cleanup, add comment
+  def assign_page_content
+    return unless self.page_content_attributes.is_a?(Hash)
+    pc_id = self.page_content_attributes.delete(:id)
+
+    pc = if !self.new_record? && pc_id
+      self.page_contents.detect{|pc| pc.id == pc_id}
+    else
+      self.page_contents.build
+    end
+    pc.attributes = self.page_content_attributes
+  end
+
   def assigns_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
   end
@@ -185,12 +124,7 @@ protected
     unescaped_slug = CGI::unescape(self.slug)
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
-  
-  # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
-  def set_cached_content
-    write_attribute(:content, self.content(true))
-  end
-  
+
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_pages
     children.each{ |p| p.save! } if full_path_changed?
