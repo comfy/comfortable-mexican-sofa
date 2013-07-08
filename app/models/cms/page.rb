@@ -21,6 +21,7 @@ class Cms::Page < ActiveRecord::Base
   belongs_to :target_page,
     :class_name => 'Cms::Page'
   has_many :page_contents,
+    :autosave  => true,
     :dependent => :destroy
   has_many :blocks,
     :autosave   => true,
@@ -35,14 +36,14 @@ class Cms::Page < ActiveRecord::Base
 
   def assign_page_content
     return unless self.page_content_attributes.is_a?(Hash)
-    raise self.page_contents.inspect
-    pc = if pc_id = self.page_content_attributes.delete(:id)
-      self.page_contents.where(:id => pc_id).first!
+    pc_id = self.page_content_attributes.delete(:id)
+
+    pc = if !self.new_record? && pc_id
+      self.page_contents.detect{|pc| pc.id == pc_id}
     else
       self.page_contents.build
     end
     pc.attributes = self.page_content_attributes
-
   end
 
   before_create     :assign_position

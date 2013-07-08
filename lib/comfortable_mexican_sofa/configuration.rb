@@ -62,7 +62,10 @@ class ComfortableMexicanSofa::Configuration
   # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   attr_accessor :hostname_aliases
-  
+
+  # TODO
+  attr_accessor :variations
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -94,6 +97,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @variations           = nil
   end
 
 end

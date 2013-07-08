@@ -42,6 +42,7 @@ class ActiveSupport::TestCase
       config.allowed_helpers      = nil
       config.allowed_partials     = nil
       config.hostname_aliases     = nil
+      config.variations           = nil
     end
     ComfortableMexicanSofa::HttpAuth.username = 'username'
     ComfortableMexicanSofa::HttpAuth.password = 'password'

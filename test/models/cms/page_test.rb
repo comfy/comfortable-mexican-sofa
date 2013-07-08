@@ -33,10 +33,9 @@ class CmsPageTest < ActiveSupport::TestCase
 
 
   def test_update_of_page_content
-    raise Cms::PageContent.all.first.page.page_contents.inspect
     pc = cms_page_contents(:default)
     assert_no_difference ['Cms::PageContent.count'] do
-      page = cms_sites(:default).pages.create!(
+      cms_pages(:default).update_attributes!(
         :layout => cms_layouts(:default),
         :slug => 'example',
         :page_content_attributes => {
