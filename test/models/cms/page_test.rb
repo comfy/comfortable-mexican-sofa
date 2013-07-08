@@ -16,7 +16,39 @@ class CmsPageTest < ActiveSupport::TestCase
     assert page.invalid?
     assert_has_errors_on page, :site_id, :layout, :slug, :label
   end
-  
+
+
+  def test_creation_of_page_content
+    assert_difference ['Cms::Page.count', 'Cms::PageContent.count'] do 
+      page = cms_sites(:default).pages.create!(
+        :layout => cms_layouts(:default),
+        :slug => 'example',
+        :page_content_attributes => {
+          :slug => 'test'
+        }
+      )
+    end
+
+  end
+
+
+  def test_update_of_page_content
+    raise Cms::PageContent.all.first.page.page_contents.inspect
+    pc = cms_page_contents(:default)
+    assert_no_difference ['Cms::PageContent.count'] do
+      page = cms_sites(:default).pages.create!(
+        :layout => cms_layouts(:default),
+        :slug => 'example',
+        :page_content_attributes => {
+          :slug => 'updated',
+          :id => pc.id
+        }
+      )
+    end
+    pc.reload
+    assert_equal 'updated', pc.slug
+  end
+
   def test_validation_of_parent_presence
     page = cms_sites(:default).pages.new(new_params)
     assert !page.parent

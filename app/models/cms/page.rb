@@ -11,7 +11,8 @@ class Cms::Page < ActiveRecord::Base
   cms_is_mirrored
   cms_has_revisions_for :blocks_attributes
   
-  attr_accessor :tags,
+  attr_accessor :page_content_attributes,
+                :tags,
                 :blocks_attributes_changed
   
   # -- Relationships --------------------------------------------------------
@@ -19,6 +20,8 @@ class Cms::Page < ActiveRecord::Base
   belongs_to :layout
   belongs_to :target_page,
     :class_name => 'Cms::Page'
+  has_many :page_contents,
+    :dependent => :destroy
   has_many :blocks,
     :autosave   => true,
     :dependent  => :destroy
@@ -27,7 +30,21 @@ class Cms::Page < ActiveRecord::Base
   before_validation :assigns_label,
                     :assign_parent,
                     :escape_slug,
-                    :assign_full_path
+                    :assign_full_path,
+                    :assign_page_content
+
+  def assign_page_content
+    return unless self.page_content_attributes.is_a?(Hash)
+    raise self.page_contents.inspect
+    pc = if pc_id = self.page_content_attributes.delete(:id)
+      self.page_contents.where(:id => pc_id).first!
+    else
+      self.page_contents.build
+    end
+    pc.attributes = self.page_content_attributes
+
+  end
+
   before_create     :assign_position
   before_save       :set_cached_content
   after_save        :sync_child_pages
