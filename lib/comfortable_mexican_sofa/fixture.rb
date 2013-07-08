@@ -30,7 +30,7 @@ module ComfortableMexicanSofa::Fixture
     def save_categorizations!(object, categories)
       object.categorizations.delete_all
       [categories].flatten.compact.each do |label|
-        category = self.site.categories.find_or_create_by_label_and_categorized_type!(label, object.class)
+        category = self.site.categories.find_or_create_by_label_and_categorized_type(label, object.class)
         category.categorizations.create!(
           :categorized => object
         )
