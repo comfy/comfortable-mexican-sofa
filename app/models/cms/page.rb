@@ -76,6 +76,10 @@ class Cms::Page < ActiveRecord::Base
     "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
 
+  def content(variation = nil)
+    self.page_contents.for_variation(variation).first.try(:content)
+  end
+
 protected
 
   # TODO - cleanup, add comment

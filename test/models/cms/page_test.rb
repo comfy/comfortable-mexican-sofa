@@ -29,6 +29,10 @@ class CmsPageTest < ActiveSupport::TestCase
 
   end
 
+  def test_content
+    page = cms_pages(:default)
+    assert page.content.present?
+  end
 
   def test_update_of_page_content
     pc = cms_page_contents(:default)
