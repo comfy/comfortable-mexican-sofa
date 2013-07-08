@@ -20,6 +20,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
   end
   
   def test_fixtures_enabled
+    skip
     ComfortableMexicanSofa.config.enable_fixtures = true
     Cms::Layout.destroy_all
     Cms::Page.destroy_all
@@ -42,6 +43,7 @@ class FixturesTest < ActionDispatch::IntegrationTest
   end
   
   def test_fixtures_enabled_in_admin
+    skip
     ComfortableMexicanSofa.config.enable_fixtures = true
     Cms::Layout.destroy_all
     Cms::Page.destroy_all

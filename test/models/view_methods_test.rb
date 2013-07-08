@@ -65,16 +65,19 @@ class ViewMethodsTest < ActionView::TestCase
     page = cms_pages(:default)
     page.layout.update_column(:content, '{{cms:page_file:file}} {{cms:page_files:files}}')
     page.update_attributes!(
-      :blocks_attributes => [
-        { :identifier => 'file',
-          :content    => fixture_file_upload('files/image.jpg', "image/jpeg") },
-        { :identifier => 'files',
-          :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"),
-                          fixture_file_upload('files/image.gif', "image/gif")] }
-      ]
+      :page_content_attributes => {
+        :blocks_attributes => [
+          { :identifier => 'file',
+            :content    => fixture_file_upload('files/image.jpg', "image/jpeg") },
+          { :identifier => 'files',
+            :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"),
+                            fixture_file_upload('files/image.gif', "image/gif")] }
+        ]
+      }
     )
-    assert_equal page.blocks.find_by_identifier('file').files.first, cms_page_content(:file, page)
-    assert_equal page.blocks.find_by_identifier('files').files, cms_page_content(:files, page)
+    pc = page.page_contents.last
+    assert_equal pc.blocks.find_by_identifier('file').files.first, cms_page_content(:file, pc)
+    assert_equal pc.blocks.find_by_identifier('files').files, cms_page_content(:files, pc)
   end
   
 end

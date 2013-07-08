@@ -4,7 +4,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-      cms_pages(:default), '{{ cms:page_files:label }}'
+      cms_page_contents(:default), '{{ cms:page_files:label }}'
     )
     assert 'url', tag.type
     assert_equal 'label', tag.identifier
@@ -12,12 +12,12 @@ class PageFilesTagTest < ActiveSupport::TestCase
     assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-      cms_pages(:default), '{{ cms:page_files:label:partial }}'
+      cms_page_contents(:default), '{{ cms:page_files:label:partial }}'
     )
     assert 'partial', tag.type
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-      cms_pages(:default), '{{ cms:page_files:namespace.label:partial }}'
+      cms_page_contents(:default), '{{ cms:page_files:namespace.label:partial }}'
     )
     assert_equal 'namespace.label', tag.identifier
     assert_equal 'namespace', tag.namespace
@@ -25,7 +25,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag_with_dimentions
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-      cms_pages(:default), '{{ cms:page_files:label:image[100x100#] }}'
+      cms_page_contents(:default), '{{ cms:page_files:label:image[100x100#] }}'
     )
     assert_equal 'image', tag.type
     assert_equal '100x100#', tag.dimensions
@@ -38,13 +38,13 @@ class PageFilesTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
-        cms_pages(:default), tag_signature
+        cms_page_contents(:default), tag_signature
       )
     end
   end
   
   def test_content_and_render
-    page = cms_pages(:default)
+    page = cms_page_contents(:default)
     
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(page, '{{ cms:page_files:files:partial }}')
     assert_equal "<%= render :partial => 'partials/page_files', :locals => {:identifier => []} %>", tag.render
@@ -94,7 +94,7 @@ class PageFilesTagTest < ActiveSupport::TestCase
   def test_content_and_render_with_dimentions
     layout = cms_layouts(:default)
     layout.update_attributes(:content => '{{ cms:page_files:file:image[10x10#] }}')
-    page = cms_pages(:default)
+    page = cms_page_contents(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     
     assert_difference 'Cms::File.count' do

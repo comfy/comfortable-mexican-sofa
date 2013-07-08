@@ -11,6 +11,19 @@ class CmsPageContentTest < ActiveSupport::TestCase
   end
   
   def test_validations
+    flunk
+  end
+
+  def test_creation
+    flunk
+  end
+
+  def test_creation_with_variations
+    flunk
+  end
+
+  def test_validations_with_variations
+    flunk
   end
 
   def test_delegations
@@ -25,6 +38,13 @@ class CmsPageContentTest < ActiveSupport::TestCase
     ComfortableMexicanSofa.config.variations = ['en', 'fr']
     assert_equal 1, Cms::PageContent.for_variation('en').count
     assert_equal 0, Cms::PageContent.for_variation('invalid').count
+  end
+
+  def test_cms_blocks_attributes_accessor
+    pc = cms_page_contents(:default)
+    assert_equal pc.blocks.count, pc.blocks_attributes.size
+    assert_equal 'default_field_text', pc.blocks_attributes.first[:identifier]
+    assert_equal 'default_field_text_content', pc.blocks_attributes.first[:content]
   end
 
 end

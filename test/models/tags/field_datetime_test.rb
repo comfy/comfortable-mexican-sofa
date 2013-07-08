@@ -4,20 +4,20 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-      cms_pages(:default), '{{ cms:field:content:datetime }}'
+      cms_page_contents(:default), '{{ cms:field:content:datetime }}'
     )
     assert_equal 'content', tag.identifier
     assert_nil tag.namespace
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-      cms_pages(:default), '{{cms:field:content:datetime}}'
+      cms_page_contents(:default), '{{cms:field:content:datetime}}'
     )
     assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-      cms_pages(:default), '{{cms:field:dash-content:datetime}}'
+      cms_page_contents(:default), '{{cms:field:dash-content:datetime}}'
     )
     assert_equal 'dash-content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-      cms_pages(:default), '{{cms:field:namespace.content:datetime}}'
+      cms_page_contents(:default), '{{cms:field:namespace.content:datetime}}'
     )
     assert_equal 'namespace.content', tag.identifier
     assert_equal 'namespace', tag.namespace
@@ -31,14 +31,14 @@ class FieldDateTimeTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-        cms_pages(:default), tag_signature
+        cms_page_contents(:default), tag_signature
       )
     end
   end
   
   def test_content_and_render
     tag = ComfortableMexicanSofa::Tag::FieldDateTime.initialize_tag(
-      cms_pages(:default), '{{cms:field:content:datetime}}'
+      cms_page_contents(:default), '{{cms:field:content:datetime}}'
     )
     assert tag.block.content.blank?
     time = 2.days.ago
