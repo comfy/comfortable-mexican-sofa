@@ -12,9 +12,9 @@ module ComfortableMexicanSofa::Fixture::Layout
         if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(layout, attrs_path)
             attrs = get_attributes(attrs_path)
-            layout.label      = attrs[:label]
-            layout.app_layout = attrs[:app_layout] || parent.try(:app_layout)
-            layout.position   = attrs[:position] if attrs[:position]
+            layout.label      = attrs['label']
+            layout.app_layout = attrs['app_layout'] || parent.try(:app_layout)
+            layout.position   = attrs['position'] if attrs['position']
           end
         end
         

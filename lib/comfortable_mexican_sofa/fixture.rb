@@ -24,7 +24,7 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def get_attributes(file_path)
-      YAML.load_file(file_path).try(:symbolize_keys!) || { }
+      YAML.load_file(file_path)
     end
     
     def save_categorizations!(object, categories)
@@ -38,9 +38,10 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def import!
-      ComfortableMexicanSofa::Fixture::Layout::Importer.new( from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::Page::Importer.new(   from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Category::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Layout::Importer.new(  from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Page::Importer.new(    from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Snippet::Importer.new( from, to, force_import).import!
     end
   end
   
@@ -64,9 +65,10 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def export!
-      ComfortableMexicanSofa::Fixture::Layout::Exporter.new( from, to).export!
-      ComfortableMexicanSofa::Fixture::Page::Exporter.new(   from, to).export!
-      ComfortableMexicanSofa::Fixture::Snippet::Exporter.new(from, to).export!
+      ComfortableMexicanSofa::Fixture::Category::Exporter.new(from, to).export!
+      ComfortableMexicanSofa::Fixture::Layout::Exporter.new(  from, to).export!
+      ComfortableMexicanSofa::Fixture::Page::Exporter.new(    from, to).export!
+      ComfortableMexicanSofa::Fixture::Snippet::Exporter.new( from, to).export!
     end
   end
   

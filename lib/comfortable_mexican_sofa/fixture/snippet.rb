@@ -11,8 +11,9 @@ module ComfortableMexicanSofa::Fixture::Snippet
         if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(snippet, attrs_path)
             attrs = get_attributes(attrs_path)
-            snippet.label = attrs[:label]
-            categories    = attrs[:categories]
+            
+            snippet.label = attrs['label']
+            categories    = attrs['categories']
           end
         end
         
