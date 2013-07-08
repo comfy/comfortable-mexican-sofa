@@ -36,8 +36,11 @@ class Cms::File < ActiveRecord::Base
   belongs_to :block
   
   # -- Validations ----------------------------------------------------------
-  validates :site_id, :presence => true
+  validates :site_id,
+    :presence   => true
   validates_attachment_presence :file
+  validates :file_file_name,
+    :uniqueness => {:scope => :site_id}
   
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
