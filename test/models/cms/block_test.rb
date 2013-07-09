@@ -7,7 +7,10 @@ class CmsBlockTest < ActiveSupport::TestCase
       assert block.valid?, block.errors.full_messages.to_s
     end
   end
-  
+
+  def test_tag
+  end
+
   def test_tags
     block = cms_blocks(:default_page_text)
     assert block.page_content.tags(true).collect(&:id).member?('page_text_default_page_text')

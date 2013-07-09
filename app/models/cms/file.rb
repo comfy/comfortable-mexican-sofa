@@ -34,8 +34,8 @@ class Cms::File < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
   before_create :assign_position
-  after_save    :reload_page_cache
-  after_destroy :reload_page_cache
+  after_save    :clear_page_cache
+  after_destroy :clear_page_cache
   
   # -- Scopes ---------------------------------------------------------------
   scope :images,      -> { where(:file_content_type => IMAGE_MIMETYPES) }
@@ -57,11 +57,9 @@ protected
     self.position = max ? max + 1 : 0
   end
   
-  # FIX: Terrible, but no way of creating cached page content overwise
-  def reload_page_cache
+  def clear_page_cache
     return unless self.block
-    p = self.block.page_content
-    Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
+    self.block.page_content.update_columns(:content => nil)
   end
   
 end

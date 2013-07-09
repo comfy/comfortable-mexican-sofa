@@ -80,6 +80,10 @@ class Cms::Page < ActiveRecord::Base
     self.page_contents.for_variation(variation).first.try(:content)
   end
 
+  def page_content(variation = nil)
+    page_contents.for_variation(variation).first
+  end
+
 protected
 
   # TODO - cleanup, add comment

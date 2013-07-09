@@ -66,6 +66,7 @@ class ViewMethodsTest < ActionView::TestCase
     page.layout.update_column(:content, '{{cms:page_file:file}} {{cms:page_files:files}}')
     page.update_attributes!(
       :page_content_attributes => {
+        :id => page.page_content.id,
         :blocks_attributes => [
           { :identifier => 'file',
             :content    => fixture_file_upload('files/image.jpg', "image/jpeg") },
@@ -75,9 +76,8 @@ class ViewMethodsTest < ActionView::TestCase
         ]
       }
     )
-    pc = page.page_contents.last
-    assert_equal pc.blocks.find_by_identifier('file').files.first, cms_page_content(:file, pc)
-    assert_equal pc.blocks.find_by_identifier('files').files, cms_page_content(:files, pc)
+    assert_equal page.page_content.blocks.find_by_identifier('file').files.first, cms_page_content(:file, page)
+    assert_equal page.page_content.blocks.find_by_identifier('files').files, cms_page_content(:files, page)
   end
   
 end

@@ -34,6 +34,19 @@ class CmsPageTest < ActiveSupport::TestCase
     assert page.content.present?
   end
 
+  def test_page_content_without_variation
+    page = cms_pages(:default)
+    assert !page.page_content.content.blank?
+  end
+
+  def test_page_content_with_variation
+    ComfortableMexicanSofa.config.variations = ['en', 'fr']
+    page = cms_pages(:default)
+    assert page.page_content('en')
+    assert_nil page.page_content('fr')
+    assert_nil page.page_content('invalid')
+  end
+
   def test_update_of_page_content
     pc = cms_page_contents(:default)
     assert_no_difference ['Cms::PageContent.count'] do
