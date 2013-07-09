@@ -16,11 +16,11 @@ module ComfortableMexicanSofa::Fixture
       self.force_import = force_import
       
       dir = self.class.name.split('::')[2].downcase.pluralize
-      self.path = File.join(ComfortableMexicanSofa.config.fixtures_path, from, dir, '/')
+      self.path = ::File.join(ComfortableMexicanSofa.config.fixtures_path, from, dir, '/')
     end
     
     def fresh_fixture?(object, file_path)
-      object.new_record? || self.force_import || File.mtime(file_path) > object.updated_at
+      object.new_record? || self.force_import || ::File.mtime(file_path) > object.updated_at
     end
     
     def get_attributes(file_path)
@@ -39,6 +39,7 @@ module ComfortableMexicanSofa::Fixture
     
     def import!
       ComfortableMexicanSofa::Fixture::Category::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::File::Importer.new(    from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Layout::Importer.new(  from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Page::Importer.new(    from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Snippet::Importer.new( from, to, force_import).import!
@@ -56,7 +57,7 @@ module ComfortableMexicanSofa::Fixture
       self.to   = to
       self.site = Cms::Site.where(:identifier => from).first!
       dir = self.class.name.split('::')[2].downcase.pluralize
-      self.path = File.join(ComfortableMexicanSofa.config.fixtures_path, to, dir)
+      self.path = ::File.join(ComfortableMexicanSofa.config.fixtures_path, to, dir)
     end
     
     def prepare_folder!(path)
@@ -65,6 +66,7 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def export!
+      ComfortableMexicanSofa::Fixture::File::Exporter.new(    from, to).export!
       ComfortableMexicanSofa::Fixture::Category::Exporter.new(from, to).export!
       ComfortableMexicanSofa::Fixture::Layout::Exporter.new(  from, to).export!
       ComfortableMexicanSofa::Fixture::Page::Exporter.new(    from, to).export!

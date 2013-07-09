@@ -6,6 +6,7 @@ Coveralls.wear!('rails')
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha/setup'
 
 # No need to add cache-busters in test environment
 Paperclip::Attachment.default_options[:use_timestamp] = false

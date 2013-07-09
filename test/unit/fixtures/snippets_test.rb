@@ -35,8 +35,8 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
   end
   
   def test_delete
-    snippet = cms_snippets(:default)
-    snippet.update_column(:identifier, 'old')
+    old_snippet = cms_snippets(:default)
+    old_snippet.update_column(:identifier, 'old')
     
     assert_no_difference 'Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
@@ -45,7 +45,7 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
       
-      assert_nil Cms::Snippet.find_by_identifier('old')
+      assert_nil Cms::Snippet.where(:id => old_snippet.id).first
     end
   end
   
@@ -76,7 +76,7 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
     assert_equal 'Default Fixture Snippet', snippet.label
   end
   
-  def test_export_snippets
+  def test_export
     cms_categories(:default).categorizations.create!(
       :categorized => cms_snippets(:default)
     )
