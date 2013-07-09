@@ -3,7 +3,7 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, index, method = :text_field_tag, options = {})
     
-    label     = tag.page.class.human_attribute_name(tag.identifier.to_s)
+    label     = tag.page_content.class.human_attribute_name(tag.identifier.to_s)
     css_class = tag.class.to_s.demodulize.underscore
     content   = ''
     
