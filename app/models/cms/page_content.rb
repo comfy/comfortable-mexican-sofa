@@ -5,7 +5,7 @@ class Cms::PageContent < ActiveRecord::Base
   self.table_name = 'cms_page_contents'
 
 
-  attr_accessor :tags
+  attr_accessor :tags, :variation_identifiers
   delegate :site, :to => :page
 
   # -- Relationships --------------------------------------------------------
@@ -19,6 +19,7 @@ class Cms::PageContent < ActiveRecord::Base
 
   # -- Callbacks ------------------------------------------------------------
   before_save :set_cached_content
+  after_save  :sync_variations
 
   # -- Scopes ---------------------------------------------------------------
   scope :for_variation, lambda {|*identifier|
@@ -81,6 +82,17 @@ class Cms::PageContent < ActiveRecord::Base
   def tags(force_reload = false)
     self.content(true) if force_reload
     @tags ||= []
+  end
+
+  def variation_identifiers
+    @variation_identifiers ||= variations.pluck(:identifier)
+  end
+
+  # TODO - get errors
+  def sync_variations
+    @variation_identifiers.each do |variation_identifier|
+      self.variations.create!(:identifier => variation_identifier)
+    end
   end
 
 protected

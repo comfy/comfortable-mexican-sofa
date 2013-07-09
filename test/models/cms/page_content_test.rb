@@ -6,24 +6,49 @@ class CmsPageContentTest < ActiveSupport::TestCase
   def test_fixtures_validity
     Cms::PageContent.all.each do |pc|
       assert pc.valid?, pc.errors.full_messages.to_s
-      # assert_equal pc.read_attribute(:content), pc.content(true)
     end
   end
-  
+
+  def test_creation
+    page = cms_pages(:default)
+    assert_difference "Cms::PageContent.count" do
+      pc = page.page_contents.create!(
+        :variation_identifiers => ['en']
+      )
+    end
+  end
+
+  def test_creation_with_variations
+    page = cms_pages(:default)
+    assert_difference ["Cms::Variation.count"], 3 do
+      page.page_contents.create!(
+        :variation_identifiers => ['cn', 'fr', 'jp']
+      )
+    end
+    assert_equal 'jp', page.page_contents.last.variations.last.identifier
+  end
+
   def test_validations
     flunk
   end
 
-  def test_creation
-    flunk
+  def test_variation_identifiers
+    page = cms_pages(:default)
+    assert_equal ['en'], page.page_content.variation_identifiers
   end
 
-  def test_creation_with_variations
-    flunk
+  def test_set_variation_identifiers
+    pc = cms_page_contents(:default)
+    pc.variation_identifiers = ['en', 'fr', 'jp']
+    pc.save
+    assert_equal ['en', 'fr', 'jp'], pc.variation_identifiers
   end
 
-  def test_validations_with_variations
-    flunk
+  def test_validates_unique_variation
+    page = cms_pages(:default)
+    pc = page.page_contents.build(:variation_identifiers => ['en'])
+    assert !pc.valid?
+    assert_has_errors_on pc, :variation_identifiers
   end
 
   def test_delegations

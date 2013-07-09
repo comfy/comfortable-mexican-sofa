@@ -1,5 +1,5 @@
 - namespace = { }
-- tags = @page.page_content.tags(true).select{|t| t.is_cms_block?}.uniq{|t| t.identifier} 
+- tags = @page_content.tags(true).select{|t| t.is_cms_block?}.uniq{|t| t.identifier}
 - tags.each do |tag|
   - namespace[tag.namespace || 'default'] ||= []
   - namespace[tag.namespace || 'default'] << tag
