@@ -10,7 +10,7 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
     case method
     when :file_field_tag
       input_params = {:id => nil}
-      name = "page[blocks_attributes][#{index}][content]"
+      name = "page[page_content_attributes][blocks_attributes][#{index}][content]"
       
       if options.delete(:multiple)
         input_params.merge!(:multiple => true)
@@ -20,9 +20,9 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
       content << @template.send(method, name, input_params)
       content << @template.render(:partial => 'cms_admin/files/page_form', :object => tag.block)
     else
-      content << @template.send(method, "page[blocks_attributes][#{index}][content]", tag.content, options)
+      content << @template.send(method, "page[page_content_attributes][blocks_attributes][#{index}][content]", tag.content, options)
     end
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    content << @template.hidden_field_tag("page[page_content_attributes][blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
     
     element(label, content.html_safe)
   end
@@ -86,11 +86,11 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
       end
       
     content = @template.select_tag(
-      "page[blocks_attributes][#{index}][content]",
+      "page[page_content_attributes][blocks_attributes][#{index}][content]",
       @template.options_for_select(options, :selected => tag.content),
       :id => nil
     )
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    content << @template.hidden_field_tag("page[page_content_attributes][blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
     element(tag.identifier.titleize, content, :class => tag.class.to_s.demodulize.underscore )
   end
   

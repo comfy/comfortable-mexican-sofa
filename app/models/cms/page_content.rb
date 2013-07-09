@@ -90,7 +90,7 @@ class Cms::PageContent < ActiveRecord::Base
 
   # TODO - get errors
   def sync_variations
-    @variation_identifiers.each do |variation_identifier|
+    variation_identifiers.each do |variation_identifier|
       self.variations.create!(:identifier => variation_identifier)
     end
   end
