@@ -90,8 +90,13 @@ class Cms::PageContent < ActiveRecord::Base
 
   # TODO - get errors
   def sync_variations
-    variation_identifiers.each do |variation_identifier|
-      self.variations.create!(:identifier => variation_identifier)
+    existing  = self.variations.pluck(:identifier)
+    current   = self.variation_identifiers
+
+    self.variations.where(:identifier => (existing - current)).delete_all
+
+    (current - existing).each do |identifier|
+      self.variations.create!(:identifier => identifier)
     end
   end
 

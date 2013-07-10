@@ -28,6 +28,26 @@ class CmsPageContentTest < ActiveSupport::TestCase
     assert_equal 'jp', page.page_contents.last.variations.last.identifier
   end
 
+  def test_sync_variations
+    pc = cms_page_contents(:default)
+    assert_equal ['fr', 'en'], pc.variation_identifiers 
+    assert_no_difference "Cms::Variation.count" do
+      pc.update_attributes!(
+        :variation_identifiers => ['fr', 'ru']
+      )
+    end
+    pc.reload
+    assert_equal ['fr', 'ru'], pc.variation_identifiers
+
+    assert_difference "Cms::Variation.count", -2 do
+      pc.update_attributes!(
+        :variation_identifiers => []
+      )
+    end
+    pc.reload
+    assert_equal [], pc.variation_identifiers
+  end
+
   def test_validations
     flunk
   end

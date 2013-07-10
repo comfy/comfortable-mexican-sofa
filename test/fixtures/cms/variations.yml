@@ -1,3 +1,7 @@
 default:
   content: default (Cms::PageContent)
   identifier: en
+
+fr:
+  content: default (Cms::PageContent)
+  identifier: fr

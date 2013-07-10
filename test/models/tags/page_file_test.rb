@@ -44,16 +44,16 @@ class PageFileTagTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render
-    page = cms_page_contents(:default)
+    pc = cms_page_contents(:default)
     
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:partial }}')
     assert_equal "<%= render :partial => 'partials/page_file', :locals => {:identifier => nil} %>", tag.render
     
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file }}')
     assert_equal nil, tag.content
     assert_equal '', tag.render
     
-    page.update_attributes!(
+    pc.update_attributes!(
       :blocks_attributes => [
         { :identifier => 'file',
           :content    => fixture_file_upload('files/image.jpg', "image/jpeg") }
@@ -65,46 +65,46 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_equal file, tag.content
     assert_match file_url, tag.render
     
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:link }}')
     assert_equal "<a href='#{file_url}' target='_blank'>file</a>", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:link:link label }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:link:link label }}')
     assert_equal "<a href='#{file_url}' target='_blank'>link label</a>", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:image }}')
     assert_equal "<img src='#{file_url}' alt='file' />", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image:image alt }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:image:image alt }}')
     assert_equal "<img src='#{file_url}' alt='image alt' />", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:partial }}')
     assert_equal "<%= render :partial => 'partials/page_file', :locals => {:identifier => #{file.id}} %>", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial:path/to/partial }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:partial:path/to/partial }}')
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => #{file.id}} %>", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial:path/to/partial:a:b }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:partial:path/to/partial:a:b }}')
     assert_equal "<%= render :partial => 'path/to/partial', :locals => {:identifier => #{file.id}, :param_1 => 'a', :param_2 => 'b'} %>", 
       tag.render
       
-    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:field }}')
+    assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(pc, '{{ cms:page_file:file:field }}')
     assert_equal '', tag.render
   end
   
   def test_content_and_render_with_dimentions
     layout = cms_layouts(:default)
     layout.update_attributes(:content => '{{ cms:page_file:file:image[10x10#] }}')
-    page = cms_page_contents(:default)
+    pc = cms_page_contents(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     
     assert_difference 'Cms::File.count' do
-      page.update_attributes!(
+      pc.update_attributes!(
         :blocks_attributes => [
           { :identifier => 'file',
             :content    => upload }

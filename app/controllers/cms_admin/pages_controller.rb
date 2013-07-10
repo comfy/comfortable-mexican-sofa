@@ -83,7 +83,10 @@ protected
 
   def build_cms_page
     @page = @site.pages.new(page_params)
-    @page_content = Cms::PageContent.new(:page => @page)
+    @page_content = @page.page_contents.build # unless editing variation
+    if @page.new_record?
+      @page.page_content = @page_content
+    end
     @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   end

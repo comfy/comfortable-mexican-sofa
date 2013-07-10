@@ -12,7 +12,7 @@ class Cms::Page < ActiveRecord::Base
   # TODO
   # cms_has_revisions_for :blocks_attributes
   
-  attr_accessor :page_content_attributes
+  attr_accessor :page_content_attributes, :page_content
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
@@ -81,7 +81,11 @@ class Cms::Page < ActiveRecord::Base
   end
 
   def page_content(variation = nil)
-    page_contents.for_variation(variation).first
+    @page_content || self.page_contents.for_variation(variation).first
+  end
+
+  def page_content=(page_content)
+    @page_content ||= page_content
   end
 
 protected
