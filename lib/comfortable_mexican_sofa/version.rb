@@ -1,3 +1,3 @@
 module ComfortableMexicanSofa
-  VERSION = "2.0.0.beta2"
+  VERSION = "1.8.4"
 end

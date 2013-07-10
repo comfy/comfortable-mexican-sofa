@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', File.dirname(__FILE__))
+require_relative '../../test_helper'
 
 class CmsFileTest < ActiveSupport::TestCase
   
@@ -9,11 +9,16 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_validations
-    assert_no_difference 'Cms::File.count' do
-      file = Cms::File.create
-      assert file.errors.present?
-      assert_has_errors_on file, :site_id, :file
-    end
+    file = Cms::File.new
+    assert file.invalid?
+    assert_has_errors_on file, :site_id, :file
+    
+    cms_files(:default).update_column(:file_file_name, 'image.jpg')
+    file = cms_sites(:default).files.new(
+      :file => fixture_file_upload('files/image.jpg', 'image/jpeg')
+    )
+    assert file.invalid?
+    assert_has_errors_on file, :file_file_name
   end
   
   def test_create

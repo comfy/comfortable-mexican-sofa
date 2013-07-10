@@ -1,6 +1,6 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class ViewHooksTest < ActionDispatch::IntegrationTest
+class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
   
   def test_hooks_rendering
     CmsAdmin::SitesController.append_view_path(File.expand_path('../fixtures/views', File.dirname(__FILE__)))

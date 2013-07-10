@@ -1,6 +1,6 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class RenderCmsTest < ActionDispatch::IntegrationTest
+class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   
   def setup
     super

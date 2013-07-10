@@ -44,7 +44,7 @@ protected
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
     if %w(cms_admin/layouts cms_admin/pages cms_admin/snippets).member?(params[:controller])
-      ComfortableMexicanSofa::Fixtures.import_all(@site.identifier)
+      ComfortableMexicanSofa::Fixture::Importer.new(@site.identifier).import!
       flash.now[:error] = I18n.t('cms.base.fixtures_enabled')
     end
   end

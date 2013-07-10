@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', File.dirname(__FILE__))
+require_relative '../../test_helper'
 
 class CmsAdmin::FilesControllerTest < ActionController::TestCase
   
