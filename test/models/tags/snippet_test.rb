@@ -4,15 +4,15 @@ class SnippetTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), '{{ cms:snippet:label }}'
+      cms_page_contents(:default), '{{ cms:snippet:label }}'
     )
     assert_equal 'label', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), '{{cms:snippet:label}}'
+      cms_page_contents(:default), '{{cms:snippet:label}}'
     )
     assert_equal 'label', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), '{{cms:snippet:dash-label}}'
+      cms_page_contents(:default), '{{cms:snippet:dash-label}}'
     )
     assert_equal 'dash-label', tag.identifier
   end
@@ -24,20 +24,20 @@ class SnippetTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-        cms_pages(:default), tag_signature
+        cms_page_contents(:default), tag_signature
       )
     end
   end
   
   def test_content_and_render
     tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), '{{cms:snippet:default}}'
+      cms_page_contents(:default), '{{cms:snippet:default}}'
     )
     assert_equal 'default_snippet_content', tag.content
     assert_equal 'default_snippet_content', tag.render
     
     tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
-      cms_pages(:default), "{{cms:snippet:doesnot_exist}}"
+      cms_page_contents(:default), "{{cms:snippet:doesnot_exist}}"
     )
     assert_equal nil, tag.content
     assert_equal '', tag.render

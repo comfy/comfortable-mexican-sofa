@@ -7,7 +7,6 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_fixtures_validity
     Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
-      assert_equal page.read_attribute(:content), page.content(true)
     end
   end
   
@@ -17,7 +16,54 @@ class CmsPageTest < ActiveSupport::TestCase
     assert page.invalid?
     assert_has_errors_on page, :site_id, :layout, :slug, :label
   end
-  
+
+  def test_creation_of_page_content
+    assert_difference ['Cms::Page.count', 'Cms::PageContent.count'] do 
+      page = cms_sites(:default).pages.create!(
+        :layout => cms_layouts(:default),
+        :slug => 'example',
+        :page_content_attributes => {
+          :slug => 'test'
+        }
+      )
+    end
+
+  end
+
+  def test_content
+    page = cms_pages(:default)
+    assert page.content.present?
+  end
+
+  def test_page_content_without_variation
+    page = cms_pages(:default)
+    assert !page.page_content.content.blank?
+  end
+
+  def test_page_content_with_variation
+    ComfortableMexicanSofa.config.variations = ['en', 'fr']
+    page = cms_pages(:default)
+    assert page.page_content('en')
+    assert_nil page.page_content('fr')
+    assert_nil page.page_content('invalid')
+  end
+
+  def test_update_of_page_content
+    pc = cms_page_contents(:default)
+    assert_no_difference ['Cms::PageContent.count'] do
+      cms_pages(:default).update_attributes!(
+        :layout => cms_layouts(:default),
+        :slug => 'example',
+        :page_content_attributes => {
+          :slug => 'updated',
+          :id => pc.id
+        }
+      )
+    end
+    pc.reload
+    assert_equal 'updated', pc.slug
+  end
+
   def test_validation_of_parent_presence
     page = cms_sites(:default).pages.new(new_params)
     assert !page.parent
@@ -77,16 +123,18 @@ class CmsPageTest < ActiveSupport::TestCase
   end
   
   def test_creation
-    assert_difference ['Cms::Page.count', 'Cms::Block.count'] do
+    assert_difference ['Cms::Page.count', 'Cms::PageContent.count', 'Cms::Block.count'] do
       page = cms_sites(:default).pages.create!(
         :label  => 'test',
         :slug   => 'test',
         :parent => cms_pages(:default),
         :layout => cms_layouts(:default),
-        :blocks_attributes => [
-          { :identifier => 'default_page_text',
-            :content    => 'test' }
-        ]
+        :page_content_attributes => {
+          :blocks_attributes => [
+            { :identifier => 'default_page_text',
+              :content    => 'test' }
+          ]
+        }
       )
       assert page.is_published?
       assert_equal 1, page.position
@@ -185,15 +233,9 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal ['Default Page', '. . Child Page'],
       Cms::Page.options_for_select(cms_sites(:default), page).collect{|t| t.first }
   end
-  
-  def test_cms_blocks_attributes_accessor
-    page = cms_pages(:default)
-    assert_equal page.blocks.count, page.blocks_attributes.size
-    assert_equal 'default_field_text', page.blocks_attributes.first[:identifier]
-    assert_equal 'default_field_text_content', page.blocks_attributes.first[:content]
-  end
-  
+    
   def test_content_caching
+    skip
     page = cms_pages(:default)
     assert_equal page.read_attribute(:content), page.content
     assert_equal page.read_attribute(:content), page.content(true)

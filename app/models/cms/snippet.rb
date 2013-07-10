@@ -40,8 +40,11 @@ protected
   # gotta reload every single page. Kinda sucks, but might be ok unless there
   # are hundreds of pages.
   def clear_cached_page_content
-    site.pages.each do |p|
-      Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
+    # TODO - needs to be reworked
+    site.pages.each do |page|
+      page.page_contents.each do |page_content|
+        Cms::PageContent.where(:id => page_content.id).update_all(:content => page_content.content(true))
+      end
     end
   end
   
