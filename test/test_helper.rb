@@ -6,6 +6,7 @@ Coveralls.wear!('rails')
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha/setup'
 
 # No need to add cache-busters in test environment
 Paperclip::Attachment.default_options[:use_timestamp] = false
@@ -85,7 +86,7 @@ class ActiveSupport::TestCase
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
-
+  
 end
 
 class ActionController::TestCase
@@ -106,19 +107,4 @@ class ActionDispatch::IntegrationTest
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
     send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
   end
-end
-
-
-# Injecting `update_column` for installs on Rails < 3.1
-module ComfortableMexicanSofa
-  module Deprication
-    module ActiveRecord
-      def update_column(name, value)
-        update_attribute(name, value)
-      end
-    end
-  end
-end
-unless Cms::Page.new.respond_to?(:update_column)
-  ActiveRecord::Base.send :include, ComfortableMexicanSofa::Deprication::ActiveRecord
 end

@@ -8,14 +8,6 @@ class Cms::Layout < ActiveRecord::Base
   cms_is_mirrored
   cms_has_revisions_for :content, :css, :js
   
-  attr_accessible :label,
-                  :identifier,
-                  :content,
-                  :css,
-                  :js,
-                  :parent, :parent_id,
-                  :app_layout
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   has_many :pages, :dependent => :nullify
@@ -34,10 +26,10 @@ class Cms::Layout < ActiveRecord::Base
   validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
-    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_layouts.position')
+  default_scope -> { order('cms_layouts.position') }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts

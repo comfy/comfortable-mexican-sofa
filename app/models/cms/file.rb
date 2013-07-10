@@ -10,14 +10,6 @@ class Cms::File < ActiveRecord::Base
   
   attr_accessor :dimensions
   
-  attr_accessible :site, :site_id,
-                  :file,
-                  :dimensions,
-                  :label,
-                  :description,
-                  :category_ids,
-                  :position
-  
   # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
     # dimensions accessor needs to be set before file assignment for this to work
@@ -36,8 +28,11 @@ class Cms::File < ActiveRecord::Base
   belongs_to :block
   
   # -- Validations ----------------------------------------------------------
-  validates :site_id, :presence => true
+  validates :site_id,
+    :presence   => true
   validates_attachment_presence :file
+  validates :file_file_name,
+    :uniqueness => {:scope => :site_id}
   
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
@@ -46,8 +41,8 @@ class Cms::File < ActiveRecord::Base
   after_destroy :reload_page_cache
   
   # -- Scopes ---------------------------------------------------------------
-  scope :images,      where(:file_content_type => IMAGE_MIMETYPES)
-  scope :not_images,  where('file_content_type NOT IN (?)', IMAGE_MIMETYPES)
+  scope :images,      -> { where(:file_content_type => IMAGE_MIMETYPES) }
+  scope :not_images,  -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
   
   # -- Instance Methods -----------------------------------------------------
   def is_image?

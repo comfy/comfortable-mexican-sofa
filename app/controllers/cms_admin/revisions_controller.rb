@@ -1,7 +1,7 @@
 class CmsAdmin::RevisionsController < CmsAdmin::BaseController
   
-  before_filter :load_record
-  before_filter :load_revision, :except => :index
+  before_action :load_record
+  before_action :load_revision, :except => :index
   
   def index
     redirect_to :action => :show, :id => @record.revisions.first.try(:id) || 0

@@ -5,7 +5,7 @@ class CmsAdmin::BaseController < ApplicationController
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
 
-  before_filter :authenticate,
+  before_action :authenticate,
                 :load_admin_site,
                 :set_locale,
                 :load_fixtures,
@@ -44,7 +44,7 @@ protected
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
     if %w(cms_admin/layouts cms_admin/pages cms_admin/snippets).member?(params[:controller])
-      ComfortableMexicanSofa::Fixtures.import_all(@site.identifier)
+      ComfortableMexicanSofa::Fixture::Importer.new(@site.identifier).import!
       flash.now[:error] = I18n.t('cms.base.fixtures_enabled')
     end
   end

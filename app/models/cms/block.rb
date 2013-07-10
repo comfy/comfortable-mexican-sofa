@@ -4,9 +4,6 @@ class Cms::Block < ActiveRecord::Base
   
   self.table_name = 'cms_blocks'
   
-  attr_accessible :identifier,
-                  :content
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :page
   has_many :files,
@@ -26,7 +23,7 @@ class Cms::Block < ActiveRecord::Base
   def tag
     @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
-    
+  
 protected
   
   def prepare_files

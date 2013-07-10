@@ -1,9 +1,9 @@
 class CmsAdmin::FilesController < CmsAdmin::BaseController
   
-  skip_before_filter :load_fixtures
+  skip_before_action :load_fixtures
   
-  before_filter :build_file,  :only => [:new, :create]
-  before_filter :load_file,   :only => [:edit, :update, :destroy]
+  before_action :build_file,  :only => [:new, :create]
+  before_action :load_file,   :only => [:edit, :update, :destroy]
   
   def index
     @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
@@ -34,22 +34,16 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   def create
     @files = []
     
-    # Sometimes params[:file] comes in as a single file object
-    unless params[:file].is_a?(Hash)
-      uploaded_file = params[:file]
-      params[:file] = { }
-      params[:file][:file] = [uploaded_file]
-    end
-    
-    file_array  = params[:file][:file] || [nil]
-    label       = params[:file][:label]
-        
-    file_array.each_with_index do |file, i|
-      file_params = params[:file].merge(:file => file)
-      if file_array.size > 1 && file_params[:label].present?
-        label = file_params[:label] + " #{i + 1}"
-      end
-      @file = @site.files.create!(file_params.merge(:label => label))
+    files = [file_params[:file]].flatten
+    files.each_with_index do |file, i|
+      label = (files.size > 1 && file_params[:label].present?) ? 
+        "#{file_params[:label]} #{i + 1}" :
+        file_params[:label]
+      @file = @site.files.create!(
+        :file         => file, 
+        :label        => label,
+        :description  => file_params[:description]
+      )
       @files << @file
     end
     
@@ -72,7 +66,7 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
   end
   
   def update
-    @file.update_attributes!(params[:file])
+    @file.update_attributes!(file_params)
     flash[:success] = I18n.t('cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
@@ -113,4 +107,14 @@ protected
     flash[:error] = I18n.t('cms.files.not_found')
     redirect_to :action => :index
   end
+  
+  def file_params
+    # single file upload
+    unless (file = params[:file]).is_a?(Hash)
+      params[:file] = { }
+      params[:file][:file] = [file]
+    end
+    params.fetch(:file, {}).permit!
+  end
+  
 end

@@ -1,10 +1,10 @@
 class CmsAdmin::SitesController < CmsAdmin::BaseController
 
-  skip_before_filter  :load_admin_site,
+  skip_before_action  :load_admin_site,
                       :load_fixtures
 
-  before_filter :build_site,  :only => [:new, :create]
-  before_filter :load_site,   :only => [:edit, :update, :destroy]
+  before_action :build_site,  :only => [:new, :create]
+  before_action :load_site,   :only => [:edit, :update, :destroy]
 
   def index
     return redirect_to :action => :new if Cms::Site.count == 0
@@ -31,7 +31,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   end
 
   def update
-    @site.update_attributes!(params[:site])
+    @site.update_attributes!(site_params)
     flash[:success] = I18n.t('cms.sites.updated')
     redirect_to :action => :edit, :id => @site
   rescue ActiveRecord::RecordInvalid
@@ -49,7 +49,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
 protected
 
   def build_site
-    @site = Cms::Site.new(params[:site])
+    @site = Cms::Site.new(site_params)
     @site.hostname ||= request.host.downcase
   end
 
@@ -59,6 +59,10 @@ protected
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.sites.not_found')
     redirect_to :action => :index
+  end
+  
+  def site_params
+    params.fetch(:site, {}).permit!
   end
 
 end

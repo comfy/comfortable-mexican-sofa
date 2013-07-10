@@ -4,9 +4,6 @@ class Cms::Category < ActiveRecord::Base
   
   self.table_name = 'cms_categories'
   
-  attr_accessible :label,
-                  :categorized_type
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   has_many :categorizations,
@@ -22,7 +19,8 @@ class Cms::Category < ActiveRecord::Base
     :presence   => true
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order(:label)
+  default_scope{ order(:label) }
+  
   scope :of_type, lambda { |type|
     where(:categorized_type => type)
   }

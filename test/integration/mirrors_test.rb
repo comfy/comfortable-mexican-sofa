@@ -1,10 +1,10 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class MirrorsTest < ActionDispatch::IntegrationTest
+class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   
   def setup
     @site_a = cms_sites(:default)
-    @site_a.update_column(:is_mirrored, true)
+    @site_a.update_columns(:is_mirrored => true)
     @site_b = Cms::Site.create!(:identifier => 'test_b', :hostname => 'test-b.host', :is_mirrored => true)
     # making mirrors
     Cms::Layout.all.each{ |l| l.save! }

@@ -1,16 +1,16 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
 
-  before_filter :check_for_layouts, :only => [:new, :edit]
-  before_filter :build_cms_page,    :only => [:new, :create]
-  before_filter :load_cms_page,     :only => [:edit, :update, :destroy]
-  before_filter :preview_cms_page,  :only => [:create, :update]
-  before_filter :build_file,        :only => [:new, :edit]
+  before_action :check_for_layouts, :only => [:new, :edit]
+  before_action :build_cms_page,    :only => [:new, :create]
+  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_action :preview_cms_page,  :only => [:create, :update]
+  before_action :build_file,        :only => [:new, :edit]
 
   def index
     return redirect_to :action => :new if @site.pages.count == 0
-    @pages_by_parent = @site.pages.includes(:categories).all.group_by(&:parent_id)
+    @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
     if params[:category].present?
-      @pages = @site.pages.includes(:categories).for_category(params[:category]).all(:order => 'label')
+      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
     else
       @pages = [@site.pages.root].compact
     end
@@ -56,7 +56,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def toggle_branch
-    @pages_by_parent = @site.pages.includes(:categories).all.group_by(&:parent_id)
+    @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
     @page = @site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
     id  = @page.id.to_s
@@ -82,7 +82,7 @@ protected
   end
 
   def build_cms_page
-    @page = @site.pages.new(params[:page])
+    @page = @site.pages.new(page_params)
     @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   end
@@ -93,7 +93,7 @@ protected
 
   def load_cms_page
     @page = @site.pages.find(params[:id])
-    @page.attributes = params[:page]
+    @page.attributes = page_params
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.pages.not_found')
@@ -106,7 +106,11 @@ protected
       @cms_site   = @page.site
       @cms_layout = @page.layout
       @cms_page   = @page
-      render :inline => @page.content(true), :layout => layout
+      render :inline => @page.content(true), :layout => layout, :content_type => 'text/html'
     end
+  end
+  
+  def page_params
+    params.fetch(:page, {}).permit!
   end
 end

@@ -1,6 +1,6 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class SitesTest < ActionDispatch::IntegrationTest
+class SitesIntegrationTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_single_site
     http_auth :get, cms_admin_path
@@ -82,7 +82,7 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_site)
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_column(:locale, 'fr')
+    cms_sites(:default).update_columns(:locale => 'fr')
     get '/'
     assert_response :success
     assert assigns(:cms_site)
@@ -94,7 +94,7 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_column(:locale, 'fr')
+    cms_sites(:default).update_columns(:locale => 'fr')
     http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :fr, I18n.locale
@@ -103,7 +103,7 @@ class SitesTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_forced_locale
     ComfortableMexicanSofa.config.admin_locale = :en
     
-    cms_sites(:default).update_column(:locale, 'fr')
+    cms_sites(:default).update_columns(:locale => 'fr')
     http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale

@@ -1,11 +1,11 @@
 # encoding: utf-8
 
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class FixturesTest < ActionDispatch::IntegrationTest
+class FixturesIntergrationTest < ActionDispatch::IntegrationTest
   
   def setup
-    cms_sites(:default).update_column(:identifier, 'sample-site')
+    cms_sites(:default).update_columns(:identifier => 'sample-site')
   end
   
   def test_fixtures_disabled
@@ -29,13 +29,15 @@ class FixturesTest < ActionDispatch::IntegrationTest
       assert_difference 'Cms::Layout.count', 2 do
         assert_difference 'Cms::Snippet.count', 1 do
           get '/'
-          assert_response :success
+          assert_response :redirect
+          assert_redirected_to 'http://test.host/child'
+          follow_redirect!
           
           assert_equal 'Home Fixture Page', Cms::Page.root.label
           assert_equal 'Default Fixture Layout', Cms::Layout.find_by_identifier('default').label
           assert_equal 'Default Fixture Snippet', Cms::Snippet.find_by_identifier('default').label
           
-          assert_equal "<html>\n  <body>\n    Home Page Fixture Contént\nFixture Content for Default Snippet\n  </body>\n</html>", response.body
+          assert_equal "<html>\n  <body>\n    <div class='left'> Child Page Left Fixture Content </div>\n<div class='right'> Child Page Right Fixture Content </div>\n  </body>\n</html>", response.body
         end
       end
     end

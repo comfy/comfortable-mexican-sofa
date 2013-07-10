@@ -8,11 +8,6 @@ class Cms::Snippet < ActiveRecord::Base
   cms_is_mirrored
   cms_has_revisions_for :content
   
-  attr_accessible :identifier,
-                  :label,
-                  :content,
-                  :category_ids
-  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   
@@ -30,10 +25,10 @@ class Cms::Snippet < ActiveRecord::Base
   validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
-    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_snippets.position')
+  default_scope -> { order('cms_snippets.position') }
   
 protected
   
@@ -45,7 +40,7 @@ protected
   # gotta reload every single page. Kinda sucks, but might be ok unless there
   # are hundreds of pages.
   def clear_cached_page_content
-    site.pages.all.each do |p|
+    site.pages.each do |p|
       Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
     end
   end

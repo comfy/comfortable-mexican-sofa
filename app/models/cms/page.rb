@@ -6,15 +6,6 @@ class Cms::Page < ActiveRecord::Base
     
   self.table_name = 'cms_pages'
   
-  attr_accessible :layout, :layout_id,
-                  :label,
-                  :slug,
-                  :parent, :parent_id,
-                  :blocks_attributes,
-                  :is_published,
-                  :target_page_id,
-                  :category_ids
-  
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
   cms_is_mirrored
@@ -57,8 +48,8 @@ class Cms::Page < ActiveRecord::Base
   validate :validate_format_of_unescaped_slug
   
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_pages.position')
-  scope :published, where(:is_published => true)
+  default_scope -> { order('cms_pages.position') }
+  scope :published, -> { where(:is_published => true) }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

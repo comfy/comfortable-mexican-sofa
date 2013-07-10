@@ -11,5 +11,4 @@ xml.urlset :xmlns => 'http://www.sitemaps.org/schemas/sitemap/0.9' do
       xml.lastmod page.updated_at.strftime('%Y-%m-%d')
     end
   end
-  ComfortableMexicanSofa::Sitemap.process(@cms_site, self, xml)
 end
