@@ -1,6 +1,6 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class SitesTest < ActionDispatch::IntegrationTest
+class SitesIntegrationTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_single_site
     http_auth :get, cms_admin_path

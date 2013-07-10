@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', File.dirname(__FILE__))
+require_relative '../../test_helper'
 
 class CmsAdmin::PagesControllerTest < ActionController::TestCase
 
@@ -370,6 +370,7 @@ class CmsAdmin::PagesControllerTest < ActionController::TestCase
       }
       assert_response :success
       assert_match /preview content/, response.body
+      assert_equal 'text/html', response.content_type
       
       assert_equal site, assigns(:cms_site)
       assert_equal layout, assigns(:cms_layout)

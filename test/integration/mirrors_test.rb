@@ -1,6 +1,6 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class MirrorsTest < ActionDispatch::IntegrationTest
+class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   
   def setup
     @site_a = cms_sites(:default)

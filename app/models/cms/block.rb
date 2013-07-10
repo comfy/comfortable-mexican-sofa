@@ -23,7 +23,7 @@ class Cms::Block < ActiveRecord::Base
   def tag
     @tag ||= page_content.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
-    
+  
 protected
   
   def prepare_files
