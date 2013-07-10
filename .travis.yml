@@ -2,7 +2,7 @@ language: ruby
 before_install:
   - gem update --system
   - gem --version
-script:
+before_script:
   - rake db:migrate
 rvm:
   - 1.9.3
