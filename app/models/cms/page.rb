@@ -21,7 +21,8 @@ class Cms::Page < ActiveRecord::Base
     :class_name => 'Cms::Page'
   has_many :page_contents,
     :autosave  => true,
-    :dependent => :destroy
+    :dependent => :destroy,
+    :inverse_of => :page
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,

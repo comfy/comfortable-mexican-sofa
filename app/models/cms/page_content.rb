@@ -9,7 +9,8 @@ class Cms::PageContent < ActiveRecord::Base
   delegate :site, :to => :page
 
   # -- Relationships --------------------------------------------------------
-  belongs_to :page
+  belongs_to :page,
+    :inverse_of => :page_contents
   has_many :variations, 
     :class_name => 'Cms::Variation',
     :as         => :content

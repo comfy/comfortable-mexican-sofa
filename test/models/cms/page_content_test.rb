@@ -54,7 +54,7 @@ class CmsPageContentTest < ActiveSupport::TestCase
 
   def test_variation_identifiers
     page = cms_pages(:default)
-    assert_equal ['en'], page.page_content.variation_identifiers
+    assert_equal ['fr', 'en'], page.page_content.variation_identifiers
   end
 
   def test_set_variation_identifiers
