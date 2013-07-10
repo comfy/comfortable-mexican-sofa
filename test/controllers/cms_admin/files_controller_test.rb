@@ -41,7 +41,20 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       'image' => file.file.url
     }], r
   end
-  
+
+  def test_get_index_as_ajax_with_no_images
+    file = cms_files(:default)
+    file.update_attribute(:file_content_type, 'text/plain')
+    get :index, :site_id => cms_sites(:default), :not_images => 1, :ajax => true
+    assert_response :success
+    r = JSON.parse(response.body)
+    assert_equal [{
+      'label'    => file.label,
+      'filename' => file.file_file_name,
+      'url'      => file.file.url
+    }], r
+  end
+
   def test_get_new
     site = cms_sites(:default)
     get :new, :site_id => site
@@ -133,6 +146,7 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       file = Cms::File.last
       r = JSON.parse(response.body)
       assert_equal file.file.url, r['filelink']
+      assert_equal file.file_file_name, r['filename']
       assert r['view'].present?
     end
   end
