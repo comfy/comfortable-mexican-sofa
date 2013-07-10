@@ -13,5 +13,6 @@ gem 'coffee-rails',     '>= 3.1.0'
 
 group :test do
   gem 'sqlite3'
-  gem 'coveralls', :require => false
+  gem 'coveralls',  :require => false
+  gem 'mocha',      :require => false
 end
