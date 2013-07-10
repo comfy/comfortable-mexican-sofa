@@ -53,8 +53,9 @@ protected
 
   def build_layout
     @layout = @site.layouts.new(layout_params)
-    @layout.parent  ||= Cms::Layout.find_by_id(params[:parent_id])
-    @layout.content ||= '{{ cms:page:content:text }}'
+    @layout.parent      ||= Cms::Layout.find_by_id(params[:parent_id])
+    @layout.app_layout  ||= @layout.parent.try(:app_layout)
+    @layout.content     ||= '{{ cms:page:content:text }}'
   end
 
   def load_layout

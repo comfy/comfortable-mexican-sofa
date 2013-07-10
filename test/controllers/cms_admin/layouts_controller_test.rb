@@ -26,6 +26,15 @@ class CmsAdmin::LayoutsControllerTest < ActionController::TestCase
     assert_select "form[action=/cms-admin/sites/#{site.id}/layouts]"
     assert_select "form[action='/cms-admin/sites/#{site.id}/files?ajax=true']"
   end
+  
+  def test_get_new_with_parent
+    site    = cms_sites(:default)
+    layout  = cms_layouts(:default)
+    layout.update_column(:app_layout, 'application')
+    get :new, :site_id => site, :parent_id => layout
+    assert_response :success
+    assert_equal layout.app_layout, assigns(:layout).app_layout
+  end
 
   def test_get_edit
     layout = cms_layouts(:default)
