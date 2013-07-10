@@ -8,8 +8,8 @@ class ComfortableMexicanSofa::Tag::Snippet
   
   # Find or initialize Cms::Snippet object
   def snippet
-    page.site.snippets.detect{|s| s.identifier == self.identifier.to_s} ||
-      page.site.snippets.build(:identifier => self.identifier.to_s)
+    page_content.site.snippets.detect{|s| s.identifier == self.identifier.to_s} ||
+      page_content.site.snippets.build(:identifier => self.identifier.to_s)
   end
   
   def content
