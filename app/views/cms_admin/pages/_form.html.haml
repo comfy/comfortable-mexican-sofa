@@ -26,6 +26,11 @@
 
 = render :partial => 'cms_admin/categories/form', :object => form
 
+= debug @page.page_content
+= form.fields_for :page_content, @page.page_content do |pc|
+  = pc.text_field :slug
+  
+
 = render :partial => 'form_blocks'
 
 = form.check_box :is_published, :label => t('.is_published')

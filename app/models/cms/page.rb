@@ -81,10 +81,14 @@ class Cms::Page < ActiveRecord::Base
   end
   
   # Grabbing page content object that is currently assigned to page
+  # Or builds a new one just so there's something
   # Also can grab page content for a provided variation
   def page_content(variation = nil, reload = false)
     @page_content = nil if reload
-    @page_content ||= self.page_contents.for_variation(variation).first
+    @page_content ||= begin
+      self.page_contents.for_variation(variation).first ||
+      self.page_contents.build
+    end
   end
   
   # Assigning page content attributes. Applying them either to a new or existing
