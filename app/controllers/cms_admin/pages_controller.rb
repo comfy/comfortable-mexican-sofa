@@ -83,7 +83,7 @@ protected
 
   def build_cms_page
     @page = @site.pages.new(page_params)
-    @page_content = @page.page_contents.build # unless editing variation
+    @page_content = @page.page_contents.build
     if @page.new_record?
       @page.page_content = @page_content
     end

@@ -35,19 +35,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert page.content.present?
   end
 
-  def test_page_content_without_variation
-    page = cms_pages(:default)
-    assert !page.page_content.content.blank?
-  end
-
-  def test_page_content_with_variation
-    ComfortableMexicanSofa.config.variations = ['en', 'fr']
-    page = cms_pages(:default)
-    assert page.page_content('en')
-    assert_nil page.page_content('fr')
-    assert_nil page.page_content('invalid')
-  end
-
   def test_update_of_page_content
     pc = cms_page_contents(:default)
     assert_no_difference ['Cms::PageContent.count'] do
@@ -111,6 +98,41 @@ class CmsPageTest < ActiveSupport::TestCase
     page.slug = thai_character_ko_kai + thai_character_mai_tho
     assert page.valid?
   end
+  
+  def test_page_content_attributes_assignment_for_new
+    page = Cms::Page.new
+    page.page_content_attributes = {:slug => 'test'}
+    
+    assert_equal 1, page.page_contents.size
+    page_content = page.page_contents.first
+    assert_equal 'test', page_content.slug
+    assert_equal page_content, page.page_content
+  end
+  
+  def test_page_content_attributes_assignment_for_existing
+    page          = cms_pages(:default)
+    page_content  = cms_page_contents(:default)
+    page.page_content_attributes = {:id => page_content.id, :slug => 'updated'}
+    
+    assert_equal 1, page.page_contents.size
+    assert_equal 'updated', page.page_contents.first.slug
+    assert_equal page_content, page.page_content
+  end
+  
+  def test_page_content_without_variation
+     page = cms_pages(:default)
+     assert_equal cms_page_contents(:default), page.page_content
+   end
+
+   def test_page_content_with_variation
+     ComfortableMexicanSofa.config.variations = ['en', 'fr']
+     page         = cms_pages(:default)
+     page_content = cms_page_contents(:default)
+     
+     assert_equal page_content, page.page_content('en', :reload)
+     assert_equal page_content, page.page_content('fr', :reload)
+     assert_nil   page.page_content('invalid', :reload)
+   end
 
   def test_label_assignment
     page = cms_sites(:default).pages.new(

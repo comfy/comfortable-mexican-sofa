@@ -12,24 +12,23 @@ class Cms::Page < ActiveRecord::Base
   # TODO
   # cms_has_revisions_for :blocks_attributes
   
-  attr_accessor :page_content_attributes, :page_content
-
+  attr_accessor :page_content
+  
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
   belongs_to :target_page,
     :class_name => 'Cms::Page'
   has_many :page_contents,
-    :autosave  => true,
-    :dependent => :destroy,
+    :autosave   => true,
+    :dependent  => :destroy,
     :inverse_of => :page
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent,
                     :escape_slug,
-                    :assign_full_path,
-                    :assign_page_content
+                    :assign_full_path
 
   before_create     :assign_position
   after_save        :sync_child_pages
@@ -80,29 +79,28 @@ class Cms::Page < ActiveRecord::Base
   def content(variation = nil)
     self.page_contents.for_variation(variation).first.try(:content)
   end
-
-  def page_content(variation = nil)
-    @page_content || self.page_contents.for_variation(variation).first
+  
+  # Grabbing page content object that is currently assigned to page
+  # Also can grab page content for a provided variation
+  def page_content(variation = nil, reload = false)
+    @page_content = nil if reload
+    @page_content ||= self.page_contents.for_variation(variation).first
   end
-
-  def page_content=(page_content)
-    @page_content ||= page_content
+  
+  # Assigning page content attributes. Applying them either to a new or existing
+  # page content object depending on the passed id
+  def page_content_attributes=(attrs)
+    return unless attrs.is_a?(Hash)
+    
+    pc =  self.page_contents.detect{|pc| pc.id = attrs.delete(:id)} ||
+          self.page_contents.build
+    pc.attributes = attrs
+    
+    # setting current page.page_content accessor
+    self.page_content = pc
   end
 
 protected
-
-  # TODO - cleanup, add comment
-  def assign_page_content
-    return unless self.page_content_attributes.is_a?(Hash)
-    pc_id = self.page_content_attributes.delete(:id)
-
-    pc = if !self.new_record? && pc_id
-      self.page_contents.detect{|pc| pc.id == pc_id}
-    else
-      self.page_contents.build
-    end
-    pc.attributes = self.page_content_attributes
-  end
 
   def assigns_label
     self.label = self.label.blank?? self.slug.try(:titleize) : self.label
