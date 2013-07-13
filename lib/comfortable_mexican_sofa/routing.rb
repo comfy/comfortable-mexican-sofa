@@ -12,22 +12,22 @@ module ComfortableMexicanSofa::Routing
             get  :toggle_branch,  :on => :member
             put :reorder,         :on => :collection
             resources :revisions, :only => [:index, :show, :revert] do
-              put :revert, :on => :member
+              patch :revert, :on => :member
             end
           end
           resources :files do
-            put :reorder, :on => :collection
+            post :reorder, :on => :collection
           end
           resources :layouts do
             put :reorder, :on => :collection
             resources :revisions, :only => [:index, :show, :revert] do
-              put :revert, :on => :member
+              patch :revert, :on => :member
             end
           end
           resources :snippets do
             put :reorder, :on => :collection
             resources :revisions, :only => [:index, :show, :revert] do
-              put :revert, :on => :member
+              patch :revert, :on => :member
             end
           end
           resources :categories
