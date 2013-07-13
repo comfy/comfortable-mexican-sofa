@@ -10,7 +10,9 @@ class Cms::Layout < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
-  has_many :pages, :dependent => :nullify
+  has_many :pages,
+    :inverse_of => :layout,
+    :dependent  => :nullify
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label

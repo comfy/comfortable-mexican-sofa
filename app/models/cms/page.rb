@@ -16,13 +16,14 @@ class Cms::Page < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
-  belongs_to :layout
+  belongs_to :layout,
+    :inverse_of => :pages
   belongs_to :target_page,
     :class_name => 'Cms::Page'
   has_many :page_contents,
+    :inverse_of => :page,
     :autosave   => true,
-    :dependent  => :destroy,
-    :inverse_of => :page
+    :dependent  => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
@@ -86,8 +87,11 @@ class Cms::Page < ActiveRecord::Base
   def page_content(variation = nil, reload = false)
     @page_content = nil if reload
     @page_content ||= begin
-      self.page_contents.for_variation(variation).first ||
-      self.page_contents.build
+      # FIX: inner join baaaad!
+      pc =  self.page_contents.for_variation(variation).first ||
+            self.page_contents.build
+      pc.page = self
+      pc
     end
   end
   

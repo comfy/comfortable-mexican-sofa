@@ -3,9 +3,10 @@
 class Cms::PageContent < ActiveRecord::Base
 
   self.table_name = 'cms_page_contents'
-
-
-  attr_accessor :tags, :variation_identifiers
+  
+  attr_accessor :tags, 
+                :variation_identifiers
+                
   delegate :site, :to => :page
 
   # -- Relationships --------------------------------------------------------
@@ -22,15 +23,17 @@ class Cms::PageContent < ActiveRecord::Base
   before_save :set_cached_content
   after_save  :sync_variations
 
+  # -- Validations ----------------------------------------------------------
+  validates :slug, :presence => true
+
   # -- Scopes ---------------------------------------------------------------
-  scope :for_variation, lambda {|*identifier|
+  scope :for_variation, lambda { |*identifier|
     if ComfortableMexicanSofa.config.variations.present?
       joins(:variations).where(:cms_variations => {:identifier => identifier})
     else
       all
     end
   }
-
 
   # -- Instance Methods -----------------------------------------------------
 

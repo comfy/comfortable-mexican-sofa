@@ -85,6 +85,8 @@ ComfortableMexicanSofa.configure do |config|
   # Default is nil (not used)
   #   config.hostname_aliases = nil
   
+  config.variations = [:en, :fr, :es]
+  
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

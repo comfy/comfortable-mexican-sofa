@@ -26,7 +26,14 @@
 
 = render :partial => 'cms_admin/categories/form', :object => form
 
-= debug @page.page_content
+
+= form.element 'Variations' do
+  - ComfortableMexicanSofa.config.variations.each do |identifier|
+    %label
+      - checked = @page.page_content.variations.detect{|v| v.identifier == identifier}.present?
+      = check_box_tag 'variation_identifiers[]', identifier, checked, :id => false
+      %span= identifier
+
 = form.fields_for :page_content, @page.page_content do |pc|
   = pc.text_field :slug
   
