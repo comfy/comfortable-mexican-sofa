@@ -105,8 +105,13 @@ class Cms::Page < ActiveRecord::Base
       block = 
         self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
         self.blocks.build(:identifier => block_hash[:identifier])
-      block.content = block_hash[:content]
-      self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
+      if block_hash[:_destroy] == 1
+        block.destroy
+        self.blocks_attributes_changed = self.blocks_attributes_changed || true
+      else
+        block.content = block_hash[:content]
+        self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
+      end
     end
   end
   

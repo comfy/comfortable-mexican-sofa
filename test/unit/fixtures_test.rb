@@ -165,7 +165,7 @@ class FixturesTest < ActiveSupport::TestCase
     assert_equal "Home Page Fixture Contént\n{{ cms:snippet:default }}", block.content
     
     block = page.blocks.where(:identifier => 'to_delete').first
-    assert_equal nil, block.content
+    assert_equal nil, block
   end
   
   def test_import_snippets_creating

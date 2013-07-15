@@ -138,7 +138,8 @@ module ComfortableMexicanSofa::Fixtures
       blocks_to_clear.each do |identifier|
         blocks_attributes << {
           :identifier => identifier,
-          :content    => nil
+          :content    => nil,
+          :_destroy   => 1
         }
       end
       
