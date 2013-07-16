@@ -27,6 +27,7 @@ class Cms::PageContent < ActiveRecord::Base
 
   # -- Validations ----------------------------------------------------------
   validates :slug, :presence => true
+  validate :validate_variation_presence
 
   # -- Scopes ---------------------------------------------------------------
   scope :for_variation, lambda { |*identifier|
@@ -104,6 +105,13 @@ class Cms::PageContent < ActiveRecord::Base
   end
 
 protected
+
+  def validate_variation_presence
+    return unless ComfortableMexicanSofa.config.variations.present?
+    if self.variations.reject(&:marked_for_destruction?).empty?
+      self.errors.add(:base, "At least one variation required")
+    end
+  end
 
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
