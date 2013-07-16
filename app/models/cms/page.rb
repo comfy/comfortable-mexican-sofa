@@ -98,11 +98,10 @@ class Cms::Page < ActiveRecord::Base
   # page content object depending on the passed id
   def page_content_attributes=(attrs)
     return unless attrs.is_a?(Hash)
-    
-    pc =  self.page_contents.detect{|pc| pc.id = attrs.delete(:id)} ||
+    pc =  self.page_contents.detect{|pc| pc.id == attrs.delete(:id)} ||
           self.page_contents.build
     pc.attributes = attrs
-    
+
     # setting current page.page_content accessor
     self.page_content = pc
   end

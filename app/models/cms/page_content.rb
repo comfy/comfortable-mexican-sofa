@@ -106,7 +106,7 @@ protected
 
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
-    write_attribute(:content, self.content(true))
+    # write_attribute(:content, self.content(true))
   end
 
 end
