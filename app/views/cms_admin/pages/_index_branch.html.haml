@@ -17,12 +17,27 @@
       - if !category_view && has_siblings
         .dragger
           %span &#8645;
-          
-    .btn-group
-      = link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
-      = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page), :class => 'btn btn-small'
-      = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
-      
+
+
+    - if ComfortableMexicanSofa.config.variations.present?
+      .btn-group
+        = link_to '#', :class => 'btn btn-small dropdown-toggle', 'data-toggle' => 'dropdown' do
+          Manage
+          %span.caret
+        %ul.dropdown-menu
+          %li= link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id)
+          %li= link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}
+          %li.divider
+          %li= link_to 'Add Variation', edit_cms_admin_site_page_path(@site, page)
+          %li.divider
+          - page.page_contents.each do |pc|
+            %li= link_to "#{pc.slug} <em>(#{pc.variations.pluck(:identifier).join(', ')})</em>".html_safe, edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id)
+    - else
+      .btn-group
+        = link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
+        = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+        = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page), :class => 'btn btn-small'
+
     .item-content
       .item-title
         = link_to page.label, edit_cms_admin_site_page_path(@site, page), :class => 'item-label'

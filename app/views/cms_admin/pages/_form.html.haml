@@ -26,7 +26,6 @@
 
 = render :partial => 'cms_admin/categories/form', :object => form
 
-= debug @page.page_contents
 - if ComfortableMexicanSofa.config.variations.present?
   = form.element 'Variations' do
     - ComfortableMexicanSofa.config.variations.each do |identifier|
