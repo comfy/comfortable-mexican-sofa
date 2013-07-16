@@ -32,4 +32,5 @@ class CmsVariationTest < ActiveSupport::TestCase
     end
   end
 
+
 end

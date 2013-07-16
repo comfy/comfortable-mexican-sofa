@@ -52,6 +52,10 @@ class CmsPageContentTest < ActiveSupport::TestCase
     flunk
   end
 
+  def test_validate_at_least_one_variation
+    flunk
+  end
+
   def test_variation_identifiers
     page = cms_pages(:default)
     assert_equal ['fr', 'en'], page.page_content.variation_identifiers

@@ -16,7 +16,8 @@ class Cms::PageContent < ActiveRecord::Base
     :class_name => 'Cms::Variation',
     :as         => :content,
     :autosave   => true,
-    :inverse_of => :content
+    :inverse_of => :content,
+    :dependent  => :destroy
   has_many :blocks,
     :autosave   => true,
     :dependent  => :destroy
