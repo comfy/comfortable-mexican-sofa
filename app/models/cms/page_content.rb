@@ -14,14 +14,15 @@ class Cms::PageContent < ActiveRecord::Base
     :inverse_of => :page_contents
   has_many :variations, 
     :class_name => 'Cms::Variation',
-    :as         => :content
+    :as         => :content,
+    :autosave   => true,
+    :inverse_of => :content
   has_many :blocks,
     :autosave   => true,
     :dependent  => :destroy
 
   # -- Callbacks ------------------------------------------------------------
   before_save :set_cached_content
-  after_save  :sync_variations
 
   # -- Validations ----------------------------------------------------------
   validates :slug, :presence => true
@@ -29,7 +30,7 @@ class Cms::PageContent < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   scope :for_variation, lambda { |*identifier|
     if ComfortableMexicanSofa.config.variations.present?
-      joins(:variations).where(:cms_variations => {:identifier => identifier})
+      joins(:variations).where(:cms_variations => {:identifier => identifier.first})
     else
       all
     end
@@ -88,19 +89,16 @@ class Cms::PageContent < ActiveRecord::Base
     @tags ||= []
   end
 
-  def variation_identifiers
-    @variation_identifiers ||= variations.pluck(:identifier)
-  end
-
-  # TODO - get errors
-  def sync_variations
-    existing  = self.variations.pluck(:identifier)
-    current   = self.variation_identifiers
-
-    self.variations.where(:identifier => (existing - current)).delete_all
-
-    (current - existing).each do |identifier|
-      self.variations.create!(:identifier => identifier)
+  def variation_identifiers=(values)
+    return unless values.is_a?(Hash)
+    values.each do |identifier, checked|
+      checked = checked.to_i == 1
+      existing = self.variations.detect{|v| v.identifier == identifier}
+      if checked && !existing
+        self.variations.build(:identifier => identifier)
+      elsif !checked && existing
+        existing.mark_for_destruction
+      end
     end
   end
 

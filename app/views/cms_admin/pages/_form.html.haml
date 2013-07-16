@@ -27,16 +27,19 @@
 = render :partial => 'cms_admin/categories/form', :object => form
 
 
-= form.element 'Variations' do
-  - ComfortableMexicanSofa.config.variations.each do |identifier|
-    %label
-      - checked = @page.page_content.variations.detect{|v| v.identifier == identifier}.present?
-      = check_box_tag 'variation_identifiers[]', identifier, checked, :id => false
-      %span= identifier
+- if ComfortableMexicanSofa.config.variations.present?
+  = form.element 'Variations' do
+    - ComfortableMexicanSofa.config.variations.each do |identifier|
+      %label
+        - checked = @page.page_content.variations.detect{|v| v.identifier == identifier.to_s}.present?
+        - name = "page[page_content_attributes][variation_identifiers][#{identifier}]"
+        = hidden_field_tag name, '0'
+        = check_box_tag name, '1', checked, :id => false
+        %span= identifier
 
 = form.fields_for :page_content, @page.page_content do |pc|
   = pc.text_field :slug
-  
+  = pc.hidden_field :id
 
 = render :partial => 'form_blocks'
 

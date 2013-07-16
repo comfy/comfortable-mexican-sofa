@@ -3,7 +3,10 @@ class Cms::Variation < ActiveRecord::Base
   self.table_name = 'cms_variations'
 
   # -- Relationships --------------------------------------------------------
-  belongs_to :content, :polymorphic => true
+  belongs_to :content,
+    :polymorphic => true,
+    :inverse_of  => :variations
+
 
   # -- Validations ----------------------------------------------------------
   validates :content, :identifier,

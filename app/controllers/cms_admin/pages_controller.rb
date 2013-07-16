@@ -21,13 +21,13 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def edit
-    render
+    @page.page_content  = @page.page_contents.where(:id => params[:page_content_id]).first
   end
 
   def create
     @page.save!
     flash[:success] = I18n.t('cms.pages.created')
-    redirect_to :action => :edit, :id => @page
+    redirect_to :action => :edit, :id => @page, :page_content_id => @page.page_content.id
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.pages.creation_failure')
@@ -37,7 +37,7 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   def update
     @page.save!
     flash[:success] = I18n.t('cms.pages.updated')
-    redirect_to :action => :edit, :id => @page
+    redirect_to :action => :edit, :id => @page, :page_content_id => @page.page_content.id
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.pages.update_failure')
@@ -92,8 +92,8 @@ protected
   end
 
   def load_cms_page
-    @page = @site.pages.find(params[:id])
-    @page.attributes = page_params
+    @page               = @site.pages.find(params[:id])
+    @page.attributes    = page_params
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.pages.not_found')
@@ -113,4 +113,5 @@ protected
   def page_params
     params.fetch(:page, {}).permit!
   end
+
 end

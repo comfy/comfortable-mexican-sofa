@@ -87,14 +87,13 @@ class Cms::Page < ActiveRecord::Base
   def page_content(variation = nil, reload = false)
     @page_content = nil if reload
     @page_content ||= begin
-      # FIX: inner join baaaad!
       pc =  self.page_contents.for_variation(variation).first ||
             self.page_contents.build
       pc.page = self
       pc
     end
   end
-  
+
   # Assigning page content attributes. Applying them either to a new or existing
   # page content object depending on the passed id
   def page_content_attributes=(attrs)
