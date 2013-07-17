@@ -85,7 +85,8 @@ ComfortableMexicanSofa.configure do |config|
   # Default is nil (not used)
   #   config.hostname_aliases = nil
   
-  config.variations = [:en, :fr, :es]
+  # config.variations = [:en, :fr, :es]
+  config.variations = {:en => [:airmiles, :club_sobeys], :fr => [:airmiles, :club_sobeys]}
   
 end
 

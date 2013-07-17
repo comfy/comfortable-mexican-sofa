@@ -1,0 +1,23 @@
+- variations ||= ComfortableMexicanSofa.config.variations
+- namespace  ||= nil
+
+- case variations
+
+- when Array
+  - variations.each do |identifier|
+    - id      = namespace ? "#{namespace}.#{identifier}" : "#{identifier}"
+    - checked = @page.page_content.variations.detect{|v| v.identifier == id}.present?
+    - name    = "page[page_content_attributes][variation_identifiers][#{id}]"
+    - disabled = @page.page_contents.for_variation(id).where('cms_page_contents.id NOT IN (?)', (@page.page_content.id || 0)).exists?
+
+    %label{:for => id}
+      = hidden_field_tag name, '0'
+      = check_box_tag name, '1', checked, :id => id, :disabled => disabled
+      %span= id
+
+
+- when Hash
+  - variations.each do |namespace, identifiers|
+    .div
+      %strong= namespace
+      = render 'variation_selector', :variations => identifiers, :namespace => namespace

@@ -27,17 +27,10 @@
 = render :partial => 'cms_admin/categories/form', :object => form
 
 - if ComfortableMexicanSofa.config.variations.present?
-  = form.element 'Variations' do
-    - ComfortableMexicanSofa.config.variations.each do |identifier|
-      %label
-        - checked = @page.page_content.variations.detect{|v| v.identifier == identifier.to_s}.present?
-        - name = "page[page_content_attributes][variation_identifiers][#{identifier}]"
-        = hidden_field_tag name, '0'
-
-        - disabled = @page.page_contents.for_variation(identifier).where('cms_page_contents.id NOT IN (?)', (@page.page_content.id || 0)).exists?
-        = check_box_tag name, '1', checked, :id => false, :disabled => disabled
-
-        %span= identifier
+  .control-group
+    %label.control-label Variations
+    .controls
+      = render 'variation_selector'
 
 = form.fields_for :page_content, @page.page_content do |pc|
   = pc.text_field :slug
