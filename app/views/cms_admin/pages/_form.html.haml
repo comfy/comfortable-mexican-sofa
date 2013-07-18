@@ -8,11 +8,6 @@
 
 = form.text_field :label, :data => {:slugify => @page.new_record?}
 
-- unless @site.pages.count == 0 || @site.pages.root == @page
-  = form.text_field :slug, :data => {:slug => true}
-  - unless @page.new_record?
-    = form.text_field :full_path, :id => 'full-path', :disabled => true
-
 - if (options = Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {}, 'data-url' => form_blocks_cms_admin_site_page_path(@site, @page.id.to_i)
   
@@ -33,7 +28,12 @@
       = render 'variation_selector'
 
 = form.fields_for :page_content, @page.page_content do |pc|
-  = pc.text_field :slug
+
+  - unless @site.pages.count == 0 || @site.pages.root == @page
+    - unless @page.page_content.new_record?
+      = pc.text_field :full_path, :id => 'full-path', :disabled => true
+
+  = pc.text_field :slug, :data => {:slug => true}
   = pc.hidden_field :id
 
 = render :partial => 'form_blocks'
