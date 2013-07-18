@@ -35,3 +35,6 @@
                 .btn-group
                   = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :class => 'btn btn-mini'
                   = link_to t('.delete'), cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :method => :delete, :confirm => "Are you sure?", :class => 'btn btn-mini btn-danger' unless page.page_contents.count == 1
+  - if !category_view && has_children && branch_open
+    %ul.children.sortable
+      = render :partial => 'variation_index_branch', :collection => children
