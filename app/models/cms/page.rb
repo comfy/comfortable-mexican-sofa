@@ -24,30 +24,22 @@ class Cms::Page < ActiveRecord::Base
     :inverse_of => :page,
     :autosave   => true,
     :dependent  => :destroy
-  
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
-                    :assign_parent,
-                    :escape_slug,
-                    :assign_full_path
+                    :assign_parent
 
   before_create     :assign_position
-  after_save        :sync_child_pages
-  after_find        :unescape_slug_and_path
-  
+
   # -- Validations ----------------------------------------------------------
   validates :site_id, 
     :presence   => true
   validates :label,
     :presence   => true
-  validates :slug,
-    :presence   => true,
-    :uniqueness => { :scope => :parent_id },
-    :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
   validates :layout,
     :presence   => true
   validate :validate_target_page
-  validate :validate_format_of_unescaped_slug
+  # validate :validate_format_of_unescaped_slug
   
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('cms_pages.position') }
@@ -65,18 +57,6 @@ class Cms::Page < ActiveRecord::Base
     return out.compact
   end
   
-  # -- Instance Methods -----------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set. This
-  # full path take care of the pages and its childs but not of the site path
-  def full_path
-    self.read_attribute(:full_path) || self.assign_full_path
-  end
-
-  # Full url for a page
-  def url
-    "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
-  end
-
   def content(variation = nil)
     self.page_contents.for_variation(variation).first.try(:content)
   end
@@ -107,6 +87,19 @@ class Cms::Page < ActiveRecord::Base
     self.page_content = pc
   end
 
+  def default_slug
+    self.page_content.slug
+  end
+
+  def has_variation?(identifier)
+    result = self.page_contents.joins(:variations).where('cms_variations.identifier' => identifier)
+    if identifier.is_a?(Array)
+      return result.count == identifier.count
+    else
+      result.first
+    end
+  end
+
 protected
 
   def assigns_label
@@ -117,11 +110,7 @@ protected
     return unless site
     self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count == 0
   end
-  
-  def assign_full_path
-    self.full_path = self.parent ? "#{CGI::escape(self.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
-  end
-  
+
   def assign_position
     return unless self.parent
     return if self.position.to_i > 0
@@ -143,20 +132,4 @@ protected
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
-  # Forcing re-saves for child pages so they can update full_paths
-  def sync_child_pages
-    children.each{ |p| p.save! } if full_path_changed?
-  end
-
-  # Escape slug unless it's nonexistent (root)
-  def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
-  end
-
-  # Unescape the slug and full path back into their original forms unless they're nonexistent
-  def unescape_slug_and_path
-    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
-    self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
-  end
-  
 end

@@ -4,8 +4,6 @@ default:
   target_page:
   layout: default
   label: Default Page
-  slug:
-  full_path: '/'
   children_count: 1
   position: 0
   is_published: true
@@ -16,8 +14,6 @@ child:
   target_page:
   layout: default
   label: Child Page
-  slug: 'child-page'
-  full_path: '/child-page'
   children_count: 0
   position: 0
   is_published: true

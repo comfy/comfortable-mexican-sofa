@@ -299,7 +299,22 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'tést-ünicode-slug', found_page.slug
     assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
   end
-  
+
+  def test_default_path
+    parent = cms_pages(:default)
+    child = cms_pages(:child)
+    assert_equal parent.page_content.slug, parent.default_slug
+  end
+
+  def test_has_variation
+    page = cms_pages(:default)
+    assert page.has_variation?('en')
+    assert page.has_variation?('fr')
+    assert page.has_variation?(['en', 'fr'])
+    assert !page.has_variation?(['en', 'invalid'])
+    assert !page.has_variation?('invalid')
+  end
+
 protected
   
   def new_params(options = {})
