@@ -32,5 +32,11 @@ class CmsVariationTest < ActiveSupport::TestCase
     end
   end
 
+  def test_list
+    ComfortableMexicanSofa.config.variations = {:en => [:region_a, :region_b], :fr => [:region_a, :region_b]}
+    assert_equal ['en.region_a', 'en.region_b', 'fr.region_a', 'fr.region_b'], Cms::Variation.list
+    ComfortableMexicanSofa.config.variations = [:en, :fr, :es]
+    assert_equal ['en', 'fr', 'es'], Cms::Variation.list
+  end
 
 end

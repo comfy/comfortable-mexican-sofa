@@ -1,0 +1,6 @@
+- if ComfortableMexicanSofa.config.variations.present?
+  .well
+    .variations-list.inline
+      %span.variations-list-label Variations
+      - Cms::Variation.list.each do |variation|
+        =link_to variation, "?variation=#{variation}", :class => 'btn btn-small'

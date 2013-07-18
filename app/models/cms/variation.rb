@@ -15,6 +15,28 @@ class Cms::Variation < ActiveRecord::Base
     :uniqueness => {:scope => :content}
   validate :validate_uniqueness_per_page
 
+  def self.list(variations = nil, namespace = nil)
+    variations ||= ComfortableMexicanSofa.config.variations
+    namespace  ||= nil
+    output       = []
+
+    case variations
+      when Array
+        variations.each do |identifier|
+          if namespace
+            output << "#{namespace}.#{identifier}"
+          else
+            output << "#{identifier}"
+          end
+        end
+      when Hash
+        variations.each do |namespace, identifiers|
+          output << self.list(identifiers, namespace)
+        end
+    end
+    output.flatten
+  end
+
 protected
 
   def validate_uniqueness_per_page

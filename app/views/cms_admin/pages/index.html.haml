@@ -6,6 +6,10 @@
   = render :partial => 'cms_admin/sites/mirrors'
 
 = render :partial => 'cms_admin/categories/index', :object => 'Cms::Page'
+= render :partial => 'variations_list'
 
 %ul.list.sortable
-  = render :partial => 'index_branch', :collection => @pages
+  - if ComfortableMexicanSofa.config.variations.present?
+    = render :partial => 'variation_index_branch', :collection => @pages  
+  - else
+    = render :partial => 'index_branch', :collection => @pages

@@ -45,7 +45,11 @@ class CmsAdmin::PagesController < CmsAdmin::BaseController
   end
 
   def destroy
-    @page.destroy
+    if params[:page_content_id] && @page.page_contents.count > 1
+      @page.page_contents.find(params[:page_content_id].to_i).destroy
+    else
+      @page.destroy
+    end
     flash[:success] = I18n.t('cms.pages.deleted')
     redirect_to :action => :index
   end

@@ -261,6 +261,29 @@ body#comfy
           color: #000
       .btn-group
         float: right
+      // Items with Variations
+      &.with-variations
+        .item-title
+          font-weight: bold
+        &:hover
+          ul.variations-list li
+            background: #fff
+        ul.variations-list
+          margin: 0
+          li
+            border: 1px solid #efefef
+            padding: 6px
+            max-width: 60%
+            margin-bottom: 10px
+            border-radius: 2px
+            &:first-child
+              margin-top: 10px
+          .variation-title
+            display: inline-block
+            color: #666
+          .variation-actions
+            float: right
+
     li ul
       list-style: none
       margin: 0 0 0 28px
