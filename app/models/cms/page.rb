@@ -39,7 +39,6 @@ class Cms::Page < ActiveRecord::Base
   validates :layout,
     :presence   => true
   validate :validate_target_page
-  # validate :validate_format_of_unescaped_slug
   
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('cms_pages.position') }
@@ -124,12 +123,6 @@ protected
     while p.target_page do
       return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
     end
-  end
-  
-  def validate_format_of_unescaped_slug
-    return unless slug.present?
-    unescaped_slug = CGI::unescape(self.slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
 end

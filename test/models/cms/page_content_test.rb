@@ -21,10 +21,10 @@ class CmsPageContentTest < ActiveSupport::TestCase
 
   def test_creation_with_variations
     page = cms_pages(:default)
-    assert_difference ["Cms::Variation.count"], 3 do
+    assert_difference ["Cms::Variation.count"], 2 do
       page.page_contents.create!(
         :slug                  => 'create-with-variations',
-        :variation_identifiers => {'cn' => 1, 'fr' => 1, 'jp' => 1}
+        :variation_identifiers => {'cn' => 1, 'jp' => 1}
       )
     end
     assert_equal 'jp', page.page_contents.last.variations.last.identifier
@@ -73,12 +73,12 @@ class CmsPageContentTest < ActiveSupport::TestCase
   def test_validates_unique_variation
     # TODO: fix this test
     page = cms_pages(:default)
-    pc   = page.page_contents.build(
+    pc   = page.page_contents.create(
       :slug                  => 'unique-variation',
       :variation_identifiers => {'en' => 1}
     )
-    assert !pc.valid?
-    assert_has_errors_on pc, :variation_identifiers
+    assert pc.invalid?
+    assert pc.errors.messages['variations.identifier'.to_sym]
   end
 
   def test_delegations
@@ -87,8 +87,8 @@ class CmsPageContentTest < ActiveSupport::TestCase
 
   def test_scope_for_variation_without_variations
     assert ComfortableMexicanSofa.config.variations.nil?
-    assert_equal 1, Cms::PageContent.for_variation('en').count
-    assert_equal 1, Cms::PageContent.for_variation('invalid').count
+    assert_equal 2, Cms::PageContent.for_variation('en').count
+    assert_equal 2, Cms::PageContent.for_variation('invalid').count
 
     ComfortableMexicanSofa.config.variations = ['en', 'fr']
     assert_equal 1, Cms::PageContent.for_variation('en').count
@@ -102,27 +102,150 @@ class CmsPageContentTest < ActiveSupport::TestCase
     assert_equal 'default_field_text_content', pc.blocks_attributes.first[:content]
   end
 
-  def test_assign_full_path
-    parent = cms_pages(:default)
-    child  = cms_pages(:child)
-    pc = child.page_contents.create!(
-      :slug                  => 'en-child',
-      :variation_identifiers => {'en' => 1}
-    )
-    assert_equal '/default/en-child', pc.full_path
+  def test_validation_of_slug
+    pc = cms_page_contents(:default)
+    pc.slug = 'slug.with.d0ts-and_things'
+    assert pc.valid?
+    
+    pc.slug = 'inva lid'
+    assert pc.invalid?
 
-    pc = child.page_contents.create!(
-      :slug => 'fr-child',
-      :variation_identifiers => {'fr' => 1}
-    )
-    assert_equal '/default/fr-child', pc.full_path
+    pc.slug = 'acción'
+    assert pc.valid?
+  end
 
-    pc = child.page_contents.create!(
-      :slug => 'mixed-child',
-      :variation_identifiers => {'en' => 1, 'fr' => 1}
-    )
-    assert_equal '/default/mixed-child', pc.full_path
+  def test_validation_of_slug_allows_unicode_accent_characters
+    pc = cms_page_contents(:default)
+    thai_character_ko_kai = "\u0e01"
+    thai_character_mai_tho = "\u0E49"
+    pc.slug = thai_character_ko_kai + thai_character_mai_tho
+    assert pc.valid?
+  end
 
+  def test_unicode_slug_escaping
+    pc = cms_pages(:child)
+    page_1 = cms_sites(:default).pages.create!(
+      :parent => pc,
+      :label  => 'Test',
+      :layout => cms_layouts(:default),
+      :page_content_attributes => {
+        :slug => 'tést-ünicode-slug',
+        :variation_identifiers => {'en' => 1}
+      }
+    )
+    assert_equal CGI::escape('tést-ünicode-slug'), page_1.page_content.slug
+    assert_equal CGI::escape('/child/tést-ünicode-slug').gsub('%2F', '/'), page_1.page_content.full_path
+  end
+
+  def test_unicode_slug_unescaping
+    page = cms_page_contents(:child)
+    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'tést-ünicode-slug'))
+    found_page = cms_sites(:default).pages.where(:slug => CGI::escape('tést-ünicode-slug')).first
+    assert_equal 'tést-ünicode-slug', found_page.slug
+    assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
+  end
+
+  def test_url
+    site = cms_sites(:default)
+    
+    assert_equal 'http://test.host/', cms_page_contents(:default).url
+    assert_equal 'http://test.host/child', cms_page_contents(:child).url
+    
+    site.update_columns(:path => '/en/site')
+    cms_page_contents(:default).reload
+    cms_page_contents(:child).reload
+    
+    assert_equal 'http://test.host/en/site/', cms_page_contents(:default).url
+    assert_equal 'http://test.host/en/site/child', cms_page_contents(:child).url
+  end
+
+  #-- Full Path Tests -----------------------------------------------------
+  def test_root_full_path
+    site = cms_sites(:default)
+    site.pages.destroy_all
+    root_path = site.pages.create!(
+      :label     => 'Homepage',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'does-not-apply-to-root',
+        :variation_identifiers => {'en' => 1}
+      }
+    )
+    pc = Cms::PageContent.last
+    assert_equal "does-not-apply-to-root", pc.slug
+    assert_equal "/", pc.full_path
+  end
+
+  def test_full_path_with_matching_identifiers
+    site  = cms_sites(:default)
+    page  = cms_pages(:default)
+    child = site.pages.create!(
+      :parent_id => page.id,
+      :label     => 'Child Page',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'first-level-page',
+        :variation_identifiers => {'en' => 1}
+      }
+    )
+    assert_equal 'first-level-page',  child.page_content.slug
+    assert_equal '/first-level-page', child.page_content.full_path
+  end
+
+  def test_full_path_with_deeply_nested_matching_identifiers
+    site  = cms_sites(:default)
+    page  = cms_pages(:default)
+    # Create the first child
+    first_child = site.pages.create!(
+      :parent_id => page.id,
+      :label     => 'First Child',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'le-first-child',
+        :variation_identifiers => {'fr' => 1}
+      }
+    )
+    assert_equal '/le-first-child', first_child.page_content.full_path
+
+    # Create the second child
+    second_child = site.pages.create!(
+      :parent_id => first_child.id,
+      :label     => 'Second Child',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'le-second-child',
+        :variation_identifiers => {'fr' => 1}
+      }
+    )
+    assert_equal '/le-first-child/le-second-child', second_child.page_content.full_path
+  end
+
+  def test_full_path_with_mixed_identifier
+    site  = cms_sites(:default)
+    page  = cms_pages(:default)
+    # Create the first child
+    first_child = site.pages.create!(
+      :parent_id => page.id,
+      :label     => 'First Child',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'en-first-child',
+        :variation_identifiers => {'en' => 1}
+      }
+    )
+    assert_equal '/en-first-child', first_child.page_content.full_path
+
+    # Create the second child
+    second_child = site.pages.create!(
+      :parent_id => first_child.id,
+      :label     => 'Second Child',
+      :layout_id => cms_layouts(:default).id,
+      :page_content_attributes => {
+        :slug => 'le-second-child',
+        :variation_identifiers => {'fr' => 1}
+      }
+    )
+    assert_equal '/en-first-child/le-second-child', second_child.page_content.full_path
   end
 
   def test_path_validations

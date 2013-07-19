@@ -13,7 +13,7 @@ class Cms::Variation < ActiveRecord::Base
     :presence => true
   validates :identifier,
     :uniqueness => {:scope => :content}
-  # validate :validate_uniqueness_per_page
+  validate :validate_uniqueness_per_page
 
   def self.list(variations = nil, namespace = nil)
     variations ||= ComfortableMexicanSofa.config.variations
@@ -40,10 +40,16 @@ class Cms::Variation < ActiveRecord::Base
 protected
 
   def validate_uniqueness_per_page
-    # TODO - fix this
-    exists = self.content.page.page_contents.for_variation(self.identifier)
-      .where('cms_page_contents.id NOT IN (?)', (self.content.id || 0)).exists?
-    self.errors.add(:identifier, 'That identifier already exists') if exists
+    # TODO - Optimize this
+    page_contents = self.content.page.page_contents
+    existing_identifiers = []
+    self.content.page.page_contents.collect do |pc|
+      existing_identifiers << pc.variations.pluck(:identifier)
+    end
+    exists = existing_identifiers.flatten.include?(self.identifier)
+    if exists
+      self.errors.add(:identifier, 'That identifier already exists')
+    end
   end
 
 end

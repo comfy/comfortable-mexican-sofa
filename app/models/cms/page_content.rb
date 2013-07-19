@@ -26,16 +26,17 @@ class Cms::PageContent < ActiveRecord::Base
   before_save :set_cached_content
   before_validation :assign_full_path,
                     :escape_slug
+
   # after_save        :sync_child_pages
-  # after_find        :unescape_slug_and_path
+  after_find        :unescape_slug_and_path
 
 
   # -- Validations ----------------------------------------------------------
   validate :validate_variation_presence
   validates :slug,
     :presence   => true,
-    :uniqueness => { :scope => :page_id }
-    # :unless     => lambda{ |p| p.page.site && (p.page.site.pages.count == 0 || p.site.pages.root == self) }
+    :unless     => lambda{ |p| p.page.site && (p.page.site.pages.count == 0 || p.site.pages.root == self.page) }
+  validate :validate_format_of_unescaped_slug
 
   # -- Scopes ---------------------------------------------------------------
   scope :for_variation, lambda { |*identifier|
@@ -130,16 +131,21 @@ class Cms::PageContent < ActiveRecord::Base
   end
 
   def assign_full_path
+    # If it's the homepage, simply assign the fullpath and slug as 'index' and return
+    if self.page.site.pages.count == 0 || self.site.pages.root == self.page
+      self.full_path = '/'
+      return
+    end
+    
     variations = self.variation_identifiers
     full_path  = generate_full_path(variations)
     if full_path
-      return self.full_path = '/' + full_path.join('/') + '/' + self.slug
+      # return self.full_path = ('/' + full_path.join('/') + '/' + self.slug).squeeze('/')
+      return self.full_path = self.page.parent ? "#{CGI::escape(self.page.parent.page_content.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
     else
       return false
     end
     true
-    # self.full_path = 
-    # self.full_path = self.page.parent ? "#{CGI::escape(self.page.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
   end
 
   # Returns false if it's impossible
@@ -149,9 +155,12 @@ class Cms::PageContent < ActiveRecord::Base
       parent_identifiers    = parent.page_contents.joins(:variations).where('cms_variations.identifier' => variations).pluck(:identifier)
       matching_variations   = parent_identifiers.keep_if { |varient_identifier| variations.include?(varient_identifier) }
       matching_page_content = parent.page_contents.joins(:variations).where('cms_variations.identifier' => matching_variations.first).first
-      slugs << matching_page_content.slug if matching_page_content
+      if matching_page_content && !parent.root?
+        slugs << matching_page_content.slug
+      elsif !parent.root?
+        slugs << parent.page_content.slug
+      end
     end
-
     slugs
   end
 
@@ -185,6 +194,10 @@ protected
     # children.each{ |p| p.save! } if full_path_changed?
   end
 
-
+  def validate_format_of_unescaped_slug
+    return unless slug.present?
+    unescaped_slug = CGI::unescape(self.slug)
+    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
+  end
 
 end
