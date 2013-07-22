@@ -14,7 +14,7 @@ class CmsContentController < ApplicationController
   def render_html(status = 200)
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render :inline => @cms_page_content.content, :layout => app_layout, :status => status, :content_type => 'text/html'
+      render :inline => @cms_page.content(@variation_identifier), :layout => app_layout, :status => status, :content_type => 'text/html'
     else
       render :text => I18n.t('cms.content.layout_not_found'), :status => 404
     end
@@ -59,17 +59,17 @@ protected
   end
   
   def load_cms_page
+    @variation_identifier ||= Cms::Variation.list.first
     if ComfortableMexicanSofa.config.variations.present?
-      @variation_identifier ||= Cms::Variation.list.first
-      @cms_page_content = Cms::PageContent.joins(:variations).where("full_path = ? AND cms_variations.identifier = ?", "/#{params[:cms_path]}", @variation_identifier).first
-      @cms_page = @cms_page_content.page
+      @cms_page = Cms::Page.with_full_path_and_identifier("/#{params[:cms_path]}", @variation_identifier, @cms_site).first
+      raise ActiveRecord::RecordNotFound unless @cms_page
     else
       @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
     end
     return redirect_to(@cms_page.target_page.url) if @cms_page.target_page
     
   rescue ActiveRecord::RecordNotFound
-    if @cms_page = @cms_site.pages.published.find_by_full_path('/404')
+    if @cms_page = Cms::Page.with_full_path_and_identifier("/404", @variation_identifier, @cms_site).first
       render_html(404)
     else
       raise ActionController::RoutingError.new('Page Not Found')

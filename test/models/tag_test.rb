@@ -232,10 +232,11 @@ class TagTest < ActiveSupport::TestCase
       :content    => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
     )
     page = site.pages.create!(
-      :slug       => 'no-irb-page',
       :parent_id  => cms_pages(:default).id,
       :layout_id  => layout.id,
+      :label => 'No IRB Page',
       :page_content_attributes => {
+        :slug => 'no-irb-page',
         :blocks_attributes => [
         { :identifier => 'content',
           :content    => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
@@ -260,10 +261,11 @@ class TagTest < ActiveSupport::TestCase
       :content    => '<% 2 + 2 %> snippet <%= 2 + 2 %>'
     )
     page = site.pages.create!(
-      :slug       => 'irb-page',
       :parent_id  => cms_pages(:default).id,
       :layout_id  => layout.id,
+      :label      => "IRB Page",
       :page_content_attributes => {
+        :slug => 'irb-page',
         :blocks_attributes => [
           { :identifier => 'content',
             :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },

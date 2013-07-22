@@ -43,7 +43,16 @@ class Cms::Page < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('cms_pages.position') }
   scope :published, -> { where(:is_published => true) }
-  
+  scope :with_full_path_and_identifier, lambda { |full_path, identifier, site = nil|
+    site ||= Cms::Site.first
+    includes(:page_contents => :variations).
+    where(
+      :cms_page_contents => {:full_path => full_path}, 
+      :cms_variations    => {:identifier => identifier},
+      :cms_pages         => {:is_published => true},
+      :site              => site)
+  }
+
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages
   def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
@@ -55,11 +64,25 @@ class Cms::Page < ActiveRecord::Base
     end
     return out.compact
   end
-  
+
+  def self.page_content_by_full_path_and_variation(full_path, variation_identifier, site = nil)
+    site ||= Cms::Site.first
+    result = site.pages.includes(:page_contents, :variations).where(
+      :variations    => {:identifier => variation_identifier},
+      :page_contents => {:full_path => full_path}
+    )
+
+    abort 'here'
+    # self.page_contents.joins(:variations, :sites).where(
+    #   :variations => {:identifier => variation_identifier}
+    #   :site       => {:id}
+    # )
+  end
+
   def content(variation = nil)
     self.page_contents.for_variation(variation).first.try(:content)
   end
-  
+
   # Grabbing page content object that is currently assigned to page
   # Or builds a new one just so there's something
   # Also can grab page content for a provided variation

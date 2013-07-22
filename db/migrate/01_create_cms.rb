@@ -45,27 +45,40 @@ class CreateCms < ActiveRecord::Migration
       t.integer :parent_id
       t.integer :target_page_id
       t.string  :label,           :null => false
-      t.string  :slug
-      t.string  :full_path,       :null => false
-      t.text    :content,         text_limit
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true
       t.boolean :is_shared,       :null => false, :default => false
       t.timestamps
     end
-    add_index :cms_pages, [:site_id, :full_path]
+    add_index :cms_pages, [:site_id]
     add_index :cms_pages, [:parent_id, :position]
     
+    # -- Page Contents ------------------------------------------------------
+    create_table :cms_page_contents do |t|
+      t.integer :page_id
+      t.string  :slug
+      t.text    :content, text_limit
+      t.string  :full_path
+    end
+    add_index :cms_page_contents, [:full_path]
+
+    # -- Variations ---------------------------------------------------------
+    create_table :cms_variations do |t|
+      t.string  :identifier
+      t.string  :content_type
+      t.integer :content_id
+    end
+
     # -- Page Blocks --------------------------------------------------------
     create_table :cms_blocks do |t|
-      t.integer   :page_id,     :null => false
+      t.integer   :page_content_id,     :null => false
       t.string    :identifier,  :null => false
       t.text      :content,     text_limit
       t.timestamps
     end
-    add_index :cms_blocks, [:page_id, :identifier]
-    
+    add_index :cms_blocks, [:page_content_id, :identifier]
+
     # -- Snippets -----------------------------------------------------------
     create_table :cms_snippets do |t|
       t.integer :site_id,     :null => false

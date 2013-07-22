@@ -93,6 +93,18 @@ class Cms::PageContent < ActiveRecord::Base
     end
   end
 
+  def self.find_by_full_path_and_variation(full_path, variation)
+    joins(:variations).where("full_path = ? AND cms_variations.identifier = ?", full_path, variation).first    
+  end
+
+  def self.find_by_full_path_and_variation!(full_path, variation)
+    page_content = joins(:variations).where("full_path = ? AND cms_variations.identifier = ?", full_path, variation).first
+    if !page_content
+      raise ActiveRecord::RecordNotFound
+    end
+    page_content
+  end
+
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
   def tags(force_reload = false)
@@ -148,7 +160,6 @@ class Cms::PageContent < ActiveRecord::Base
     true
   end
 
-  # Returns false if it's impossible
   def generate_full_path(variations, slugs = [])
     parents = self.page.ancestors
     parents.each do |parent|

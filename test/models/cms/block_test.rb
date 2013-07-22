@@ -82,9 +82,9 @@ class CmsBlockTest < ActiveSupport::TestCase
       page = cms_sites(:default).pages.create!(
         :layout     => layout,
         :label      => 'test page',
-        :slug       => 'test_page',
         :parent_id  => cms_pages(:default).id,
         :page_content_attributes => {
+          :slug => 'test_page',
           :blocks_attributes => [
             { :identifier => 'file',
               :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/document.pdf', "application/pdf")] }
@@ -129,9 +129,9 @@ class CmsBlockTest < ActiveSupport::TestCase
         page = cms_sites(:default).pages.create!(
           :layout     => layout,
           :label      => 'test page',
-          :slug       => 'test_page',
           :parent_id  => cms_pages(:default).id,
           :page_content_attributes => {
+            :slug => 'test_page',
             :blocks_attributes => [
               { :identifier => 'files',
                 :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/image.gif', "image/gif")] }
@@ -178,9 +178,9 @@ class CmsBlockTest < ActiveSupport::TestCase
         page = cms_sites(:default).pages.create!(
           :layout     => layout,
           :label      => 'test page',
-          :slug       => 'test_page',
           :parent_id  => cms_pages(:default).id,
           :page_content_attributes => {
+            :slug => 'test_page',
             :blocks_attributes => {
               '0' => {
                 :identifier => 'header',
