@@ -134,30 +134,7 @@ class CmsPageTest < ActiveSupport::TestCase
       assert_equal 1, page.position
     end
   end
-  
-  def test_initialization_of_full_path
-    skip
-    page = Cms::Page.new
-    assert_equal '/', page.full_path
     
-    page = Cms::Page.new(new_params)
-    assert page.invalid?
-    assert_has_errors_on page, :site_id
-    
-    page = cms_sites(:default).pages.new(new_params(:parent => cms_pages(:default)))
-    assert page.valid?
-    assert_equal '/test-page', page.full_path
-    
-    page = cms_sites(:default).pages.new(new_params(:parent => cms_pages(:child)))
-    assert page.valid?
-    assert_equal '/child-page/test-page', page.full_path
-    
-    Cms::Page.destroy_all
-    page = cms_sites(:default).pages.new(new_params)
-    assert page.valid?
-    assert_equal '/', page.full_path
-  end
-  
   def test_sync_child_pages
     skip
     page = cms_pages(:child)
@@ -273,8 +250,11 @@ protected
   def new_params(options = {})
     {
       :label  => 'Test Page',
-      :slug   => 'test-page',
-      :layout => cms_layouts(:default)
+      :layout => cms_layouts(:default),
+      :page_content_attributes => {
+        :slug   => 'test-page',
+        :variation_identifiers => {'en' => 1, 'fr' => 2}
+      }
     }.merge(options)
   end
 end
