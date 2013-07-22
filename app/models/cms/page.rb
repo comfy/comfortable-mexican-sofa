@@ -8,7 +8,7 @@ class Cms::Page < ActiveRecord::Base
   
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
-  cms_is_mirrored
+  # cms_is_mirrored
   # TODO
   # cms_has_revisions_for :blocks_attributes
   
@@ -71,12 +71,6 @@ class Cms::Page < ActiveRecord::Base
       :variations    => {:identifier => variation_identifier},
       :page_contents => {:full_path => full_path}
     )
-
-    abort 'here'
-    # self.page_contents.joins(:variations, :sites).where(
-    #   :variations => {:identifier => variation_identifier}
-    #   :site       => {:id}
-    # )
   end
 
   def content(variation = nil)

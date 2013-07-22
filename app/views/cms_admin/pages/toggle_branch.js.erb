@@ -3,7 +3,11 @@ li.find('.item .toggle').first().toggleClass('open');
 
 <% if session[:cms_page_tree].member?(@page.id.to_s) %>
   if(!li.find('ul.children')[0]) {
-    li.append('<ul class="children sortable"><%= escape_javascript(render :partial => "index_branch", :collection => @page.children) %></ul>');
+    <% if ComfortableMexicanSofa.config.variations.present? %>
+      li.append('<ul class="children sortable"><%= escape_javascript(render :partial => "variation_index_branch", :collection => @page.children) %></ul>');
+    <% else %>
+      li.append('<ul class="children sortable"><%= escape_javascript(render :partial => "index_branch", :collection => @page.children) %></ul>');
+    <% end %>
     CMS.sortable_list();
   }
 <% else %>

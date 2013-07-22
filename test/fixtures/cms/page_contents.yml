@@ -1,6 +1,5 @@
 default:
   page: default
-  slug: index
   content: |-
     
     layout_content_a

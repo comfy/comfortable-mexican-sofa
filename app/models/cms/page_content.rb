@@ -2,6 +2,8 @@
 
 class Cms::PageContent < ActiveRecord::Base
 
+  include Cms::Path
+
   self.table_name = 'cms_page_contents'
   
   attr_accessor :tags, 
@@ -24,11 +26,9 @@ class Cms::PageContent < ActiveRecord::Base
 
   # -- Callbacks ------------------------------------------------------------
   before_save :set_cached_content
-  before_validation :assign_full_path,
-                    :escape_slug
 
   # after_save        :sync_child_pages
-  after_find        :unescape_slug_and_path
+  after_find :unescape_slug_and_path
 
 
   # -- Validations ----------------------------------------------------------
@@ -127,52 +127,6 @@ class Cms::PageContent < ActiveRecord::Base
 
   def variation_identifiers
     variations.collect {|variation| variation.identifier}
-    # self.variations.pluck(:identifier)
-  end
-
-  # -- Instance Methods -----------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set. This
-  # full path take care of the pages and its childs but not of the site path
-  def full_path
-    self.read_attribute(:full_path) || self.assign_full_path
-  end
-
-  # Full url for a page
-  def url
-    "http://" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
-  end
-
-  def assign_full_path
-    # If it's the homepage, simply assign the fullpath and slug as 'index' and return
-    if self.page.site.pages.count == 0 || self.site.pages.root == self.page
-      self.full_path = '/'
-      return
-    end
-    
-    variations = self.variation_identifiers
-    full_path  = generate_full_path(variations)
-    if full_path
-      # return self.full_path = ('/' + full_path.join('/') + '/' + self.slug).squeeze('/')
-      return self.full_path = self.page.parent ? "#{CGI::escape(self.page.parent.page_content.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
-    else
-      return false
-    end
-    true
-  end
-
-  def generate_full_path(variations, slugs = [])
-    parents = self.page.ancestors
-    parents.each do |parent|
-      parent_identifiers    = parent.page_contents.joins(:variations).where('cms_variations.identifier' => variations).pluck(:identifier)
-      matching_variations   = parent_identifiers.keep_if { |varient_identifier| variations.include?(varient_identifier) }
-      matching_page_content = parent.page_contents.joins(:variations).where('cms_variations.identifier' => matching_variations.first).first
-      if matching_page_content && !parent.root?
-        slugs << matching_page_content.slug
-      elsif !parent.root?
-        slugs << parent.page_content.slug
-      end
-    end
-    slugs
   end
 
 protected
@@ -187,17 +141,6 @@ protected
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
     # write_attribute(:content, self.content(true))
-  end
-
-  # Escape slug unless it's nonexistent (root)
-  def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
-  end
-
-  # Unescape the slug and full path back into their original forms unless they're nonexistent
-  def unescape_slug_and_path
-    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
-    self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
 
   # Forcing re-saves for child pages so they can update full_paths

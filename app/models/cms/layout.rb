@@ -5,7 +5,7 @@ class Cms::Layout < ActiveRecord::Base
   self.table_name = 'cms_layouts'
   
   cms_acts_as_tree
-  cms_is_mirrored
+  # cms_is_mirrored
   cms_has_revisions_for :content, :css, :js
   
   # -- Relationships --------------------------------------------------------
