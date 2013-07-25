@@ -241,7 +241,7 @@ class TagTest < ActiveSupport::TestCase
         { :identifier => 'content',
           :content    => 'text {{ cms:snippet:no-irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
         { :identifier => 'snippet',
-          :content    => snippet.id }
+          :content    => snippet.id.to_s }
         ]
       }
     )
@@ -270,7 +270,7 @@ class TagTest < ActiveSupport::TestCase
           { :identifier => 'content',
             :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
           { :identifier => 'snippet',
-            :content    => snippet.id }
+            :content    => snippet.id.to_s }
         ]
       }
     )

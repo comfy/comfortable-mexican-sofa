@@ -7,7 +7,6 @@ class Cms::Variation < ActiveRecord::Base
     :polymorphic => true,
     :inverse_of  => :variations
 
-
   # -- Validations ----------------------------------------------------------
   validates :content, :identifier,
     :presence => true
@@ -40,16 +39,11 @@ class Cms::Variation < ActiveRecord::Base
 protected
 
   def validate_uniqueness_per_page
-    # TODO - Optimize this
-    page_contents = self.content.page.page_contents
-    existing_identifiers = []
-    self.content.page.page_contents.collect do |pc|
-      existing_identifiers << pc.variations.pluck(:identifier)
-    end
-    exists = existing_identifiers.flatten.include?(self.identifier)
-    if exists
-      self.errors.add(:identifier, 'That identifier already exists')
-    end
+    pc         = self.content
+    page       = pc.page
+    variations = page.page_contents.collect { |pc| pc.variations.pluck(:identifier) }.flatten
+    # If this variation already exists, then add an error
+    errors.add(:identifier, "That identifier already exists") if variations.include?(self.identifier) && self.new_record?
   end
 
 end

@@ -9,9 +9,10 @@ class CmsVariationTest < ActiveSupport::TestCase
   end
   
   def test_validations
-    variation = Cms::Variation.new
+    pc = cms_page_contents(:default)
+    variation = pc.variations.new
     assert variation.invalid?
-    assert_has_errors_on variation, :content, :identifier
+    assert_has_errors_on variation, :identifier
   end
 
   def test_validation_uniqueness
