@@ -49,7 +49,7 @@ module ComfortableMexicanSofa::RenderMethods
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = @cms_page.page_content(@identifier).content
+          options[:inline] = @cms_page.page_content(@identifier, true).content(true)
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingPage.new(path)
