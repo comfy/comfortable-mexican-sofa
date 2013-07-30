@@ -2,9 +2,6 @@
   = link_to t('.new_link'), new_cms_admin_site_snippet_path(@site), :class => 'btn pull-right'
   %h2= t('.title')
 
-- content_for :right_column do
-  = render :partial => 'cms_admin/sites/mirrors'
-
 = render :partial => 'cms_admin/categories/index', :object => 'Cms::Snippet'
 
 %table.table.table-hover.table-bordered

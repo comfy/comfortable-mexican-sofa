@@ -1,3 +1,5 @@
 label: Child Fixture Page
 layout: nested
 position: 42
+variations:
+  - [ [en,fr,ru,es], child]

@@ -2,6 +2,8 @@
 
 class Cms::PageContent < ActiveRecord::Base
 
+  # Handles all logic associated with path assignments. Includes
+  # callbacks to regenerate full paths of all child pages after_save
   include Cms::Path
 
   self.table_name = 'cms_page_contents'
@@ -25,7 +27,7 @@ class Cms::PageContent < ActiveRecord::Base
     :dependent  => :destroy
 
   # -- Callbacks ------------------------------------------------------------
-  before_save :set_cached_content
+  # before_save :set_cached_content
 
   # after_save        :sync_child_pages
   after_find :unescape_slug_and_path
@@ -140,13 +142,18 @@ protected
 
   # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
-    # write_attribute(:content, self.content(true))
+    write_attribute(:content, self.content(true))
+  end
+
+  def cache!
+    
   end
 
   # Forcing re-saves for child pages so they can update full_paths
-  def sync_child_pages
-    # children.each{ |p| p.save! } if full_path_changed?
-  end
+  # def sync_child_pages
+  #   self.page.page_contents.each { |pc| pc.}
+  #   # children.each{ |p| p.save! } if full_path_changed?
+  # end
 
   def validate_format_of_unescaped_slug
     return unless slug.present?

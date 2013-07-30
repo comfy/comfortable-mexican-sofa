@@ -2,11 +2,15 @@ require_relative '../test_helper'
 
 class CmsContentControllerTest < ActionController::TestCase
 
+  def setup
+    ComfortableMexicanSofa.config.variations = [:en, :fr]
+  end
+
   def test_render_page
     get :render_html, :cms_path => ''
-    assert_equal cms_sites(:default), assigns(:cms_site)
+    assert_equal cms_sites(:default),   assigns(:cms_site)
     assert_equal cms_layouts(:default), assigns(:cms_layout)
-    assert_equal cms_pages(:default), assigns(:cms_page)
+    assert_equal cms_pages(:default),   assigns(:cms_page)
     
     assert_response :success
     assert_equal rendered_content_formatter(
@@ -47,16 +51,19 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_page_not_found_with_custom_404
     page = cms_sites(:default).pages.create!(
       :label          => '404',
-      :slug           => '404',
       :parent_id      => cms_pages(:default).id,
       :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'custom 404 page content' }
-      ]
+      :page_content_attributes => {
+        :variation_identifiers => {'en' => '1', 'fr' => '1'},
+        :slug              => '404',
+        :blocks_attributes => [
+          { :identifier => 'default_page_text',
+            :content    => 'custom 404 page content' }
+        ]
+      }
     )
-    assert_equal '/404', page.full_path
+    assert_equal '/404', page.page_content.full_path
     assert page.is_published?
     get :render_html, :cms_path => 'doesnotexist'
     assert_response 404
@@ -83,7 +90,7 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_page_with_redirect
     cms_pages(:child).update_columns(:target_page_id => cms_pages(:default).id)
     assert_equal cms_pages(:default), cms_pages(:child).target_page
-    get :render_html, :cms_path => 'child-page'
+    get :render_html, :cms_path => 'child'
     assert_response :redirect
     assert_redirected_to '/'
   end
@@ -102,14 +109,17 @@ class CmsContentControllerTest < ActionController::TestCase
     
     irb_page = cms_sites(:default).pages.create!(
       :label          => 'irb',
-      :slug           => 'irb',
       :parent_id      => cms_pages(:default).id,
       :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'text <%= 2 + 2 %> text' }
-      ]
+      :page_content_attributes => {
+        :variation_identifiers => {'en' => '1'},
+        :slug           => 'irb',
+        :blocks_attributes => [
+          { :identifier => 'default_page_text',
+            :content    => 'text <%= 2 + 2 %> text' }
+        ]
+      }
     )
     get :render_html, :cms_path => 'irb'
     assert_response :success
@@ -121,15 +131,19 @@ class CmsContentControllerTest < ActionController::TestCase
     
     irb_page = cms_sites(:default).pages.create!(
       :label          => 'irb',
-      :slug           => 'irb',
       :parent_id      => cms_pages(:default).id,
-      :layout_id  => cms_layouts(:default).id,
+      :layout_id      => cms_layouts(:default).id,
       :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'text <%= 2 + 2 %> text' }
-      ]
+      :page_content_attributes => {
+        :slug => 'irb',
+        :variation_identifiers => {'en' => '1'},
+        :blocks_attributes => [
+          { :identifier => 'default_page_text',
+            :content    => 'text <%= 2 + 2 %> text' }
+        ]
+      }
     )
+
     get :render_html, :cms_path => 'irb'
     assert_response :success
     assert_match "text 4 text", response.body
@@ -162,7 +176,7 @@ class CmsContentControllerTest < ActionController::TestCase
   def test_render_sitemap
     get :render_sitemap, :format => :xml
     assert_response :success
-    assert_match '<loc>http://test.host/child-page</loc>', response.body
+    assert_match '<loc>http://test.host/child</loc>', response.body
   end
 
   def test_render_sitemap_with_path
@@ -172,7 +186,7 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
     assert_equal cms_sites(:default), assigns(:cms_site)
-    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
+    assert_match '<loc>http://test.host/en/child</loc>', response.body
   end
   
   def test_render_sitemap_with_path_invalid_with_single_site
@@ -182,7 +196,7 @@ class CmsContentControllerTest < ActionController::TestCase
     get :render_sitemap, :cms_path => 'fr', :format => :xml
     assert_response :success
     assert_equal cms_sites(:default), assigns(:cms_site)
-    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
+    assert_match '<loc>http://test.host/en/child</loc>', response.body
   end
 
 end

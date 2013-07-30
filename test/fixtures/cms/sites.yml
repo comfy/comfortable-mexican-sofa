@@ -3,4 +3,3 @@ default:
   identifier: default-site
   hostname: test.host
   path:
-  is_mirrored: false

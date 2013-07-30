@@ -1,6 +1,15 @@
 - if ComfortableMexicanSofa.config.variations.present?
-  .well
-    .variations-list.inline
-      %span.variations-list-label Variations
+  .box
+    %label Choose a Variation
+    %select.filter-variation{:name => 'show_variation'}
+      %option{:value => "#{url_for cms_admin_site_pages_path}"} All
       - Cms::Variation.list.each do |variation|
-        =link_to variation, "?variation=#{variation}", :class => 'btn btn-small'
+        - if variation == params[:variation]
+          %option{:value => "#{url_for cms_admin_site_pages_path}?variation=#{variation}", :selected => 'selected'}= variation
+        - else
+          %option{:value => "#{url_for cms_admin_site_pages_path}?variation=#{variation}"}= variation
+
+  :javascript
+    $(document).on('change', 'select.filter-variation', function(e) {
+      window.location.href = $(this).val();
+    });

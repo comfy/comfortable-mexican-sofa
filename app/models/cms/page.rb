@@ -8,7 +8,6 @@ class Cms::Page < ActiveRecord::Base
   
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
-  # cms_is_mirrored
   # TODO
   # cms_has_revisions_for :blocks_attributes
   
@@ -30,6 +29,7 @@ class Cms::Page < ActiveRecord::Base
                     :assign_parent
 
   before_create     :assign_position
+  after_save        :trigger_page_content_callbacks
 
   # -- Validations ----------------------------------------------------------
   validates :site_id, 
@@ -47,8 +47,16 @@ class Cms::Page < ActiveRecord::Base
     site ||= Cms::Site.first
     includes(:page_contents => :variations).
     where(
-      :cms_page_contents => {:full_path => full_path}, 
+      :cms_page_contents => {:full_path  => full_path}, 
       :cms_variations    => {:identifier => identifier},
+      :cms_pages         => {:is_published => true},
+      :site              => site)
+  }
+  scope :with_full_path, lambda { |full_path, site = nil| 
+    site ||= Cms::Site.first
+    includes(:page_contents).
+    where(
+      :cms_page_contents => {:full_path  => full_path}, 
       :cms_pages         => {:is_published => true},
       :site              => site)
   }
@@ -67,10 +75,17 @@ class Cms::Page < ActiveRecord::Base
 
   def self.page_content_by_full_path_and_variation(full_path, variation_identifier, site = nil)
     site ||= Cms::Site.first
-    result = site.pages.includes(:page_contents, :variations).where(
-      :variations    => {:identifier => variation_identifier},
-      :page_contents => {:full_path => full_path}
-    )
+    if variation_identifier
+      result = site.pages.includes(:page_contents, :variations).where(
+        :variations    => {:identifier => variation_identifier},
+        :page_contents => {:full_path => full_path}
+      )
+    else
+      result = site.pages.includes(:page_contents, :variations).where(
+        :page_contents => {:full_path => full_path}
+      )
+    end
+    result
   end
 
   def content(variation = nil)
@@ -119,7 +134,7 @@ class Cms::Page < ActiveRecord::Base
 protected
 
   def assigns_label
-    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+    self.label = self.label.blank? ? "Untitled" : self.label
   end
   
   def assign_parent
@@ -139,6 +154,13 @@ protected
     p = self
     while p.target_page do
       return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
+    end
+  end
+
+  def trigger_page_content_callbacks
+    self.page_contents.each do |pc|
+      pc.assign_full_path
+      pc.save
     end
   end
 

@@ -43,7 +43,7 @@
         = link_to page.label, edit_cms_admin_site_page_path(@site, page), :class => 'item-label'
         = render :partial => '/cms_admin/categories/categories', :object => page
       .item-meta
-        = link_to page.url, page.url, :target => '_blank'
+        = link_to page.page_content.url, page.page_content.url, :target => '_blank'
         
   - if !category_view && has_children && branch_open
     %ul.children.sortable

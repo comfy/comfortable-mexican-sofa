@@ -45,6 +45,7 @@ module ComfortableMexicanSofa::RenderMethods
       if options.is_a?(Hash) && path = options.delete(:cms_page)
         @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
+        # if @cms_page = @cms_site && @cms_site.pages.with_full_path_and_identifier(path, identifier)
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
@@ -58,15 +59,17 @@ module ComfortableMexicanSofa::RenderMethods
         @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_layout = @cms_site && @cms_site.layouts.find_by_identifier(identifier)
           cms_app_layout = @cms_layout.try(:app_layout)
-          cms_page = @cms_site.pages.build(:layout => @cms_layout)
-          cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
+          cms_page       = @cms_site.pages.build(:layout => @cms_layout)
+          cms_blocks     = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
           cms_blocks.each do |identifier, value|
             content = if value.is_a?(Hash)
               render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false)
             else
               value.to_s
             end
-            cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
+            cms_page.page_contents.each do |pc|
+              pc.blocks.build(:identifier => identifier.to_s, :content => content)
+            end
           end
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
           options[:inline] = cms_page.content(true)

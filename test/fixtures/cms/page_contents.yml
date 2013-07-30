@@ -1,5 +1,6 @@
 default:
   page: default
+  full_path: /
   content: |-
     
     layout_content_a
@@ -13,6 +14,7 @@ default:
 child:
   page: child
   slug: child
+  full_path: /child
   content: |-
     
     layout_content_a

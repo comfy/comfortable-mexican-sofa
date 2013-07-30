@@ -268,6 +268,21 @@ class CmsPageContentTest < ActiveSupport::TestCase
     assert_equal '/en-first-child/le-second-child', second_child.page_content.full_path
   end
 
+  def test_content_caching
+    skip
+    # pc = cms_page_contents(:default)
+    # assert_equal pc.read_attribute(:content), pc.content
+    # assert_equal pc.read_attribute(:content), pc.content(true)
+    
+    # pc.update_attributes(:content => 'changed')
+    # pc.reload
+    # assert_equal pc.read_attribute(:content), pc.content
+    # assert_equal pc.read_attribute(:content), pc.content(true)
+
+    # assert_not_equal 'changed', page.read_attribute(:content)
+  end
+
+
   def test_path_validations
     # 1. when removing pc variation identifier, need to make sure that none of its children have this variation identifier
     # 2. when adding pc variation identifier, need to make sure that all ancestors have with variation identifier present

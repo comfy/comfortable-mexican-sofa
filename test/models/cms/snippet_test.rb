@@ -38,7 +38,6 @@ class CmsSnippetTest < ActiveSupport::TestCase
   end
   
   def test_update_forces_page_content_reload
-    skip
     snippet = cms_snippets(:default)
     page = cms_pages(:default)
     assert_match snippet.content, page.content

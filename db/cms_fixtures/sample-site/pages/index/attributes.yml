@@ -1,6 +1,9 @@
 label: Home Fixture Page
 layout: default
-target_page: '/child'
+target_page: 'child'
+variations:
+  - [ [en, ru], hello]
+  - [ [fr, es], bonjour]
 categories:
   - category_a
   - category_b

@@ -1,0 +1,5 @@
+label: Grandchild Fixture Page
+layout: nested
+position: 100
+variations:
+  - [ [en,fr], grandchild]

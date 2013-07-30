@@ -37,8 +37,8 @@ module Cms::Path
     # Add this page_content's slug to the slug_path
     slug_path << self.slug
     # Escape all characters except '/'
-    full_path = slug_path.join('/').squeeze('/')
-    self.full_path = CGI::escape(full_path).gsub('%2F', '/')
+    self.full_path = slug_path.join('/').squeeze('/')
+    # self.full_path = CGI::escape(full_path).gsub('%2F', '/')
   end
 
   # Full url for a page
@@ -50,9 +50,11 @@ module Cms::Path
     self.read_attribute(:full_path) || self.assign_full_path
   end
 
-  # Escape slug unless it's nonexistent (root)
+  # Escape slug unless it's nonexistent (root) or already escaped, which is
+  # possible if we validate more than once
   def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
+    self.slug = CGI::escape(self.slug) unless self.slug.nil? || @escaped
+    @escaped = true
   end
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent

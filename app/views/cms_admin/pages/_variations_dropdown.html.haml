@@ -1,0 +1,32 @@
+- variations ||= ComfortableMexicanSofa.config.variations
+
+.box{:style => 'overflow: visible'}
+  .dropdown
+    %a.dropdown-toggle.btn{'data-toggle' => 'dropdown', 'href' => '#', 'style' => 'width: 100%;'}Variations
+    %ul.dropdown-menu{'role' => 'menu', 'aria-labelledby' => 'dLabel', 'style' => 'width: 100%; padding: 10px;'}
+      - case variations
+
+      - when Array
+        - variations.each do |identifier|
+          - id      = namespace ? "#{namespace}.#{identifier}" : "#{identifier}"
+          - pc      = @page.page_content.variations.detect{|v| v.identifier == id}
+          - checked = pc.present?
+          - name    = "page[page_content_attributes][variation_identifiers][#{id}]"
+          - disabled = @page.page_contents.for_variation(id).where('cms_page_contents.id NOT IN (?)', (@page.page_content.id || 0)).exists?
+          %li= link_to "#{id}", edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id)
+
+      - when Hash
+        - variations.each do |namespace, identifiers|
+          %li
+            %strong= namespace
+            %ul
+            - identifiers.each do |identifier|
+              - id = namespace ? "#{namespace}.#{identifier}" : "#{identifier}"
+              - pc = @page.page_content.variations.detect{|v| v.identifier == id}
+              - checked = pc.present?
+              - disabled = @page.page_contents.for_variation(id).where('cms_page_contents.id NOT IN (?)', (@page.page_content.id || 0)).exists?
+              %li
+                - if checked
+                  %li= link_to identifier, edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id)
+                - else
+                  %li.muted= link_to "#{identifier} (add)", edit_cms_admin_site_page_path(@site, page, :preselect => id)

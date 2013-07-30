@@ -6,7 +6,7 @@
 - when Array
   - variations.each do |identifier|
     - id      = namespace ? "#{namespace}.#{identifier}" : "#{identifier}"
-    - checked = @page.page_content.variations.detect{|v| v.identifier == id}.present?
+    - checked = @page.page_content.variations.detect{|v| v.identifier == id}.present? || params[:preselect] == id
     - name    = "page[page_content_attributes][variation_identifiers][#{id}]"
     - disabled = @page.page_contents.for_variation(id).where('cms_page_contents.id NOT IN (?)', (@page.page_content.id || 0)).exists?
 

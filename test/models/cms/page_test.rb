@@ -14,7 +14,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page = Cms::Page.new
     page.save
     assert page.invalid?
-    assert_has_errors_on page, :site_id, :layout, :label
+    assert_has_errors_on page, :site_id, :layout
   end
 
   def test_validation_of_parent_presence
@@ -77,7 +77,7 @@ class CmsPageTest < ActiveSupport::TestCase
     
     assert_equal page_content, page.page_content('en', :reload)
     assert_equal page_content, page.page_content('fr', :reload)
-    assert_nil   page.page_content('invalid', :reload)
+    assert       page.page_content('invalid', :reload).new_record?
   end
   
   def test_page_content_as_new
@@ -136,31 +136,30 @@ class CmsPageTest < ActiveSupport::TestCase
   end
     
   def test_sync_child_pages
-    skip
     page = cms_pages(:child)
-    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'test-page-1'))
-    page_2 = cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'test-page-2'))
-    page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
-    page_4 = cms_sites(:default).pages.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
-    assert_equal '/child-page/test-page-1', page_1.full_path
-    assert_equal '/child-page/test-page-2', page_2.full_path
-    assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
+    page_1 = cms_sites(:default).pages.create!(new_params(:parent => page,   :page_content_attributes => {:slug => 'test-page-1'}))
+    page_2 = cms_sites(:default).pages.create!(new_params(:parent => page,   :page_content_attributes => {:slug => 'test-page-2'}))
+    page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2, :page_content_attributes => {:slug => 'test-page-3'}))
+    page_4 = cms_sites(:default).pages.create!(new_params(:parent => page_1, :page_content_attributes => {:slug => 'test-page-4'}))
+    assert_equal '/child/test-page-1', page_1.page_content.full_path
+    assert_equal '/child/test-page-2', page_2.page_content.full_path
+    assert_equal '/child/test-page-2/test-page-3', page_3.page_content.full_path
+    assert_equal '/child/test-page-1/test-page-4', page_4.page_content.full_path
     
-    page.update_attributes!(:slug => 'updated-page')
-    assert_equal '/updated-page', page.full_path
+    page.page_contents.each { |pc| pc.update_attributes!(:slug => 'updated-page')}
+    assert_equal '/updated-page', page.page_content.full_path
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal '/updated-page/test-page-1', page_1.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-2', page_2.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-2/test-page-3', page_3.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_4.page_content.reload.full_path
     
     page_2.update_attributes!(:parent => page_1)
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal '/updated-page/test-page-1', page_1.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2', page_2.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_3.page_content.reload.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_4.page_content.reload.full_path
   end
   
   def test_children_count_updating
@@ -205,18 +204,6 @@ class CmsPageTest < ActiveSupport::TestCase
     page = Cms::Page.new(new_params(:parent => cms_pages(:default)))
     assert_equal ['Default Page', '. . Child Page'],
       Cms::Page.options_for_select(cms_sites(:default), page).collect{|t| t.first }
-  end
-    
-  def test_content_caching
-    skip
-    page = cms_pages(:default)
-    assert_equal page.read_attribute(:content), page.content
-    assert_equal page.read_attribute(:content), page.content(true)
-    
-    page.update_attributes(:content => 'changed')
-    assert_equal page.read_attribute(:content), page.content
-    assert_equal page.read_attribute(:content), page.content(true)
-    assert_not_equal 'changed', page.read_attribute(:content)
   end
   
   def test_scope_published

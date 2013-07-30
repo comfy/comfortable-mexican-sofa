@@ -2,7 +2,7 @@
   %h2= t('.title')
 
 - content_for :right_column do
-  = render 'cms_admin/sites/mirrors', :object => @page
+  = render 'cms_admin/pages/variations_dropdown', :page => @page
   
 = comfy_form_for @page, :as => :page, :url => {:action => :update}, :html => {:multipart => true} do |form|
   = render form

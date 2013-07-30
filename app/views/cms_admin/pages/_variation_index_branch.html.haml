@@ -10,8 +10,13 @@
   .item.with-variations{:class => branch_open ? 'open' : nil}
 
     - if !category_view && has_children && !page.root?
-      = link_to toggle_branch_cms_admin_site_page_path(@site, page), :remote => true do
-        %span= t('.toggle')
+      - if params[:variation]
+        = link_to toggle_branch_cms_admin_site_page_path(@site, page, :variation => params[:variation]), :remote => true do
+          %span= t('.toggle')
+      - else
+        = link_to toggle_branch_cms_admin_site_page_path(@site, page), :remote => true do
+          %span= t('.toggle')
+
 
     .icon{:class => page.is_published?? 'published' : 'draft'}
       - if !category_view && has_siblings
@@ -21,20 +26,29 @@
     .btn-group
       = link_to 'Add Variation', edit_cms_admin_site_page_path(@site, page), :class => 'btn btn-small'
       = link_to t('.add_child_page'), new_cms_admin_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
-      = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :class => 'btn btn-small btn-danger', :confirm => 'Are you sure?'
+      = link_to t('.delete'), cms_admin_site_page_path(@site, page), :method => :delete, :class => 'btn btn-small btn-danger', :data => {:confirm => 'Are you sure?'}
 
     .item-content
       .item-title= page.label
       = render :partial => '/cms_admin/categories/categories', :object => page
       .item-variations
+
         %ul.variations-list
-          - page.page_contents.each do |pc|
+          - if params[:variation]
+            - page_contents = page.page_contents.for_variation(params[:variation])
+          - else
+            - page_contents = page.page_contents
+ 
+          - page_contents.each do |pc|
             %li
               .variation-title= pc.variations.pluck(:identifier).join(', ')
               .variation-actions
                 .btn-group
                   = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :class => 'btn btn-mini'
-                  = link_to t('.delete'), cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :method => :delete, :confirm => "Are you sure?", :class => 'btn btn-mini btn-danger' unless page.page_contents.count == 1
+                  = link_to t('.delete'), cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :method => :delete, :data => {:confirm => "Are you sure?"}, :class => 'btn btn-mini btn-danger' unless page.page_contents.count <= 1
+
+
+
   - if !category_view && has_children && branch_open
     %ul.children.sortable
       = render :partial => 'variation_index_branch', :collection => children

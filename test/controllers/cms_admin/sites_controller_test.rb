@@ -69,8 +69,7 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     put :update, :id => site, :site => {
       :label        => 'New Site',
       :hostname     => 'new.site.local',
-      :locale       => 'es',
-      :is_mirrored  => '1'
+      :locale       => 'es'
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => site
@@ -79,7 +78,6 @@ class CmsAdmin::SitesControllerTest < ActionController::TestCase
     assert_equal 'New Site', site.label
     assert_equal 'new.site.local', site.hostname
     assert_equal 'es', site.locale
-    assert site.is_mirrored?
   end
 
   def test_update_failure

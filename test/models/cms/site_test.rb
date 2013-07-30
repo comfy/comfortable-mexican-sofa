@@ -96,14 +96,6 @@ class CmsSiteTest < ActiveSupport::TestCase
     end
   end
   
-  def test_scope_mirrored
-    site = cms_sites(:default)
-    assert !site.is_mirrored
-    assert_equal 0, Cms::Site.mirrored.count
-    site.update_columns(:is_mirrored => true)
-    assert_equal 1, Cms::Site.mirrored.count
-  end
-  
   def test_find_site
     site_a = cms_sites(:default)
     assert_equal 'test.host', site_a.hostname

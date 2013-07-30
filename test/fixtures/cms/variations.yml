@@ -5,3 +5,7 @@ default:
 fr:
   content: default (Cms::PageContent)
   identifier: fr
+
+child_en:
+  content: child (Cms::PageContent)
+  identifier: en

@@ -34,8 +34,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     
     [site_a, site_b, site_c].each do |site|
       layout  = site.layouts.create!(:identifier => 'test')
-      site.pages.create!(:label => 'index', :layout => layout)
-      site.pages.create!(:label => '404', :slug => '404', :layout => layout)
+      site.pages.create!(:label => 'index', :page_content_attributes => {}, :layout => layout)
+      site.pages.create!(:label => '404', :page_content_attributes => {:slug => '404'}, :layout => layout)
     end
     
     %w(/ /path-a /path-a/child /path-c).each do |path|
@@ -67,8 +67,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     
     [site_a, site_b].each do |site|
       layout  = site.layouts.create!(:identifier => 'test')
-      site.pages.create!(:label => 'index', :layout => layout)
-      site.pages.create!(:label => '404', :slug => '404', :layout => layout)
+      site.pages.create!(:label => 'index', :page_content_attributes => {}, :layout => layout)
+      site.pages.create!(:label => '404', :page_content_attributes => {:slug => '404'}, :layout => layout)
     end
     
     get '/'

@@ -60,13 +60,19 @@ protected
   
   def load_cms_page
     @variation_identifier ||= Cms::Variation.list.first
+    # Allow an override within the params (used in the test suite)
+    if params[:variation_identifier]
+      @variation_identifier = params[:variation_identifier]
+    end
     if ComfortableMexicanSofa.config.variations.present?
       @cms_page = Cms::Page.with_full_path_and_identifier("/#{params[:cms_path]}", @variation_identifier, @cms_site).first
       raise ActiveRecord::RecordNotFound unless @cms_page
     else
-      @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+      @cms_page = Cms::Page.with_full_path("/#{params[:cms_path]}", @cms_site).first
     end
-    return redirect_to(@cms_page.target_page.url) if @cms_page.target_page
+    if @cms_page && @cms_page.target_page.present? && @cms_page.target_page.page_content.present?
+      return redirect_to(@cms_page.target_page.page_content.url)
+    end
     
   rescue ActiveRecord::RecordNotFound
     if @cms_page = Cms::Page.with_full_path_and_identifier("/404", @variation_identifier, @cms_site).first
