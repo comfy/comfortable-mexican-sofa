@@ -44,12 +44,12 @@ module ComfortableMexicanSofa::RenderMethods
       
       if options.is_a?(Hash) && path = options.delete(:cms_page)
         @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
-        if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
-        # if @cms_page = @cms_site && @cms_site.pages.with_full_path_and_identifier(path, identifier)
+        @identifier ||= Cms::Variation.first.identifier
+        if @cms_page = @cms_site && @cms_site.pages.with_full_path_and_identifier(path, @identifier).first
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = @cms_page.content
+          options[:inline] = @cms_page.page_content(@identifier).content
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingPage.new(path)
