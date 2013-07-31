@@ -54,6 +54,7 @@ class CreateCms < ActiveRecord::Migration
     
     # -- Page Contents ------------------------------------------------------
     create_table :cms_page_contents do |t|
+      t.string  :label
       t.integer :page_id
       t.string  :slug
       t.text    :content, text_limit
