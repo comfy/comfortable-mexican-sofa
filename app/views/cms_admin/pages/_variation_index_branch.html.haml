@@ -41,7 +41,12 @@
  
           - page_contents.each do |pc|
             %li
-              .variation-title= pc.variations.pluck(:identifier).join(', ')
+              .variation-title
+                %strong
+                  = pc.label
+                %span.muted
+                  (#{pc.variations.pluck(:identifier).join(', ')})
+              .variation-title
               .variation-actions
                 .btn-group
                   = link_to t('.edit'), edit_cms_admin_site_page_path(@site, page, :page_content_id => pc.id), :class => 'btn btn-mini'

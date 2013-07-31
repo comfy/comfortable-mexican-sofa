@@ -6,7 +6,7 @@
     %button.btn.btn-small.btn-primary.pull-right
   = render :partial => 'cms_admin/files/index'
 
-= form.text_field :label, :data => {:slugify => @page.new_record?}
+= form.text_field :label, :data => {:slugify => @page.new_record?}, :label => 'Global Label'
 
 - if (options = Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {}, 'data-url' => form_blocks_cms_admin_site_page_path(@site, @page.id.to_i)
@@ -28,6 +28,8 @@
       = render 'variation_selector'
 
 = form.fields_for :page_content, @page.page_content do |pc|
+
+  = pc.text_field :label, :label => 'Variation Label'
 
   - unless @site.pages.count == 0 || @site.pages.root == @page
     - unless @page.page_content.new_record?
