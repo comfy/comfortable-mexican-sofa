@@ -37,7 +37,7 @@ module ComfortableMexicanSofa::ViewMethods
   #   cms_page_content(:left_column) # if @cms_page is present
   def cms_page_content(identifier, page = nil, variation = nil)
     return '' unless page ||= @cms_page
-    return '' unless block = page.page_content(variation).blocks.find_by_identifier(identifier)
+    return '' unless block = page.page_content(variation, true).blocks.find_by_identifier(identifier)
     # If block is a page_file(s) we will return objects instead of attempting
     # to render them out
     case block.tag
@@ -46,7 +46,7 @@ module ComfortableMexicanSofa::ViewMethods
     when ComfortableMexicanSofa::Tag::PageFiles
       block.files
     else
-      render :inline => ComfortableMexicanSofa::Tag.process_content(page.page_content(variation), block.content)
+      render :inline => ComfortableMexicanSofa::Tag.process_content(page.page_content(variation, true), block.content)
     end
   end
 end

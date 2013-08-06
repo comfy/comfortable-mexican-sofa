@@ -37,19 +37,25 @@ module ComfortableMexicanSofa::Routing
   end
   
   def self.content(options = {})
+
+    sitemap = options.delete(:sitemap)
     
     Rails.application.routes.draw do
-      namespace :cms_content, :path => options[:path] do
+
+      namespace :cms_content, :path => '/' do
         get 'cms-css/:site_id/:identifier' => :render_css,  :as => 'css'
         get 'cms-js/:site_id/:identifier'  => :render_js,   :as => 'js'
+      end
+
+      namespace :cms_content, options do
         
-        if options[:sitemap]
+        if sitemap
           get '(:cms_path)/sitemap' => :render_sitemap,
             :as           => 'sitemap',
             :constraints  => {:format => /xml/},
             :format       => :xml
         end
-        
+
         get '/' => :render_html, :as => 'html', :path => "(*cms_path)"
       end
     end

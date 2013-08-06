@@ -66,6 +66,7 @@ protected
     end
     if ComfortableMexicanSofa.config.variations.present?
       @cms_page = Cms::Page.with_full_path_and_identifier("/#{params[:cms_path]}", @variation_identifier, @cms_site).first
+      @cms_page_content = @cms_page.page_contents.for_variation(@variation_identifier).first
       raise ActiveRecord::RecordNotFound unless @cms_page
     else
       @cms_page = Cms::Page.with_full_path("/#{params[:cms_path]}", @cms_site).first

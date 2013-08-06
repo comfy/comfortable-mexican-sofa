@@ -27,16 +27,18 @@
     .controls
       = render 'variation_selector'
 
-= form.fields_for :page_content, @page.page_content do |pc|
+.page-content-fields
+  = form.fields_for :page_content, @page.page_content do |pc|
 
-  = pc.text_field :label, :label => 'Variation Label'
+    = pc.text_field :label, :label => 'Variation Label'
 
-  - unless @site.pages.count == 0 || @site.pages.root == @page
-    - unless @page.page_content.new_record?
-      = pc.text_field :full_path, :id => 'full-path', :disabled => true
+    - unless @site.pages.count == 0 || @site.pages.root == @page
+      - unless @page.page_content.new_record?
+        = pc.text_field :full_path, :id => 'full-path', :disabled => true
 
-  = pc.text_field :slug, :data => {:slug => true} unless @page.root?
-  = pc.hidden_field :id
+    = pc.text_field :slug, :data => {:slug => true} unless @page.root?
+    = pc.hidden_field :id
+
 
 = render :partial => 'form_blocks'
 
