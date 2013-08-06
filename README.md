@@ -39,6 +39,7 @@ Full list of features added by this fork
 * A boolean field on Pages called 'include in Nav'. This could be used (but
   isn't used by default) if you are auto-generating navigation links but want
   some pages to not appear in the navigation.
+* Mixin for comfy filters to add to any controllers that don't inherit from CmsContentController.
 
 Features
 --------
