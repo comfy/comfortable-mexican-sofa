@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_link_to', '>= 1.0.0'
   s.add_dependency 'paperclip',      '>= 3.4.0'
   s.add_dependency 'redcarpet',      '>= 2.2.0'
-  s.add_dependency 'jquery-rails',   '>= 2.2.0'
+  s.add_dependency 'jquery-rails',   '~> 2.2'
   s.add_dependency 'haml-rails',     '>= 0.3.0'
   s.add_dependency 'sass-rails',     '>= 3.1.0'
   s.add_dependency 'coffee-rails',   '>= 3.1.0'

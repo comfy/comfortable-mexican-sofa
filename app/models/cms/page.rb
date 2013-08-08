@@ -138,6 +138,14 @@ class Cms::Page < ActiveRecord::Base
     self.content(true) if force_reload
     @tags ||= []
   end
+
+  def head_tags
+    ComfortableMexicanSofa::Tag.process_content(
+      self,
+      ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_head(self))
+    )
+    @tags ||= []
+  end
   
   # Full url for a page
   def url
