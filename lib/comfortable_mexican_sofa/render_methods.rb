@@ -57,7 +57,9 @@ module ComfortableMexicanSofa::RenderMethods
       elsif options.is_a?(Hash) && identifier = options.delete(:cms_layout)
         @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
         if @cms_layout = @cms_site && @cms_site.layouts.find_by_identifier(identifier)
+
           cms_app_layout = @cms_layout.try(:app_layout)
+
           cms_page = @cms_site.pages.build(:layout => @cms_layout)
           cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
           cms_blocks.each do |identifier, value|
@@ -69,7 +71,7 @@ module ComfortableMexicanSofa::RenderMethods
             cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
           end
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = cms_page.content(true)
+          options[:inline] = @cms_layout.merged_head(cms_page) + cms_page.content(true)
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingLayout.new(identifier)
