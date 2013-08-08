@@ -11,6 +11,12 @@ class ViewMethodsTest < ActionView::TestCase
       render :inline => '<%= cms_snippet_content(:default) %>'
     end
 
+    def test_cms_snippet_with_default_content_block
+      render :inline => '<%= cms_snippet_content(:nonexistent_snippet) do %>
+                           Some content <b>here</b>.
+                         <% end %>'
+    end
+
     def test_cms_page_content
       @cms_page = Cms::Page.root
       render :inline => '<%= cms_page_content(:default_field_text) %>'
@@ -50,6 +56,23 @@ class ViewMethodsTest < ActionView::TestCase
   def test_cms_snippet_content_with_file_tag
     cms_snippets(:default).update_column(:content, '{{cms:file:sample.jpg}}')
     assert_equal cms_files(:default).file.url, action_result('test_cms_snippet_content')
+  end
+
+  def test_cms_snippet_with_default_content_block_displays_content
+    assert_equal 'Some content <b>here</b>.',
+                action_result('test_cms_snippet_with_default_content_block').strip
+  end
+
+  def test_cms_snippet_with_default_content_creates_snippet
+    assert_nil Cms::Snippet.find_by_identifier('nonexistent_snippet')
+    action_result('test_cms_snippet_with_default_content_block')
+    assert_not_nil Cms::Snippet.find_by_identifier('nonexistent_snippet')
+  end
+
+  def test_cms_snippet_with_default_content_shows_stored_snippet_if_present
+    cms_snippets(:default).update_attribute(:identifier, 'nonexistent_snippet')
+    assert_equal 'default_snippet_content',
+                 action_result('test_cms_snippet_with_default_content_block')
   end
   
   def test_cms_page_content
