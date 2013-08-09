@@ -252,17 +252,7 @@ body#comfy
           background: url(image-path("comfortable_mexican_sofa/arrow_right.gif")) center center no-repeat
           span
             display: none
-    .with-variations
-      &.open>a
-        background-image: url(image-path("comfortable_mexican_sofa/arrow_bottom.gif"))
-      >a
-        display: block
-        float: left
-        height: 28px
-        width: 28px
-        background: url(image-path("comfortable_mexican_sofa/arrow_right.gif")) center center no-repeat
-        >span
-          display: none
+
       .icon
         float: left
         &.draft
@@ -295,7 +285,21 @@ body#comfy
             color: #666
           .variation-actions
             float: right
-
+    .with-variations
+      &.open>a
+        background-image: url(image-path("comfortable_mexican_sofa/arrow_bottom.gif"))
+      >a
+        display: block
+        float: left
+        height: 28px
+        width: 28px
+        background: url(image-path("comfortable_mexican_sofa/arrow_right.gif")) center center no-repeat
+        >span
+          display: none
+    .no-page-contents
+      background-color: #cccccc
+      opacity: 0.1
+      
     li ul
       list-style: none
       margin: 0 0 0 28px

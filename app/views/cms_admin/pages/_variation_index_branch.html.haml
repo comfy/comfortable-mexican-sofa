@@ -5,9 +5,13 @@
 - has_siblings  = siblings.size > 1
 - branch_open   = (session[:cms_page_tree] || []).member?(page.id.to_s) || page.root?
 - category_view = params[:category].present?
-
-%li{:id => dom_id(page)}
-  .item.with-variations{:class => branch_open ? 'open' : nil}
+- if params[:variation]
+  - page_contents = page.page_contents.for_variation(params[:variation]) 
+- else
+  - page_contents = page.page_contents   
+  
+%li{:id => dom_id(page)}         
+  .item.with-variations{:class => "#{branch_open ? 'open' : nil} #{page_contents.length == 0 ? 'no-page-contents' : nil}"}
 
     - if !category_view && has_children && !page.root?
       - if params[:variation]
@@ -32,13 +36,7 @@
       .item-title= page.label
       = render :partial => '/cms_admin/categories/categories', :object => page
       .item-variations
-
         %ul.variations-list
-          - if params[:variation]
-            - page_contents = page.page_contents.for_variation(params[:variation])
-          - else
-            - page_contents = page.page_contents
- 
           - page_contents.each do |pc|
             %li
               .variation-title
