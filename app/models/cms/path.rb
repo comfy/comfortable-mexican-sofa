@@ -4,9 +4,40 @@ module Cms::Path
   included do
     before_validation :assign_full_path,
                       :escape_slug
-    after_save :assign_childrens_full_path
+    after_save   :assign_childrens_full_path
+    after_commit :reassign_full_path, :on => :destroy
   end
 
+  # Idea here is to reassign all the paths for all the page contents that are the children of the page of the deleted page content.
+  
+  def reassign_full_path
+    # The page of the deleted page content
+    page = self.page
+
+    # Recursively load the children pages
+    pages = [page]
+    pages.each do |page|
+      children_page = Cms::Page.where(:parent_id => page.id).to_a
+      pages << children_page if children_page
+      pages.flatten!
+    end
+    
+    # Load the page contents for all the pages above
+    page_contents = []
+    pages.each do |page|
+      children_page_content = page.page_contents.to_a
+      page_contents << children_page_content if children_page_content
+      page_contents.flatten!
+    end
+
+    # Recalculate all the page pages for the page contents
+    page_contents.each do |page_content|
+      unless page_content.frozen?
+        page_content.assign_full_path
+        page_content.save!
+      end
+    end
+  end
 
   def assign_full_path
     # Set the full_path to '/' if this is the first page or we are updating
