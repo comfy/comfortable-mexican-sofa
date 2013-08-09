@@ -236,6 +236,7 @@ body#comfy
       border-radius: 3px
       margin-bottom: 5px
       border: 1px solid #ddd
+      min-height: 40px
       &:hover
         background-color: #f5f5f5
       .toggle
@@ -251,6 +252,17 @@ body#comfy
           background: url(image-path("comfortable_mexican_sofa/arrow_right.gif")) center center no-repeat
           span
             display: none
+    .with-variations
+      &.open>a
+        background-image: url(image-path("comfortable_mexican_sofa/arrow_bottom.gif"))
+      >a
+        display: block
+        float: left
+        height: 28px
+        width: 28px
+        background: url(image-path("comfortable_mexican_sofa/arrow_right.gif")) center center no-repeat
+        >span
+          display: none
       .icon
         float: left
         &.draft
