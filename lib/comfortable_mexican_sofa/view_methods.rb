@@ -11,20 +11,26 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_hook(name, options = {})
     ComfortableMexicanSofa::ViewHooks.render(name, self, options)
   end
-
-  # Content of a snippet. Example:
+  
+  # Content of a snippet. Examples:
   #   cms_snippet_content(:my_snippet)
-  def cms_snippet_content(identifier, cms_site = nil)
+  #   <%= cms_snippet_content(:my_snippet) do %>
+  #     Default content can go here.
+  #   <% end %>
+  def cms_snippet_content(identifier, cms_site = nil, &block)
     unless cms_site
       host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
       cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
     end
-    return '' unless cms_site
-    case identifier
-    when Cms::Snippet
-      snippet = identifier
-    else
-      return '' unless snippet = cms_site.snippets.find_by_identifier(identifier)
+    return '' unless cms_site && identifier.present?
+    snippet = cms_site.snippets.find_by_identifier(identifier)
+    
+    if !snippet && block_given?
+      snippet = cms_site.snippets.create(
+        :identifier => identifier,
+        :label      => identifier.to_s.titleize,
+        :content    => capture(&block)
+      )
     end
     render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet.content)
   end

@@ -15,6 +15,12 @@ class ViewMethodsTest < ActionView::TestCase
       @cms_page = Cms::Page.root
       render :inline => '<%= cms_page_block_content(:default_field_text) %>'
     end
+    
+    def test_cms_snippet_with_default_content_block
+      render :inline => '<%= cms_snippet_content(:nonexistent_snippet) do %>
+                           Some content <b>here</b>.
+                         <% end %>'
+    end
 
     def test_cms_page_content
       @cms_page = Cms::Page.root
@@ -78,6 +84,23 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal page.blocks.find_by_identifier('files').files, cms_page_files(:files, page)
   end
 
+  def test_cms_snippet_with_default_content_block_displays_content
+    assert_equal 'Some content <b>here</b>.',
+      action_result('test_cms_snippet_with_default_content_block').strip
+  end
+
+  def test_cms_snippet_with_default_content_creates_snippet
+    assert_nil Cms::Snippet.find_by_identifier('nonexistent_snippet')
+    action_result('test_cms_snippet_with_default_content_block')
+    assert_not_nil Cms::Snippet.find_by_identifier('nonexistent_snippet')
+  end
+
+  def test_cms_snippet_with_default_content_shows_stored_snippet_if_present
+    cms_snippets(:default).update_attribute(:identifier, 'nonexistent_snippet')
+    assert_equal 'default_snippet_content',
+      action_result('test_cms_snippet_with_default_content_block')
+  end
+  
   def test_cms_page_content
     assert_equal 'default_field_text_content', action_result('test_cms_page_content')
   end
