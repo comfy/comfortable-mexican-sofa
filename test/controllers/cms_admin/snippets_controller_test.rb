@@ -52,6 +52,14 @@ class CmsAdmin::SnippetsControllerTest < ActionController::TestCase
     assert_template :edit
     assert_select "form[action=/cms-admin/sites/#{snippet.site.id}/snippets/#{snippet.id}]"
   end
+  
+  def test_get_edit_with_params
+    snippet = cms_snippets(:default)
+    get :edit, :site_id => snippet.site, :id => snippet, :snippet => {:label => 'New Label'}
+    assert_response :success
+    assert assigns(:snippet)
+    assert_equal 'New Label', assigns(:snippet).label
+  end
 
   def test_get_edit_failure
     get :edit, :site_id => cms_sites(:default), :id => 'not_found'

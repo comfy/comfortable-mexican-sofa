@@ -13,10 +13,7 @@ class CmsAdmin::SnippetsController < CmsAdmin::BaseController
   end
 
   def edit
-    # This allows pre-setting snippet values from edit URL:
     @snippet.attributes = snippet_params
-
-    render
   end
 
   def create
