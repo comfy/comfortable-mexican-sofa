@@ -61,6 +61,10 @@ class ComfortableMexicanSofa::Configuration
   # are accessible by default. Empty array will prevent rendering of all partials.
   attr_accessor :allowed_partials
 
+  # Whitelist of template paths that can be used via {{cms:template}} tag. All templates
+  # are accessible by default. Empty array will prevent rendering of all templates.
+  attr_accessor :allowed_templates
+
   # Site aliases, if you want to have aliases for your site. Good for harmonizing
   # production env with dev/testing envs.
   # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
