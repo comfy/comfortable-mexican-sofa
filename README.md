@@ -18,8 +18,10 @@ Installation
 ------------
 Add gem definition to your Gemfile:
     
-    gem 'comfortable_mexican_sofa', '~> 1.9.0'
-    
+```ruby
+gem 'comfortable_mexican_sofa', '~> 1.9.0'
+``` 
+
 Then from the Rails project's root run:
     
     bundle install
@@ -39,8 +41,10 @@ Installation for Rails 3
 ------------------------
 For Rails 3 apps feel free to use [1.8 release](https://github.com/comfy/comfortable-mexican-sofa/tree/1.8)
     
-    gem 'comfortable_mexican_sofa', '~> 1.8.0'
-    
+```ruby
+gem 'comfortable_mexican_sofa', '~> 1.8.0'
+```
+
 Quick Start Guide
 -----------------
 After finishing installation you should be able to navigate to http://yoursite/cms-admin
