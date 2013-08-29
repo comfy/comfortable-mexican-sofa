@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Cms::Page < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
+class Cms::Page < ComfortableMexicanSofa::Base
     
   self.table_name = 'cms_pages'
   
