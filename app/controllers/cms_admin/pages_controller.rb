@@ -106,7 +106,9 @@ protected
       @cms_site   = @page.site
       @cms_layout = @page.layout
       @cms_page   = @page
-      render :inline => @page.content(true), :layout => layout
+      respond_to do |format|
+        format.html { render inline: @page.content(true), layout: layout }
+      end
     end
   end
 end
