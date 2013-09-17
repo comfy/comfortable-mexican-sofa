@@ -1,6 +1,4 @@
-class Cms::Layout < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
+class Cms::Layout < ComfortableMexicanSofa::Base
     
   self.table_name = 'cms_layouts'
   

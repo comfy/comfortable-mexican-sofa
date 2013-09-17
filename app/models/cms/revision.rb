@@ -1,6 +1,4 @@
-class Cms::Revision < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
+class Cms::Revision < ComfortableMexicanSofa::Base
   
   self.table_name = 'cms_revisions'
   

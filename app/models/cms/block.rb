@@ -1,6 +1,4 @@
-class Cms::Block < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
+class Cms::Block < ComfortableMexicanSofa::Base
   
   self.table_name = 'cms_blocks'
   

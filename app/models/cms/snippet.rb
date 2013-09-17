@@ -1,7 +1,5 @@
-class Cms::Snippet < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-  
+class Cms::Snippet < ComfortableMexicanSofa::Base
+
   self.table_name = 'cms_snippets'
   
   cms_is_categorized

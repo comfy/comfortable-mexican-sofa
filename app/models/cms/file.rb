@@ -1,8 +1,6 @@
-class Cms::File < ActiveRecord::Base
+class Cms::File < ComfortableMexicanSofa::Base
   
   IMAGE_MIMETYPES = %w(gif jpeg pjpeg png svg+xml tiff).collect{|subtype| "image/#{subtype}"}
-  
-  ComfortableMexicanSofa.establish_connection(self)
     
   self.table_name = 'cms_files'
   
