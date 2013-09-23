@@ -47,12 +47,8 @@ module ComfortableMexicanSofa::Fixture::Page
           end
         end
         
-        blocks_to_clear.each do |identifier|
-          blocks_attributes << {
-            :identifier => identifier,
-            :content    => nil
-          }
-        end
+        # deleting removed blocks
+        page.blocks.where(:identifier => blocks_to_clear).destroy_all
         
         page.blocks_attributes = blocks_attributes if blocks_attributes.present?
         

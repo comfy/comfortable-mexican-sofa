@@ -106,8 +106,7 @@ class FixturePagesTest < ActiveSupport::TestCase
     block = page.blocks.where(:identifier => 'content').first
     assert_equal "Home Page Fixture Contént\n{{ cms:snippet:default }}", block.content
     
-    block = page.blocks.where(:identifier => 'to_delete').first
-    assert_equal nil, block.content
+    assert !page.blocks.where(:identifier => 'to_delete').first
   end
   
   def test_export
