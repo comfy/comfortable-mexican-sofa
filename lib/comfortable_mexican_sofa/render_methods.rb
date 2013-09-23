@@ -44,6 +44,8 @@ module ComfortableMexicanSofa::RenderMethods
       
       if options.is_a?(Hash) && path = options.delete(:cms_page)
         @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
+        path.gsub!(/^\/#{@cms_site.path}/, '') if @cms_site.path.present?
+        
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
