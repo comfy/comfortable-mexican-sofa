@@ -30,7 +30,7 @@ class FixturesIntergrationTest < ActionDispatch::IntegrationTest
         assert_difference 'Cms::Snippet.count', 1 do
           get '/'
           assert_response :redirect
-          assert_redirected_to 'http://test.host/child'
+          assert_redirected_to '//test.host/child'
           follow_redirect!
           
           assert_equal 'Home Fixture Page', Cms::Page.root.label

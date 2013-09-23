@@ -218,15 +218,15 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_url
     site = cms_sites(:default)
     
-    assert_equal 'http://test.host/', cms_pages(:default).url
-    assert_equal 'http://test.host/child-page', cms_pages(:child).url
+    assert_equal '//test.host/', cms_pages(:default).url
+    assert_equal '//test.host/child-page', cms_pages(:child).url
     
     site.update_columns(:path => '/en/site')
     cms_pages(:default).reload
     cms_pages(:child).reload
     
-    assert_equal 'http://test.host/en/site/', cms_pages(:default).url
-    assert_equal 'http://test.host/en/site/child-page', cms_pages(:child).url
+    assert_equal '//test.host/en/site/', cms_pages(:default).url
+    assert_equal '//test.host/en/site/child-page', cms_pages(:child).url
   end
 
   def test_unicode_slug_escaping

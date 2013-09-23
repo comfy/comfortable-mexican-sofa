@@ -85,7 +85,7 @@ class CmsContentControllerTest < ActionController::TestCase
     assert_equal cms_pages(:default), cms_pages(:child).target_page
     get :render_html, :cms_path => 'child-page'
     assert_response :redirect
-    assert_redirected_to '/'
+    assert_redirected_to cms_pages(:default).url
   end
   
   def test_render_page_unpublished
