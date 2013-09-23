@@ -69,7 +69,7 @@ module ComfortableMexicanSofa::RenderMethods
             cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
           end
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = cms_page.content(true)
+          options[:inline] = cms_page.content
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingLayout.new(identifier)

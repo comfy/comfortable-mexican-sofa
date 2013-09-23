@@ -12,6 +12,7 @@ class Cms::Page < ActiveRecord::Base
   cms_has_revisions_for :blocks_attributes
   
   attr_accessor :tags,
+                :cached_content,
                 :blocks_attributes_changed
   
   # -- Relationships --------------------------------------------------------
@@ -100,25 +101,32 @@ class Cms::Page < ActiveRecord::Base
   
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
-  def content(force_reload = false)
-    @content = force_reload ? nil : read_attribute(:content)
-    @content ||= begin
-      self.tags = [] # resetting
-      if layout
-        ComfortableMexicanSofa::Tag.process_content(
-          self,
-          ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
-        )
-      else
-        ''
-      end
+  def render
+    @tags = [] # resetting
+    return '' unless layout
+    
+    ComfortableMexicanSofa::Tag.process_content(
+      self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
+    )
+  end
+  
+  # Cached content accessor
+  def content
+    if (@cached_content = read_attribute(:content)).nil?
+      @cached_content = self.render
+      update_column(:content, @cached_content) unless self.new_record?
     end
+    @cached_content
+  end
+  
+  def clear_cached_content!
+    self.update_column(:content, nil)
   end
   
   # Array of cms_tags for a page. Content generation is called if forced.
   # These also include initialized cms_blocks if present
   def tags(force_reload = false)
-    self.content(true) if force_reload
+    self.render if force_reload
     @tags ||= []
   end
   
@@ -168,9 +176,9 @@ protected
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
   
-  # NOTE: This can create 'phantom' page blocks as they are defined in the layout. This is normal.
   def set_cached_content
-    write_attribute(:content, self.content(true))
+    @cached_content = self.render
+    write_attribute(:content, self.cached_content)
   end
   
   # Forcing re-saves for child pages so they can update full_paths

@@ -78,7 +78,7 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content(true)
+    ), page.render
     
     assert_equal 4, page.tags.size
     assert_equal 'field_text_default_field_text', page.tags[0].id
@@ -107,7 +107,7 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content
+    ), page.render
     
     assert_equal 3, page.tags.size
     assert_equal 'field_text_default_field_text', page.tags[0].id
@@ -140,7 +140,7 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       default_snippet_content
       layout_content_c'
-    ), page.content
+    ), page.render
     
     assert_equal 4, page.tags.size
     assert_equal 'field_text_default_field_text', page.tags[0].id
@@ -167,7 +167,7 @@ class TagTest < ActiveSupport::TestCase
       default_page_text_content_a
       default_snippet_content
       default_page_text_content_b'
-    ), page.content(true)
+    ), page.render
     
     assert_equal 6, page.tags.size
     assert_equal 'field_text_default_field_text', page.tags[0].id
@@ -193,7 +193,7 @@ class TagTest < ActiveSupport::TestCase
       layout_content_b
       infinite  loop
       layout_content_c'
-    ), page.content(true)
+    ), page.render
     assert_equal 6, page.tags.size
   end
   
@@ -265,10 +265,11 @@ class TagTest < ActiveSupport::TestCase
         { :identifier => 'content',
           :content    => 'text {{ cms:snippet:irb-snippet }} {{ cms:partial:path/to }} {{ cms:helper:method }} text' },
         { :identifier => 'snippet',
-          :content    => snippet.id }
+          :content    => snippet.id.to_s }
       ]
     )
-    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.content
+    
+    assert_equal "<% 1 + 1 %> text <% 2 + 2 %> snippet <%= 2 + 2 %> <%= render :partial => 'path/to' %> <%= method() %> text <%= render :partial => 'partials/cms/snippets', :locals => {:model => 'Cms::Snippet', :identifier => '#{snippet.id}'} %> <%= 1 + 1 %>", page.render
   end
   
   def test_escaping_of_parameters
