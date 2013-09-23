@@ -1,10 +1,6 @@
 # encoding: utf-8
 
-class Cms::Page < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-    
-  self.table_name = 'cms_pages'
+class Cms::Page < Cms::Base
   
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
