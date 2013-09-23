@@ -31,7 +31,7 @@ class Cms::Page < ActiveRecord::Base
                     :assign_full_path
   before_create     :assign_position
   before_save       :set_cached_content
-  after_save        :sync_child_pages
+  after_save        :sync_child_full_paths!
   after_find        :unescape_slug_and_path
   
   # -- Validations ----------------------------------------------------------
@@ -182,8 +182,12 @@ protected
   end
   
   # Forcing re-saves for child pages so they can update full_paths
-  def sync_child_pages
-    children.each{ |p| p.save! } if full_path_changed?
+  def sync_child_full_paths!
+    return unless full_path_changed?
+    children.each do |p|
+      p.update_column(:full_path, p.send(:assign_full_path))
+      p.send(:sync_child_full_paths!)
+    end
   end
 
   # Escape slug unless it's nonexistent (root)
