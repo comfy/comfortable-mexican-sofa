@@ -48,13 +48,6 @@ module ComfortableMexicanSofa
       @configuration ||= Configuration.new
     end
     alias :config :configuration
-    
-    # Establishing database connection if custom one is defined
-    def establish_connection(klass)
-      if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
-        klass.establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
-      end
-    end
 
     def logger=(new_logger)
       @logger = new_logger

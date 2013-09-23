@@ -1,8 +1,4 @@
-class Cms::Block < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-  
-  self.table_name = 'cms_blocks'
+class Cms::Block < Cms::Base
   
   attr_accessible :identifier,
                   :content

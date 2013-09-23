@@ -1,8 +1,4 @@
-class Cms::Categorization < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-  
-  self.table_name = 'cms_categorizations'
+class Cms::Categorization < Cms::Base
   
   attr_accessible :categorized
   

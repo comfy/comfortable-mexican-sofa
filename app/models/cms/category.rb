@@ -1,8 +1,4 @@
-class Cms::Category < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-  
-  self.table_name = 'cms_categories'
+class Cms::Category < Cms::Base
   
   attr_accessible :label,
                   :categorized_type
