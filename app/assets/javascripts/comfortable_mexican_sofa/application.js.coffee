@@ -26,6 +26,7 @@ window.CMS =
     CMS.page_update_publish()
     CMS.categories()
     CMS.uploader()
+    CMS.uploaded_files()
 
 
 window.CMS.slugify = ->
@@ -154,3 +155,8 @@ window.CMS.uploader = ->
       $('.uploaded-files').prepend(files)
       files.map ->
         $(this).fadeIn()
+
+window.CMS.uploaded_files = ->
+  $('.file-uploader .details input').on('click', (e) ->
+    e.currentTarget.select()
+  )
