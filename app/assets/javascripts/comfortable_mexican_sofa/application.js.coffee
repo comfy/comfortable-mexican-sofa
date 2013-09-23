@@ -157,6 +157,5 @@ window.CMS.uploader = ->
         $(this).fadeIn()
 
 window.CMS.uploaded_files = ->
-  $('.file-uploader .details input').on('click', (e) ->
-    e.currentTarget.select()
-  )
+  $('.uploaded-files').on 'click', 'input', ->
+    $(this).select()
