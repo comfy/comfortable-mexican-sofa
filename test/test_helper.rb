@@ -17,6 +17,7 @@ class ActiveSupport::TestCase
   
   def setup
     reset_config
+    stub_paperclip
   end
   
   # resetting default configuration
@@ -87,6 +88,12 @@ class ActiveSupport::TestCase
     string.gsub(/^[ ]+/, '')
   end
   
+  def stub_paperclip
+    Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
+    Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
+    Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
+  end
+  
 end
 
 class ActionController::TestCase
@@ -100,6 +107,7 @@ class ActionDispatch::IntegrationTest
   def setup
     host! 'test.host'
     reset_config
+    stub_paperclip
   end
   
   # Attaching http_auth stuff with request. Example use:
