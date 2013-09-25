@@ -4,6 +4,10 @@ class ComfortableMexicanSofa::Configuration
 
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(
   attr_accessor :cms_title
+  
+  # Controller that is inherited from CmsAdmin::BaseController
+  # 'ApplicationController' is the default
+  attr_accessor :base_controller
 
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
@@ -66,6 +70,7 @@ class ComfortableMexicanSofa::Configuration
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
+    @base_controller      = 'ApplicationController'
     @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
