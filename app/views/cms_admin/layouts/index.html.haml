@@ -5,5 +5,9 @@
 - content_for :right_column do
   = render :partial => 'cms_admin/sites/mirrors'
 
+= render 'cms_admin/partials/layouts_before'
+
 %ul.list.sortable
   = render :partial => 'index_branch', :collection => @layouts
+
+= render 'cms_admin/partials/layouts_after'

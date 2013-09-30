@@ -71,6 +71,10 @@ class ComfortableMexicanSofa::Configuration
   # Default is nil (not used)
   attr_accessor :hostname_aliases
   
+  # Reveal partials that can be overwritten in the admin area.
+  # Default is false.
+  attr_accessor :reveal_cms_partials
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -103,6 +107,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @reveal_cms_partials  = false
   end
 
 end

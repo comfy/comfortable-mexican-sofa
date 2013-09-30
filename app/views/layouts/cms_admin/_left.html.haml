@@ -1,3 +1,5 @@
+= render '/cms_admin/partials/navigation_before'
+
 %ul.navigation
   %li= active_link_to t('cms_admin.base.sites'), cms_admin_sites_path, :active => ['cms_admin/sites']
   
@@ -8,3 +10,7 @@
     %li= active_link_to t('cms_admin.base.files'), cms_admin_site_files_path(@site)
     
   = cms_hook :navigation
+    
+  = render '/cms_admin/partials/navigation_inner'
+    
+= render '/cms_admin/partials/navigation_after'

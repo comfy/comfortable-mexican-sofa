@@ -6,6 +6,8 @@
     %button.btn.btn-small.btn-primary.pull-right
   = render :partial => 'cms_admin/files/index'
 
+= render 'cms_admin/partials/page_form_before', :object => form
+
 = form.text_field :label, :data => {:slugify => @page.new_record?}
 
 - unless @site.pages.count == 0 || @site.pages.root == @page
@@ -22,13 +24,15 @@
 - if (options = Cms::Page.options_for_select(@site, @page, nil, 0, false)).present?
   = form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options
 
-= cms_hook :page_form, :object => form
+= render 'cms_admin/partials/page_form_inner', :object => form
 
 = render :partial => 'cms_admin/categories/form', :object => form
 
 = render :partial => 'form_blocks'
 
 = form.check_box :is_published, :label => t('.is_published')
+
+= render 'cms_admin/partials/page_form_after', :object => form
 
 .form-actions
   = form.submit t('.preview'), :name => 'preview', :id => nil, :class => 'btn'

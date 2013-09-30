@@ -1,5 +1,7 @@
 - content_for :right_column do
   = render :partial => 'cms_admin/files/index'
+  
+= render 'cms_admin/partials/layout_form_before', :object => form
 
 = form.text_field :label, :data => {:slugify => @layout.new_record?}
 = form.text_field :identifier, :data => {:slug => true}
@@ -12,6 +14,8 @@
 = form.text_area :content, :data => {:cm_mode => 'text/html'}
 = form.text_area :css, :data => {:cm_mode => 'css'}
 = form.text_area :js, :data => {:cm_mode => 'javascript'}
+
+= render 'cms_admin/partials/layout_form_after', :object => form
 
 .form-actions
   = form.submit t(@layout.new_record?? '.create' : '.update'), :class => 'btn btn-primary'

@@ -1,5 +1,6 @@
 %body#comfy{:class => "c-#{params[:controller].slugify} a-#{params[:action].slugify}"}
-  = cms_hook :header
+
+  = render 'cms_admin/partials/body_before'
 
   .body-wrapper
     .left-column

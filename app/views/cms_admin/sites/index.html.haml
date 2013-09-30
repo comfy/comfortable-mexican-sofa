@@ -2,6 +2,8 @@
   = link_to t('.new_link'), new_cms_admin_site_path, :class => 'btn pull-right'
   %h2= t('.title')
 
+= render 'cms_admin/partials/sites_before'
+
 %table.table.table-hover.table-bordered
   - @sites.each do |site|
     %tr
@@ -22,3 +24,5 @@
           = link_to t('.select'),  cms_admin_site_pages_path(site), :class => 'btn btn-small'
           = link_to t('.edit'), edit_cms_admin_site_path(site), :class => 'btn btn-small'
           = link_to t('.delete'), cms_admin_site_path(site), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+          
+= render 'cms_admin/partials/sites_after'
