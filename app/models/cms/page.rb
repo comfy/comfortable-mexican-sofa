@@ -56,8 +56,8 @@ class Cms::Page < Cms::Base
     out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == page
     current_page.children.each do |child|
       out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
-    end
-    return out.compact
+    end if current_page.children_count.nonzero?
+    return out.compact 
   end
   
   # -- Instance Methods -----------------------------------------------------
