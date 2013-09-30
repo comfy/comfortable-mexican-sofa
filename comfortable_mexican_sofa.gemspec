@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
   s.summary       = "CMS Engine for Rails 4 apps"
   s.description   = "ComfortableMexicanSofa is a powerful CMS Engine for Ruby on Rails applications"
+  s.license       = 'MIT'
   
   s.files         = `git ls-files`.split("\n")
   s.platform      = Gem::Platform::RUBY
