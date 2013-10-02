@@ -1,4 +1,5 @@
-class Cms::File < Cms::Base
+class Cms::File < ActiveRecord::Base
+  include Cms::Base
   
   IMAGE_MIMETYPES = %w(gif jpeg pjpeg png svg+xml tiff).collect{|subtype| "image/#{subtype}"}
   

@@ -1,4 +1,5 @@
-class Cms::Category < Cms::Base
+class Cms::Category < ActiveRecord::Base
+  include Cms::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site

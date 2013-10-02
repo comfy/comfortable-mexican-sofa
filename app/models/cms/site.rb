@@ -1,4 +1,5 @@
-class Cms::Site < Cms::Base
+class Cms::Site < ActiveRecord::Base
+  include Cms::Base
   
   # -- Relationships --------------------------------------------------------
   with_options :dependent => :destroy do |site|

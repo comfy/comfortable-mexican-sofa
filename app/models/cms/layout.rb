@@ -1,4 +1,5 @@
-class Cms::Layout < Cms::Base
+class Cms::Layout < ActiveRecord::Base
+  include Cms::Base
   
   cms_acts_as_tree
   cms_is_mirrored

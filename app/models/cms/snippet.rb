@@ -1,4 +1,5 @@
-class Cms::Snippet < Cms::Base
+class Cms::Snippet < ActiveRecord::Base
+  include Cms::Base
   
   cms_is_categorized
   cms_is_mirrored

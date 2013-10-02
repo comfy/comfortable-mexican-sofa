@@ -1,4 +1,5 @@
-class Cms::Categorization < Cms::Base
+class Cms::Categorization < ActiveRecord::Base
+  include Cms::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :category

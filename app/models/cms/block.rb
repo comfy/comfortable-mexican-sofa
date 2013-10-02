@@ -1,4 +1,5 @@
-class Cms::Block < Cms::Base
+class Cms::Block < ActiveRecord::Base
+  include Cms::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :page

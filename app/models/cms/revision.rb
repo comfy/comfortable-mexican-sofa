@@ -1,4 +1,5 @@
-class Cms::Revision < Cms::Base
+class Cms::Revision < ActiveRecord::Base
+  include Cms::Base
   
   serialize :data
   
