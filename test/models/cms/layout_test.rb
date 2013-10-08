@@ -51,13 +51,13 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
   
   def test_app_layouts_for_select
-    FileUtils.touch(File.expand_path('app/views/layouts/cms_admin/nested.html.erb', Rails.root))
+    FileUtils.touch(File.expand_path('app/views/layouts/admin/cms/nested.html.erb', Rails.root))
     FileUtils.touch(File.expand_path('app/views/layouts/_partial.html.erb', Rails.root))
     FileUtils.touch(File.expand_path('app/views/layouts/not_a_layout.erb', Rails.root))
     
-    assert_equal ['cms_admin', 'cms_admin/nested'], Cms::Layout.app_layouts_for_select
+    assert_equal ['admin/cms', 'admin/cms/nested'], Cms::Layout.app_layouts_for_select
     
-    FileUtils.rm(File.expand_path('app/views/layouts/cms_admin/nested.html.erb', Rails.root))
+    FileUtils.rm(File.expand_path('app/views/layouts/admin/cms/nested.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/_partial.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/not_a_layout.erb', Rails.root))
   end

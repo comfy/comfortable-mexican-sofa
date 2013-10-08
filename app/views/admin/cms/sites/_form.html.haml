@@ -1,0 +1,14 @@
+= render 'admin/cms/partials/site_form_before', :object => form
+
+= form.text_field :label, :data => {:slugify => @site.new_record?}
+= form.text_field :identifier, :data => {:slug => true}
+= form.text_field :hostname
+= form.text_field :path
+= form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| [l[1], l[0]]}
+= form.check_box :is_mirrored, :label => t('.is_mirrored')
+
+= render 'admin/cms/partials/site_form_after', :object => form
+
+.form-actions
+  = form.submit t(@site.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+
