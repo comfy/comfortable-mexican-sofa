@@ -98,139 +98,140 @@ de:
       page_not_found: Seite nicht gefunden
 
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Web-Sites
-      layouts: Layouts
-      pages: Seiten
-      snippets: Schnipsel
-      files: Datei
+  admin:
+    cms:
+      base:
+        sites: Web-Sites
+        layouts: Layouts
+        pages: Seiten
+        snippets: Schnipsel
+        files: Datei
 
-    sites:
-      index:
-        title: Web-Sites
-        new_link: Erstelle neue Web-Site
-        select: Wähle Web-Site
-        edit: Bearbeiten
-        delete: Löschen
-        are_you_sure: Sind Sie sicher, dass Sie diese Web-Site löschen wollen?
-      new:
-        title: Neue Web-Site
-      edit:
-        title: Web-Site bearbeiten
-      form:
-        create: Erstelle Web-Site
-        update: Web-Site speichern
-        is_mirrored: Gespiegelt
+      sites:
+        index:
+          title: Web-Sites
+          new_link: Erstelle neue Web-Site
+          select: Wähle Web-Site
+          edit: Bearbeiten
+          delete: Löschen
+          are_you_sure: Sind Sie sicher, dass Sie diese Web-Site löschen wollen?
+        new:
+          title: Neue Web-Site
+        edit:
+          title: Web-Site bearbeiten
+        form:
+          create: Erstelle Web-Site
+          update: Web-Site speichern
+          is_mirrored: Gespiegelt
 
-    layouts:
-      index:
-        title: Layouts
-        new_link: Erstelle neue Layout
-      index_branch:
-        add_child_layout: Erstelle untergeordnetes Layout
-        edit: Bearbeiten
-        delete: Löschen
-        are_you_sure: Sind Sie sicher?
-      new:
-        title: Neues Layout
-      edit:
-        title: Layout bearbeiten
-        revision: Revision
-      form:
-        select_parent_layout: Select Parent Layout
-        select_app_layout: Select Application Layout
-        create: Erstelle Layout
-        update: Layout speichern
+      layouts:
+        index:
+          title: Layouts
+          new_link: Erstelle neue Layout
+        index_branch:
+          add_child_layout: Erstelle untergeordnetes Layout
+          edit: Bearbeiten
+          delete: Löschen
+          are_you_sure: Sind Sie sicher?
+        new:
+          title: Neues Layout
+        edit:
+          title: Layout bearbeiten
+          revision: Revision
+        form:
+          select_parent_layout: Select Parent Layout
+          select_app_layout: Select Application Layout
+          create: Erstelle Layout
+          update: Layout speichern
 
-    pages:
-      index:
-        title: Seiten
-        new_link: Erstelle neue Seite
-      index_branch:
-        toggle: Toggle
-        add_child_page: Erstelle untergeordnete Seite
-        edit: Bearbeiten
-        delete: Löschen
-        are_you_sure: Sind Sie sicher?
-      new:
-        title: Neue Seite
-      edit:
-        title: Seite bearbeiten
-        revision: Revision
-      form:
-        select_target_page: Keine Weiterleitung
-        preview: Vorschau
-        create: Erstelle Seite
-        update: Seite speichern
-        is_published: Veröffentlicht
-      form_blocks:
-        no_tags: |-
-          Layout has hat keine Inhalt-Tags definiert.<br/>
-          Bearbeiten den Inhalt des Layout um ein Inhalt-Tag hinzuzufügen. Zum Beispiel: <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Seiten
+          new_link: Erstelle neue Seite
+        index_branch:
+          toggle: Toggle
+          add_child_page: Erstelle untergeordnete Seite
+          edit: Bearbeiten
+          delete: Löschen
+          are_you_sure: Sind Sie sicher?
+        new:
+          title: Neue Seite
+        edit:
+          title: Seite bearbeiten
+          revision: Revision
+        form:
+          select_target_page: Keine Weiterleitung
+          preview: Vorschau
+          create: Erstelle Seite
+          update: Seite speichern
+          is_published: Veröffentlicht
+        form_blocks:
+          no_tags: |-
+            Layout has hat keine Inhalt-Tags definiert.<br/>
+            Bearbeiten den Inhalt des Layout um ein Inhalt-Tag hinzuzufügen. Zum Beispiel: <code>{{cms:page:content}}</code>
 
-    snippets:
-      index:
-        title: Schnipsels
-        new_link: Erstelle neuen Schnipsel
-        edit: Bearbeiten
-        delete: Löschen
-        are_you_sure: Sind Sie sicher?
-      new:
-        title: Neuer Schnipsel
-      edit:
-        title: Schnipsel bearbeiten
-        revision: Revision
-      form:
-        create: Erstelle Schnipsel
-        update: Schnipsel speichern
+      snippets:
+        index:
+          title: Schnipsels
+          new_link: Erstelle neuen Schnipsel
+          edit: Bearbeiten
+          delete: Löschen
+          are_you_sure: Sind Sie sicher?
+        new:
+          title: Neuer Schnipsel
+        edit:
+          title: Schnipsel bearbeiten
+          revision: Revision
+        form:
+          create: Erstelle Schnipsel
+          update: Schnipsel speichern
 
-    revisions:
-      show:
-        title: Revisionen von
-        revision: Revision
-        full_path: Completer Pfad
-        slug: Slug
-        update: Zurücksetzen auf diese Revision
-        current: Aktuell
+      revisions:
+        show:
+          title: Revisionen von
+          revision: Revision
+          full_path: Completer Pfad
+          slug: Slug
+          update: Zurücksetzen auf diese Revision
+          current: Aktuell
 
-    files:
-      index:
-        title: Datei
-        new_link: Neue Datei hochladen
-        edit: Bearbeiten
-        delete: Löschen
-        are_you_sure: Sind Sie sicher?
-        button: Datei hochladen
-      new:
-        title: Neue Datei
-      edit:
-        title: Datei bearbeiten
-      form:
-        current_file: Aktuelle Datei
-        create: Lade Datei hoch
-        update: Datei speichern
-      page_form:
-        are_you_sure: Sind Sie sicher?
-      file:
-        are_you_sure: Sind Sie sicher?
+      files:
+        index:
+          title: Datei
+          new_link: Neue Datei hochladen
+          edit: Bearbeiten
+          delete: Löschen
+          are_you_sure: Sind Sie sicher?
+          button: Datei hochladen
+        new:
+          title: Neue Datei
+        edit:
+          title: Datei bearbeiten
+        form:
+          current_file: Aktuelle Datei
+          create: Lade Datei hoch
+          update: Datei speichern
+        page_form:
+          are_you_sure: Sind Sie sicher?
+        file:
+          are_you_sure: Sind Sie sicher?
 
-    categories:
-      index:
-        label: Kategorien
-        edit: Bearbeiten
-        done: Erledigt
-        all: Alle
-        add: Hinzuzufügen
-      show:
-        are_you_sure: Sind Sie sicher?
-      edit:
-        save: Speichern
-      form:
-        label: Kategorien
+      categories:
+        index:
+          label: Kategorien
+          edit: Bearbeiten
+          done: Erledigt
+          all: Alle
+          add: Hinzuzufügen
+        show:
+          are_you_sure: Sind Sie sicher?
+        edit:
+          save: Speichern
+        form:
+          label: Kategorien
 
-    dialogs:
-      image:
-        insert: Bild einfügen
-      link:
-        create: Link erstellen
+      dialogs:
+        image:
+          insert: Bild einfügen
+        link:
+          create: Link erstellen

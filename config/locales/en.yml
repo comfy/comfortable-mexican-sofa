@@ -45,7 +45,7 @@ en:
     base:
       site_not_found: Site not found
       fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
-      
+    
     sites:
       created: Site created
       creation_failure: Failed to create site
@@ -53,7 +53,7 @@ en:
       update_failure: Failed to update site
       deleted: Site deleted
       not_found: Site not found
-      
+    
     layouts:
       created: Layout created
       creation_failure: Failed to create layout
@@ -61,7 +61,7 @@ en:
       update_failure: Failed to update layout
       deleted: Layout deleted
       not_found: Layout not found
-      
+    
     pages:
       created: Page created
       creation_failure: Failed to create page
@@ -70,7 +70,7 @@ en:
       deleted: Page deleted
       not_found: Page not found
       layout_not_found: No Layouts found. Please create one.
-      
+    
     snippets:
       created: Snippet created
       creation_failure: Failed to create snippet
@@ -78,12 +78,12 @@ en:
       update_failure: Failed to update snippet
       deleted: Snippet deleted
       not_found: Snippet not found
-      
+    
     revisions:
       reverted: Content Reverted
       record_not_found: Record Not Found
       not_found: Revision Not Found
-      
+    
     files:
       created: Files uploaded
       creation_failure: Failed to upload files
@@ -91,146 +91,147 @@ en:
       update_failure: Failed to update file
       deleted: File deleted
       not_found: File not found
-      
+    
     content:
       site_not_found: Site Not Found
       layout_not_found: Layout Not Found
       page_not_found: Page Not Found
   
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Sites
-      layouts: Layouts
-      pages: Pages
-      snippets: Snippets
-      files: Files
+  admin:
+    cms:
+      base:
+        sites: Sites
+        layouts: Layouts
+        pages: Pages
+        snippets: Snippets
+        files: Files
       
-    sites:
-      index:
-        title: Sites
-        new_link: Create New Site
-        select: Select Site
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure you want to delete this site?
-      new:
-        title: New Site
-      edit:
-        title: Editing Site
-      form:
-        create: Create Site
-        update: Update Site
-        is_mirrored: Mirrored
+      sites:
+        index:
+          title: Sites
+          new_link: Create New Site
+          select: Select Site
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure you want to delete this site?
+        new:
+          title: New Site
+        edit:
+          title: Editing Site
+        form:
+          create: Create Site
+          update: Update Site
+          is_mirrored: Mirrored
         
-    layouts:
-      index:
-        title: Layouts
-        new_link: Create New Layout
-      index_branch:
-        add_child_layout: Add Child Layout
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure?
-      new:
-        title: New Layout
-      edit:
-        title: Editing Layout
-        revision: Revision
-      form:
-        select_parent_layout: Select Parent Layout
-        select_app_layout: Select Application Layout
-        create: Create Layout
-        update: Update Layout
+      layouts:
+        index:
+          title: Layouts
+          new_link: Create New Layout
+        index_branch:
+          add_child_layout: Add Child Layout
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure?
+        new:
+          title: New Layout
+        edit:
+          title: Editing Layout
+          revision: Revision
+        form:
+          select_parent_layout: Select Parent Layout
+          select_app_layout: Select Application Layout
+          create: Create Layout
+          update: Update Layout
       
-    pages:
-      index:
-        title: Pages
-        new_link: Create New Page
-      index_branch:
-        toggle: Toggle
-        add_child_page: Add Child Page
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure?
-      new:
-        title: New Page
-      edit:
-        title: Editing Page
-        revision: Revision
-      form:
-        select_target_page: No Redirect
-        preview: Preview
-        create: Create Page
-        update: Update Page
-        is_published: Published
-      form_blocks:
-        no_tags: |-
-          Layout has no content tags defined.<br/>
-          Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Pages
+          new_link: Create New Page
+        index_branch:
+          toggle: Toggle
+          add_child_page: Add Child Page
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure?
+        new:
+          title: New Page
+        edit:
+          title: Editing Page
+          revision: Revision
+        form:
+          select_target_page: No Redirect
+          preview: Preview
+          create: Create Page
+          update: Update Page
+          is_published: Published
+        form_blocks:
+          no_tags: |-
+            Layout has no content tags defined.<br/>
+            Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
       
-    snippets:
-      index:
-        title: Snippets
-        new_link: Create New Snippet
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure?
-      new:
-        title: New Snippet
-      edit:
-        title: Editing Snippet
-        revision: Revision
-      form:
-        create: Create Snippet
-        update: Update Snippet
+      snippets:
+        index:
+          title: Snippets
+          new_link: Create New Snippet
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure?
+        new:
+          title: New Snippet
+        edit:
+          title: Editing Snippet
+          revision: Revision
+        form:
+          create: Create Snippet
+          update: Update Snippet
           
-    revisions:
-      show:
-        title: Revisions for
-        revision: Revision
-        full_path: Full Path
-        slug: Slug
-        update: Update to this Revision
-        current: Current
+      revisions:
+        show:
+          title: Revisions for
+          revision: Revision
+          full_path: Full Path
+          slug: Slug
+          update: Update to this Revision
+          current: Current
       
-    files:
-      index:
-        title: Files
-        new_link: Upload New File
-        edit: Edit
-        delete: Delete
-        are_you_sure: Are you sure?
-        button: Upload Files
-      new:
-        title: New File
-      edit:
-        title: Editing File
-      form:
-        current_file: Current File
-        create: Upload File
-        update: Update File
-      page_form:
-        are_you_sure: Are you sure?
-      file:
-        are_you_sure: Are you sure?
+      files:
+        index:
+          title: Files
+          new_link: Upload New File
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure?
+          button: Upload Files
+        new:
+          title: New File
+        edit:
+          title: Editing File
+        form:
+          current_file: Current File
+          create: Upload File
+          update: Update File
+        page_form:
+          are_you_sure: Are you sure?
+        file:
+          are_you_sure: Are you sure?
         
-    categories:
-      index:
-        label: Categories
-        edit: Edit
-        done: Done
-        all: All
-        add: Add
-      show:
-        are_you_sure: Are you sure?
-      edit:
-        save: Save
-      form:
-        label: Categories
+      categories:
+        index:
+          label: Categories
+          edit: Edit
+          done: Done
+          all: All
+          add: Add
+        show:
+          are_you_sure: Are you sure?
+        edit:
+          save: Save
+        form:
+          label: Categories
         
-    dialogs:
-      image:
-        insert: Insert Image
-      link:
-        create: Create Link
+      dialogs:
+        image:
+          insert: Insert Image
+        link:
+          create: Create Link

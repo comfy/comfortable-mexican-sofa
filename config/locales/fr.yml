@@ -98,139 +98,140 @@ fr:
       page_not_found: Page introuvable
   
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Sites
-      layouts: Mises en page
-      pages: Pages
-      snippets: Fragments
-      files: Fichiers
+  admin:
+    cms:
+      base:
+        sites: Sites
+        layouts: Mises en page
+        pages: Pages
+        snippets: Fragments
+        files: Fichiers
       
-    sites:
-      index:
-        title: Sites
-        new_link: Nouveau site
-        select: Sélectionner ce site
-        edit: Modifier
-        delete: Supprimer
-        are_you_sure: Êtes-vous sûr de vouloir supprimer ce site ?
-      new:
-        title: Nouveau site
-      edit:
-        title: Modification du site
-      form:
-        create: Créer le site
-        update: Modifier le site
-        is_mirrored: En miroir
+      sites:
+        index:
+          title: Sites
+          new_link: Nouveau site
+          select: Sélectionner ce site
+          edit: Modifier
+          delete: Supprimer
+          are_you_sure: Êtes-vous sûr de vouloir supprimer ce site ?
+        new:
+          title: Nouveau site
+        edit:
+          title: Modification du site
+        form:
+          create: Créer le site
+          update: Modifier le site
+          is_mirrored: En miroir
         
-    layouts:
-      index:
-        title: Mises en page
-        new_link: Nouvelle mise en page
-      index_branch:
-        add_child_layout: Ajouter une mise en page enfant
-        edit: Modifier
-        delete: Supprimer
-        are_you_sure: Êtes-vous sûr de vouloir supprimer cette mise en page ?
-      new:
-        title: Nouvelle mise en page
-      edit:
-        title: Modification de la mise en page
-        revision: révision
-      form:
-        select_parent_layout: Sélectionner une mise en page parent
-        select_app_layout: Sélectionner une mise en page de l'application
-        create: Créer la mise en page
-        update: Modifier la mise en page
+      layouts:
+        index:
+          title: Mises en page
+          new_link: Nouvelle mise en page
+        index_branch:
+          add_child_layout: Ajouter une mise en page enfant
+          edit: Modifier
+          delete: Supprimer
+          are_you_sure: Êtes-vous sûr de vouloir supprimer cette mise en page ?
+        new:
+          title: Nouvelle mise en page
+        edit:
+          title: Modification de la mise en page
+          revision: révision
+        form:
+          select_parent_layout: Sélectionner une mise en page parent
+          select_app_layout: Sélectionner une mise en page de l'application
+          create: Créer la mise en page
+          update: Modifier la mise en page
       
-    pages:
-      index:
-        title: Pages
-        new_link: Nouvelle page
-      index_branch:
-        toggle: Basculer
-        add_child_page: Ajouter une page enfant
-        edit: Modifier
-        delete: Supprimer
-        are_you_sure: Êtes-vous sûr de vouloir supprimer cette page ?
-      new:
-        title: Nouvelle page
-      edit:
-        title: Modification de la page
-        revision: révision
-      form:
-        select_target_page: Pas de redirection
-        preview: Prévisualiser
-        create: Créer la page
-        update: Modifier la page
-        is_published: Publié
-      form_blocks:
-        no_tags: |-
-          Mise en page sans aucun tag de contenu.<br/>
-          Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Pages
+          new_link: Nouvelle page
+        index_branch:
+          toggle: Basculer
+          add_child_page: Ajouter une page enfant
+          edit: Modifier
+          delete: Supprimer
+          are_you_sure: Êtes-vous sûr de vouloir supprimer cette page ?
+        new:
+          title: Nouvelle page
+        edit:
+          title: Modification de la page
+          revision: révision
+        form:
+          select_target_page: Pas de redirection
+          preview: Prévisualiser
+          create: Créer la page
+          update: Modifier la page
+          is_published: Publié
+        form_blocks:
+          no_tags: |-
+            Mise en page sans aucun tag de contenu.<br/>
+            Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
       
-    snippets:
-      index:
-        title: Fragments
-        new_link: Nouveau fragment
-        edit: Modifier
-        delete: Supprimer
-        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
-      new:
-        title: Nouveau fragment
-      edit:
-        title: Modification du fragment
-        revision: révision
-      form:
-        create: Créer le fragment
-        update: Modifier le fragment
+      snippets:
+        index:
+          title: Fragments
+          new_link: Nouveau fragment
+          edit: Modifier
+          delete: Supprimer
+          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
+        new:
+          title: Nouveau fragment
+        edit:
+          title: Modification du fragment
+          revision: révision
+        form:
+          create: Créer le fragment
+          update: Modifier le fragment
           
-    revisions:
-      show:
-        title: "Révisions :"
-        revision: révision
-        full_path: Chemin complet 
-        slug: Identifiant
-        update: Restaurer cette révision
-        current: Actuel
+      revisions:
+        show:
+          title: "Révisions :"
+          revision: révision
+          full_path: Chemin complet 
+          slug: Identifiant
+          update: Restaurer cette révision
+          current: Actuel
       
-    files:
-      index:
-        title: Fichiers
-        new_link: Nouveau fichier
-        edit: Modifier
-        delete: Supprimer
-        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-        button: Ajouter des fichiers
-      new:
-        title: Nouveau fichier
-      edit:
-        title: Modification du fichier
-      form:
-        current_file: Fichier actuel
-        create: Envoyer
-        update: Modifier le fichier
-      page_form:
-        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-      file:
-        are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+      files:
+        index:
+          title: Fichiers
+          new_link: Nouveau fichier
+          edit: Modifier
+          delete: Supprimer
+          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+          button: Ajouter des fichiers
+        new:
+          title: Nouveau fichier
+        edit:
+          title: Modification du fichier
+        form:
+          current_file: Fichier actuel
+          create: Envoyer
+          update: Modifier le fichier
+        page_form:
+          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+        file:
+          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
         
-    categories:
-      index:
-        label: Catégories
-        edit: Modifier les catégories
-        done: Terminé
-        all: Tout
-        add: Ajouter
-      show:
-        are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
-      edit:
-        save: Enregistrer
-      form:
-        label: Catégories
+      categories:
+        index:
+          label: Catégories
+          edit: Modifier les catégories
+          done: Terminé
+          all: Tout
+          add: Ajouter
+        show:
+          are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
+        edit:
+          save: Enregistrer
+        form:
+          label: Catégories
         
-    dialogs:
-      image:
-        insert: Insérer une image
-      link:
-        create: Insérer un lien
+      dialogs:
+        image:
+          insert: Insérer une image
+        link:
+          create: Insérer un lien

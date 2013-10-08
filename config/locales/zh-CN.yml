@@ -98,139 +98,140 @@ zh-CN:
       page_not_found: 页面不存在
 
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: 站点
-      layouts: 布局
-      pages: 页面
-      snippets: 片段
-      files: 文件
+  admin:
+    cms:
+      base:
+        sites: 站点
+        layouts: 布局
+        pages: 页面
+        snippets: 片段
+        files: 文件
 
-    sites:
-      index:
-        title: 站点
-        new_link: 创建站点
-        select: 选择站点
-        edit: 编辑
-        delete: 删除
-        are_you_sure: 确定删除该站点吗？
-      new:
-        title: 新站点
-      edit:
-        title: 编辑站点
-      form:
-        create: 创建站点
-        update: 更新站点
-        is_mirrored: 镜像
+      sites:
+        index:
+          title: 站点
+          new_link: 创建站点
+          select: 选择站点
+          edit: 编辑
+          delete: 删除
+          are_you_sure: 确定删除该站点吗？
+        new:
+          title: 新站点
+        edit:
+          title: 编辑站点
+        form:
+          create: 创建站点
+          update: 更新站点
+          is_mirrored: 镜像
 
-    layouts:
-      index:
-        title: 布局
-        new_link: 创建新布局
-      index_branch:
-        add_child_layout: 创建子布局
-        edit: 编辑
-        delete: 删除
-        are_you_sure: 确定删除该布局吗？
-      new:
-        title: 新布局
-      edit:
-        title: 编辑布局
-        revision: 修订版本
-      form:
-        select_parent_layout: 选择上级布局
-        select_app_layout: 选择应用布局
-        create: 创建布局
-        update: 更新布局
+      layouts:
+        index:
+          title: 布局
+          new_link: 创建新布局
+        index_branch:
+          add_child_layout: 创建子布局
+          edit: 编辑
+          delete: 删除
+          are_you_sure: 确定删除该布局吗？
+        new:
+          title: 新布局
+        edit:
+          title: 编辑布局
+          revision: 修订版本
+        form:
+          select_parent_layout: 选择上级布局
+          select_app_layout: 选择应用布局
+          create: 创建布局
+          update: 更新布局
 
-    pages:
-      index:
-        title: 页面
-        new_link: 创建新页面
-      index_branch:
-        toggle: 切换
-        add_child_page: 创建子页面
-        edit: 编辑
-        delete: 删除
-        are_you_sure: 确定删除该页面吗？
-      new:
-        title: 新页面
-      edit:
-        title: 编辑页面
-        revision: 修订版本
-      form:
-        select_target_page: 没有跳转
-        preview: 预览
-        create: 创建页面
-        update: 更新页面
-        is_published: 发布
-      form_blocks:
-        no_tags: |-
-          布局中没有定义内容标签。<br/>
-          编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: 页面
+          new_link: 创建新页面
+        index_branch:
+          toggle: 切换
+          add_child_page: 创建子页面
+          edit: 编辑
+          delete: 删除
+          are_you_sure: 确定删除该页面吗？
+        new:
+          title: 新页面
+        edit:
+          title: 编辑页面
+          revision: 修订版本
+        form:
+          select_target_page: 没有跳转
+          preview: 预览
+          create: 创建页面
+          update: 更新页面
+          is_published: 发布
+        form_blocks:
+          no_tags: |-
+            布局中没有定义内容标签。<br/>
+            编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:page:content}}</code>
 
-    snippets:
-      index:
-        title: 片段
-        new_link: 创建新片段
-        edit: 编辑
-        delete: 删除
-        are_you_sure: 确定删除该片段吗？
-      new:
-        title: 新片段
-      edit:
-        title: 编辑片段
-        revision: 修订版本
-      form:
-        create: 创建片段
-        update: 更新片段
+      snippets:
+        index:
+          title: 片段
+          new_link: 创建新片段
+          edit: 编辑
+          delete: 删除
+          are_you_sure: 确定删除该片段吗？
+        new:
+          title: 新片段
+        edit:
+          title: 编辑片段
+          revision: 修订版本
+        form:
+          create: 创建片段
+          update: 更新片段
 
-    revisions:
-      show:
-        title: 修订版本属于
-        revision: 修订版本
-        full_path: 全路径
-        slug: 嵌条
-        update: 更新到该修订版本
-        current: Current
+      revisions:
+        show:
+          title: 修订版本属于
+          revision: 修订版本
+          full_path: 全路径
+          slug: 嵌条
+          update: 更新到该修订版本
+          current: Current
 
-    files:
-      index:
-        title: 文件
-        new_link: 上传新文件
-        edit: 编辑
-        delete: 删除
-        are_you_sure: 确定删除该文件吗？
-        button: 上传文件
-      new:
-        title: 新文件
-      edit:
-        title: 编辑文件
-      form:
-        current_file: 当前文件
-        create: 上传文件
-        update: 更新文件
-      page_form:
-        are_you_sure: 确定删除该文件吗？
-      file:
-        are_you_sure: 确定删除该文件吗？
+      files:
+        index:
+          title: 文件
+          new_link: 上传新文件
+          edit: 编辑
+          delete: 删除
+          are_you_sure: 确定删除该文件吗？
+          button: 上传文件
+        new:
+          title: 新文件
+        edit:
+          title: 编辑文件
+        form:
+          current_file: 当前文件
+          create: 上传文件
+          update: 更新文件
+        page_form:
+          are_you_sure: 确定删除该文件吗？
+        file:
+          are_you_sure: 确定删除该文件吗？
 
-    categories:
-      index:
-        label: 分类
-        edit: 编辑
-        done: 完成
-        all: 全部
-        add: 创建
-      show:
-        are_you_sure: 确定删除该分类吗？
-      edit:
-        save: 保存
-      form:
-        label: 分类
+      categories:
+        index:
+          label: 分类
+          edit: 编辑
+          done: 完成
+          all: 全部
+          add: 创建
+        show:
+          are_you_sure: 确定删除该分类吗？
+        edit:
+          save: 保存
+        form:
+          label: 分类
 
-    dialogs:
-      image:
-        insert: 插入图片
-      link:
-        create: 创建链接
+      dialogs:
+        image:
+          insert: 插入图片
+        link:
+          create: 创建链接

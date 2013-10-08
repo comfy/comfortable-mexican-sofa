@@ -1,13 +1,13 @@
 = render '/admin/cms/partials/navigation_before'
 
 %ul.navigation
-  %li= active_link_to t('cms_admin.base.sites'), cms_sites_path, :active => ['admin/cms/sites']
+  %li= active_link_to t('admin.cms.base.sites'), cms_sites_path, :active => ['admin/cms/sites']
   
   - if @site && !@site.new_record?
-    %li= active_link_to t('cms_admin.base.layouts'), cms_site_layouts_path(@site)
-    %li= active_link_to t('cms_admin.base.pages'), cms_site_pages_path(@site)
-    %li= active_link_to t('cms_admin.base.snippets'), cms_site_snippets_path(@site)
-    %li= active_link_to t('cms_admin.base.files'), cms_site_files_path(@site)
+    %li= active_link_to t('admin.cms.base.layouts'), cms_site_layouts_path(@site)
+    %li= active_link_to t('admin.cms.base.pages'), cms_site_pages_path(@site)
+    %li= active_link_to t('admin.cms.base.snippets'), cms_site_snippets_path(@site)
+    %li= active_link_to t('admin.cms.base.files'), cms_site_files_path(@site)
     
   = cms_hook :navigation
     

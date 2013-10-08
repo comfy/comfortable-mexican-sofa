@@ -98,139 +98,140 @@ pt-BR:
       page_not_found: Página Não Encontrada
   
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Sites
-      layouts: Leiautes
-      pages: Páginas
-      snippets: Fragmentos
-      files: Arquivos
+  admin:
+    cms:
+      base:
+        sites: Sites
+        layouts: Leiautes
+        pages: Páginas
+        snippets: Fragmentos
+        files: Arquivos
       
-    sites:
-      index:
-        title: Sites
-        new_link: Criar Novo Site
-        select: Selecionar Site
-        edit: Editar
-        delete: Excluir
-        are_you_sure: Tem certeza que deseja excluir este site?
-      new:
-        title: Novo Site
-      edit:
-        title: Editando Site
-      form:
-        create: Criar Site
-        update: Atualizar Site
-        is_mirrored: Espelhado
+      sites:
+        index:
+          title: Sites
+          new_link: Criar Novo Site
+          select: Selecionar Site
+          edit: Editar
+          delete: Excluir
+          are_you_sure: Tem certeza que deseja excluir este site?
+        new:
+          title: Novo Site
+        edit:
+          title: Editando Site
+        form:
+          create: Criar Site
+          update: Atualizar Site
+          is_mirrored: Espelhado
         
-    layouts:
-      index:
-        title: Leiautes
-        new_link: Criar Novo Leiaute
-      index_branch:
-        add_child_layout: Adicionar Leiaute Filho
-        edit: Editar
-        delete: Excluir
-        are_you_sure: Tem certeza?
-      new:
-        title: Novo Leiaute
-      edit:
-        title: Editando Leiaute
-        revision: Revisão
-      form:
-        select_parent_layout: Selecione o Leiaute Pai
-        select_app_layout: Selecione o Leiaute da Aplicação
-        create: Criar Leiaute
-        update: Atualizar Leiaute
+      layouts:
+        index:
+          title: Leiautes
+          new_link: Criar Novo Leiaute
+        index_branch:
+          add_child_layout: Adicionar Leiaute Filho
+          edit: Editar
+          delete: Excluir
+          are_you_sure: Tem certeza?
+        new:
+          title: Novo Leiaute
+        edit:
+          title: Editando Leiaute
+          revision: Revisão
+        form:
+          select_parent_layout: Selecione o Leiaute Pai
+          select_app_layout: Selecione o Leiaute da Aplicação
+          create: Criar Leiaute
+          update: Atualizar Leiaute
       
-    pages:
-      index:
-        title: Páginas
-        new_link: Criar Nova Página
-      index_branch:
-        toggle: Alterar
-        add_child_page: Adicionar Página Filha
-        edit: Editar
-        delete: Excluir
-        are_you_sure: Tem certeza?
-      new:
-        title: Nova Página
-      edit:
-        title: Editando Página
-        revision: Revisão
-      form:
-        select_target_page: Não Redirecionar
-        preview: Pré-visualização
-        create: Criar Página
-        update: Atualizar Página
-        is_published: Publicada
-      form_blocks:
-        no_tags: |-
-          O leiaute não possui tags de conteúdo definidas.<br/>
-          Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Páginas
+          new_link: Criar Nova Página
+        index_branch:
+          toggle: Alterar
+          add_child_page: Adicionar Página Filha
+          edit: Editar
+          delete: Excluir
+          are_you_sure: Tem certeza?
+        new:
+          title: Nova Página
+        edit:
+          title: Editando Página
+          revision: Revisão
+        form:
+          select_target_page: Não Redirecionar
+          preview: Pré-visualização
+          create: Criar Página
+          update: Atualizar Página
+          is_published: Publicada
+        form_blocks:
+          no_tags: |-
+            O leiaute não possui tags de conteúdo definidas.<br/>
+            Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
       
-    snippets:
-      index:
-        title: Fragmentos
-        new_link: Criar Novo Fragmento
-        edit: Editar
-        delete: Excluir
-        are_you_sure: Tem certeza?
-      new:
-        title: Novo Fragmento
-      edit:
-        title: Editando Fragmento
-        revision: Revisão
-      form:
-        create: Criar Fragmento
-        update: Atualizar Fragmento
+      snippets:
+        index:
+          title: Fragmentos
+          new_link: Criar Novo Fragmento
+          edit: Editar
+          delete: Excluir
+          are_you_sure: Tem certeza?
+        new:
+          title: Novo Fragmento
+        edit:
+          title: Editando Fragmento
+          revision: Revisão
+        form:
+          create: Criar Fragmento
+          update: Atualizar Fragmento
           
-    revisions:
-      show:
-        title: Revisões de
-        revision: Revisão
-        full_path: Caminho completo
-        slug: Identificador
-        update: Atualizar para esta revisão
-        current: Atual
+      revisions:
+        show:
+          title: Revisões de
+          revision: Revisão
+          full_path: Caminho completo
+          slug: Identificador
+          update: Atualizar para esta revisão
+          current: Atual
       
-    files:
-      index:
-        title: Arquivos
-        new_link: Enviar Novo Arquivo
-        edit: Editar
-        delete: Excluir
-        are_you_sure: Tem certeza?
-        button: Enviar Arquivos
-      new:
-        title: Novo Arquivo
-      edit:
-        title: Editando Arquivo
-      form:
-        current_file: Arquivo Atual
-        create: Enviar Arquivo
-        update: Atualizar Arquivo
-      page_form:
-        are_you_sure: Tem certeza?
-      file:
-        are_you_sure: Tem certeza?
+      files:
+        index:
+          title: Arquivos
+          new_link: Enviar Novo Arquivo
+          edit: Editar
+          delete: Excluir
+          are_you_sure: Tem certeza?
+          button: Enviar Arquivos
+        new:
+          title: Novo Arquivo
+        edit:
+          title: Editando Arquivo
+        form:
+          current_file: Arquivo Atual
+          create: Enviar Arquivo
+          update: Atualizar Arquivo
+        page_form:
+          are_you_sure: Tem certeza?
+        file:
+          are_you_sure: Tem certeza?
         
-    categories:
-      index:
-        label: Categorias
-        edit: Editar
-        done: Pronto
-        all: Todas
-        add: Adicionar
-      show:
-        are_you_sure: Tem certeza?
-      edit:
-        save: Salvar
-      form:
-        label: Categorias
+      categories:
+        index:
+          label: Categorias
+          edit: Editar
+          done: Pronto
+          all: Todas
+          add: Adicionar
+        show:
+          are_you_sure: Tem certeza?
+        edit:
+          save: Salvar
+        form:
+          label: Categorias
         
-    dialogs:
-      image:
-        insert: Inserir Imagem
-      link:
-        create: Criar Link
+      dialogs:
+        image:
+          insert: Inserir Imagem
+        link:
+          create: Criar Link
