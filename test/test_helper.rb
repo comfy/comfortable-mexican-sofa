@@ -93,6 +93,11 @@ class ActiveSupport::TestCase
     Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
     Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
+
+  def unstub_paperclip
+    Cms::Block.any_instance.unstub(:save_attached_files, :delete_attached_files)
+    Paperclip::Attachment.any_instance.unstub(:post_process)
+  end
   
 end
 

@@ -62,6 +62,19 @@ class CmsFileTest < ActiveSupport::TestCase
       assert_equal 'application/zip', file.file_content_type
     end
   end
+
+  def test_create_with_svg_font
+    unstub_paperclip
+    assert_difference 'Cms::File.count' do
+      file = cms_sites(:default).files.create!(
+        :file => fixture_file_upload('files/svgfont.svg', 'image/svg+xml')
+      )
+      assert_equal 'Svgfont', file.label
+      assert_equal 'svgfont.svg', file.file_file_name
+      assert_equal 'image/svg+xml', file.file_content_type
+    end
+  end
+  
   
   def test_create_failure
     assert_no_difference 'Cms::File.count' do
