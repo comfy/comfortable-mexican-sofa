@@ -7,7 +7,6 @@ class Cms::File < ActiveRecord::Base
   
   attr_accessor :dimensions
   
-  # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
     # dimensions accessor needs to be set before file assignment for this to work
     :styles => lambda { |f|
@@ -57,7 +56,6 @@ protected
     self.position = max ? max + 1 : 0
   end
   
-  # FIX: Terrible, but no way of creating cached page content overwise
   def reload_page_cache
     return unless self.block
     p = self.block.page
