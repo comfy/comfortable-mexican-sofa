@@ -29,7 +29,7 @@ zh-CN:
         css: 样式
         js: Javascript
       cms/page:
-        label: 布局名称
+        label: 页面名称
         layout_id: 布局
         slug: Slug
         target_page_id: 跳转至
