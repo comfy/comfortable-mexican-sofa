@@ -28,11 +28,11 @@ protected
   
   def load_record
     @record = if params[:layout_id]
-      Cms::Layout.find(params[:layout_id])
+      ::Cms::Layout.find(params[:layout_id])
     elsif params[:page_id]
-      Cms::Page.find(params[:page_id])
+      ::Cms::Page.find(params[:page_id])
     elsif params[:snippet_id]
-      Cms::Snippet.find(params[:snippet_id])
+      ::Cms::Snippet.find(params[:snippet_id])
     end
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('cms.revisions.record_not_found')
@@ -48,9 +48,9 @@ protected
   
   def redirect_to_record
     redirect_to case @record
-      when Cms::Layout  then edit_cms_admin_site_layout_path(@site, @record)
-      when Cms::Page    then edit_cms_admin_site_page_path(@site, @record)
-      when Cms::Snippet then edit_cms_admin_site_snippet_path(@site, @record)
+      when ::Cms::Layout  then edit_cms_admin_site_layout_path(@site, @record)
+      when ::Cms::Page    then edit_cms_admin_site_page_path(@site, @record)
+      when ::Cms::Snippet then edit_cms_admin_site_snippet_path(@site, @record)
     end
   end
   

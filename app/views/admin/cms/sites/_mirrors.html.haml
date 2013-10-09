@@ -3,14 +3,14 @@
 - object ||= nil
   
 - options = case object
-  - when Cms::Layout
+  - when ::Cms::Layout
     - object.mirrors.collect{|m| [m.site.label, edit_cms_admin_site_layout_path(m.site, m)]}
-  - when Cms::Page
+  - when ::Cms::Page
     - object.mirrors.collect{|m| [m.site.label, edit_cms_admin_site_page_path(m.site, m)]}
-  - when Cms::Snippet
+  - when ::Cms::Snippet
     - object.mirrors.collect{|m| [m.site.label, edit_cms_admin_site_snippet_path(m.site, m)]}
   - else
-    - (Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(params.merge(:site_id => s))]}
+    - (::Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(params.merge(:site_id => s))]}
 
 - options = [[@site.label, request.fullpath]] + options
 

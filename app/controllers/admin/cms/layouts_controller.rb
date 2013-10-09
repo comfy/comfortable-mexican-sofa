@@ -44,7 +44,7 @@ class Admin::Cms::LayoutsController < Admin::Cms::BaseController
   
   def reorder
     (params[:cms_layout] || []).each_with_index do |id, index|
-      Cms::Layout.where(:id => id).update_all(:position => index)
+      ::Cms::Layout.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
   end
@@ -53,7 +53,7 @@ protected
 
   def build_layout
     @layout = @site.layouts.new(layout_params)
-    @layout.parent      ||= Cms::Layout.find_by_id(params[:parent_id])
+    @layout.parent      ||= ::Cms::Layout.find_by_id(params[:parent_id])
     @layout.app_layout  ||= @layout.parent.try(:app_layout)
     @layout.content     ||= '{{ cms:page:content:text }}'
   end

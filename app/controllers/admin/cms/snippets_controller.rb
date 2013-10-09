@@ -44,7 +44,7 @@ class Admin::Cms::SnippetsController < Admin::Cms::BaseController
   
   def reorder
     (params[:cms_snippet] || []).each_with_index do |id, index|
-      Cms::Snippet.where(:id => id).update_all(:position => index)
+      ::Cms::Snippet.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
   end

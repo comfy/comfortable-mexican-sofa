@@ -67,7 +67,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
 
   def reorder
     (params[:cms_page] || []).each_with_index do |id, index|
-      Cms::Page.where(:id => id).update_all(:position => index)
+      ::Cms::Page.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
   end
