@@ -10,7 +10,7 @@ pl:
   activerecord:
     models:
       cms/site: Witryna
-      cms/layout: Szablin
+      cms/layout: Szablon
       cms/page: Strona
       cms/snippet: Snippet
       cms/file: Plik
@@ -23,7 +23,7 @@ pl:
         is_mirrored: Mirror
       cms/layout:
         identifier: Identyfikator
-        label: Nazwa layout'u
+        label: Nazwa szablonu
         app_layout: Nazwa aplikacji
         parent_id: Rodzic
         css: Style
@@ -44,7 +44,7 @@ pl:
   cms:
     base:
       site_not_found: Strona nie została znaleziona
-      fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
+      fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zapisane tutaj nie będą uwzględnione.
       
     sites:
       created: Witryna została utworzona
@@ -102,9 +102,9 @@ pl:
     base:
       sites: Witryny
       layouts: Szablony
-      pages: Pages
-      snippets: Snippets
-      files: Files
+      pages: Strony
+      snippets: Snippety
+      files: Pliki
       
     sites:
       index:
@@ -136,7 +136,11 @@ pl:
         title: Nowy szablon
       edit:
         title: Edytuj szablon
-        revision: Wersje
+        revision: &revision_plural_forms
+          one: 1 wersja
+          few: '%{count} wersje'
+          many: '%{count} wersji'
+          other: '%{count} wersji'
       form:
         select_parent_layout: Wybierz szablon rodzic
         select_app_layout: Wybierz szablon aplikacji
@@ -157,7 +161,8 @@ pl:
         title: Nowa strona
       edit:
         title: Edytuj stronę
-        revision: Wersje
+        revision: 
+          <<: *revision_plural_forms
       form:
         select_target_page: Bez przekierowania
         preview: Podgląd
@@ -171,7 +176,7 @@ pl:
       
     snippets:
       index:
-        title: Snippets
+        title: Snippety
         new_link: Utwórz nowy snippet
         edit: Edytuj
         delete: Usuń
@@ -180,7 +185,8 @@ pl:
         title: Nowy snippet
       edit:
         title: Edytuj snippet
-        revision: Wersje
+        revision: 
+          <<: *revision_plural_forms
       form:
         create: Utwórz snippet
         update: Uaktualnij snippet
