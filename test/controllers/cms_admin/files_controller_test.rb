@@ -96,6 +96,24 @@ class CmsAdmin::FilesControllerTest < ActionController::TestCase
       assert_equal 'Files uploaded', flash[:success]
     end
   end
+
+  def test_create_svg_font
+    unstub_paperclip
+    assert_difference 'Cms::File.count' do
+      post :create, :site_id => cms_sites(:default), :file => {
+        :label        => 'Test Font',
+        :description  => 'Font Description',
+        :file         => [fixture_file_upload('files/svgfont.svg', 'image/svg+xml')]
+      }
+      assert_response :redirect
+      file = Cms::File.last
+      assert_equal cms_sites(:default), file.site
+      assert_equal 'Test Font', file.label
+      assert_equal 'Font Description', file.description
+      assert_redirected_to :action => :edit, :id => file
+      assert_equal 'Files uploaded', flash[:success]
+    end
+  end
   
   def test_create_failure
     assert_no_difference 'Cms::File.count' do

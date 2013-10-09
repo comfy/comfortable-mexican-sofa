@@ -19,6 +19,7 @@ class Cms::File < ActiveRecord::Base
     }
   )
   before_post_process :is_image?
+  before_post_process :skip_svg_font
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
@@ -44,6 +45,16 @@ class Cms::File < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   def is_image?
     IMAGE_MIMETYPES.include?(file_content_type)
+  end
+
+  def skip_svg_font
+    return true if file_content_type != 'image/svg+xml' # continue processing
+    File.open(file.queued_for_write[:original].path) do |fp|
+      bytes = fp.read(4096)
+      if bytes =~ /<font/
+        return false # don't process
+      end
+    end
   end
   
 protected

@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata></metadata>
+<defs>
+<font id="droid_serifregular" horiz-adv-x="1145" >
+<font-face units-per-em="2048" ascent="1638" descent="-410" />
+<missing-glyph horiz-adv-x="532" />
+<glyph horiz-adv-x="2048" />
+<glyph horiz-adv-x="2048" />
+<glyph unicode="&#xd;" horiz-adv-x="2048" />
+<glyph unicode=" "  horiz-adv-x="532" />
+<glyph unicode="&#x09;" horiz-adv-x="532" />
+<glyph unicode="&#xa0;" horiz-adv-x="532" />
+<glyph unicode="!" horiz-adv-x="682" d="M211 125q0 40 10 66.5t27.5 42.5t41 23t50.5 7q26 0 49.5 -7t41 -23t28 -42.5t10.5 -66.5q0 -39 -10.5 -66t-28 -43t-41 -23t-49.5 -7q-27 0 -50.5 7t-41 23t-27.5 43t-10 66zM221 1462h238l-72 -1050h-94z" />
+<glyph unicode="&#x22;" horiz-adv-x="836" d="M117 1462h217l-62 -481h-94zM502 1462h217l-62 -481h-94z" />
+<glyph unicode="#" d="M82 416v121h190l78 401h-244v121h267l73 403h125l-75 -403h284l76 403h123l-76 -403h160v-121h-182l-76 -401h233v-121h-258l-78 -416h-122l77 416h-284l-78 -416h-123l78 416h-168zM397 537h285l76 401h-285z" />
+<glyph unicode="$" d="M135 166v315h86q0 -57 21.5 -110.5t61 -96t94 -70t120.5 -32.5v506q-96 43 -162.5 85t-107.5 88.5t-59.5 100.5t-18.5 121q0 69 24.5 125t69.5 97.5t109.5 67t144.5 34.5v159h103v-155q92 -2 156.5 -20.5t105.5 -49t59.5 -71.5t18.5 -89q0 -66 -44 -99.5t-118 -33.5 q0 45 -7.5 90.5t-27 83t-54.5 63.5t-89 32v-478q92 -40 163 -80t119 -86.5t73 -103t25 -129.5q0 -154 -99 -239.5t-281 -104.5v-248h-103v244q-51 0 -103 4.5t-101.5 15t-95 26.5t-83.5 38zM354 1090q0 -43 10.5 -75.5t31.5 -57.5t51.5 -45t70.5 -38v429q-40 -9 -71 -28.5 t-51.5 -47t-31 -62.5t-10.5 -75zM621 178q92 16 142 74.5t50 146.5q0 41 -10 73.5t-33 60.5t-59.5 52t-89.5 48v-455z" />
+</font>
+</defs></svg> 
