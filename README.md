@@ -31,7 +31,7 @@ Then from the Rails project's root run:
 Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item.
 
 ```ruby
-ComfortableMexicanSofa::Routing.admin   :path => '/cms-admin'
+ComfortableMexicanSofa::Routing.admin   :path => '/admin'
 ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
 ```
 

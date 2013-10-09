@@ -8,6 +8,6 @@
     - categories = active ? categories.reject{|c| c == category.label} : categories << category.label
     = link_to category.label, "?#{{:category => categories}.to_param}"
   - else
-    = link_to category.label, edit_cms_site_category_path(@site, category), :remote => true
-    = link_to cms_site_category_path(@site, category), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
+    = link_to category.label, edit_cms_admin_site_category_path(@site, category), :remote => true
+    = link_to cms_admin_site_category_path(@site, category), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
       %i.icon-remove-circle

@@ -1,5 +1,5 @@
 .page-header
-  = link_to pluralize(@layout.revisions.count, t('.revision')), cms_site_layout_revisions_path(@site, @layout), :class => 'btn pull-right'
+  = link_to pluralize(@layout.revisions.count, t('.revision')), cms_admin_site_layout_revisions_path(@site, @layout), :class => 'btn pull-right'
   %h2= t('.title')
 
 - content_for :right_column do

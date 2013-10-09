@@ -2,7 +2,7 @@
 - files_scope = (type == 'image') ? @site.files.images : @site.files
 
 .box.file-uploader
-  = form_for :file, :url => cms_site_files_path(@site, :ajax => true), :html => {:multipart => true, :target => 'file-upload-frame'} do |form|
+  = form_for :file, :url => cms_admin_site_files_path(@site, :ajax => true), :html => {:multipart => true, :target => 'file-upload-frame'} do |form|
     %span.btn.btn-file
       = t('.button')
       = form.file_field :file, :multiple => true, :id => nil

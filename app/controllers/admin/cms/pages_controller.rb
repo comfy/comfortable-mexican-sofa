@@ -77,7 +77,7 @@ protected
   def check_for_layouts
     if @site.layouts.count == 0
       flash[:error] = I18n.t('cms.pages.layout_not_found')
-      redirect_to new_cms_site_layout_path(@site)
+      redirect_to new_cms_admin_site_layout_path(@site)
     end
   end
 

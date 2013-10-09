@@ -17,7 +17,7 @@
     - @site.categories.of_type(type).each do |category|
       = render :partial => 'admin/cms/categories/show', :object => category
     
-    = form_for :category, :url => cms_site_categories_path(@site), :remote => true, :html => {:id => 'new_category'} do |form|
+    = form_for :category, :url => cms_admin_site_categories_path(@site), :remote => true, :html => {:id => 'new_category'} do |form|
       = form.hidden_field :categorized_type, :value => type
       .input-append
         = form.text_field :label, :placeholder => 'Add Category'

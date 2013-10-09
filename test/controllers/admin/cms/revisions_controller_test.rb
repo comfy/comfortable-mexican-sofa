@@ -57,7 +57,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   def test_get_show_for_bad_type
     get :show, :site_id => cms_sites(:default), :snippet_id => 'invalid', :id => cms_revisions(:snippet)
     assert_response :redirect
-    assert_redirected_to cms_path
+    assert_redirected_to cms_admin_path
     assert_equal 'Record Not Found', flash[:error]
   end
   
@@ -66,7 +66,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     get :show, :site_id => site, :layout_id => cms_layouts(:default), :id => 'invalid'
     assert_response :redirect
     assert assigns(:record)
-    assert_redirected_to edit_cms_site_layout_path(site, assigns(:record))
+    assert_redirected_to edit_cms_admin_site_layout_path(site, assigns(:record))
     assert_equal 'Revision Not Found', flash[:error]
   end
   
@@ -75,7 +75,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     get :show, :site_id => site, :page_id => cms_pages(:default), :id => 'invalid'
     assert_response :redirect
     assert assigns(:record)
-    assert_redirected_to edit_cms_site_page_path(site, assigns(:record))
+    assert_redirected_to edit_cms_admin_site_page_path(site, assigns(:record))
     assert_equal 'Revision Not Found', flash[:error]
   end
   
@@ -84,7 +84,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     get :show, :site_id => site, :snippet_id => cms_snippets(:default), :id => 'invalid'
     assert_response :redirect
     assert assigns(:record)
-    assert_redirected_to edit_cms_site_snippet_path(site, assigns(:record))
+    assert_redirected_to edit_cms_admin_site_snippet_path(site, assigns(:record))
     assert_equal 'Revision Not Found', flash[:error]
   end
   
@@ -94,7 +94,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_difference 'layout.revisions.count' do 
       put :revert, :site_id => cms_sites(:default), :layout_id => layout, :id => cms_revisions(:layout)
       assert_response :redirect
-      assert_redirected_to edit_cms_site_layout_path(layout.site, layout)
+      assert_redirected_to edit_cms_admin_site_layout_path(layout.site, layout)
       assert_equal 'Content Reverted', flash[:success]
       
       layout.reload
@@ -110,7 +110,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_difference 'page.revisions.count' do
       put :revert, :site_id => cms_sites(:default), :page_id => page, :id => cms_revisions(:page)
       assert_response :redirect
-      assert_redirected_to edit_cms_site_page_path(page.site, page)
+      assert_redirected_to edit_cms_admin_site_page_path(page.site, page)
       assert_equal 'Content Reverted', flash[:success]
       
       page.reload
@@ -127,7 +127,7 @@ class Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_difference 'snippet.revisions.count' do
       put :revert, :site_id => cms_sites(:default), :snippet_id => snippet, :id => cms_revisions(:snippet)
       assert_response :redirect
-      assert_redirected_to edit_cms_site_snippet_path(snippet.site, snippet)
+      assert_redirected_to edit_cms_admin_site_snippet_path(snippet.site, snippet)
       assert_equal 'Content Reverted', flash[:success]
       
       snippet.reload

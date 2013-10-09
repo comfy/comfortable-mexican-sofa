@@ -21,7 +21,7 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
     path = ComfortableMexicanSofa.config.admin_route_redirect
     return redirect_to(path) unless path.blank?
     load_admin_site
-    redirect_to cms_site_pages_path(@site) if @site
+    redirect_to cms_admin_site_pages_path(@site) if @site
   end
   
 protected
@@ -32,7 +32,7 @@ protected
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
       flash[:error] = I18n.t('cms.base.site_not_found')
-      return redirect_to(new_cms_site_path)
+      return redirect_to(new_cms_admin_site_path)
     end
   end
 

@@ -9,13 +9,13 @@
           %span &#8645;
           
     .btn-group
-      = link_to t('.add_child_layout'), new_cms_site_layout_path(@site, :parent_id => layout.id), :class => 'btn btn-small'
-      = link_to t('.edit'), edit_cms_site_layout_path(@site, layout), :class => 'btn btn-small'
-      = link_to t('.delete'), cms_site_layout_path(@site, layout), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+      = link_to t('.add_child_layout'), new_cms_admin_site_layout_path(@site, :parent_id => layout.id), :class => 'btn btn-small'
+      = link_to t('.edit'), edit_cms_admin_site_layout_path(@site, layout), :class => 'btn btn-small'
+      = link_to t('.delete'), cms_admin_site_layout_path(@site, layout), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
     
     .item-content
       .item-title
-        = link_to layout.label, edit_cms_site_layout_path(@site, layout)
+        = link_to layout.label, edit_cms_admin_site_layout_path(@site, layout)
       .item-meta
         = layout.identifier
 
