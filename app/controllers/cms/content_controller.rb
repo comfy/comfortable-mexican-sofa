@@ -1,10 +1,9 @@
-class Cms::ContentController < ApplicationController
+class Cms::ContentController < Cms::BaseController
   
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.public_auth.to_s.constantize
   
-  before_action :load_cms_site,
-                :load_fixtures
+  before_action :load_fixtures
   before_action :load_cms_page,
                 :authenticate,
                 :only => :render_html
@@ -37,25 +36,6 @@ protected
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
     ComfortableMexicanSofa::Fixture::Importer.new(@cms_site.identifier).import!
-  end
-  
-  def load_cms_site
-    @cms_site ||= if params[:site_id]
-      ::Cms::Site.find_by_id(params[:site_id])
-    else
-      ::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
-    end
-    
-    if @cms_site
-      if params[:cms_path].present?
-        params[:cms_path].gsub!(/^#{@cms_site.path}/, '')
-        params[:cms_path].to_s.gsub!(/^\//, '')
-      end
-      I18n.locale = @cms_site.locale
-    else
-      I18n.locale = I18n.default_locale
-      raise ActionController::RoutingError.new('Site Not Found')
-    end
   end
   
   def load_cms_page
