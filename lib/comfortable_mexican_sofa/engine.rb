@@ -10,6 +10,7 @@ require 'jquery-ui-rails'
 require 'haml-rails'
 require 'sass-rails'
 require 'coffee-rails'
+require 'codemirror-rails'
 require 'kaminari'
 
 module ComfortableMexicanSofa

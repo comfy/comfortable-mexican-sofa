@@ -1,8 +1,14 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
+#= require codemirror
+#= require codemirror/modes/css
+#= require codemirror/modes/htmlmixed
+#= require codemirror/modes/javascript
+#= require codemirror/modes/markdown
+#= require codemirror/modes/xml
+#= require codemirror/addons/edit/closetag
 #= require comfortable_mexican_sofa/lib/bootstrap
-#= require comfortable_mexican_sofa/lib/codemirror
 #= require comfortable_mexican_sofa/lib/wysihtml5
 #= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
 #= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
