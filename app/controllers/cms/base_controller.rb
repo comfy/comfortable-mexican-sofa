@@ -12,9 +12,13 @@ protected
     end
     
     if @cms_site
-      if params[:cms_path].present?
-        params[:cms_path].gsub!(/^#{@cms_site.path}/, '')
-        params[:cms_path].to_s.gsub!(/^\//, '')
+      if @cms_site.path.present?
+        if params[:cms_path].match(/\A#{@cms_site.path}/)
+          params[:cms_path].gsub!(/\A#{@cms_site.path}/, '')
+          params[:cms_path].to_s.gsub!(/\A\//, '')
+        else
+          raise ActionController::RoutingError.new('Site Not Found')
+        end
       end
       I18n.locale = @cms_site.locale
     else

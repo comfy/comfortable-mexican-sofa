@@ -162,7 +162,7 @@ class Cms::ContentControllerTest < ActionController::TestCase
   def test_render_sitemap
     get :render_sitemap, :format => :xml
     assert_response :success
-    assert_match '<loc>http://test.host/child-page</loc>', response.body
+    assert_match '<loc>//test.host/child-page</loc>', response.body
   end
 
   def test_render_sitemap_with_path
@@ -172,17 +172,16 @@ class Cms::ContentControllerTest < ActionController::TestCase
     get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
     assert_equal cms_sites(:default), assigns(:cms_site)
-    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
+    assert_match '<loc>//test.host/en/child-page</loc>', response.body
   end
   
   def test_render_sitemap_with_path_invalid_with_single_site
     site = cms_sites(:default)
     site.update_columns(:path => 'en')
     
-    get :render_sitemap, :cms_path => 'fr', :format => :xml
-    assert_response :success
-    assert_equal cms_sites(:default), assigns(:cms_site)
-    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
+    assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
+      get :render_sitemap, :cms_path => 'fr', :format => :xml
+    end
   end
 
 end
