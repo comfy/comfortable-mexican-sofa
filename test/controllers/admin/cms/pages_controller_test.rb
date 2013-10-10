@@ -404,7 +404,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     Cms::Layout.destroy_all
     get :new, :site_id => cms_sites(:default)
     assert_response :redirect
-    assert_redirected_to new_cms_admin_site_layout_path(cms_sites(:default))
+    assert_redirected_to new_admin_cms_site_layout_path(cms_sites(:default))
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
 
@@ -413,7 +413,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     page = cms_pages(:default)
     get :edit, :site_id => page.site, :id => page
     assert_response :redirect
-    assert_redirected_to new_cms_admin_site_layout_path(page.site)
+    assert_redirected_to new_admin_cms_site_layout_path(page.site)
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
 

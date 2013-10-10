@@ -1,5 +1,5 @@
 .page-header
-  = link_to t('.new_link'), new_cms_admin_site_path, :class => 'btn pull-right'
+  = link_to t('.new_link'), new_admin_cms_site_path, :class => 'btn pull-right'
   %h2= t('.title')
 
 = render 'admin/cms/partials/sites_before'
@@ -11,7 +11,7 @@
         .icon
       %td.main
         .item-title
-          = link_to site.label, cms_admin_site_pages_path(site)
+          = link_to site.label, admin_cms_site_pages_path(site)
         .item-meta
           .identifier
             = site.identifier
@@ -21,8 +21,8 @@
             = link_to host, host, :target => '_blank'
       %td
         .btn-group
-          = link_to t('.select'),  cms_admin_site_pages_path(site), :class => 'btn btn-small'
-          = link_to t('.edit'), edit_cms_admin_site_path(site), :class => 'btn btn-small'
-          = link_to t('.delete'), cms_admin_site_path(site), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+          = link_to t('.select'),  admin_cms_site_pages_path(site), :class => 'btn btn-small'
+          = link_to t('.edit'), edit_admin_cms_site_path(site), :class => 'btn btn-small'
+          = link_to t('.delete'), admin_cms_site_path(site), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
           
 = render 'admin/cms/partials/sites_after'

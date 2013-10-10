@@ -5,7 +5,7 @@ module ComfortableMexicanSofa::Routing
     
     Rails.application.routes.draw do
       scope :module => :admin do
-        namespace :cms, :as => :cms_admin, :path => options[:path], :except => :show do
+        namespace :cms, :as => :admin_cms, :path => options[:path], :except => :show do
           get '/', :to => 'base#jump'
           resources :sites do
             resources :pages do

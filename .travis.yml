@@ -1,7 +1,4 @@
 language: ruby
-before_install:
-  - gem update --system
-  - gem --version
 before_script:
   - rake db:migrate
 rvm:
@@ -10,9 +7,6 @@ rvm:
   - jruby-19mode
 gemfile:
   - test/gemfiles/Gemfile.rails.4.0
-notifications:
-  recipients:
-    - oleg@khabarov.ca
 branches:
   only:
     - master

@@ -1,6 +1,6 @@
 - category ||= edit
 
-= form_for @category, :as => :category, :url => cms_admin_site_category_path(@site, category), :remote => true, :html => {:id => dom_id(category)} do |form|
+= form_for @category, :as => :category, :url => admin_cms_site_category_path(@site, category), :remote => true, :html => {:id => dom_id(category)} do |form|
   .input-append
     = form.text_field :label
     %button.btn.btn-mini= t('.save')
