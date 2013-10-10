@@ -19,8 +19,10 @@
   - @current_content.each do |label, content|
     %tr
       %th= ::Cms::Layout.human_attribute_name(label)
-      %td.main= content
-      %td.main= @versioned_content[label]
+      %td
+        %pre= content
+      %td
+        %pre= @versioned_content[label]
   
 = comfy_form_for @revision, :url => {:action => :revert} do |form|
   .form-actions
