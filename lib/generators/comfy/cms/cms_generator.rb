@@ -1,8 +1,9 @@
+require 'rails/generators/active_record'
+
 module Comfy
   module Generators
     class CmsGenerator < Rails::Generators::Base
       
-      require 'rails/generators/active_record'
       include Rails::Generators::Migration
       include Thor::Actions
       
@@ -27,10 +28,10 @@ module Comfy
       
       def generate_routing
         route "
-  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
+  ComfortableMexicanSofa::Routing.admin :path => '/admin'
   
   # Make sure this routeset is defined last
-  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)"
+  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false"
       end
       
       def generate_cms_seeds
