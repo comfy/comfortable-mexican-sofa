@@ -1,13 +1,13 @@
 .page-header
-  = link_to 'New <%= class_name %>', new_admin_<%= file_name %>_path, :class => 'btn pull-right'
-  %h2= '<%= class_name.pluralize %>'
+  = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, :class => 'btn pull-right'
+  %h2= '<%= class_name.pluralize.titleize %>'
 
 = paginate @<%= file_name.pluralize %>
 
 %table.table.table-hover.table-bordered
   %tr
-  <%- model_attrs.each do |attr| -%>
-    %th <%= attr.name.titleize %>
+  <%- model_attrs.each_with_index do |attr, index| -%>
+    %th<%= '.main' if index == 0 %> <%= attr.name.titleize %>
   <%- end -%>
     %th
   - @<%= file_name.pluralize %>.each do |<%= file_name %>|

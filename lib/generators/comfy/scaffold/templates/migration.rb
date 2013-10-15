@@ -1,5 +1,5 @@
 class Create<%= class_name.pluralize %> < ActiveRecord::Migration
-  
+
   def change
     create_table :<%= file_name.pluralize %> do |t|
     <%- model_attrs.each do |attr| -%>
@@ -8,5 +8,5 @@ class Create<%= class_name.pluralize %> < ActiveRecord::Migration
       t.timestamps
     end
   end
-  
+
 end

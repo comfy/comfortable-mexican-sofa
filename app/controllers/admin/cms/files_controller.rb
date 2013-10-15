@@ -89,7 +89,7 @@ class Admin::Cms::FilesController < Admin::Cms::BaseController
   def reorder
     (params[:cms_file] || []).each_with_index do |id, index|
       if (cms_file = ::Cms::File.find_by_id(id))
-        cms_file.update_attributes(:position => index)
+        cms_file.update_column(:position, index)
       end
     end
     render :nothing => true
