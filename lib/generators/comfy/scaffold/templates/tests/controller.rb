@@ -25,7 +25,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     get :show, :id => 'invalid'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal '<%= class_name %> not found', flash[:error]
+    assert_equal '<%= class_name.titleize %> not found', flash[:error]
   end
 
   def test_get_new
@@ -48,13 +48,13 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     assert_difference '<%= class_name %>.count' do
       post :create, :<%= file_name %> => {
       <%- model_attrs.each do |attr| -%>
-        :<%= attr.name %> => 'test',
+        :<%= attr.name %> => 'test <%= attr.name %>',
       <%- end -%>
       }
       <%= file_name %> = <%= class_name %>.last
       assert_response :redirect
       assert_redirected_to :action => :show, :id => <%= file_name %>
-      assert_equal '<%= class_name %> created', flash[:success]
+      assert_equal '<%= class_name.titleize %> created', flash[:success]
     end
   end
 
@@ -63,7 +63,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
       post :create, :<%= file_name %> => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create <%= class_name %>', flash[:error]
+      assert_equal 'Failed to create <%= class_name.titleize %>', flash[:error]
     end
   end
 
@@ -75,7 +75,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     }
     assert_response :redirect
     assert_redirected_to :action => :show, :id => @<%= file_name %>
-    assert_equal '<%= class_name %> updated', flash[:success]
+    assert_equal '<%= class_name.titleize %> updated', flash[:success]
     @<%= file_name %>.reload
     assert_equal 'Updated', @<%= file_name %>.<%= attr.try(:name) || 'attribute' %>
   end
@@ -86,7 +86,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     }
     assert_response :success
     assert_template :edit
-    assert_equal 'Failed to update <%= class_name %>', flash[:error]
+    assert_equal 'Failed to update <%= class_name.titleize %>', flash[:error]
     @<%= file_name %>.reload
     refute_equal '', @<%= file_name %>.<%= attr.try(:name) || 'attribute' %>
   end
@@ -96,7 +96,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
       delete :destroy, :id => @<%= file_name %>
       assert_response :redirect
       assert_redirected_to :action => :index
-      assert_equal '<%= class_name %> deleted', flash[:success]
+      assert_equal '<%= class_name.titleize %> deleted', flash[:success]
     end
   end
 end

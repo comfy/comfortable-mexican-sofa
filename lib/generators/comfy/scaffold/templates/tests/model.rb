@@ -18,7 +18,7 @@ class <%= class_name %>Test < ActiveSupport::TestCase
     assert_difference '<%= class_name %>.count' do
       <%= class_name %>.create(
       <%- model_attrs.each do |attr| -%>
-        :<%= attr.name %> => 'value',
+        :<%= attr.name %> => 'test <%= attr.name %>',
       <%- end -%>
       )
     end
