@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Cms::Page < ComfortableMexicanSofa::Base
-    
-  self.table_name = 'cms_pages'
+class Cms::Page < Cms::Base
   
   attr_accessible :layout, :layout_id,
                   :label,

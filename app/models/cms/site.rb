@@ -1,6 +1,4 @@
-class Cms::Site < ComfortableMexicanSofa::Base
-  
-  self.table_name = 'cms_sites'
+class Cms::Site < Cms::Base
   
   attr_accessible :identifier,
                   :label,

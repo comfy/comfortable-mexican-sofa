@@ -1,6 +1,4 @@
-class Cms::Category < ComfortableMexicanSofa::Base
-  
-  self.table_name = 'cms_categories'
+class Cms::Category < Cms::Base
   
   attr_accessible :label,
                   :categorized_type

@@ -1,8 +1,6 @@
-class Cms::File < ComfortableMexicanSofa::Base
+class Cms::File < Cms::Base
   
   IMAGE_MIMETYPES = %w(gif jpeg pjpeg png svg+xml tiff).collect{|subtype| "image/#{subtype}"}
-    
-  self.table_name = 'cms_files'
   
   cms_is_categorized
   

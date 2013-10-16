@@ -1,6 +1,4 @@
-class Cms::Revision < ComfortableMexicanSofa::Base
-  
-  self.table_name = 'cms_revisions'
+class Cms::Revision < Cms::Base
   
   serialize :data
   

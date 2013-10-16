@@ -7,6 +7,7 @@ class ConfigurationTest < ActiveSupport::TestCase
   def test_configuration_presence
     assert config = ComfortableMexicanSofa.configuration
     assert_equal 'ComfortableMexicanSofa CMS Engine', config.cms_title
+    assert_equal 'ApplicationController', config.base_controller
     assert_equal 'ComfortableMexicanSofa::HttpAuth', config.admin_auth
     assert_equal 'ComfortableMexicanSofa::DummyAuth', config.public_auth
     assert_equal '', config.admin_route_redirect

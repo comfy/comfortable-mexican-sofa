@@ -1,6 +1,4 @@
-class Cms::Snippet < ComfortableMexicanSofa::Base
-
-  self.table_name = 'cms_snippets'
+class Cms::Snippet < Cms::Base
   
   cms_is_categorized
   cms_is_mirrored

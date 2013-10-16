@@ -1,6 +1,4 @@
-class Cms::Layout < ComfortableMexicanSofa::Base
-    
-  self.table_name = 'cms_layouts'
+class Cms::Layout < Cms::Base
   
   cms_acts_as_tree
   cms_is_mirrored

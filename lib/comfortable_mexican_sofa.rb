@@ -48,7 +48,7 @@ module ComfortableMexicanSofa
       @configuration ||= Configuration.new
     end
     alias :config :configuration
-    
+
     def logger=(new_logger)
       @logger = new_logger
     end
@@ -59,5 +59,3 @@ module ComfortableMexicanSofa
     
   end
 end
-
-require_relative 'comfortable_mexican_sofa/base'
