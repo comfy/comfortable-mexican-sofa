@@ -6,6 +6,7 @@ Coveralls.wear!('rails')
 ENV['RAILS_ENV'] = 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'rails/generators'
 require 'mocha/setup'
 
 # No need to add cache-busters in test environment
@@ -115,4 +116,32 @@ class ActionDispatch::IntegrationTest
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
     send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
   end
+end
+
+class Rails::Generators::TestCase
+  
+  destination File.expand_path('../tmp', File.dirname(__FILE__))
+  
+  setup :prepare_destination,
+        :prepare_files
+  
+  def prepare_files
+    config_path = File.join(self.destination_root, 'config')
+    routes_path = File.join(config_path, 'routes.rb')
+    FileUtils.mkdir_p(config_path)
+    FileUtils.touch(routes_path)
+    File.open(routes_path, 'w') do |f|
+      f.write("Test::Application.routes.draw do\n\nend")
+    end
+  end
+  
+  def read_file(filename)
+    File.read(
+      File.join(
+        File.expand_path('fixtures/generators', File.dirname(__FILE__)),
+        filename
+      )
+    )
+  end
+  
 end

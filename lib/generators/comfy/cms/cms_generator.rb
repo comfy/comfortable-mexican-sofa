@@ -27,11 +27,10 @@ module Comfy
       end
       
       def generate_routing
-        route "
-  ComfortableMexicanSofa::Routing.admin :path => '/admin'
-  
-  # Make sure this routeset is defined last
-  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false"
+        route_string  = "  ComfortableMexicanSofa::Routing.admin :path => '/admin'\n\n"
+        route_string << "  # Make sure this routeset is defined last\n"
+        route_string << "  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false\n"
+        route route_string[2..-1]
       end
       
       def generate_cms_seeds
