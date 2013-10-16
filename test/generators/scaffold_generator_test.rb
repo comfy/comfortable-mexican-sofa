@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require_relative '../../lib/generators/comfy/scaffold/scaffold_generator'
 
-class CmsGeneratorTest < Rails::Generators::TestCase
+class ScaffoldGeneratorTest < Rails::Generators::TestCase
   tests Comfy::Generators::ScaffoldGenerator
   
   def test_generator
