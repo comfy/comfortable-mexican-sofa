@@ -51,6 +51,20 @@ window.CMS.wysiwyg = ->
       color:        false
       stylesheets:  []
 
+  $(document).on('shown', '.bootstrap-wysihtml5-insert-image-modal', ( ->
+    modal_body = $(this).find('.modal-body')
+    $('.uploaded-files').clone().appendTo(modal_body)
+  ))
+
+  $(document).on('hide', '.bootstrap-wysihtml5-insert-image-modal', ( ->
+    $(this).find('.modal-body .uploaded-files').remove()
+  ))
+
+  $(document).on('click', '.bootstrap-wysihtml5-insert-image-modal .file.image', ( ->
+    url = $(this).find('.file-info').data('url')
+    $('.bootstrap-wysihtml5-insert-image-modal.in input.bootstrap-wysihtml5-insert-image-url').val(url)
+    $('.bootstrap-wysihtml5-insert-image-modal.in .modal-footer .btn-primary').click()
+  ))
 
 window.CMS.codemirror = ->
   $('textarea[data-cm-mode]').each (i, element) ->
