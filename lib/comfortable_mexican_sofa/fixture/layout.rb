@@ -21,7 +21,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         # setting content
         if File.exists?(content_path = File.join(path, 'content.html'))
           if fresh_fixture?(layout, content_path)
-            layout.content = File.open(content_path).read
+            layout.content = read_as_haml(content_path)
           end
         end
         if File.exists?(content_path = File.join(path, 'stylesheet.css'))

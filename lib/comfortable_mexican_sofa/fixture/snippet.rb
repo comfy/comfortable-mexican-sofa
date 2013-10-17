@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         # setting content
         if File.exists?(content_path = File.join(path, 'content.html'))
           if fresh_fixture?(snippet, content_path)
-            snippet.content = File.open(content_path).read
+            snippet.content = read_as_haml(content_path)
           end
         end
         

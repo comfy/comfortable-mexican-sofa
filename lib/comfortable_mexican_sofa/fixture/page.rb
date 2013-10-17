@@ -37,12 +37,12 @@ module ComfortableMexicanSofa::Fixture::Page
         blocks_to_clear = page.blocks.collect(&:identifier)
         blocks_attributes = [ ]
         Dir.glob("#{path}/*.html").each do |block_path|
-          identifier = block_path.split('/').last.gsub(/\.html$/, '')
+          identifier = block_path.split('/').last.gsub(/\.html\z/, '')
           blocks_to_clear.delete(identifier)
           if fresh_fixture?(page, block_path)
             blocks_attributes << {
               :identifier => identifier,
-              :content    => File.open(block_path).read
+              :content    => read_as_haml(block_path)
             }
           end
         end
