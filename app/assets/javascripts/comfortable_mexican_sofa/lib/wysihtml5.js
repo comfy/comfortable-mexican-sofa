@@ -4741,6 +4741,12 @@ wysihtml5.dom.observe = function(element, eventNames, handler) {
  *    });
  *    // => '<p class="red">foo</p><p>bar</p>'
  */
+
+wysihtml5.regexp = {
+  url: /^https?:\/\//i,
+  alt: /[^ a-z0-9_\-]/gi,
+  numbers: /\D/g
+}
 wysihtml5.dom.parse = (function() {
 
   /**
@@ -5047,35 +5053,31 @@ wysihtml5.dom.parse = (function() {
     return oldNode.ownerDocument.createTextNode(oldNode.data);
   }
 
-
   // ------------ attribute checks ------------ \\
   var attributeCheckMethods = {
     url: (function() {
-      var REG_EXP = /^https?:\/\//i;
       return function(attributeValue) {
-        if (!attributeValue || !attributeValue.match(REG_EXP)) {
+        if (!attributeValue || !attributeValue.match(wysihtml5.regexp['url'])) {
           return null;
         }
-        return attributeValue.replace(REG_EXP, function(match) {
+        return attributeValue.replace(wysihtml5.regexp['url'], function(match) {
           return match.toLowerCase();
         });
       };
     })(),
 
     alt: (function() {
-      var REG_EXP = /[^ a-z0-9_\-]/gi;
       return function(attributeValue) {
         if (!attributeValue) {
           return "";
         }
-        return attributeValue.replace(REG_EXP, "");
+        return attributeValue.replace(wysihtml5.regexp['alt'], "");
       };
     })(),
 
     numbers: (function() {
-      var REG_EXP = /\D/g;
       return function(attributeValue) {
-        attributeValue = (attributeValue || "").replace(REG_EXP, "");
+        attributeValue = (attributeValue || "").replace(wysihtml5.regexp['numbers'], "");
         return attributeValue || null;
       };
     })()

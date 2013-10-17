@@ -154,4 +154,5 @@ window.CMS.uploader = ->
       $('.uploaded-files').prepend(files)
       files.map ->
         $(this).fadeIn()
-  
+
+wysihtml5.regexp['url'] = /[a-zA-z0-9\/-_&=?!#$;~.\[\]]+/gi;
