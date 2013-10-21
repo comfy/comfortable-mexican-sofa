@@ -34,9 +34,7 @@ protected
   end
   
   def clear_cached_page_content
-    site.pages.each do |p|
-      Cms::Page.where(:id => p.id).update_all(:content => nil)
-    end
+    Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content => nil)
   end
   
   def assign_position
