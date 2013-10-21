@@ -81,7 +81,7 @@ protected
   
   # Forcing page content reload
   def clear_cached_page_content
-    self.pages.each{ |page| page.clear_cached_content! }
+    Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content => nil)
     self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
   
