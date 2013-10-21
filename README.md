@@ -19,7 +19,7 @@ Installation
 Add gem definition to your Gemfile:
     
 ```ruby
-gem 'comfortable_mexican_sofa', '~> 1.9.0'
+gem 'comfortable_mexican_sofa', '~> 1.10.0'
 ``` 
 
 Then from the Rails project's root run:
