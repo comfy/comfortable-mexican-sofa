@@ -38,23 +38,28 @@ body#comfy
       display: block
       padding: 7px 15px
       color: #777
-      border-bottom: 1px solid #1a1a1a
+      border-bottom: 1px solid #333
       text-decoration: none
+      text-shadow: 0 0 2px #000
     a:hover, a.active
       color: #ddd
     a.active
       background-color: #1f1f1f
       box-shadow: inset 0px 0px 10px #000
     a.active:after
+      border: 7px solid transparent
+      border-right-color: #fff
       position: absolute
       top: 10px
-      right: -8px
+      right: 0px
       z-index: 9999
       content: ''
       display: block
-      height: 16px
-      width: 8px
-      background: transparent url(image-path("comfortable_mexican_sofa/nav_arrow.png"))
+    ul
+      list-style: none
+      margin: 0
+      a
+        padding: 7px 15px 7px 30px
   
   // -- Right Side Boxes ----------------------------------------------------
   .right-column-content
