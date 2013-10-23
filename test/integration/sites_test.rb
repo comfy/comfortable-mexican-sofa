@@ -1,20 +1,20 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class SitesTest < ActionDispatch::IntegrationTest
+class SitesIntegrationTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_single_site
-    http_auth :get, cms_admin_path
+    http_auth :get, admin_cms_path
     assert assigns(:site)
     assert_equal cms_sites(:default), assigns(:site)
     assert_response :redirect
-    assert_redirected_to cms_admin_site_pages_path(assigns(:site))
+    assert_redirected_to admin_cms_site_pages_path(assigns(:site))
   end
   
   def test_get_admin_with_no_site
     Cms::Site.delete_all
-    http_auth :get, cms_admin_path
+    http_auth :get, admin_cms_path
     assert_response :redirect
-    assert_redirected_to new_cms_admin_site_path
+    assert_redirected_to new_admin_cms_site_path
     assert_equal 'Site not found', flash[:error]
   end
   
@@ -83,7 +83,7 @@ class SitesTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_site)
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_column(:locale, 'fr')
+    cms_sites(:default).update_columns(:locale => 'fr')
     get '/'
     assert_response :success
     assert assigns(:cms_site)
@@ -91,12 +91,12 @@ class SitesTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_admin_with_locale
-    http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
+    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_column(:locale, 'fr')
-    http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
+    cms_sites(:default).update_columns(:locale => 'fr')
+    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :fr, I18n.locale
   end
@@ -104,14 +104,14 @@ class SitesTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_forced_locale
     ComfortableMexicanSofa.config.admin_locale = :en
     
-    cms_sites(:default).update_column(:locale, 'fr')
-    http_auth :get, cms_admin_site_pages_path(cms_sites(:default))
+    cms_sites(:default).update_columns(:locale => 'fr')
+    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
 
     I18n.default_locale = :fr
     I18n.locale = :fr
-    http_auth :get, cms_admin_sites_path()
+    http_auth :get, admin_cms_sites_path
     assert_response :success
     assert_equal :en, I18n.locale
 

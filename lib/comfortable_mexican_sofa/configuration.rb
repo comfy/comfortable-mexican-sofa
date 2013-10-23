@@ -4,6 +4,10 @@ class ComfortableMexicanSofa::Configuration
 
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(
   attr_accessor :cms_title
+  
+  # Controller that is inherited from CmsAdmin::BaseController
+  # 'ApplicationController' is the default
+  attr_accessor :base_controller
 
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
@@ -57,15 +61,24 @@ class ComfortableMexicanSofa::Configuration
   # are accessible by default. Empty array will prevent rendering of all partials.
   attr_accessor :allowed_partials
 
+  # Whitelist of template paths that can be used via {{cms:template}} tag. All templates
+  # are accessible by default. Empty array will prevent rendering of all templates.
+  attr_accessor :allowed_templates
+
   # Site aliases, if you want to have aliases for your site. Good for harmonizing
   # production env with dev/testing envs.
   # e.g. config.site_aliases = {'host.com' => 'host.inv', 'host_a.com' => ['host.lvh.me', 'host.dev']}
   # Default is nil (not used)
   attr_accessor :hostname_aliases
   
+  # Reveal partials that can be overwritten in the admin area.
+  # Default is false.
+  attr_accessor :reveal_cms_partials
+  
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
+    @base_controller      = 'ApplicationController'
     @admin_auth           = 'ComfortableMexicanSofa::DeviseAuth'
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
@@ -94,6 +107,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
+    @reveal_cms_partials  = false
   end
 
 end

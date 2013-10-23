@@ -1,0 +1,28 @@
+.page-header
+  = link_to t('.new_link'), new_admin_cms_site_path, :class => 'btn pull-right'
+  %h2= t('.title')
+
+= render 'admin/cms/partials/sites_before'
+
+%table.table.table-hover.table-bordered
+  - @sites.each do |site|
+    %tr
+      %td
+        .icon
+      %td.main
+        .item-title
+          = link_to site.label, admin_cms_site_pages_path(site)
+        .item-meta
+          .identifier
+            = site.identifier
+            = "(#{site.locale})"
+          .host
+            - host = "http://#{site.hostname}/#{site.path}"
+            = link_to host, host, :target => '_blank'
+      %td
+        .btn-group
+          = link_to t('.select'),  admin_cms_site_pages_path(site), :class => 'btn btn-small'
+          = link_to t('.edit'), edit_admin_cms_site_path(site), :class => 'btn btn-small'
+          = link_to t('.delete'), admin_cms_site_path(site), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+          
+= render 'admin/cms/partials/sites_after'

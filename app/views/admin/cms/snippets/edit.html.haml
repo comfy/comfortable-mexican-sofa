@@ -1,0 +1,9 @@
+.page-header
+  = link_to pluralize(@snippet.revisions.count, t('.revision')), admin_cms_site_snippet_revisions_path(@site, @snippet), :class => 'btn pull-right'
+  %h2= t('.title')
+
+- content_for :right_column do
+  = render 'admin/cms/sites/mirrors', :object => @snippet
+
+= comfy_form_for @snippet, :as => :snippet, :url => {:action => :update} do |form|
+  = render form

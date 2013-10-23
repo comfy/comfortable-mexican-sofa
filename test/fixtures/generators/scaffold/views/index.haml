@@ -1,0 +1,19 @@
+.page-header
+  = link_to 'New Foo', new_admin_foo_path, :class => 'btn pull-right'
+  %h2= 'Foos'
+
+= paginate @foos
+
+%table.table.table-hover.table-bordered
+  %tr
+    %th.main Bar
+    %th
+  - @foos.each do |foo|
+    %tr
+      %td.main= foo.bar
+      %td
+        .btn-group
+          = link_to 'Edit', edit_admin_foo_path(foo), :class => 'btn btn-small'
+          = link_to 'Delete', admin_foo_path(foo), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-small btn-danger'
+
+= paginate @foos

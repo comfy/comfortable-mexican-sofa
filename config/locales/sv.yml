@@ -99,139 +99,140 @@ sv:
       page_not_found: Kunde inte hitta sida
   
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Sites
-      layouts: Layouter
-      pages: Sidor
-      snippets: Snippets
-      files: Filer
+  admin:
+    cms:
+      base:
+        sites: Sites
+        layouts: Layouter
+        pages: Sidor
+        snippets: Snippets
+        files: Filer
       
-    sites:
-      index:
-        title: Siter
-        new_link: Skapa ny site
-        select: Välj site
-        edit: Ändra
-        delete: Ta bort
-        are_you_sure: Är du säker på att du vill ta bort den här siten?
-      new:
-        title: Ny site
-      edit:
-        title: Ändrar Site
-      form:
-        create: Skapa Site
-        update: Uppdatera Site
-        is_mirrored: Speglad
+      sites:
+        index:
+          title: Siter
+          new_link: Skapa ny site
+          select: Välj site
+          edit: Ändra
+          delete: Ta bort
+          are_you_sure: Är du säker på att du vill ta bort den här siten?
+        new:
+          title: Ny site
+        edit:
+          title: Ändrar Site
+        form:
+          create: Skapa Site
+          update: Uppdatera Site
+          is_mirrored: Speglad
         
-    layouts:
-      index:
-        title: Layouter
-        new_link: Skapa ny layout
-      index_branch:
-        add_child_layout: Lägg till underlayout
-        edit: Ändra
-        delete: Ta bort
-        are_you_sure: Är du säker?
-      new:
-        title: Ny layout
-      edit:
-        title: Ändra layout
-        revision: Revision
-      form:
-        select_parent_layout: Välj överordnad layout
-        select_app_layout: Väl Applikationslayout
-        create: Skapa Layout
-        update: Uppdatera Layout
+      layouts:
+        index:
+          title: Layouter
+          new_link: Skapa ny layout
+        index_branch:
+          add_child_layout: Lägg till underlayout
+          edit: Ändra
+          delete: Ta bort
+          are_you_sure: Är du säker?
+        new:
+          title: Ny layout
+        edit:
+          title: Ändra layout
+          revision: Revision
+        form:
+          select_parent_layout: Välj överordnad layout
+          select_app_layout: Väl Applikationslayout
+          create: Skapa Layout
+          update: Uppdatera Layout
       
-    pages:
-      index:
-        title: Sidor
-        new_link: Skapa ny sida
-      index_branch:
-        toggle: Välj
-        add_child_page: Lägg till undersida
-        edit: Ändra
-        delete: Ta bort
-        are_you_sure: Är du säker?
-      new:
-        title: Ny sida
-      edit:
-        title: Ändra sida
-        revision: Revision
-      form:
-        select_target_page: Ingen vidarebefodring
-        preview: Förhandsgranska
-        create: Skapa sida
-        update: Uppdatera sida
-        is_published: Publicerad
-      form_blocks:
-        no_tags: |-
-          Layout har inga innehållstaggar definierade.<br/>
-          Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Sidor
+          new_link: Skapa ny sida
+        index_branch:
+          toggle: Välj
+          add_child_page: Lägg till undersida
+          edit: Ändra
+          delete: Ta bort
+          are_you_sure: Är du säker?
+        new:
+          title: Ny sida
+        edit:
+          title: Ändra sida
+          revision: Revision
+        form:
+          select_target_page: Ingen vidarebefodring
+          preview: Förhandsgranska
+          create: Skapa sida
+          update: Uppdatera sida
+          is_published: Publicerad
+        form_blocks:
+          no_tags: |-
+            Layout har inga innehållstaggar definierade.<br/>
+            Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
           
-    snippets:
-      index:
-        title: Snippets
-        new_link: Skapa Ny Snippet
-        edit: Ändra
-        delete: Ta bort
-        are_you_sure: Är du säker?
-      new:
-        title: Ny Snippet
-      edit:
-        title: Ändra Snippet
-        revision: Revision
-      form:
-        create: Skapa Snippet
-        update: Uppdatera Snippet
+      snippets:
+        index:
+          title: Snippets
+          new_link: Skapa Ny Snippet
+          edit: Ändra
+          delete: Ta bort
+          are_you_sure: Är du säker?
+        new:
+          title: Ny Snippet
+        edit:
+          title: Ändra Snippet
+          revision: Revision
+        form:
+          create: Skapa Snippet
+          update: Uppdatera Snippet
           
-    revisions:
-      show:
-        title: Revisioner för
-        revision: Revision
-        full_path: Fullständig sökväg
-        slug: Slug
-        update: Ändra till denna revisionen
-        current: Nuvarande
+      revisions:
+        show:
+          title: Revisioner för
+          revision: Revision
+          full_path: Fullständig sökväg
+          slug: Slug
+          update: Ändra till denna revisionen
+          current: Nuvarande
       
-    files:
-      index:
-        title: Filer
-        new_link: Ladda upp en ny fil
-        edit: Ända
-        delete: Delete
-        are_you_sure: Är du säker?
-        button: Ladda upp filer
-      new:
-        title: Ny Fil
-      edit:
-        title: Ändrar Fil
-      form:
-        current_file: Nuvarande Fil
-        create: Ladda upp fil
-        update: Uppdatera fil
-      page_form:
-        are_you_sure: Är du säker?
-      file:
-        are_you_sure: Är du säker?
+      files:
+        index:
+          title: Filer
+          new_link: Ladda upp en ny fil
+          edit: Ända
+          delete: Delete
+          are_you_sure: Är du säker?
+          button: Ladda upp filer
+        new:
+          title: Ny Fil
+        edit:
+          title: Ändrar Fil
+        form:
+          current_file: Nuvarande Fil
+          create: Ladda upp fil
+          update: Uppdatera fil
+        page_form:
+          are_you_sure: Är du säker?
+        file:
+          are_you_sure: Är du säker?
         
-    categories:
-      index:
-        label: Kategorier
-        edit: Ändra
-        done: Klar
-        all: Alla
-        add: Lägg till
-      show:
-        are_you_sure: Är du säker?
-      edit:
-        save: Spara
-      form:
-        label: Kategorier
+      categories:
+        index:
+          label: Kategorier
+          edit: Ändra
+          done: Klar
+          all: Alla
+          add: Lägg till
+        show:
+          are_you_sure: Är du säker?
+        edit:
+          save: Spara
+        form:
+          label: Kategorier
         
-    dialogs:
-      image:
-        insert: Infoga bild
-      link:
-        create: Skapa Länk
+      dialogs:
+        image:
+          insert: Infoga bild
+        link:
+          create: Skapa Länk

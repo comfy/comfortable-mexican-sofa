@@ -1,7 +1,6 @@
 class Cms::SiteUser < ActiveRecord::Base
-  attr_accessible :site_id, :user_id, as: :admin
 
-  ComfortableMexicanSofa.establish_connection(self)
+  include Cms::Base
 
   self.table_name = 'cms_site_users'
 

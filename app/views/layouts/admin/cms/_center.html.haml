@@ -1,0 +1,7 @@
+- flash.each do |type, message|
+  .alert{:class => "alert-#{type}"}
+    %button.close{:type => 'button', :class => "close", :data => {:dismiss => 'alert'}} &times;
+    = message
+
+.center-column-content
+  = yield

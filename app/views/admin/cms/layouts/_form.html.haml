@@ -1,0 +1,22 @@
+- content_for :right_column do
+  = render :partial => 'admin/cms/files/index'
+  
+= render 'admin/cms/partials/layout_form_before', :object => form
+
+= form.text_field :label, :data => {:slugify => @layout.new_record?}
+= form.text_field :identifier, :data => {:slug => true}
+- if (options = Cms::Layout.options_for_select(@site, @layout)).present?
+  = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options
+
+- if (options = Cms::Layout.app_layouts_for_select).present?
+  = form.select :app_layout, [["---- #{t('.select_app_layout')} ----", nil]] + options
+
+= form.text_area :content, :data => {:cm_mode => 'text/html'}
+= form.text_area :head, :data => {:cm_mode => 'text/html'}
+= form.text_area :css, :data => {:cm_mode => 'css'}
+= form.text_area :js, :data => {:cm_mode => 'javascript'}
+
+= render 'admin/cms/partials/layout_form_after', :object => form
+
+.form-actions
+  = form.submit t(@layout.new_record?? '.create' : '.update'), :class => 'btn btn-primary'

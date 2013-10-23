@@ -1,10 +1,6 @@
 class Cms::User < ActiveRecord::Base
-  attr_reader :site_tokens
 
-  attr_accessible :email, :password, :remember_me
-  attr_accessible :email, :password, :super_admin, :site_tokens, as: :admin
-
-  ComfortableMexicanSofa.establish_connection(self)
+  include Cms::Base
 
   self.table_name = 'cms_users'
 

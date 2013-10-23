@@ -1,0 +1,5 @@
+.page-header
+  %h2 Edit <%= class_name.titleize %>
+
+= comfy_form_for [:admin, @<%= file_name %>] do |form|
+  = render form

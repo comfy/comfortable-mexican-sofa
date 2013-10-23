@@ -4,8 +4,10 @@ require 'coveralls'
 Coveralls.wear!('rails')
 
 ENV['RAILS_ENV'] = 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require 'rails/test_help'
+require 'rails/generators'
+require 'mocha/setup'
 
 # No need to add cache-busters in test environment
 Paperclip::Attachment.default_options[:use_timestamp] = false
@@ -16,6 +18,7 @@ class ActiveSupport::TestCase
   
   def setup
     reset_config
+    stub_paperclip
   end
   
   # resetting default configuration
@@ -83,7 +86,13 @@ class ActiveSupport::TestCase
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
-
+  
+  def stub_paperclip
+    Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
+    Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
+    Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
+  end
+  
 end
 
 class ActionController::TestCase
@@ -103,37 +112,55 @@ class ActionDispatch::IntegrationTest
   def setup
     host! 'test.host'
     reset_config
+    stub_paperclip
   end
 
   def login_as(user)
-    post_via_redirect '/cms-admin/users/sign_in', 'cms_admin_user[email]' => user.email,
-      'cms_admin_user[password]' => 'password'
+    post_via_redirect '/admin/users/sign_in', 'admin_cms_user[email]' => user.email,
+      'admin_cms_user[password]' => 'password'
   end
 
   def sign_out
-    delete destroy_cms_admin_user_session_path
+    delete destroy_admin_cms_user_session_path
   end
   
   # Attaching http_auth stuff with request. Example use:
   #   http_auth :get, '/cms-admin/pages'
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
     admin = Cms::User.where(super_admin: true).first
-    post_via_redirect '/cms-admin/users/sign_in', 'cms_admin_user[email]' => admin.email, 'cms_admin_user[password]' => 'password'
+    post_via_redirect '/admin/users/sign_in', 'admin_cms_user[email]' => admin.email, 'admin_cms_user[password]' => 'password'
     send(method, path, options)
   end
 end
 
-
-# Injecting `update_column` for installs on Rails < 3.1
-module ComfortableMexicanSofa
-  module Deprication
-    module ActiveRecord
-      def update_column(name, value)
-        update_attribute(name, value)
-      end
+class Rails::Generators::TestCase
+  
+  destination File.expand_path('../tmp', File.dirname(__FILE__))
+  
+  setup :prepare_destination,
+        :prepare_files
+  
+  def prepare_files
+    config_path = File.join(self.destination_root, 'config')
+    routes_path = File.join(config_path, 'routes.rb')
+    FileUtils.mkdir_p(config_path)
+    FileUtils.touch(routes_path)
+    File.open(routes_path, 'w') do |f|
+      f.write("Test::Application.routes.draw do\n\nend")
     end
   end
-end
-unless Cms::Page.new.respond_to?(:update_column)
-  ActiveRecord::Base.send :include, ComfortableMexicanSofa::Deprication::ActiveRecord
+
+  unless Cms::Page.new.respond_to?(:update_column)
+    ActiveRecord::Base.send :include, ComfortableMexicanSofa::Deprication::ActiveRecord
+  end
+  
+  def read_file(filename)
+    File.read(
+      File.join(
+        File.expand_path('fixtures/generators', File.dirname(__FILE__)),
+        filename
+      )
+    )
+  end
+  
 end

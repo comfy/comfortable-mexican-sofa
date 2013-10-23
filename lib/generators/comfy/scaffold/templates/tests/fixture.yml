@@ -1,0 +1,4 @@
+default:
+<%- model_attrs.each do |attr| -%>
+  <%= attr.name %>: default <%= attr.name %>
+<%- end -%>

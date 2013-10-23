@@ -1,0 +1,11 @@
+var li = $('li#cms_page_<%=@page.id%>');
+li.find('.item .toggle').first().toggleClass('open');
+
+<% if session[:cms_page_tree].member?(@page.id.to_s) %>
+  if(!li.find('ul.children')[0]) {
+    li.append('<ul class="children sortable"><%= escape_javascript(render :partial => "index_branch", :collection => @page.children) %></ul>');
+    CMS.sortable_list();
+  }
+<% else %>
+  li.find('ul.children').remove();
+<% end %>

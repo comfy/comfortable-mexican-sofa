@@ -1,0 +1,5 @@
+.page-header
+  %h2= t('.title')
+
+= comfy_form_for @site, :as => :site, :url => {:action => :update} do |form|
+  = render form

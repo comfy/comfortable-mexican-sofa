@@ -21,17 +21,18 @@ module ComfortableMexicanSofa::ActsAsTree
         :touch          => configuration[:touch]
         
       has_many :children,
+        -> { order(configuration[:order])},
         :class_name     => name, 
         :foreign_key    => configuration[:foreign_key],
-        :order          => configuration[:order],
         :dependent      => configuration[:dependent]
         
       class_eval <<-EOV
         include ComfortableMexicanSofa::ActsAsTree::InstanceMethods
         
-        scope :roots,
-          :conditions => "#{configuration[:foreign_key]} IS NULL",
-          :order      => #{configuration[:order].nil? ? "nil" : %Q{"#{configuration[:order]}"}}
+        scope :roots, -> {
+          where("#{configuration[:foreign_key]} IS NULL").
+          order(#{configuration[:order].nil? ? "nil" : %Q{"#{configuration[:order]}"}})
+        }
         
         def self.root
           roots.first

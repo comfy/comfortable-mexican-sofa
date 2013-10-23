@@ -4,17 +4,19 @@ require 'rails'
 require 'formatted_form'
 require 'active_link_to'
 require 'paperclip'
-require 'redcarpet'
+require 'kramdown'
 require 'jquery-rails'
+require 'jquery-ui-rails'
 require 'haml-rails'
 require 'sass-rails'
 require 'coffee-rails'
 require 'devise'
 require 'cancan'
+require 'codemirror-rails'
+require 'kaminari'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
     # ...
   end
 end
-

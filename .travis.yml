@@ -1,22 +1,17 @@
 language: ruby
-before_install:
-  - gem update --system
-  - gem --version
-  - gem install bundler
+before_script:
+  - rake db:migrate
+script:
+  - rake test:all
 rvm:
-  - 1.9.2
   - 1.9.3
   - 2.0.0
+  - jruby-19mode
 gemfile:
-  - test/gemfiles/Gemfile.rails.3.1
-  - test/gemfiles/Gemfile.rails.3.2
   - test/gemfiles/Gemfile.rails.4.0
-notifications:
-  recipients:
-    - oleg@khabarov.ca
 branches:
   only:
     - master
 matrix:
   allow_failures:
-    - gemfile: test/gemfiles/Gemfile.rails.4.0
+    - rvm: jruby-19mode

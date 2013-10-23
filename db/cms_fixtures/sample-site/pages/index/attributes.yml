@@ -1,0 +1,6 @@
+label: Home Fixture Page
+layout: default
+target_page: '/child'
+categories:
+  - category_a
+  - category_b

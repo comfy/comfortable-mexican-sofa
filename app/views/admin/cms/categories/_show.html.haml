@@ -1,0 +1,13 @@
+- category ||= show
+- read ||= false
+- categories = [params[:category]].flatten.compact
+- active = categories.flatten.member?(category.label)
+
+.category{:class => (read && active ? 'active' : nil), :id => dom_id(category)}
+  - if read
+    - categories = active ? categories.reject{|c| c == category.label} : categories << category.label
+    = link_to category.label, "?#{{:category => categories}.to_param}"
+  - else
+    = link_to category.label, edit_admin_cms_site_category_path(@site, category), :remote => true
+    = link_to admin_cms_site_category_path(@site, category), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
+      %i.icon-remove-circle

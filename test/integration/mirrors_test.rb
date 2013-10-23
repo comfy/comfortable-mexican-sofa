@@ -1,10 +1,10 @@
-require File.expand_path('../test_helper', File.dirname(__FILE__))
+require_relative '../test_helper'
 
-class MirrorsTest < ActionDispatch::IntegrationTest
+class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   
   def setup
     @site_a = cms_sites(:default)
-    @site_a.update_column(:is_mirrored, true)
+    @site_a.update_columns(:is_mirrored => true)
     @site_b = Cms::Site.create!(:identifier => 'test_b', :hostname => 'test-b.host', :is_mirrored => true)
     # making mirrors
     Cms::Layout.all.each{ |l| l.save! }
@@ -13,10 +13,10 @@ class MirrorsTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_layouts
-    http_auth :get, cms_admin_site_layouts_path(@site_a)
+    http_auth :get, admin_cms_site_layouts_path(@site_a)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/layouts']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/layouts']"
     end
   end
   
@@ -24,18 +24,18 @@ class MirrorsTest < ActionDispatch::IntegrationTest
     layout = cms_layouts(:default)
     assert mirror = layout.mirrors.first
     
-    http_auth :get, edit_cms_admin_site_layout_path(@site_a, layout)
+    http_auth :get, edit_admin_cms_site_layout_path(@site_a, layout)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/layouts/#{mirror.id}/edit']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/layouts/#{mirror.id}/edit']"
     end
   end
   
   def test_get_pages
-    http_auth :get, cms_admin_site_pages_path(@site_a)
+    http_auth :get, admin_cms_site_pages_path(@site_a)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/pages']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/pages']"
     end
   end
   
@@ -43,18 +43,18 @@ class MirrorsTest < ActionDispatch::IntegrationTest
     page = cms_pages(:default)
     assert mirror = page.mirrors.first
     
-    http_auth :get, edit_cms_admin_site_page_path(@site_a, page)
+    http_auth :get, edit_admin_cms_site_page_path(@site_a, page)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/pages/#{mirror.id}/edit']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/pages/#{mirror.id}/edit']"
     end
   end
   
   def test_get_snippets
-    http_auth :get, cms_admin_site_snippets_path(@site_a)
+    http_auth :get, admin_cms_site_snippets_path(@site_a)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/snippets']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/snippets']"
     end
   end
   
@@ -62,10 +62,10 @@ class MirrorsTest < ActionDispatch::IntegrationTest
     snippet = cms_snippets(:default)
     assert mirror = snippet.mirrors.first
     
-    http_auth :get, edit_cms_admin_site_snippet_path(@site_a, snippet)
+    http_auth :get, edit_admin_cms_site_snippet_path(@site_a, snippet)
     assert_response :success
     assert_select 'select#mirror' do
-      assert_select "option[value='/cms-admin/sites/#{@site_b.id}/snippets/#{mirror.id}/edit']"
+      assert_select "option[value='/admin/sites/#{@site_b.id}/snippets/#{mirror.id}/edit']"
     end
   end
   

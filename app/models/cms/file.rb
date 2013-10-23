@@ -1,24 +1,12 @@
 class Cms::File < ActiveRecord::Base
+  include Cms::Base
   
-  IMAGE_MIMETYPES = %w(gif jpeg pjpeg png svg+xml tiff).collect{|subtype| "image/#{subtype}"}
-  
-  ComfortableMexicanSofa.establish_connection(self)
-    
-  self.table_name = 'cms_files'
+  IMAGE_MIMETYPES = %w(gif jpeg pjpeg png tiff).collect{|subtype| "image/#{subtype}"}
   
   cms_is_categorized
   
   attr_accessor :dimensions
   
-  attr_accessible :site, :site_id,
-                  :file,
-                  :dimensions,
-                  :label,
-                  :description,
-                  :category_ids,
-                  :position
-  
-  # -- AR Extensions --------------------------------------------------------
   has_attached_file :file, ComfortableMexicanSofa.config.upload_file_options.merge(
     # dimensions accessor needs to be set before file assignment for this to work
     :styles => lambda { |f|
@@ -36,8 +24,11 @@ class Cms::File < ActiveRecord::Base
   belongs_to :block
   
   # -- Validations ----------------------------------------------------------
-  validates :site_id, :presence => true
+  validates :site_id,
+    :presence   => true
   validates_attachment_presence :file
+  validates :file_file_name,
+    :uniqueness => {:scope => :site_id}
   
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
@@ -46,8 +37,8 @@ class Cms::File < ActiveRecord::Base
   after_destroy :reload_page_cache
   
   # -- Scopes ---------------------------------------------------------------
-  scope :images,      where(:file_content_type => IMAGE_MIMETYPES)
-  scope :not_images,  where('file_content_type NOT IN (?)', IMAGE_MIMETYPES)
+  scope :images,      -> { where(:file_content_type => IMAGE_MIMETYPES) }
+  scope :not_images,  -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
   
   # -- Instance Methods -----------------------------------------------------
   def is_image?
@@ -65,11 +56,10 @@ protected
     self.position = max ? max + 1 : 0
   end
   
-  # FIX: Terrible, but no way of creating cached page content overwise
   def reload_page_cache
     return unless self.block
     p = self.block.page
-    Cms::Page.where(:id => p.id).update_all(:content => p.content(true))
+    Cms::Page.where(:id => p.id).update_all(:content => nil)
   end
   
 end

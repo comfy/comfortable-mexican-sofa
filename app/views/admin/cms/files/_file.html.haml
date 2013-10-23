@@ -1,0 +1,13 @@
+.file{:class => "#{dom_id(file)} #{file.is_image?? 'image' : nil}"}
+  .file-name
+    = link_to admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
+      %i.icon-remove-circle
+    = link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename'
+  
+  .file-info{:data => {:url => file.file.url}}
+    .thumb
+      = image_tag file.file.url(:cms_thumb) if file.is_image?
+    .details
+      %input{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
+      .file-type= file.file_content_type
+      .file-size= number_to_human_size(file.file_file_size, :locale => :en)

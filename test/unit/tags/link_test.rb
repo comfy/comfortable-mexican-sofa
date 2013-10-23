@@ -7,7 +7,7 @@ class LinkTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:link:/ }}'
     )
 
-    assert_equal 'http://test.host/', tag.content
+    assert_equal '//test.host/', tag.content
   end
 
   def test_page_not_found
@@ -23,7 +23,7 @@ class LinkTagTest < ActiveSupport::TestCase
       cms_pages(:default), '{{ cms:link:child-page }}'
     )
 
-    assert_equal "http://test.host/child-page", tag.content
+    assert_equal "//test.host/child-page", tag.content
   end
 
 end

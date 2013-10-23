@@ -1,0 +1,23 @@
+.page-header
+  = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, :class => 'btn pull-right'
+  %h2= '<%= class_name.pluralize.titleize %>'
+
+= paginate @<%= file_name.pluralize %>
+
+%table.table.table-hover.table-bordered
+  %tr
+  <%- model_attrs.each_with_index do |attr, index| -%>
+    %th<%= '.main' if index == 0 %> <%= attr.name.titleize %>
+  <%- end -%>
+    %th
+  - @<%= file_name.pluralize %>.each do |<%= file_name %>|
+    %tr
+    <%- model_attrs.each_with_index do |attr, index| -%>
+      %td<%= '.main' if index == 0 %>= <%= file_name%>.<%= attr.name %>
+    <%- end -%>
+      %td
+        .btn-group
+          = link_to 'Edit', edit_admin_<%= file_name %>_path(<%= file_name %>), :class => 'btn btn-small'
+          = link_to 'Delete', admin_<%= file_name %>_path(<%= file_name %>), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-small btn-danger'
+
+= paginate @<%= file_name.pluralize %>

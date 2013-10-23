@@ -99,139 +99,140 @@ es:
       page_not_found: Página no encontrada
 
   # -- Views ----------------------------------------------------------------
-  cms_admin:
-    base:
-      sites: Sitios
-      layouts: Diseños
-      pages: Páginas
-      snippets: Fragmentos
-      files: Archivos
+  admin:
+    cms:
+      base:
+        sites: Sitios
+        layouts: Diseños
+        pages: Páginas
+        snippets: Fragmentos
+        files: Archivos
       
-    sites:
-      index:
-        title: Listado de Sitios
-        new_link: Crear nuevo Sitio
-        select: Selecciona el Sitio
-        edit: Editar
-        delete: Eliminar
-        are_you_sure: ¿Está seguro de que desea eliminar este sitio?
-      new:
-        title: Creando Sitio
-      edit:
-        title: Editando Sitio
-      form:
-        create: Crear Sitio
-        update: Actualizar Sitio
-        is_mirrored: Espejo
+      sites:
+        index:
+          title: Listado de Sitios
+          new_link: Crear nuevo Sitio
+          select: Selecciona el Sitio
+          edit: Editar
+          delete: Eliminar
+          are_you_sure: ¿Está seguro de que desea eliminar este sitio?
+        new:
+          title: Creando Sitio
+        edit:
+          title: Editando Sitio
+        form:
+          create: Crear Sitio
+          update: Actualizar Sitio
+          is_mirrored: Espejo
 
-    layouts:
-      index:
-        title: Diseños
-        new_link: Crear Nuevo Diseño
-      index_branch:
-        add_child_layout: Añadir diseño hijo
-        edit: Editar
-        delete: Eliminar
-        are_you_sure: ¿Está seguro?
-      new:
-        title: Nuevo Diseño
-      edit:
-        title: Editando Diseño
-        revision: Revisión
-      form:
-        select_parent_layout: Seleccionar diseño padre
-        select_app_layout: Seleccionar diseño (App)
-        create: Crear Diseño
-        update: Actualizar Diseño
+      layouts:
+        index:
+          title: Diseños
+          new_link: Crear Nuevo Diseño
+        index_branch:
+          add_child_layout: Añadir diseño hijo
+          edit: Editar
+          delete: Eliminar
+          are_you_sure: ¿Está seguro?
+        new:
+          title: Nuevo Diseño
+        edit:
+          title: Editando Diseño
+          revision: Revisión
+        form:
+          select_parent_layout: Seleccionar diseño padre
+          select_app_layout: Seleccionar diseño (App)
+          create: Crear Diseño
+          update: Actualizar Diseño
 
-    pages:
-      index:
-        title: Páginas
-        new_link: Crear Nueva Página
-      index_branch:
-        toggle: Cambiar
-        add_child_page: Añadir página hija
-        edit: Editar
-        delete: Eliminar
-        are_you_sure: ¿Está seguro?
-      new:
-        title: Nueva Página
-      edit:
-        title: Editando Página
-        revision: Revision
-      form:
-        select_target_page: No Redirigir
-        preview: Vista Previa
-        create: Crear Página
-        update: Actualizar Página
-        is_published: Publicada
-      form_blocks:
-        no_tags: |-
-          La plantilla no tiene etiquetas de contenido definidas.<br/>
-          Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:page:content}}</code>
+      pages:
+        index:
+          title: Páginas
+          new_link: Crear Nueva Página
+        index_branch:
+          toggle: Cambiar
+          add_child_page: Añadir página hija
+          edit: Editar
+          delete: Eliminar
+          are_you_sure: ¿Está seguro?
+        new:
+          title: Nueva Página
+        edit:
+          title: Editando Página
+          revision: Revision
+        form:
+          select_target_page: No Redirigir
+          preview: Vista Previa
+          create: Crear Página
+          update: Actualizar Página
+          is_published: Publicada
+        form_blocks:
+          no_tags: |-
+            La plantilla no tiene etiquetas de contenido definidas.<br/>
+            Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:page:content}}</code>
 
-    snippets:
-      index:
-        title: Fragmentos
-        new_link: Crear nuevo Fragmento
-        edit: Editar
-        delete: Eliminar
-        are_you_sure: ¿Está seguro?
-      new:
-        title: Nuevo Fragmento
-      edit:
-        title: Editando Fragmento
-        revision: Revisión
-      form:
-        create: Crear Fragmento
-        update: Actualizar Fragmento
+      snippets:
+        index:
+          title: Fragmentos
+          new_link: Crear nuevo Fragmento
+          edit: Editar
+          delete: Eliminar
+          are_you_sure: ¿Está seguro?
+        new:
+          title: Nuevo Fragmento
+        edit:
+          title: Editando Fragmento
+          revision: Revisión
+        form:
+          create: Crear Fragmento
+          update: Actualizar Fragmento
         
-    revisions:
-      show:
-        title: Revisiones de
-        revision: Revisión
-        full_path: Ruta completa
-        slug: Identificador
-        update: Actualizar a esta versión
-        current: Corriente
+      revisions:
+        show:
+          title: Revisiones de
+          revision: Revisión
+          full_path: Ruta completa
+          slug: Identificador
+          update: Actualizar a esta versión
+          current: Corriente
         
-    files:
-      index:
-        title: Archivos
-        new_link: Subir Nuevo Archivo
-        edit: Editar
-        delete: Borrar
-        are_you_sure: ¿Estás seguro?
-        button: Cargar Archivos
-      new:
-        title: Nuevo Archivo
-      edit:
-        title: Editar Archivo
-      form:
-        current_file: Archivo Actual
-        create: Subir Archivo
-        update: Actualizar Archivo
-      page_form:
-        are_you_sure: ¿Estás seguro?
-      file:
-        are_you_sure: ¿Estás seguro?
+      files:
+        index:
+          title: Archivos
+          new_link: Subir Nuevo Archivo
+          edit: Editar
+          delete: Borrar
+          are_you_sure: ¿Estás seguro?
+          button: Cargar Archivos
+        new:
+          title: Nuevo Archivo
+        edit:
+          title: Editar Archivo
+        form:
+          current_file: Archivo Actual
+          create: Subir Archivo
+          update: Actualizar Archivo
+        page_form:
+          are_you_sure: ¿Estás seguro?
+        file:
+          are_you_sure: ¿Estás seguro?
           
-    categories:
-      index:
-        label: Categorias
-        edit: Editar
-        done: Listo
-        all: Todos
-        add: Agregar
-      show:
-        are_you_sure: ¿Estás seguro?
-      edit:
-        save: Guardar
-      form:
-        label: Categorias
+      categories:
+        index:
+          label: Categorias
+          edit: Editar
+          done: Listo
+          all: Todos
+          add: Agregar
+        show:
+          are_you_sure: ¿Estás seguro?
+        edit:
+          save: Guardar
+        form:
+          label: Categorias
         
-    dialogs:
-      image:
-        insert: Insertar Imagen
-      link:
-        create: Crear Link
+      dialogs:
+        image:
+          insert: Insertar Imagen
+        link:
+          create: Crear Link

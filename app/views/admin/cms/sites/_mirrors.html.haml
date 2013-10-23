@@ -1,0 +1,18 @@
+- return unless @site.is_mirrored?
+
+- object ||= nil
+  
+- options = case object
+  - when ::Cms::Layout
+    - object.mirrors.collect{|m| [m.site.label, edit_admin_cms_site_layout_path(m.site, m)]}
+  - when ::Cms::Page
+    - object.mirrors.collect{|m| [m.site.label, edit_admin_cms_site_page_path(m.site, m)]}
+  - when ::Cms::Snippet
+    - object.mirrors.collect{|m| [m.site.label, edit_admin_cms_site_snippet_path(m.site, m)]}
+  - else
+    - (::Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(params.merge(:site_id => s))]}
+
+- options = [[@site.label, request.fullpath]] + options
+
+#mirrors.box
+  = select_tag :mirror, options_for_select(options)

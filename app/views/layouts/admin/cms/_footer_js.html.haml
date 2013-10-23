@@ -1,0 +1,9 @@
+= render 'admin/cms/partials/html_footer'
+
+- if content_for(:javascript)
+  :javascript
+    #{yield :javascript}
+    
+- if @site && !@site.new_record?
+  :javascript
+    CMS.file_upload_path = "#{admin_cms_site_files_path(@site)}"

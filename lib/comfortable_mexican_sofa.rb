@@ -1,34 +1,34 @@
 # Loading engine only if this is not a standalone installation
 unless defined? ComfortableMexicanSofa::Application
-  require File.expand_path('comfortable_mexican_sofa/engine', File.dirname(__FILE__))
+  require_relative 'comfortable_mexican_sofa/engine'
 end
 
-[ 'comfortable_mexican_sofa/version',
-  'comfortable_mexican_sofa/error',
-  'comfortable_mexican_sofa/configuration',
-  'comfortable_mexican_sofa/routing',
-  'comfortable_mexican_sofa/authentication/http_auth',
-  'comfortable_mexican_sofa/authentication/dummy_auth',
-  'comfortable_mexican_sofa/authentication/devise_auth',
-  'comfortable_mexican_sofa/render_methods',
-  'comfortable_mexican_sofa/view_hooks',
-  'comfortable_mexican_sofa/view_methods',
-  'comfortable_mexican_sofa/form_builder',
-  'comfortable_mexican_sofa/tag',
-  'comfortable_mexican_sofa/sitemap',
-  'comfortable_mexican_sofa/fixtures',
-  'comfortable_mexican_sofa/extensions/rails',
-  'comfortable_mexican_sofa/extensions/acts_as_tree',
-  'comfortable_mexican_sofa/extensions/has_revisions',
-  'comfortable_mexican_sofa/extensions/is_mirrored',
-  'comfortable_mexican_sofa/extensions/is_categorized',
-  'comfortable_mexican_sofa/comfy_filters'
-].each do |path|
-  require File.expand_path(path, File.dirname(__FILE__))
-end
+require_relative 'comfortable_mexican_sofa/version'
+require_relative 'comfortable_mexican_sofa/error'
+require_relative 'comfortable_mexican_sofa/configuration'
+require_relative 'comfortable_mexican_sofa/routing'
+require_relative 'comfortable_mexican_sofa/authentication/http_auth'
+require_relative 'comfortable_mexican_sofa/authentication/dummy_auth'
+require_relative 'comfortable_mexican_sofa/authentication/devise_auth'
+require_relative 'comfortable_mexican_sofa/render_methods'
+require_relative 'comfortable_mexican_sofa/view_hooks'
+require_relative 'comfortable_mexican_sofa/view_methods'
+require_relative 'comfortable_mexican_sofa/form_builder'
+require_relative 'comfortable_mexican_sofa/tag'
+require_relative 'comfortable_mexican_sofa/fixture'
+require_relative 'comfortable_mexican_sofa/fixture/category'
+require_relative 'comfortable_mexican_sofa/fixture/layout'
+require_relative 'comfortable_mexican_sofa/fixture/page'
+require_relative 'comfortable_mexican_sofa/fixture/snippet'
+require_relative 'comfortable_mexican_sofa/fixture/file'
+require_relative 'comfortable_mexican_sofa/extensions/rails'
+require_relative 'comfortable_mexican_sofa/extensions/acts_as_tree'
+require_relative 'comfortable_mexican_sofa/extensions/has_revisions'
+require_relative 'comfortable_mexican_sofa/extensions/is_mirrored'
+require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
 
 Dir.glob(File.expand_path('comfortable_mexican_sofa/tags/*.rb', File.dirname(__FILE__))).each do |path|
-  require path
+  require_relative path
 end
 
 module ComfortableMexicanSofa
@@ -48,13 +48,6 @@ module ComfortableMexicanSofa
       @configuration ||= Configuration.new
     end
     alias :config :configuration
-    
-    # Establishing database connection if custom one is defined
-    def establish_connection(klass)
-      if ComfortableMexicanSofa.config.database_config && !Rails.env.test?
-        klass.establish_connection "#{ComfortableMexicanSofa.config.database_config}_#{Rails.env}"
-      end
-    end
 
     def logger=(new_logger)
       @logger = new_logger

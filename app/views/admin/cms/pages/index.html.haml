@@ -1,0 +1,15 @@
+.page-header
+  = link_to t('.new_link'), new_admin_cms_site_page_path(@site), :class => 'btn pull-right'
+  %h2= t('.title')
+
+- content_for :right_column do
+  = render :partial => 'admin/cms/sites/mirrors'
+
+= render 'admin/cms/partials/pages_before'
+
+= render :partial => 'admin/cms/categories/index', :object => 'Cms::Page'
+
+%ul.list.sortable
+  = render :partial => 'index_branch', :collection => @pages
+
+= render 'admin/cms/partials/pages_after'

@@ -1,0 +1,29 @@
+.page-header
+  %h2
+    = t('.title')
+    = @record.class.to_s.demodulize
+  %h4
+    = @record.is_a?(::Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}"
+
+- content_for :right_column do
+  .box.revisions
+    - @record.revisions.each do |revision|
+      = active_link_to l(revision.created_at), :id => revision.id
+      
+%table.table
+  %tr
+    %th
+    %th= t('.current')
+    %th= l(@revision.created_at)
+
+  - @current_content.each do |label, content|
+    %tr
+      %th= ::Cms::Layout.human_attribute_name(label)
+      %td
+        %pre= content
+      %td
+        %pre= @versioned_content[label]
+  
+= comfy_form_for @revision, :url => {:action => :revert} do |form|
+  .form-actions
+    = form.submit t('.update'), :class => 'btn btn-primary'

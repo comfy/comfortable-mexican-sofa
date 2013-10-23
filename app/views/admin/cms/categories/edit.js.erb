@@ -1,0 +1,3 @@
+$('.categories.editable .category#<%= dom_id(@category) %>').replaceWith(
+  '<%= escape_javascript(render :partial => "edit", :object => @category ) %>'
+);

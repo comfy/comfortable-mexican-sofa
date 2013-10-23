@@ -1,16 +1,20 @@
 source 'http://rubygems.org'
 
-gem 'rails',          '~> 4.0.0.beta1'
-gem 'formatted_form', '>= 2.1.0'
-gem 'active_link_to', '>= 1.0.0'
-gem 'paperclip',      '>= 3.4.0'
-gem 'redcarpet',      '>= 2.2.0'
-gem 'jquery-rails',   '>= 2.2.0'
-gem 'haml-rails',     '>= 0.3.0'
-gem 'sass-rails',     '~> 4.0.0.beta1'
-gem 'coffee-rails',   '~> 4.0.0.beta1'
+gem 'rails',            '~> 4.0'
+gem 'formatted_form',   '>= 2.1.0'
+gem 'active_link_to',   '>= 1.0.0'
+gem 'paperclip',        '>= 3.4.0'
+gem 'kramdown',         '>= 1.0.0'
+gem 'jquery-rails',     '>= 3.0.0'
+gem 'jquery-ui-rails',  '>= 4.0.0'
+gem 'haml-rails',       '>= 0.3.0'
+gem 'sass-rails',       '>= 3.1.0'
+gem 'coffee-rails',     '>= 3.1.0'
+gem 'codemirror-rails', '>= 3.0.0'
+gem 'kaminari',         '>= 0.14.0'
 
 group :test do
   gem 'sqlite3'
-  gem 'coveralls', :require => false
+  gem 'coveralls',  :require => false
+  gem 'mocha',      :require => false
 end

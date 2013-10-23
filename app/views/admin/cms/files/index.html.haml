@@ -1,0 +1,33 @@
+.page-header
+  = link_to t('.new_link'), new_admin_cms_site_file_path(@site), :class => 'btn pull-right'
+  %h2= t('.title')
+  
+= render 'admin/cms/partials/files_before'
+
+= render :partial => 'admin/cms/categories/index', :object => 'Cms::File'
+
+%table.table.table-hover.table-bordered
+  %tbody.sortable
+    - @files.each do |file|
+      %tr{:id => dom_id(file)}
+        %td
+          - if file.is_image?
+            - icon_style = "background: url('#{file.file.url(:cms_thumb)}') no-repeat center"
+          .icon{:style => icon_style}
+            - if !params[:category].present? && @site.files.count > 1
+              .dragger
+                %span &#8645;
+        %td.main
+          .item-title
+            = link_to file.label, edit_admin_cms_site_file_path(@site, file)
+            = render :partial => '/admin/cms/categories/categories', :object => file
+          .item-meta
+            = link_to file.file_file_name, file.file.url, :target => '_blank'
+            
+        %td
+          .btn-group
+            = link_to t('.edit'), edit_admin_cms_site_file_path(@site, file), :class => 'btn btn-small'
+            = link_to t('.delete'), admin_cms_site_file_path(@site, file), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+
+
+= render 'admin/cms/partials/files_after'

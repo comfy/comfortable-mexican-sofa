@@ -4,8 +4,8 @@
 module ComfortableMexicanSofa::DeviseAuth
 
   def authenticate
-    unless current_cms_admin_user
-      redirect_to new_cms_admin_user_session_path
+    unless current_admin_cms_user
+      redirect_to new_admin_cms_user_session_path
     end
   end
 

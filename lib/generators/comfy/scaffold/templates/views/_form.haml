@@ -1,0 +1,6 @@
+<%- model_attrs.each do |attr| -%>
+= form.text_field :<%= attr.name %>
+<%- end -%>
+
+.form-actions
+  = form.submit :class => 'btn btn-primary'

@@ -16,7 +16,7 @@ module Enumerable
   end
 end
 
-class ActiveSupport::BufferedLogger
+class ActiveSupport::Logger
   def detailed_error(e)
     error(e.message)
     e.backtrace.each{|line| error line }

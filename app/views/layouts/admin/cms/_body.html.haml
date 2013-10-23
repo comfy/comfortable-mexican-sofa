@@ -1,0 +1,17 @@
+%body#comfy{:class => "c-#{params[:controller].slugify} a-#{params[:action].slugify}"}
+
+  = render 'admin/cms/partials/body_before'
+
+  .body-wrapper
+    .left-column
+      .left-column-content
+        = render :partial => 'layouts/admin/cms/left'
+    .right-column
+      .right-column-content
+        = render :partial => 'layouts/admin/cms/right'
+    .center-column
+      = render :partial => 'layouts/admin/cms/center'
+      
+      = render :partial => 'layouts/admin/cms/footer'
+  
+  = render :partial => 'layouts/admin/cms/footer_js'

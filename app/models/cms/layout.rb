@@ -1,23 +1,11 @@
 class Cms::Layout < ActiveRecord::Base
-  
-  ComfortableMexicanSofa.establish_connection(self)
-    
-  self.table_name = 'cms_layouts'
+  include Cms::Base
   
   cms_acts_as_tree
   cms_is_mirrored
   cms_has_revisions_for :content, :css, :js, :head
 
   attr_accessor :tags
-  
-  attr_accessible :label,
-                  :identifier,
-                  :content,
-                  :css,
-                  :head,
-                  :js,
-                  :parent, :parent_id,
-                  :app_layout
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site
@@ -37,10 +25,10 @@ class Cms::Layout < ActiveRecord::Base
   validates :identifier,
     :presence   => true,
     :uniqueness => { :scope => :site_id },
-    :format     => { :with => /^\w[a-z0-9_-]*$/i }
+    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope order('cms_layouts.position')
+  default_scope -> { order('cms_layouts.position') }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -123,7 +111,7 @@ protected
   
   # Forcing page content reload
   def clear_cached_page_content
-    self.pages.each{ |page| page.save! }
+    Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content => nil)
     self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
 

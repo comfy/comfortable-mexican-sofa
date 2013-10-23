@@ -11,12 +11,6 @@ class ComfortableMexicanSofa::Tag::PageMarkdown
   end
   
   def render
-    md = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      :autolink           => true,
-      :no_intra_emphasis  => true,
-      :fenced_code_blocks => true,
-      :lax_spacing        => true
-    )
-    md.render(content.to_s)
+    Kramdown::Document.new(content.to_s).to_html
   end
 end

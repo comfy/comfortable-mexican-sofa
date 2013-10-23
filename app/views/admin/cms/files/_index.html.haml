@@ -1,0 +1,14 @@
+- type ||= nil
+- files_scope = (type == 'image') ? @site.files.images : @site.files
+
+.box.file-uploader
+  = form_for :file, :url => admin_cms_site_files_path(@site, :ajax => true), :html => {:multipart => true, :target => 'file-upload-frame'} do |form|
+    %span.btn.btn-file
+      = t('.button')
+      = form.file_field :file, :multiple => true, :id => nil
+  
+  .uploaded-files
+    - files_scope.order(:label).each do |file|
+      = render :partial => 'admin/cms/files/file', :object => file
+      
+  %iframe#file-upload-frame{:name => 'file-upload-frame', :src => ''}
