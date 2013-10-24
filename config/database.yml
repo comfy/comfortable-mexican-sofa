@@ -1,11 +1,11 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: comfortable_mexican_sofa_development
   pool: 5
-  timeout: 10000
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: comfortable_mexican_sofa_test
   pool: 5
-  timeout: 10000
