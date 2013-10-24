@@ -12,16 +12,19 @@ module ComfortableMexicanSofa::ViewMethods
     ComfortableMexicanSofa::ViewHooks.render(name, self, options)
   end
   
+  # Tests whether snipped exists by identifier and cms_site
+  def cms_snippet_exists?(identifier, cms_site = nil)
+    cms_site = find_site(cms_site)
+    cms_site && cms_site.snippets.exists?(identifier: identifier)
+  end
+
   # Content of a snippet. Examples:
   #   cms_snippet_content(:my_snippet)
   #   <%= cms_snippet_content(:my_snippet) do %>
   #     Default content can go here.
   #   <% end %>
   def cms_snippet_content(identifier, cms_site = nil, &block)
-    unless cms_site
-      host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
-      cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
-    end
+    cms_site = find_site(cms_site)
     return '' unless cms_site && identifier.present?
     snippet = cms_site.snippets.find_by_identifier(identifier)
     
@@ -32,7 +35,8 @@ module ComfortableMexicanSofa::ViewMethods
         :content    => capture(&block)
       )
     end
-    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet.content)
+    snippet_content = snippet ? snippet.content : ''
+    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet_content)
   end
 
   # Content of a text based page block. This is the typical method for retrieving content from
@@ -78,6 +82,16 @@ module ComfortableMexicanSofa::ViewMethods
     else
       render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
     end
+  end
+
+  private
+  # Find/detect csm_site
+  def find_site(cms_site = nil)
+    unless cms_site
+      host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
+      cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
+    end
+    cms_site
   end
 end
 

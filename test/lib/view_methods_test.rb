@@ -22,6 +22,10 @@ class ViewMethodsTest < ActionView::TestCase
                          <% end %>'
     end
 
+    def test_cms_snippet_without_default_content_block
+      render :inline => '<%= cms_snippet_content(:nonexistent_snippet) %>'
+    end
+
     def test_cms_page_content
       @cms_page = Cms::Page.root
       render :inline => '<%= cms_page_content(:default_field_text) %>'
@@ -99,6 +103,16 @@ class ViewMethodsTest < ActionView::TestCase
     cms_snippets(:default).update_attribute(:identifier, 'nonexistent_snippet')
     assert_equal 'default_snippet_content',
       action_result('test_cms_snippet_with_default_content_block')
+  end
+
+  def test_cms_snippet_exists_returns_false_for_snippet_without_default_content
+    id = 'nonexistent_snippet'
+    assert_nil Cms::Snippet.find_by_identifier(id)
+    refute cms_snippet_exists?(id)
+  end
+
+  def test_cms_snippet_without_default_content_renders_empty_string
+    assert_equal '', action_result('test_cms_snippet_without_default_content_block')
   end
   
   def test_cms_page_content
