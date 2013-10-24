@@ -22,7 +22,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content
       assert_equal 0, page.position
       assert page.is_published?
-      assert_equal 3, page.categories.count
+      assert_equal 2, page.categories.count
       assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
       
       assert child_page = Cms::Page.where(:full_path => '/child').first
