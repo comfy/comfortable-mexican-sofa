@@ -52,6 +52,11 @@ class ViewMethodsTest < ActionView::TestCase
   def test_cms_snippet_content
     assert_equal 'default_snippet_content', action_result('test_cms_snippet_content')
   end
+  
+  def test_cms_snippet_content_missing
+    Cms::Snippet.delete_all
+    assert_equal '', action_result('test_cms_snippet_content')
+  end
 
   def test_cms_snippet_content_with_tags
     cms_snippets(:default).update_columns(:content => '{{cms:helper:hello}}')
@@ -65,6 +70,11 @@ class ViewMethodsTest < ActionView::TestCase
 
   def test_cms_page_block_content
     assert_equal 'default_field_text_content', action_result('test_cms_page_block_content')
+  end
+  
+  def test_cms_page_block_content_missing
+    Cms::Block.delete_all
+    assert_equal '', action_result('test_cms_page_block_content')
   end
 
   def test_cms_page_files
@@ -103,6 +113,11 @@ class ViewMethodsTest < ActionView::TestCase
   
   def test_cms_page_content
     assert_equal 'default_field_text_content', action_result('test_cms_page_content')
+  end
+  
+  def test_cms_page_content_missing
+    Cms::Page.delete_all
+    assert_equal '', action_result('test_cms_page_content')
   end
 
   def test_cms_page_content_with_tags

@@ -22,7 +22,8 @@ module ComfortableMexicanSofa::ViewMethods
       host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
       cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
     end
-    return '' unless cms_site && identifier.present?
+    return '' unless cms_site
+    
     snippet = cms_site.snippets.find_by_identifier(identifier)
     
     if !snippet && block_given?
@@ -32,6 +33,8 @@ module ComfortableMexicanSofa::ViewMethods
         :content    => capture(&block)
       )
     end
+    
+    return '' unless snippet
     render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet.content)
   end
 
