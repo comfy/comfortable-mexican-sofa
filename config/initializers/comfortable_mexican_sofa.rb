@@ -4,7 +4,7 @@ ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
   #   config.cms_title = 'ComfortableMexicanSofa CMS Engine'
   
-  # Controller that is inherited from CmsAdmin::BaseController
+  # Controller that is inherited from Admin::Cms::BaseController
   #   config.base_controller = 'ApplicationController'
 
   # Module responsible for authentication. You can replace it with your own.

@@ -5,7 +5,7 @@ class ComfortableMexicanSofa::Configuration
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(
   attr_accessor :cms_title
   
-  # Controller that is inherited from CmsAdmin::BaseController
+  # Controller that is inherited from Admin::Cms::BaseController
   # 'ApplicationController' is the default
   attr_accessor :base_controller
 

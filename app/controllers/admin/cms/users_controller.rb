@@ -1,4 +1,4 @@
-class Admin::Cms::UsersController < CmsAdmin::BaseController
+class Admin::Cms::UsersController < Admin::Cms::BaseController
   load_and_authorize_resource class: "Cms::User", except: :create
 
   skip_before_filter  :load_admin_site,
