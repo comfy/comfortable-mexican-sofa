@@ -1,5 +1,5 @@
 class Admin::Cms::SessionsController < ::Devise::SessionsController
-  layout "cms_admin"
+  layout "admin/cms"
   
   # Public: Sign the user out
   def destroy

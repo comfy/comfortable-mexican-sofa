@@ -12,7 +12,7 @@ class Admin::Cms::UsersController < CmsAdmin::BaseController
     @user = Cms::User.new params[:user], as: :admin
     @user.save!
     flash[:success] = I18n.t('cms.users.created')
-    redirect_to cms_admin_users_path
+    redirect_to admin_cms_users_path
   rescue ActiveRecord::RecordInvalid
     logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.users.creation_failure')

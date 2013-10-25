@@ -31,11 +31,11 @@ class Cms::ContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_with_xhr
-    cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
+    cms_layouts(:default).update_columns(:app_layout => 'admin/cms')
     xhr :get, :render_html, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
-    assert_no_select "body[class='c_cms_content a_render_html']"
+    assert_no_select "body[class='c-cms-content a-render-html']"
   end
   
   def test_render_page_not_found
