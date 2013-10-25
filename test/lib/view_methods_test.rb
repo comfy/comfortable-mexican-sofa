@@ -110,7 +110,13 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal 'default_snippet_content',
       action_result('test_cms_snippet_with_default_content_block')
   end
-  
+
+  def test_cms_snippet_content_with_irb
+    cms_snippets(:default).update_column(:content, '<%= 1+1+1+1+1 %>')
+    assert_equal "&lt;%= 1+1+1+1+1 %&gt;", action_result('test_cms_snippet_content')
+  end
+
+
   def test_cms_page_content
     assert_equal 'default_field_text_content', action_result('test_cms_page_content')
   end
@@ -139,6 +145,11 @@ class ViewMethodsTest < ActionView::TestCase
     )
     assert_equal page.blocks.find_by_identifier('file').files.first, cms_page_content(:file, page)
     assert_equal page.blocks.find_by_identifier('files').files, cms_page_content(:files, page)
+  end
+
+  def test_cms_page_content_with_irb
+    cms_blocks(:default_field_text).update_column(:content, '<%= 1+1+1+1+1 %>')
+    assert_equal "&lt;%= 1+1+1+1+1 %&gt;", action_result('test_cms_page_content')
   end
 
 end
