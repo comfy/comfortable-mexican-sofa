@@ -1,5 +1,7 @@
 class Cms::User < ActiveRecord::Base
 
+  attr_reader :site_tokens
+  
   include Cms::Base
 
   self.table_name = 'cms_users'

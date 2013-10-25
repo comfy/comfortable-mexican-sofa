@@ -9,7 +9,7 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
   def edit; end
 
   def create
-    @user = Cms::User.new params[:user], as: :admin
+    @user = Cms::User.new user_params
     @user.save!
     flash[:success] = I18n.t('cms.users.created')
     redirect_to admin_cms_users_path
@@ -23,7 +23,7 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
     # Don't update the password
     params[:user].delete("password") if params[:user][:password].blank?
 
-    @user.update_attributes!(params[:user], as: :admin)
+    @user.update_attributes!(user_params)
     flash[:success] = I18n.t('cms.users.updated')
     redirect_to :action => :edit, :id => @user
   rescue ActiveRecord::RecordInvalid
@@ -36,7 +36,7 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
 
   def user_params
 
-    if current_user && current_admin_cms_user.super_admin?
+    if current_admin_cms_user && current_admin_cms_user.super_admin?
       params[:user].permit(:email, :password, :site_tokens, :super_admin)
     else
       params[:user].permit(:email, :password)
