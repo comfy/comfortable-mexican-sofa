@@ -35,7 +35,7 @@ module ComfortableMexicanSofa::ViewMethods
     end
     
     return '' unless snippet
-    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, snippet.content)
+    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, ComfortableMexicanSofa::Tag.sanitize_irb(snippet.content))
   end
 
   # Content of a text based page block. This is the typical method for retrieving content from
@@ -79,7 +79,7 @@ module ComfortableMexicanSofa::ViewMethods
     when ComfortableMexicanSofa::Tag::PageFiles
       block.files
     else
-      render :inline => ComfortableMexicanSofa::Tag.process_content(page, block.content)
+      render :inline => ComfortableMexicanSofa::Tag.process_content(page, ComfortableMexicanSofa::Tag.sanitize_irb(block.content))
     end
   end
 end
