@@ -17,7 +17,10 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_index_with_category
-    category = cms_sites(:default).categories.create!(:label => 'Test Category', :categorized_type => 'Cms::Page')
+    category = cms_sites(:default).categories.create!(
+      :label            => 'Test Category',
+      :categorized_type => 'Cms::Page'
+    )
     category.categorizations.create!(:categorized => cms_pages(:child))
     
     get :index, :site_id => cms_sites(:default), :category => category.label
@@ -32,6 +35,17 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:pages)
     assert_equal 0, assigns(:pages).count
+  end
+  
+  def test_get_index_with_toggle
+    cms_sites(:default).pages.create!(
+      :label  => 'test',
+      :slug   => 'test',
+      :parent => cms_pages(:child),
+      :layout => cms_layouts(:default)
+    )
+    get :index, :site_id => cms_sites(:default)
+    assert_response :success
   end
   
   def test_get_new
