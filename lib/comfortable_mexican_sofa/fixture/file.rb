@@ -22,6 +22,7 @@ module ComfortableMexicanSofa::Fixture::File
         end
         
         if file.changed? || self.force_import
+          file.updated_at = Time.now
           if file.save
             save_categorizations!(file, categories)
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported File \t #{file.file_file_name}")

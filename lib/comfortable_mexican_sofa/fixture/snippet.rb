@@ -26,6 +26,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         
         # saving
         if snippet.changed? || self.force_import
+          snippet.updated_at = Time.now
           if snippet.save
             save_categorizations!(snippet, categories)
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Snippet \t #{snippet.identifier}")

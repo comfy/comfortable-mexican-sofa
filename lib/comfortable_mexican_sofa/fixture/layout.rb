@@ -19,6 +19,11 @@ module ComfortableMexicanSofa::Fixture::Layout
         end
         
         # setting content
+        if File.exists?(content_path = File.join(path, 'head.html'))
+          if fresh_fixture?(layout, content_path)
+            layout.head = File.open(content_path).read
+          end
+        end
         if File.exists?(content_path = File.join(path, 'content.html'))
           if fresh_fixture?(layout, content_path)
             layout.content = read_as_haml(content_path)
@@ -37,6 +42,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         
         # saving
         if layout.changed? || self.force_import
+          layout.updated_at = Time.now
           if layout.save
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Layout \t #{layout.identifier}")
           else
@@ -76,8 +82,11 @@ module ComfortableMexicanSofa::Fixture::Layout
         open(File.join(layout_path, 'content.html'), 'w') do |f|
           f.write(layout.content)
         end
+        open(File.join(layout_path, 'head.html'), 'w') do |f|
+          f.write(layout.head)
+        end
         open(File.join(layout_path, 'stylesheet.css'), 'w') do |f|
-          f.write(layout.css)
+          f.write(layout.read_attribute(:css))
         end
         open(File.join(layout_path, 'javascript.js'), 'w') do |f|
           f.write(layout.js)
