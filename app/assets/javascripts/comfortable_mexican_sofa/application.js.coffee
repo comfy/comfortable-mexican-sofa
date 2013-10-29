@@ -52,7 +52,7 @@ window.CMS.slugify = ->
 
 
 window.CMS.wysiwyg = ->
-  $('textarea[data-rich-text]').each (i, element) ->
+  $('textarea[data-cms-rich-text]').each (i, element) ->
     $(element).wysihtml5
       html:         true
       color:        false
@@ -60,9 +60,9 @@ window.CMS.wysiwyg = ->
 
 
 window.CMS.codemirror = ->
-  $('textarea[data-cm-mode]').each (i, element) ->
+  $('textarea[data-cms-cm-mode]').each (i, element) ->
     cm = CodeMirror.fromTextArea element,
-      mode:           $(element).data('cm-mode')
+      mode:           $(element).data('cms-cm-mode')
       lineWrapping:   true
       autoCloseTags:  true
       lineNumbers:    true
@@ -81,13 +81,13 @@ window.CMS.sortable_list = ->
 
 
 window.CMS.timepicker = ->
-  $('input[type=text][data-datetime]').datetimepicker
+  $('input[type=text][data-cms-datetime]').datetimepicker
     format:     'yyyy-mm-dd hh:ii'
-    minView:    'day'
+    minView:    0
     autoclose:  true
-  $('input[type=text][data-date]').datetimepicker
+  $('input[type=text][data-cms-date]').datetimepicker
     format:     'yyyy-mm-dd'
-    minView:    'minute'
+    minView:    2
     autoclose:  true
 
 

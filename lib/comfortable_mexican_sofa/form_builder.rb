@@ -28,7 +28,7 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
   
   def field_date_time(tag, index)
-    default_tag_field(tag, index, :text_field_tag, :data => {:datetime => true})
+    default_tag_field(tag, index, :text_field_tag, :data => {'cms-datetime' => true})
   end
   
   def field_integer(tag, index)
@@ -40,15 +40,15 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
   
   def field_text(tag, index)
-    default_tag_field(tag, index, :text_area_tag, :data => {:cm_mode => 'text/html'})
+    default_tag_field(tag, index, :text_area_tag, :data => {'cms-cm-mode' => 'text/html'})
   end
   
   def field_rich_text(tag, index)
-    default_tag_field(tag, index, :text_area_tag, :data => {:rich_text => true})
+    default_tag_field(tag, index, :text_area_tag, :data => {'cms-rich-text' => true})
   end
   
   def page_date_time(tag, index)
-    default_tag_field(tag, index, :text_field_tag, :data => {:datetime => true})
+    default_tag_field(tag, index, :text_field_tag, :data => {'cms-datetime' => true})
   end
   
   def page_integer(tag, index)
@@ -60,11 +60,11 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
   
   def page_text(tag, index)
-    default_tag_field(tag, index, :text_area_tag, :data => {:cm_mode => 'text/html'})
+    default_tag_field(tag, index, :text_area_tag, :data => {'cms-cm-mode' => 'text/html'})
   end
   
   def page_rich_text(tag, index)
-    default_tag_field(tag, index, :text_area_tag, :data => {:rich_text => true})
+    default_tag_field(tag, index, :text_area_tag, :data => {'cms-rich-text' => true})
   end
   
   def page_file(tag, index)
@@ -76,7 +76,7 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
   
   def page_markdown(tag, index)
-    default_tag_field(tag, index, :text_area_tag, :data => {:cm_mode => 'text/x-markdown'})
+    default_tag_field(tag, index, :text_area_tag, :data => {'cms-cm-mode' => 'text/x-markdown'})
   end
   
   def collection(tag, index)

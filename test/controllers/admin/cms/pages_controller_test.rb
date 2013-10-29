@@ -64,7 +64,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content =>'{{cms:field:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
+    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-cms-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -88,7 +88,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode='text/html']"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode='text/html']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -96,7 +96,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -104,7 +104,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:datetime}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-datetime]"
+    assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-cms-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
 
@@ -128,7 +128,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:page:test_label}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/html]"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode=text/html]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -164,7 +164,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:rich_text}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-rich-text]"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
@@ -172,7 +172,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:markdown}}')
     get :new, :site_id => cms_sites(:default)
     assert_response :success
-    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cm-mode=text/x-markdown]"
+    assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode=text/x-markdown]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
