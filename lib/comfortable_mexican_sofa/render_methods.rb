@@ -50,7 +50,7 @@ module ComfortableMexicanSofa::RenderMethods
           @cms_layout = @cms_page.layout
           cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = @cms_page.content
+          options[:inline] = @cms_page.render
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingPage.new(path)
@@ -71,7 +71,7 @@ module ComfortableMexicanSofa::RenderMethods
             cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
           end
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = cms_page.content
+          options[:inline] = cms_page.render
           super(options, locals, &block)
         else
           raise ComfortableMexicanSofa::MissingLayout.new(identifier)
