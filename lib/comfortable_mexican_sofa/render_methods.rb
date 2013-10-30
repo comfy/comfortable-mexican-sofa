@@ -48,6 +48,18 @@ module ComfortableMexicanSofa::RenderMethods
         
         if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
           @cms_layout = @cms_page.layout
+          if (cms_blocks = options.delete(:cms_blocks)).present?
+            cms_blocks.each do |identifier, value|
+              content = if value.is_a?(Hash)
+                render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false)
+              else
+                value.to_s
+              end
+              page_block = @cms_page.blocks.detect{|b| b.identifier == identifier.to_s} ||
+                @cms_page.blocks.build(:identifier => identifier.to_s)
+              page_block.content = content
+            end
+          end
           cms_app_layout = @cms_layout.try(:app_layout)
           options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
           options[:inline] = @cms_page.render
