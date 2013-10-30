@@ -244,6 +244,11 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
   end
   
+  def test_identifier
+    assert_equal 'index',       cms_pages(:default).identifier
+    assert_equal 'child-page',  cms_pages(:child).identifier
+  end
+  
 protected
   
   def new_params(options = {})

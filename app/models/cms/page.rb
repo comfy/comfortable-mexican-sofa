@@ -68,6 +68,11 @@ class Cms::Page < ActiveRecord::Base
     self.read_attribute(:full_path) || self.assign_full_path
   end
   
+  # Somewhat unique method of identifying a page that is not a full_path
+  def identifier
+    self.slug.present?? self.full_path[1..-1].slugify : 'index'
+  end
+  
   # Transforms existing cms_block information into a hash that can be used
   # during form processing. That's the only way to modify cms_blocks.
   def blocks_attributes(was = false)
