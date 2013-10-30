@@ -247,6 +247,9 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_identifier
     assert_equal 'index',       cms_pages(:default).identifier
     assert_equal 'child-page',  cms_pages(:child).identifier
+    
+    cms_pages(:default).update_column(:slug, 'index')
+    assert_equal 'index', cms_pages(:default).identifier
   end
   
 protected

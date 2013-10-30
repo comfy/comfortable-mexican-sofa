@@ -70,7 +70,7 @@ class Cms::Page < ActiveRecord::Base
   
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    self.slug.present?? self.full_path[1..-1].slugify : 'index'
+    self.parent_id.blank?? 'index' : self.full_path[1..-1].slugify
   end
   
   # Transforms existing cms_block information into a hash that can be used
