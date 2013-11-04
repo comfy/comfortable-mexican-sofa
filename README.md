@@ -31,8 +31,8 @@ Then from the Rails project's root run:
 Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item.
 
 ```ruby
-ComfortableMexicanSofa::Routing.admin   :path => '/admin'
-ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
+comfy_path :cms_admin, :path => '/admin'
+comfy_path :cms, :path => '/', :sitemap => false
 ```
 
 When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)

@@ -1,8 +1,8 @@
 Test::Application.routes.draw do
 
-  ComfortableMexicanSofa::Routing.admin :path => '/admin'
+  comfy_route :cms_admin, :path => '/admin'
 
   # Make sure this routeset is defined last
-  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
+  comfy_route :cms, :path => '/', :sitemap => false
 
 end
