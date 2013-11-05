@@ -46,7 +46,7 @@ protected
     if @cms_page = @cms_site.pages.published.find_by_full_path('/404')
       render_html(404)
     else
-      raise ActionController::RoutingError.new('Page Not Found')
+      raise ActionController::RoutingError.new("Page Not Found at: \"#{params[:cms_path]}\"")
     end
   end
 

@@ -39,7 +39,7 @@ class Cms::ContentControllerTest < ActionController::TestCase
   end
   
   def test_render_page_not_found
-    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found at: "doesnotexist"' do
       get :render_html, :cms_path => 'doesnotexist'
     end
   end
@@ -92,7 +92,7 @@ class Cms::ContentControllerTest < ActionController::TestCase
     page = cms_pages(:default)
     page.update_columns(:is_published => false)
     
-    assert_exception_raised ActionController::RoutingError, 'Page Not Found' do
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
       get :render_html, :cms_path => ''
     end
   end
