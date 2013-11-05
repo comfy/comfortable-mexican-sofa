@@ -456,4 +456,11 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_equal 0, page_two.position
   end
 
+  def test_duplicate
+    original_page = cms_pages(:child)
+    post :duplicate, :site_id => original_page.site, :id => original_page
+    assert_equal Cms::Page.last.slug, "child-page-1"
+    assert_redirected_to edit_admin_cms_site_page_path(original_page.site, Cms::Page.last)
+  end
+
 end

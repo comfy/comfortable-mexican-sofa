@@ -72,6 +72,29 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     render :nothing => true
   end
 
+  def duplicate
+    original_page = @site.pages.find(params[:id])
+    @page = original_page.dup
+    @page.is_published = false
+    @page.include_in_nav = false
+
+    i = 0
+    while @page.invalid?
+      i += 1
+      @page.slug = "#{original_page.slug}-#{i}"
+    end
+
+    @page.save!
+    @page.blocks.delete_all
+
+    original_page.blocks.each do |block|
+      attributes = block.dup.attributes.except("page_id")
+      @page.blocks.create(attributes)
+    end
+
+    redirect_to edit_admin_cms_site_page_path(@site, @page)
+  end
+
 protected
 
   def check_for_layouts
