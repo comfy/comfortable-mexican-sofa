@@ -30,7 +30,7 @@ body#comfy
         position: fixed
   
   // -- Navigation ----------------------------------------------------------
-  .left-column-content ul.navigation
+  .left-column-content .navigation
     list-style: none
     margin: 0
     a
@@ -55,6 +55,22 @@ body#comfy
       height: 16px
       width: 8px
       background: transparent url(image-path("comfortable_mexican_sofa/nav_arrow.png"))
+    h4 a:after
+      position: absolute
+      top: 14px
+      left: 145px
+      display: block
+      border-right: 6px solid transparent
+      border-top: 6px solid white
+      border-left: 6px solid transparent
+      content: ""
+    h4 a.collapsed:after
+      top: 13px
+      left: 145px
+      border-bottom: 6px solid transparent
+      border-top: 6px solid transparent
+      border-left: 6px solid white
+
   
   // -- Right Side Boxes ----------------------------------------------------
   .right-column-content
