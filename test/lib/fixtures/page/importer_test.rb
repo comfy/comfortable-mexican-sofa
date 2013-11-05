@@ -12,7 +12,7 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
     nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
 
     assert_difference 'Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+      importer.import!
 
       assert page = Cms::Page.where(:full_path => '/').first
       assert_equal layout, page.layout
@@ -43,7 +43,7 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
     child.update_column(:slug, 'old')
 
     assert_no_difference 'Cms::Page.count' do
-      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+      importer.import!
 
       page.reload
       assert_equal 'Home Fixture Page', page.label
@@ -68,7 +68,7 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
     assert page.updated_at >= File.mtime(attr_file_path)
     assert page.updated_at >= File.mtime(content_file_path)
 
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    importer.import!
     page.reload
 
     assert_equal nil, page.slug
@@ -79,11 +79,10 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
 
   def test_update_force
     page = cms_pages(:default)
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    importer.import!
     page.reload
     assert_equal 'Default Page', page.label
-
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site', :forced).import!
+    importer(:forced).import!
     page.reload
     assert_equal 'Home Fixture Page', page.label
   end
@@ -98,12 +97,17 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
     )
     page.update_column(:updated_at, 10.years.ago)
 
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    importer.import!
     page.reload
 
     block = page.blocks.where(:identifier => 'content').first
     assert_equal "Home Page Fixture Contént\n{{ cms:snippet:default }}", block.content
 
     assert !page.blocks.where(:identifier => 'to_delete').first
+  end
+
+  private
+  def importer *args
+    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site', *args)
   end
 end
