@@ -1,5 +1,7 @@
 = render '/admin/cms/partials/navigation_before'
-
+- if @site && !@site.new_record?
+  %h5.site-and-company
+    = "#{@site.company.name} - #{@site.label}"
 #accordion.panel-group.navigation
   .panel.panel-default
     .panel-heading
