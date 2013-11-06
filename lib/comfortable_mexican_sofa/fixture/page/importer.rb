@@ -4,14 +4,23 @@ module ComfortableMexicanSofa::Fixture::Page
 
     def import!(path = self.path)
       Dir["#{path}*/"].each do |child_path|
-        import_only! child_path, true, nil
+        import_only! child_path, recursive: true, relative_path: false
       end
       clean_up
     end
 
-    def import_only! path, recursive=false, parent = nil
+    def import_only! path, params={}
+      params = {
+        relative_path: true,
+        parent: nil,
+        recursive: false
+      }.merge params
+
+      path = File.join self.path, path if params[:relative_path]
+
       slug = path.split('/').last
 
+      parent = params[:parent]
       page = if parent
                parent.children.where(:slug => slug).first ||
                  site.pages.new(:parent => parent, :slug => slug)
@@ -38,9 +47,12 @@ module ComfortableMexicanSofa::Fixture::Page
 
       self.fixture_ids << page.id
 
-      if recursive
+      if params[:recursive]
         Dir["#{path}*/"].each do |child_path|
-          import_only! child_path, true, page
+          import_only!(child_path,
+                       parent: page,
+                       recursive: true,
+                       relative_path: false)
         end
       end
 
