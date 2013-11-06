@@ -2,22 +2,14 @@ module ComfortableMexicanSofa::Fixture::Page
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     attr_accessor :target_pages
 
-    def import!(path = self.path, parent = nil)
-      Dir["#{path}*/"].each do |path|
-        import_only! path, parent
+    def import!(path = self.path)
+      Dir["#{path}*/"].each do |child_path|
+        import_only! child_path, true, nil
       end
-
-      # linking up target pages
-      if self.target_pages.present?
-        link_targets
-      end
-      # cleaning up
-      unless parent
-        clean_up
-      end
+      clean_up
     end
 
-    def import_only! path, parent
+    def import_only! path, recursive=false, parent = nil
       slug = path.split('/').last
 
       page = if parent
@@ -46,9 +38,17 @@ module ComfortableMexicanSofa::Fixture::Page
 
       self.fixture_ids << page.id
 
-      # importing child pages
-      import!(path, page)
+      if recursive
+        Dir["#{path}*/"].each do |child_path|
+          import_only! child_path, true, page
+        end
+      end
 
+      # link up targets if this is the root page, all pages will be done
+      # importing at this point so they can be looked up
+      link_targets if parent.nil? && self.target_pages.present?
+
+      page
     end
 
     private
