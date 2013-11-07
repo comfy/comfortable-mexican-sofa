@@ -14,7 +14,7 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
       assert_equal 2, snippet.categories.count
-      assert_equal ['category_a', 'category_b'], snippet.categories.map{|c| c.label}
+      assert_equal ['category_a', 'category_b'], snippet.categories.map(&:label)
     end
   end
 
@@ -51,8 +51,11 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
 
   def test_update_ignoring
     snippet = cms_snippets(:default)
-    snippet_path      = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'snippets', 'default')
-    attr_file_path    = File.join(snippet_path, 'attributes.yml')
+    snippet_path = File.join(ComfortableMexicanSofa.config.fixtures_path,
+                             'sample-site',
+                             'snippets',
+                             'default')
+    attr_file_path = File.join(snippet_path, 'attributes.yml')
     content_file_path = File.join(snippet_path, 'content.html')
 
     assert snippet.updated_at >= File.mtime(attr_file_path)
@@ -78,6 +81,8 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
 
   private
   def importer *args
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site', *args)
+    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site',
+                                                           'default-site',
+                                                           *args)
   end
 end
