@@ -33,14 +33,7 @@ module ComfortableMexicanSofa::Fixture::Page
 
       # saving
       if page.changed? || page.blocks_attributes_changed || self.force_import
-        if page.save
-          save_categorizations!(page, categories)
-          ComfortableMexicanSofa.logger.warn(
-            "[FIXTURES] Imported Page \t #{page.full_path}")
-        else
-          ComfortableMexicanSofa.logger.warn(
-            "[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
-        end
+        save_page page, categories
       end
 
       self.fixture_ids << page.id
@@ -62,6 +55,17 @@ module ComfortableMexicanSofa::Fixture::Page
     end
 
     private
+    def save_page page, categories
+      if page.save
+        save_categorizations!(page, categories)
+        ComfortableMexicanSofa.logger.warn(
+          "[FIXTURES] Imported Page \t #{page.full_path}")
+      else
+        ComfortableMexicanSofa.logger.warn(
+          "[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
+      end
+    end
+
     def build_page path, parent
       # get the directory path for the new page, e.g. 'index/child'
       relative_path = Pathname(path).relative_path_from Pathname(self.path)
