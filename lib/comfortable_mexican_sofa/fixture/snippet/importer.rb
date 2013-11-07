@@ -2,25 +2,38 @@ module ComfortableMexicanSofa::Fixture::Snippet
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     def import!
       Dir["#{self.path}*/"].each do |path|
-        identifier = File.basename path
-        snippets = self.site.snippets
-        snippet = snippets.find_or_initialize_by(identifier: identifier)
-
-        categories = import_attributes! snippet, path
-        import_content! snippet, path
-
-        if snippet.changed? || self.force_import
-          save_snippet snippet, categories
-        end
-
-        self.fixture_ids << snippet.id
+        import_only! path, relative_path: false
       end
 
-      # cleaning up
-      self.site.snippets.where('id NOT IN (?)', fixture_ids).each{ |s| s.destroy }
+      clean_up
+    end
+
+    def import_only! path, params={}
+      params = {
+        relative_path: true
+      }.merge params
+
+      path = File.join self.path, path if params[:relative_path]
+
+      identifier = File.basename path
+      snippets = self.site.snippets
+      snippet = snippets.find_or_initialize_by(identifier: identifier)
+
+      categories = import_attributes! snippet, path
+      import_content! snippet, path
+
+      if snippet.changed? || self.force_import
+        save_snippet snippet, categories
+      end
+
+      self.fixture_ids << snippet.id
+      snippet
     end
 
     private
+    def clean_up
+      self.site.snippets.where('id NOT IN (?)', fixture_ids).destroy_all
+    end
     def import_attributes! snippet, path
       categories = []
       if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
