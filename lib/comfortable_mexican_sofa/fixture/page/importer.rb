@@ -18,15 +18,13 @@ module ComfortableMexicanSofa::Fixture::Page
 
       path = File.join self.path, path if params[:relative_path]
 
-      slug = path.split('/').last
+      page = build_page path, params[:parent]
 
-      parent = params[:parent]
-      page = if parent
-               parent.children.where(:slug => slug).first ||
-                 site.pages.new(:parent => parent, :slug => slug)
-             else
-               site.pages.root || site.pages.new(:slug => slug)
-             end
+      if page.nil?
+        ComfortableMexicanSofa.logger.warn(
+          "[FIXTURES] Could not import #{path}, missing parent page" )
+        return
+      end
 
       # setting attributes
       categories = import_attrbutes! page, path
@@ -58,12 +56,35 @@ module ComfortableMexicanSofa::Fixture::Page
 
       # link up targets if this is the root page, all pages will be done
       # importing at this point so they can be looked up
-      link_targets if parent.nil? && self.target_pages.present?
+      link_targets if page.root? && self.target_pages.present?
 
       page
     end
 
     private
+    def build_page path, parent
+      # get the directory path for the new page, e.g. 'index/child'
+      relative_path = Pathname(path).relative_path_from Pathname(self.path)
+      directory, slug = File.split relative_path
+
+      # this is the root page if it's fixture is called index
+      is_root = slug == "index"
+
+      if is_root
+        site.pages.root || site.pages.new(slug: slug)
+      else
+        parent ||= find_parent directory
+
+        parent.children.find_or_initialize_by slug: slug, site: site if parent
+      end
+    end
+
+    def find_parent directory
+      # remove 'index', e.g. 'index/child' -> '/child', 'index' -> '/'
+      parent_full_path = directory.sub(/index\/?/, '/')
+      site.pages.find_by full_path: parent_full_path
+    end
+
     def import_content! page, path
       blocks_to_clear = page.blocks.collect(&:identifier)
       blocks_attributes = [ ]

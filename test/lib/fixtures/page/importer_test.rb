@@ -2,6 +2,60 @@
 require_relative '../../../test_helper'
 
 class FixturePagesImporterTest < ActiveSupport::TestCase
+  def test_single_page_create_with_missing_parent
+    Cms::Page.destroy_all
+    assert_no_difference 'Cms::Page.count',
+      "A child should not be created when it's parent doesn't exist" do
+
+      assert_nil importer.import_only! 'index/child'
+    end
+  end
+
+  def test_single_page_create
+    Cms::Page.delete_all
+    # should not regenerate child node.
+    assert_difference 'Cms::Page.count', 1 do
+      page = importer.import_only! 'index'
+      assert_equal 'Home Fixture Page', page.label
+      assert_equal 'index', page.slug
+    end
+  end
+  def test_single_page_create_child_page_with_non_fixture_pages
+    cms_sites(:default).pages.create!(
+      slug: 'non-fixture-page',
+      label: 'should not be removed',
+      layout: cms_layouts(:default)
+    )
+
+    assert_difference 'Cms::Page.count', 1 do
+      page = importer.import_only! 'index/child'
+      assert_equal 'child', page.slug
+      assert_equal 'Child Fixture Page', page.label
+      assert_equal Cms::Page.root, page.parent
+    end
+  end
+
+  def test_single_page_update_no_force
+    existing_page = cms_pages :default
+    page = importer.import_only! 'index'
+
+    assert_no_difference 'Cms::Page.count' do
+      assert_equal existing_page, page
+      assert_equal 'Default Page', page.label
+    end
+  end
+
+  def test_single_page_update_with_force
+    page = cms_pages :default
+    assert_no_difference 'Cms::Page.count' do
+      importer(true).import_only! 'index'
+      page.reload
+      assert_equal 'Home Fixture Page', page.label
+      assert page.children.include? cms_pages(:child)
+      assert cms_pages(:child).parent, page
+    end
+  end
+
   def test_creation
     Cms::Page.delete_all
 
@@ -71,7 +125,7 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
     importer.import!
     page.reload
 
-    assert_equal nil, page.slug
+    assert_nil page.slug
     assert_equal 'Test', page.label
     block = page.blocks.where(:identifier => 'content').first
     assert_equal 'test content', block.content
