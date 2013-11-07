@@ -8,7 +8,7 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
     Cms::Snippet.delete_all
 
     assert_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      importer.import!
       assert snippet = Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -26,7 +26,7 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
     assert_equal 'default_snippet_content', snippet.content
 
     assert_no_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      importer.import!
       snippet.reload
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -39,7 +39,7 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
     old_snippet.update_column(:identifier, 'old')
 
     assert_no_difference 'Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      importer.import!
       assert snippet = Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -58,7 +58,7 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
     assert snippet.updated_at >= File.mtime(attr_file_path)
     assert snippet.updated_at >= File.mtime(content_file_path)
 
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+    importer.import!
     snippet.reload
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
@@ -67,12 +67,17 @@ class FixtureSnippetImporterTest < ActiveSupport::TestCase
 
   def test_update_force
     snippet = cms_snippets(:default)
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+    importer.import!
     snippet.reload
     assert_equal 'Default Snippet', snippet.label
 
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site', :forced).import!
+    importer(:forced).import!
     snippet.reload
     assert_equal 'Default Fixture Snippet', snippet.label
+  end
+
+  private
+  def importer *args
+    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site', *args)
   end
 end
