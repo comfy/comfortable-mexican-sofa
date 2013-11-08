@@ -56,13 +56,7 @@ module ComfortableMexicanSofa::Fixture::File
         end
         
         # writing content
-        data_path = file.file.options[:storage] == :filesystem ?
-          file.file.path :
-          file.file.url
-          
-        open(::File.join(self.path, ::File.basename(file_path)), 'w') do |f|
-          f.write(open(data_path))
-        end
+        file.file.copy_to_local_file :original, ::File.join(self.path, file.file_file_name)
         
         ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported File \t #{file.file_file_name}")
       end
