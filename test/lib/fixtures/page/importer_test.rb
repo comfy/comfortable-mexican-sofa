@@ -52,7 +52,7 @@ class FixturePagesImporterTest < ActiveSupport::TestCase
       page.reload
       assert_equal 'Home Fixture Page', page.label
       assert page.children.include? cms_pages(:child)
-      assert cms_pages(:child).parent, page
+      assert_equal cms_pages(:child).parent, page
     end
   end
 
