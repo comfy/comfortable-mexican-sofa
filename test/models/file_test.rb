@@ -70,7 +70,7 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_image_mimetypes
-    assert_equal %w(image/gif image/jpeg image/pjpeg image/png image/tiff vnd.microsoft.icon),
+    assert_equal %w(image/gif image/jpeg image/pjpeg image/png image/tiff image/vnd.microsoft.icon),
       Cms::File::IMAGE_MIMETYPES
   end
   

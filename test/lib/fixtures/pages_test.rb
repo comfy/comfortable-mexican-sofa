@@ -146,7 +146,8 @@ class FixturePagesTest < ActiveSupport::TestCase
       'target_page'   => nil,
       'categories'    => [],
       'is_published'  => true,
-      'position'      => 0
+      'position'      => 0,
+      'include_in_nav' => true
     }), YAML.load_file(page_2_attr_path)
     
     FileUtils.rm_rf(host_path)
