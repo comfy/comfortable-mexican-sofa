@@ -44,8 +44,6 @@ module ComfortableMexicanSofa::Fixture::File
       prepare_folder!(self.path)
       
       self.site.files.each do |file|
-        file_path = File.join(self.path, file.file_file_name)
-        
         # writing attributes
         open(::File.join(self.path, "_#{file.file_file_name}.yml"), 'w') do |f|
           f.write({
@@ -56,7 +54,7 @@ module ComfortableMexicanSofa::Fixture::File
         end
         
         # writing content
-        file.file.copy_to_local_file :original, ::File.join(self.path, file.file_file_name)
+        file.file.copy_to_local_file :original, file_path
         
         ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported File \t #{file.file_file_name}")
       end
