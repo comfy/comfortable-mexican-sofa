@@ -44,6 +44,8 @@ module ComfortableMexicanSofa::Fixture::File
       prepare_folder!(self.path)
       
       self.site.files.each do |file|
+        file_path = File.join(self.path, file.file_file_name)
+
         # writing attributes
         open(::File.join(self.path, "_#{file.file_file_name}.yml"), 'w') do |f|
           f.write({
