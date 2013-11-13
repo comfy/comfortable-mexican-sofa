@@ -24,7 +24,7 @@ module ComfortableMexicanSofa::Fixture
     end
     
     def get_attributes(file_path)
-      YAML.load_file(file_path)
+      YAML.load_file(file_path) || { }
     end
     
     def save_categorizations!(object, categories)
