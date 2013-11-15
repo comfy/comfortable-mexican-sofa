@@ -47,7 +47,7 @@ gem 'comfortable_mexican_sofa', '~> 1.8.0'
 
 Quick Start Guide
 -----------------
-After finishing installation you should be able to navigate to http://yoursite/cms-admin
+After finishing installation you should be able to navigate to http://yoursite/admin
 
 Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb)
 
