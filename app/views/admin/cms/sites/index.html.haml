@@ -2,9 +2,11 @@
   = link_to t('.new_link'), new_admin_cms_site_path, :class => 'btn pull-right'
   %h2= t('.title')
 
+= text_field_tag "Search", nil, id: "quick_search", placeholder: "search"
+
 = render 'admin/cms/partials/sites_before'
 
-%table.table.table-hover.table-bordered
+%table.table.table-hover.table-bordered#quick_search
   - @sites.each do |site|
     %tr
       %td
