@@ -14,14 +14,26 @@ class MirrorsTest < ActiveSupport::TestCase
   def test_page_creation
     setup_sites
     layout = @site_a.layouts.create!(:identifier => 'test')
+    label = 'Root'
+    mirror_label = 'Mirror Root'
     
     assert_difference 'Cms::Page.count', 2 do
       page = @site_a.pages.create!(
         :layout => layout,
-        :label  => 'Root'
+        :label  => label
       )
+      page_mirror = page.mirrors.first
+
       assert_equal 1, page.mirrors.size
-      assert_equal '/', page.mirrors.first.full_path
+      assert_equal '/', page_mirror.full_path
+      assert_equal page_mirror.label, label
+
+      page_mirror.update_attributes!(
+        :label => mirror_label
+      )
+      page.reload
+      assert_equal page.label, label
+      assert_equal page_mirror.label, mirror_label
     end
   end
   
