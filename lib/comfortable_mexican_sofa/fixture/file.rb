@@ -60,7 +60,7 @@ module ComfortableMexicanSofa::Fixture::File
           file.file.url
           
         open(::File.join(self.path, ::File.basename(file_path)), 'w') do |f|
-          f.write(open(data_path))
+          open(data_path) { |src| f.write(src.read) }
         end
         
         ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported File \t #{file.file_file_name}")
