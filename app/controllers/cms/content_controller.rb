@@ -7,8 +7,6 @@ class Cms::ContentController < Cms::BaseController
   before_action :load_cms_page,
                 :authenticate,
                 :only => :render_html
-  before_action :load_cms_layout,
-                :only => [:render_css, :render_js]
   
   def render_html(status = 200)
     if @cms_layout = @cms_page.layout
@@ -48,12 +46,6 @@ protected
     else
       raise ActionController::RoutingError.new("Page Not Found at: \"#{params[:cms_path]}\"")
     end
-  end
-
-  def load_cms_layout
-    @cms_layout = @cms_site.layouts.find_by_identifier!(params[:identifier])
-  rescue ActiveRecord::RecordNotFound
-    render :nothing => true, :status => 404
   end
 
 end
