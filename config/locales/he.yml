@@ -2,25 +2,25 @@
 he:
   # -- Models ---------------------------------------------------------------
   attributes:
-    label: Label
+    label: תגית
     slug: Slug
-    parent_id: Parent
-    content: Content
-    identifier: Identifier
+    parent_id: אבא
+    content: תוכן
+    identifier: מזהה
   activerecord:
     models:
-      cms/site: Site
+      cms/site: אתר
       cms/layout: Layout
-      cms/page: Page
+      cms/page: עמוד
       cms/snippet: Snippet
-      cms/file: File
+      cms/file: קובץ
     attributes:
       cms/site:
         identifier: Identifier
         hostname: Hostname
         path: Path
-        locale: Language
-        is_mirrored: Mirrored
+        locale: שפה
+        is_mirrored: מראה
       cms/layout:
         identifier: Identifier
         label: Layout Name
