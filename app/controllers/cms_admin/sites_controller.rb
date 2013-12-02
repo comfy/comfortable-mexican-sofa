@@ -46,11 +46,24 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
     redirect_to :action => :index
   end
 
+  #Crafty-Magical-Squirrel methods:
+
+  def crafty_create(path,label)
+    @site = Cms::Site.new(params[:path=>path:label => label])
+    @site.hostname ||= request.host.downcase
+    @site.save!
+  end
+
+.form-actions
+  = form.submit t(@site.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+
+
 protected
 
   def build_site
     @site = Cms::Site.new(params[:site])
     @site.hostname ||= request.host.downcase
+
   end
 
   def load_site
