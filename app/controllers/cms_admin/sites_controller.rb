@@ -46,10 +46,6 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
     redirect_to :action => :index
   end
 
-.form-actions
-  = form.submit t(@site.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
-
-
 protected
 
   def build_site
