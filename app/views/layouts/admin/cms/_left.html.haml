@@ -8,7 +8,7 @@
       %h4.panel-title
         %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseOne"}
           Site Content
-    #collapseOne.panel-collapse.collapse{class: ("in" if is_active_link?(admin_cms_site_layouts_path(@site)) || is_active_link?(admin_cms_site_pages_path(@site))|| is_active_link?(admin_cms_site_snippets_path(@site)) || is_active_link?(admin_cms_site_files_path(@site))) }
+    #collapseOne.panel-collapse.collapse{class: ("in" if @site && (is_active_link?(admin_cms_site_layouts_path(@site)) || is_active_link?(admin_cms_site_pages_path(@site))|| is_active_link?(admin_cms_site_snippets_path(@site)) || is_active_link?(admin_cms_site_files_path(@site)))) }
       .panel-body
         %li= active_link_to t('admin.cms.base.sites'), admin_cms_sites_path, :active => ['admin/cms/sites']
         
