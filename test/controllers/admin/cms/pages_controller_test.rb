@@ -243,6 +243,13 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  def test_get_edit_with_layout_and_no_tags
+    page = cms_pages(:default)
+    page.layout.update_column(:content, '')
+    get :edit, :site_id => page.site, :id => page
+    assert_response :success
+  end
+  
   def test_creation
     assert_difference 'Cms::Page.count' do
       assert_difference 'Cms::Block.count', 2 do
