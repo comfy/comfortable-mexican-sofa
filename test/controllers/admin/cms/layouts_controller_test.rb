@@ -21,7 +21,7 @@ class Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     get :new, :site_id => site
     assert_response :success
     assert assigns(:layout)
-    assert_equal '{{ cms:page:content:text }}', assigns(:layout).content
+    assert_equal '{{ cms:page:content:rich_text }}', assigns(:layout).content
     assert_template :new
     assert_select "form[action=/admin/sites/#{site.id}/layouts]"
     assert_select "form[action='/admin/sites/#{site.id}/files?ajax=true']"
