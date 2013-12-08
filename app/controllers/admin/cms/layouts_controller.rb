@@ -21,7 +21,6 @@ class Admin::Cms::LayoutsController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.layouts.created')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.layouts.creation_failure')
     render :action => :new
   end
@@ -31,7 +30,6 @@ class Admin::Cms::LayoutsController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.layouts.update_failure')
     render :action => :edit
   end

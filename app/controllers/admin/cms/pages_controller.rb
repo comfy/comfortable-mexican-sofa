@@ -29,7 +29,6 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.pages.creation_failure')
     render :action => :new
   end
@@ -39,7 +38,6 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.pages.update_failure')
     render :action => :edit
   end

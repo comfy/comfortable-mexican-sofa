@@ -64,8 +64,9 @@ module ComfortableMexicanSofa::IsMirrored
         mirror.is_mirrored = true
         begin
           mirror.save!
-        rescue ActiveRecord::RecordInvalid
-          logger.detailed_error($!)
+        rescue ActiveRecord::RecordInvalid => e
+          logger.error(e.message)
+          logger.error(e.backtrace.each{|line| error line })
         end
       end
     end

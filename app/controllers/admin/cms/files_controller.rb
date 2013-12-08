@@ -56,7 +56,6 @@ class Admin::Cms::FilesController < Admin::Cms::BaseController
     end
     
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     if params[:ajax]
       render :nothing => true, :status => :unprocessable_entity
     else
@@ -70,7 +69,6 @@ class Admin::Cms::FilesController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.files.update_failure')
     render :action => :edit
   end

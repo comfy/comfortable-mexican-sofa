@@ -9,14 +9,12 @@ class Admin::Cms::CategoriesController < Admin::Cms::BaseController
   def create
     @category = @site.categories.create!(category_params)
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     render :nothing => true
   end
   
   def update
     @category.update_attributes!(category_params)
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     render :nothing => true
   end
   

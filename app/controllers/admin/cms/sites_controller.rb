@@ -25,7 +25,6 @@ class Admin::Cms::SitesController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.sites.created')
     redirect_to admin_cms_site_layouts_path(@site)
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.sites.creation_failure')
     render :action => :new
   end
@@ -35,7 +34,6 @@ class Admin::Cms::SitesController < Admin::Cms::BaseController
     flash[:success] = I18n.t('cms.sites.updated')
     redirect_to :action => :edit, :id => @site
   rescue ActiveRecord::RecordInvalid
-    logger.detailed_error($!)
     flash.now[:error] = I18n.t('cms.sites.update_failure')
     render :action => :edit
   end
