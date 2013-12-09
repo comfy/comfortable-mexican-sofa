@@ -223,6 +223,7 @@ pt-BR:
           done: Pronto
           all: Todas
           add: Adicionar
+          add_placeholder: Adicione uma Categoria
         show:
           are_you_sure: Tem certeza?
         edit:

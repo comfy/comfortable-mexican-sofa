@@ -223,6 +223,7 @@ ru:
           done: Применить
           all: Все
           add: Добавить
+          add_placeholder: добавить категорию
         show:
           are_you_sure: Вы уверены?
         edit:

@@ -223,6 +223,7 @@ es:
           done: Listo
           all: Todos
           add: Agregar
+          add_placeholder: Añadir Categoría
         show:
           are_you_sure: ¿Estás seguro?
         edit:

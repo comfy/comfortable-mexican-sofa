@@ -223,6 +223,7 @@ pl:
           done: Zrobione
           all: Wszystko
           add: Dodaj
+          add_placeholder: Dodać Kategorię
         show:
           are_you_sure: Jesteś pewien?
         edit:

@@ -223,6 +223,7 @@ fr:
           done: Terminé
           all: Tout
           add: Ajouter
+          add_placeholder: Ajouter la Catégorie
         show:
           are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
         edit:
