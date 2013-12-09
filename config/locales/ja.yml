@@ -223,6 +223,7 @@ ja:
           done: 完了
           all: すべて
           add: 追加
+          add_placeholder: カテゴリを追加
         show:
           are_you_sure: よろしいですか？
         edit:

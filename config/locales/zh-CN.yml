@@ -223,6 +223,7 @@ zh-CN:
           done: 完成
           all: 全部
           add: 创建
+          add_placeholder: 添加类别
         show:
           are_you_sure: 确定删除该分类吗？
         edit:
