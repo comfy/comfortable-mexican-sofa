@@ -9,6 +9,7 @@ rvm:
   - jruby-19mode
 gemfile:
   - test/gemfiles/Gemfile.rails.4.0
+  - test/gemfiles/Gemfile.rails.4.1
 branches:
   only:
     - master
