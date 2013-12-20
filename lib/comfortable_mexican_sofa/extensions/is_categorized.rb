@@ -22,7 +22,7 @@ module ComfortableMexicanSofa::IsCategorized
       
       scope :for_category, lambda { |*categories|
         if (categories = [categories].flatten.compact).present?
-          distinct.select("#{table_name}.*").
+          self.distinct.
             joins(:categorizations => :category).
             where('cms_categories.label' => categories)
         end

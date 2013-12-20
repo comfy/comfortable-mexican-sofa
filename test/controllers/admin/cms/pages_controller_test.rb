@@ -440,11 +440,11 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_toggle_branch
     page = cms_pages(:default)
-    get :toggle_branch, :site_id => page.site, :id => page, :format => :js
+    xhr :get, :toggle_branch, :site_id => page.site, :id => page, :format => :js
     assert_response :success
     assert_equal [page.id.to_s], session[:cms_page_tree]
 
-    get :toggle_branch, :site_id => page.site, :id => page, :format => :js
+    xhr :get, :toggle_branch, :site_id => page.site, :id => page, :format => :js
     assert_response :success
     assert_equal [], session[:cms_page_tree]
   end
