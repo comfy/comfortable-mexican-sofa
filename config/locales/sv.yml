@@ -223,6 +223,7 @@ sv:
           done: Klar
           all: Alla
           add: Lägg till
+          add_placeholder: Lägga Kategori
         show:
           are_you_sure: Är du säker?
         edit:

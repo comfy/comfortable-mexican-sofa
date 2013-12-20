@@ -223,6 +223,7 @@ nl:
           done: Klaar
           all: Alle
           add: Toevoegen
+          add_placeholder: Categorie Toevoegen
         show:
           are_you_sure: Weet u het zeker?
         edit:

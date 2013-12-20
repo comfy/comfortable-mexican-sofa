@@ -20,5 +20,5 @@
     = form_for :category, :url => admin_cms_site_categories_path(@site), :remote => true, :html => {:id => 'new_category'} do |form|
       = form.hidden_field :categorized_type, :value => type
       .input-append
-        = form.text_field :label, :placeholder => 'Add Category'
+        = form.text_field :label, :placeholder => t('.add_placeholder')
         %button.btn.btn-mini= t('.add')
