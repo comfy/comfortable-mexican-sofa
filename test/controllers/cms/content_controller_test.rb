@@ -21,6 +21,36 @@ class Cms::ContentControllerTest < ActionController::TestCase
     ), response.body
     assert_equal 'text/html', response.content_type
   end
+  
+  def test_show_as_json
+    get :show, :cms_path => '', :format => 'json'
+    assert_response :success
+    
+    content = rendered_content_formatter(
+      '
+      layout_content_a
+      default_page_text_content_a
+      default_snippet_content
+      default_page_text_content_b
+      layout_content_b
+      default_snippet_content
+      layout_content_c'
+    )
+    page = cms_pages(:default)
+    json_response = JSON.parse(response.body)
+    assert_equal page.id,         json_response['id']
+    assert_equal page.site.id,    json_response['site_id']
+    assert_equal page.layout.id,  json_response['layout_id']
+    assert_equal nil,             json_response['parent_id']
+    assert_equal nil,             json_response['target_page_id']
+    assert_equal 'Default Page',  json_response['label']
+    assert_equal nil,             json_response['slug']
+    assert_equal '/',             json_response['full_path']
+    assert_equal content,         json_response['content']
+    assert_equal 0,               json_response['position']
+    assert_equal 1,               json_response['children_count']
+    assert_equal true,            json_response['is_published']
+  end
 
   def test_show_with_app_layout
     cms_layouts(:default).update_columns(:app_layout => 'admin/cms')

@@ -1,4 +1,5 @@
 class Cms::ContentController < Cms::BaseController
+
   respond_to :json, :html
 
   # Authentication module must have #authenticate method
@@ -8,11 +9,10 @@ class Cms::ContentController < Cms::BaseController
   before_action :authenticate,
                 :only => :show
 
-  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
-
+  rescue_from ActiveRecord::RecordNotFound, :with => :page_not_found
 
   def show
-    @cms_page = @cms_site.find_published_page!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
 
     if @cms_page.target_page.present?
       redirect_to @cms_page.target_page.url
@@ -44,7 +44,7 @@ protected
   end
 
   def page_not_found
-    @cms_page = @cms_site.find_published_page!('/404')
+    @cms_page = @cms_site.pages.published.find_by_full_path!('/404')
 
     respond_with @cms_page do |format|
       format.html { render_html(404) }

@@ -56,15 +56,6 @@ class Cms::Site < ActiveRecord::Base
     super
   end
 
-  # returns the requested page
-  def find_published_page!(path)
-    pages.published.find_by_full_path!(path)
-  end
-
-  def find_layout_by_identifier!(identifier)
-    layouts.find_by_identifier!(identifier)
-  end
-
 protected
 
   def self.real_host_from_aliases(host)
