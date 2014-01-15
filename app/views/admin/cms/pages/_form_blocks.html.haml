@@ -24,5 +24,8 @@
           - namespace.each_with_index do |(name, tags), index|
             .tab-pane{:id => "ns-#{name}", :class => index == 0 ? 'active' : nil}
               - tags.each do |tag|
-                = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, block_index) rescue nil
+                - begin
+                  = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, block_index)
+                - rescue
+                  - Rails.env.production?? nil : raise
                 - block_index += 1

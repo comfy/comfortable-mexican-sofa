@@ -188,6 +188,11 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
   
   def test_get_new_with_crashy_tag
     cms_layouts(:default).update_columns(:content => '{{cms:collection:label:invalid}}')
+    assert_exception_raised do 
+      get :new, :site_id => cms_sites(:default)
+    end
+    
+    Rails.stubs(:env => ActiveSupport::StringInquirer.new('production'))
     get :new, :site_id => cms_sites(:default)
     assert_response :success
   end
