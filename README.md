@@ -80,8 +80,4 @@ Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE) 
 
-Copyright 2009-2013 Oleg Khabarov, [The Working Group Inc](http://www.twg.ca)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/comfy/comfortable-mexican-sofa/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+Copyright 2009-2014 Oleg Khabarov
