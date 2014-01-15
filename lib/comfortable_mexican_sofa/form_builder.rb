@@ -48,7 +48,8 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
 
   def field_boolean(tag, index)
-    content = @template.check_box_tag("page[blocks_attributes][#{index}][content]", tag.content.present?, tag.content, :id => nil)
+    content = @template.hidden_field_tag("page[blocks_attributes][#{index}][content]", '', :id => nil)
+    content << @template.check_box_tag("page[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
     content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
     element(tag.identifier.titleize + "?", content)
   end

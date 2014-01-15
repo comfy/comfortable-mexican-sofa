@@ -176,6 +176,15 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
   end
   
+  def test_get_new_with_boolean_field
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:boolean}}')
+    get :new, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
+    assert_select "input[type='hidden'][name='page[blocks_attributes][0][content]'][value='']"
+    assert_select "input[type='checkbox'][name='page[blocks_attributes][0][content]'][value='1']"
+  end
+  
   def test_get_new_with_several_tag_fields
     cms_layouts(:default).update_columns(:content => '{{cms:page:label_a}}{{cms:page:label_b}}')
     get :new, :site_id => cms_sites(:default)
