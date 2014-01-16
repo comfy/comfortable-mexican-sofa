@@ -13,7 +13,7 @@ class Cms::File < ActiveRecord::Base
       if f.respond_to?(:instance) && f.instance.respond_to?(:dimensions)
         (f.instance.dimensions.blank?? { } : { :original => f.instance.dimensions }).merge(
           :cms_thumb => '80x60#'
-        )
+        ).merge(ComfortableMexicanSofa.config.upload_file_options[:styles] || {})
       end
     }
   )
