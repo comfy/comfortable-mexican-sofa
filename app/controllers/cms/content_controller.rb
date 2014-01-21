@@ -1,6 +1,7 @@
 class Cms::ContentController < Cms::BaseController
 
-  respond_to :json, :html
+  # Respond with HTML by default so that requests with 'Accept: */*' get a web page (e.g. Facebook)
+  respond_to :html, :json
 
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.public_auth.to_s.constantize

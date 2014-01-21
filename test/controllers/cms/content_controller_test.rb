@@ -21,6 +21,12 @@ class Cms::ContentControllerTest < ActionController::TestCase
     ), response.body
     assert_equal 'text/html', response.content_type
   end
+
+  def test_show_default_html
+    @request.headers["Accept"] = "*/*"
+    get :show, :cms_path => ''
+    assert_equal 'text/html', response.content_type
+  end
   
   def test_show_as_json
     get :show, :cms_path => '', :format => 'json'
