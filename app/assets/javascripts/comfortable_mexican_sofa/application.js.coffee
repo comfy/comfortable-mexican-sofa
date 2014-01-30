@@ -100,7 +100,8 @@ window.CMS.page_blocks = ->
       complete: ->
         CMS.wysiwyg()
         CMS.timepicker()
-
+        CMS.codemirror()
+        CMS.reinitialize_page_blocks() if CMS.reinitialize_page_blocks?
 
 window.CMS.mirrors = ->
   $('#mirrors select').change ->
