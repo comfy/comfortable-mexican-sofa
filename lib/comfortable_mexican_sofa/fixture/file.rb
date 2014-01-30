@@ -59,7 +59,7 @@ module ComfortableMexicanSofa::Fixture::File
           file.file.path :
           file.file.url
           
-        open(::File.join(self.path, ::File.basename(file_path)), 'w') do |f|
+        open(::File.join(self.path, ::File.basename(file_path)), 'wb') do |f|
           open(data_path) { |src| f.write(src.read) }
         end
         
