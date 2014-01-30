@@ -6,13 +6,10 @@ script:
 rvm:
   - 1.9.3
   - 2.0.0
-  - jruby-19mode
+  - 2.1.0
 gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
 branches:
   only:
     - master
-matrix:
-  allow_failures:
-    - rvm: jruby-19mode
