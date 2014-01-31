@@ -1,3 +1,4 @@
+# encoding: utf-8
 it:
   # -- Models ---------------------------------------------------------------
   attributes:
@@ -136,7 +137,12 @@ it:
           title: Nuovo Layout
         edit:
           title: Modifica Layout
-          revision: Revisione
+          revision: &revision
+            zero: '%{count} Revisione'
+            one: '%{count} Revisione'
+            few: '%{count} Revisione'
+            many: '%{count} Revisione'
+            other: '%{count} Revisione'
         form:
           select_parent_layout: Seleziona Layout Padre
           select_app_layout: Seleziona Layout di applicazione
@@ -157,7 +163,8 @@ it:
           title: Nuova Pagina
         edit:
           title: Modifica Pagina
-          revision: Revisione
+          revision:
+            <<: *revision
         form:
           select_target_page: Nessuna reindirezione
           preview: Anteprima
@@ -180,7 +187,8 @@ it:
           title: Nuovo Frammento
         edit:
           title: Modifica Frammento
-          revision: Revisione
+          revision:
+            <<: *revision
         form:
           create: Crea Frammento
           update: Modifica Frammento
