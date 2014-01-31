@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'comfortable_mexican_sofa'
 require 'rails'
+require 'rails-i18n'
 require 'formatted_form'
 require 'active_link_to'
 require 'paperclip'
