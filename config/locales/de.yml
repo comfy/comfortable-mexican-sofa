@@ -137,7 +137,12 @@ de:
           title: Neues Layout
         edit:
           title: Layout bearbeiten
-          revision: Revision
+          revision: &revision
+            zero: No Revisions
+            one: '%{count} Revision'
+            few: '%{count} Revisions'
+            many: '%{count} Revisions'
+            other: '%{count} Revisions'
         form:
           select_parent_layout: Select Parent Layout
           select_app_layout: Select Application Layout
@@ -158,7 +163,8 @@ de:
           title: Neue Seite
         edit:
           title: Seite bearbeiten
-          revision: Revision
+          revision:
+            <<: *revision
         form:
           select_target_page: Keine Weiterleitung
           preview: Vorschau
@@ -181,7 +187,8 @@ de:
           title: Neuer Schnipsel
         edit:
           title: Schnipsel bearbeiten
-          revision: Revision
+          revision:
+            <<: *revision
         form:
           create: Erstelle Schnipsel
           update: Schnipsel speichern

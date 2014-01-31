@@ -137,7 +137,12 @@ pl:
           title: Nowy szablon
         edit:
           title: Edytuj szablon
-          revision: Wersje
+          revision: &revision
+            zero: '%{count} Wersje'
+            one: '%{count} Wersje'
+            few: '%{count} Wersje'
+            many: '%{count} Wersje'
+            other: '%{count} Wersje'
         form:
           select_parent_layout: Wybierz szablon rodzic
           select_app_layout: Wybierz szablon aplikacji
@@ -158,7 +163,8 @@ pl:
           title: Nowa strona
         edit:
           title: Edytuj stronę
-          revision: Wersje
+          revision:
+            <<: *revision
         form:
           select_target_page: Bez przekierowania
           preview: Podgląd
@@ -181,7 +187,8 @@ pl:
           title: Nowy snippet
         edit:
           title: Edytuj snippet
-          revision: Wersje
+          revision:
+            <<: *revision
         form:
           create: Utwórz snippet
           update: Uaktualnij snippet

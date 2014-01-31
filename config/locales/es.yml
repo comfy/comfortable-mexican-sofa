@@ -137,7 +137,12 @@ es:
           title: Nuevo Diseño
         edit:
           title: Editando Diseño
-          revision: Revisión
+          revision: &revision
+            zero: No Revisions
+            one: '%{count} Revision'
+            few: '%{count} Revisions'
+            many: '%{count} Revisions'
+            other: '%{count} Revisions'
         form:
           select_parent_layout: Seleccionar diseño padre
           select_app_layout: Seleccionar diseño (App)
@@ -158,7 +163,8 @@ es:
           title: Nueva Página
         edit:
           title: Editando Página
-          revision: Revision
+          revision:
+            <<: *revision
         form:
           select_target_page: No Redirigir
           preview: Vista Previa
@@ -181,7 +187,8 @@ es:
           title: Nuevo Fragmento
         edit:
           title: Editando Fragmento
-          revision: Revisión
+          revision:
+            <<: *revision
         form:
           create: Crear Fragmento
           update: Actualizar Fragmento

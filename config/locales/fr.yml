@@ -137,7 +137,12 @@ fr:
           title: Nouvelle mise en page
         edit:
           title: Modification de la mise en page
-          revision: révision
+          revision: &revision
+            zero: No Revisions
+            one: '%{count} Revision'
+            few: '%{count} Revisions'
+            many: '%{count} Revisions'
+            other: '%{count} Revisions'
         form:
           select_parent_layout: Sélectionner une mise en page parent
           select_app_layout: Sélectionner une mise en page de l'application
@@ -158,7 +163,8 @@ fr:
           title: Nouvelle page
         edit:
           title: Modification de la page
-          revision: révision
+          revision:
+            <<: *revision
         form:
           select_target_page: Pas de redirection
           preview: Prévisualiser
@@ -181,7 +187,8 @@ fr:
           title: Nouveau fragment
         edit:
           title: Modification du fragment
-          revision: révision
+          revision:
+            <<: *revision
         form:
           create: Créer le fragment
           update: Modifier le fragment

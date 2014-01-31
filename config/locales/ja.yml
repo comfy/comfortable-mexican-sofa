@@ -137,7 +137,12 @@ ja:
           title: 新規レイアウト
         edit:
           title: レイアウトを編集
-          revision: リビジョン
+          revision: &revision
+            zero: リビジョン
+            one: '%{count} リビジョン'
+            few: '%{count} リビジョン'
+            many: '%{count} リビジョン'
+            other: '%{count} リビジョン'
         form:
           select_parent_layout: 親レイアウトを選択
           select_app_layout: アプリケーションレイアウトを選択
@@ -158,7 +163,8 @@ ja:
           title: 新規ページ
         edit:
           title: ページを編集
-          revision: リビジョン
+          revision:
+            <<: *revision
         form:
           select_target_page: リダイレクトなし
           preview: プレビュー
@@ -181,7 +187,8 @@ ja:
           title: 新規スニペット
         edit:
           title: スニペットを編集
-          revision: リビジョン
+          revision:
+            <<: *revision
         form:
           create: スニペットを作成
           update: スニペットを更新

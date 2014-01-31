@@ -137,7 +137,12 @@ pt-BR:
           title: Novo Leiaute
         edit:
           title: Editando Leiaute
-          revision: Revisão
+          revision: &revision
+            zero: '%{count} Revisão'
+            one: '%{count} Revisão'
+            few: '%{count} Revisão'
+            many: '%{count} Revisão'
+            other: '%{count} Revisão'
         form:
           select_parent_layout: Selecione o Leiaute Pai
           select_app_layout: Selecione o Leiaute da Aplicação
@@ -158,7 +163,8 @@ pt-BR:
           title: Nova Página
         edit:
           title: Editando Página
-          revision: Revisão
+          revision:
+            <<: *revision
         form:
           select_target_page: Não Redirecionar
           preview: Pré-visualização
@@ -181,7 +187,8 @@ pt-BR:
           title: Novo Fragmento
         edit:
           title: Editando Fragmento
-          revision: Revisão
+          revision:
+            <<: *revision
         form:
           create: Criar Fragmento
           update: Atualizar Fragmento

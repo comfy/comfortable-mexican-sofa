@@ -137,7 +137,12 @@ nl:
           title: Nieuwe Lay-out
         edit:
           title: Lay-out Bewerken
-          revision: Revisie
+          revision: &revision
+            zero: '%{count} Revisie'
+            one: '%{count} Revisie'
+            few: '%{count} Revisie'
+            many: '%{count} Revisie'
+            other: '%{count} Revisie'
         form:
           select_parent_layout: Selecteer Ouder Lay-out
           select_app_layout: Selecteer Applicatie Lay-out
@@ -158,7 +163,8 @@ nl:
           title: Nieuwe Pagina
         edit:
           title: Pagina Bewerken
-          revision: Revisie
+          revision:
+            <<: *revision
         form:
           select_target_page: Geen Omleiding
           preview: Preview
@@ -181,7 +187,8 @@ nl:
           title: Nieuw Snippet
         edit:
           title: Snippet Bewerken
-          revision: Revisie
+          revision:
+            <<: *revision
         form:
           create: Snippet Aanmaken
           update: Snippet Bijwerken

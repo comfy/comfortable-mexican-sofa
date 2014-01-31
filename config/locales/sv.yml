@@ -137,7 +137,12 @@ sv:
           title: Ny layout
         edit:
           title: Ändra layout
-          revision: Revision
+          revision: &revision
+            zero: No Revisions
+            one: '%{count} Revision'
+            few: '%{count} Revisions'
+            many: '%{count} Revisions'
+            other: '%{count} Revisions'
         form:
           select_parent_layout: Välj överordnad layout
           select_app_layout: Väl Applikationslayout
@@ -158,7 +163,8 @@ sv:
           title: Ny sida
         edit:
           title: Ändra sida
-          revision: Revision
+          revision:
+            <<: *revision
         form:
           select_target_page: Ingen vidarebefodring
           preview: Förhandsgranska
@@ -181,7 +187,8 @@ sv:
           title: Ny Snippet
         edit:
           title: Ändra Snippet
-          revision: Revision
+          revision:
+            <<: *revision
         form:
           create: Skapa Snippet
           update: Uppdatera Snippet

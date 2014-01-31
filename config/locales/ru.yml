@@ -137,7 +137,12 @@ ru:
           title: Новый шаблон
         edit:
           title: Редактирование шаблона
-          revision: Ревизия
+          revision: &revision
+            zero: 'Нет Ревизий'
+            one: '%{count} Ревизия'
+            few: '%{count} Ревизии'
+            many: '%{count} Ревизий'
+            other: '%{count} Ревизии'
         form:
           select_parent_layout: Выбрать родительский шаблон
           select_app_layout: Выбрать шаблон приложения
@@ -158,7 +163,8 @@ ru:
           title: Новая страница
         edit:
           title: Редактирование страницы
-          revision: Ревизия
+          revision:
+            <<: *revision
         form:
           select_target_page: Без редиректа
           preview: Предпросмотр
@@ -181,7 +187,8 @@ ru:
           title: Новый сниппет
         edit:
           title: Редактирование сниппета
-          revision: Ревизия
+          revision:
+            <<: *revision
         form:
           create: Создать сниппет
           update: Обновить сниппет
