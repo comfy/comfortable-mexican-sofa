@@ -17,6 +17,7 @@ class Cms::File < ActiveRecord::Base
       end
     }
   )
+  validates_attachment_content_type :file, :content_type => /.*/
   before_post_process :is_image?
   
   # -- Relationships --------------------------------------------------------
