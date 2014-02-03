@@ -3,6 +3,11 @@ require_relative '../test_helper'
 class CmsFileTest < ActiveSupport::TestCase
   
   def test_fixtures_validity
+    # stubbing out Paperclip 4.0 mimetype validation
+    if defined? Paperclip::Validators::MediaTypeSpoofDetectionValidator
+      Paperclip::Validators::MediaTypeSpoofDetectionValidator.any_instance.stubs(:validate_each).returns(true)
+    end
+    
     Cms::File.all.each do |file|
       assert file.valid?, file.errors.full_messages.to_s
     end

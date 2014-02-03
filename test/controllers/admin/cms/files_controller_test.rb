@@ -172,7 +172,8 @@ class Admin::Cms::FilesControllerTest < ActionController::TestCase
     file = cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
       :label        => 'New File',
-      :description  => 'New Description'
+      :description  => 'New Description',
+      :file         => fixture_file_upload('files/image.jpg', 'image/jpeg')
     }
     assert_response :redirect
     assert_redirected_to :action => :edit, :site_id => file.site, :id => file
