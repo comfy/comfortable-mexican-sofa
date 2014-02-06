@@ -36,13 +36,23 @@ module ComfortableMexicanSofa::Fixture::Page
         # setting content
         blocks_to_clear = page.blocks.collect(&:identifier)
         blocks_attributes = [ ]
-        Dir.glob("#{path}/*.html").each do |block_path|
-          identifier = block_path.split('/').last.gsub(/\.html\z/, '')
+        file_extentions = %w(html haml jpg png gif)
+        Dir.glob("#{path}/*.{#{file_extentions.join(',')}}").each do |block_path|
+          extention = File.extname(block_path)[1..-1]
+          identifier = block_path.split('/').last.gsub(/\.(#{file_extentions.join('|')})\z/, '')
           blocks_to_clear.delete(identifier)
           if fresh_fixture?(page, block_path)
+            content = case extention
+            when 'jpg', 'png', 'gif'
+              ::File.open(block_path)
+            when 'haml'
+              read_as_haml(block_path)
+            else
+              ::File.open(block_path).read
+            end
             blocks_attributes << {
               :identifier => identifier,
-              :content    => read_as_haml(block_path)
+              :content    => content
             }
           end
         end
