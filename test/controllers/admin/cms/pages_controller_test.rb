@@ -340,7 +340,8 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
       assert_redirected_to :action => :edit, :id => page
       assert_equal 'Page updated', flash[:success]
       assert_equal 'Updated Label', page.label
-      assert_equal ['content', 'default_field_text', 'default_page_text', 'header'], page.blocks.collect{|b| b.identifier}
+      identifiers = page.blocks.collect {|b| b.identifier}
+      assert_equal ['content', 'default_field_text', 'default_page_text', 'header'], identifiers.sort
     end
   end
 
