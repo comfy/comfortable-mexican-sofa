@@ -2,7 +2,7 @@ class Cms::Block < ActiveRecord::Base
   include Cms::Base
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :page
+  belongs_to :blockable, :polymorphic => true
   has_many :files,
     :autosave   => true,
     :dependent  => :destroy
