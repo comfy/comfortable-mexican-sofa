@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_include_tag "comfortable_mexican_sofa/lib/diff"
+
 .page-header
   %h2
     = t('.title')
@@ -10,19 +13,25 @@
     - @record.revisions.each do |revision|
       = active_link_to l(revision.created_at), :id => revision.id
       
-%table.table
+
+
+%table.table#revisions
   %tr
-    %th
-    %th= t('.current')
-    %th= l(@revision.created_at)
+    %th Content
+    %th{colspan: 2} Changes
 
   - @current_content.each do |label, content|
-    %tr
-      %th= ::Cms::Layout.human_attribute_name(label)
-      %td
-        %pre= content
-      %td
-        %pre= @versioned_content[label]
+    %tbody
+      %tr
+        %td{rowspan: 3}= ::Cms::Layout.human_attribute_name(label)
+        %td.labelize= @revision.created_at.to_s(:long)
+        %td.main.original= @versioned_content[label]
+      %tr.hide
+        %td.labelize= t('.current')
+        %td.main.changed= content
+      %tr
+        %td.labelize= t('.current')
+        %td.main.diff
   
 = comfy_form_for @revision, :url => {:action => :revert} do |form|
   .form-actions
