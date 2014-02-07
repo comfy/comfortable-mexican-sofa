@@ -19,7 +19,8 @@ class Cms::Page < ActiveRecord::Base
     :class_name => 'Cms::Page'
   has_many :blocks,
     :autosave   => true,
-    :dependent  => :destroy
+    :dependent  => :destroy,
+    :as         => :blockable
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
