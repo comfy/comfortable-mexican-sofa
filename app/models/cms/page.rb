@@ -69,14 +69,7 @@ class Cms::Page < ActiveRecord::Base
   def url
     "//" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
-
-  # Array of cms_tags for a page. Content generation is called if forced.
-  # These also include initialized cms_blocks if present
-  def tags(force_reload = false)
-    self.render if force_reload
-    @tags ||= []
-  end
-
+  
 protected
   
   def assigns_label

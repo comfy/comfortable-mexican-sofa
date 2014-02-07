@@ -12,8 +12,7 @@ module ComfortableMexicanSofa::ActsAsCms
 
       cms_has_revisions_for :blocks_attributes
 
-      attr_accessor :tags,
-                    :cached_content,
+      attr_accessor :cached_content,
                     :blocks_attributes_changed
 
       # -- Relationships ----------------------------------------------------
@@ -24,7 +23,6 @@ module ComfortableMexicanSofa::ActsAsCms
 
       # -- Callbacks --------------------------------------------------------
       before_save  :set_cached_content
-
 
     end
   end
@@ -68,6 +66,17 @@ module ComfortableMexicanSofa::ActsAsCms
       ComfortableMexicanSofa::Tag.process_content(
         self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
       )
+    end
+
+    def tags=(tags)
+      @tags = tags
+    end
+
+    # Array of cms_tags for a page. Content generation is called if forced.
+    # These also include initialized cms_blocks if present
+    def tags(force_reload = false)
+      self.render if force_reload
+      @tags ||= []
     end
 
     # Method to collect prevous state of blocks for revisions
