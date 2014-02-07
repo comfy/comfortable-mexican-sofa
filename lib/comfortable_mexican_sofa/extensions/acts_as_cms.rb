@@ -1,3 +1,5 @@
+# ActsAsCms is the module that drives all the logic around blocks and
+# blocks_attributes.
 module ComfortableMexicanSofa::ActsAsCms
   
   def self.included(base)
@@ -19,7 +21,8 @@ module ComfortableMexicanSofa::ActsAsCms
       has_many :blocks,
         :autosave   => true,
         :dependent  => :destroy,
-        :as         => :blockable
+        :as         => :blockable,
+        :class_name => 'Cms::Block'
 
       # -- Callbacks --------------------------------------------------------
       before_save  :set_cached_content
