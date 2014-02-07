@@ -10,7 +10,7 @@ class CmsBlockTest < ActiveSupport::TestCase
   
   def test_tag
     block = cms_blocks(:default_page_text)
-    assert block.page.tags(true).collect(&:id).member?('page_text_default_page_text')
+    assert block.blockable.tags(true).collect(&:id).member?('page_text_default_page_text')
     assert_equal 'page_text_default_page_text', block.tag.id
   end
   
