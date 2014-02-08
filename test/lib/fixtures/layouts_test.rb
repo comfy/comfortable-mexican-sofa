@@ -12,7 +12,7 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
       
       assert layout = Cms::Layout.where(:identifier => 'default').first
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page_file:thumbnail }}\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       
@@ -38,7 +38,7 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
       
       layout.reload
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page_file:thumbnail }}\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       assert_equal 0, layout.position

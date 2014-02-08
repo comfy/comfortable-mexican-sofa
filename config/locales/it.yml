@@ -138,11 +138,11 @@ it:
         edit:
           title: Modifica Layout
           revision: &revision
-            zero: '%{count} Revisione'
+            zero: '%{count} Revisioni'
             one: '%{count} Revisione'
-            few: '%{count} Revisione'
-            many: '%{count} Revisione'
-            other: '%{count} Revisione'
+            few: '%{count} Revisioni'
+            many: '%{count} Revisioni'
+            other: '%{count} Revisioni'
         form:
           select_parent_layout: Seleziona Layout Padre
           select_app_layout: Seleziona Layout di applicazione
