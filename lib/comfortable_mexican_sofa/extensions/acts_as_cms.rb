@@ -1,6 +1,6 @@
 # ActsAsCms is the module that drives all the logic around blocks and
 # blocks_attributes.
-module ComfortableMexicanSofa::ActsAsCms
+module ComfortableMexicanSofa::CmsManageable
   
   def self.included(base)
     base.send :extend, ClassMethods
@@ -8,11 +8,9 @@ module ComfortableMexicanSofa::ActsAsCms
   
   module ClassMethods
 
-    def cms_acts_as_cms
+    def cms_manageable
 
-      include ComfortableMexicanSofa::ActsAsCms::InstanceMethods
-
-      cms_has_revisions_for :blocks_attributes
+      include ComfortableMexicanSofa::CmsManageable::InstanceMethods
 
       attr_accessor :cached_content,
                     :blocks_attributes_changed
@@ -108,4 +106,4 @@ module ComfortableMexicanSofa::ActsAsCms
   end
 end
 
-ActiveRecord::Base.send :include, ComfortableMexicanSofa::ActsAsCms
+ActiveRecord::Base.send :include, ComfortableMexicanSofa::CmsManageable
