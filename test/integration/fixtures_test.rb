@@ -37,7 +37,7 @@ class FixturesIntergrationTest < ActionDispatch::IntegrationTest
           assert_equal 'Default Fixture Layout', Cms::Layout.find_by_identifier('default').label
           assert_equal 'Default Fixture Snippet', Cms::Snippet.find_by_identifier('default').label
           
-          assert_equal "<html>\n  <body>\n    <div class='left'> Child Page Left Fixture Content </div>\n<div class='right'> Child Page Right Fixture Content </div>\n  </body>\n</html>", response.body
+          assert_equal "<html>\n  <body>\n    \n    <div class='left'> Child Page Left Fixture Content </div>\n<div class='right'> Child Page Right Fixture Content </div>\n  </body>\n</html>", response.body
         end
       end
     end

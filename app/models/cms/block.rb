@@ -25,7 +25,7 @@ protected
   
   def prepare_files
     temp_files = [self.content].flatten.select do |f|
-      %w(ActionDispatch::Http::UploadedFile Rack::Test::UploadedFile).member?(f.class.name)
+      %w(ActionDispatch::Http::UploadedFile Rack::Test::UploadedFile File).member?(f.class.name)
     end
     
     # only accepting one file if it's PageFile. PageFiles will take all
