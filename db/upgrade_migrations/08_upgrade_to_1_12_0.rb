@@ -4,7 +4,7 @@ class UpgradeTo1120 < ActiveRecord::Migration
     add_index :cms_blocks, :blockable_type
 
     rename_column :cms_blocks, :page_id, :blockable_id
-    Cms::Block.update_all(:blockable_type => 'Cms::Page')
+    `execute("UPDATE cms_blocks SET blockable_type = 'Cms::Page'")`
   end
   
   def self.down
