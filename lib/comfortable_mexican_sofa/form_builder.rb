@@ -1,11 +1,7 @@
 class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
 
   def field_name_for(tag)
-    if tag.blockable.class.name == 'Cms::Page'
-      name = 'page'
-    else
-      name = tag.blockable.class.name.underscore.gsub(/\//,'_')
-    end
+    tag.blockable.class.name.demodulize.underscore.gsub(/\//,'_')
   end
 
   # -- Tag Field Fields -----------------------------------------------------
