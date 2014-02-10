@@ -12,14 +12,14 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
       
       assert layout = Cms::Layout.where(:identifier => 'default').first
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page_file:thumbnail }}\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       
       assert nested_layout = Cms::Layout.where(:identifier => 'nested').first
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal "{{ cms:page_file:thumbnail:url }}\n<div class='left'>{{ cms:page:left }}</div>\n<div class='right'>{{ cms:page:right }}</div>", nested_layout.content
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
     end
@@ -38,7 +38,7 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
       
       layout.reload
       assert_equal 'Default Fixture Layout', layout.label
-      assert_equal "<html>\n  <body>\n    {{ cms:page_file:thumbnail }}\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
+      assert_equal "<html>\n  <body>\n    {{ cms:page:content }}\n  </body>\n</html>", layout.content
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
       assert_equal 0, layout.position
@@ -46,7 +46,7 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
       nested_layout.reload
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal "<div class='left'> {{ cms:page:left }} </div>\n<div class='right'> {{ cms:page:right }} </div>", nested_layout.content
+      assert_equal "{{ cms:page_file:thumbnail:url }}\n<div class='left'>{{ cms:page:left }}</div>\n<div class='right'>{{ cms:page:right }}</div>", nested_layout.content
       assert_equal 'div{float:left}', nested_layout.css
       assert_equal '// nested js', nested_layout.js
       assert_equal 42, nested_layout.position

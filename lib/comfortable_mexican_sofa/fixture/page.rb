@@ -46,7 +46,7 @@ module ComfortableMexicanSofa::Fixture::Page
             when 'jpg', 'png', 'gif'
               ::File.open(block_path)
             when 'haml'
-              read_as_haml(block_path)
+              Haml::Engine.new(::File.open(block_path).read).render.rstrip
             else
               ::File.open(block_path).read
             end
