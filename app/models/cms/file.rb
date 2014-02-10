@@ -34,8 +34,8 @@ class Cms::File < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
   before_create :assign_position
-  after_save    :reload_page_cache
-  after_destroy :reload_page_cache
+  after_save    :reload_blockable_cache
+  after_destroy :reload_blockable_cache
   
   # -- Scopes ---------------------------------------------------------------
   scope :images,      -> { where(:file_content_type => IMAGE_MIMETYPES) }
@@ -57,10 +57,10 @@ protected
     self.position = max ? max + 1 : 0
   end
   
-  def reload_page_cache
+  def reload_blockable_cache
     return unless self.block
-    p = self.block.page
-    Cms::Page.where(:id => p.id).update_all(:content => nil)
+    b = self.block.blockable
+    b.class.name.constantize.where(:id => b.id).update_all(:content => nil)
   end
   
 end

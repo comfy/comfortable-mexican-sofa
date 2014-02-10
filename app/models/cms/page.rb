@@ -6,20 +6,14 @@ class Cms::Page < ActiveRecord::Base
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
   cms_is_mirrored
+  cms_manageable
   cms_has_revisions_for :blocks_attributes
-  
-  attr_accessor :tags,
-                :cached_content,
-                :blocks_attributes_changed
-  
+
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
   belongs_to :target_page,
     :class_name => 'Cms::Page'
-  has_many :blocks,
-    :autosave   => true,
-    :dependent  => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
@@ -27,7 +21,6 @@ class Cms::Page < ActiveRecord::Base
                     :escape_slug,
                     :assign_full_path
   before_create     :assign_position
-  before_save       :set_cached_content
   after_save        :sync_child_full_paths!
   after_find        :unescape_slug_and_path
   
@@ -73,73 +66,9 @@ class Cms::Page < ActiveRecord::Base
     self.parent_id.blank?? 'index' : self.full_path[1..-1].slugify
   end
   
-  # Transforms existing cms_block information into a hash that can be used
-  # during form processing. That's the only way to modify cms_blocks.
-  def blocks_attributes(was = false)
-    self.blocks.collect do |block|
-      block_attr = {}
-      block_attr[:identifier] = block.identifier
-      block_attr[:content]    = was ? block.content_was : block.content
-      block_attr
-    end
-  end
-  
-  # Array of block hashes in the following format:
-  #   [
-  #     { :identifier => 'block_1', :content => 'block content' },
-  #     { :identifier => 'block_2', :content => 'block content' }
-  #   ]
-  def blocks_attributes=(block_hashes = [])
-    block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
-    block_hashes.each do |block_hash|
-      block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-      block = 
-        self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
-        self.blocks.build(:identifier => block_hash[:identifier])
-      block.content = block_hash[:content]
-      self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
-    end
-  end
-  
-  # Processing content will return rendered content and will populate 
-  # self.cms_tags with instances of CmsTag
-  def render
-    @tags = [] # resetting
-    return '' unless layout
-    
-    ComfortableMexicanSofa::Tag.process_content(
-      self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
-    )
-  end
-  
-  # Cached content accessor
-  def content
-    if (@cached_content = read_attribute(:content)).nil?
-      @cached_content = self.render
-      update_column(:content, @cached_content) unless self.new_record?
-    end
-    @cached_content
-  end
-  
-  def clear_cached_content!
-    self.update_column(:content, nil)
-  end
-  
-  # Array of cms_tags for a page. Content generation is called if forced.
-  # These also include initialized cms_blocks if present
-  def tags(force_reload = false)
-    self.render if force_reload
-    @tags ||= []
-  end
-  
   # Full url for a page
   def url
     "//" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
-  end
-  
-  # Method to collect prevous state of blocks for revisions
-  def blocks_attributes_was
-    blocks_attributes(true)
   end
   
 protected
@@ -176,11 +105,6 @@ protected
     return unless slug.present?
     unescaped_slug = CGI::unescape(self.slug)
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
-  end
-  
-  def set_cached_content
-    @cached_content = self.render
-    write_attribute(:content, self.cached_content)
   end
   
   # Forcing re-saves for child pages so they can update full_paths
