@@ -28,6 +28,8 @@ protected
       %w(ActionDispatch::Http::UploadedFile Rack::Test::UploadedFile File).member?(f.class.name)
     end
     
+    return if temp_files.blank?
+    
     # only accepting one file if it's PageFile. PageFiles will take all
     single_file = self.tag.is_a?(ComfortableMexicanSofa::Tag::PageFile)
     temp_files = [temp_files.first].compact if single_file
