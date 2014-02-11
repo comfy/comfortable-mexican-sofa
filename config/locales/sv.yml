@@ -200,6 +200,9 @@ sv:
           full_path: Fullständig sökväg
           slug: Slug
           update: Ändra till denna revisionen
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Nuvarande
       
       files:

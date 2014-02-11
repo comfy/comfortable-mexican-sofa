@@ -200,6 +200,9 @@ it:
           full_path: Percorso intero
           slug: Slug
           update: Aggiorna a questa Revisione
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Attuale
 
       files:

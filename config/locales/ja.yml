@@ -200,6 +200,9 @@ ja:
           full_path: フルパス
           slug: スラッグ
           update: このリビジョンに更新
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Current
       
       files:

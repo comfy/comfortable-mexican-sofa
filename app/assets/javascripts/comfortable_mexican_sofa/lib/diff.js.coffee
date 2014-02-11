@@ -2,7 +2,7 @@
 #= require comfortable_mexican_sofa/lib/diff/pretty_text_diff.min
 
 $ ->
-  $("table#revisions tbody").prettyTextDiff ->
+  $("table.diff").prettyTextDiff ->
     cleanup: true
     originalContainer:  'tr td.original'
     changedContainer:   'tr td.changed'
