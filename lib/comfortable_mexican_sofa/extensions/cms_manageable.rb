@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::CmsManageable
   
   module ClassMethods
 
-    def cms_manageable
+    def cms_manageable(options = {})
 
       include ComfortableMexicanSofa::CmsManageable::InstanceMethods
 
@@ -23,7 +23,13 @@ module ComfortableMexicanSofa::CmsManageable
         :class_name => 'Cms::Block'
 
       # -- Callbacks --------------------------------------------------------
-      before_save  :set_cached_content
+      unless options[:skip_cache]
+        before_save  :set_cached_content
+      end
+
+      if options[:skip_cache]
+        after_initialize :set_skip_cache
+      end
 
     end
   end
@@ -87,11 +93,15 @@ module ComfortableMexicanSofa::CmsManageable
 
     # Cached content accessor
     def content
-      if (@cached_content = read_attribute(:content)).nil?
-        @cached_content = self.render
-        update_column(:content, @cached_content) unless self.new_record?
+      if @skip_cache
+        self.render
+      else
+        if (@cached_content = read_attribute(:content)).nil?
+          @cached_content = self.render
+          update_column(:content, @cached_content) unless self.new_record?
+        end
+        @cached_content
       end
-      @cached_content
     end
     
     def clear_cached_content!
@@ -101,6 +111,10 @@ module ComfortableMexicanSofa::CmsManageable
     def set_cached_content
       @cached_content = self.render
       write_attribute(:content, self.cached_content)
+    end
+
+    def set_skip_cache
+      @skip_cache = true
     end
 
   end
