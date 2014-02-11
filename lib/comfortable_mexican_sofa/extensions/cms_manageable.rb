@@ -23,12 +23,10 @@ module ComfortableMexicanSofa::CmsManageable
         :class_name => 'Cms::Block'
 
       # -- Callbacks --------------------------------------------------------
-      unless options[:skip_cache]
-        before_save  :set_cached_content
-      end
-
       if options[:skip_cache]
         after_initialize :set_skip_cache
+      else
+        before_save  :set_cached_content
       end
 
     end
