@@ -9,21 +9,27 @@
   .box.revisions
     - @record.revisions.each do |revision|
       = active_link_to l(revision.created_at), :id => revision.id
-      
+
 %table.table
   %tr
-    %th
-    %th= t('.current')
-    %th= l(@revision.created_at)
+    %th= t('.content')
+    %th= t('.changes')
 
   - @current_content.each do |label, content|
     %tr
-      %th= ::Cms::Layout.human_attribute_name(label)
-      %td
-        %pre= content
-      %td
-        %pre= @versioned_content[label]
-  
+      %th= label
+      %td.main.with-table
+        %table.diff
+          %tr
+            %th= t('.previous')
+            %td.main.original= @versioned_content[label]
+          %tr.hide
+            %th= t('.current')
+            %td.main.changed= content
+          %tr
+            %th= t('.current')
+            %td.main.diff
+
 = comfy_form_for @revision, :url => {:action => :revert} do |form|
   .form-actions
     = form.submit t('.update'), :class => 'btn btn-primary'

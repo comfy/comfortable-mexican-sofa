@@ -332,11 +332,23 @@ body#comfy
     
   // -- Revisions -----------------------------------------------------------
   &.c-admin-cms-revisions
-    table
+    td.with-table
+      padding: 0
+    table.diff
+      th, td
+        border: 0
       th
-        min-width: 175px
-      td.main
-        width: 50%
+        color: #ccc
+      width: 100%
+      ins, del
+        display: inline
+      ins
+        background-color: #c6ffc6
+        text-decoration: none
+      del
+        background-color: #ffc6c6
+      tr.hide
+        display: none
     .box.revisions
       a
         font-size: 11px
@@ -345,5 +357,8 @@ body#comfy
         padding: 0 7px
         border-radius: 3px
         margin-bottom: 2px
+        text-decoration: none
       a:hover
         background-color: #f5f5f5
+      a.active
+        border-color: #0088CC

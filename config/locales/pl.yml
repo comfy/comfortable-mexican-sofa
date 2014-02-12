@@ -200,6 +200,9 @@ pl:
           full_path: Pełna ścieżka
           slug: Ścieżka
           update: Uaktualnij do tej wersji
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Aktualna
       
       files:

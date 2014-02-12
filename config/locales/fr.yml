@@ -200,6 +200,9 @@ fr:
           full_path: Chemin complet 
           slug: Identifiant
           update: Restaurer cette révision
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Actuel
       
       files:

@@ -200,6 +200,9 @@ pt-BR:
           full_path: Caminho completo
           slug: Identificador
           update: Atualizar para esta revisão
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Atual
       
       files:

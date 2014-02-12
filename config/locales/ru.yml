@@ -200,6 +200,9 @@ ru:
           full_path: Полный путь
           slug: Ссылка
           update: Обновить до этой ревизии
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Текущая
 
       files:
