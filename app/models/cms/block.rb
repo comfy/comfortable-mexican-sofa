@@ -13,7 +13,7 @@ class Cms::Block < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :identifier,
     :presence   => true,
-    :uniqueness => { :scope => :blockable_id }
+    :uniqueness => { :scope => [:blockable_type, :blockable_id] }
     
   # -- Instance Methods -----------------------------------------------------
   # Tag object that is using this block
