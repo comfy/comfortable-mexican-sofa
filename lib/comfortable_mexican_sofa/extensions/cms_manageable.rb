@@ -12,8 +12,7 @@ module ComfortableMexicanSofa::CmsManageable
 
       include ComfortableMexicanSofa::CmsManageable::InstanceMethods
 
-      attr_accessor :cached_content,
-                    :blocks_attributes_changed
+      attr_accessor :blocks_attributes_changed
 
       # -- Relationships ----------------------------------------------------
       has_many :blocks,
@@ -23,7 +22,7 @@ module ComfortableMexicanSofa::CmsManageable
         :class_name => 'Cms::Block'
 
       # -- Callbacks --------------------------------------------------------
-      before_save  :set_cached_content
+      before_save  :set_content_cache
 
     end
   end
@@ -86,21 +85,21 @@ module ComfortableMexicanSofa::CmsManageable
     end
 
     # Cached content accessor
-    def content
-      if (@cached_content = read_attribute(:content)).nil?
-        @cached_content = self.render
-        update_column(:content, @cached_content) unless self.new_record?
+    def content_cache
+      if (@content_cache = read_attribute(:content_cache)).nil?
+        @content_cache = self.render
+        update_column(:content_cache, @content_cache) unless self.new_record?
       end
-      @cached_content
+      @content_cache
     end
     
-    def clear_cached_content!
-      self.update_column(:content, nil)
+    def clear_content_cache!
+      self.update_column(:content_cache, nil)
     end
     
-    def set_cached_content
-      @cached_content = self.render
-      write_attribute(:content, self.cached_content)
+    def set_content_cache
+      @content_cache = self.render
+      write_attribute(:content_cache, self.content_cache)
     end
 
   end

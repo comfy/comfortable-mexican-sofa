@@ -40,10 +40,10 @@ class CmsSnippetTest < ActiveSupport::TestCase
   def test_update_forces_page_content_reload
     snippet = cms_snippets(:default)
     page = cms_pages(:default)
-    assert_match snippet.content, page.content
+    assert_match snippet.content, page.content_cache
     snippet.update_attributes(:content => 'new_snippet_content')
     page.reload
-    assert_match /new_snippet_content/, page.content
+    assert_match /new_snippet_content/, page.content_cache
   end
   
 end

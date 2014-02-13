@@ -111,15 +111,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
           :content    => 'left_column_content' }
       ]
     )
-    assert_equal "header_content\ncontent_content", page_1.content
-    assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content
+    assert_equal "header_content\ncontent_content", page_1.content_cache
+    assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content_cache
     
     layout_1.update_attributes(:content => "Updated {{cms:page:content}}")
     page_1.reload
     page_2.reload
     
-    assert_equal "Updated content_content", page_1.content
-    assert_equal "Updated left_column_content\nleft_column_content", page_2.content
+    assert_equal "Updated content_content", page_1.content_cache
+    assert_equal "Updated left_column_content\nleft_column_content", page_2.content_cache
   end
   
 end

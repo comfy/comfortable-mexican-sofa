@@ -11,8 +11,8 @@ class Cms::Snippet < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
-  after_save    :clear_cached_page_content
-  after_destroy :clear_cached_page_content
+  after_save    :clear_page_content_cache
+  after_destroy :clear_page_content_cache
   
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -33,8 +33,8 @@ protected
     self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
   
-  def clear_cached_page_content
-    Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content => nil)
+  def clear_page_content_cache
+    Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content_cache => nil)
   end
   
   def assign_position

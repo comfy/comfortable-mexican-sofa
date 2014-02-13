@@ -60,7 +60,7 @@ protected
   def reload_blockable_cache
     return unless self.block
     b = self.block.blockable
-    b.class.name.constantize.where(:id => b.id).update_all(:content => nil)
+    b.class.name.constantize.where(:id => b.id).update_all(:content_cache => nil)
   end
   
 end

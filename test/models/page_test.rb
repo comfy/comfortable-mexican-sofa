@@ -7,7 +7,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_fixtures_validity
     Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
-      assert_equal page.content, page.render
+      assert_equal page.content_cache, page.render
     end
   end
   
@@ -195,13 +195,13 @@ class CmsPageTest < ActiveSupport::TestCase
   
   def test_content_caching
     page = cms_pages(:default)
-    assert_equal page.content, page.render
+    assert_equal page.content_cache, page.render
     
-    page.update_columns(:content => 'Old Content')
-    refute_equal page.content, page.render
+    page.update_columns(:content_cache => 'Old Content')
+    refute_equal page.content_cache, page.render
     
-    page.clear_cached_content!
-    assert_equal page.content, page.render
+    page.clear_content_cache!
+    assert_equal page.content_cache, page.render
   end
   
   def test_scope_published

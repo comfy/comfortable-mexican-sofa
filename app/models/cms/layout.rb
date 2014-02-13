@@ -12,8 +12,8 @@ class Cms::Layout < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
-  after_save    :clear_cached_page_content
-  after_destroy :clear_cached_page_content
+  after_save    :clear_page_content_cache
+  after_destroy :clear_page_content_cache
   
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -80,9 +80,9 @@ protected
   end
   
   # Forcing page content reload
-  def clear_cached_page_content
-    Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content => nil)
-    self.children.each{ |child_layout| child_layout.clear_cached_page_content }
+  def clear_page_content_cache
+    Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content_cache => nil)
+    self.children.each{ |child_layout| child_layout.clear_page_content_cache }
   end
   
 end

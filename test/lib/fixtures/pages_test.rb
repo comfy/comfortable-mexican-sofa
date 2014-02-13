@@ -19,7 +19,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert page = Cms::Page.where(:full_path => '/').first
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
-      assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content
+      assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content_cache
       assert_equal 0, page.position
       assert page.is_published?
       assert_equal 2, page.categories.count
@@ -29,7 +29,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal page, child_page.parent
       assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug
-      assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content
+      assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content_cache
       assert_equal 42, child_page.position
       
       assert_equal child_page, page.target_page

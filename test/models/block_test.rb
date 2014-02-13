@@ -105,7 +105,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       assert_equal 'image.jpg', block.files.first.file_file_name
       
       page.reload
-      assert_equal block.files.first.file.url, page.content
+      assert_equal block.files.first.file.url, page.content_cache
     end
     
     assert_no_difference ['Cms::Block.count', 'Cms::File.count'] do
@@ -119,7 +119,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       block = page.blocks.first
       assert_equal 1, block.files.count
       assert_equal 'document.pdf', block.files.first.file_file_name
-      assert_equal block.files.first.file.url, page.content
+      assert_equal block.files.first.file.url, page.content_cache
     end
   end
   
