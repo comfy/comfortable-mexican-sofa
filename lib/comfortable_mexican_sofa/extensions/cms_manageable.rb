@@ -21,9 +21,6 @@ module ComfortableMexicanSofa::CmsManageable
         :as         => :blockable,
         :class_name => 'Cms::Block'
 
-      # -- Callbacks --------------------------------------------------------
-      before_save  :set_content_cache
-
     end
   end
   
@@ -95,11 +92,6 @@ module ComfortableMexicanSofa::CmsManageable
     
     def clear_content_cache!
       self.update_column(:content_cache, nil)
-    end
-    
-    def set_content_cache
-      @content_cache = self.render
-      write_attribute(:content_cache, self.content_cache)
     end
 
   end
