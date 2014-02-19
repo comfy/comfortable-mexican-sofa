@@ -21,4 +21,5 @@ end
 Rake::Task[:test].enhance do
   Rake::Task['test:lib'].invoke
   Rake::Task['test:generators'].invoke
+  Rake::Task['coveralls:push'].invoke
 end
