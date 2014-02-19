@@ -67,9 +67,7 @@ module ComfortableMexicanSofa::RenderMethods
       @cms_layout = @cms_page.layout
       if (cms_blocks = options.delete(:cms_blocks)).present?
         cms_blocks.each do |identifier, value|
-          content = value.is_a?(Hash) ?
-            render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false) :
-            value.to_s
+          content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
           page_block  = @cms_page.blocks.detect{|b| b.identifier == identifier.to_s} ||
                         @cms_page.blocks.build(:identifier => identifier.to_s)
           page_block.content = content
@@ -97,9 +95,7 @@ module ComfortableMexicanSofa::RenderMethods
       cms_page = @cms_site.pages.build(:layout => @cms_layout)
       cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
       cms_blocks.each do |identifier, value|
-        content = value.is_a?(Hash) ?
-          render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false) :
-          value.to_s
+        content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
         cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
       end
       options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
