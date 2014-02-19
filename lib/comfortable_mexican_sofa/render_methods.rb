@@ -36,28 +36,30 @@ module ComfortableMexicanSofa::RenderMethods
     # 
     def render(options = {}, locals = {}, &block)
       
-      if options.is_a?(Hash) && identifier = options.delete(:cms_site)
-        unless @cms_site = Cms::Site.find_by_identifier(identifier)
-          raise ComfortableMexicanSofa::MissingSite.new(identifier)
+      super unless options.is_a?(Hash)
+      
+      if site_identifier = options.delete(:cms_site)
+        unless @cms_site = Cms::Site.find_by_identifier(site_identifier)
+          raise ComfortableMexicanSofa::MissingSite.new(site_identifier)
         end
       end
       
-      if options.is_a?(Hash) && options[:cms_page]
-        render_cms_page(options, locals, &block)
-      elsif options.is_a?(Hash) && options[:cms_layout]
-        render_cms_layout(options, locals, &block)
+      if (page_path = options.delete(:cms_page)) || (layout_identifier = options.delete(:cms_layout))
+        unless @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
+          raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
+        end
+      end
+      
+      if page_path
+        render_cms_page(page_path, options, locals, &block)
+      elsif layout_identifier
+        render_cms_layout(layout_identifier, options, locals, &block)
       else
-        super(options, locals, &block)
+        super
       end
     end
     
-    def render_cms_page(options = {}, locals = {}, &block)
-      path = options.delete(:cms_page)
-      
-      unless @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
-        raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
-      end
-      
+    def render_cms_page(path, options = {}, locals = {}, &block)
       path.gsub!(/^\/#{@cms_site.path}/, '') if @cms_site.path.present?
       
       unless @cms_page = @cms_site.pages.find_by_full_path(path)
@@ -80,12 +82,7 @@ module ComfortableMexicanSofa::RenderMethods
       render(options, locals, &block)
     end
     
-    def render_cms_layout(options = {}, locals = {}, &block)
-      identifier = options.delete(:cms_layout)
-      
-      unless @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
-        raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
-      end
+    def render_cms_layout(identifier, options = {}, locals = {}, &block)
       
       unless @cms_layout = @cms_site.layouts.find_by_identifier(identifier)
         raise ComfortableMexicanSofa::MissingLayout.new(identifier)
