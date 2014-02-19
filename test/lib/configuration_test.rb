@@ -16,10 +16,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 25, config.revisions_limit
     assert_equal ({ 
       'en'    => 'English',
-      'es'    => 'Español',
-      'pt-BR' => 'Português Brasileiro',
-      'zh-CN' => '简体中文',
-      'ja'    => '日本語'
+      'es'    => 'Español'
     }), config.locales
     assert_equal nil, config.admin_locale
     assert_equal nil, config.database_config

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'coveralls'
-Coveralls.wear!('rails')
+Coveralls.wear_merged!
 
 ENV['RAILS_ENV'] = 'test'
 require_relative '../config/environment'
@@ -32,11 +32,8 @@ class ActiveSupport::TestCase
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit      = 25
       config.locales              = { 
-        'en'    => 'English',
-        'es'    => 'Español',
-        'pt-BR' => 'Português Brasileiro',
-        'zh-CN' => '简体中文',
-        'ja'    => '日本語'
+        'en' => 'English',
+        'es' => 'Español'
       }
       config.admin_locale         = nil
       config.upload_file_options  = { }
