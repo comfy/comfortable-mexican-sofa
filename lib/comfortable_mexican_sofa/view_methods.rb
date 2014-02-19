@@ -75,9 +75,7 @@ module ComfortableMexicanSofa::ViewMethods
     # to render them out
     case block.tag
     when ComfortableMexicanSofa::Tag::PageFile
-      block.files.first
-    when ComfortableMexicanSofa::Tag::PageFiles
-      block.files
+      block.tag.content
     else
       render :inline => ComfortableMexicanSofa::Tag.process_content(page, ComfortableMexicanSofa::Tag.sanitize_irb(block.content))
     end

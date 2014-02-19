@@ -2,10 +2,11 @@ class Cms::Block < ActiveRecord::Base
   include Cms::Base
   
   # -- Relationships --------------------------------------------------------
-  belongs_to :blockable, :polymorphic => true
+  belongs_to :blockable,
+    :polymorphic  => true
   has_many :files,
-    :autosave   => true,
-    :dependent  => :destroy
+    :autosave     => true,
+    :dependent    => :destroy
   
   # -- Callbacks ------------------------------------------------------------
   before_save :prepare_files
@@ -18,7 +19,7 @@ class Cms::Block < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   # Tag object that is using this block
   def tag
-    @tag ||= blockable.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
+    @tag ||= blockable.tags(:reload).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
   
 protected
@@ -31,7 +32,7 @@ protected
     return if temp_files.blank?
     
     # only accepting one file if it's PageFile. PageFiles will take all
-    single_file = self.tag.is_a?(ComfortableMexicanSofa::Tag::PageFile)
+    single_file = self.tag.instance_of?(ComfortableMexicanSofa::Tag::PageFile)
     temp_files = [temp_files.first].compact if single_file
     
     temp_files.each do |file|

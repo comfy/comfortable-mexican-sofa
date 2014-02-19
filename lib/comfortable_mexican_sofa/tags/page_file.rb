@@ -48,7 +48,7 @@ class ComfortableMexicanSofa::Tag::PageFile
   
   def render_image(file)
     return '' unless file
-    text = params[1] || identifier
+    text = params[1] || file.label
     "<img src='#{file.file.url}' alt='#{text}' />"
   end
   

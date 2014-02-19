@@ -74,7 +74,7 @@ class PageFileTagTest < ActiveSupport::TestCase
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image }}')
-    assert_equal "<img src='#{file_url}' alt='file' />", 
+    assert_equal "<img src='#{file_url}' alt='Image' />", 
       tag.render
       
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:image:image alt }}')
