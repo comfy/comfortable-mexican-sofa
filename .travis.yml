@@ -7,9 +7,6 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
-  - rbx-2
-  # - jruby (sqlite and paperclip hate)
-  - ruby-head
 gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
@@ -19,7 +16,4 @@ branches:
     - master
 matrix:
   allow_failures:
-    rvm: 
-      - rbx-2
-      - ruby-head
     gemfile: test/gemfiles/Gemfile.rails.master
