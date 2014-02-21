@@ -159,6 +159,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     page.update_attributes(:slug => 'invalid')
     assert_exception_raised ComfortableMexicanSofa::MissingPage do
       get '/render-page?type=page_explicit'
+      raise Rails.env.to_s
     end
   end
   

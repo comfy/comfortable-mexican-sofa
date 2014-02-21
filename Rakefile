@@ -1,6 +1,8 @@
 require_relative 'config/application'
+require 'coveralls/rake/task'
 
 ComfortableMexicanSofa::Application.load_tasks
+Coveralls::RakeTask.new
 
 namespace :test do
   
@@ -15,11 +17,12 @@ namespace :test do
     t.pattern = 'test/generators/**/*_test.rb'
     t.verbose = true
   end
-  
 end
 
 Rake::Task[:test].enhance do
   Rake::Task['test:lib'].invoke
   Rake::Task['test:generators'].invoke
-  Rake::Task['coveralls:push'].invoke
 end
+
+task :test_with_coverage => ['test:all', 'coveralls:push']
+

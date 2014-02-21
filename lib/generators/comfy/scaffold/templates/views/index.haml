@@ -2,7 +2,7 @@
   = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, :class => 'btn pull-right'
   %h2= '<%= class_name.pluralize.titleize %>'
 
-= paginate @<%= file_name.pluralize %>
+= paginate @<%= file_name.pluralize %>, :theme => 'comfy'
 
 %table.table.table-hover.table-bordered
   %tr
@@ -20,4 +20,4 @@
           = link_to 'Edit', edit_admin_<%= file_name %>_path(<%= file_name %>), :class => 'btn btn-small'
           = link_to 'Delete', admin_<%= file_name %>_path(<%= file_name %>), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-small btn-danger'
 
-= paginate @<%= file_name.pluralize %>
+= paginate @<%= file_name.pluralize %>, :theme => 'comfy'
