@@ -2,7 +2,7 @@ language: ruby
 before_script:
   - rake db:migrate
 script:
-  - RAILS_ENV=test rake test_with_coverage
+  - rake test:all
 rvm:
   - 1.9.3
   - 2.0.0

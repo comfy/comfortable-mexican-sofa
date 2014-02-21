@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'coveralls'
-Coveralls.wear_merged!
+Coveralls.wear_merged!('rails')
 
 ENV['RAILS_ENV'] = 'test'
 require_relative '../config/environment'
