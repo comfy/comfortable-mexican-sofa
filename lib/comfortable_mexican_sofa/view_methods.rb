@@ -52,8 +52,8 @@ module ComfortableMexicanSofa::ViewMethods
   
     # Content of a page block. This is how you get content from page:field
     # Example:
-    #   cms_page_content(:left_column, CmsPage.first)
-    #   cms_page_content(:left_column) # if @cms_page is present
+    #   cms_block_content(:left_column, CmsPage.first)
+    #   cms_block_content(:left_column) # if @cms_page is present
     def cms_block_content(identifier, blockable = @cms_page)
       return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
       tag.content
