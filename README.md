@@ -82,4 +82,4 @@ ComfortableMexicanSofa is released under the [MIT license](https://github.com/co
 
 Copyright 2009-2014 Oleg Khabarov
 
-pls send: DMTBhZjcgUZunCKMpKCJogBXBhQx2h7h5c
+<img src="https://raw.github.com/comfy/comfortable-mexican-sofa/master/doc/doge@2x.png" height="18" alt="Dogecoin" /> DMTBhZjcgUZunCKMpKCJogBXBhQx2h7h5c
