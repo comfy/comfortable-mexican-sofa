@@ -1,85 +1,74 @@
 module ComfortableMexicanSofa::ViewMethods
-
-  # Wrapper around ComfortableMexicanSofa::FormBuilder
-  def comfy_form_for(record, options = {}, &proc)
-    options[:builder] = ComfortableMexicanSofa::FormBuilder
-    options[:type] ||= :horizontal
-    formatted_form_for(record, options, &proc)
-  end
-
-  # Injects some content somewhere inside cms admin area
-  def cms_hook(name, options = {})
-    ComfortableMexicanSofa::ViewHooks.render(name, self, options)
+  
+  def self.cms_block_tag(identifier, blockable)
+    blockable && (block = blockable.blocks.find_by_identifier(identifier)) && block.tag
   end
   
-  # Content of a snippet. Examples:
-  #   cms_snippet_content(:my_snippet)
-  #   <%= cms_snippet_content(:my_snippet) do %>
-  #     Default content can go here.
-  #   <% end %>
-  def cms_snippet_content(identifier, cms_site = nil, &block)
-    unless cms_site
-      host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
-      cms_site ||= (@cms_site || Cms::Site.find_site(host, path))
+  module Helpers
+    # Wrapper around ComfortableMexicanSofa::FormBuilder
+    def comfy_form_for(record, options = {}, &proc)
+      options[:builder] = ComfortableMexicanSofa::FormBuilder
+      options[:type] ||= :horizontal
+      formatted_form_for(record, options, &proc)
     end
-    return '' unless cms_site
+
+    # Injects some content somewhere inside cms admin area
+    def cms_hook(name, options = {})
+      ComfortableMexicanSofa::ViewHooks.render(name, self, options)
+    end
+  
+    # Content of a snippet. Examples:
+    #   cms_snippet_content(:my_snippet)
+    #   <%= cms_snippet_content(:my_snippet) do %>
+    #     Default content can go here.
+    #   <% end %>
+    def cms_snippet_content(identifier, cms_site = @cms_site, &block)
+      unless cms_site
+        host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
+        cms_site = Cms::Site.find_site(host, path)
+      end
+      return '' unless cms_site
     
-    snippet = cms_site.snippets.find_by_identifier(identifier)
+      snippet = cms_site.snippets.find_by_identifier(identifier)
     
-    if !snippet && block_given?
-      snippet = cms_site.snippets.create(
-        :identifier => identifier,
-        :label      => identifier.to_s.titleize,
-        :content    => capture(&block)
+      if !snippet && block_given?
+        snippet = cms_site.snippets.create(
+          :identifier => identifier,
+          :label      => identifier.to_s.titleize,
+          :content    => capture(&block)
+        )
+      end
+    
+      snippet ? snippet.content : ''
+    end
+  
+    # Same as cms_snippet_content but cms tags will be expanded
+    def cms_snippet_render(identifier, cms_site = @cms_site, &block)
+      content = cms_snippet_content(identifier, cms_site, &block)
+      render :inline => ComfortableMexicanSofa::Tag.process_content(
+        cms_site.pages.build, ComfortableMexicanSofa::Tag.sanitize_irb(content)
       )
     end
-    
-    return '' unless snippet
-    render :inline => ComfortableMexicanSofa::Tag.process_content(cms_site.pages.build, ComfortableMexicanSofa::Tag.sanitize_irb(snippet.content))
-  end
-
-  # Content of a text based page block. This is the typical method for retrieving content from
-  # page:field. Note: This method will be faster than the more generic cms_page_content.
-  #
-  # Example:
-  #   cms_page_block_content(:left_column, CmsPage.first)
-  #   cms_page_block_content(:left_column) if @cms_page is present
-  def cms_page_block_content(identifier, page = nil)
-    return '' unless page ||= @cms_page
-    return '' unless block = page.blocks.find_by_identifier(identifier)
-
-    ComfortableMexicanSofa::Tag.process_content(page, block.content)
-  end
-
-  # Fetch files from a page:field. Will return a list of files, regardless of how many files are present.
-  # Note: This method will be faster than the more generic cms_page_content.
-  #
-  # Example:
-  #   cms_page_block_content(:open_graph_image, CmsPage.first)
-  #   cms_page_block_content(:attachments, CmsPage.first)
-  def cms_page_files(identifier, page = nil)
-    return nil unless page ||= @cms_page
-    return nil unless block = page.blocks.find_by_identifier(identifier)
-
-    block.files
-  end
-
-  # Content of a page block. This is how you get content from page:field
-  # Example:
-  #   cms_page_content(:left_column, CmsPage.first)
-  #   cms_page_content(:left_column) # if @cms_page is present
-  def cms_page_content(identifier, page = nil)
-    return '' unless page ||= @cms_page
-    return '' unless block = page.blocks.find_by_identifier(identifier)
-    # If block is a page_file(s) we will return objects instead of attempting
-    # to render them out
-    case block.tag
-    when ComfortableMexicanSofa::Tag::PageFile
-      block.tag.content
-    else
-      render :inline => ComfortableMexicanSofa::Tag.process_content(page, ComfortableMexicanSofa::Tag.sanitize_irb(block.content))
+  
+    # Content of a page block. This is how you get content from page:field
+    # Example:
+    #   cms_page_content(:left_column, CmsPage.first)
+    #   cms_page_content(:left_column) # if @cms_page is present
+    def cms_block_content(identifier, blockable = @cms_page)
+      return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
+      tag.content
+    end
+  
+    # Same as cms_block_content but with cms tags expanded
+    def cms_block_render(identifier, blockable = @cms_page)
+      return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
+      render :inline => ComfortableMexicanSofa::Tag.process_content(
+        blockable, ComfortableMexicanSofa::Tag.sanitize_irb(tag.render)
+      )
     end
   end
+  
+  ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods::Helpers
 end
 
-ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods
+
