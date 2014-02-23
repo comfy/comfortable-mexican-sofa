@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
+#= require tinymce-jquery
 #= require codemirror
 #= require codemirror/modes/css
 #= require codemirror/modes/htmlmixed
@@ -9,8 +10,6 @@
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
 #= require comfortable_mexican_sofa/lib/bootstrap
-#= require comfortable_mexican_sofa/lib/wysihtml5
-#= require comfortable_mexican_sofa/lib/bootstrap-wysihtml5
 #= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
 #= require comfortable_mexican_sofa/lib/diff
 
@@ -53,11 +52,12 @@ window.CMS.slugify = ->
 
 
 window.CMS.wysiwyg = ->
-  $('textarea[data-cms-rich-text]').each (i, element) ->
-    $(element).wysihtml5
-      html:         true
-      color:        false
-      stylesheets:  []
+  tinymce.init
+    selector:   'textarea[data-cms-rich-text]'
+    plugins:    ['link', 'image', 'code']
+    toolbar:    'undo redo | styleselect | bullist numlist | link unlink image | code'
+    menubar:    false
+    statusbar:  false
 
 
 window.CMS.codemirror = ->
