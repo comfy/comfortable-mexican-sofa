@@ -15,5 +15,6 @@ branches:
   only:
     - master
 matrix:
+  fast_finish: true
   allow_failures:
-    gemfile: test/gemfiles/Gemfile.rails.master
+    - gemfile: test/gemfiles/Gemfile.rails.master

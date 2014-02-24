@@ -82,4 +82,6 @@ ComfortableMexicanSofa is released under the [MIT license](https://github.com/co
 
 Copyright 2009-2014 Oleg Khabarov
 
+---
+
 DOGE: DMTBhZjcgUZunCKMpKCJogBXBhQx2h7h5c
