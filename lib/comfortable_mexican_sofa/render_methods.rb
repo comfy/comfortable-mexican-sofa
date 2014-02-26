@@ -36,7 +36,7 @@ module ComfortableMexicanSofa::RenderMethods
     # 
     def render(options = {}, locals = {}, &block)
       
-      super unless options.is_a?(Hash)
+      return super unless options.is_a?(Hash)
       
       if site_identifier = options.delete(:cms_site)
         unless @cms_site = Cms::Site.find_by_identifier(site_identifier)
