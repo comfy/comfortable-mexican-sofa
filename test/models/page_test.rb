@@ -204,6 +204,15 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.content_cache, page.render
   end
   
+  def test_content_cache_clear_on_save
+    page = cms_pages(:default)
+    old_content = 'Old Content'
+    page.update_columns(:content_cache => old_content)
+    
+    page.save!
+    refute_equal old_content, page.content_cache
+  end
+  
   def test_scope_published
     assert_equal 2, Cms::Page.published.count
     cms_pages(:child).update_columns(:is_published => false)
