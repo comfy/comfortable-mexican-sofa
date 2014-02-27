@@ -200,6 +200,9 @@ de:
           full_path: Completer Pfad
           slug: Slug
           update: Zurücksetzen auf diese Revision
+          content: Content
+          changes: Changes
+          previous: Previous
           current: Aktuell
 
       files:
