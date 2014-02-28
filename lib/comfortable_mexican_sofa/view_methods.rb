@@ -62,9 +62,7 @@ module ComfortableMexicanSofa::ViewMethods
     # Same as cms_block_content but with cms tags expanded
     def cms_block_render(identifier, blockable = @cms_page)
       return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
-      render :inline => ComfortableMexicanSofa::Tag.process_content(
-        blockable, ComfortableMexicanSofa::Tag.sanitize_irb(tag.render)
-      )
+      render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
     end
   end
   
