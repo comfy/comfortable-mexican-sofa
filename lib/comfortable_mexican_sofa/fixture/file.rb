@@ -44,13 +44,17 @@ module ComfortableMexicanSofa::Fixture::File
       
       self.site.files.each do |file|
         file_path = File.join(self.path, file.file_file_name)
+        block = file.block
+        page = block.present?? block.page : nil
         
         # writing attributes
         open(::File.join(self.path, "_#{file.file_file_name}.yml"), 'w') do |f|
           f.write({
             'label'       => file.label,
             'description' => file.description,
-            'categories'  => file.categories.map{|c| c.label}
+            'categories'  => file.categories.map{|c| c.label},
+            'page'        => page.present? ? page.slug : nil,
+            'block'       => block.present? ? block.identifier : nil
           }.to_yaml)
         end
         
