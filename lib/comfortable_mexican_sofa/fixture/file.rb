@@ -10,9 +10,15 @@ module ComfortableMexicanSofa::Fixture::File
         if File.exists?(attrs_path = File.join(self.path, "_#{filename}.yml"))
           if fresh_fixture?(file, attrs_path)
             attrs = get_attributes(attrs_path)
+            
+            block = if (attrs['page'] && attrs['block']) && (page = self.site.pages.find_by_slug(attrs['page']))
+              page.blocks.find_by_identifier(attrs['block'])
+            end
+            
             file.label        = attrs['label']
             file.description  = attrs['description']
             categories        = attrs['categories']
+            file.block        = block
           end
         end
         
