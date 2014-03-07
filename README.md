@@ -59,7 +59,7 @@ After creating a Site, you need to make a Layout. Layout is the template of your
 <html>
   <body>
     <h1>{{ cms:page:header:string }}</h1>
-    {{ cms:page:content:text }}
+    {{ cms:page:content:rich_text }}
   </body>
 </html>
 ```
