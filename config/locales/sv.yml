@@ -41,208 +41,210 @@ sv:
         identifier: Identifierare
         
   # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Site kan inte hittas
-      fixtures_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
-      
-    sites:
-      created: Site skapad
-      creation_failure: Kunde inte skapa site
-      updated: Site uppdaterad
-      update_failure: Uppdatering av site misslyckades
-      deleted: Site borttagen
-      not_found: Kunde inte hitta site
-      
-    layouts:
-      created: Layout skapad
-      creation_failure: Misslyckades att skapa site
-      updated: Layout uppdaterad
-      update_failure: Uppdatering av layout misslyckades
-      deleted: Layout borttagen
-      not_found: Layout kunde inte hittas
-      
-    pages:
-      created: Sida skapad
-      creation_failure: Misslyckades att skapa sida
-      updated: Sida uppdaterad
-      update_failure: Uppdateringen av sidan misslyckades
-      deleted: Sidan borttagen
-      not_found: Sida kunde inte hittas
-      layout_not_found: Kunde inte hitta layout. Vänligen skapa en.
-      
-    snippets:
-      created: Snippet skapad
-      creation_failure: Misslyckades att skapa snippet
-      updated: Snippet uppdaterad
-      update_failure: Uppdateringen av snippet misslyckades
-      deleted: Snippet borttagen
-      not_found: Snippet kunde inte hittas
-      
-    revisions:
-      reverted: Innehåll återställt
-      record_not_found: Kunde inte hitta data för återställning
-      not_found: Återställningspunkt inte hittad
-      
-    files:
-      created: Filer uppladdade
-      creation_failure: Kunde inte skapa fil
-      updated: Fil uppdaterad
-      update_failure: Kunde inte uppdatera fil
-      deleted: Fil borttagen
-      not_found: Kunde inte hitta fil
-      
-    content:
-      site_not_found: Kunde inte hitta site
-      layout_not_found: Kunde inte hitta layout
-      page_not_found: Kunde inte hitta sida
-  
-  # -- Views ----------------------------------------------------------------
-  admin:
+  comfy:
     cms:
       base:
-        sites: Sites
-        layouts: Layouter
-        pages: Sidor
-        snippets: Snippets
-        files: Filer
+        site_not_found: Site kan inte hittas
+        fixtures_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
       
       sites:
-        index:
-          title: Siter
-          new_link: Skapa ny site
-          select: Välj site
-          edit: Ändra
-          delete: Ta bort
-          are_you_sure: Är du säker på att du vill ta bort den här siten?
-        new:
-          title: Ny site
-        edit:
-          title: Ändrar Site
-        form:
-          create: Skapa Site
-          update: Uppdatera Site
-          is_mirrored: Speglad
-        
+        created: Site skapad
+        creation_failure: Kunde inte skapa site
+        updated: Site uppdaterad
+        update_failure: Uppdatering av site misslyckades
+        deleted: Site borttagen
+        not_found: Kunde inte hitta site
+      
       layouts:
-        index:
-          title: Layouter
-          new_link: Skapa ny layout
-        index_branch:
-          add_child_layout: Lägg till underlayout
-          edit: Ändra
-          delete: Ta bort
-          are_you_sure: Är du säker?
-        new:
-          title: Ny layout
-        edit:
-          title: Ändra layout
-          revision: &revision
-            zero: No Revisions
-            one: '%{count} Revision'
-            few: '%{count} Revisions'
-            many: '%{count} Revisions'
-            other: '%{count} Revisions'
-        form:
-          select_parent_layout: Välj överordnad layout
-          select_app_layout: Väl Applikationslayout
-          create: Skapa Layout
-          update: Uppdatera Layout
+        created: Layout skapad
+        creation_failure: Misslyckades att skapa site
+        updated: Layout uppdaterad
+        update_failure: Uppdatering av layout misslyckades
+        deleted: Layout borttagen
+        not_found: Layout kunde inte hittas
       
       pages:
-        index:
-          title: Sidor
-          new_link: Skapa ny sida
-        index_branch:
-          toggle: Välj
-          add_child_page: Lägg till undersida
-          edit: Ändra
-          delete: Ta bort
-          are_you_sure: Är du säker?
-        new:
-          title: Ny sida
-        edit:
-          title: Ändra sida
-          revision:
-            <<: *revision
-        form:
-          select_target_page: Ingen vidarebefodring
-          preview: Förhandsgranska
-          create: Skapa sida
-          update: Uppdatera sida
-          is_published: Publicerad
-        form_blocks:
-          no_tags: |-
-            Layout har inga innehållstaggar definierade.<br/>
-            Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
-          
+        created: Sida skapad
+        creation_failure: Misslyckades att skapa sida
+        updated: Sida uppdaterad
+        update_failure: Uppdateringen av sidan misslyckades
+        deleted: Sidan borttagen
+        not_found: Sida kunde inte hittas
+        layout_not_found: Kunde inte hitta layout. Vänligen skapa en.
+      
       snippets:
-        index:
-          title: Snippets
-          new_link: Skapa Ny Snippet
-          edit: Ändra
-          delete: Ta bort
-          are_you_sure: Är du säker?
-        new:
-          title: Ny Snippet
-        edit:
-          title: Ändra Snippet
-          revision:
-            <<: *revision
-        form:
-          create: Skapa Snippet
-          update: Uppdatera Snippet
-          
+        created: Snippet skapad
+        creation_failure: Misslyckades att skapa snippet
+        updated: Snippet uppdaterad
+        update_failure: Uppdateringen av snippet misslyckades
+        deleted: Snippet borttagen
+        not_found: Snippet kunde inte hittas
+      
       revisions:
-        show:
-          title: Revisioner för
-          revision: Revision
-          full_path: Fullständig sökväg
-          slug: Slug
-          update: Ändra till denna revisionen
-          content: Content
-          changes: Changes
-          previous: Previous
-          current: Nuvarande
+        reverted: Innehåll återställt
+        record_not_found: Kunde inte hitta data för återställning
+        not_found: Återställningspunkt inte hittad
       
       files:
-        index:
-          title: Filer
-          new_link: Ladda upp en ny fil
-          edit: Ända
-          delete: Delete
-          are_you_sure: Är du säker?
-          button: Ladda upp filer
-        new:
-          title: Ny Fil
-        edit:
-          title: Ändrar Fil
-        form:
-          current_file: Nuvarande Fil
-          create: Ladda upp fil
-          update: Uppdatera fil
-        page_form:
-          are_you_sure: Är du säker?
-        file:
-          are_you_sure: Är du säker?
+        created: Filer uppladdade
+        creation_failure: Kunde inte skapa fil
+        updated: Fil uppdaterad
+        update_failure: Kunde inte uppdatera fil
+        deleted: Fil borttagen
+        not_found: Kunde inte hitta fil
+      
+      content:
+        site_not_found: Kunde inte hitta site
+        layout_not_found: Kunde inte hitta layout
+        page_not_found: Kunde inte hitta sida
+  
+  # -- Views ----------------------------------------------------------------
+  comfy:
+    admin:
+      cms:
+        base:
+          sites: Sites
+          layouts: Layouter
+          pages: Sidor
+          snippets: Snippets
+          files: Filer
+      
+        sites:
+          index:
+            title: Siter
+            new_link: Skapa ny site
+            select: Välj site
+            edit: Ändra
+            delete: Ta bort
+            are_you_sure: Är du säker på att du vill ta bort den här siten?
+          new:
+            title: Ny site
+          edit:
+            title: Ändrar Site
+          form:
+            create: Skapa Site
+            update: Uppdatera Site
+            is_mirrored: Speglad
         
-      categories:
-        index:
-          label: Kategorier
-          edit: Ändra
-          done: Klar
-          all: Alla
-          add: Lägg till
-          add_placeholder: Lägga Kategori
-        show:
-          are_you_sure: Är du säker?
-        edit:
-          save: Spara
-        form:
-          label: Kategorier
+        layouts:
+          index:
+            title: Layouter
+            new_link: Skapa ny layout
+          index_branch:
+            add_child_layout: Lägg till underlayout
+            edit: Ändra
+            delete: Ta bort
+            are_you_sure: Är du säker?
+          new:
+            title: Ny layout
+          edit:
+            title: Ändra layout
+            revision: &revision
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
+          form:
+            select_parent_layout: Välj överordnad layout
+            select_app_layout: Väl Applikationslayout
+            create: Skapa Layout
+            update: Uppdatera Layout
+      
+        pages:
+          index:
+            title: Sidor
+            new_link: Skapa ny sida
+          index_branch:
+            toggle: Välj
+            add_child_page: Lägg till undersida
+            edit: Ändra
+            delete: Ta bort
+            are_you_sure: Är du säker?
+          new:
+            title: Ny sida
+          edit:
+            title: Ändra sida
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Ingen vidarebefodring
+            preview: Förhandsgranska
+            create: Skapa sida
+            update: Uppdatera sida
+            is_published: Publicerad
+          form_blocks:
+            no_tags: |-
+              Layout har inga innehållstaggar definierade.<br/>
+              Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
+          
+        snippets:
+          index:
+            title: Snippets
+            new_link: Skapa Ny Snippet
+            edit: Ändra
+            delete: Ta bort
+            are_you_sure: Är du säker?
+          new:
+            title: Ny Snippet
+          edit:
+            title: Ändra Snippet
+            revision:
+              <<: *revision
+          form:
+            create: Skapa Snippet
+            update: Uppdatera Snippet
+          
+        revisions:
+          show:
+            title: Revisioner för
+            revision: Revision
+            full_path: Fullständig sökväg
+            slug: Slug
+            update: Ändra till denna revisionen
+            content: Content
+            changes: Changes
+            previous: Previous
+            current: Nuvarande
+      
+        files:
+          index:
+            title: Filer
+            new_link: Ladda upp en ny fil
+            edit: Ända
+            delete: Delete
+            are_you_sure: Är du säker?
+            button: Ladda upp filer
+          new:
+            title: Ny Fil
+          edit:
+            title: Ändrar Fil
+          form:
+            current_file: Nuvarande Fil
+            create: Ladda upp fil
+            update: Uppdatera fil
+          page_form:
+            are_you_sure: Är du säker?
+          file:
+            are_you_sure: Är du säker?
         
-      dialogs:
-        image:
-          insert: Infoga bild
-        link:
-          create: Skapa Länk
+        categories:
+          index:
+            label: Kategorier
+            edit: Ändra
+            done: Klar
+            all: Alla
+            add: Lägg till
+            add_placeholder: Lägga Kategori
+          show:
+            are_you_sure: Är du säker?
+          edit:
+            save: Spara
+          form:
+            label: Kategorier
+        
+        dialogs:
+          image:
+            insert: Infoga bild
+          link:
+            create: Skapa Länk

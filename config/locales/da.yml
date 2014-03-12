@@ -41,208 +41,210 @@ da:
         identifier: Nøgleord
         
   # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Webstedet findes ikke
-      fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
-    
-    sites:
-      created: Websted oprettet
-      creation_failure: Oprettelse af websted mislykkedes
-      updated: Websted opdateret
-      update_failure: Opdatering af websted mislykkedes
-      deleted: Websted slettet
-      not_found: Websted findes ikke
-    
-    layouts:
-      created: Layout oprettet
-      creation_failure: Oprettelse af layout mislykkedes
-      updated: Layout opdateret
-      update_failure: Opdatering af layout mislykkedes
-      deleted: Layout slettet
-      not_found: Layout findes ikke
-    
-    pages:
-      created: Side oprettet
-      creation_failure: Oprettelse af side mislykkedes
-      updated: Side opdateret
-      update_failure: Opdatering af side mislykkedes
-      deleted: Side slettet
-      not_found: Side findes ikke
-      layout_not_found: Ingen layouts findes. Opret venligst et layout.
-    
-    snippets:
-      created: Snippet oprettet
-      creation_failure: Oprettelse af snippet mislykkedes
-      updated: Snippet opdateret
-      update_failure: Opdatering af snippet mislykkedes
-      deleted: Snippet slettet
-      not_found: Snippet findes ikke
-    
-    revisions:
-      reverted: Indhold gendannet
-      record_not_found: Indhold findes ikke
-      not_found: Revision findes ikke
-    
-    files:
-      created: Filer sendt
-      creation_failure: Sending af filer mislykkedes
-      updated: Fil opdateret
-      update_failure: Opdatering af fil mislykkedes
-      deleted: Fil slettet
-      not_found: Fil findes ikke
-    
-    content:
-      site_not_found: Websted findes ikke
-      layout_not_found: Layout findes ikke
-      page_not_found: Side findes ikke
-  
-  # -- Views ----------------------------------------------------------------
-  admin:
+  comfy:
     cms:
       base:
-        sites: Websteder
-        layouts: Layouts
-        pages: Sider
-        snippets: Snippets
-        files: Filer
-      
+        site_not_found: Webstedet findes ikke
+        fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
+    
       sites:
-        index:
-          title: Websteder
-          new_link: Opret nyt websted
-          select: Vælg websted
-          edit: Rediger
-          delete: Slet
-          are_you_sure: Er du sikker på at du vil slette webstedet?
-        new:
-          title: Nyt websted
-        edit:
-          title: Rediger websted
-        form:
-          create: Opret websted
-          update: Opdater websted
-          is_mirrored: Kopieret websted
-        
+        created: Websted oprettet
+        creation_failure: Oprettelse af websted mislykkedes
+        updated: Websted opdateret
+        update_failure: Opdatering af websted mislykkedes
+        deleted: Websted slettet
+        not_found: Websted findes ikke
+    
       layouts:
-        index:
-          title: Layouts
-          new_link: Opret nyt layout
-        index_branch:
-          add_child_layout: Tilføj underliggende layout
-          edit: Rediger
-          delete: Slet
-          are_you_sure: Er du sikker?
-        new:
-          title: Nyt layout
-        edit:
-          title: Rdiger layout
-          revision: &revision
-            zero: Ingen revisioner
-            one: '%{count} revision'
-            few: '%{count} revisioner'
-            many: '%{count} revisioner'
-            other: '%{count} revisioner'
-        form:
-          select_parent_layout: Vælg overordnet layout
-          select_app_layout: Vælg applikationens layout
-          create: Opret layout
-          update: Opdater layout
-      
+        created: Layout oprettet
+        creation_failure: Oprettelse af layout mislykkedes
+        updated: Layout opdateret
+        update_failure: Opdatering af layout mislykkedes
+        deleted: Layout slettet
+        not_found: Layout findes ikke
+    
       pages:
-        index:
-          title: Sider
-          new_link: Opret ny side
-        index_branch:
-          toggle: Toggle
-          add_child_page: Tilføj underliggende side
-          edit: Rediger
-          delete: Slet
-          are_you_sure: Er du sikker?
-        new:
-          title: Ny side
-        edit:
-          title: Rediger side
-          revision:
-            <<: *revision
-        form:
-          select_target_page: Ingen viderestilling
-          preview: Preview
-          create: Opret side
-          update: Opdater side
-          is_published: Udgivet
-        form_blocks:
-          no_tags: |-
-            Layout har ingen indholdtags defineret.<br/>
-            Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:page:content}}</code>
-      
+        created: Side oprettet
+        creation_failure: Oprettelse af side mislykkedes
+        updated: Side opdateret
+        update_failure: Opdatering af side mislykkedes
+        deleted: Side slettet
+        not_found: Side findes ikke
+        layout_not_found: Ingen layouts findes. Opret venligst et layout.
+    
       snippets:
-        index:
-          title: Snippets
-          new_link: Opret ny snippet
-          edit: Rediger
-          delete: Slet
-          are_you_sure: Er du sikker?
-        new:
-          title: Ny snippet
-        edit:
-          title: Rediger snippet
-          revision:
-            <<: *revision
-        form:
-          create: Opret snippet
-          update: Opdater nippet
-          
+        created: Snippet oprettet
+        creation_failure: Oprettelse af snippet mislykkedes
+        updated: Snippet opdateret
+        update_failure: Opdatering af snippet mislykkedes
+        deleted: Snippet slettet
+        not_found: Snippet findes ikke
+    
       revisions:
-        show:
-          title: Revisioner for
-          revision: Revision
-          full_path: Fuld sti
-          slug: Slug
-          update: Opdater til denne revision
-          content: Indhold
-          changes: Ændringer
-          previous: Forrige
-          current: Nuværende
-      
+        reverted: Indhold gendannet
+        record_not_found: Indhold findes ikke
+        not_found: Revision findes ikke
+    
       files:
-        index:
-          title: Filer
-          new_link: Send ny fil
-          edit: Rediger
-          delete: Slet
-          are_you_sure: Er du sikker?
-          button: Send filer
-        new:
-          title: Ny fil
-        edit:
-          title: Rediger fil
-        form:
-          current_file: Nuværende fil
-          create: Send fil
-          update: Opdater fil
-        page_form:
-          are_you_sure: Er du sikker?
-        file:
-          are_you_sure: Er du sikker?
+        created: Filer sendt
+        creation_failure: Sending af filer mislykkedes
+        updated: Fil opdateret
+        update_failure: Opdatering af fil mislykkedes
+        deleted: Fil slettet
+        not_found: Fil findes ikke
+    
+      content:
+        site_not_found: Websted findes ikke
+        layout_not_found: Layout findes ikke
+        page_not_found: Side findes ikke
+  
+  # -- Views ----------------------------------------------------------------
+  comfy:
+    admin:
+      cms:
+        base:
+          sites: Websteder
+          layouts: Layouts
+          pages: Sider
+          snippets: Snippets
+          files: Filer
+      
+        sites:
+          index:
+            title: Websteder
+            new_link: Opret nyt websted
+            select: Vælg websted
+            edit: Rediger
+            delete: Slet
+            are_you_sure: Er du sikker på at du vil slette webstedet?
+          new:
+            title: Nyt websted
+          edit:
+            title: Rediger websted
+          form:
+            create: Opret websted
+            update: Opdater websted
+            is_mirrored: Kopieret websted
         
-      categories:
-        index:
-          label: Kategorier
-          edit: Rediger
-          done: Udført
-          all: Alle
-          add: Tilføj
-          add_placeholder: Tilføj kategori
-        show:
-          are_you_sure: Er du sikker?
-        edit:
-          save: Gem
-        form:
-          label: Kategorier
+        layouts:
+          index:
+            title: Layouts
+            new_link: Opret nyt layout
+          index_branch:
+            add_child_layout: Tilføj underliggende layout
+            edit: Rediger
+            delete: Slet
+            are_you_sure: Er du sikker?
+          new:
+            title: Nyt layout
+          edit:
+            title: Rdiger layout
+            revision: &revision
+              zero: Ingen revisioner
+              one: '%{count} revision'
+              few: '%{count} revisioner'
+              many: '%{count} revisioner'
+              other: '%{count} revisioner'
+          form:
+            select_parent_layout: Vælg overordnet layout
+            select_app_layout: Vælg applikationens layout
+            create: Opret layout
+            update: Opdater layout
+      
+        pages:
+          index:
+            title: Sider
+            new_link: Opret ny side
+          index_branch:
+            toggle: Toggle
+            add_child_page: Tilføj underliggende side
+            edit: Rediger
+            delete: Slet
+            are_you_sure: Er du sikker?
+          new:
+            title: Ny side
+          edit:
+            title: Rediger side
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Ingen viderestilling
+            preview: Preview
+            create: Opret side
+            update: Opdater side
+            is_published: Udgivet
+          form_blocks:
+            no_tags: |-
+              Layout har ingen indholdtags defineret.<br/>
+              Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:page:content}}</code>
+      
+        snippets:
+          index:
+            title: Snippets
+            new_link: Opret ny snippet
+            edit: Rediger
+            delete: Slet
+            are_you_sure: Er du sikker?
+          new:
+            title: Ny snippet
+          edit:
+            title: Rediger snippet
+            revision:
+              <<: *revision
+          form:
+            create: Opret snippet
+            update: Opdater nippet
+          
+        revisions:
+          show:
+            title: Revisioner for
+            revision: Revision
+            full_path: Fuld sti
+            slug: Slug
+            update: Opdater til denne revision
+            content: Indhold
+            changes: Ændringer
+            previous: Forrige
+            current: Nuværende
+      
+        files:
+          index:
+            title: Filer
+            new_link: Send ny fil
+            edit: Rediger
+            delete: Slet
+            are_you_sure: Er du sikker?
+            button: Send filer
+          new:
+            title: Ny fil
+          edit:
+            title: Rediger fil
+          form:
+            current_file: Nuværende fil
+            create: Send fil
+            update: Opdater fil
+          page_form:
+            are_you_sure: Er du sikker?
+          file:
+            are_you_sure: Er du sikker?
         
-      dialogs:
-        image:
-          insert: Indsæt billede
-        link:
-          create: Opret link
+        categories:
+          index:
+            label: Kategorier
+            edit: Rediger
+            done: Udført
+            all: Alle
+            add: Tilføj
+            add_placeholder: Tilføj kategori
+          show:
+            are_you_sure: Er du sikker?
+          edit:
+            save: Gem
+          form:
+            label: Kategorier
+        
+        dialogs:
+          image:
+            insert: Indsæt billede
+          link:
+            create: Opret link

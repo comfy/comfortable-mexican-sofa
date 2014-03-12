@@ -41,208 +41,210 @@ nl:
         identifier: Identifier
 
   # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Site niet gevonden
-      fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
-
-    sites:
-      created: Site aangemaakt
-      creation_failure: Site aanmaken mislukt
-      updated: Site bijgewerkt
-      update_failure: Site bijwerken mislukt
-      deleted: Site verwijderd
-      not_found: Site niet gevonden
-
-    layouts:
-      created: Lay-out aangemaakt
-      creation_failure: Lay-out aanmaken mislukt
-      updated: Lay-out bijgewerkt
-      update_failure: Lay-out bijwerken mislukt
-      deleted: Lay-out verwijderd
-      not_found: Lay-out niet gevonden
-
-    pages:
-      created: Pagina aangemaakt
-      creation_failure: Pagina aanmaken mislukt
-      updated: Pagina bijgewerkt
-      update_failure: Pagina bijwerken mislukt
-      deleted: Pagina verwijderd
-      not_found: Pagina niet gevonden
-      layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
-
-    snippets:
-      created: Snippet aangemaakt
-      creation_failure: Snippet aangemaakt mislukt
-      updated: Snippet bijgewerkt
-      update_failure: Snippet bijwerken mislukt
-      deleted: Snippet verwijderd
-      not_found: Snippet niet gevonden
-
-    revisions:
-      reverted: Content teruggezet
-      record_not_found: Record niet gevonden
-      not_found: Revisie niet gevonden
-
-    files:
-      created: Bestanden geüpload
-      creation_failure: Bestanden uploaden mislukt
-      updated: Bestand bijgewerkt
-      update_failure: Bestand bijwerken mislukt
-      deleted: Bestand verwijderd
-      not_found: Bestand niet gevonden
-
-    content:
-      site_not_found: Site niet gevonden
-      layout_not_found: Lay-out niet gevonden
-      page_not_found: Pagina niet gevonden
-
-  # -- Views ----------------------------------------------------------------
-  admin:
+  comfy:
     cms:
       base:
-        sites: Sites
-        layouts: Lay-outs
-        pages: Pagina's
-        snippets: Snippets
-        files: Bestanden
+        site_not_found: Site niet gevonden
+        fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
 
       sites:
-        index:
-          title: Sites
-          new_link: Maak Nieuwe Site Aan
-          select: Selecteer Site
-          edit: Bewerk
-          delete: Verwijder
-          are_you_sure: Weet u zeker dat u deze site wilt verwijderen?
-        new:
-          title: Nieuwe Site
-        edit:
-          title: Site Bewerken
-        form:
-          create: Site Aanmaken
-          update: Site Bijwerken
-          is_mirrored: Gespiegeld
+        created: Site aangemaakt
+        creation_failure: Site aanmaken mislukt
+        updated: Site bijgewerkt
+        update_failure: Site bijwerken mislukt
+        deleted: Site verwijderd
+        not_found: Site niet gevonden
 
       layouts:
-        index:
-          title: Lay-outs
-          new_link: Maak Nieuwe Lay-out Aan
-        index_branch:
-          add_child_layout: Voeg Kind Lay-out Toe
-          edit: Bewerk
-          delete: Verwijder
-          are_you_sure: Weet u het zeker?
-        new:
-          title: Nieuwe Lay-out
-        edit:
-          title: Lay-out Bewerken
-          revision: &revision
-            zero: '%{count} Revisie'
-            one: '%{count} Revisie'
-            few: '%{count} Revisie'
-            many: '%{count} Revisie'
-            other: '%{count} Revisie'
-        form:
-          select_parent_layout: Selecteer Ouder Lay-out
-          select_app_layout: Selecteer Applicatie Lay-out
-          create: Lay-out Aanmaken
-          update: Lay-out Bijwerken
+        created: Lay-out aangemaakt
+        creation_failure: Lay-out aanmaken mislukt
+        updated: Lay-out bijgewerkt
+        update_failure: Lay-out bijwerken mislukt
+        deleted: Lay-out verwijderd
+        not_found: Lay-out niet gevonden
 
       pages:
-        index:
-          title: Pagina's
-          new_link: Maak Nieuwe Pagina Aan
-        index_branch:
-          toggle: Toggle
-          add_child_page: Voeg Kind Pagina Toe
-          edit: Bewerk
-          delete: Verwijder
-          are_you_sure: Weet u het zeker?
-        new:
-          title: Nieuwe Pagina
-        edit:
-          title: Pagina Bewerken
-          revision:
-            <<: *revision
-        form:
-          select_target_page: Geen Omleiding
-          preview: Preview
-          create: Pagina Aanmaken
-          update: Pagina Bijwerken
-          is_published: Gepubliceerd
-        form_blocks:
-          no_tags: |-
-            Lay-out heeft geen inhoud-tags gedefinieerd.<br/>
-            Bewerk de inhoud van de lay-out om een inhoud-tag toe te voegen. Bijvoorbeeld: <code>{{cms:page:content}}</code>
+        created: Pagina aangemaakt
+        creation_failure: Pagina aanmaken mislukt
+        updated: Pagina bijgewerkt
+        update_failure: Pagina bijwerken mislukt
+        deleted: Pagina verwijderd
+        not_found: Pagina niet gevonden
+        layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
 
       snippets:
-        index:
-          title: Snippets
-          new_link: Maak Nieuw Snippet Aan
-          edit: Bewerk
-          delete: Verwijder
-          are_you_sure: Weet u het zeker?
-        new:
-          title: Nieuw Snippet
-        edit:
-          title: Snippet Bewerken
-          revision:
-            <<: *revision
-        form:
-          create: Snippet Aanmaken
-          update: Snippet Bijwerken
+        created: Snippet aangemaakt
+        creation_failure: Snippet aangemaakt mislukt
+        updated: Snippet bijgewerkt
+        update_failure: Snippet bijwerken mislukt
+        deleted: Snippet verwijderd
+        not_found: Snippet niet gevonden
 
       revisions:
-        show:
-          title: Revisies van
-          revision: Revisie
-          full_path: Volledig Pad
-          slug: Slug
-          update: Zet terug naar deze Revisie
-          content: Content
-          changes: Changes
-          previous: Previous
-          current: Huidig
+        reverted: Content teruggezet
+        record_not_found: Record niet gevonden
+        not_found: Revisie niet gevonden
 
       files:
-        index:
-          title: Bestanden
-          new_link: Upload Nieuw Bestand
-          edit: Bewerk
-          delete: Verwijder
-          are_you_sure: Weet u het zeker?
-          button: Upload Bestanden
-        new:
-          title: Nieuw Bestand
-        edit:
-          title: Bestand Bewerken
-        form:
-          current_file: Huidig Bestand
-          create: Upload Bestand
-          update: Update Bestand
-        page_form:
-          are_you_sure: Weet u het zeker?
-        file:
-          are_you_sure: Weet u het zeker?
+        created: Bestanden geüpload
+        creation_failure: Bestanden uploaden mislukt
+        updated: Bestand bijgewerkt
+        update_failure: Bestand bijwerken mislukt
+        deleted: Bestand verwijderd
+        not_found: Bestand niet gevonden
 
-      categories:
-        index:
-          label: Categorieën
-          edit: Bewerk
-          done: Klaar
-          all: Alle
-          add: Toevoegen
-          add_placeholder: Categorie Toevoegen
-        show:
-          are_you_sure: Weet u het zeker?
-        edit:
-          save: Opslaan
-        form:
-          label: Categorieën
+      content:
+        site_not_found: Site niet gevonden
+        layout_not_found: Lay-out niet gevonden
+        page_not_found: Pagina niet gevonden
 
-      dialogs:
-        image:
-          insert: Afbeelding Invoegen
-        link:
-          create: Link Aanmaken
+  # -- Views ----------------------------------------------------------------
+  comfy:
+    admin:
+      cms:
+        base:
+          sites: Sites
+          layouts: Lay-outs
+          pages: Pagina's
+          snippets: Snippets
+          files: Bestanden
+
+        sites:
+          index:
+            title: Sites
+            new_link: Maak Nieuwe Site Aan
+            select: Selecteer Site
+            edit: Bewerk
+            delete: Verwijder
+            are_you_sure: Weet u zeker dat u deze site wilt verwijderen?
+          new:
+            title: Nieuwe Site
+          edit:
+            title: Site Bewerken
+          form:
+            create: Site Aanmaken
+            update: Site Bijwerken
+            is_mirrored: Gespiegeld
+
+        layouts:
+          index:
+            title: Lay-outs
+            new_link: Maak Nieuwe Lay-out Aan
+          index_branch:
+            add_child_layout: Voeg Kind Lay-out Toe
+            edit: Bewerk
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
+          new:
+            title: Nieuwe Lay-out
+          edit:
+            title: Lay-out Bewerken
+            revision: &revision
+              zero: '%{count} Revisie'
+              one: '%{count} Revisie'
+              few: '%{count} Revisie'
+              many: '%{count} Revisie'
+              other: '%{count} Revisie'
+          form:
+            select_parent_layout: Selecteer Ouder Lay-out
+            select_app_layout: Selecteer Applicatie Lay-out
+            create: Lay-out Aanmaken
+            update: Lay-out Bijwerken
+
+        pages:
+          index:
+            title: Pagina's
+            new_link: Maak Nieuwe Pagina Aan
+          index_branch:
+            toggle: Toggle
+            add_child_page: Voeg Kind Pagina Toe
+            edit: Bewerk
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
+          new:
+            title: Nieuwe Pagina
+          edit:
+            title: Pagina Bewerken
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Geen Omleiding
+            preview: Preview
+            create: Pagina Aanmaken
+            update: Pagina Bijwerken
+            is_published: Gepubliceerd
+          form_blocks:
+            no_tags: |-
+              Lay-out heeft geen inhoud-tags gedefinieerd.<br/>
+              Bewerk de inhoud van de lay-out om een inhoud-tag toe te voegen. Bijvoorbeeld: <code>{{cms:page:content}}</code>
+
+        snippets:
+          index:
+            title: Snippets
+            new_link: Maak Nieuw Snippet Aan
+            edit: Bewerk
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
+          new:
+            title: Nieuw Snippet
+          edit:
+            title: Snippet Bewerken
+            revision:
+              <<: *revision
+          form:
+            create: Snippet Aanmaken
+            update: Snippet Bijwerken
+
+        revisions:
+          show:
+            title: Revisies van
+            revision: Revisie
+            full_path: Volledig Pad
+            slug: Slug
+            update: Zet terug naar deze Revisie
+            content: Content
+            changes: Changes
+            previous: Previous
+            current: Huidig
+
+        files:
+          index:
+            title: Bestanden
+            new_link: Upload Nieuw Bestand
+            edit: Bewerk
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
+            button: Upload Bestanden
+          new:
+            title: Nieuw Bestand
+          edit:
+            title: Bestand Bewerken
+          form:
+            current_file: Huidig Bestand
+            create: Upload Bestand
+            update: Update Bestand
+          page_form:
+            are_you_sure: Weet u het zeker?
+          file:
+            are_you_sure: Weet u het zeker?
+
+        categories:
+          index:
+            label: Categorieën
+            edit: Bewerk
+            done: Klaar
+            all: Alle
+            add: Toevoegen
+            add_placeholder: Categorie Toevoegen
+          show:
+            are_you_sure: Weet u het zeker?
+          edit:
+            save: Opslaan
+          form:
+            label: Categorieën
+
+        dialogs:
+          image:
+            insert: Afbeelding Invoegen
+          link:
+            create: Link Aanmaken
