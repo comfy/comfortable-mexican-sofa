@@ -22,7 +22,7 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
       end
 
       content << @template.send(method, name, input_params)
-      content << @template.render(:partial => 'admin/cms/files/page_form', :object => tag.block)
+      content << @template.render(:partial => 'comfy/admin/cms/files/page_form', :object => tag.block)
     else
       content << @template.send(method, "#{fieldname}[blocks_attributes][#{index}][content]", tag.content, options)
     end

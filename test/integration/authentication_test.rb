@@ -38,11 +38,11 @@ class AuthenticationIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_public_with_custom_auth
-    Cms::ContentController.send :include, TestLockPublicAuth
+    Comfy::Cms::ContentController.send :include, TestLockPublicAuth
     get '/'
     assert_response :redirect
     assert_redirected_to '/lockout'
     # reset auth module
-    Cms::ContentController.send :include, TestUnlockPublicAuth
+    Comfy::Cms::ContentController.send :include, TestUnlockPublicAuth
   end
 end
