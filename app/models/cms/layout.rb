@@ -33,6 +33,24 @@ class Cms::Layout < ActiveRecord::Base
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
+    logger.debug("Current layout: #{current_layout}")
+
+    # Hacky code for PoC: Needs to be refactored to proper method.
+    if ComfortableMexicanSofa.config.application_layouts
+      logger.debug("\u21D2 Create root layouts straight from app_layouts_for_select")
+      Cms::Layout.app_layouts_for_select.each do |app_layout|
+        logger.debug("\u21D2 Working with app layout: #{app_layout}.")
+        layout_from_app_layouts = Cms::Layout.where(parent_id: nil, identifier: app_layout, site_id: site.id).first_or_create
+        logger.debug("\u21D2 Current layout ID: #{layout_from_app_layouts.id}.")
+        layout_from_app_layouts.label = app_layout.capitalize
+        # @layout.app_layout  ||= @layout.parent.try(:app_layout)
+        layout_from_app_layouts.content ||= '{{ cms:page:content:text }}'
+        layout_from_app_layouts.save!
+      end
+      logger.debug("\u21D2 Remove layouts not in app_layouts_for_select")
+    end
+    # End of Hacky code for PoC.
+
     out = []
     [current_layout || site.layouts.roots].flatten.each do |l|
       next if layout == l

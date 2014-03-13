@@ -74,6 +74,9 @@ class ComfortableMexicanSofa::Configuration
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   attr_accessor :reveal_cms_partials
+
+  # Get layouts directly from host application, bypassing CMS's engine.
+  attr_accessor :application_layouts
   
   # Configuration defaults
   def initialize
@@ -108,6 +111,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_partials     = nil
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
+    @application_layouts  = true
   end
 
 end
