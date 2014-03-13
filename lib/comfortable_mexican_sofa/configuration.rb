@@ -111,7 +111,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_partials     = nil
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
-    @application_layouts  = true
+    @application_layouts  = false
   end
 
 end
