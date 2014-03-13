@@ -1,6 +1,5 @@
 # encoding: utf-8
 pl:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Tytuł
     slug: Ścieżka
@@ -39,70 +38,20 @@ pl:
         description: Opis
       cms/snippet:
         identifier: Identyfikator
-        
-  # -- Controllers ----------------------------------------------------------
+
   comfy:
     cms:
-      base:
-        site_not_found: Strona nie została znaleziona
-        fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
-      
-      sites:
-        created: Witryna została utworzona
-        creation_failure: Błąd przy tworzeniu witryny
-        updated: Witryna została uaktulaniona
-        update_failure: Błąd przy uaktualnianiu witryny
-        deleted: Witryna została usunięta
-        not_found: Nie znaleziono witryny
-      
-      layouts:
-        created: Szablon został utworzony
-        creation_failure: Błąd przy tworzeniu layoutu
-        updated: Szanlon został uaktualniony
-        update_failure: Błąd przy uaktualnianiu layoutu
-        deleted: Szablon został usunięty
-        not_found: Nie znaleziono layoutu
-      
-      pages:
-        created: Strona została utworzona
-        creation_failure: Błąd przy tworzeniu strony
-        updated: Strona została uaktualniona
-        update_failure: Błąd przy uaktualnianiu strony
-        deleted: Strona została usunięta
-        not_found: Nie znaleziono strony
-        layout_not_found: Brakuje layoutu. Proszę utworzyć
-      
-      snippets:
-        created: Snippet został utworzony
-        creation_failure: Błąd przy tworzeniu snippeta
-        updated: Snippet został uaktualniony
-        update_failure: Błąd przy uaktualnianiu snippeta
-        deleted: Snippet został usunięty
-        not_found: Nie znaleziono snippeta
-      
-      revisions:
-        reverted: Zawartość zostala przywrócona
-        record_not_found: Wpis nie został znaleziony
-        not_found: Wersja nie została znaleziona
-      
-      files:
-        created: Plik wrzucony na serwer
-        creation_failure: Błąd przy wrzucaniu pliku
-        updated: Plik został uaktualniony
-        update_failure: Błąd przy uaktualnianiu pliku
-        deleted: Plik został usunięty
-        not_found: Plik nie został znaleziony
-      
       content:
         site_not_found: Witryna nie została znaleziona
         layout_not_found: Szablon nie został znaleziony
         page_not_found: Strona nie została znaleziona
-  
-  # -- Views ----------------------------------------------------------------
-  comfy:
+      
     admin:
       cms:
         base:
+          site_not_found: Strona nie została znaleziona
+          fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
+          
           sites: Witryny
           layouts: Szablony
           pages: Pages
@@ -110,6 +59,13 @@ pl:
           files: Files
       
         sites:
+          created: Witryna została utworzona
+          creation_failure: Błąd przy tworzeniu witryny
+          updated: Witryna została uaktulaniona
+          update_failure: Błąd przy uaktualnianiu witryny
+          deleted: Witryna została usunięta
+          not_found: Nie znaleziono witryny
+          
           index:
             title: Witryny
             new_link: Utwórz nowa witrynę
@@ -125,8 +81,15 @@ pl:
             create: Utwórz witrynę
             update: Uaktualnij witrynę
             is_mirrored: Mirror
-        
+      
         layouts:
+          created: Szablon został utworzony
+          creation_failure: Błąd przy tworzeniu layoutu
+          updated: Szanlon został uaktualniony
+          update_failure: Błąd przy uaktualnianiu layoutu
+          deleted: Szablon został usunięty
+          not_found: Nie znaleziono layoutu
+          
           index:
             title: Szablony
             new_link: Utwórz nowy szablon
@@ -152,6 +115,14 @@ pl:
             update: Uaktualnij szablon
       
         pages:
+          created: Strona została utworzona
+          creation_failure: Błąd przy tworzeniu strony
+          updated: Strona została uaktualniona
+          update_failure: Błąd przy uaktualnianiu strony
+          deleted: Strona została usunięta
+          not_found: Nie znaleziono strony
+          layout_not_found: Brakuje layoutu. Proszę utworzyć
+          
           index:
             title: Strony
             new_link: Utwórz nową stronę
@@ -179,6 +150,13 @@ pl:
               Wyedytuj treść aby dodać stronę lub pole np. <code>{{cms:page:content}}</code>
       
         snippets:
+          created: Snippet został utworzony
+          creation_failure: Błąd przy tworzeniu snippeta
+          updated: Snippet został uaktualniony
+          update_failure: Błąd przy uaktualnianiu snippeta
+          deleted: Snippet został usunięty
+          not_found: Nie znaleziono snippeta
+          
           index:
             title: Snippets
             new_link: Utwórz nowy snippet
@@ -194,8 +172,12 @@ pl:
           form:
             create: Utwórz snippet
             update: Uaktualnij snippet
-          
+      
         revisions:
+          reverted: Zawartość zostala przywrócona
+          record_not_found: Wpis nie został znaleziony
+          not_found: Wersja nie została znaleziona
+          
           show:
             title: Wersje dla
             revision: Wersja
@@ -208,6 +190,13 @@ pl:
             current: Aktualna
       
         files:
+          created: Plik wrzucony na serwer
+          creation_failure: Błąd przy wrzucaniu pliku
+          updated: Plik został uaktualniony
+          update_failure: Błąd przy uaktualnianiu pliku
+          deleted: Plik został usunięty
+          not_found: Plik nie został znaleziony
+          
           index:
             title: Pliki
             new_link: Wrzuć nowy plik
@@ -227,7 +216,7 @@ pl:
             are_you_sure: Jesteś pewien?
           file:
             are_you_sure: Jesteś pewien?
-        
+            
         categories:
           index:
             label: Kategorie
@@ -242,9 +231,3 @@ pl:
             save: Zapisz
           form:
             label: Tytuł
-        
-        dialogs:
-          image:
-            insert: Dodaj obrazek
-          link:
-            create: Utwórz link

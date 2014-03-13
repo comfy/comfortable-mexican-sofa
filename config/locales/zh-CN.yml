@@ -1,6 +1,5 @@
 # encoding: utf-8
 zh-CN:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: 标签
     slug: 嵌条
@@ -40,69 +39,19 @@ zh-CN:
       cms/snippet:
         identifier: 标识符
         
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: 没有该站点
-        fixtures_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
-
-      sites:
-        created: 站点创建成功
-        creation_failure: 站点创建失败
-        updated: 站点更新成功
-        update_failure: 站点更新失败
-        deleted: 站点删除成功
-        not_found: 站点不存在
-
-      layouts:
-        created: 布局创建成功
-        creation_failure: 布局创建失败
-        updated: 布局更新成功
-        update_failure: 布局更新失败
-        deleted: 布局删除成功
-        not_found: 布局不存在
-
-      pages:
-        created: 页面创建成功
-        creation_failure: 页面创建失败
-        updated: 页面更新成功
-        update_failure: 页面更新失败
-        deleted: 页面删除成功
-        not_found: 页面不存在
-        layout_not_found: 没有布局，请先创建一个布局。
-
-      snippets:
-        created: 片段创建成功
-        creation_failure: 片段创建失败
-        updated: 片段更新成功
-        update_failure: 片段更新失败
-        deleted: 片段删除成功
-        not_found: 片段不存在
-
-      revisions:
-        reverted: 内容恢复成功
-        record_not_found: 记录不存在
-        not_found: 修订版本不存在
-
-      files:
-        created: 文件上传成功
-        creation_failure: 文件上传失败
-        updated: 文件更新成功
-        update_failure: 文件更新失败
-        deleted: 文件删除成功
-        not_found: 文件不存在
-
       content:
         site_not_found: 站点不存在
         layout_not_found: 布局不存在
         page_not_found: 页面不存在
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
+      
     admin:
       cms:
         base:
+          site_not_found: 没有该站点
+          fixtures_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
+          
           sites: 站点
           layouts: 布局
           pages: 页面
@@ -110,6 +59,13 @@ zh-CN:
           files: 文件
 
         sites:
+          created: 站点创建成功
+          creation_failure: 站点创建失败
+          updated: 站点更新成功
+          update_failure: 站点更新失败
+          deleted: 站点删除成功
+          not_found: 站点不存在
+          
           index:
             title: 站点
             new_link: 创建站点
@@ -127,6 +83,13 @@ zh-CN:
             is_mirrored: 镜像
 
         layouts:
+          created: 布局创建成功
+          creation_failure: 布局创建失败
+          updated: 布局更新成功
+          update_failure: 布局更新失败
+          deleted: 布局删除成功
+          not_found: 布局不存在
+          
           index:
             title: 布局
             new_link: 创建新布局
@@ -152,6 +115,14 @@ zh-CN:
             update: 更新布局
 
         pages:
+          created: 页面创建成功
+          creation_failure: 页面创建失败
+          updated: 页面更新成功
+          update_failure: 页面更新失败
+          deleted: 页面删除成功
+          not_found: 页面不存在
+          layout_not_found: 没有布局，请先创建一个布局。
+          
           index:
             title: 页面
             new_link: 创建新页面
@@ -179,6 +150,13 @@ zh-CN:
               编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:page:content}}</code>
 
         snippets:
+          created: 片段创建成功
+          creation_failure: 片段创建失败
+          updated: 片段更新成功
+          update_failure: 片段更新失败
+          deleted: 片段删除成功
+          not_found: 片段不存在
+          
           index:
             title: 片段
             new_link: 创建新片段
@@ -196,6 +174,10 @@ zh-CN:
             update: 更新片段
 
         revisions:
+          reverted: 内容恢复成功
+          record_not_found: 记录不存在
+          not_found: 修订版本不存在
+          
           show:
             title: 修订版本属于
             revision: 修订版本
@@ -208,6 +190,13 @@ zh-CN:
             current: Current
 
         files:
+          created: 文件上传成功
+          creation_failure: 文件上传失败
+          updated: 文件更新成功
+          update_failure: 文件更新失败
+          deleted: 文件删除成功
+          not_found: 文件不存在
+          
           index:
             title: 文件
             new_link: 上传新文件
@@ -227,7 +216,7 @@ zh-CN:
             are_you_sure: 确定删除该文件吗？
           file:
             are_you_sure: 确定删除该文件吗？
-
+            
         categories:
           index:
             label: 分类
@@ -242,9 +231,3 @@ zh-CN:
             save: 保存
           form:
             label: 分类
-
-        dialogs:
-          image:
-            insert: 插入图片
-          link:
-            create: 创建链接

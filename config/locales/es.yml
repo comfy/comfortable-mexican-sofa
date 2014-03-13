@@ -1,6 +1,5 @@
 # encoding: utf-8
 es:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Nombre
     slug: Identificador
@@ -40,76 +39,33 @@ es:
       cms/snippet:
         identifier: Identifier
 
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: Sitio no encontrado
-        fixtures_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
-
-      sites:
-        created: Sitio creado
-        creation_failure: El sitio no ha podido ser creado
-        updated: Sitio actualizado
-        update_failure: El sitio no ha podido ser actualizado
-        deleted: Sitio eliminado
-        not_found: Sitio no encontrado
-
-      layouts:
-        created: Diseño Creado
-        creation_failure: El diseño NO ha podido ser Creado
-        updated: Diseño Actualizado"
-        update_failure: El diseño NO ha podido ser Actualizado
-        deleted: Diseñó Eliminado
-        not_found: Diseño no encontrado
-
-      pages:
-        created: Página creada
-        creation_failure: La página no ha podido ser creada
-        updated: Página actualizada
-        update_failure: La página no ha podido ser actualizada
-        deleted: Página eliminada
-        not_found: Página no encontrada
-        layout_not_found: No se ha encontrado una plantilla. Cree una primero.
-
-      snippets:
-        created: Fragmento creado
-        creation_failure: El fragmento no ha podido ser creado
-        updated: Fragmento actualizado
-        update_failure: El fragmento no ha podido ser actualizado
-        deleted: Fragmento eliminado
-        not_found: Fragmento no encontrado
-
-      revisions:
-        reverted: Contenido revertido
-        record_not_found: Registro no encontrado
-        not_found: Revisión no encontrada
-
-      files:
-        created: Archivos subidos
-        creation_failure: Fallo la subida del archivo
-        updated: Archivo actualizado
-        update_failure: Fallo la actualización del archivo
-        deleted: Archivo borrado
-        not_found: Archivo no encontrado
-
       content:
         site_not_found: Sitio no encontrado
         layout_not_found: Diseño no encontrado
         page_not_found: Página no encontrada
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
+        
     admin:
       cms:
         base:
+          site_not_found: Sitio no encontrado
+          fixtures_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
+          
           sites: Sitios
           layouts: Diseños
           pages: Páginas
           snippets: Fragmentos
           files: Archivos
-      
+
         sites:
+          created: Sitio creado
+          creation_failure: El sitio no ha podido ser creado
+          updated: Sitio actualizado
+          update_failure: El sitio no ha podido ser actualizado
+          deleted: Sitio eliminado
+          not_found: Sitio no encontrado
+          
           index:
             title: Listado de Sitios
             new_link: Crear nuevo Sitio
@@ -127,6 +83,13 @@ es:
             is_mirrored: Espejo
 
         layouts:
+          created: Diseño Creado
+          creation_failure: El diseño NO ha podido ser Creado
+          updated: Diseño Actualizado"
+          update_failure: El diseño NO ha podido ser Actualizado
+          deleted: Diseñó Eliminado
+          not_found: Diseño no encontrado
+          
           index:
             title: Diseños
             new_link: Crear Nuevo Diseño
@@ -152,6 +115,14 @@ es:
             update: Actualizar Diseño
 
         pages:
+          created: Página creada
+          creation_failure: La página no ha podido ser creada
+          updated: Página actualizada
+          update_failure: La página no ha podido ser actualizada
+          deleted: Página eliminada
+          not_found: Página no encontrada
+          layout_not_found: No se ha encontrado una plantilla. Cree una primero.
+          
           index:
             title: Páginas
             new_link: Crear Nueva Página
@@ -179,6 +150,13 @@ es:
               Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:page:content}}</code>
 
         snippets:
+          created: Fragmento creado
+          creation_failure: El fragmento no ha podido ser creado
+          updated: Fragmento actualizado
+          update_failure: El fragmento no ha podido ser actualizado
+          deleted: Fragmento eliminado
+          not_found: Fragmento no encontrado
+          
           index:
             title: Fragmentos
             new_link: Crear nuevo Fragmento
@@ -194,8 +172,12 @@ es:
           form:
             create: Crear Fragmento
             update: Actualizar Fragmento
-        
+
         revisions:
+          reverted: Contenido revertido
+          record_not_found: Registro no encontrado
+          not_found: Revisión no encontrada
+          
           show:
             title: Revisiones de
             revision: Revisión
@@ -206,8 +188,15 @@ es:
             changes: Changes
             previous: Previous
             current: Corriente
-        
+
         files:
+          created: Archivos subidos
+          creation_failure: Fallo la subida del archivo
+          updated: Archivo actualizado
+          update_failure: Fallo la actualización del archivo
+          deleted: Archivo borrado
+          not_found: Archivo no encontrado
+          
           index:
             title: Archivos
             new_link: Subir Nuevo Archivo
@@ -227,7 +216,7 @@ es:
             are_you_sure: ¿Estás seguro?
           file:
             are_you_sure: ¿Estás seguro?
-          
+            
         categories:
           index:
             label: Categorias
@@ -242,9 +231,3 @@ es:
             save: Guardar
           form:
             label: Categorias
-        
-        dialogs:
-          image:
-            insert: Insertar Imagen
-          link:
-            create: Crear Link

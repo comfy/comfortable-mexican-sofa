@@ -1,6 +1,5 @@
 # encoding: utf-8
 ru:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Название
     slug: Ссылка
@@ -40,69 +39,19 @@ ru:
       cms/snippet:
         identifier: Идентификатор
 
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: Сайт не найден
-        fixtures_enabled: CMS Fixtures включены. Все изменения, сделанные здесь, будут отменены.
-
-      sites:
-        created: Сайт создан
-        creation_failure: Не удалось создать сайт
-        updated: Сайт обновлен
-        update_failure: Не удалось обновить сайт
-        deleted: Сайт удален
-        not_found: Сайт не найден
-
-      layouts:
-        created: Шаблон создан
-        creation_failure: Не удалось создать шаблон
-        updated: Шаблон обновлен
-        update_failure: Не удалось обновить шаблон
-        deleted: Шаблон удален
-        not_found: Шаблон не найден
-
-      pages:
-        created: Страница создана
-        creation_failure: Не удалось создать страницу
-        updated: Страница обновлена
-        update_failure: Не удалось обновить страницу
-        deleted: Страница удалена
-        not_found: Страница не найдена
-        layout_not_found: Шаблоны не найдены. Пожалуйста, создайте хотя бы один шаблон.
-
-      snippets:
-        created: Сниппет создан
-        creation_failure: Не удалось создать сниппет
-        updated: Сниппет обновлен
-        update_failure: Не удалось обновить сниппет
-        deleted: Сниппет удален
-        not_found: Сниппет не найден
-
-      revisions:
-        reverted: Контент возвращен в прежнее состояние
-        record_not_found: Запись не найдена
-        not_found: Ревизия не найдена
-
-      files:
-        created: Файлы загружены
-        creation_failure: Не удалось загрузить файлы
-        updated: Файл обновлен
-        update_failure: Не удалось обновить файл
-        deleted: Файл удален
-        not_found: Файл не найден
-
       content:
         site_not_found: Сайт не найден
         layout_not_found: Шаблон не найден
         page_not_found: Страница не найдена
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
+      
     admin:
       cms:
         base:
+          site_not_found: Сайт не найден
+          fixtures_enabled: CMS Fixtures включены. Все изменения, сделанные здесь, будут отменены.
+          
           sites: Сайты
           layouts: Шаблоны
           pages: Страницы
@@ -110,6 +59,13 @@ ru:
           files: Файлы
 
         sites:
+          created: Сайт создан
+          creation_failure: Не удалось создать сайт
+          updated: Сайт обновлен
+          update_failure: Не удалось обновить сайт
+          deleted: Сайт удален
+          not_found: Сайт не найден
+          
           index:
             title: Сайты
             new_link: Создать новый сайт
@@ -127,6 +83,13 @@ ru:
             is_mirrored: Синхронизирован с другими сайтами
 
         layouts:
+          created: Шаблон создан
+          creation_failure: Не удалось создать шаблон
+          updated: Шаблон обновлен
+          update_failure: Не удалось обновить шаблон
+          deleted: Шаблон удален
+          not_found: Шаблон не найден
+          
           index:
             title: Шаблоны
             new_link: Создать новый шаблон
@@ -152,6 +115,14 @@ ru:
             update: Обновить шаблон
 
         pages:
+          created: Страница создана
+          creation_failure: Не удалось создать страницу
+          updated: Страница обновлена
+          update_failure: Не удалось обновить страницу
+          deleted: Страница удалена
+          not_found: Страница не найдена
+          layout_not_found: Шаблоны не найдены. Пожалуйста, создайте хотя бы один шаблон.
+          
           index:
             title: Страницы
             new_link: Создать новую страницу
@@ -179,6 +150,13 @@ ru:
               Отредактируйте контент, вставив тег страницы или поля. Например: <code>{{cms:page:content}}</code>
 
         snippets:
+          created: Сниппет создан
+          creation_failure: Не удалось создать сниппет
+          updated: Сниппет обновлен
+          update_failure: Не удалось обновить сниппет
+          deleted: Сниппет удален
+          not_found: Сниппет не найден
+          
           index:
             title: Сниппеты
             new_link: Создать новый сниппет
@@ -196,6 +174,10 @@ ru:
             update: Обновить сниппет
 
         revisions:
+          reverted: Контент возвращен в прежнее состояние
+          record_not_found: Запись не найдена
+          not_found: Ревизия не найдена
+          
           show:
             title: Ревизии для
             revision: Ревизия
@@ -208,6 +190,13 @@ ru:
             current: Текущая
 
         files:
+          created: Файлы загружены
+          creation_failure: Не удалось загрузить файлы
+          updated: Файл обновлен
+          update_failure: Не удалось обновить файл
+          deleted: Файл удален
+          not_found: Файл не найден
+          
           index:
             title: Файлы
             new_link: Загрузить новый файл
@@ -227,7 +216,7 @@ ru:
             are_you_sure: Вы уверены?
           file:
             are_you_sure: Вы уверены?
-
+            
         categories:
           index:
             label: Категории
@@ -242,9 +231,3 @@ ru:
             save: Сохранить
           form:
             label: Категории
-
-        dialogs:
-          image:
-            insert: Вставить изображение
-          link:
-            create: Создать ссылку

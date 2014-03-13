@@ -1,6 +1,5 @@
 # encoding: utf-8
 nl:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Label
     slug: Slug
@@ -40,69 +39,19 @@ nl:
       cms/snippet:
         identifier: Identifier
 
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: Site niet gevonden
-        fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
-
-      sites:
-        created: Site aangemaakt
-        creation_failure: Site aanmaken mislukt
-        updated: Site bijgewerkt
-        update_failure: Site bijwerken mislukt
-        deleted: Site verwijderd
-        not_found: Site niet gevonden
-
-      layouts:
-        created: Lay-out aangemaakt
-        creation_failure: Lay-out aanmaken mislukt
-        updated: Lay-out bijgewerkt
-        update_failure: Lay-out bijwerken mislukt
-        deleted: Lay-out verwijderd
-        not_found: Lay-out niet gevonden
-
-      pages:
-        created: Pagina aangemaakt
-        creation_failure: Pagina aanmaken mislukt
-        updated: Pagina bijgewerkt
-        update_failure: Pagina bijwerken mislukt
-        deleted: Pagina verwijderd
-        not_found: Pagina niet gevonden
-        layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
-
-      snippets:
-        created: Snippet aangemaakt
-        creation_failure: Snippet aangemaakt mislukt
-        updated: Snippet bijgewerkt
-        update_failure: Snippet bijwerken mislukt
-        deleted: Snippet verwijderd
-        not_found: Snippet niet gevonden
-
-      revisions:
-        reverted: Content teruggezet
-        record_not_found: Record niet gevonden
-        not_found: Revisie niet gevonden
-
-      files:
-        created: Bestanden geüpload
-        creation_failure: Bestanden uploaden mislukt
-        updated: Bestand bijgewerkt
-        update_failure: Bestand bijwerken mislukt
-        deleted: Bestand verwijderd
-        not_found: Bestand niet gevonden
-
       content:
         site_not_found: Site niet gevonden
         layout_not_found: Lay-out niet gevonden
         page_not_found: Pagina niet gevonden
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
+        
     admin:
       cms:
         base:
+          site_not_found: Site niet gevonden
+          fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
+          
           sites: Sites
           layouts: Lay-outs
           pages: Pagina's
@@ -110,6 +59,13 @@ nl:
           files: Bestanden
 
         sites:
+          created: Site aangemaakt
+          creation_failure: Site aanmaken mislukt
+          updated: Site bijgewerkt
+          update_failure: Site bijwerken mislukt
+          deleted: Site verwijderd
+          not_found: Site niet gevonden
+          
           index:
             title: Sites
             new_link: Maak Nieuwe Site Aan
@@ -127,6 +83,13 @@ nl:
             is_mirrored: Gespiegeld
 
         layouts:
+          created: Lay-out aangemaakt
+          creation_failure: Lay-out aanmaken mislukt
+          updated: Lay-out bijgewerkt
+          update_failure: Lay-out bijwerken mislukt
+          deleted: Lay-out verwijderd
+          not_found: Lay-out niet gevonden
+          
           index:
             title: Lay-outs
             new_link: Maak Nieuwe Lay-out Aan
@@ -152,6 +115,14 @@ nl:
             update: Lay-out Bijwerken
 
         pages:
+          created: Pagina aangemaakt
+          creation_failure: Pagina aanmaken mislukt
+          updated: Pagina bijgewerkt
+          update_failure: Pagina bijwerken mislukt
+          deleted: Pagina verwijderd
+          not_found: Pagina niet gevonden
+          layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
+          
           index:
             title: Pagina's
             new_link: Maak Nieuwe Pagina Aan
@@ -179,6 +150,13 @@ nl:
               Bewerk de inhoud van de lay-out om een inhoud-tag toe te voegen. Bijvoorbeeld: <code>{{cms:page:content}}</code>
 
         snippets:
+          created: Snippet aangemaakt
+          creation_failure: Snippet aangemaakt mislukt
+          updated: Snippet bijgewerkt
+          update_failure: Snippet bijwerken mislukt
+          deleted: Snippet verwijderd
+          not_found: Snippet niet gevonden
+          
           index:
             title: Snippets
             new_link: Maak Nieuw Snippet Aan
@@ -196,6 +174,10 @@ nl:
             update: Snippet Bijwerken
 
         revisions:
+          reverted: Content teruggezet
+          record_not_found: Record niet gevonden
+          not_found: Revisie niet gevonden
+          
           show:
             title: Revisies van
             revision: Revisie
@@ -208,6 +190,13 @@ nl:
             current: Huidig
 
         files:
+          created: Bestanden geüpload
+          creation_failure: Bestanden uploaden mislukt
+          updated: Bestand bijgewerkt
+          update_failure: Bestand bijwerken mislukt
+          deleted: Bestand verwijderd
+          not_found: Bestand niet gevonden
+          
           index:
             title: Bestanden
             new_link: Upload Nieuw Bestand
@@ -227,7 +216,7 @@ nl:
             are_you_sure: Weet u het zeker?
           file:
             are_you_sure: Weet u het zeker?
-
+            
         categories:
           index:
             label: Categorieën
@@ -242,9 +231,3 @@ nl:
             save: Opslaan
           form:
             label: Categorieën
-
-        dialogs:
-          image:
-            insert: Afbeelding Invoegen
-          link:
-            create: Link Aanmaken

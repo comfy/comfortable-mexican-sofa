@@ -1,6 +1,5 @@
 # encoding: utf-8
 ja:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: ラベル
     slug: スラッグ
@@ -40,69 +39,19 @@ ja:
       cms/snippet:
         identifier: Identifier
         
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: サイトが見つかりません
-        fixtures_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
-      
-      sites:
-        created: サイトが作成されました
-        creation_failure: サイトの作成に失敗しました
-        updated: サイトが更新されました
-        update_failure: サイトの更新に失敗しました
-        deleted: サイトが削除されました
-        not_found: サイトが見つかりません
-      
-      layouts:
-        created: レイアウトが作成されました
-        creation_failure: レイアウトの作成に失敗しました
-        updated: レイアウトが更新されました
-        update_failure: レイアウトの更新に失敗しました
-        deleted: レイアウトが削除されました
-        not_found: レイアウトが見つかりません
-      
-      pages:
-        created: ページが作成されました
-        creation_failure: ページの作成に失敗しました
-        updated: ページが更新されました
-        update_failure: ページの更新に失敗しました
-        deleted: ページが削除されました
-        not_found: ページが見つかりません
-        layout_not_found: レイアウトが見つかりません。 レイアウトを作成してください。
-      
-      snippets:
-        created: スニペットが作成されました
-        creation_failure: スニペットの作成に失敗しました
-        updated: スニペットが更新されました
-        update_failure: スニペットの更新に失敗しました
-        deleted: スニペットが削除されました
-        not_found: スニペットが見つかりません
-      
-      revisions:
-        reverted: コンテンツが元に戻りました
-        record_not_found: レコードが見つかりません
-        not_found: リビジョンが見つかりません
-      
-      files:
-        created: ファイルがアップロードされました
-        creation_failure: ファイルのアップロードに失敗しました
-        updated: ファイルが更新されました
-        update_failure: ファイルの更新に失敗しました
-        deleted: ファイルが削除されました
-        not_found: ファイルが見つかりません
-      
       content:
         site_not_found: サイトが見つかりません
         layout_not_found: レイアウトが見つかりません
         page_not_found: ページが見つかりません
-  
-  # -- Views ----------------------------------------------------------------
-  comfy:
+        
     admin:
       cms:
         base:
+          site_not_found: サイトが見つかりません
+          fixtures_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
+          
           sites: サイト
           layouts: レイアウト
           pages: ページ
@@ -110,6 +59,13 @@ ja:
           files: ファイル
       
         sites:
+          created: サイトが作成されました
+          creation_failure: サイトの作成に失敗しました
+          updated: サイトが更新されました
+          update_failure: サイトの更新に失敗しました
+          deleted: サイトが削除されました
+          not_found: サイトが見つかりません
+          
           index:
             title: サイト
             new_link: 新規サイトを作成
@@ -125,8 +81,15 @@ ja:
             create: サイトを作成
             update: サイトを更新
             is_mirrored: ミラーリング済み
-
+      
         layouts:
+          created: レイアウトが作成されました
+          creation_failure: レイアウトの作成に失敗しました
+          updated: レイアウトが更新されました
+          update_failure: レイアウトの更新に失敗しました
+          deleted: レイアウトが削除されました
+          not_found: レイアウトが見つかりません
+          
           index:
             title: レイアウト
             new_link: 新規レイアウトを作成
@@ -152,6 +115,14 @@ ja:
             update: レイアウトを更新
       
         pages:
+          created: ページが作成されました
+          creation_failure: ページの作成に失敗しました
+          updated: ページが更新されました
+          update_failure: ページの更新に失敗しました
+          deleted: ページが削除されました
+          not_found: ページが見つかりません
+          layout_not_found: レイアウトが見つかりません。 レイアウトを作成してください。
+          
           index:
             title: ページ
             new_link: 新規ページを作成
@@ -179,6 +150,13 @@ ja:
               コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:page:content}}</code>
       
         snippets:
+          created: スニペットが作成されました
+          creation_failure: スニペットの作成に失敗しました
+          updated: スニペットが更新されました
+          update_failure: スニペットの更新に失敗しました
+          deleted: スニペットが削除されました
+          not_found: スニペットが見つかりません
+          
           index:
             title: スニペット
             new_link: 新規スニペットを作成
@@ -194,8 +172,12 @@ ja:
           form:
             create: スニペットを作成
             update: スニペットを更新
-          
+      
         revisions:
+          reverted: コンテンツが元に戻りました
+          record_not_found: レコードが見つかりません
+          not_found: リビジョンが見つかりません
+          
           show:
             title: リビジョン
             revision: リビジョン
@@ -208,6 +190,13 @@ ja:
             current: Current
       
         files:
+          created: ファイルがアップロードされました
+          creation_failure: ファイルのアップロードに失敗しました
+          updated: ファイルが更新されました
+          update_failure: ファイルの更新に失敗しました
+          deleted: ファイルが削除されました
+          not_found: ファイルが見つかりません
+          
           index:
             title: ファイル
             new_link: 新規ファイルをアップロード
@@ -227,7 +216,7 @@ ja:
             are_you_sure: よろしいですか？
           file:
             are_you_sure: よろしいですか？
-        
+            
         categories:
           index:
             label: カテゴリー
@@ -242,10 +231,3 @@ ja:
             save: 保存
           form:
             label: カテゴリー
-        
-        dialogs:
-          image:
-            insert: 画像を挿入
-          link:
-            create: リンクを作成
-      

@@ -1,6 +1,5 @@
 # encoding: utf-8
 fr:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Nom
     slug: Identifiant
@@ -40,76 +39,33 @@ fr:
       cms/snippet:
         identifier: Identifiant
         
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: Site introuvable
-        fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
-
-      sites:
-        created: Site créé
-        creation_failure: Échec de la création du site
-        updated: Site modifié
-        update_failure: Échec de la modification du site
-        deleted: Site supprimé
-        not_found: Site introuvable
-      
-      layouts:
-        created: Mise en page créée
-        creation_failure: Échec de la création de la mise en page
-        updated: Mise en page modifiée
-        update_failure: Échec de la modification de la mise en page
-        deleted: Mise en page supprimée
-        not_found: Mise en page introuvable
-      
-      pages:
-        created: Page créée
-        creation_failure: Échec de la création de la page
-        updated: Page modifiée
-        update_failure: Échec de la modification de la page
-        deleted: Page supprimée
-        not_found: Page introuvable
-        layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
-      
-      snippets:
-        created: Fragment créé
-        creation_failure: Échec de la création du fragment
-        updated: Fragment modifié
-        update_failure: Échec de la modification du fragment
-        deleted: Fragment supprimé
-        not_found: Fragment introuvable
-      
-      revisions:
-        reverted: Contenu restauré
-        record_not_found: Enregistrement introuvable
-        not_found: Révision introuvable
-      
-      files:
-        created: Fichier téléchargé
-        creation_failure: Échec du téléchargement du fichier
-        updated: Fichier modifié
-        update_failure: Échec de la modification du fichier
-        deleted: Fichier supprimé
-        not_found: Fichier introuvable
-      
       content:
         site_not_found: Site introuvable
         layout_not_found: Mise en page introuvable
         page_not_found: Page introuvable
-  
-  # -- Views ----------------------------------------------------------------
-  comfy:
+        
     admin:
       cms:
         base:
+          site_not_found: Site introuvable
+          fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
+          
           sites: Sites
           layouts: Mises en page
           pages: Pages
           snippets: Fragments
           files: Fichiers
-      
+
         sites:
+          created: Site créé
+          creation_failure: Échec de la création du site
+          updated: Site modifié
+          update_failure: Échec de la modification du site
+          deleted: Site supprimé
+          not_found: Site introuvable
+          
           index:
             title: Sites
             new_link: Nouveau site
@@ -125,8 +81,15 @@ fr:
             create: Créer le site
             update: Modifier le site
             is_mirrored: En miroir
-        
+      
         layouts:
+          created: Mise en page créée
+          creation_failure: Échec de la création de la mise en page
+          updated: Mise en page modifiée
+          update_failure: Échec de la modification de la mise en page
+          deleted: Mise en page supprimée
+          not_found: Mise en page introuvable
+          
           index:
             title: Mises en page
             new_link: Nouvelle mise en page
@@ -152,6 +115,14 @@ fr:
             update: Modifier la mise en page
       
         pages:
+          created: Page créée
+          creation_failure: Échec de la création de la page
+          updated: Page modifiée
+          update_failure: Échec de la modification de la page
+          deleted: Page supprimée
+          not_found: Page introuvable
+          layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
+          
           index:
             title: Pages
             new_link: Nouvelle page
@@ -179,6 +150,13 @@ fr:
               Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
       
         snippets:
+          created: Fragment créé
+          creation_failure: Échec de la création du fragment
+          updated: Fragment modifié
+          update_failure: Échec de la modification du fragment
+          deleted: Fragment supprimé
+          not_found: Fragment introuvable
+          
           index:
             title: Fragments
             new_link: Nouveau fragment
@@ -194,8 +172,12 @@ fr:
           form:
             create: Créer le fragment
             update: Modifier le fragment
-          
+      
         revisions:
+          reverted: Contenu restauré
+          record_not_found: Enregistrement introuvable
+          not_found: Révision introuvable
+          
           show:
             title: "Révisions :"
             revision: révision
@@ -208,6 +190,13 @@ fr:
             current: Actuel
       
         files:
+          created: Fichier téléchargé
+          creation_failure: Échec du téléchargement du fichier
+          updated: Fichier modifié
+          update_failure: Échec de la modification du fichier
+          deleted: Fichier supprimé
+          not_found: Fichier introuvable
+          
           index:
             title: Fichiers
             new_link: Nouveau fichier
@@ -227,7 +216,7 @@ fr:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           file:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-        
+            
         categories:
           index:
             label: Catégories
@@ -242,9 +231,3 @@ fr:
             save: Enregistrer
           form:
             label: Catégories
-        
-        dialogs:
-          image:
-            insert: Insérer une image
-          link:
-            create: Insérer un lien

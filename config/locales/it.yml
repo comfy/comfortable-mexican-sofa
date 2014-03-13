@@ -1,6 +1,5 @@
 # encoding: utf-8
 it:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Etichetta
     slug: Slug
@@ -40,69 +39,19 @@ it:
       cms/snippet:
         identifier: Identificatore
 
-  # -- Controllers ----------------------------------------------------------
   comfy:
     cms:
-      base:
-        site_not_found: Sito non trovato
-        fixtures_enabled: Le Fixtures CMS sono abilitate. Tutti i cambiamenti fatti qui saranno scartati.
-
-      sites:
-        created: Sito creato
-        creation_failure: Impossibile creare il sito
-        updated: Sito aggiornato
-        update_failure: Impossibile modificare il sito
-        deleted: Sito eliminato
-        not_found: Sito non trovato
-
-      layouts:
-        created: Layout creato
-        creation_failure: Impossibile creare il layout
-        updated: Layout modificato
-        update_failure: Impossibile modificare il layout
-        deleted: Layout eliminato
-        not_found: Layout non trovato
-
-      pages:
-        created: Pagina creata
-        creation_failure: Impossibile creare la pagina
-        updated: Pagina modificata
-        update_failure: Impossibile modificare la pagina
-        deleted: Pagina eliminata
-        not_found: Pagina non trovata
-        layout_not_found: Nessun layout trovato. Creane uno per favore.
-
-      snippets:
-        created: Frammento creato
-        creation_failure: Impossibile creare il frammento
-        updated: Frammento modificato
-        update_failure: Impossibile modificare il frammento
-        deleted: Frammento eliminato
-        not_found: Frammento non trovato
-
-      revisions:
-        reverted: Contenuto ripristinato
-        record_not_found: Record non trovato
-        not_found: Revisione non trovata
-
-      files:
-        created: Files caricati
-        creation_failure: Impossibile caricare i files
-        updated: File aggiornato
-        update_failure: Impossibile aggiornare il file
-        deleted: File eliminato
-        not_found: File non trovato
-
       content:
         site_not_found: Site non trovato
         layout_not_found: Layout non trovato
         page_not_found: Pagina non trovata
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
+        
     admin:
       cms:
         base:
+          site_not_found: Sito non trovato
+          fixtures_enabled: Le Fixtures CMS sono abilitate. Tutti i cambiamenti fatti qui saranno scartati.
+          
           sites: Siti
           layouts: Layouts
           pages: Pagine
@@ -110,6 +59,13 @@ it:
           files: Files
 
         sites:
+          created: Sito creato
+          creation_failure: Impossibile creare il sito
+          updated: Sito aggiornato
+          update_failure: Impossibile modificare il sito
+          deleted: Sito eliminato
+          not_found: Sito non trovato
+          
           index:
             title: Siti
             new_link: Crea nuovo sito
@@ -127,6 +83,13 @@ it:
             is_mirrored: Mirrored
 
         layouts:
+          created: Layout creato
+          creation_failure: Impossibile creare il layout
+          updated: Layout modificato
+          update_failure: Impossibile modificare il layout
+          deleted: Layout eliminato
+          not_found: Layout non trovato
+          
           index:
             title: Layouts
             new_link: Crea nuovo layout
@@ -152,6 +115,14 @@ it:
             update: Modifica Layout
 
         pages:
+          created: Pagina creata
+          creation_failure: Impossibile creare la pagina
+          updated: Pagina modificata
+          update_failure: Impossibile modificare la pagina
+          deleted: Pagina eliminata
+          not_found: Pagina non trovata
+          layout_not_found: Nessun layout trovato. Creane uno per favore.
+          
           index:
             title: Pagine
             new_link: Crea nuova pagina
@@ -179,6 +150,13 @@ it:
               Modifica il contenuto per includere una pagina o un campo. Per esempio: <code>{{cms:page:content}}</code>
 
         snippets:
+          created: Frammento creato
+          creation_failure: Impossibile creare il frammento
+          updated: Frammento modificato
+          update_failure: Impossibile modificare il frammento
+          deleted: Frammento eliminato
+          not_found: Frammento non trovato
+          
           index:
             title: Frammenti
             new_link: Crea Nuovo Frammento
@@ -196,6 +174,10 @@ it:
             update: Modifica Frammento
 
         revisions:
+          reverted: Contenuto ripristinato
+          record_not_found: Record non trovato
+          not_found: Revisione non trovata
+          
           show:
             title: Revisioni per
             revision: Revisione
@@ -208,6 +190,13 @@ it:
             current: Attuale
 
         files:
+          created: Files caricati
+          creation_failure: Impossibile caricare i files
+          updated: File aggiornato
+          update_failure: Impossibile aggiornare il file
+          deleted: File eliminato
+          not_found: File non trovato
+          
           index:
             title: Files
             new_link: Carica nuovo file
@@ -227,7 +216,7 @@ it:
             are_you_sure: Sei sicuro?
           file:
             are_you_sure: Sei sicuro?
-
+            
         categories:
           index:
             label: Categorie
@@ -235,15 +224,10 @@ it:
             done: Fatto
             all: Tutte
             add: Aggiungi
+            add_placeholder: Add Category
           show:
             are_you_sure: Sei sicuro?
           edit:
             save: Salva
           form:
             label: Categorie
-
-        dialogs:
-          image:
-            insert: Inserisci Immagine
-          link:
-            create: Modifica Link
