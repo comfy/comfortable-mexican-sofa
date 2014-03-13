@@ -51,7 +51,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       view = render_to_string(:partial => 'comfy/admin/cms/files/file', :collection => @files, :layout => false)
       render :json => {:filelink => @file.file.url, :filename => @file.file_file_name, :view => view.gsub("\n", '')}
     else
-      flash[:success] = I18n.t('cms.files.created')
+      flash[:success] = I18n.t('comfy.admin.cms.files.created')
       redirect_to :action => :edit, :id => @file
     end
     
@@ -59,17 +59,17 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     if params[:ajax]
       render :nothing => true, :status => :unprocessable_entity
     else
-      flash.now[:error] = I18n.t('cms.files.creation_failure')
+      flash.now[:error] = I18n.t('comfy.admin.cms.files.creation_failure')
       render :action => :new
     end
   end
   
   def update
     @file.update_attributes!(file_params)
-    flash[:success] = I18n.t('cms.files.updated')
+    flash[:success] = I18n.t('comfy.admin.cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.files.update_failure')
+    flash.now[:error] = I18n.t('comfy.admin.cms.files.update_failure')
     render :action => :edit
   end
   
@@ -78,7 +78,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     respond_to do |format|
       format.js
       format.html do
-        flash[:success] = I18n.t('cms.files.deleted')
+        flash[:success] = I18n.t('comfy.admin.cms.files.deleted')
         redirect_to :action => :index
       end
     end
@@ -102,7 +102,7 @@ protected
   def load_file
     @file = @site.files.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.files.not_found')
+    flash[:error] = I18n.t('comfy.admin.cms.files.not_found')
     redirect_to :action => :index
   end
   

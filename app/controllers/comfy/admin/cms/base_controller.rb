@@ -31,7 +31,7 @@ protected
       session[:site_id] = @site.id
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
-      flash[:error] = I18n.t('cms.base.site_not_found')
+      flash[:error] = I18n.t('comfy.admin.cms.base.site_not_found')
       return redirect_to(new_admin_cms_site_path)
     end
   end
@@ -46,7 +46,7 @@ protected
     controllers = %w(comfy/admin/cms/layouts comfy/admin/cms/pages comfy/admin/cms/snippets)
     if controllers.member?(params[:controller])
       ComfortableMexicanSofa::Fixture::Importer.new(@site.identifier).import!
-      flash.now[:error] = I18n.t('cms.base.fixtures_enabled')
+      flash.now[:error] = I18n.t('comfy.admin.cms.base.fixtures_enabled')
     end
   end
 end

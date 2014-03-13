@@ -18,25 +18,25 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
 
   def create
     @layout.save!
-    flash[:success] = I18n.t('cms.layouts.created')
+    flash[:success] = I18n.t('comfy.admin.cms.layouts.created')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.layouts.creation_failure')
+    flash.now[:error] = I18n.t('comfy.admin.cms.layouts.creation_failure')
     render :action => :new
   end
 
   def update
     @layout.update_attributes!(layout_params)
-    flash[:success] = I18n.t('cms.layouts.updated')
+    flash[:success] = I18n.t('comfy.admin.cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.layouts.update_failure')
+    flash.now[:error] = I18n.t('comfy.admin.cms.layouts.update_failure')
     render :action => :edit
   end
 
   def destroy
     @layout.destroy
-    flash[:success] = I18n.t('cms.layouts.deleted')
+    flash[:success] = I18n.t('comfy.admin.cms.layouts.deleted')
     redirect_to :action => :index
   end
   
@@ -59,7 +59,7 @@ protected
   def load_layout
     @layout = @site.layouts.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.layouts.not_found')
+    flash[:error] = I18n.t('comfy.admin.cms.layouts.not_found')
     redirect_to :action => :index
   end
   

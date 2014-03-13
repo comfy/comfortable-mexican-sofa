@@ -20,7 +20,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   
   def revert
     @record.restore_from_revision(@revision)
-    flash[:success] = I18n.t('cms.revisions.reverted')
+    flash[:success] = I18n.t('comfy.admin.cms.revisions.reverted')
     redirect_to_record
   end
   
@@ -35,14 +35,14 @@ protected
       ::Cms::Snippet.find(params[:snippet_id])
     end
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.revisions.record_not_found')
+    flash[:error] = I18n.t('comfy.admin.cms.revisions.record_not_found')
     redirect_to admin_cms_path
   end
   
   def load_revision
     @revision = @record.revisions.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.revisions.not_found')
+    flash[:error] = I18n.t('comfy.admin.cms.revisions.not_found')
     redirect_to_record
   end
   

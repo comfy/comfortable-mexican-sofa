@@ -1,6 +1,5 @@
 # encoding: utf-8
 de:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Bezeichnung
     slug: Slug
@@ -39,70 +38,20 @@ de:
         description: Beschreibung
       cms/snippet:
         identifier: Identifikator
-
-  # -- Controllers ----------------------------------------------------------
+        
   comfy:
     cms:
-      base:
-        site_not_found: Web-Site nicht gefunden
-        fixtures_enabled: CMS Fixtures are aktiviert. Alle Änderungen hier gespeichert werden verworfen.
-
-      sites:
-        created: Web-Site erstellt
-        creation_failure: Fehler beim erstellen der Web-Site
-        updated: Web-Site aktualisiert
-        update_failure: Fehler beim speichern der Web-Site
-        deleted: Web-Site gelöscht
-        not_found: Web-Site nicht gefunden
-
-      layouts:
-        created: Layout erstellt
-        creation_failure: Fehler beim erstellen des Layouts
-        updated: Layout aktualisiert
-        update_failure: Fehler beim speichern des Layouts
-        deleted: Layout gelöscht
-        not_found: Layout nicht gefunden
-
-      pages:
-        created: Seite erstellt
-        creation_failure: Fehler beim erstellen der Seite
-        updated: Seite aktualisiert
-        update_failure: Fehler beim speichern der Seite
-        deleted: Seite gelöscht
-        not_found: Seite nicht gefunden
-        layout_not_found: Kein Layout gefunden. Bitte erstellen Sie eines.
-
-      snippets:
-        created: Schnipsel erstellt
-        creation_failure: Fehler beim erstellen des Schnipsels
-        updated: Schnipsel aktualisiert
-        update_failure: Fehler beim speichern des Schnipsel
-        deleted: Schnipsel gelöscht
-        not_found: Schnipsel nicht gefunden
-
-      revisions:
-        reverted: Inhalt wiederhergestellt
-        record_not_found: Eintrag nicht gefunden
-        not_found: Revision nicht gefunden
-
-      files:
-        created: Datei hochgeladet
-        creation_failure: Fehler beim hochladen der Datei
-        updated: Datei hochgeladet
-        update_failure: Fehler beim hochladen der Datei
-        deleted: Datei gelöscht
-        not_found: Datei nicht gefunden
-
       content:
         site_not_found: Web-Site nicht gefunden
         layout_not_found: Layout nicht gefunden
         page_not_found: Seite nicht gefunden
-
-  # -- Views ----------------------------------------------------------------
-  comfy:
-    admin:
+    
+    admin: 
       cms:
         base:
+          site_not_found: Web-Site nicht gefunden
+          fixtures_enabled: CMS Fixtures are aktiviert. Alle Änderungen hier gespeichert werden verworfen.
+          
           sites: Web-Sites
           layouts: Layouts
           pages: Seiten
@@ -110,6 +59,13 @@ de:
           files: Datei
 
         sites:
+          created: Web-Site erstellt
+          creation_failure: Fehler beim erstellen der Web-Site
+          updated: Web-Site aktualisiert
+          update_failure: Fehler beim speichern der Web-Site
+          deleted: Web-Site gelöscht
+          not_found: Web-Site nicht gefunden
+          
           index:
             title: Web-Sites
             new_link: Erstelle neue Web-Site
@@ -127,6 +83,13 @@ de:
             is_mirrored: Gespiegelt
 
         layouts:
+          created: Layout erstellt
+          creation_failure: Fehler beim erstellen des Layouts
+          updated: Layout aktualisiert
+          update_failure: Fehler beim speichern des Layouts
+          deleted: Layout gelöscht
+          not_found: Layout nicht gefunden
+          
           index:
             title: Layouts
             new_link: Erstelle neue Layout
@@ -152,6 +115,14 @@ de:
             update: Layout speichern
 
         pages:
+          created: Seite erstellt
+          creation_failure: Fehler beim erstellen der Seite
+          updated: Seite aktualisiert
+          update_failure: Fehler beim speichern der Seite
+          deleted: Seite gelöscht
+          not_found: Seite nicht gefunden
+          layout_not_found: Kein Layout gefunden. Bitte erstellen Sie eines.
+          
           index:
             title: Seiten
             new_link: Erstelle neue Seite
@@ -177,8 +148,16 @@ de:
             no_tags: |-
               Layout has hat keine Inhalt-Tags definiert.<br/>
               Bearbeiten den Inhalt des Layout um ein Inhalt-Tag hinzuzufügen. Zum Beispiel: <code>{{cms:page:content}}</code>
+          
 
         snippets:
+          created: Schnipsel erstellt
+          creation_failure: Fehler beim erstellen des Schnipsels
+          updated: Schnipsel aktualisiert
+          update_failure: Fehler beim speichern des Schnipsel
+          deleted: Schnipsel gelöscht
+          not_found: Schnipsel nicht gefunden
+          
           index:
             title: Schnipsels
             new_link: Erstelle neuen Schnipsel
@@ -196,6 +175,10 @@ de:
             update: Schnipsel speichern
 
         revisions:
+          reverted: Inhalt wiederhergestellt
+          record_not_found: Eintrag nicht gefunden
+          not_found: Revision nicht gefunden
+          
           show:
             title: Revisionen von
             revision: Revision
@@ -208,6 +191,13 @@ de:
             current: Aktuell
 
         files:
+          created: Datei hochgeladet
+          creation_failure: Fehler beim hochladen der Datei
+          updated: Datei hochgeladet
+          update_failure: Fehler beim hochladen der Datei
+          deleted: Datei gelöscht
+          not_found: Datei nicht gefunden
+          
           index:
             title: Datei
             new_link: Neue Datei hochladen
@@ -227,7 +217,7 @@ de:
             are_you_sure: Sind Sie sicher?
           file:
             are_you_sure: Sind Sie sicher?
-
+            
         categories:
           index:
             label: Kategorien
@@ -242,9 +232,3 @@ de:
             save: Speichern
           form:
             label: Kategorien
-
-        dialogs:
-          image:
-            insert: Bild einfügen
-          link:
-            create: Link erstellen

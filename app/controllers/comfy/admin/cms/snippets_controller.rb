@@ -18,25 +18,25 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
 
   def create
     @snippet.save!
-    flash[:success] = I18n.t('cms.snippets.created')
+    flash[:success] = I18n.t('comfy.admin.cms.snippets.created')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.snippets.creation_failure')
+    flash.now[:error] = I18n.t('comfy.admin.cms.snippets.creation_failure')
     render :action => :new
   end
 
   def update
     @snippet.update_attributes!(snippet_params)
-    flash[:success] = I18n.t('cms.snippets.updated')
+    flash[:success] = I18n.t('comfy.admin.cms.snippets.updated')
     redirect_to :action => :edit, :id => @snippet
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('cms.snippets.update_failure')
+    flash.now[:error] = I18n.t('comfy.admin.cms.snippets.update_failure')
     render :action => :edit
   end
 
   def destroy
     @snippet.destroy
-    flash[:success] = I18n.t('cms.snippets.deleted')
+    flash[:success] = I18n.t('comfy.admin.cms.snippets.deleted')
     redirect_to :action => :index
   end
   
@@ -56,7 +56,7 @@ protected
   def load_snippet
     @snippet = @site.snippets.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.snippets.not_found')
+    flash[:error] = I18n.t('comfy.admin.cms.snippets.not_found')
     redirect_to :action => :index
   end
   
