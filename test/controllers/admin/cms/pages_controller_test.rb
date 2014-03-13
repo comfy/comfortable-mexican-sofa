@@ -416,6 +416,19 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
 
+  def test_get_edit_with_no_layouts_with_application_layouts_set
+    Cms::Layout.destroy_all
+    ComfortableMexicanSofa.configuration.application_layouts = true
+
+    I18n.enforce_available_locales = false
+    Cms::Layout.expects(:app_layouts_for_select).returns(['base', 'static'])
+
+    page = cms_pages(:default)
+    get :edit, :site_id => page.site, :id => page
+    assert_response :success, @response.body
+    assert_not_equal 0, Cms::Layout.count
+  end
+
   def test_get_edit_with_no_layout
     Cms::Layout.destroy_all
     page = cms_pages(:default)
