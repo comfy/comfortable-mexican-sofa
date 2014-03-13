@@ -125,6 +125,7 @@ protected
       layout_from_app_layouts = Cms::Layout.where(parent_id: nil, identifier: app_layout, site_id: site.id)
                                            .first_or_create
       # logger.debug("Current layout ID: #{layout_from_app_layouts.id}.")
+      layout_from_app_layouts.app_layout = app_layout
       layout_from_app_layouts.label = app_layout.capitalize
       layout_from_app_layouts.content ||= '{{ cms:page:content:text }}'
       layout_from_app_layouts.save!
