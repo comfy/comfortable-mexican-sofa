@@ -33,8 +33,6 @@ class Cms::Layout < ActiveRecord::Base
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
-    logger.debug("Current layout: #{current_layout}")
-
     out = []
     [current_layout || site.layouts.roots].flatten.each do |l|
       next if layout == l
