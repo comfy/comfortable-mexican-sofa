@@ -1,5 +1,6 @@
 class Admin::Cms::PagesController < Admin::Cms::BaseController
 
+  before_action :create_application_layouts, :only => [:new, :edit]
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
@@ -112,6 +113,10 @@ protected
 
   def build_file
     @file = Cms::File.new
+  end
+
+  def create_application_layouts
+    Cms::Layout.create_layouts_from_application_layouts(@site) if ComfortableMexicanSofa.config.application_layouts
   end
 
   def load_cms_page

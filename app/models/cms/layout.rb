@@ -35,8 +35,6 @@ class Cms::Layout < ActiveRecord::Base
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
     logger.debug("Current layout: #{current_layout}")
 
-    create_layouts_from_application_layouts(site) if ComfortableMexicanSofa.config.application_layouts
-
     out = []
     [current_layout || site.layouts.roots].flatten.each do |l|
       next if layout == l
@@ -54,6 +52,22 @@ class Cms::Layout < ActiveRecord::Base
       filename.gsub!("#{File.expand_path('app/views/layouts', Rails.root)}/", '')
       filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
     end.compact.sort
+  end
+
+  # Creates layouts inheriting from application layouts, so that pages can choose a layout if none
+  # exist.
+  def self.create_layouts_from_application_layouts(site)
+    Cms::Layout.app_layouts_for_select.each do |app_layout|
+      puts ("Checking application layout: #{app_layout}.")
+      logger.debug("Checking application layout: #{app_layout}.")
+      layout_from_app_layouts = Cms::Layout.where(parent_id: nil, identifier: app_layout, site_id: site.id)
+                                           .first_or_create
+      # logger.debug("Current layout ID: #{layout_from_app_layouts.id}.")
+      layout_from_app_layouts.app_layout = app_layout
+      layout_from_app_layouts.label ||= app_layout.capitalize
+      layout_from_app_layouts.content ||= '{{ cms:page:content:text }}'
+      layout_from_app_layouts.save!
+    end
   end
   
   # -- Instance Methods -----------------------------------------------------
@@ -117,18 +131,5 @@ protected
   def clear_cached_page_content
     Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content => nil)
     self.children.each{ |child_layout| child_layout.clear_cached_page_content }
-  end
-
-  def self.create_layouts_from_application_layouts(site)
-    Cms::Layout.app_layouts_for_select.each do |app_layout|
-      logger.debug("Checking application layout: #{app_layout}.")
-      layout_from_app_layouts = Cms::Layout.where(parent_id: nil, identifier: app_layout, site_id: site.id)
-                                           .first_or_create
-      # logger.debug("Current layout ID: #{layout_from_app_layouts.id}.")
-      layout_from_app_layouts.app_layout = app_layout
-      layout_from_app_layouts.label = app_layout.capitalize
-      layout_from_app_layouts.content ||= '{{ cms:page:content:text }}'
-      layout_from_app_layouts.save!
-    end
   end
 end
