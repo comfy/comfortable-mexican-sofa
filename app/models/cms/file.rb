@@ -38,8 +38,9 @@ class Cms::File < ActiveRecord::Base
   after_destroy :reload_blockable_cache
   
   # -- Scopes ---------------------------------------------------------------
-  scope :images,      -> { where(:file_content_type => IMAGE_MIMETYPES) }
-  scope :not_images,  -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
+  scope :not_page_file, -> { where(:block_id => nil)}
+  scope :images,        -> { where(:file_content_type => IMAGE_MIMETYPES) }
+  scope :not_images,    -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
   
   # -- Instance Methods -----------------------------------------------------
   def is_image?

@@ -79,7 +79,7 @@ class CmsFileTest < ActiveSupport::TestCase
       Cms::File::IMAGE_MIMETYPES
   end
   
-  def test_images_scope
+  def test_scope_images
     file = cms_files(:default)
     assert_equal 'image/jpeg', file.file_content_type
     assert_equal 1, Cms::File.images.count
@@ -88,6 +88,15 @@ class CmsFileTest < ActiveSupport::TestCase
     file.update_columns(:file_content_type => 'application/pdf')
     assert_equal 0, Cms::File.images.count
     assert_equal 1, Cms::File.not_images.count
+  end
+  
+  def test_scope_not_page_file
+    file = cms_files(:default)
+    assert file.block.blank?
+    assert_equal 1, Cms::File.not_page_file.count
+    
+    file.update_column(:block_id, cms_blocks(:default_field_text))
+    assert_equal 0, Cms::File.not_page_file.count
   end
   
   def test_image?
