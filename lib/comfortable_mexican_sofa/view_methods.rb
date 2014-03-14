@@ -50,8 +50,8 @@ module ComfortableMexicanSofa::ViewMethods
   def cms_page_block_content(identifier, page = nil)
     return '' unless page ||= @cms_page
     return '' unless block = page.blocks.find_by_identifier(identifier)
-
-    ComfortableMexicanSofa::Tag.process_content(page, block.content)
+    processed_content = ComfortableMexicanSofa::Tag.process_content(page, block.content)
+    ComfortableMexicanSofa::Tag.add_block_edit_tags(processed_content, block)
   end
 
   # Fetch files from a page:field. Will return a list of files, regardless of how many files are present.

@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Tag::PageText
   end
   
   def content
-    block.content
+    ComfortableMexicanSofa::Tag.add_block_edit_tags(block.content, block)
   end
   
 end

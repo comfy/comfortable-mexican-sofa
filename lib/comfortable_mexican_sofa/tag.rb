@@ -101,6 +101,11 @@ module ComfortableMexicanSofa::Tag
       block.id
     end
   end
+
+  def self.add_block_edit_tags(content, block)
+    return content unless block && block.page
+    "<span class=\"inline-editable\" data-page-id=\"#{block.page.id}\" data-block-id=\"#{block.id}\">#{content}</span>"
+  end
   
 private
   
@@ -116,12 +121,19 @@ private
   # Tags are defined in the parent tags are ignored and not rendered.
   def self.process_content(page, content = '', parent_tag = nil)
     tokens = content.to_s.scan(TOKENIZER_REGEX)
+    # a mapping of tag_signature(a tag)
+    # and text, no tag
     tokens.collect do |tag_signature, text|
+      # is this a tag?
       if tag_signature
+        # init the tag as its corresponding class
         if tag = self.initialize_tag(page, tag_signature)
+          # set the parent
           tag.parent = parent_tag if parent_tag
+          # check its not the same tag inside of itself.
           if tag.ancestors.select{|a| a.id == tag.id}.blank?
             page.tags << tag
+            # recursion
             self.process_content(page, tag.render, tag)
           end
         end
