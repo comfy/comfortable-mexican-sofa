@@ -1,0 +1,16 @@
+# TODO: edit spans with spedific attributes
+
+target_url = "<%= '/cms-admin/sites/54/pages/12/update_block'  %>"
+
+$ ->
+  console?.log('inside cms_edit_content')
+  editable_box_selector = '.inline-editable'
+
+  for el in $(editable_box_selector)
+  	$el = $(el)
+  	$el.attr('contenteditable', true)
+  	$el.css("border", "5px dashed black")
+  	$el.css('display', 'block')
+  	console.log($el)
+
+  return
