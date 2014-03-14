@@ -29,7 +29,7 @@ class Cms::File < ActiveRecord::Base
   validates_attachment_presence :file
   validates_attachment_content_type :file, :content_type => /.*/
   validates :file_file_name,
-    :uniqueness => {:scope => :site_id}
+    :uniqueness => {:scope => [:site_id, :block_id]}
   
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
