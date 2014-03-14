@@ -14,7 +14,8 @@ class Cms::ContentController < Cms::BaseController
   def render_html(status = 200)
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render :inline => @cms_page.content, :layout => app_layout, :status => status, :content_type => 'text/html'
+
+      render :inline => @cms_page.content + injected_admin_javascript, :layout => app_layout, :status => status, :content_type => 'text/html'
     else
       render :text => I18n.t('cms.content.layout_not_found'), :status => 404
     end
@@ -60,4 +61,7 @@ protected
     render :nothing => true, :status => 404
   end
 
+  def injected_admin_javascript
+    current_admin_cms_user ? ActionController::Base.helpers.javascript_include_tag("comfortable_mexican_sofa/admin/cms_edit_content") : ''
+  end
 end
