@@ -95,6 +95,11 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     redirect_to edit_admin_cms_site_page_path(@site, @page)
   end
 
+  def update_block
+    logger.debug('---> Updating block')
+    render json: {}
+  end
+
 protected
 
   def check_for_layouts
