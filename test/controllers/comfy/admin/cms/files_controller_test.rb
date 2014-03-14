@@ -54,6 +54,14 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
       'url'      => file.file.url
     }], r
   end
+  
+  def test_get_index_with_page_files
+    file = cms_files(:default)
+    file.update_column(:block_id, cms_blocks(:default_field_text).id)
+    get :index, :site_id => cms_sites(:default)
+    assert_response :success
+    assert_equal 0, assigns(:files).count
+  end
 
   def test_get_new
     site = cms_sites(:default)

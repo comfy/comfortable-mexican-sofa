@@ -6,7 +6,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   before_action :load_file,   :only => [:edit, :update, :destroy]
   
   def index
-    @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
+    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).order('cms_files.position')
     
     if params[:ajax]
       if params[:not_images]

@@ -23,7 +23,6 @@
             = render :partial => 'comfy/admin/cms/categories/categories', :object => file
           .item-meta
             = link_to file.file_file_name, file.file.url, :target => '_blank'
-            
         %td
           .btn-group
             = link_to t('.edit'), edit_admin_cms_site_file_path(@site, file), :class => 'btn btn-small'
