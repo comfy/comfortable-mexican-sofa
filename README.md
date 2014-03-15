@@ -3,8 +3,8 @@
 
 ComfortableMexicanSofa is a powerful Rails 4 CMS Engine
 
-Features
---------
+## Features
+
 * Simple integration with Rails 4 apps
 * Build your application in Rails, not in CMS
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
@@ -14,8 +14,8 @@ Features
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
 * [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [TinyMCE](http://www.tinymce.com/)
 
-Installation
-------------
+## Installation
+
 Add gem definition to your Gemfile:
     
 ```ruby
@@ -37,16 +37,16 @@ comfy_route :cms, :path => '/', :sitemap => false
 
 When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)
 
-Installation for Rails 3
-------------------------
+### Installation for Rails 3
+
 For Rails 3 apps feel free to use [1.8 release](https://github.com/comfy/comfortable-mexican-sofa/tree/1.8)
     
 ```ruby
 gem 'comfortable_mexican_sofa', '~> 1.8.0'
 ```
 
-Quick Start Guide
------------------
+## Quick Start Guide
+
 After finishing installation you should be able to navigate to http://yoursite/admin
 
 Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb)
@@ -72,8 +72,11 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
-Help and Contact
-----------------
+## Dependencies
+
+As long as you sucessfuly ran `bundle install` you should be ok. However, Paperclip requires *ImageMagick* to be installed to handle thumbnail generation.
+
+## Help and Contact
 
 GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
 Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
