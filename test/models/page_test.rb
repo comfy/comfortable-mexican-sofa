@@ -261,6 +261,27 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'index', cms_pages(:default).identifier
   end
   
+  def test_children_count_updating_on_move
+    page_1 = cms_pages(:default)
+    page_2 = cms_pages(:child)
+    page_3 = cms_sites(:default).pages.create!(new_params(:parent => page_2))
+
+    page_2.reload
+
+    assert_equal 1, page_1.children_count
+    assert_equal 1, page_2.children_count
+    assert_equal 0, page_3.children_count
+
+    page_3.parent_id = page_1.id
+    page_3.save!
+
+    page_1.reload; page_2.reload; page_3.reload
+
+    assert_equal 2, page_1.children_count
+    assert_equal 0, page_2.children_count
+    assert_equal 0, page_3.children_count
+  end
+  
 protected
   
   def new_params(options = {})

@@ -97,6 +97,12 @@ module ComfortableMexicanSofa::ActsAsTree
     def self_and_siblings
       parent ? parent.children : self.class.roots
     end
+    
+    # BUG: https://github.com/rails/rails/issues/14369
+    def parent_id=(id)
+      self.parent = self.class.find_by(:id => id)
+    end
+    
   end
 end
 
