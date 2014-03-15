@@ -64,9 +64,11 @@ After creating a Site, you need to make a Layout. Layout is the template of your
 </html>
 ```
 
+[See Wiki entry on available Tags you can use](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
+
 Once you have a layout, you may start creating pages and populating content. It's that easy.
 
-For more information please [see Wiki pages](https://github.com/comfy/comfortable-mexican-sofa/wiki).
+For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
