@@ -97,7 +97,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
 
   ##
   # TODO: Refactor so that nester parameters or something more Rails-like is used
-  def update_block
+  def update_blocks
     logger.debug('==> Updating block')
     begin
       page = @site.pages.find(params[:id])
@@ -106,13 +106,14 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
       return
     end
 
-    update_block_params["blocks"].each do |block|
-      # block exists and is editable
-      # update block's html or text
-      logger.debug("*** ||| ***")
+    update_blocks_params["blocks"].each do |block|
+      # TODO: Check if block exists
       logger.debug(block[1]["id"])
+      logger.debug(block[1]["content"])
       # logger.debug(block)
     end
+
+    page.save!
 
     render json: { page: page.id }
   end
@@ -159,7 +160,7 @@ protected
     params.fetch(:page, {}).permit!
   end
 
-  def update_block_params
+  def update_blocks_params
     params.permit(:blocks => [:page_id, :id, :content])
   end
 end
