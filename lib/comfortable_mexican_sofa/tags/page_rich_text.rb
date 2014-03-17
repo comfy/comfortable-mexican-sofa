@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::PageRichText
     /\{\{\s*cms:page:(#{identifier}):rich_text\s*\}\}/
   end
   
-  def content
+  def content(include_edit_tags = false)
     block.content
   end
   
