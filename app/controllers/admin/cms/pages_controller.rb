@@ -95,14 +95,26 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     redirect_to edit_admin_cms_site_page_path(@site, @page)
   end
 
+  ##
+  # TODO: Refactor so that nester parameters or something more Rails-like is used
   def update_block
     logger.debug('==> Updating block')
-    # Check if user id admin?
-    # block exists and is editable
-    # update block's html or text
-    page_id = params[:id]
+    begin
+      page = @site.pages.find(params[:id])
+    rescue
+      render json: { error: "Cannot edit page #{params[:id]}" }
+      return
+    end
 
-    render json: { id: page_id, site_id: @site.id }
+    update_block_params["blocks"].each do |block|
+      # block exists and is editable
+      # update block's html or text
+      logger.debug("*** ||| ***")
+      logger.debug(block[1]["id"])
+      # logger.debug(block)
+    end
+
+    render json: { page: page.id }
   end
 
 protected
@@ -145,5 +157,9 @@ protected
   
   def page_params
     params.fetch(:page, {}).permit!
+  end
+
+  def update_block_params
+    params.permit(:blocks => [:page_id, :id, :content])
   end
 end

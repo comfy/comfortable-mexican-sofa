@@ -1,7 +1,7 @@
 # TODO: edit spans with spedific attributes
 
 editable_box_selector = '.inline-editable'
-target_url = '/cms-admin/sites/54/pages/12/update_block'
+target_url = '/cms-admin/sites/54/pages/115/update_block'
 
 flagAsChanged = () ->
   console.info("Element's contents changed. #{Math.random()}")
@@ -21,13 +21,18 @@ submitChangedBlocks = () ->
       page_id = $el.data('pageId')
       blocksToSubmit.push({
         page_id: $el.data('pageId'),
-        block_id: $el.data('blockId'),
+        id: $el.data('blockId'),
         content: $el.html()
       })
 
   console.log(blocksToSubmit)
   if blocksToSubmit.length > 0
-    console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(blocksToSubmit)}")
+    submitData = { blocks: blocksToSubmit }
+    console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
+    jQuery.post(target_url, submitData, (data, textStatus, jqXHR) ->
+      console.log(data)
+      console.log(textStatus)
+    )
   else
     console.info('No elements flagged for submission.')
 
