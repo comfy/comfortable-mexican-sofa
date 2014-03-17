@@ -1,7 +1,7 @@
 # TODO: edit spans with spedific attributes
 
 editable_box_selector = '.inline-editable'
-target_url = "<%= '/cms-admin/sites/54/pages/12/update_block'  %>"
+target_url = '/cms-admin/sites/54/pages/12/update_block'
 
 flagAsChanged = () ->
   console.info("Element's contents changed. #{Math.random()}")
