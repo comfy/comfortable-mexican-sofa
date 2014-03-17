@@ -64,9 +64,13 @@ protected
   def injected_admin_javascript
     #current_admin_cms_user ? ActionController::Base.helpers.javascript_include_tag("comfortable_mexican_sofa/admin/raptor.min",
     #  "comfortable_mexican_sofa/admin/cms_edit_content") + ActionController::Base.helpers.stylesheet_link_tag("raptor-front-end.css") : ''
-    current_admin_cms_user ? ActionController::Base.helpers.javascript_include_tag(
+    current_admin_cms_user ? 
+    ActionController::Base.helpers.javascript_include_tag(
       "comfortable_mexican_sofa/admin/advanced",
       "comfortable_mexican_sofa/admin/wysihtml5-0.3.0",
-      "comfortable_mexican_sofa/admin/cms_edit_content") : ''
+      "comfortable_mexican_sofa/admin/cms_edit_content") +
+    ActionController::Base.helpers.stylesheet_link_tag(
+      "comfortable_mexican_sofa/admin/wysihtml5_overrides"
+    )  : ''
   end
 end
