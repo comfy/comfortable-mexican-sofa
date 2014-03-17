@@ -17,6 +17,7 @@ getParams = ->
 
   raw_vars = query.split("&")
 
+
   params = {}
 
   for v in raw_vars
@@ -33,6 +34,29 @@ target_url_postfix = '/update_block'
 
 htmlEditor = {}
 editorMetadata = {}
+toolbar = '
+<div id="wysihtml5-toolbar" style="display: none;">
+  <a data-wysihtml5-command="bold">bold</a>
+  <a data-wysihtml5-command="italic">italic</a>
+  
+  <!-- Some wysihtml5 commands require extra parameters -->
+  <!-- commenting this out for now. But maybe in the future dynamically create these based on the color scheme in our \'wizard\' -->
+  <!--
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a>
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a>
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
+  -->
+  
+  <!-- Some wysihtml5 commands like \'createLink\' require extra paramaters specified by the user (eg. href) -->
+  <a data-wysihtml5-command="createLink">insert link</a>
+  <div data-wysihtml5-dialog="createLink" style="display: none;">
+    <label>
+      Link:
+      <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+    </label>
+    <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+  </div>
+</div>'
 
 #
 # Handles response from data submission to back-end. Since page has changed,
@@ -67,25 +91,38 @@ submitChangedBlock = () ->
 
   false # Stop event's propagation
 
-instantiateSaveButton = () ->
+instantiateForm = () ->
   saveButton = $('<input id="submitChanges" type="submit" value="Save2">')
   saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
-  saveButtonWrapper.append('<form>
-    <textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
-    </form>')
+
+  saveButtonWrapper.append('
+    <form>
+      <a href="#" id="closeEditor">&times;</a>
+      <span id="editorTitle">Edit your content.</span>'+
+      toolbar+
+      '<textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
+    </form>
+  ')
+
   saveButtonWrapper.append(saveButton)
+  
 
   $('body').append(saveButtonWrapper)
-  htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules })
+  htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar: "wysihtml5-toolbar" })
 
+addCloseEvent = () ->
+  $('#closeEditor')
+    .on 'click', ->
+      alert('you just closed me')
+  
 populateEditor = ($el) ->
   editorMetadata.page_id  = $el.data('pageId')
   editorMetadata.block_id = $el.data('blockId')
 
   htmlEditor.clear()
-  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'));
+  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'))
 
 $ ->
   console?.log('inside cms_edit_content')
@@ -93,7 +130,7 @@ $ ->
   for el in $(editable_box_selector)
     $el = $(el)
     $el.attr('contenteditable', true)
-    $el.css('border', '5px dashed black')
+    $el.css('border', '1px dashed black')
     $el.css('display', 'block')
 
   # http://stackoverflow.com/questions/1391278/contenteditable-change-events
@@ -110,6 +147,7 @@ $ ->
             $this.trigger('change')
         return $this
 
-  instantiateSaveButton()
+  instantiateForm()
+  addCloseEvent()
 
   return
