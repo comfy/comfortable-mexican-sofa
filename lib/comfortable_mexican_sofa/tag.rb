@@ -80,9 +80,9 @@ module ComfortableMexicanSofa::Tag
     
     # Content that is used during page rendering. Outputting existing content
     # as a default.
-    def render
+    def render(include_edit_tags = true)
       ignore = [ComfortableMexicanSofa::Tag::Partial, ComfortableMexicanSofa::Tag::Helper].member?(self.class)
-      ComfortableMexicanSofa::Tag.sanitize_irb(content, ignore)
+      ComfortableMexicanSofa::Tag.sanitize_irb(content(include_edit_tags), ignore)
     end
     
     # Find or initialize Cms::Block object
@@ -104,7 +104,8 @@ module ComfortableMexicanSofa::Tag
 
   def self.add_block_edit_tags(content, block)
     return content unless block && block.page
-    "<span class=\"inline-editable\" data-page-id=\"#{block.page.id}\" data-block-id=\"#{block.id}\">#{content}</span>"
+    raw_content = CGI::escapeHTML(block.read_attribute(:content)).gsub("{{","[[").gsub("}}","]]")
+    "<span class=\"inline-editable\" data-page-id=\"#{block.page.id}\" data-block-id=\"#{block.id}\" data-raw-content=\"#{raw_content}\">#{content}</span>"
   end
   
 private
@@ -119,7 +120,7 @@ private
   # Scanning provided content and splitting it into [tag, text] tuples.
   # Tags are processed further and their content is expanded in the same way.
   # Tags are defined in the parent tags are ignored and not rendered.
-  def self.process_content(page, content = '', parent_tag = nil)
+  def self.process_content(page, content = '', parent_tag = nil, include_edit_tags = false)
     tokens = content.to_s.scan(TOKENIZER_REGEX)
     # a mapping of tag_signature(a tag)
     # and text, no tag
@@ -134,7 +135,7 @@ private
           if tag.ancestors.select{|a| a.id == tag.id}.blank?
             page.tags << tag
             # recursion
-            self.process_content(page, tag.render, tag)
+            self.process_content(page, tag.render(include_edit_tags), tag, include_edit_tags)
           end
         end
       else

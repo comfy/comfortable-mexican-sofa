@@ -6,11 +6,11 @@ class ComfortableMexicanSofa::Tag::Template
     /\{\{\s*cms:template:(#{identifier})\s*\}\}/
   end
 
-  def content
+  def content(include_edit_tags = false)
     "<%= render :template => '#{identifier}' %>"
   end
 
-  def render
+  def render(include_edit_tags = false)
     whitelist = ComfortableMexicanSofa.config.allowed_templates
     if whitelist.is_a?(Array)
       content if whitelist.member?(identifier)

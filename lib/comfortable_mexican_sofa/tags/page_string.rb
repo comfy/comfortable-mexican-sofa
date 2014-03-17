@@ -6,8 +6,9 @@ class ComfortableMexicanSofa::Tag::PageString
     /\{\{\s*cms:page:(#{identifier}):string\s*\}\}/
   end
   
-  def content
-    ComfortableMexicanSofa::Tag.add_block_edit_tags(block.content, block)
+  def content(include_edit_tags = false)
+
+    include_edit_tags ? ComfortableMexicanSofa::Tag.add_block_edit_tags(block.content, block) : block.content
   end
   
 end

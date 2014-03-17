@@ -20,11 +20,11 @@ class ComfortableMexicanSofa::Tag::PageFile
     params[0].to_s.match(/\[(.*?)\]/)[1] rescue nil
   end
   
-  def content
+  def content(include_edit_tags = false)
     block.files.first
   end
   
-  def render
+  def render(include_edit_tags = false)
     file = block.files.first
     case self.type
     when 'url'

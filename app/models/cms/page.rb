@@ -106,12 +106,12 @@ class Cms::Page < ActiveRecord::Base
   
   # Processing content will return rendered content and will populate 
   # self.cms_tags with instances of CmsTag
-  def render
+  def render(with_edit_tags = false)
     @tags = [] # resetting
     return '' unless layout
     
     ComfortableMexicanSofa::Tag.process_content(
-      self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
+      self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content), nil, with_edit_tags
     )
   end
   
@@ -194,7 +194,7 @@ protected
   end
   
   def set_cached_content
-    @cached_content = self.render
+    @cached_content = self.render(true)
     write_attribute(:content, self.cached_content)
   end
   
