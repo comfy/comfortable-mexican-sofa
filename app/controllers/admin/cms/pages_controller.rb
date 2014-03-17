@@ -96,8 +96,13 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
   end
 
   def update_block
-    logger.debug('---> Updating block')
-    render json: {}
+    logger.debug('==> Updating block')
+    # Check if user id admin?
+    # block exists and is editable
+    # update block's html or text
+    page_id = params[:id]
+
+    render json: { id: page_id, site_id: @site.id }
   end
 
 protected
