@@ -1,37 +1,62 @@
 # TODO: edit spans with specific attributes
 
+#
+# http://stelfox.net/blog/2013/12/access-get-parameters-with-coffeescript/
+#
+getParams = ->
+  query = window.location.search.substring(1)
+  #
+  # Override query from current script.
+  # http://stackoverflow.com/questions/4099456/how-to-check-for-script-src-match-then-reassign-src
+  #
+  scripts = document.getElementsByTagName("script")
+  for script in scripts
+    if(script.src.indexOf("cms_edit_content") != -1)
+      query = script.src[(script.src.indexOf('?') + 1)...script.src.length]
+      break;
+
+  raw_vars = query.split("&")
+
+
+  params = {}
+
+  for v in raw_vars
+    [key, val] = v.split("=")
+    params[key] = decodeURIComponent(val)
+
+  params
+
 editable_box_selector = '.inline-editable'
-target_url = '/cms-admin/sites/54/pages/115/update_blocks'
+params = getParams()
+target_url_prefix  = "/cms-admin/sites/#{params.site_id}/pages/"
+# console.log("target_url_prefix: #{target_url_prefix}")
+target_url_postfix = '/update_block'
 
 htmlEditor = {}
-
-toolbar = '<div id="wysihtml5-toolbar" style="display: none;">
-    <a data-wysihtml5-command="bold">bold</a>
-    <a data-wysihtml5-command="italic">italic</a>
-    
-    <!-- Some wysihtml5 commands require extra parameters -->
-    <!-- commenting this out for now. But maybe in the future dynamically create these based on the color scheme in our \'wizard\' -->
-    <!--
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a>
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a>
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
-    -->
-    
-    <!-- Some wysihtml5 commands like \'createLink\' require extra paramaters specified by the user (eg. href) -->
-    <a data-wysihtml5-command="createLink">insert link</a>
-    <div data-wysihtml5-dialog="createLink" style="display: none;">
-      <label>
-        Link:
-        <input data-wysihtml5-dialog-field="href" value="http://" class="text">
-      </label>
-      <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
-    </div>
-  </div>'
-
-
-flagAsChanged = () ->
-  console.info("Element's contents changed. #{Math.random()}")
-  $(this).data('submitflag', '1')
+editorMetadata = {}
+toolbar = '
+<div id="wysihtml5-toolbar" style="display: none;">
+  <a data-wysihtml5-command="bold">bold</a>
+  <a data-wysihtml5-command="italic">italic</a>
+  
+  <!-- Some wysihtml5 commands require extra parameters -->
+  <!-- commenting this out for now. But maybe in the future dynamically create these based on the color scheme in our \'wizard\' -->
+  <!--
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a>
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a>
+  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
+  -->
+  
+  <!-- Some wysihtml5 commands like \'createLink\' require extra paramaters specified by the user (eg. href) -->
+  <a data-wysihtml5-command="createLink">insert link</a>
+  <div data-wysihtml5-dialog="createLink" style="display: none;">
+    <label>
+      Link:
+      <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+    </label>
+    <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+  </div>
+</div>'
 
 #
 # Handles response from data submission to back-end. Since page has changed,
@@ -45,39 +70,33 @@ blockUpdateHandler = (data, textStatus, jqXHR) ->
   else
     alert("Error in update: #{data.error}")
 
-submitChangedBlocks = () ->
+submitChangedBlock = () ->
   console.log('Submitting blocks')
-  blocksToSubmit = []
-  page_id = ''
+  blockToSubmit = {
+    page_id: editorMetadata.page_id,
+    id: editorMetadata.block_id,
+    content: htmlEditor.getValue()
+  }
+  console.log(blockToSubmit)
 
-  for el in $(editable_box_selector)
-    $el = $(el)
+  page_id = editorMetadata.page_id
 
-    if $el.data('submitflag')? && $el.data('submitflag') == '1'
-      console.info('submitting element:')
-      # Assume same page id:
-      page_id = $el.data('pageId')
-      blocksToSubmit.push({
-        page_id: $el.data('pageId'),
-        id: $el.data('blockId'),
-        content: $el.html()
-      })
+  target_url = target_url_prefix + page_id + target_url_postfix
+  console.info("Will post to: #{target_url}")
 
-  console.log(blocksToSubmit)
-  if blocksToSubmit.length > 0
-    submitData = { blocks: blocksToSubmit }
-    console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
-    jQuery.post(target_url, submitData, blockUpdateHandler)
-  else
-    console.info('No elements flagged for submission.')
+  submitData = { block: blockToSubmit }
+  console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
+  jQuery.post(target_url, submitData, blockUpdateHandler)
+
 
   false # Stop event's propagation
 
-instantiateSaveButton = () ->
+instantiateForm = () ->
   saveButton = $('<input id="submitChanges" type="submit" value="Save2">')
-  saveButton.on('click', submitChangedBlocks)
+  saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
+
   saveButtonWrapper.append('
     <form>
       <a href="#" id="closeEditor">&times;</a>
@@ -87,20 +106,23 @@ instantiateSaveButton = () ->
     </form>
   ')
 
-  
   saveButtonWrapper.append(saveButton)
   
 
   $('body').append(saveButtonWrapper)
-  htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar:"wysihtml5-toolbar" })
+  htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar: "wysihtml5-toolbar" })
+
 addCloseEvent = () ->
   $('#closeEditor')
     .on 'click', ->
       alert('you just closed me')
   
 populateEditor = ($el) ->
+  editorMetadata.page_id  = $el.data('pageId')
+  editorMetadata.block_id = $el.data('blockId')
+
   htmlEditor.clear()
-  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'));
+  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'))
 
 $ ->
   console?.log('inside cms_edit_content')
@@ -110,10 +132,6 @@ $ ->
     $el.attr('contenteditable', true)
     $el.css('border', '1px dashed black')
     $el.css('display', 'block')
-    # Because elements are not necessarily inputs, checking for focus events:
-    $el.on('change', flagAsChanged)
-    # $el.on('click', showEditor)
-    # console.log($el)
 
   # http://stackoverflow.com/questions/1391278/contenteditable-change-events
   $('body')
@@ -129,7 +147,7 @@ $ ->
             $this.trigger('change')
         return $this
 
-  instantiateSaveButton()
-  addCloseEvent();
+  instantiateForm()
+  addCloseEvent()
 
   return

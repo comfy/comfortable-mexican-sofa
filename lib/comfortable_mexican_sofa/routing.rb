@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::Routing
               get  :toggle_branch,  :on => :member
               put :reorder,         :on => :collection
               post :duplicate,      :on => :member
-              post :update_blocks,   :on => :member
+              post :update_block,   :on => :member
               resources :revisions, :only => [:index, :show, :revert] do
                 patch :revert, :on => :member
               end

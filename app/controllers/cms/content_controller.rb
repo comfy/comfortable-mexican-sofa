@@ -68,7 +68,7 @@ protected
     ActionController::Base.helpers.javascript_include_tag(
       "comfortable_mexican_sofa/admin/advanced",
       "comfortable_mexican_sofa/admin/wysihtml5-0.3.0",
-      "comfortable_mexican_sofa/admin/cms_edit_content") +
+      "comfortable_mexican_sofa/admin/cms_edit_content?site_id=#{@cms_site.id}") +
     ActionController::Base.helpers.stylesheet_link_tag(
       "comfortable_mexican_sofa/admin/wysihtml5_overrides"
     )  : ''
