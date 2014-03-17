@@ -116,7 +116,24 @@ addCloseEvent = () ->
   $('#closeEditor')
     .on 'click', ->
       alert('you just closed me')
-  
+
+#
+# http://stackoverflow.com/questions/1391278/contenteditable-change-events
+#
+initializeEdiatableAreas = () ->
+  $('body')
+    .on 'click', editable_box_selector, ->
+        $this = $(this)
+        $this.data 'before', $this.data('raw-content')
+        populateEditor($this)
+        return $this
+    .on 'blur keyup paste input', editable_box_selector, ->
+        $this = $(this)
+        if $this.data('before') isnt $this.data('raw-content')
+          $this.data 'before', $this.data('raw-content')
+          $this.trigger('change')
+        return $this
+
 populateEditor = ($el) ->
   editorMetadata.page_id  = $el.data('pageId')
   editorMetadata.block_id = $el.data('blockId')
@@ -129,24 +146,10 @@ $ ->
 
   for el in $(editable_box_selector)
     $el = $(el)
-    $el.attr('contenteditable', true)
     $el.css('border', '1px dashed black')
     $el.css('display', 'block')
 
-  # http://stackoverflow.com/questions/1391278/contenteditable-change-events
-  $('body')
-    .on 'focus', editable_box_selector, ->
-        $this = $(this)
-        $this.data 'before', $this.data('raw-content')
-        populateEditor($this)
-        return $this
-    .on 'blur keyup paste input', editable_box_selector, ->
-        $this = $(this)
-        if $this.data('before') isnt $this.data('raw-content')
-            $this.data 'before', $this.data('raw-content')
-            $this.trigger('change')
-        return $this
-
+  initializeEdiatableAreas()
   instantiateForm()
   addCloseEvent()
 
