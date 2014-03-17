@@ -1,7 +1,35 @@
 # TODO: edit spans with specific attributes
 
+#
+# http://stelfox.net/blog/2013/12/access-get-parameters-with-coffeescript/
+#
+getParams = ->
+  query = window.location.search.substring(1)
+  #
+  # Override query from current script.
+  # http://stackoverflow.com/questions/4099456/how-to-check-for-script-src-match-then-reassign-src
+  #
+  scripts = document.getElementsByTagName("script")
+  for script in scripts
+    if(script.src.indexOf("cms_edit_content") != -1)
+      query = script.src[(script.src.indexOf('?') + 1)...script.src.length]
+      break;
+
+  raw_vars = query.split("&")
+
+  params = {}
+
+  for v in raw_vars
+    [key, val] = v.split("=")
+    params[key] = decodeURIComponent(val)
+
+  params
+
 editable_box_selector = '.inline-editable'
-target_url = '/cms-admin/sites/54/pages/115/update_blocks'
+params = getParams()
+target_url_prefix  = "/cms-admin/sites/#{params.site_id}/pages/"
+# console.log("target_url_prefix: #{target_url_prefix}")
+target_url_postfix = '/update_blocks'
 
 htmlEditor = {}
 
@@ -42,6 +70,9 @@ submitChangedBlocks = () ->
 
   console.log(blocksToSubmit)
   if blocksToSubmit.length > 0
+    target_url = target_url_prefix + page_id + target_url_postfix
+    console.info("Will post to: #{target_url}")
+
     submitData = { blocks: blocksToSubmit }
     console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
     jQuery.post(target_url, submitData, blockUpdateHandler)
