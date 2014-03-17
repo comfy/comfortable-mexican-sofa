@@ -32,11 +32,7 @@ target_url_prefix  = "/cms-admin/sites/#{params.site_id}/pages/"
 target_url_postfix = '/update_blocks'
 
 htmlEditor = {}
-
-
-flagAsChanged = () ->
-  console.info("Element's contents changed. #{Math.random()}")
-  $(this).data('submitflag', '1')
+editorMetadata = {}
 
 #
 # Handles response from data submission to back-end. Since page has changed,
@@ -50,43 +46,34 @@ blockUpdateHandler = (data, textStatus, jqXHR) ->
   else
     alert("Error in update: #{data.error}")
 
-submitChangedBlocks = () ->
+submitChangedBlock = () ->
   console.log('Submitting blocks')
-  blocksToSubmit = []
-  page_id = ''
+  blockToSubmit = {
+    page_id: editorMetadata.page_id,
+    id: editorMetadata.block_id,
+    content: htmlEditor.getValue()
+  }
+  console.log(blockToSubmit)
 
-  for el in $(editable_box_selector)
-    $el = $(el)
+  page_id = editorMetadata.page_id
 
-    if $el.data('submitflag')? && $el.data('submitflag') == '1'
-      console.info('submitting element:')
-      # Assume same page id:
-      page_id = $el.data('pageId')
-      blocksToSubmit.push({
-        page_id: $el.data('pageId'),
-        id: $el.data('blockId'),
-        content: $el.html()
-      })
+  target_url = target_url_prefix + page_id + target_url_postfix
+  console.info("Will post to: #{target_url}")
 
-  console.log(blocksToSubmit)
-  if blocksToSubmit.length > 0
-    target_url = target_url_prefix + page_id + target_url_postfix
-    console.info("Will post to: #{target_url}")
+  submitData = { block: blockToSubmit }
+  console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
+  jQuery.post(target_url, submitData, blockUpdateHandler)
 
-    submitData = { blocks: blocksToSubmit }
-    console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
-    jQuery.post(target_url, submitData, blockUpdateHandler)
-  else
-    console.info('No elements flagged for submission.')
 
   false # Stop event's propagation
 
 instantiateSaveButton = () ->
   saveButton = $('<input id="submitChanges" type="submit" value="Save2">')
-  saveButton.on('click', submitChangedBlocks)
+  saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
-  saveButtonWrapper.append('<form><textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
+  saveButtonWrapper.append('<form>
+    <textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
     </form>')
   saveButtonWrapper.append(saveButton)
 
@@ -94,6 +81,9 @@ instantiateSaveButton = () ->
   htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules })
 
 populateEditor = ($el) ->
+  editorMetadata.page_id  = $el.data('pageId')
+  editorMetadata.block_id = $el.data('blockId')
+
   htmlEditor.clear()
   htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'));
 
@@ -105,10 +95,6 @@ $ ->
     $el.attr('contenteditable', true)
     $el.css('border', '5px dashed black')
     $el.css('display', 'block')
-    # Because elements are not necessarily inputs, checking for focus events:
-    $el.on('change', flagAsChanged)
-    # $el.on('click', showEditor)
-    # console.log($el)
 
   # http://stackoverflow.com/questions/1391278/contenteditable-change-events
   $('body')
