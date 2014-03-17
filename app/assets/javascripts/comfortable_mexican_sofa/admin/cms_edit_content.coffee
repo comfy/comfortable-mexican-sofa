@@ -29,7 +29,7 @@ editable_box_selector = '.inline-editable'
 params = getParams()
 target_url_prefix  = "/cms-admin/sites/#{params.site_id}/pages/"
 # console.log("target_url_prefix: #{target_url_prefix}")
-target_url_postfix = '/update_blocks'
+target_url_postfix = '/update_block'
 
 htmlEditor = {}
 editorMetadata = {}
