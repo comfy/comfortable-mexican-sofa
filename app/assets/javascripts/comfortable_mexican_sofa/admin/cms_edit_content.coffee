@@ -98,12 +98,12 @@ $ ->
 
   # http://stackoverflow.com/questions/1391278/contenteditable-change-events
   $('body')
-    .on 'focus', '[contenteditable]', ->
+    .on 'focus', editable_box_selector, ->
         $this = $(this)
         $this.data 'before', $this.data('raw-content')
         populateEditor($this)
         return $this
-    .on 'blur keyup paste input', '[contenteditable]', ->
+    .on 'blur keyup paste input', editable_box_selector, ->
         $this = $(this)
         if $this.data('before') isnt $this.data('raw-content')
             $this.data 'before', $this.data('raw-content')
