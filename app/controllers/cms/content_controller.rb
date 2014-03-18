@@ -15,9 +15,13 @@ class Cms::ContentController < Cms::BaseController
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
 
-      (@cms_page.clear_cached_content! && @cms_page.save!) if current_admin_cms_user
+      if current_admin_cms_user
+        content = @cms_page.content(true) + injected_admin_javascript
+      else
+        content = @cms_page.content
+      end
 
-      render :inline => @cms_page.content + injected_admin_javascript, :layout => app_layout, :status => status, :content_type => 'text/html'
+      render :inline => content, :layout => app_layout, :status => status, :content_type => 'text/html'
     else
       render :text => I18n.t('cms.content.layout_not_found'), :status => 404
     end
@@ -64,13 +68,11 @@ protected
   end
 
   def injected_admin_javascript
-    current_admin_cms_user ?
     "\n" + ActionController::Base.helpers.javascript_include_tag(
       "comfortable_mexican_sofa/admin/advanced",
       "comfortable_mexican_sofa/admin/wysihtml5-0.3.0",
       "comfortable_mexican_sofa/admin/cms_edit_content") +
     "\n" + ActionController::Base.helpers.stylesheet_link_tag(
-      "comfortable_mexican_sofa/admin/wysihtml5_overrides"
-    )  : ''
+      "comfortable_mexican_sofa/admin/wysihtml5_overrides")
   end
 end
