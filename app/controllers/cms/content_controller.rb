@@ -15,6 +15,8 @@ class Cms::ContentController < Cms::BaseController
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
 
+      (@cms_page.clear_cached_content! && @cms_page.save!) if current_admin_cms_user
+
       render :inline => @cms_page.content + injected_admin_javascript, :layout => app_layout, :status => status, :content_type => 'text/html'
     else
       render :text => I18n.t('cms.content.layout_not_found'), :status => 404
