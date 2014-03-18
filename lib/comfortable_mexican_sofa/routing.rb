@@ -9,13 +9,15 @@ module ComfortableMexicanSofa::Routing
           get '/', :to => 'base#jump'
           devise_for :users, class_name: "Cms::User", controllers: {sessions: "admin/cms/sessions"}
           resources :users
+          resources :pages do
+            post :update_block, :on => :member
+          end
           resources :sites do
             resources :pages do
               get  :form_blocks,    :on => :member
               get  :toggle_branch,  :on => :member
               put :reorder,         :on => :collection
               post :duplicate,      :on => :member
-              post :update_block,   :on => :member
               resources :revisions, :only => [:index, :show, :revert] do
                 patch :revert, :on => :member
               end
