@@ -92,9 +92,16 @@ instantiateForm = () ->
 addCloseEvent = () ->
   $('#closeEditor')
     .on 'click', ->
-      # alert('you just closed me')
-      editorMetadata.block_id = ''
-      $(editor_wrapper_selector).hide()
+      closeEditor()
+
+  $(document).on 'keyup', (e) ->
+    if e.keyCode == 27
+      closeEditor()
+  
+
+closeEditor = () ->
+  editorMetadata.block_id = ''
+  $(editor_wrapper_selector).hide()
 
 #
 # http://stackoverflow.com/questions/1391278/contenteditable-change-events
