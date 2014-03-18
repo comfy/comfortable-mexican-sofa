@@ -118,7 +118,7 @@ populateEditor = ($el) ->
   editorMetadata.block_id = $el.data('blockId')
 
   htmlEditor.clear()
-  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'))
+  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content').replace('[[', '{{').replace(']]', '}}'))
   $(editor_wrapper_selector).show()
 
 $ ->

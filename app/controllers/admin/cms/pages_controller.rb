@@ -104,7 +104,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     end
 
     params = update_block_params
-    params[:content] = params[:content].gsub(/\[\[/, '{{').gsub(/\]\]/, '}}')
+    params[:content] = params[:content]
     block = page.blocks.where(:id => params[:id]).first
 
     unless block
