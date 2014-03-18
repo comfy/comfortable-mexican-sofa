@@ -107,13 +107,10 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     params[:content] = params[:content].gsub(/\[\[/, '{{').gsub(/\]\]/, '}}')
     block = page.blocks.where(:id => params[:id]).first
 
-    unless block
-      render json: { error: "Cannot edit page #{params[:id]}" }
+    unless block && block.update(params) && page.save
+      render json: { error: "Cannot edit page #{params[:id]}, please try again later" }, status: 422
       return
     end
-
-    block.update!(params)
-    page.save!
 
     render json: { content: cms_page_block_content(block.identifier.to_sym, page), block_id: block.id }
   end
