@@ -9,7 +9,7 @@ class Cms::ContentControllerTest < ActionController::TestCase
     assert_equal cms_pages(:default), assigns(:cms_page)
     
     assert_response :success
-    assert_equal rendered_content_formatter(
+    assert_match rendered_content_formatter(
       '
       layout_content_a
       default_page_text_content_a
@@ -19,6 +19,11 @@ class Cms::ContentControllerTest < ActionController::TestCase
       default_snippet_content
       layout_content_c'
     ), response.body
+
+    ['advanced.js', 'wysihtml5-0.3.0.js', 'cms_edit_content.js', 'wysihtml5_overrides.css'].each do |included_item|
+      assert_match included_item, response.body
+    end
+
     assert_equal 'text/html', response.content_type
   end
   
