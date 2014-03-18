@@ -104,7 +104,7 @@ module ComfortableMexicanSofa::Tag
 
   def self.add_block_edit_tags(content, block)
     return content unless block && block.page
-    raw_content = CGI::escapeHTML(block.read_attribute(:content)).gsub("{{","[[").gsub("}}","]]")
+    raw_content = CGI::escapeHTML(block.read_attribute(:content) || '').gsub("{{","[[").gsub("}}","]]")
     "<span class=\"inline-editable\" data-page-id=\"#{block.page.id}\" data-block-id=\"#{block.id}\" data-raw-content=\"#{raw_content}\">#{content}</span>"
   end
   
