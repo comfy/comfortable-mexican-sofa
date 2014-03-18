@@ -96,7 +96,7 @@ instantiateForm = () ->
   saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
-  saveButtonWrapper.append('<div id="editorSubmitStatusWrapper" style="display:none"><span id="editorSubmitStatus"><br/>boobies</span></div>')
+  saveButtonWrapper.append('<div id="editorSubmitStatusWrapper" style="display:none"><span id="editorSubmitStatus"></span></div>')
 
   saveButtonWrapper.append('
     <form>
@@ -108,7 +108,7 @@ instantiateForm = () ->
   ').hide()
 
   saveButtonWrapper.append(saveButton)
-  
+  console.log(saveButtonWrapper.html())
   $('body').append(saveButtonWrapper)
   htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar: "wysihtml5-toolbar" })
 
