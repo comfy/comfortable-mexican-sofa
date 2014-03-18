@@ -58,7 +58,14 @@ module ComfortableMexicanSofa::ViewMethods
       return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
       tag.content
     end
-  
+    
+    # For those times when we need to render content that shouldn't be renderable
+    # Example: {{cms:field}} tags
+    def cms_block_content_render(identifier, blockable = @cms_page)
+      return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)
+      render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.content)
+    end
+    
     # Same as cms_block_content but with cms tags expanded
     def cms_block_render(identifier, blockable = @cms_page)
       return '' unless tag = ComfortableMexicanSofa::ViewMethods.cms_block_tag(identifier, blockable)

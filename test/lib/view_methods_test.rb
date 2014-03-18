@@ -23,6 +23,10 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal 'default_field_text_content', cms_block_content(:default_field_text)
   end
   
+  def test_cms_block_content_render
+    assert_equal 'default_field_text_content', cms_block_content_render(:default_field_text)
+  end
+  
   def test_cms_block_render
     assert_equal 'default_page_text_content', cms_block_render(:default_page_text)
     assert_equal '', cms_block_render(:default_field_text)
@@ -39,6 +43,8 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal '{{ cms:helper:hello }}', cms_block_content(:default_page_text)
     assert_equal 'hello', cms_block_render(:default_page_text)
   end
+  
+  
   
   def test_cms_block_missing
     assert_equal '', cms_block_content(:invalid)
