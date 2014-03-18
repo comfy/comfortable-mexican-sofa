@@ -5,6 +5,8 @@
 #
 editable_box_selector   = '.inline-editable'
 editor_wrapper_selector = '#editorWrapper'
+editor_submit_status = '#editorSubmitStatus'
+editor_submit_status_wrapper = editor_submit_status+'Wrapper'
 
 htmlEditor = {}
 editorMetadata = {}
@@ -32,25 +34,39 @@ toolbar = '
   </div>
 </div>'
 
+
+# hides the message box
+hideMessage = (callback) ->
+  $(editor_submit_status_wrapper).fadeOut 1250, ->
+    callback()
+
+# shows and sets a message and a class in the message box
+showMessage = (message, class_name) ->
+  # removeClass with no params removes all classes
+  $(editor_submit_status_wrapper).show().find(editor_submit_status).removeClass().addClass(class_name).html(message)
+
 #
 # Handles response from data submission to back-end. Since page has changed,
 # a refresh should be triggered.
 #
-blockUpdateHandler = (data, textStatus, jqXHR) ->
-  console.log(data)
-  console.log(textStatus)
-  if textStatus == 'success'
-    console.info('Content inside Block')
-    console.log("Selector: span:data(block-id==#{data.block_id})")
-    console.log($("span:data(block-id==#{data.block_id})"))
-    $("span[data-block-id='#{data.block_id}']").replaceWith(data.content)
+blockUpdateSuccess = (data, textStatus, jqXHR) ->
+  
+  $("span[data-block-id='#{data.block_id}']").replaceWith(data.content)
+  showMessage("Success!", "success")
+  hideMessage(() ->
     $(editor_wrapper_selector).hide()
-    initializeEdiatableAreas("span[data-block-id='#{data.block_id}']")
-  else
-    alert("Error in update: #{data.error}")
+  );
+  initializeEdiatableAreas("span[data-block-id='#{data.block_id}']")
+
+blockUpdateError = (xhr) ->
+  error = $.parseJSON(xhr.responseText).error
+
+  showMessage(error, "error")
+
 
 submitChangedBlock = () ->
   # console.log('Submitting blocks')
+  showMessage('Saving...')
   blockToSubmit = {
     page_id: editorMetadata.page_id,
     id: editorMetadata.block_id,
@@ -64,8 +80,15 @@ submitChangedBlock = () ->
 
   submitData = { block: blockToSubmit }
   # console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
-  jQuery.post(target_url, submitData, blockUpdateHandler)
 
+  $.ajax({
+    type: "POST",
+    url: target_url,
+    data: submitData,
+    success: blockUpdateSuccess
+    error: blockUpdateError
+  });
+  
   false # Stop event's propagation
 
 instantiateForm = () ->
@@ -73,6 +96,7 @@ instantiateForm = () ->
   saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
+  saveButtonWrapper.append('<div id="editorSubmitStatusWrapper" style="display:none"><span id="editorSubmitStatus"><br/>boobies</span></div>')
 
   saveButtonWrapper.append('
     <form>
@@ -85,16 +109,22 @@ instantiateForm = () ->
 
   saveButtonWrapper.append(saveButton)
   
-
   $('body').append(saveButtonWrapper)
   htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar: "wysihtml5-toolbar" })
 
 addCloseEvent = () ->
   $('#closeEditor')
     .on 'click', ->
-      # alert('you just closed me')
-      editorMetadata.block_id = ''
-      $(editor_wrapper_selector).hide()
+      closeEditor()
+
+  $(document).on 'keyup', (e) ->
+    if e.keyCode == 27
+      closeEditor()
+  
+
+closeEditor = () ->
+  editorMetadata.block_id = ''
+  $(editor_wrapper_selector).hide()
 
 #
 # http://stackoverflow.com/questions/1391278/contenteditable-change-events
