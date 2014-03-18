@@ -463,4 +463,21 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_redirected_to edit_admin_cms_site_page_path(original_page.site, Cms::Page.last)
   end
 
+  def test_post_block_content
+    I18n.enforce_available_locales = false
+    page = cms_pages(:default)
+    block = page.blocks.last
+    new_content = block.content + "\nAdditional line\n"
+
+    post :update_block, block: { :id => block.id, :page_id => page.id, :content => new_content }, :id => page
+
+    reloaded_page = cms_pages(:default)
+    changed_block = reloaded_page.blocks.last
+
+    assert_response :success
+    assert @response.body.include?('block_id')
+    refute @response.body.include?('error')
+    assert_equal new_content, changed_block.content
+  end
+
 end
