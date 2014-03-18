@@ -37,10 +37,15 @@ toolbar = '
 # a refresh should be triggered.
 #
 blockUpdateHandler = (data, textStatus, jqXHR) ->
-  # console.log(data)
-  # console.log(textStatus)
+  console.log(data)
+  console.log(textStatus)
   if textStatus == 'success'
-    window.location.href = window.location.href # Reload.
+    console.info('Content inside Block')
+    console.log("Selector: span:data(block-id==#{data.block_id})")
+    console.log($("span:data(block-id==#{data.block_id})"))
+    $("span[data-block-id='#{data.block_id}']").replaceWith(data.content)
+    $(editor_wrapper_selector).hide()
+    initializeEdiatableAreas("span[data-block-id='#{data.block_id}']")
   else
     alert("Error in update: #{data.error}")
 
@@ -76,7 +81,7 @@ instantiateForm = () ->
       toolbar+
       '<textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
     </form>
-  ')
+  ').hide()
 
   saveButtonWrapper.append(saveButton)
   
@@ -87,19 +92,21 @@ instantiateForm = () ->
 addCloseEvent = () ->
   $('#closeEditor')
     .on 'click', ->
-      alert('you just closed me')
+      # alert('you just closed me')
+      editorMetadata.block_id = ''
+      $(editor_wrapper_selector).hide()
 
 #
 # http://stackoverflow.com/questions/1391278/contenteditable-change-events
 #
-initializeEdiatableAreas = () ->
+initializeEdiatableAreas = (selector=editable_box_selector) ->
   $('body')
-    .on 'click', editable_box_selector, ->
+    .on 'click', selector, ->
         $this = $(this)
         $this.data 'before', $this.data('raw-content')
         populateEditor($this)
         return $this
-    .on 'blur keyup paste input', editable_box_selector, ->
+    .on 'blur keyup paste input', selector, ->
         $this = $(this)
         if $this.data('before') isnt $this.data('raw-content')
           $this.data 'before', $this.data('raw-content')
@@ -112,6 +119,7 @@ populateEditor = ($el) ->
 
   htmlEditor.clear()
   htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'))
+  $(editor_wrapper_selector).show()
 
 $ ->
   # console?.log('inside cms_edit_content')

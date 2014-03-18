@@ -115,7 +115,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     block.update!(params)
     page.save!
 
-    render json: { page: page.id }
+    render json: { content: ComfortableMexicanSofa::Tag.process_content(page, block.content, nil, true), block_id: block.id }
   end
 
 protected
