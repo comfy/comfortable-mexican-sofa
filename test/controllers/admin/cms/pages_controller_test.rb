@@ -480,4 +480,39 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_equal new_content, changed_block.content
   end
 
+  def test_post_block_content_wrong_page
+    I18n.enforce_available_locales = false
+    page = cms_pages(:default)
+    block = page.blocks.last
+    new_content = block.content + "\nAdditional line\n"
+
+    post :update_block, block: { :id => block.id, :page_id => -1, :content => new_content }, :id => -1
+
+    reloaded_page = cms_pages(:default)
+    changed_block = reloaded_page.blocks.last
+
+    assert_response :success
+    refute @response.body.include?('block_id')
+    assert @response.body.include?('error')
+    assert_not_equal new_content, changed_block.content
+  end
+
+  def test_post_block_content_wrong_block
+    I18n.enforce_available_locales = false
+    page = cms_pages(:default)
+    block = page.blocks.order('id ASC').last
+    new_content = block.content + "\nAdditional line\n"
+    # Having block's id last, next one belongs to another page or does not exist:
+    illegal_block_id = block.id.to_i + 1
+
+    post :update_block, block: { :id => illegal_block_id, :page_id => page.id, :content => new_content }, :id => page
+
+    reloaded_page = cms_pages(:default)
+    changed_block = reloaded_page.blocks.last
+
+    assert_response :success
+    refute @response.body.include?('block_id')
+    assert @response.body.include?('error')
+    assert_not_equal new_content, changed_block.content
+  end
 end
