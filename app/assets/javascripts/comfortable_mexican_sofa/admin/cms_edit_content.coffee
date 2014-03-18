@@ -17,7 +17,6 @@ getParams = ->
 
   raw_vars = query.split("&")
 
-
   params = {}
 
   for v in raw_vars
@@ -63,36 +62,35 @@ toolbar = '
 # a refresh should be triggered.
 #
 blockUpdateHandler = (data, textStatus, jqXHR) ->
-  console.log(data)
-  console.log(textStatus)
+  # console.log(data)
+  # console.log(textStatus)
   if textStatus == 'success'
     window.location.href = window.location.href # Reload.
   else
     alert("Error in update: #{data.error}")
 
 submitChangedBlock = () ->
-  console.log('Submitting blocks')
+  # console.log('Submitting blocks')
   blockToSubmit = {
     page_id: editorMetadata.page_id,
     id: editorMetadata.block_id,
     content: htmlEditor.getValue()
   }
-  console.log(blockToSubmit)
+  # console.log(blockToSubmit)
 
   page_id = editorMetadata.page_id
 
   target_url = target_url_prefix + page_id + target_url_postfix
-  console.info("Will post to: #{target_url}")
+  # console.info("Will post to: #{target_url}")
 
   submitData = { block: blockToSubmit }
-  console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
+  # console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
   jQuery.post(target_url, submitData, blockUpdateHandler)
-
 
   false # Stop event's propagation
 
 instantiateForm = () ->
-  saveButton = $('<input id="submitChanges" type="submit" value="Save2">')
+  saveButton = $('<input id="submitChanges" type="submit" value="Save">')
   saveButton.on('click', submitChangedBlock)
 
   saveButtonWrapper = $('<div id="editorWrapper"></div>')
@@ -142,7 +140,7 @@ populateEditor = ($el) ->
   htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content'))
 
 $ ->
-  console?.log('inside cms_edit_content')
+  # console?.log('inside cms_edit_content')
 
   for el in $(editable_box_selector)
     $el = $(el)

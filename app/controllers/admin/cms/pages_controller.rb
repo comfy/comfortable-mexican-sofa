@@ -96,17 +96,15 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
   end
 
   def update_block
-    logger.debug('==> Updating block')
     begin
       page = @site.pages.find(params[:id])
-    rescue
+    rescue ActiveRecord::RecordNotFound
       render json: { error: "Cannot edit page #{params[:id]}" }
       return
     end
 
     params = update_block_params
     params[:content] = params[:content].gsub(/\[\[/, '{{').gsub(/\]\]/, '}}')
-    logger.debug(params)
     block = page.blocks.where(:id => params[:id]).first
 
     unless block
