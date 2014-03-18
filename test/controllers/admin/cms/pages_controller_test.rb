@@ -491,7 +491,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
 
-    assert_response :success
+    assert_response 422
     refute @response.body.include?('block_id')
     assert @response.body.include?('error')
     assert_not_equal new_content, changed_block.content
@@ -510,7 +510,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
 
-    assert_response :success
+    assert_response 422
     refute @response.body.include?('block_id')
     assert @response.body.include?('error')
     assert_not_equal new_content, changed_block.content

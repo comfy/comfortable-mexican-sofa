@@ -99,7 +99,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     begin
       page = @site.pages.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "Cannot edit page #{params[:id]}" }
+      render json: { error: "Cannot edit page #{params[:id]}" }, status: 422
       return
     end
 
