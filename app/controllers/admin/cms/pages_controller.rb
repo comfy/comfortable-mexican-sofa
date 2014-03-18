@@ -1,5 +1,5 @@
 class Admin::Cms::PagesController < Admin::Cms::BaseController
-
+  include ComfortableMexicanSofa::ViewMethods
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
@@ -115,7 +115,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     block.update!(params)
     page.save!
 
-    render json: { content: ComfortableMexicanSofa::Tag.process_content(page, block.content, nil, true), block_id: block.id }
+    render json: { content: cms_page_block_content(block.identifier.to_sym, page), block_id: block.id }
   end
 
 protected
