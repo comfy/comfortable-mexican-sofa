@@ -116,11 +116,6 @@ populateEditor = ($el) ->
 $ ->
   # console?.log('inside cms_edit_content')
 
-  for el in $(editable_box_selector)
-    $el = $(el)
-    $el.css('border', '1px dashed black')
-    $el.css('display', 'block')
-
   initializeEdiatableAreas()
   instantiateForm()
   addCloseEvent()
