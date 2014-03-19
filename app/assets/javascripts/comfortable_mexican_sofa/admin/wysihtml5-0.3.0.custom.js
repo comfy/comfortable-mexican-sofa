@@ -4960,7 +4960,7 @@ wysihtml5.dom.parse = (function() {
     classesLength = classes.length;
     for (; i<classesLength; i++) {
       currentClass = classes[i];
-      if (allowedClasses[currentClass]) {
+      if (allowedClasses["*"] || allowedClasses[currentClass] ) {
         newClasses.push(currentClass);
       }
     }
