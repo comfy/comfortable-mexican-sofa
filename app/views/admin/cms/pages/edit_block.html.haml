@@ -18,5 +18,5 @@
         %input.text{"data-wysihtml5-dialog-field" => "href", value: "http://"}/
       %a{"data-wysihtml5-dialog-action" => "save"} OK
       %a{"data-wysihtml5-dialog-action" => "cancel"} Cancel
-  = f.text_area "content", {id: "wysihtml5-textarea", placeholder: "Enter your text ...", value: @block.raw_content}
+  = f.text_area "content", {id: "wysihtml5-textarea", placeholder: "Enter your text ...", value: @block.content}
   = f.submit "Save", id: "submitChanges"
