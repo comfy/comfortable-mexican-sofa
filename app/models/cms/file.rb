@@ -27,6 +27,7 @@ class Cms::File < ActiveRecord::Base
   validates :site_id,
     :presence   => true
   validates_attachment_presence :file
+  validates_attachment_content_type :file, :content_type => /.*/
   validates :file_file_name,
     :uniqueness => {:scope => :site_id}
   
