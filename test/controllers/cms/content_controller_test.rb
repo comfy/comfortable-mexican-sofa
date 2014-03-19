@@ -20,7 +20,7 @@ class Cms::ContentControllerTest < ActionController::TestCase
         assert_match item, response.body
       end
 
-    ['advanced.js', 'wysihtml5-0.3.0.js', 'cms_edit_content.js', 'wysihtml5_overrides.css'].each do |included_item|
+    ['advanced.js', 'wysihtml5-0.3.0.custom.js', 'cms_edit_content.js', 'wysihtml5_overrides.css'].each do |included_item|
       assert_match included_item, response.body
     end
 
