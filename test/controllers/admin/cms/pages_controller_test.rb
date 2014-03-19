@@ -469,7 +469,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     block = page.blocks.last
     new_content = block.content + "\nAdditional line\n"
 
-    post :update_block, block: { :id => block.id, :page_id => page.id, :content => new_content }, :id => page
+    post :update_block, block: { :id => block.id, :content => new_content }, :id => page
 
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
@@ -486,12 +486,12 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     block = page.blocks.last
     new_content = block.content + "\nAdditional line\n"
 
-    post :update_block, block: { :id => block.id, :page_id => -1, :content => new_content }, :id => -1
+    post :update_block, block: { :id => block.id, :content => new_content }, :id => -1
 
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
 
-    assert_response :success
+    assert_response 422
     refute @response.body.include?('block_id')
     assert @response.body.include?('error')
     assert_not_equal new_content, changed_block.content
@@ -505,12 +505,12 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     # Having block's id last, next one belongs to another page or does not exist:
     illegal_block_id = block.id.to_i + 1
 
-    post :update_block, block: { :id => illegal_block_id, :page_id => page.id, :content => new_content }, :id => page
+    post :update_block, block: { :id => illegal_block_id, :content => new_content }, :id => page
 
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
 
-    assert_response :success
+    assert_response 422
     refute @response.body.include?('block_id')
     assert @response.body.include?('error')
     assert_not_equal new_content, changed_block.content

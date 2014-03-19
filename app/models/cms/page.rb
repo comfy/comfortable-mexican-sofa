@@ -116,14 +116,18 @@ class Cms::Page < ActiveRecord::Base
   end
   
   # Cached content accessor
-  def content
-    if (@cached_content = read_attribute(:content)).nil?
-      @cached_content = self.render
-      update_column(:content, @cached_content) unless self.new_record?
+  def content(render_without_cache = false)
+    if render_without_cache
+      self.render(true)
+    else
+      if (@cached_content = read_attribute(:content)).nil?
+        @cached_content = self.render
+        update_column(:content, @cached_content) unless self.new_record?
+      end
+      @cached_content
     end
-    @cached_content
   end
-  
+
   def clear_cached_content!
     self.update_column(:content, nil)
   end
@@ -194,7 +198,7 @@ protected
   end
   
   def set_cached_content
-    @cached_content = self.render(true)
+    @cached_content = self.render
     write_attribute(:content, self.cached_content)
   end
   
