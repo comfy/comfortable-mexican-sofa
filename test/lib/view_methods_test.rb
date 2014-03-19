@@ -64,7 +64,7 @@ class ViewMethodsTest < ActionView::TestCase
   end
 
   def test_cms_page_block_content
-    assert_equal 'default_field_text_content', action_result('test_cms_page_block_content')
+    assert_match 'default_field_text_content', action_result('test_cms_page_block_content')
   end
 
   def test_cms_page_files
