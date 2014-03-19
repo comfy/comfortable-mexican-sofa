@@ -20,6 +20,10 @@ class Cms::Block < ActiveRecord::Base
   def tag
     @tag ||= page.tags(true).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
+
+  def raw_content
+    content.gsub('[[', '{{').gsub(']]', '}}')
+  end
   
 protected
   

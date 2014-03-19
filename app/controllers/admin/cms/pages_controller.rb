@@ -2,7 +2,7 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
   include ComfortableMexicanSofa::ViewMethods
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
-  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_action :load_cms_page,     :only => [:edit, :update, :destroy, :edit_block]
   before_action :preview_cms_page,  :only => [:create, :update]
   before_action :build_file,        :only => [:new, :edit]
 
@@ -95,20 +95,26 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     redirect_to edit_admin_cms_site_page_path(@site, @page)
   end
 
+  def edit_block
+    @block = @page.blocks.find(params[:block_id])
+    render :edit_block, layout: false
+  end
+  
   def update_block
+    # TODO refactor this into the load_cms_page filter
     begin
       page = @site.pages.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Cannot edit page #{params[:id]}" }
       return
     end
+    
+    block_params = update_block_params
 
-    params = update_block_params
-    params[:content] = params[:content]
-    block = page.blocks.where(:id => params[:id]).first
+    block = page.blocks.where(:id => block_params[:id]).first
 
-    unless block && block.update(params) && page.save
-      render json: { error: "Cannot edit page #{params[:id]}, please try again later" }, status: 422
+    unless block && block.update(block_params) && page.save
+      render json: { error: "Cannot edit page #{page.label}, please try again later" }, status: 422
       return
     end
 
@@ -157,8 +163,8 @@ protected
     params.fetch(:page, {}).permit!
   end
 
+
   def update_block_params
-    # params.permit(:block => [:id, :page_id, :content])
-    params.require(:block).permit(:id, :page_id, :content)
+    params.require(:block).permit(:id, :content)
   end
 end

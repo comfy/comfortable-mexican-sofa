@@ -4,38 +4,17 @@
 # Selectors
 #
 editable_box_selector   = '.inline-editable'
-editor_wrapper_selector = '#editorWrapper'
+editor_wrapper_id = 'editorWrapper'
+editor_wrapper_selector = "##{editor_wrapper_id}"
 editor_submit_status = '#editorSubmitStatus'
-editor_submit_status_wrapper = editor_submit_status+'Wrapper'
+editor_submit_status_wrapper = "#{editor_submit_status}Wrapper"
+inline_editor_selector = '#inlineEditor'
+close_editor_selector = '#closeEditor'
 
-htmlEditor = {}
-editorMetadata = {}
-toolbar = '
-<div id="wysihtml5-toolbar" style="display: none;">
-  <a data-wysihtml5-command="bold">bold</a>
-  <a data-wysihtml5-command="italic">italic</a>
-  
-  <!-- Some wysihtml5 commands require extra parameters -->
-  <!-- commenting this out for now. But maybe in the future dynamically create these based on the color scheme in our \'wizard\' -->
-  <!--
-  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a>
-  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a>
-  <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
-  -->
-  
-  <!-- Some wysihtml5 commands like \'createLink\' require extra paramaters specified by the user (eg. href) -->
-  <a data-wysihtml5-command="createLink">insert link</a>
-  <div data-wysihtml5-dialog="createLink" style="display: none;">
-    <label>
-      Link:
-      <input data-wysihtml5-dialog-field="href" value="http://" class="text">
-    </label>
-    <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
-  </div>
-</div>'
+# if you need to access the editor for some reason
+htmlEditor = false
 
-
-# hides the message box
+# hides the message box after 1.25 seconds
 hideMessage = (callback) ->
   $(editor_submit_status_wrapper).fadeOut 1250, ->
     callback()
@@ -45,117 +24,67 @@ showMessage = (message, class_name) ->
   # removeClass with no params removes all classes
   $(editor_submit_status_wrapper).show().find(editor_submit_status).removeClass().addClass(class_name).html(message)
 
-#
-# Handles response from data submission to back-end. Since page has changed,
-# a refresh should be triggered.
-#
-blockUpdateSuccess = (data, textStatus, jqXHR) ->
-  
+# fires on success of the form submission
+blockUpdateSuccess = (e, data) ->
   $("span[data-block-id='#{data.block_id}']").replaceWith(data.content)
   showMessage("Success!", "success")
   hideMessage(() ->
     $(editor_wrapper_selector).hide()
   );
-  initializeEdiatableAreas("span[data-block-id='#{data.block_id}']")
 
-blockUpdateError = (xhr) ->
+# fires on error of the form submisssion
+blockUpdateError = (e, xhr) ->
   error = $.parseJSON(xhr.responseText).error
-
   showMessage(error, "error")
 
+# adds an placeholder element for the form to be dropped into
+addFormPlaceHolder = () ->
+  editorWrapper = $("<div id=\"#{editor_wrapper_id}\"></div>")
+  $('body').append(editorWrapper)
 
-submitChangedBlock = () ->
-  # console.log('Submitting blocks')
-  showMessage('Saving...')
-  blockToSubmit = {
-    page_id: editorMetadata.page_id,
-    id: editorMetadata.block_id,
-    content: htmlEditor.getValue()
-  }
-  # console.log(blockToSubmit)
-
-  page_id = editorMetadata.page_id
-
-  target_url = "/cms-admin/pages/#{page_id}/update_block"
-
-  submitData = { block: blockToSubmit }
-  # console.log("Ready for POST submission to page #{page_id}: #{JSON.stringify(submitData)}")
-
-  $.ajax({
-    type: "POST",
-    url: target_url,
-    data: submitData,
-    success: blockUpdateSuccess
-    error: blockUpdateError
-  });
-  
-  false # Stop event's propagation
-
-instantiateForm = () ->
-  saveButton = $('<input id="submitChanges" type="submit" value="Save">')
-  saveButton.on('click', submitChangedBlock)
-
-  saveButtonWrapper = $('<div id="editorWrapper"></div>')
-  saveButtonWrapper.append('<div id="editorSubmitStatusWrapper" style="display:none"><span id="editorSubmitStatus"></span></div>')
-
-  saveButtonWrapper.append('
-    <form>
-      <a href="#" id="closeEditor">&times;</a>
-      <span id="editorTitle">Edit your content.</span>'+
-      toolbar+
-      '<textarea id="wysihtml5-textarea" placeholder="Enter your text ..." autofocus></textarea>
-    </form>
-  ').hide()
-
-  saveButtonWrapper.append(saveButton)
-  console.log(saveButtonWrapper.html())
-  $('body').append(saveButtonWrapper)
-  htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { parserRules:  wysihtml5ParserRules, toolbar: "wysihtml5-toolbar" })
-
-addCloseEvent = () ->
-  $('#closeEditor')
-    .on 'click', ->
+addEditorCloseEvents = () ->
+  $('body')
+    .on 'click', close_editor_selector, ->
       closeEditor()
 
   $(document).on 'keyup', (e) ->
     if e.keyCode == 27
       closeEditor()
-  
 
 closeEditor = () ->
-  editorMetadata.block_id = ''
   $(editor_wrapper_selector).hide()
 
-#
-# http://stackoverflow.com/questions/1391278/contenteditable-change-events
-#
-initializeEdiatableAreas = (selector=editable_box_selector) ->
+# retrievs the form from the endpoint in the admin.
+getForm = (element, callback) ->
+  editableArea = $(element)
+  block_id = editableArea.data('block-id')
+  page_id = editableArea.data('page-id')
+  url = "/cms-admin/pages/#{page_id}/edit_block/#{block_id}"
+  return $.get(url, callback)
+
+# sets up the click for the editable areas.
+initializeEdiatableAreas = () ->
   $('body')
-    .on 'click', selector, ->
-        $this = $(this)
-        $this.data 'before', $this.data('raw-content')
-        populateEditor($this)
-        return $this
-    .on 'blur keyup paste input', selector, ->
-        $this = $(this)
-        if $this.data('before') isnt $this.data('raw-content')
-          $this.data 'before', $this.data('raw-content')
-          $this.trigger('change')
-        return $this
+    .on 'click', editable_box_selector, ->
+        getForm this, (data) ->
+          editor_wrapper = $(editor_wrapper_selector).html(unescape(data))
+          htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { 
+            parserRules:  wysihtml5ParserRules,
+            toolbar: "wysihtml5-toolbar" 
+          })
+          $(editor_wrapper_selector).show()
 
-populateEditor = ($el) ->
-  editorMetadata.page_id  = $el.data('pageId')
-  editorMetadata.block_id = $el.data('blockId')
-
-  htmlEditor.clear()
-  htmlEditor.composer.commands.exec("insertHTML", $el.data('raw-content').replace('[[', '{{').replace(']]', '}}'))
-  $(editor_wrapper_selector).show()
+listenForSubmission = () ->
+  $(document)
+    .on 'ajax:beforeSend', inline_editor_selector, () ->
+      showMessage('Loading...', '')
+    .on 'ajax:success', inline_editor_selector, blockUpdateSuccess
+    .on 'ajax:error', inline_editor_selector, blockUpdateError
 
 $ ->
-  # console?.log('inside cms_edit_content')
-
+  addFormPlaceHolder()
   initializeEdiatableAreas()
-  instantiateForm()
-  addCloseEvent()
+  listenForSubmission()
+  addEditorCloseEvents()
 
   return
