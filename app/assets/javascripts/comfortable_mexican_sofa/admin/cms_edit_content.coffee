@@ -40,7 +40,7 @@ blockUpdateError = (e, xhr) ->
 # adds an placeholder element for the form to be dropped into
 addFormPlaceHolder = () ->
   editorWrapper = $("<div id=\"#{editor_wrapper_id}\"></div>")
-  $('body').append(editorWrapper)
+  $('body').append(editorWrapper.hide())
 
 addEditorCloseEvents = () ->
   $('body')
