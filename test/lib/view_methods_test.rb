@@ -44,8 +44,6 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal 'hello', cms_block_render(:default_page_text)
   end
   
-  
-  
   def test_cms_block_missing
     assert_equal '', cms_block_content(:invalid)
     assert_equal '', cms_block_content(:invalid, @cms_page)
@@ -89,6 +87,11 @@ class ViewMethodsTest < ActionView::TestCase
   def test_cms_snippet_missing
     assert_equal '', cms_snippet_content(:invalid)
     assert_equal '', cms_snippet_render(:invalid)
+  end
+  
+  def test_cms_snippet_render_with_no_site
+    @cms_site = nil
+    assert_equal '', cms_snippet_render(:default)
   end
   
   def test_cms_snippet_render

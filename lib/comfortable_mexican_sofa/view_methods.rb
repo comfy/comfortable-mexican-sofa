@@ -44,6 +44,7 @@ module ComfortableMexicanSofa::ViewMethods
   
     # Same as cms_snippet_content but cms tags will be expanded
     def cms_snippet_render(identifier, cms_site = @cms_site, &block)
+      return '' unless cms_site
       content = cms_snippet_content(identifier, cms_site, &block)
       render :inline => ComfortableMexicanSofa::Tag.process_content(
         cms_site.pages.build, ComfortableMexicanSofa::Tag.sanitize_irb(content)
