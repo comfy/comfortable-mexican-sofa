@@ -116,7 +116,7 @@ class Cms::Page < ActiveRecord::Base
   end
   
   # Cached content accessor
-  def content(render_without_cache = true)
+  def content(render_without_cache = false)
     if render_without_cache
       self.render(true)
     else

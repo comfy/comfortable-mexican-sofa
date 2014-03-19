@@ -18,7 +18,7 @@ class Cms::ContentController < Cms::BaseController
       if current_admin_cms_user
         content = @cms_page.content(true) + injected_admin_javascript
       else
-        content = @cms_page.content
+        content = @cms_page.content(false)
       end
 
       render :inline => content, :layout => app_layout, :status => status, :content_type => 'text/html'
