@@ -22,7 +22,7 @@ class Cms::Block < ActiveRecord::Base
   end
 
   def raw_content
-    content.gsub('[[', '{{').gsub(']]', '}}')
+    content.gsub('{{', '[[').gsub('}}', ']]')
   end
   
 protected
