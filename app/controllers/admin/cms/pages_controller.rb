@@ -111,16 +111,20 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     
     block_params = update_block_params
 
-    block = page.blocks.where(:id => block_params[:id]).first
+    @block = page.blocks.where(:id => block_params[:id]).first
 
-    unless block && block.update(block_params) && page.save
+    unless @block && @block.update(block_params) && page.save
       render json: { error: "Cannot edit page #{page.label}, please try again later" }, status: 422
       return
     end
 
-    @content = cms_page_block_content(block.identifier.to_sym, page)
-    @block_id = block.id
-    render :update_block, layout: false
+    # HACK HACK HACK HACK!!!!!
+    # Set @cms_site so that rendered partials which expect @cms_site to be available have it
+    @cms_site ||= @site
+    
+    @content = cms_page_block_content(@block.identifier.to_sym, page)
+
+    render :update_block, layout: false, status: 200
   end
 
 protected

@@ -1,6 +1,6 @@
 #editorSubmitStatusWrapper{style: "display:none"}
   %span#editorSubmitStatus
-= form_for :block, html: {id: "inlineEditor"}, :url => update_block_admin_cms_page_path(@page), data: {remote: true} do |f|
+= form_for :block, html: {id: "inlineEditor"}, url: update_block_admin_cms_page_path(@page), data: {remote: true} do |f|
   = f.hidden_field "id", value: @block.id
   %a#closeEditor{href: "#"} &times;
   %span#editorTitle Edit your content.
