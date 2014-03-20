@@ -101,14 +101,13 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
   end
   
   def update_block
-    # TODO refactor this into the load_cms_page filter
     begin
       page = @site.pages.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Cannot edit page #{params[:id]}" }, status: 422
       return
     end
-    
+
     block_params = update_block_params
 
     @block = page.blocks.where(:id => block_params[:id]).first
