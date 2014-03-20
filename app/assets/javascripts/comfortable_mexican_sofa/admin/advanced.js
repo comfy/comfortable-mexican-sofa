@@ -77,9 +77,6 @@ var wysihtml5ParserRules = {
         "strike": {
             "remove": 1
         },
-        "form": {
-            "rename_tag": "div"
-        },
         "rt": {
             "rename_tag": "span"
         },
