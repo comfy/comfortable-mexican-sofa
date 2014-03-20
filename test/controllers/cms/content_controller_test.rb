@@ -16,13 +16,10 @@ class Cms::ContentControllerTest < ActionController::TestCase
       default_page_text_content_b
       layout_content_b
       default_snippet_content
-      layout_content_c).each do |item|
+      layout_content_c
+      edit_content).each do |item|
         assert_match item, response.body
       end
-
-    ['advanced.js', 'wysihtml5-0.3.0.custom.js', 'cms_edit_content.js', 'wysihtml5_overrides.css'].each do |included_item|
-      assert_match included_item, response.body
-    end
 
     assert_equal 'text/html', response.content_type
   end
