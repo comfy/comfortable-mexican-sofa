@@ -118,7 +118,9 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
       return
     end
 
-    render json: { content: cms_page_block_content(block.identifier.to_sym, page), block_id: block.id }
+    @content = cms_page_block_content(block.identifier.to_sym, page)
+    @block_id = block.id
+    render :update_block, layout: false
   end
 
 protected
