@@ -10,6 +10,9 @@ editor_submit_status = '#editorSubmitStatus'
 editor_submit_status_wrapper = "#{editor_submit_status}Wrapper"
 inline_editor_selector = '#inlineEditor'
 close_editor_selector = '#closeEditor'
+editor_select_images_selector = '#editor_comfy_image_to_insert'
+image_url_separator = ' # '
+image_preview_selector = '#editor_comfy_image_preview'
 
 # if you need to access the editor for some reason
 htmlEditor = false
@@ -62,16 +65,30 @@ getForm = (element, callback) ->
   url = "/cms-admin/pages/#{page_id}/edit_block/#{block_id}"
   return $.get(url, callback)
 
+
+# Attach image box population function.
+populatePreviewAreaWithSelectedImage = (e) ->
+  console.info('populatePreviewAreaWithSelectedImage')
+  # console.info(e)
+
+  $this = $(this)
+  # console.info($this.val())
+  image_url = $this.val().split(image_url_separator)[1]
+  $(image_preview_selector).attr('src', image_url)
+  $(image_preview_selector).show()
+  true # Allow propagation
+
 # sets up the click for the editable areas.
 initializeEdiatableAreas = () ->
   $('body')
     .on 'click', editable_box_selector, ->
         getForm this, (data) ->
           editor_wrapper = $(editor_wrapper_selector).html(unescape(data))
-          htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", { 
+          htmlEditor = new wysihtml5.Editor("wysihtml5-textarea", {
             parserRules:  wysihtml5ParserRules,
-            toolbar: "wysihtml5-toolbar" 
+            toolbar: "wysihtml5-toolbar"
           })
+          $(editor_select_images_selector).on('change', populatePreviewAreaWithSelectedImage)
           $(editor_wrapper_selector).show()
 
 listenForSubmission = () ->

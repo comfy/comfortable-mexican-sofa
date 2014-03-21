@@ -6989,7 +6989,8 @@ wysihtml5.Commands = Base.extend(
       /* if (typeof value !== "undefined" && value !== null ? value.comfy_image : void 0) {
         return;
       } */
-      value = "{{ cms:file:" + value.comfy_image.trim() + ":image }}";
+      var urlSeparator = ' # ';
+      value = "{{ cms:file:" + value.comfy_image.trim().split(urlSeparator)[0] + ":image }}";
       composer.commands.exec("insertImage", { src: value });
     },
 
