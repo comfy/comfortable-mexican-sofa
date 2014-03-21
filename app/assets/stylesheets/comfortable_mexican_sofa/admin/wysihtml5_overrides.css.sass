@@ -51,6 +51,7 @@ body#comfy
 #closeEditor
   position: absolute
   top: 3px
+  resize: none
   right: 3px
   background: white
   border: 1px solid black
@@ -58,13 +59,14 @@ body#comfy
   height: 16px
   line-height: 1
   color: black
-  text-align: center
 
 #editorTitle
   font-size: 20px
   color: white
   margin-bottom: 4px
   display: inline-block
+  font-family: arial
+  line-height: 1
 
 #wysihtml5-toolbar
   a
@@ -100,6 +102,7 @@ body#comfy
     text-shadow: 1px 1px 0px white
     padding: 5px
     margin-bottom: 4px
+    line-height: 1
     &:hover
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed))
       background: -moz-linear-gradient(center top, #dfdfdf 5%, #ededed 100%)
@@ -108,8 +111,26 @@ body#comfy
     &:active
       position: relative
       top: 1px
+#submitChanges
+  background-color: white
+  border: 2px inset
+  cursor: auto
+  color: black
+  font-size: 18px
+  text-transform: none
+  font-family: arial
+  border: 1px solid black
+  box-shadow: none
+  margin-top: 10px
+  padding: 4px
+  border-radius: 3px
+  line-height: 1
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+    color: white
+    background: black
 
 body span.inline-editable
-  border: 1px dashed black
   display: block
   min-height: 5px
