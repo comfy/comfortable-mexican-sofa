@@ -4765,6 +4765,20 @@ wysihtml5.dom.parse = (function() {
    * which later replaces the entire body content
    */
   function parse(elementOrHtml, rules, context, cleanUp) {
+    // disabling the parser its messing lots up, but im keeping some of the stuff it does
+    // https://github.com/xing/wysihtml5/issues/188#issuecomment-19628428
+    return elementOrHtml;
+    var isString = typeof(elementOrHtml) === "string";
+
+    if (isString) {
+      element = wysihtml5.dom.getAsDom(elementOrHtml, context);
+    } else {
+      element = elementOrHtml;
+    }
+
+    return isString ? wysihtml5.quirks.getCorrectInnerHTML(element) : element;
+
+
     wysihtml5.lang.object(currentRules).merge(defaultRules).merge(rules).get();
     
     context           = context || elementOrHtml.ownerDocument || document;

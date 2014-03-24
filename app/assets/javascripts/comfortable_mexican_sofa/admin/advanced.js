@@ -68,6 +68,11 @@ var wysihtml5ParserRules = {
      *                            - alt:            strips unwanted characters. if the attribute is not set, then it gets set (to ensure valid and compatible HTML)
      *                            - numbers:  ensures that the attribute only contains numeric characters
      */
+
+     /* the parser has been disabled wysihtml5-0.3.0.custom.js:4768
+        So these rules do bugger all */
+    "tags": {}
+    /* 
     "tags": {
         "tr": {
             "add_class": {
@@ -225,6 +230,9 @@ var wysihtml5ParserRules = {
         "div": {
             "add_class": {
                 "align": "align_text"
+            },
+            "check_attributes": {
+                "id": "alt"
             }
         },
         "option": {
@@ -512,6 +520,11 @@ var wysihtml5ParserRules = {
         },
         "header": {
             "rename_tag": "div"
-        }
+        },
+        "main" : {},
+        "label" : {},
+        "input" : {},
+        "form" : {}
     }
+    */
 };
