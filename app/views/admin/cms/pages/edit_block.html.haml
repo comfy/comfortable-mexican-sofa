@@ -12,10 +12,20 @@
     / <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a>
     / Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href)
     %a{"data-wysihtml5-command" => "createLink"} Link
+    %a{"data-wysihtml5-command" => "createImageLink"} CMS Image
     %div{"data-wysihtml5-dialog" => "createLink", style: "display: none;"}
       %label
         Link:
         %input.text{"data-wysihtml5-dialog-field" => "href", value: "http://"}/
+      %a{"data-wysihtml5-dialog-action" => "save"} OK
+      %a{"data-wysihtml5-dialog-action" => "cancel"} Cancel
+
+    %div{"data-wysihtml5-dialog" => "createImageLink", style: "display: none;"}
+      %label
+        CMS Images:
+        %div.selectorWrapper
+          = select_tag(:editor_comfy_image_to_insert, options_for_select(@files_and_urls), "data-wysihtml5-dialog-field" => 'comfy_image')
+          %img{:src => '#', :id => 'editor_comfy_image_preview', style: "display: none;"}
       %a{"data-wysihtml5-dialog-action" => "save"} OK
       %a{"data-wysihtml5-dialog-action" => "cancel"} Cancel
   = f.text_area "content", {id: "wysihtml5-textarea", placeholder: "Enter your text ...", value: @block.content}

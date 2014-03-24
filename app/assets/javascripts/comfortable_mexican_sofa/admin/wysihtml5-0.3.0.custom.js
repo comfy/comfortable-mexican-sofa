@@ -6997,6 +6997,26 @@ wysihtml5.Commands = Base.extend(
       return undef;
     }
   };
+
+  wysihtml5.commands.createImageLink = {
+    exec: function(composer, command, value) {
+      /* if (typeof value !== "undefined" && value !== null ? value.comfy_image : void 0) {
+        return;
+      } */
+      var urlSeparator = ' # ';
+      value = "{{ cms:file:" + value.comfy_image.trim().split(urlSeparator)[0] + ":image }}";
+      composer.commands.exec("insertImage", { src: value });
+    },
+
+    state: function(composer, command) {
+      return undef;
+    },
+
+    value: function() {
+      return undef;
+    }
+  };
+
 })(wysihtml5);/**
  * document.execCommand("fontSize") will create either inline styles (firefox, chrome) or use font tags
  * which we don't want

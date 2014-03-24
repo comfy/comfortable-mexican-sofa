@@ -99,6 +99,10 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
 
   def edit_block
     @block = @page.blocks.find(params[:block_id])
+    @files_and_urls = @site.files
+      .where('strpos(file_content_type, ?) > 0', "image")
+      .map { |image| [image.file_file_name, image.file_file_name + ' # ' + image.file.url] }
+
     render :edit_block, layout: false
   end
   
