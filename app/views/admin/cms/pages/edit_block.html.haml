@@ -25,6 +25,7 @@
         CMS Images:
         %div.selectorWrapper
           = select_tag(:editor_comfy_image_to_insert, options_for_select(@files_and_urls), "data-wysihtml5-dialog-field" => 'comfy_image')
+        %div.imageWrapper
           %img{:src => '#', :id => 'editor_comfy_image_preview', style: "display: none;"}
       %a{"data-wysihtml5-dialog-action" => "save"} OK
       %a{"data-wysihtml5-dialog-action" => "cancel"} Cancel
