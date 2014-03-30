@@ -5,18 +5,18 @@ require_relative '../../test_helper'
 class FixturePagesTest < ActiveSupport::TestCase
   
   def test_creation
-    Cms::Page.delete_all
+    Comfy::Cms::Page.delete_all
     
-    layout = cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     layout.update_column(:content, '<html>{{cms:page:content}}</html>')
     
-    nested = cms_layouts(:nested)
+    nested = comfy_cms_layouts(:nested)
     nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
     
-    assert_difference 'Cms::Page.count', 2 do
+    assert_difference 'Comfy::Cms::Page.count', 2 do
       ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
       
-      assert page = Cms::Page.where(:full_path => '/').first
+      assert page = Comfy::Cms::Page.where(:full_path => '/').first
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content_cache
@@ -25,7 +25,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal 2, page.categories.count
       assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
       
-      assert child_page = Cms::Page.where(:full_path => '/child').first
+      assert child_page = Comfy::Cms::Page.where(:full_path => '/child').first
       assert_equal page, child_page.parent
       assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug
@@ -37,29 +37,29 @@ class FixturePagesTest < ActiveSupport::TestCase
   end
   
   def test_update
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     page.update_column(:updated_at, 10.years.ago)
     assert_equal 'Default Page', page.label
     
-    child = cms_pages(:child)
+    child = comfy_cms_pages(:child)
     child.update_column(:slug, 'old')
     
-    assert_no_difference 'Cms::Page.count' do
+    assert_no_difference 'Comfy::Cms::Page.count' do
       ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
       
       page.reload
       assert_equal 'Home Fixture Page', page.label
       
-      assert_nil Cms::Page.where(:slug => 'old').first
+      assert_nil Comfy::Cms::Page.where(:slug => 'old').first
     end
   end
   
   def test_update_ignore
-    Cms::Page.destroy_all
+    Comfy::Cms::Page.destroy_all
     
-    page = cms_sites(:default).pages.create!(
+    page = comfy_cms_sites(:default).pages.create!(
       :label  => 'Test',
-      :layout => cms_layouts(:default),
+      :layout => comfy_cms_layouts(:default),
       :blocks_attributes => [ { :identifier => 'content', :content => 'test content' } ]
     )
     
@@ -80,7 +80,7 @@ class FixturePagesTest < ActiveSupport::TestCase
   end
   
   def test_update_force
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
     assert_equal 'Default Page', page.label
@@ -91,11 +91,11 @@ class FixturePagesTest < ActiveSupport::TestCase
   end
   
   def test_update_removing_deleted_blocks
-    Cms::Page.destroy_all
+    Comfy::Cms::Page.destroy_all
     
-    page = cms_sites(:default).pages.create!(
+    page = comfy_cms_sites(:default).pages.create!(
       :label  => 'Test',
-      :layout => cms_layouts(:default),
+      :layout => comfy_cms_layouts(:default),
       :blocks_attributes => [ { :identifier => 'to_delete', :content => 'test content' } ]
     )
     page.update_column(:updated_at, 10.years.ago)
@@ -110,9 +110,9 @@ class FixturePagesTest < ActiveSupport::TestCase
   end
   
   def test_export
-    cms_pages(:default).update_attribute(:target_page, cms_pages(:child))
-    cms_categories(:default).categorizations.create!(
-      :categorized => cms_pages(:default)
+    comfy_cms_pages(:default).update_attribute(:target_page, comfy_cms_pages(:child))
+    comfy_cms_categories(:default).categorizations.create!(
+      :categorized => comfy_cms_pages(:default)
     )
     
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
@@ -132,8 +132,8 @@ class FixturePagesTest < ActiveSupport::TestCase
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_1_attr_path)
-    assert_equal cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
-    assert_equal cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
+    assert_equal comfy_cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
+    assert_equal comfy_cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
     
     assert_equal ({
       'label'         => 'Child Page',

@@ -4,12 +4,32 @@ class UpgradeTo1120 < ActiveRecord::Migration
     add_index :cms_blocks, :blockable_type
 
     rename_column :cms_blocks, :page_id, :blockable_id
-    execute("UPDATE cms_blocks SET blockable_type = 'Cms::Page'")
+    execute("UPDATE cms_blocks SET blockable_type = 'Comfy::Cms::Page'")
 
     rename_column :cms_pages, :content, :content_cache
+    
+    rename_table :cms_sites,            :comfy_cms_sites
+    rename_table :cms_layouts,          :comfy_cms_layouts
+    rename_table :cms_pages,            :comfy_cms_pages
+    rename_table :cms_blocks,           :comfy_cms_blocks
+    rename_table :cms_snippets,         :comfy_cms_snippets
+    rename_table :cms_files,            :comfy_cms_files
+    rename_table :cms_revisions,        :comfy_cms_revisions
+    rename_table :cms_categories,       :comfy_cms_categories
+    rename_table :cms_categorizations,  :comfy_cms_categorizations
   end
 
   def self.down
+    rename_table :comfy_cms_sites,            :cms_sites
+    rename_table :comfy_cms_layouts,          :cms_layouts
+    rename_table :comfy_cms_pages,            :cms_pages
+    rename_table :comfy_cms_blocks,           :cms_blocks
+    rename_table :comfy_cms_snippets,         :cms_snippets
+    rename_table :comfy_cms_files,            :cms_files
+    rename_table :comfy_cms_revisions,        :cms_revisions
+    rename_table :comfy_cms_categories,       :cms_categories
+    rename_table :comfy_cms_categorizations,  :cms_categorizations
+    
     remove_index :cms_blocks, :blockable_type
     remove_column :cms_blocks, :blockable_type
     rename_column :cms_blocks, :blockable_id, :page_id

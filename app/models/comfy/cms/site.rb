@@ -1,5 +1,5 @@
-class Cms::Site < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Site < ActiveRecord::Base
+  self.table_name = 'comfy_cms_sites'
   
   # -- Relationships --------------------------------------------------------
   with_options :dependent => :destroy do |site|
@@ -33,11 +33,11 @@ class Cms::Site < ActiveRecord::Base
   scope :mirrored, -> { where(:is_mirrored => true) }
   
   # -- Class Methods --------------------------------------------------------
-  # returning the Cms::Site instance based on host and path
+  # returning the Comfy::Cms::Site instance based on host and path
   def self.find_site(host, path = nil)
-    return Cms::Site.first if Cms::Site.count == 1
+    return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
     cms_site = nil
-    Cms::Site.where(:hostname => real_host_from_aliases(host)).each do |site|
+    Comfy::Cms::Site.where(:hostname => real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
       elsif "#{path.to_s.split('?')[0]}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
@@ -90,7 +90,7 @@ protected
   def sync_mirrors
     return unless is_mirrored_changed? && is_mirrored?
     
-    [self, Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
+    [self, Comfy::Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
       (site.layouts(:reload).roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       (site.pages(:reload).roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       site.snippets(:reload).map(&:sync_mirror)

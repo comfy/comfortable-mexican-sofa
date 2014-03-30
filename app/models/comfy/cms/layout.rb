@@ -1,5 +1,7 @@
-class Cms::Layout < ActiveRecord::Base
-  include Cms::Base
+# encoding: utf-8
+
+class Comfy::Cms::Layout < ActiveRecord::Base
+  self.table_name = 'comfy_cms_layouts'
   
   cms_acts_as_tree
   cms_is_mirrored
@@ -26,7 +28,7 @@ class Cms::Layout < ActiveRecord::Base
     :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope -> { order('cms_layouts.position') }
+  default_scope -> { order('comfy_cms_layouts.position') }
   
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
@@ -81,7 +83,7 @@ protected
   
   # Forcing page content reload
   def clear_page_content_cache
-    Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content_cache => nil)
+    Comfy::Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content_cache => nil)
     self.children.each{ |child_layout| child_layout.clear_page_content_cache }
   end
   

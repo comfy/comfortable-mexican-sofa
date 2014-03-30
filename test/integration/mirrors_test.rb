@@ -3,13 +3,13 @@ require_relative '../test_helper'
 class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   
   def setup
-    @site_a = cms_sites(:default)
+    @site_a = comfy_cms_sites(:default)
     @site_a.update_columns(:is_mirrored => true)
-    @site_b = Cms::Site.create!(:identifier => 'test_b', :hostname => 'test-b.host', :is_mirrored => true)
+    @site_b = Comfy::Cms::Site.create!(:identifier => 'test_b', :hostname => 'test-b.host', :is_mirrored => true)
     # making mirrors
-    Cms::Layout.all.each{ |l| l.save! }
-    Cms::Page.all.each{ |p| p.save! }
-    Cms::Snippet.all.each { |s| s.save! }
+    Comfy::Cms::Layout.all.each{ |l| l.save! }
+    Comfy::Cms::Page.all.each{ |p| p.save! }
+    Comfy::Cms::Snippet.all.each { |s| s.save! }
   end
   
   def test_get_layouts
@@ -21,7 +21,7 @@ class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_layouts_edit
-    layout = cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     assert mirror = layout.mirrors.first
     
     http_auth :get, edit_admin_cms_site_layout_path(@site_a, layout)
@@ -40,7 +40,7 @@ class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_pages_edit
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     assert mirror = page.mirrors.first
     
     http_auth :get, edit_admin_cms_site_page_path(@site_a, page)
@@ -59,7 +59,7 @@ class MirrorsIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_snippets_edit
-    snippet = cms_snippets(:default)
+    snippet = comfy_cms_snippets(:default)
     assert mirror = snippet.mirrors.first
     
     http_auth :get, edit_admin_cms_site_snippet_path(@site_a, snippet)

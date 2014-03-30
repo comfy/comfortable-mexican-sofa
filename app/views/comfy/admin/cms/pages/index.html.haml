@@ -7,7 +7,7 @@
 
 = render 'comfy/admin/cms/partials/pages_before'
 
-= render :partial => 'comfy/admin/cms/categories/index', :object => 'Cms::Page'
+= render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::Page'
 
 %ul.list.sortable
   = render :partial => 'index_branch', :collection => @pages

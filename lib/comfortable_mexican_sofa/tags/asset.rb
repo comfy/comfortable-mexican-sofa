@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Tag::Asset
   end
 
   def content
-    return unless (layout = Cms::Layout.find_by_identifier(identifier))
+    return unless (layout = Comfy::Cms::Layout.find_by_identifier(identifier))
     type    = params[0]
     format  = params[1]
     

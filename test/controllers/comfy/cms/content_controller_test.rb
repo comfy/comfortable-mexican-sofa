@@ -4,9 +4,9 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show
     get :show, :cms_path => ''
-    assert_equal cms_sites(:default), assigns(:cms_site)
-    assert_equal cms_layouts(:default), assigns(:cms_layout)
-    assert_equal cms_pages(:default), assigns(:cms_page)
+    assert_equal comfy_cms_sites(:default), assigns(:cms_site)
+    assert_equal comfy_cms_layouts(:default), assigns(:cms_layout)
+    assert_equal comfy_cms_pages(:default), assigns(:cms_page)
 
     assert_response :success
     assert_equal rendered_content_formatter(
@@ -42,7 +42,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
       default_snippet_content
       layout_content_c'
     )
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     json_response = JSON.parse(response.body)
     assert_equal page.id,         json_response['id']
     assert_equal page.site.id,    json_response['site_id']
@@ -59,7 +59,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_with_app_layout
-    cms_layouts(:default).update_columns(:app_layout => 'comfy/admin/cms')
+    comfy_cms_layouts(:default).update_columns(:app_layout => 'comfy/admin/cms')
     get :show, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
@@ -67,7 +67,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_with_xhr
-    cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
+    comfy_cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
     xhr :get, :show, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
@@ -81,11 +81,11 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_not_found_with_custom_404
-    page = cms_sites(:default).pages.create!(
+    page = comfy_cms_sites(:default).pages.create!(
       :label          => '404',
       :slug           => '404',
-      :parent_id      => cms_pages(:default).id,
-      :layout_id      => cms_layouts(:default).id,
+      :parent_id      => comfy_cms_pages(:default).id,
+      :layout_id      => comfy_cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
         { :identifier => 'default_page_text',
@@ -101,7 +101,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_with_no_site
-    Cms::Site.destroy_all
+    Comfy::Cms::Site.destroy_all
 
     assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
       get :show, :cms_path => ''
@@ -109,7 +109,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_with_no_layout
-    Cms::Layout.destroy_all
+    Comfy::Cms::Layout.destroy_all
 
     get :show, :cms_path => ''
     assert_response 404
@@ -117,15 +117,15 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_with_redirect
-    cms_pages(:child).update_columns(:target_page_id => cms_pages(:default).id)
-    assert_equal cms_pages(:default), cms_pages(:child).target_page
+    comfy_cms_pages(:child).update_columns(:target_page_id => comfy_cms_pages(:default).id)
+    assert_equal comfy_cms_pages(:default), comfy_cms_pages(:child).target_page
     get :show, :cms_path => 'child-page'
     assert_response :redirect
-    assert_redirected_to cms_pages(:default).url
+    assert_redirected_to comfy_cms_pages(:default).url
   end
 
   def test_show_unpublished
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     page.update_columns(:is_published => false)
 
     assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
@@ -136,11 +136,11 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   def test_show_with_irb_disabled
     assert_equal false, ComfortableMexicanSofa.config.allow_irb
 
-    irb_page = cms_sites(:default).pages.create!(
+    irb_page = comfy_cms_sites(:default).pages.create!(
       :label          => 'irb',
       :slug           => 'irb',
-      :parent_id      => cms_pages(:default).id,
-      :layout_id      => cms_layouts(:default).id,
+      :parent_id      => comfy_cms_pages(:default).id,
+      :layout_id      => comfy_cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
         { :identifier => 'default_page_text',
@@ -155,11 +155,11 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   def test_show_with_irb_enabled
     ComfortableMexicanSofa.config.allow_irb = true
 
-    irb_page = cms_sites(:default).pages.create!(
+    irb_page = comfy_cms_sites(:default).pages.create!(
       :label          => 'irb',
       :slug           => 'irb',
-      :parent_id      => cms_pages(:default).id,
-      :layout_id  => cms_layouts(:default).id,
+      :parent_id      => comfy_cms_pages(:default).id,
+      :layout_id  => comfy_cms_layouts(:default).id,
       :is_published   => '1',
       :blocks_attributes => [
         { :identifier => 'default_page_text',
@@ -178,17 +178,17 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_render_sitemap_with_path
-    site = cms_sites(:default)
+    site = comfy_cms_sites(:default)
     site.update_columns(:path => 'en')
 
     get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
-    assert_equal cms_sites(:default), assigns(:cms_site)
+    assert_equal comfy_cms_sites(:default), assigns(:cms_site)
     assert_match '<loc>//test.host/en/child-page</loc>', response.body
   end
 
   def test_render_sitemap_with_path_invalid_with_single_site
-    site = cms_sites(:default)
+    site = comfy_cms_sites(:default)
     site.update_columns(:path => 'en')
 
     assert_exception_raised ActionController::RoutingError, 'Site Not Found' do

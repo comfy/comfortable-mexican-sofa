@@ -12,9 +12,9 @@ class ViewMethodsTest < ActionView::TestCase
   ActionView::Base.send :include, TestViewHelpers
   
   def setup
-    @cms_site = cms_sites(:default)
-    @cms_page = cms_pages(:default)
-    cms_blocks(:default_page_text).update_column(:content, 'default_page_text_content')
+    @cms_site = comfy_cms_sites(:default)
+    @cms_page = comfy_cms_pages(:default)
+    comfy_cms_blocks(:default_page_text).update_column(:content, 'default_page_text_content')
   end
   
   def test_cms_block_content
@@ -33,13 +33,13 @@ class ViewMethodsTest < ActionView::TestCase
   end
   
   def test_cms_block_with_erb
-    cms_blocks(:default_page_text).update_column(:content, '<%= 1 + 1 %>')
+    comfy_cms_blocks(:default_page_text).update_column(:content, '<%= 1 + 1 %>')
     assert_equal '<%= 1 + 1 %>', cms_block_content(:default_page_text)
     assert_equal '&lt;%= 1 + 1 %&gt;', cms_block_render(:default_page_text)
   end
   
   def test_cms_block_with_tags
-    cms_blocks(:default_page_text).update_column(:content, '{{ cms:helper:hello }}')
+    comfy_cms_blocks(:default_page_text).update_column(:content, '{{ cms:helper:hello }}')
     assert_equal '{{ cms:helper:hello }}', cms_block_content(:default_page_text)
     assert_equal 'hello', cms_block_render(:default_page_text)
   end
@@ -99,23 +99,23 @@ class ViewMethodsTest < ActionView::TestCase
   end
   
   def test_cms_snippet_with_erb
-    cms_snippets(:default).update_column(:content, '<%= 1 + 1 %>')
+    comfy_cms_snippets(:default).update_column(:content, '<%= 1 + 1 %>')
     assert_equal '<%= 1 + 1 %>', cms_snippet_content(:default)
     assert_equal '&lt;%= 1 + 1 %&gt;', cms_snippet_render(:default)
   end
   
   def test_cms_snippet_render_with_tags
-    cms_snippets(:default).update_column(:content, '{{ cms:helper:hello }}')
+    comfy_cms_snippets(:default).update_column(:content, '{{ cms:helper:hello }}')
     assert_equal 'hello', cms_snippet_render(:default)
   end
   
   def test_cms_snippet_content_with_block
-    assert_difference 'Cms::Snippet.count' do
+    assert_difference 'Comfy::Cms::Snippet.count' do
       content = cms_snippet_content(:new_snippet) do
         'new content'
       end
       assert_equal 'new content', content
-      snippet = Cms::Snippet.last
+      snippet = Comfy::Cms::Snippet.last
       assert_equal 'new content', snippet.content
       assert_equal @cms_site, snippet.site
     end

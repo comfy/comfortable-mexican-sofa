@@ -6,9 +6,9 @@ protected
 
   def load_cms_site
     @cms_site ||= if params[:site_id]
-      ::Cms::Site.find_by_id(params[:site_id])
+      ::Comfy::Cms::Site.find_by_id(params[:site_id])
     else
-      ::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
+      ::Comfy::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
     end
     
     if @cms_site

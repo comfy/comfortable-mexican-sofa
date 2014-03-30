@@ -1,5 +1,5 @@
-class Cms::File < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::File < ActiveRecord::Base
+  self.table_name = 'comfy_cms_files'
   
   IMAGE_MIMETYPES = %w(gif jpeg pjpeg png tiff).collect{|subtype| "image/#{subtype}"}
   
@@ -54,7 +54,7 @@ protected
   end
   
   def assign_position
-    max = Cms::File.maximum(:position)
+    max = Comfy::Cms::File.maximum(:position)
     self.position = max ? max + 1 : 0
   end
   

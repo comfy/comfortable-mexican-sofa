@@ -7,9 +7,9 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
   before_action :load_site,   :only => [:edit, :update, :destroy]
 
   def index
-    return redirect_to :action => :new if ::Cms::Site.count == 0
-    @site = ::Cms::Site.find_by_id(session[:site_id])
-    @sites ||= ::Cms::Site.all
+    return redirect_to :action => :new if ::Comfy::Cms::Site.count == 0
+    @site = ::Comfy::Cms::Site.find_by_id(session[:site_id])
+    @sites ||= ::Comfy::Cms::Site.all
   end
 
   def new
@@ -47,12 +47,12 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
 protected
 
   def build_site
-    @site = ::Cms::Site.new(site_params)
+    @site = ::Comfy::Cms::Site.new(site_params)
     @site.hostname ||= request.host.downcase
   end
 
   def load_site
-    @site = ::Cms::Site.find(params[:id])
+    @site = ::Comfy::Cms::Site.find(params[:id])
     I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('comfy.admin.cms.sites.not_found')

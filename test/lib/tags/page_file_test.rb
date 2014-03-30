@@ -4,7 +4,7 @@ class PageFileTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
-      cms_pages(:default), '{{ cms:page_file:label }}'
+      comfy_cms_pages(:default), '{{ cms:page_file:label }}'
     )
     assert_equal 'label', tag.identifier
     assert_nil tag.namespace
@@ -12,12 +12,12 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_equal nil, tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
-      cms_pages(:default), '{{ cms:page_file:label:partial }}'
+      comfy_cms_pages(:default), '{{ cms:page_file:label:partial }}'
     )
     assert_equal 'partial', tag.type
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
-      cms_pages(:default), '{{ cms:page_file:namespace.label:partial }}'
+      comfy_cms_pages(:default), '{{ cms:page_file:namespace.label:partial }}'
     )
     assert_equal 'namespace.label', tag.identifier
     assert_equal 'namespace', tag.namespace
@@ -25,7 +25,7 @@ class PageFileTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag_with_dimentions
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
-      cms_pages(:default), '{{ cms:page_file:label:image[100x100#] }}'
+      comfy_cms_pages(:default), '{{ cms:page_file:label:image[100x100#] }}'
     )
     assert_equal 'image', tag.type
     assert_equal '100x100#', tag.dimensions
@@ -38,13 +38,13 @@ class PageFileTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
-        cms_pages(:default), tag_signature
+        comfy_cms_pages(:default), tag_signature
       )
     end
   end
   
   def test_content_and_render
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file:partial }}')
     assert_equal "<%= render :partial => 'partials/page_file', :locals => {:identifier => nil} %>", tag.render
@@ -98,19 +98,19 @@ class PageFileTagTest < ActiveSupport::TestCase
   end
   
   def test_content_and_render_with_dimentions
-    layout = cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     layout.update_attributes(:content => '{{ cms:page_file:file:image[10x10#] }}')
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     
-    assert_difference 'Cms::File.count' do
+    assert_difference 'Comfy::Cms::File.count' do
       page.update_attributes!(
         :blocks_attributes => [
           { :identifier => 'file',
             :content    => upload }
         ]
       )
-      file = Cms::File.last
+      file = Comfy::Cms::File.last
       assert_equal 'image.jpg', file.file_file_name
       # assert file.file_file_size < upload.size
     end

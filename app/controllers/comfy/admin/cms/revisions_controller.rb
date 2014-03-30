@@ -9,7 +9,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   
   def show
     case @record
-    when Cms::Page
+    when Comfy::Cms::Page
       @current_content    = @record.blocks.inject({}){|c, b| c[b.identifier] = b.content; c }
       @versioned_content  = @record.blocks.inject({}){|c, b| c[b.identifier] = @revision.data['blocks_attributes'].detect{|r| r[:identifier] == b.identifier}.try(:[], :content); c }
     else
@@ -28,11 +28,11 @@ protected
   
   def load_record
     @record = if params[:layout_id]
-      ::Cms::Layout.find(params[:layout_id])
+      ::Comfy::Cms::Layout.find(params[:layout_id])
     elsif params[:page_id]
-      ::Cms::Page.find(params[:page_id])
+      ::Comfy::Cms::Page.find(params[:page_id])
     elsif params[:snippet_id]
-      ::Cms::Snippet.find(params[:snippet_id])
+      ::Comfy::Cms::Snippet.find(params[:snippet_id])
     end
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('comfy.admin.cms.revisions.record_not_found')
@@ -48,9 +48,9 @@ protected
   
   def redirect_to_record
     redirect_to case @record
-      when ::Cms::Layout  then edit_admin_cms_site_layout_path(@site, @record)
-      when ::Cms::Page    then edit_admin_cms_site_page_path(@site, @record)
-      when ::Cms::Snippet then edit_admin_cms_site_snippet_path(@site, @record)
+      when ::Comfy::Cms::Layout  then edit_admin_cms_site_layout_path(@site, @record)
+      when ::Comfy::Cms::Page    then edit_admin_cms_site_page_path(@site, @record)
+      when ::Comfy::Cms::Snippet then edit_admin_cms_site_snippet_path(@site, @record)
     end
   end
   

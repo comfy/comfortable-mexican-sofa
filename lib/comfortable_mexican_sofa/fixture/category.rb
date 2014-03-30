@@ -2,9 +2,9 @@ module ComfortableMexicanSofa::Fixture::Category
   class Importer < ComfortableMexicanSofa::Fixture::Importer
     def import!
       {
-        'files'     => 'Cms::File',
-        'pages'     => 'Cms::Page',
-        'snippets'  => 'Cms::Snippet'
+        'files'     => 'Comfy::Cms::File',
+        'pages'     => 'Comfy::Cms::Page',
+        'snippets'  => 'Comfy::Cms::Snippet'
       }.each do |file, type|
         if File.exists?(attrs_path = File.join(path, "#{file}.yml"))
           categories = get_attributes(attrs_path)
@@ -20,9 +20,9 @@ module ComfortableMexicanSofa::Fixture::Category
     def export!
       prepare_folder!(self.path)
       {
-        'files'     => 'Cms::File',
-        'pages'     => 'Cms::Page',
-        'snippets'  => 'Cms::Snippet'
+        'files'     => 'Comfy::Cms::File',
+        'pages'     => 'Comfy::Cms::Page',
+        'snippets'  => 'Comfy::Cms::Snippet'
       }.each do |file, type|
         if (categories = self.site.categories.of_type(type)).present?
           open(File.join(self.path, "#{file}.yml"), 'w') do |f|

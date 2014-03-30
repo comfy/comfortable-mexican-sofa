@@ -5,10 +5,10 @@
 
 = form.text_field :label, :data => {:slugify => @layout.new_record?}
 = form.text_field :identifier, :data => {:slug => true}
-- if (options = Cms::Layout.options_for_select(@site, @layout)).present?
+- if (options = Comfy::Cms::Layout.options_for_select(@site, @layout)).present?
   = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options
 
-- if (options = Cms::Layout.app_layouts_for_select).present?
+- if (options = Comfy::Cms::Layout.app_layouts_for_select).present?
   = form.select :app_layout, [["---- #{t('.select_app_layout')} ----", nil]] + options
 
 = form.text_area :content, :data => {'cms-cm-mode' => 'text/html'}

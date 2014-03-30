@@ -4,7 +4,7 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def test_layout_creation
     setup_sites
-    assert_difference 'Cms::Layout.count', 2 do
+    assert_difference 'Comfy::Cms::Layout.count', 2 do
       layout = @site_a.layouts.create!(:identifier => 'test')
       assert_equal 1, layout.mirrors.size
       assert_equal 'test', layout.mirrors.first.identifier
@@ -17,7 +17,7 @@ class MirrorsTest < ActiveSupport::TestCase
     label = 'Root'
     mirror_label = 'Mirror Root'
     
-    assert_difference 'Cms::Page.count', 2 do
+    assert_difference 'Comfy::Cms::Page.count', 2 do
       page = @site_a.pages.create!(
         :layout => layout,
         :label  => label
@@ -39,7 +39,7 @@ class MirrorsTest < ActiveSupport::TestCase
   
   def test_snippet_creation
     setup_sites
-    assert_difference 'Cms::Snippet.count', 2 do
+    assert_difference 'Comfy::Cms::Snippet.count', 2 do
       snippet = @site_a.snippets.create(:identifier => 'test')
       assert_equal 1, snippet.mirrors.size
       assert_equal 'test', snippet.mirrors.first.identifier
@@ -119,12 +119,12 @@ class MirrorsTest < ActiveSupport::TestCase
     
     assert_difference ['@site_a.layouts.count', '@site_b.layouts.count'], -1 do
       layout_1a.destroy
-      assert_nil Cms::Layout.find_by_id(layout_2a.id)
+      assert_nil Comfy::Cms::Layout.find_by_id(layout_2a.id)
     end
     
     assert_difference ['@site_a.layouts.count', '@site_b.layouts.count'], -2 do
       layout_1b.destroy
-      assert_nil Cms::Layout.find_by_id(layout_2b.id)
+      assert_nil Comfy::Cms::Layout.find_by_id(layout_2b.id)
     end
   end
   
@@ -141,12 +141,12 @@ class MirrorsTest < ActiveSupport::TestCase
     
     assert_difference ['@site_a.pages.count', '@site_b.pages.count'], -1 do
       page_1a.destroy
-      assert_nil Cms::Page.find_by_id(page_2a.id)
+      assert_nil Comfy::Cms::Page.find_by_id(page_2a.id)
     end
     
     assert_difference ['@site_a.pages.count', '@site_b.pages.count'], -2 do
       page_1r.destroy
-      assert_nil Cms::Page.find_by_id(page_2r.id)
+      assert_nil Comfy::Cms::Page.find_by_id(page_2r.id)
     end
   end
   
@@ -157,19 +157,19 @@ class MirrorsTest < ActiveSupport::TestCase
     
     assert_difference ['@site_a.snippets.count', '@site_b.snippets.count'], -1 do
       snippet_1.destroy
-      assert_nil Cms::Snippet.find_by_id(snippet_2.id)
+      assert_nil Comfy::Cms::Snippet.find_by_id(snippet_2.id)
     end
   end
   
   def test_site_creation_as_mirror
-    site = cms_sites(:default)
-    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    site = comfy_cms_sites(:default)
+    Comfy::Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
     
-    assert_difference 'Cms::Site.count' do
-      assert_difference 'Cms::Layout.count', site.layouts.count do
-        assert_difference 'Cms::Page.count', site.pages.count do
-          assert_difference 'Cms::Snippet.count', site.snippets.count do
-            mirror = Cms::Site.create!(
+    assert_difference 'Comfy::Cms::Site.count' do
+      assert_difference 'Comfy::Cms::Layout.count', site.layouts.count do
+        assert_difference 'Comfy::Cms::Page.count', site.pages.count do
+          assert_difference 'Comfy::Cms::Snippet.count', site.snippets.count do
+            mirror = Comfy::Cms::Site.create!(
               :identifier   => 'mirror',
               :hostname     => 'mirror.host',
               :is_mirrored  => true
@@ -181,10 +181,10 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_site_update_to_mirror
-    site = cms_sites(:default)
-    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    site = comfy_cms_sites(:default)
+    Comfy::Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
     
-    mirror = Cms::Site.create!(
+    mirror = Comfy::Cms::Site.create!(
       :identifier => 'mirror',
       :hostname   => 'mirror.host'
     )
@@ -228,10 +228,10 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_site_destruction
-    site = cms_sites(:default)
-    Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
+    site = comfy_cms_sites(:default)
+    Comfy::Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
     
-    mirror = Cms::Site.create!(
+    mirror = Comfy::Cms::Site.create!(
       :identifier   => 'mirror',
       :hostname     => 'mirror.host',
       :is_mirrored  => true
@@ -246,9 +246,9 @@ class MirrorsTest < ActiveSupport::TestCase
 protected
   
   def setup_sites
-    Cms::Site.delete_all
-    @site_a = Cms::Site.create!(:identifier => 'site_a', :hostname => 'site-a.host', :is_mirrored => true)
-    @site_b = Cms::Site.create!(:identifier => 'site_b', :hostname => 'site-b.host', :is_mirrored => true)
+    Comfy::Cms::Site.delete_all
+    @site_a = Comfy::Cms::Site.create!(:identifier => 'site_a', :hostname => 'site-a.host', :is_mirrored => true)
+    @site_b = Comfy::Cms::Site.create!(:identifier => 'site_b', :hostname => 'site-b.host', :is_mirrored => true)
   end
   
 end

@@ -1,10 +1,10 @@
 default_field_text:
-  blockable: default (Cms::Page)
+  blockable: default (Comfy::Cms::Page)
   identifier: default_field_text
   content: default_field_text_content
 
 default_page_text:
-  blockable: default (Cms::Page)
+  blockable: default (Comfy::Cms::Page)
   identifier: default_page_text
   content: |-
     default_page_text_content_a

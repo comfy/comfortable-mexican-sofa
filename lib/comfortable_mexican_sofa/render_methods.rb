@@ -39,13 +39,13 @@ module ComfortableMexicanSofa::RenderMethods
       return super unless options.is_a?(Hash)
       
       if site_identifier = options.delete(:cms_site)
-        unless @cms_site = Cms::Site.find_by_identifier(site_identifier)
+        unless @cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier)
           raise ComfortableMexicanSofa::MissingSite.new(site_identifier)
         end
       end
       
       if (page_path = options.delete(:cms_page)) || (layout_identifier = options.delete(:cms_layout))
-        unless @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
+        unless @cms_site ||= Comfy::Cms::Site.find_site(request.host.downcase, request.fullpath)
           raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
         end
       end

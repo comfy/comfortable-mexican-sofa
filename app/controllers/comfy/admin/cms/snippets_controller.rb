@@ -42,7 +42,7 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
   
   def reorder
     (params[:cms_snippet] || []).each_with_index do |id, index|
-      ::Cms::Snippet.where(:id => id).update_all(:position => index)
+      ::Comfy::Cms::Snippet.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
   end

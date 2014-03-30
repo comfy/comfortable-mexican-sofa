@@ -6,7 +6,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   before_action :load_file,   :only => [:edit, :update, :destroy]
   
   def index
-    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).order('cms_files.position')
+    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).order('comfy_cms_files.position')
     
     if params[:ajax]
       if params[:not_images]
@@ -86,7 +86,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   
   def reorder
     (params[:cms_file] || []).each_with_index do |id, index|
-      if (cms_file = ::Cms::File.find_by_id(id))
+      if (cms_file = ::Comfy::Cms::File.find_by_id(id))
         cms_file.update_column(:position, index)
       end
     end

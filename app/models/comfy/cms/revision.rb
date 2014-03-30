@@ -1,5 +1,5 @@
-class Cms::Revision < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Revision < ActiveRecord::Base
+  self.table_name = 'comfy_cms_revisions'
   
   serialize :data
   

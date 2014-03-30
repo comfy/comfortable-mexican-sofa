@@ -19,7 +19,7 @@ module ComfortableMexicanSofa::CmsManageable
         :autosave   => true,
         :dependent  => :destroy,
         :as         => :blockable,
-        :class_name => 'Cms::Block'
+        :class_name => 'Comfy::Cms::Block'
         
       # -- Callbacks --------------------------------------------------------
       before_save :clear_content_cache

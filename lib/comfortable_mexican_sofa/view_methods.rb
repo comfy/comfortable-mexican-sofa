@@ -25,7 +25,7 @@ module ComfortableMexicanSofa::ViewMethods
     def cms_snippet_content(identifier, cms_site = @cms_site, &block)
       unless cms_site
         host, path = request.host.downcase, request.fullpath if respond_to?(:request) && request
-        cms_site = Cms::Site.find_site(host, path)
+        cms_site = Comfy::Cms::Site.find_site(host, path)
       end
       return '' unless cms_site
     

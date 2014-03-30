@@ -10,7 +10,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_no_sites
-    Cms::Site.delete_all
+    Comfy::Cms::Site.delete_all
     get :index
     assert_response :redirect
     assert_redirected_to :action => :new
@@ -26,7 +26,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_get_edit
-    site = cms_sites(:default)
+    site = comfy_cms_sites(:default)
     get :edit, :id => site
     assert_response :success
     assert assigns(:site)
@@ -42,21 +42,21 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
   
   def test_create
-    assert_difference 'Cms::Site.count' do
+    assert_difference 'Comfy::Cms::Site.count' do
       post :create, :site => {
         :label      => 'Test Site',
         :identifier => 'test-site',
         :hostname   => 'test.site.local'
       }
       assert_response :redirect
-      site = Cms::Site.last
+      site = Comfy::Cms::Site.last
       assert_redirected_to admin_cms_site_layouts_path(site)
       assert_equal 'Site created', flash[:success]
     end
   end
 
   def test_creation_failure
-    assert_no_difference 'Cms::Site.count' do
+    assert_no_difference 'Comfy::Cms::Site.count' do
       post :create, :site => { }
       assert_response :success
       assert_template :new
@@ -65,7 +65,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_update
-    site = cms_sites(:default)
+    site = comfy_cms_sites(:default)
     put :update, :id => site, :site => {
       :label        => 'New Site',
       :hostname     => 'new.site.local',
@@ -83,7 +83,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_update_failure
-    site = cms_sites(:default)
+    site = comfy_cms_sites(:default)
     put :update, :id => site, :site => {
       :hostname => ''
     }
@@ -95,8 +95,8 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_destroy
-    assert_difference 'Cms::Site.count', -1 do
-      delete :destroy, :id => cms_sites(:default)
+    assert_difference 'Comfy::Cms::Site.count', -1 do
+      delete :destroy, :id => comfy_cms_sites(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
       assert_equal 'Site deleted', flash[:success]

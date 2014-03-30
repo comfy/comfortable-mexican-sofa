@@ -5,13 +5,13 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_single_site
     http_auth :get, admin_cms_path
     assert assigns(:site)
-    assert_equal cms_sites(:default), assigns(:site)
+    assert_equal comfy_cms_sites(:default), assigns(:site)
     assert_response :redirect
     assert_redirected_to admin_cms_site_pages_path(assigns(:site))
   end
   
   def test_get_admin_with_no_site
-    Cms::Site.delete_all
+    Comfy::Cms::Site.delete_all
     http_auth :get, admin_cms_path
     assert_response :redirect
     assert_redirected_to new_admin_cms_site_path
@@ -27,10 +27,10 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_public_page_with_sites_with_different_paths
-    Cms::Site.delete_all
-    site_a = Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host', :path => '')
-    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host', :path => 'path-b')
-    site_c = Cms::Site.create!(:identifier => 'site-c', :hostname => 'test.host', :path => 'path-c/child')
+    Comfy::Cms::Site.delete_all
+    site_a = Comfy::Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host', :path => '')
+    site_b = Comfy::Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host', :path => 'path-b')
+    site_c = Comfy::Cms::Site.create!(:identifier => 'site-c', :hostname => 'test.host', :path => 'path-c/child')
     
     [site_a, site_b, site_c].each do |site|
       layout  = site.layouts.create!(:identifier => 'test')
@@ -61,9 +61,9 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_public_page_with_host_with_port
-    Cms::Site.delete_all
-    site_a = Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host:3000')
-    site_b = Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host')
+    Comfy::Cms::Site.delete_all
+    site_a = Comfy::Cms::Site.create!(:identifier => 'site-a', :hostname => 'test.host:3000')
+    site_b = Comfy::Cms::Site.create!(:identifier => 'site-b', :hostname => 'test.host')
     
     [site_a, site_b].each do |site|
       layout  = site.layouts.create!(:identifier => 'test')
@@ -82,7 +82,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_site)
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_columns(:locale => 'fr')
+    comfy_cms_sites(:default).update_columns(:locale => 'fr')
     get '/'
     assert_response :success
     assert assigns(:cms_site)
@@ -90,12 +90,12 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   def test_get_admin_with_locale
-    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
+    http_auth :get, admin_cms_site_pages_path(comfy_cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
     
-    cms_sites(:default).update_columns(:locale => 'fr')
-    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
+    comfy_cms_sites(:default).update_columns(:locale => 'fr')
+    http_auth :get, admin_cms_site_pages_path(comfy_cms_sites(:default))
     assert_response :success
     assert_equal :fr, I18n.locale
   end
@@ -103,8 +103,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   def test_get_admin_with_forced_locale
     ComfortableMexicanSofa.config.admin_locale = :en
     
-    cms_sites(:default).update_columns(:locale => 'fr')
-    http_auth :get, admin_cms_site_pages_path(cms_sites(:default))
+    comfy_cms_sites(:default).update_columns(:locale => 'fr')
+    http_auth :get, admin_cms_site_pages_path(comfy_cms_sites(:default))
     assert_response :success
     assert_equal :en, I18n.locale
 

@@ -1,5 +1,5 @@
-class Cms::Category < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Category < ActiveRecord::Base
+  self.table_name = 'comfy_cms_categories'
   
   # -- Relationships --------------------------------------------------------
   belongs_to :site

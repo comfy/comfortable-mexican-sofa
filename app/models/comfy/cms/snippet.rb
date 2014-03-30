@@ -1,5 +1,5 @@
-class Cms::Snippet < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Snippet < ActiveRecord::Base
+  self.table_name = 'comfy_cms_snippets'
   
   cms_is_categorized
   cms_is_mirrored
@@ -25,7 +25,7 @@ class Cms::Snippet < ActiveRecord::Base
     :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
     
   # -- Scopes ---------------------------------------------------------------
-  default_scope -> { order('cms_snippets.position') }
+  default_scope -> { order('comfy_cms_snippets.position') }
   
 protected
   
@@ -34,7 +34,7 @@ protected
   end
   
   def clear_page_content_cache
-    Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content_cache => nil)
+    Comfy::Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content_cache => nil)
   end
   
   def assign_position

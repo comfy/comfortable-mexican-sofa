@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::BaseControllerTest < ActionController::TestCase
   def test_get_jump
     get :jump
     assert_response :redirect
-    assert_redirected_to admin_cms_site_pages_path(cms_sites(:default))
+    assert_redirected_to admin_cms_site_pages_path(comfy_cms_sites(:default))
   end
   
   def test_get_jump_with_redirect_setting

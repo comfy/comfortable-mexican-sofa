@@ -11,7 +11,7 @@ module ComfortableMexicanSofa::Fixture
     def initialize(from, to = from, force_import = false)
       self.from         = from
       self.to           = to
-      self.site         = Cms::Site.where(:identifier => to).first!
+      self.site         = Comfy::Cms::Site.where(:identifier => to).first!
       self.fixture_ids  = []
       self.force_import = force_import
       
@@ -58,7 +58,7 @@ module ComfortableMexicanSofa::Fixture
     def initialize(from, to = from)
       self.from = from
       self.to   = to
-      self.site = Cms::Site.where(:identifier => from).first!
+      self.site = Comfy::Cms::Site.where(:identifier => from).first!
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = ::File.join(ComfortableMexicanSofa.config.fixtures_path, to, dir)
     end

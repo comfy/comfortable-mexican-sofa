@@ -1,12 +1,12 @@
 layout:
-  record: default (Cms::Layout)
+  record: default (Comfy::Cms::Layout)
   data: <%= {
     'content' => 'revision {{cms:page:default_page_text}}',
     'css'     => 'revision css',
     'js'      => 'revision js' }.to_yaml.inspect %>
     
 page:
-  record: default (Cms::Page)
+  record: default (Comfy::Cms::Page)
   data: <%= {
     'blocks_attributes' => [
       { 'identifier'  => 'default_page_text',
@@ -16,6 +16,6 @@ page:
     ]}.to_yaml.inspect %>
       
 snippet:
-  record: default (Cms::Snippet)
+  record: default (Comfy::Cms::Snippet)
   data: <%= {
     'content' => 'revision content' }.to_yaml.inspect %>

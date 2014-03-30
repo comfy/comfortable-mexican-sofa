@@ -1,5 +1,5 @@
-class Cms::Block < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Block < ActiveRecord::Base
+  self.table_name = 'comfy_cms_blocks'
   
   # -- Relationships --------------------------------------------------------
   belongs_to :blockable,

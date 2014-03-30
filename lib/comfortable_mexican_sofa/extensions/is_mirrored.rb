@@ -20,11 +20,11 @@ module ComfortableMexicanSofa::IsMirrored
     # Mirrors of the object found on other sites
     def mirrors
       return [] unless self.site.is_mirrored?
-      (Cms::Site.mirrored - [self.site]).collect do |site|
+      (Comfy::Cms::Site.mirrored - [self.site]).collect do |site|
         case self
-          when Cms::Layout  then site.layouts.find_by_identifier(self.identifier)
-          when Cms::Page    then site.pages.find_by_full_path(self.full_path)
-          when Cms::Snippet then site.snippets.find_by_identifier(self.identifier)
+          when Comfy::Cms::Layout  then site.layouts.find_by_identifier(self.identifier)
+          when Comfy::Cms::Page    then site.pages.find_by_full_path(self.full_path)
+          when Comfy::Cms::Snippet then site.snippets.find_by_identifier(self.identifier)
         end
       end.compact
     end
@@ -35,16 +35,16 @@ module ComfortableMexicanSofa::IsMirrored
     def sync_mirror
       return if self.is_mirrored || !self.site.is_mirrored?
       
-      (Cms::Site.mirrored - [self.site]).each do |site|
+      (Comfy::Cms::Site.mirrored - [self.site]).each do |site|
         mirror = case self
-        when Cms::Layout
+        when Comfy::Cms::Layout
           m = site.layouts.find_by_identifier(self.identifier_was || self.identifier) || site.layouts.new
           m.attributes = {
             :identifier => self.identifier,
             :parent_id  => site.layouts.find_by_identifier(self.parent.try(:identifier)).try(:id)
           }
           m
-        when Cms::Page
+        when Comfy::Cms::Page
           m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
           m.attributes = {
             :slug       => self.slug,
@@ -53,7 +53,7 @@ module ComfortableMexicanSofa::IsMirrored
             :layout     => site.layouts.find_by_identifier(self.layout.try(:identifier))
           }
           m
-        when Cms::Snippet
+        when Comfy::Cms::Snippet
           m = site.snippets.find_by_identifier(self.identifier_was || self.identifier) || site.snippets.new
           m.attributes = {
             :identifier => self.identifier

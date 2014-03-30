@@ -65,7 +65,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   def reorder
     (params[:cms_page] || []).each_with_index do |id, index|
-      ::Cms::Page.where(:id => id).update_all(:position => index)
+      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
   end
@@ -86,7 +86,7 @@ protected
   end
 
   def build_file
-    @file = Cms::File.new
+    @file = Comfy::Cms::File.new
   end
 
   def load_cms_page

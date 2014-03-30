@@ -88,8 +88,8 @@ class ActiveSupport::TestCase
   end
   
   def stub_paperclip
-    Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
-    Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
+    Comfy::Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
+    Comfy::Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
     Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
   

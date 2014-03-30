@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-class Cms::Page < ActiveRecord::Base
-  include Cms::Base
+class Comfy::Cms::Page < ActiveRecord::Base
+  self.table_name = 'comfy_cms_pages'
   
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
@@ -13,7 +13,7 @@ class Cms::Page < ActiveRecord::Base
   belongs_to :site
   belongs_to :layout
   belongs_to :target_page,
-    :class_name => 'Cms::Page'
+    :class_name => 'Comfy::Cms::Page'
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
@@ -39,7 +39,7 @@ class Cms::Page < ActiveRecord::Base
   validate :validate_format_of_unescaped_slug
   
   # -- Scopes ---------------------------------------------------------------
-  default_scope -> { order('cms_pages.position') }
+  default_scope -> { order('comfy_cms_pages.position') }
   scope :published, -> { where(:is_published => true) }
   
   # -- Class Methods --------------------------------------------------------
