@@ -1,5 +1,5 @@
 # ComfortableMexicanSofa
-[![Gem Version](https://badge.fury.io/rb/comfortable_mexican_sofa.png)](http://rubygems.org/gems/comfortable_mexican_sofa) [![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.png?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
+[![Gem Version](https://badge.fury.io/rb/comfortable_mexican_sofa.png)](http://rubygems.org/gems/comfortable_mexican_sofa) [![Build Status](https://travis-ci.org/comfy/comfortable-mexican-sofa.svg?branch=master)](https://travis-ci.org/comfy/comfortable-mexican-sofa) [![Dependency Status](https://gemnasium.com/comfy/comfortable-mexican-sofa.png)](https://gemnasium.com/comfy/comfortable-mexican-sofa) [![Code Climate](https://codeclimate.com/github/comfy/comfortable-mexican-sofa.png)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) [![Coverage Status](https://coveralls.io/repos/comfy/comfortable-mexican-sofa/badge.png?branch=master)](https://coveralls.io/r/comfy/comfortable-mexican-sofa)
 
 ComfortableMexicanSofa is a powerful Rails 4 CMS Engine
 
@@ -72,11 +72,11 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
 
-## Dependencies
+#### Dependencies
 
 As long as you sucessfuly ran `bundle install` you should be ok. However, Paperclip requires *ImageMagick* to be installed to handle thumbnail generation.
 
-## Help and Contact
+#### Help and Contact
 
 GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
 Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
