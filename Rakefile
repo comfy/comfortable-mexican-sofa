@@ -1,25 +1,10 @@
-require_relative 'config/application'
-require 'coveralls/rake/task'
+require 'bundler'
+Bundler.setup
 
-ComfortableMexicanSofa::Application.load_tasks
-Coveralls::RakeTask.new
+require 'rake/testtask'
 
-namespace :test do
-  
-  Rake::TestTask.new(:lib) do |t|
-    t.libs << 'test'
-    t.pattern = 'test/lib/**/*_test.rb'
-    t.verbose = true
-  end
-  
-  Rake::TestTask.new(:generators) do |t|
-    t.libs << 'test'
-    t.pattern = 'test/generators/**/*_test.rb'
-    t.verbose = true
-  end
-end
-
-Rake::Task[:test].enhance do
-  Rake::Task['test:lib'].invoke
-  Rake::Task['test:generators'].invoke
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/**/*_test.rb']
+  t.verbose = true
 end

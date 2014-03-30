@@ -1,10 +1,13 @@
 # encoding: utf-8
-
-require 'coveralls'
-Coveralls.wear_merged!('rails')
-
 ENV['RAILS_ENV'] = 'test'
+
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.start 'rails'
+
 require_relative '../config/environment'
+
 require 'rails/test_help'
 require 'rails/generators'
 require 'mocha/setup'
