@@ -1,10 +1,8 @@
 # encoding: utf-8
 ENV['RAILS_ENV'] = 'test'
 
-require 'simplecov'
 require 'coveralls'
-
-SimpleCov.start 'rails'
+Coveralls.wear! 'rails'
 
 require_relative '../config/environment'
 
