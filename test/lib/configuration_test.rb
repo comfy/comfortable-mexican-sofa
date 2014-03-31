@@ -19,7 +19,6 @@ class ConfigurationTest < ActiveSupport::TestCase
       'es'    => 'Español'
     }), config.locales
     assert_equal nil, config.admin_locale
-    assert_equal nil, config.database_config
     assert_equal ({}), config.upload_file_options
     assert_equal nil, config.admin_cache_sweeper
     assert_equal false, config.allow_irb

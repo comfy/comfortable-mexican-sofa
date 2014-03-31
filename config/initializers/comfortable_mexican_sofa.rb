@@ -60,11 +60,6 @@ ComfortableMexicanSofa.configure do |config|
   # force it to English by setting this to `:en`
   #   config.admin_locale = nil
 
-  # If you want to keep your CMS tables in a location other than the default database
-  # add a database_config. For example, setting it to 'cms' will look for a cms_#{Rails.env}
-  # definition in your database.yml file
-  #   config.database_config = nil
-
   # A class that is included as a sweeper to admin base controller if it's set
   #   config.admin_cache_sweeper = nil
 
