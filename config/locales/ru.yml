@@ -8,35 +8,37 @@ ru:
     identifier: Идентификатор
   activerecord:
     models:
-      cms/site: Сайт
-      cms/layout: Шаблон
-      cms/page: Страница
-      cms/snippet: Сниппет
-      cms/file: Файл
+      comfy/cms/site: Сайт
+      comfy/cms/layout: Шаблон
+      comfy/cms/page: Страница
+      comfy/cms/snippet: Сниппет
+      comfy/cms/file: Файл
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Идентификатор
         hostname: Имя хоста
         path: Путь
         locale: Язык
         is_mirrored: Синхронизирован с другими сайтами
-      cms/layout:
+      comfy/cms/layout:
         identifier: Идентификатор
         label: Название шаблона
         app_layout: Шаблон приложения
         parent_id: Родительский шаблон
         css: CSS
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Название
         layout_id: Шаблон
+        parent_id: Родительская страница
+        full_path: Полный путь
         slug: Ссылка
         target_page_id: Редирект на страницу
         is_published: Опубликована
-      cms/file:
+      comfy/cms/file:
         file: Файл
         description: Описание
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Идентификатор
 
   comfy:
