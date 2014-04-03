@@ -53,12 +53,12 @@ window.CMS.slugify = ->
 
 window.CMS.wysiwyg = ->
   tinymce.init
-    selector:   'textarea[data-cms-rich-text]'
-    plugins:    ['link', 'image', 'code']
-    toolbar:    'undo redo | styleselect | bullist numlist | link unlink image | code'
-    menubar:    false
-    statusbar:  false
-
+    selector:     'textarea[data-cms-rich-text]'
+    plugins:      ['link', 'image', 'code']
+    toolbar:      'undo redo | styleselect | bullist numlist | link unlink image | code'
+    menubar:      false
+    statusbar:    false
+    relative_url: false
 
 window.CMS.codemirror = ->
   $('textarea[data-cms-cm-mode]').each (i, element) ->
@@ -96,7 +96,7 @@ window.CMS.page_blocks = ->
   $('select#page_layout_id').bind 'change.cms', ->
     $.ajax
       url: $(this).data('url'),
-      data: 
+      data:
         layout_id: $(this).val()
       complete: ->
         CMS.wysiwyg()
