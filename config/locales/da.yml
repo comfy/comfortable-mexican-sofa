@@ -8,35 +8,35 @@ da:
     identifier: Nøgleord
   activerecord:
     models:
-      cms/site: Websted
-      cms/layout: Layout
-      cms/page: Side
-      cms/snippet: Snippet
-      cms/file: Fil
+      comfy/cms/site: Websted
+      comfy/cms/layout: Layout
+      comfy/cms/page: Side
+      comfy/cms/snippet: Snippet
+      comfy/cms/file: Fil
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Nøgleord
         hostname: Værtsnavn
         path: Sti
         locale: Sprog
         is_mirrored: Kopieret
-      cms/layout:
+      comfy/cms/layout:
         identifier: Nøgleord
         label: Layout Navn
         app_layout: App Layout
         parent_id: Overordnet Layout
         css: Stylesheet
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Etiket
         layout_id: Layout
         slug: Slug
         target_page_id: Viderestil til Side
         is_published: Udgivet
-      cms/file:
+      comfy/cms/file:
         file: Fil
         description: Beskrivelse
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Nøgleord
 
   comfy:

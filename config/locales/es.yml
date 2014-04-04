@@ -8,35 +8,35 @@ es:
     identifier: Identifier
   activerecord:
     models:
-      cms/site: Sitio
-      cms/layout: Plantilla
-      cms/page: Página
-      cms/snippet: Fragmento
-      cms/file: File
+      comfy/cms/site: Sitio
+      comfy/cms/layout: Plantilla
+      comfy/cms/page: Página
+      comfy/cms/snippet: Fragmento
+      comfy/cms/file: File
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifier
         hostname: Dirección
         path: Ruta
         locale: Lengua
         is_mirrored: Espejo
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifier
         label: Nombre de Plantilla
         app_layout: Plantilla Base
         parent_id: Plantilla Padre
         css: Hoja de Estilo
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Título
         layout_id: Plantilla
         slug: Ruta
         target_page_id: Redirigir a
         is_published: Publicada
-      cms/file:
+      comfy/cms/file:
         file: File
         description: Description
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifier
 
   comfy:

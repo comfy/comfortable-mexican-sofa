@@ -8,35 +8,35 @@ pl:
     identifier: Identyfikator
   activerecord:
     models:
-      cms/site: Witryna
-      cms/layout: Szablin
-      cms/page: Strona
-      cms/snippet: Snippet
-      cms/file: Plik
+      comfy/cms/site: Witryna
+      comfy/cms/layout: Szablin
+      comfy/cms/page: Strona
+      comfy/cms/snippet: Snippet
+      comcomfy/fy/cms/file: Plik
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identyfikator
         hostname: Nazwa hosta
         path: Ścieżka
         locale: Język
         is_mirrored: Mirror
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identyfikator
         label: Nazwa layout'u
         app_layout: Nazwa aplikacji
         parent_id: Rodzic
         css: Style
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Tytuł
         layout_id: Identyfikator szablonu
         slug: Ścieżka
         target_page_id: Przekieruj do strony
         is_published: Opublikowana
-      cms/file:
+      comfy/cms/file:
         file: Plik
         description: Opis
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identyfikator
 
   comfy:

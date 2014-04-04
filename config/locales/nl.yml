@@ -8,35 +8,35 @@ nl:
     identifier: Identifier
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Lay-out
-      cms/page: Pagina
-      cms/snippet: Snippet
-      cms/file: Bestand
+      comfy/cms/site: Site
+      comfy/cms/layout: Lay-out
+      comfy/cms/page: Pagina
+      comfy/cms/snippet: Snippet
+      comfy/cms/file: Bestand
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifier
         hostname: Hostname
         path: Pad
         locale: Taal
         is_mirrored: Gespiegeld
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifier
         label: Lay-out Naam
         app_layout: App Lay-out
         parent_id: Ouder Lay-out
         css: Stylesheet
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Label
         layout_id: Lay-out
         slug: Slug
         target_page_id: Omleiding naar Pagina
         is_published: Gepubliceerd
-      cms/file:
+      comfy/cms/file:
         file: Bestand
         description: Omschrijving
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifier
 
   comfy:

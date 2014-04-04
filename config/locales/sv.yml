@@ -8,35 +8,35 @@ sv:
     identifier: Identifierare
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Layout
-      cms/page: Sida
-      cms/snippet: Snippet
-      cms/file: Fil
+      comfy/cms/site: Site
+      comfy/cms/layout: Layout
+      comfy/cms/page: Sida
+      comfy/cms/snippet: Snippet
+      comfy/cms/file: Fil
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifierare
         hostname: Hostnamn
         path: Sökväg
         locale: Språk
         is_mirrored: Speglad
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifierare
         label: Layout Namn
         app_layout: App Layout
         parent_id: Förälderlayout
         css: Stylesheet
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Label
         layout_id: Layout
         slug: Slug
         target_page_id: Vidarebefodra till sida
         is_published: Publicerad
-      cms/file:
+      comfy/cms/file:
         file: Fil
         description: Beskrivninig
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifierare
         
   comfy:

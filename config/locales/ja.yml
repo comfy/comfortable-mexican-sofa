@@ -8,35 +8,35 @@ ja:
     identifier: Identifier
   activerecord:
     models:
-      cms/site: サイト
-      cms/layout: レイアウト
-      cms/page: ページ
-      cms/snippet: スニペット
-      cms/file: File
+      comfy/cms/site: サイト
+      comfy/cms/layout: レイアウト
+      comfy/cms/page: ページ
+      comfy/cms/snippet: スニペット
+      comfy/cms/file: File
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifier
         hostname: ホスト名
         path: パス
         locale: 言語
         is_mirrored: ミラーリング済み
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifier
         label: レイアウト名
         app_layout: アプリケーションレイアウト
         parent_id: 親レイアウト
         css: スタイルシート
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: ラベル
         layout_id: レイアウト
         slug: スラッグ
         target_page_id: ページにリダイレクト
         is_published: パブリッシュ済み
-      cms/file:
+      comfy/cms/file:
         file: File
         description: Description
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifier
         
   comfy:

@@ -8,35 +8,35 @@ pt-BR:
     identifier: Identificador
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Leiaute
-      cms/page: Página
-      cms/snippet: Fragmento
-      cms/file: Arquivo
+      comfy/cms/site: Site
+      comfy/cms/layout: Leiaute
+      comfy/cms/page: Página
+      comfy/cms/snippet: Fragmento
+      comfy/cms/file: Arquivo
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identificador
         hostname: Nome do Host
         path: Caminho
         locale: Idioma
         is_mirrored: Espelhado
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identificador
         label: Nome do Leiaute
         app_layout: Leiaute da Aplicação
         parent_id: Leiaute Pai
         css: Stylesheet
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Título
         layout_id: Leiaute
         slug: Identificador
         target_page_id: Redirecionar para a Página
         is_published: Publicada
-      cms/file:
+      comfy/cms/file:
         file: Arquivo
         description: Descrição
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identificador
         
   comfy:

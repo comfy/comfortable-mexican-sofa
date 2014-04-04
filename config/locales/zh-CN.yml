@@ -8,35 +8,35 @@ zh-CN:
     identifier: 标识符
   activerecord:
     models:
-      cms/site: 站点
-      cms/layout: 布局
-      cms/page: 页面
-      cms/snippet: 片段
-      cms/file: 文件
+      comfy/cms/site: 站点
+      comfy/cms/layout: 布局
+      comfy/cms/page: 页面
+      comfy/cms/snippet: 片段
+      comfy/cms/file: 文件
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: 标识符
         hostname: 主机名
         path: 路径
         locale: 语言
         is_mirrored: 镜像
-      cms/layout:
+      comfy/cms/layout:
         identifier: 标识符
         label: 布局名称
         app_layout: 应用布局
         parent_id: 上级布局
         css: 样式
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: 页面名称
         layout_id: 布局
         slug: Slug
         target_page_id: 跳转至
         is_published: 发布
-      cms/file:
+      comfy/cms/file:
         file: 文件
         description: 描述
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: 标识符
         
   comfy:

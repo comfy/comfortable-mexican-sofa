@@ -8,35 +8,35 @@ fr:
     identifier: Identifiant
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Mise en page
-      cms/page: Page
-      cms/snippet: Fragment
-      cms/file: Fichier
+      comfy/cms/site: Site
+      comfy/cms/layout: Mise en page
+      comfy/cms/page: Page
+      comfy/cms/snippet: Fragment
+      comfy/cms/file: Fichier
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifiant
         hostname: Nom d'hôte
         path: Chemin
         locale: Langue
         is_mirrored: En miroir
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifiant
         label: Nom de la mise en page
         app_layout: Mise en page de l'application
         parent_id: Mise en page parent
         css: Feuille de style
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Nom de la page
         layout_id: Mise en page
         slug: Identifiant
         target_page_id: Rediriger vers
         is_published: Publié
-      cms/file:
+      comfy/cms/file:
         file: Fichier
         description: Description
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifiant
         
   comfy:
