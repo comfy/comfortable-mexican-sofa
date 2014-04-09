@@ -16,7 +16,8 @@ class Cms::ContentController < Cms::BaseController
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
 
       if current_admin_cms_user
-        content = @cms_page.content(true) + injected_admin_javascript
+        # content = @cms_page.content(true) + injected_admin_javascript
+        content = @cms_page.content(false) + injected_admin_javascript
       else
         content = @cms_page.content(false)
       end
