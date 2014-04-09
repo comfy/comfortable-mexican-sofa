@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::Asset
     /\{\{\s*cms:asset:(#{identifier}):?(.*?)\s*\}\}/
   end
 
-  def content(include_edit_tags = false)
+  def content
     return unless (layout = Cms::Layout.find_by_identifier(identifier))
     type    = params[0]
     format  = params[1]

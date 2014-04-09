@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::PageInteger
     /\{\{\s*cms:page:(#{identifier}):integer\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   

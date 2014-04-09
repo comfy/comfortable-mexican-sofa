@@ -11,7 +11,7 @@ class ComfortableMexicanSofa::Tag::File
     page.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
   end
   
-  def content(include_edit_tags = false)
+  def content
     return unless file
     
     format  = params[0]

@@ -6,11 +6,11 @@ class ComfortableMexicanSofa::Tag::PageMarkdown
     /\{\{\s*cms:page:(#{identifier}):markdown\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   
-  def render(include_edit_tags = false)
+  def render
     Kramdown::Document.new(content.to_s).to_html
   end
 end

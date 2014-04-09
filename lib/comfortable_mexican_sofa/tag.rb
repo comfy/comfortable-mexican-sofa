@@ -80,9 +80,9 @@ module ComfortableMexicanSofa::Tag
     
     # Content that is used during page rendering. Outputting existing content
     # as a default.
-    def render(include_edit_tags = true)
+    def render
       ignore = [ComfortableMexicanSofa::Tag::Partial, ComfortableMexicanSofa::Tag::Helper].member?(self.class)
-      ComfortableMexicanSofa::Tag.sanitize_irb(content(include_edit_tags), ignore)
+      ComfortableMexicanSofa::Tag.sanitize_irb(content, ignore)
     end
     
     # Find or initialize Cms::Block object
@@ -120,7 +120,7 @@ private
   # Scanning provided content and splitting it into [tag, text] tuples.
   # Tags are processed further and their content is expanded in the same way.
   # Tags are defined in the parent tags are ignored and not rendered.
-  def self.process_content(page, content = '', parent_tag = nil, include_edit_tags = false)
+  def self.process_content(page, content = '', parent_tag = nil)
     tokens = content.to_s.scan(TOKENIZER_REGEX)
     # a mapping of tag_signature(a tag)
     # and text, no tag
@@ -135,7 +135,7 @@ private
           if tag.ancestors.select{|a| a.id == tag.id}.blank?
             page.tags << tag
             # recursion
-            self.process_content(page, tag.render(include_edit_tags), tag, include_edit_tags)
+            self.process_content(page, tag.render, tag)
           end
         end
       else

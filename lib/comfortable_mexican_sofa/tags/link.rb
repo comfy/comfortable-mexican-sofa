@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::Link
     /\{\{\s*cms:link:(#{identifier})\s*\}\}/
   end
 
-  def content(include_edit_tags = false)
+  def content
     pages_table = Cms::Page.arel_table
     # Find pages that match
     pages = page.site.pages.where(pages_table[:full_path].matches("%#{self.identifier.to_s}"))
