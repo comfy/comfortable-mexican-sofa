@@ -427,6 +427,8 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     get :edit, :site_id => page.site, :id => page
     assert_response :success, @response.body
     assert_not_equal 0, Cms::Layout.count
+
+    ComfortableMexicanSofa.configuration.application_layouts = false
   end
 
   def test_get_edit_with_no_layout
