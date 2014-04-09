@@ -32,6 +32,11 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
     render :action => :edit
   end
 
+  def destroy
+    @user.destroy!
+    redirect_to admin_cms_users_path, success: I18n.t('cms.users.deleted')
+  end
+
   private
 
   def user_params
