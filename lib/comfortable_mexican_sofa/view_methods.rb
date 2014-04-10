@@ -51,7 +51,6 @@ module ComfortableMexicanSofa::ViewMethods
     return '' unless page ||= @cms_page
     return '' unless block = page.blocks.find_by_identifier(identifier)
     processed_content = ComfortableMexicanSofa::Tag.process_content(page, block.content)
-    current_admin_cms_user ||= false
     if current_admin_cms_user && block.tag.class.to_s.demodulize =~ (/Editable$/)
       ComfortableMexicanSofa::Tag.add_block_edit_tags(processed_content, block)
     else
