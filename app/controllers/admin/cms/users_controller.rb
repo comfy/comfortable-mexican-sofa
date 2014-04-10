@@ -32,6 +32,10 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
   def destroy
     @user.destroy!
     redirect_to admin_cms_users_path, success: I18n.t('cms.users.deleted')
+  rescue ActiveRecord::RecordNotFound
+    logger.detailed_error($!)
+    flash.now[:error] = I18n.t('cms.users.delete_failure')
+    render action: 'index'
   end
 
   private
