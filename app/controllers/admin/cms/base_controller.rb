@@ -29,7 +29,7 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_cms_sites_path, :alert => exception.message
+    redirect_to admin_cms_path, :alert => exception.message
   end
   
 protected

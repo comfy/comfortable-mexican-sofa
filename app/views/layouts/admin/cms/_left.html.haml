@@ -3,7 +3,7 @@
   %h5.site= @site.label
 
   #accordion.panel-group.navigation
-    - if current_admin_cms_user.super_admin?
+    - if can? :edit, @site
       .panel.panel-default
         .panel-heading
           %h4.panel-title
