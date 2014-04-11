@@ -3,20 +3,21 @@
   %h5.site= @site.label
 
   #accordion.panel-group.navigation
-    .panel.panel-default
-      .panel-heading
-        %h4.panel-title
-          %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseOne"}
-            Site Content
-      #collapseOne.panel-collapse.collapse{class: ("in" if %w(layouts pages snippets files).any?{|section| is_active_link?(self.send("admin_cms_site_#{section}_path", @site))})}
-        .panel-body
-          %li= active_link_to t('admin.cms.base.sites'), admin_cms_sites_path, :active => ['admin/cms/sites']
-          %li= active_link_to t('admin.cms.base.layouts'), admin_cms_site_layouts_path(@site)
-          %li= active_link_to t('admin.cms.base.pages'), admin_cms_site_pages_path(@site)
-          %li= active_link_to t('admin.cms.base.snippets'), admin_cms_site_snippets_path(@site)
-          %li= active_link_to t('admin.cms.base.files'), admin_cms_site_files_path(@site)
-          = cms_hook :content_nav
-          %li= active_link_to t('admin.cms.base.users'), admin_cms_users_path
+    - if current_admin_cms_user.super_admin?
+      .panel.panel-default
+        .panel-heading
+          %h4.panel-title
+            %a{"data-parent" => "#accordion", "data-toggle" => "collapse", href: "#collapseOne"}
+              Site Content
+        #collapseOne.panel-collapse.collapse{class: ("in" if %w(layouts pages snippets files).any?{|section| is_active_link?(self.send("admin_cms_site_#{section}_path", @site))})}
+          .panel-body
+            %li= active_link_to t('admin.cms.base.sites'), admin_cms_sites_path, :active => ['admin/cms/sites']
+            %li= active_link_to t('admin.cms.base.layouts'), admin_cms_site_layouts_path(@site)
+            %li= active_link_to t('admin.cms.base.pages'), admin_cms_site_pages_path(@site)
+            %li= active_link_to t('admin.cms.base.snippets'), admin_cms_site_snippets_path(@site)
+            %li= active_link_to t('admin.cms.base.files'), admin_cms_site_files_path(@site)
+            = cms_hook :content_nav
+            %li= active_link_to t('admin.cms.base.users'), admin_cms_users_path
     
     = cms_hook :navigation
       
