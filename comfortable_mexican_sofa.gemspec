@@ -30,5 +30,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'devise',            '>= 3.0.0'
-  s.add_dependency 'cancan',             '>= 1.6.10'
+  s.add_dependency 'cancancan',         '~> 1.7'
 end
