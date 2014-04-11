@@ -1,5 +1,5 @@
 class Admin::Cms::UsersController < Admin::Cms::BaseController
-  load_and_authorize_resource class: "Cms::User", except: :create
+  load_and_authorize_resource class: "Cms::User"
 
   skip_before_filter :load_fixtures
 
@@ -8,7 +8,6 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
   def edit; end
 
   def create
-    @user = Cms::User.new user_params
     @user.save!
     redirect_to admin_cms_users_path, success: I18n.t('cms.users.created')
   rescue ActiveRecord::RecordInvalid
@@ -39,9 +38,9 @@ class Admin::Cms::UsersController < Admin::Cms::BaseController
 
   def user_params
     if current_admin_cms_user && current_admin_cms_user.super_admin?
-      params[:user].permit(:email, :password, :site_tokens, :super_admin)
+      params.require(:user).permit(:email, :password, :site_tokens, :super_admin)
     else
-      params[:user].permit(:email, :password)
+      params.require(:user).permit(:email, :password)
     end
   end
 

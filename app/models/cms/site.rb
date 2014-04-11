@@ -11,7 +11,7 @@ class Cms::Site < ActiveRecord::Base
   end
 
   has_many :site_users, dependent: :destroy, class_name: "Cms::SiteUser"
-  has_many :users, through: :site_users
+  has_many :users, through: :site_users, inverse_of: :sites
   
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,

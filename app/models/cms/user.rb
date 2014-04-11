@@ -9,8 +9,8 @@ class Cms::User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
   # -- Relationships --------------------------------------------------------
-  has_many :site_users, dependent: :destroy, class_name: 'Cms::SiteUser'
-  has_many :sites, through: :site_users
+  has_many :site_users, dependent: :destroy, class_name: 'Cms::SiteUser', inverse_of: :user
+  has_many :sites, through: :site_users, inverse_of: :users
 
   # Internal: Assign sites based on token input from form.
   def site_tokens=(ids)

@@ -2,3 +2,8 @@ default:
   site: default
   label: Default
   categorized_type: Cms::File
+
+users_site_category:
+  site: users_site
+  label: Default
+  categorized_type: Cms::File

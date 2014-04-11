@@ -1,12 +1,11 @@
 class Admin::Cms::SitesController < Admin::Cms::BaseController
-  load_and_authorize_resource class: "Cms::Site", except: [:new, :create]
+  load_and_authorize_resource :site, class: "Cms::Site", parent: false
 
   skip_before_action  :load_admin_site,
                       :load_fixtures
 
-  # TODO: I think load_and_authorize_resource will conflict with these.
-  before_action :build_site,  :only => [:new, :create]
-  before_action :load_site,   :only => [:edit, :update, :destroy]
+  before_action :set_hostname,  :only => [:new, :create]
+  before_action :set_locale,   :only => [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -34,7 +33,6 @@ class Admin::Cms::SitesController < Admin::Cms::BaseController
   end
 
   def create
-    @site = Cms::Site.new params[:site]
     @site.users << current_admin_cms_user unless current_admin_cms_user.super_admin?
     @site.save!
     flash[:success] = I18n.t('cms.sites.created')
@@ -63,17 +61,12 @@ class Admin::Cms::SitesController < Admin::Cms::BaseController
 
 protected
 
-  def build_site
-    @site = ::Cms::Site.new(site_params)
+  def set_hostname
     @site.hostname ||= request.host.downcase
   end
 
-  def load_site
-    @site = ::Cms::Site.find(params[:id])
+  def set_locale
     I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
-  rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('cms.sites.not_found')
-    redirect_to :action => :index
   end
   
   def site_params

@@ -207,7 +207,7 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_for_another_user
-    sign_in cms_users(:normal_user)
+    sign_in cms_users(:normal)
     page = cms_pages(:default)
     get :edit, :site_id => page.site, :id => page
     assert_response 302

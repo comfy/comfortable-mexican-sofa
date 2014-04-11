@@ -6,7 +6,7 @@ class Admin::Cms::FilesController < Admin::Cms::BaseController
   before_action :load_file,   :only => [:edit, :update, :destroy]
   
   def index
-    @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position')
+    @files = @site.files.includes(:categories).for_category(params[:category]).order('cms_files.position').references(:categories)
     
     if params[:ajax]
       if params[:not_images]

@@ -1,3 +1,8 @@
+require 'bundler'
+Bundler.setup
+
+require 'rake/testtask'
+
 require_relative 'config/application'
 
 ComfortableMexicanSofa::Application.load_tasks
