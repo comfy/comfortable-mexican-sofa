@@ -36,7 +36,7 @@ protected
     end
   rescue ActiveRecord::RecordNotFound
     flash[:error] = I18n.t('comfy.admin.cms.revisions.record_not_found')
-    redirect_to admin_cms_path
+    redirect_to comfy_admin_cms_path
   end
   
   def load_revision
@@ -48,9 +48,9 @@ protected
   
   def redirect_to_record
     redirect_to case @record
-      when ::Comfy::Cms::Layout  then edit_admin_cms_site_layout_path(@site, @record)
-      when ::Comfy::Cms::Page    then edit_admin_cms_site_page_path(@site, @record)
-      when ::Comfy::Cms::Snippet then edit_admin_cms_site_snippet_path(@site, @record)
+      when ::Comfy::Cms::Layout  then edit_comfy_admin_cms_site_layout_path(@site, @record)
+      when ::Comfy::Cms::Page    then edit_comfy_admin_cms_site_page_path(@site, @record)
+      when ::Comfy::Cms::Snippet then edit_comfy_admin_cms_site_snippet_path(@site, @record)
     end
   end
   

@@ -1,5 +1,5 @@
 .page-header
-  = link_to t('.revision', :count => @snippet.revisions.count), admin_cms_site_snippet_revisions_path(@site, @snippet), :class => 'btn pull-right'
+  = link_to t('.revision', :count => @snippet.revisions.count), comfy_admin_cms_site_snippet_revisions_path(@site, @snippet), :class => 'btn pull-right'
   %h2= t('.title')
 
 - content_for :right_column do

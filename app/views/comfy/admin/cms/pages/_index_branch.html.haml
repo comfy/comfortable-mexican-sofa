@@ -10,7 +10,7 @@
   .item
     .toggle{:class => branch_open ? 'open' : nil}
       - if !category_view && has_children && !page.root?
-        = link_to toggle_branch_admin_cms_site_page_path(@site, page), :remote => true do
+        = link_to toggle_branch_comfy_admin_cms_site_page_path(@site, page), :remote => true do
           %span= t('.toggle')
         
     .icon{:class => page.is_published?? 'published' : 'draft'}
@@ -19,13 +19,13 @@
           %span &#8645;
           
     .btn-group
-      = link_to t('.add_child_page'), new_admin_cms_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
-      = link_to t('.edit'), edit_admin_cms_site_page_path(@site, page), :class => 'btn btn-small'
-      = link_to t('.delete'), admin_cms_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+      = link_to t('.add_child_page'), new_comfy_admin_cms_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-small'
+      = link_to t('.edit'), edit_comfy_admin_cms_site_page_path(@site, page), :class => 'btn btn-small'
+      = link_to t('.delete'), comfy_admin_cms_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
       
     .item-content
       .item-title
-        = link_to page.label, edit_admin_cms_site_page_path(@site, page), :class => 'item-label'
+        = link_to page.label, edit_comfy_admin_cms_site_page_path(@site, page), :class => 'item-label'
         = render :partial => 'comfy/admin/cms/categories/categories', :object => page
       .item-meta
         = link_to page.url, page.url, :target => '_blank'

@@ -1,5 +1,5 @@
 .page-header
-  = link_to t('.new_link'), new_admin_cms_site_snippet_path(@site), :class => 'btn pull-right'
+  = link_to t('.new_link'), new_comfy_admin_cms_site_snippet_path(@site), :class => 'btn pull-right'
   %h2= t('.title')
 
 - content_for :right_column do
@@ -20,13 +20,13 @@
                 %span &#8645;
         %td.main
           .item-title
-            = link_to snippet.label, edit_admin_cms_site_snippet_path(@site, snippet)
+            = link_to snippet.label, edit_comfy_admin_cms_site_snippet_path(@site, snippet)
             = render :partial => 'comfy/admin/cms/categories/categories', :object => snippet
           .item-meta
             = snippet.identifier
         %td
           .btn-group
-            = link_to t('.edit'), edit_admin_cms_site_snippet_path(@site, snippet), :class => 'btn btn-small'
-            = link_to t('.delete'), admin_cms_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+            = link_to t('.edit'), edit_comfy_admin_cms_site_snippet_path(@site, snippet), :class => 'btn btn-small'
+            = link_to t('.delete'), comfy_admin_cms_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
             
 = render 'comfy/admin/cms/partials/snippets_after'

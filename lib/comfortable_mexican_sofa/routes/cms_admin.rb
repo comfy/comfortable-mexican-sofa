@@ -3,7 +3,7 @@ class ActionDispatch::Routing::Mapper
   def comfy_route_cms_admin(options = {})
     options[:path] ||= 'admin'
 
-    scope :module => :comfy do
+    scope :module => :comfy, :as => :comfy do
       scope :module => :admin do
         namespace :cms, :as => :admin_cms, :path => options[:path], :except => :show do
           get '/', :to => 'base#jump'

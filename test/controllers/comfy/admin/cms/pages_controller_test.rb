@@ -440,7 +440,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     Comfy::Cms::Layout.destroy_all
     get :new, :site_id => comfy_cms_sites(:default)
     assert_response :redirect
-    assert_redirected_to new_admin_cms_site_layout_path(comfy_cms_sites(:default))
+    assert_redirected_to new_comfy_admin_cms_site_layout_path(comfy_cms_sites(:default))
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
 
@@ -449,7 +449,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     page = comfy_cms_pages(:default)
     get :edit, :site_id => page.site, :id => page
     assert_response :redirect
-    assert_redirected_to new_admin_cms_site_layout_path(page.site)
+    assert_redirected_to new_comfy_admin_cms_site_layout_path(page.site)
     assert_equal 'No Layouts found. Please create one.', flash[:error]
   end
 

@@ -1,7 +1,7 @@
 class ActionDispatch::Routing::Mapper
 
   def comfy_route_cms(options = {})
-    scope :module => :comfy do
+    scope :module => :comfy, :as => :comfy do
       namespace :cms, :path => options[:path] do
         get 'cms-css/:site_id/:identifier' => 'assets#render_css', :as => 'render_css'
         get 'cms-js/:site_id/:identifier'  => 'assets#render_js',  :as => 'render_js'

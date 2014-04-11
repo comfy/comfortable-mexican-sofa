@@ -23,7 +23,7 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
   def create
     @site.save!
     flash[:success] = I18n.t('comfy.admin.cms.sites.created')
-    redirect_to admin_cms_site_layouts_path(@site)
+    redirect_to comfy_admin_cms_site_layouts_path(@site)
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = I18n.t('comfy.admin.cms.sites.creation_failure')
     render :action => :new

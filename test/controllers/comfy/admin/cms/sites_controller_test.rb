@@ -50,7 +50,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
       }
       assert_response :redirect
       site = Comfy::Cms::Site.last
-      assert_redirected_to admin_cms_site_layouts_path(site)
+      assert_redirected_to comfy_admin_cms_site_layouts_path(site)
       assert_equal 'Site created', flash[:success]
     end
   end
