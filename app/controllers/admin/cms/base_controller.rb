@@ -6,8 +6,8 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
   
   include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
 
+  before_action :load_admin_site
   before_action :authenticate,
-                :load_admin_site,
                 :set_locale,
                 :load_fixtures,
                 :except => :jump
@@ -19,9 +19,8 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
   end
   
   def jump
-    path = ComfortableMexicanSofa.config.admin_route_redirect
+    path = instance_eval &ComfortableMexicanSofa.config.admin_route_redirect
     return redirect_to(path) unless path.blank?
-    load_admin_site
     redirect_to admin_cms_site_pages_path(@site) if @site
   end
 

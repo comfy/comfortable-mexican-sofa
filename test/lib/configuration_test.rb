@@ -11,7 +11,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa::DeviseAuth', config.admin_auth
 
     assert_equal 'ComfortableMexicanSofa::DummyAuth', config.public_auth
-    assert_equal '', config.admin_route_redirect
+    assert_equal '', config.admin_route_redirect.call
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
