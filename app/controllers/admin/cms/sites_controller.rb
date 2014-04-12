@@ -10,7 +10,7 @@ class Admin::Cms::SitesController < Admin::Cms::BaseController
   def index
     respond_to do |format|
       format.html do
-        return redirect_to :action => :new if ::Cms::Site.count == 0
+        return redirect_to(action: :new) if ::Cms::Site.count == 0 && can?(:create, ::Cms::Site)
         @site = ::Cms::Site.find_by_id(session[:site_id])
         @sites ||= ::Cms::Site.all
       end
