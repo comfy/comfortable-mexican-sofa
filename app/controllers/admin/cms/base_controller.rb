@@ -29,7 +29,12 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_cms_path, :alert => exception.message
+    if ::Cms::Site.accessible_by(current_ability).exists?
+      flash[:error] = I18n.t('cms.base.site_not_found')
+      redirect_to(admin_cms_sites_path)
+    else
+      redirect_to admin_cms_path, :alert => exception.message
+    end
   end
   
 protected
@@ -40,11 +45,7 @@ protected
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
       flash[:error] = I18n.t('cms.base.site_not_found')
-      if current_admin_cms_user && (current_admin_cms_user.super_admin? || ::Cms::Site.accessible_by(current_ability).first)
-        return redirect_to(new_admin_cms_site_path)
-      else
-        return redirect_to(admin_cms_sites_path)
-      end
+      return redirect_to(new_admin_cms_site_path)
     end
   end
 
