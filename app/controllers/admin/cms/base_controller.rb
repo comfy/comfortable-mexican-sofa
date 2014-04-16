@@ -40,7 +40,11 @@ protected
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
       flash[:error] = I18n.t('cms.base.site_not_found')
-      return redirect_to(admin_cms_sites_path)
+      if current_admin_cms_user && (current_admin_cms_user.super_admin? || ::Cms::Site.accessible_by(current_ability).first)
+        return redirect_to(new_admin_cms_site_path)
+      else
+        return redirect_to(admin_cms_sites_path)
+      end
     end
   end
 
