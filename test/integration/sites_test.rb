@@ -11,10 +11,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_cms_site_pages_path(assigns(:site))
   end
 
-  # super admin with no sites gets redirected to sites/new
-  # user.has_ability?(:create) should ALSO get redirected to sites/new
-  # everyone else should stay on the sites list
-  def test_get_super_admin_with_no_site
+  def test_get_super_admin
     Cms::Site.delete_all
     http_auth :get, admin_cms_path
     new_admin_cms_site_path :get, admin_cms_path
@@ -23,7 +20,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 'Site not found', flash[:error]
   end
 
-  def test_get_admin_with_no_site
+  def test_get_admin_with_site
     Cms::Site.delete_all
     http_auth_normal :get, new_admin_cms_site_path
     get new_admin_cms_site_path
