@@ -5,14 +5,14 @@ class Cms::SiteUser < ActiveRecord::Base
   self.table_name = 'cms_site_users'
 
   # -- Relationships --------------------------------------------------------
-  belongs_to :user
+  belongs_to :user, inverse_of: :site_users
   belongs_to :site
 
   # -- Validations ----------------------------------------------------------
-  validates :user_id,
+  validates :user,
     presence: true
-  validates :site_id,
+  validates :site,
     presence: true,
-    uniqueness: { scope: :user_id }
+    uniqueness: { scope: :user }
 
 end

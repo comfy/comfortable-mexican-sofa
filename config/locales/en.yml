@@ -103,6 +103,7 @@ en:
       creation_failure: Failed to create user
       updated: User updated
       update_failure: Failed to update user
+      deleted: User deleted
   
   # -- Views ----------------------------------------------------------------
   admin:

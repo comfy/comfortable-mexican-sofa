@@ -9,12 +9,6 @@ class Admin::Cms::CategoriesControllerTest < ActionController::TestCase
     assert assigns(:category)
   end
   
-  def test_get_edit_failure
-    xhr :get, :edit, :site_id => cms_sites(:default), :id => 'invalid'
-    assert_response :success
-    assert response.body.blank?
-  end
-  
   def test_creation
     assert_difference 'Cms::Category.count' do
       xhr :post, :create, :site_id => cms_sites(:default), :category => {
