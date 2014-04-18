@@ -1,4 +1,4 @@
-class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
+class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
   def field_name_for(tag)
     tag.blockable.class.name.demodulize.underscore.gsub(/\//,'_')
@@ -28,7 +28,9 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
     end
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
 
-    element(label, content.html_safe)
+    static_control label do 
+      content.html_safe
+    end
   end
 
   def field_date_time(tag, index)
@@ -56,7 +58,9 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
     content = @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][content]", '', :id => nil)
     content << @template.check_box_tag("#{fieldname}[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    element(tag.identifier.titleize + "?", content)
+    static_control tag.identifier.titleize + "?" do 
+      content
+    end
   end
 
   def page_date_time(tag, index)
@@ -104,7 +108,9 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
       :id => nil
     )
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    element(tag.identifier.titleize, content, :class => tag.class.to_s.demodulize.underscore )
+    static_control tag.identifier.titleize, :class => tag.class.to_s.demodulize.underscore do
+      content
+    end
   end
 
 end

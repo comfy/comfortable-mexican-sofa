@@ -9,7 +9,7 @@ module ComfortableMexicanSofa::ViewMethods
     def comfy_form_for(record, options = {}, &proc)
       options[:builder] = ComfortableMexicanSofa::FormBuilder
       options[:type] ||= :horizontal
-      formatted_form_for(record, options, &proc)
+      bootstrap_form_for(record, options, &proc)
     end
 
     # Injects some content somewhere inside cms admin area

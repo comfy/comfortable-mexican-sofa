@@ -9,7 +9,7 @@
 #= require codemirror/modes/markdown
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
-#= require comfortable_mexican_sofa/lib/bootstrap
+#= require bootstrap
 #= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
 #= require comfortable_mexican_sofa/lib/diff
 
