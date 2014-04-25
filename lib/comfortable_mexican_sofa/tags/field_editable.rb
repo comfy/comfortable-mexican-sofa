@@ -1,9 +1,9 @@
-class ComfortableMexicanSofa::Tag::PageMarkdown
+class ComfortableMexicanSofa::Tag::FieldEditable
   include ComfortableMexicanSofa::Tag
   
   def self.regex_tag_signature(identifier = nil)
     identifier ||= IDENTIFIER_REGEX
-    /\{\{\s*cms:page:(#{identifier}):markdown\s*\}\}/
+    /\{\{\s*cms:field:(#{identifier}):?(?:editable)?\s*?\}\}/
   end
   
   def content
@@ -11,6 +11,7 @@ class ComfortableMexicanSofa::Tag::PageMarkdown
   end
   
   def render
-    Kramdown::Document.new(content.to_s).to_html
+    ''
   end
+  
 end

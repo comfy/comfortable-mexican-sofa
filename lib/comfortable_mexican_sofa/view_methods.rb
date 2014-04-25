@@ -51,7 +51,16 @@ module ComfortableMexicanSofa::ViewMethods
     return '' unless page ||= @cms_page
     return '' unless block = page.blocks.find_by_identifier(identifier)
     processed_content = ComfortableMexicanSofa::Tag.process_content(page, block.content)
-    ComfortableMexicanSofa::Tag.add_block_edit_tags(processed_content, block)
+    begin
+      is_current_user_admin = current_admin_cms_user
+    rescue StandardError
+      is_current_user_admin = false
+    end
+    if is_current_user_admin && block.tag.class.to_s.demodulize =~ (/Editable$/)
+      ComfortableMexicanSofa::Tag.add_block_edit_tags(processed_content, block)
+    else
+      processed_content
+    end
   end
 
   # Fetch files from a page:field. Will return a list of files, regardless of how many files are present.

@@ -8,11 +8,11 @@ class ComfortableMexicanSofa::Tag::Helper
     /\{\{\s*cms:helper:(#{identifier}):?(.*?)\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     "<%= #{identifier}(#{params.collect{|p| "'#{p}'"}.join(', ')}) %>"
   end
   
-  def render(include_edit_tags = false)
+  def render
     whitelist = ComfortableMexicanSofa.config.allowed_helpers
     if whitelist.is_a?(Array)
       content if whitelist.map!(&:to_s).member?(identifier)

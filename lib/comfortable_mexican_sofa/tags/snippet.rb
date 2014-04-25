@@ -12,7 +12,7 @@ class ComfortableMexicanSofa::Tag::Snippet
       page.site.snippets.build(:identifier => self.identifier.to_s)
   end
   
-  def content(include_edit_tags = false)
+  def content
     snippet.content
   end
   

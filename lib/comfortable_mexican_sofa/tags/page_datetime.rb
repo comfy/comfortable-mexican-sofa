@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Tag::PageDateTime
     /\{\{\s*cms:page:(#{identifier}):datetime\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   

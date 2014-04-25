@@ -6,11 +6,11 @@ class ComfortableMexicanSofa::Tag::FieldDateTime
     /\{\{\s*cms:field:(#{identifier}):datetime\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   
-  def render(include_edit_tags = false)
+  def render
     ''
   end
   

@@ -47,11 +47,11 @@ class ComfortableMexicanSofa::Tag::Collection
     klass.respond_to?(:cms_collection) ? klass.cms_collection(*collection_params) : klass.all
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   
-  def render(include_edit_tags = false)
+  def render
     if self.content.present?
       ps = collection_params.collect_with_index{|p, i| ":param_#{i+1} => '#{p}'"}.join(', ')
       ps = ps.present?? ", #{ps}" : ''

@@ -6,11 +6,11 @@ class ComfortableMexicanSofa::Tag::FieldInteger
     /\{\{\s*cms:field:(#{identifier}):integer\s*\}\}/
   end
   
-  def content(include_edit_tags = false)
+  def content
     block.content
   end
   
-  def render(include_edit_tags = false)
+  def render
     ''
   end
   

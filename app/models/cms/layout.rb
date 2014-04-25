@@ -56,15 +56,15 @@ class Cms::Layout < ActiveRecord::Base
   # exist.
   def self.create_layouts_from_application_layouts(site)
     Cms::Layout.app_layouts_for_select.each do |app_layout|
-      puts ("Checking application layout: #{app_layout}.")
       logger.debug("Checking application layout: #{app_layout}.")
-      layout_from_app_layouts = Cms::Layout.where(parent_id: nil, identifier: app_layout, site_id: site.id)
+      layout_for_app_layout = Cms::Layout.where(identifier: app_layout,
+                                                site_id: site.id)
                                            .first_or_create
-      # logger.debug("Current layout ID: #{layout_from_app_layouts.id}.")
-      layout_from_app_layouts.app_layout = app_layout
-      layout_from_app_layouts.label ||= app_layout.capitalize
-      layout_from_app_layouts.content ||= '{{ cms:page:content:text }}'
-      layout_from_app_layouts.save!
+      # logger.debug("Current layout ID: #{layout_for_app_layout.id}.")
+      layout_for_app_layout.app_layout = app_layout
+      layout_for_app_layout.label ||= app_layout.capitalize
+      layout_for_app_layout.content ||= '{{ cms:page:content:text }}'
+      layout_for_app_layout.save!
     end
   end
   

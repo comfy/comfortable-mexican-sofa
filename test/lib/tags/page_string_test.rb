@@ -42,8 +42,8 @@ class PageStringTagTest < ActiveSupport::TestCase
     )
     assert tag.block.content.blank?
     tag.block.content = 'test_content'
-    assert_equal 'test_content', tag.content(false)
-    assert_equal 'test_content', tag.render(false)
+    assert_equal 'test_content', tag.content
+    assert_equal 'test_content', tag.render
   end
   
 end

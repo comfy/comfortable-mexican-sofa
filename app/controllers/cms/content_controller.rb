@@ -15,11 +15,8 @@ class Cms::ContentController < Cms::BaseController
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
 
-      if current_admin_cms_user
-        content = @cms_page.content(true) + injected_admin_javascript
-      else
-        content = @cms_page.content(false)
-      end
+      content = @cms_page.content
+      content << injected_admin_javascript if current_admin_cms_user
 
       render :inline => content, :layout => app_layout, :status => status, :content_type => 'text/html'
     else
