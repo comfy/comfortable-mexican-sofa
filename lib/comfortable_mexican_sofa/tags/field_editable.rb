@@ -3,7 +3,7 @@ class ComfortableMexicanSofa::Tag::FieldEditable
   
   def self.regex_tag_signature(identifier = nil)
     identifier ||= IDENTIFIER_REGEX
-    /\{\{\s*cms:field:(#{identifier}):?(?:editable)?\s*?\}\}/
+    /\{\{\s*cms:field:(#{identifier}):editable\s*?\}\}/
   end
   
   def content
