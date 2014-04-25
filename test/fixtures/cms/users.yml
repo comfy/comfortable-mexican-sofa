@@ -9,6 +9,6 @@ admin:
   encrypted_password: <%= Cms::User.new.send(:password_digest, 'password') %>
   super_admin: true
 
-normal_user:
+normal:
   email: user@example.com
   encrypted_password: <%= Cms::User.new.send(:password_digest, 'password') %>

@@ -15,10 +15,6 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
 
-  # When arriving at /cms-admin you may chose to redirect to arbirtary path,
-  # for example '/cms-admin/users'
-  attr_accessor :admin_route_redirect
-
   # Upload settings
   attr_accessor :upload_file_options
 
@@ -85,7 +81,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_auth           = 'ComfortableMexicanSofa::DeviseAuth'
     @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
     @seed_data_path       = nil
-    @admin_route_redirect = ''
+    @admin_route_redirect = Proc.new { '' }
     @enable_sitemap       = true
     @upload_file_options  = { }
     @enable_fixtures      = false
@@ -112,6 +108,18 @@ class ComfortableMexicanSofa::Configuration
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
     @application_layouts  = false
+  end
+
+  def admin_route_redirect(&block)
+    if block
+      @admin_route_redirect = block
+    else
+      @admin_route_redirect
+    end
+  end
+
+  def admin_route_redirect=(s)
+    @admin_route_redirect = Proc.new { s }
   end
 
 end

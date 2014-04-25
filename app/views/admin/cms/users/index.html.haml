@@ -2,15 +2,18 @@
   = link_to t('.new_user'), new_admin_cms_user_path, class: 'btn pull-right'
   %h2= t('.title')
 
-%table.table.table-hover.table-bordered
-  - @users.each do |user|
-    %tr
-      %td
-        .icon
-      %td.main
-        .item-title
-          = user.email
-      %td
-        .btn-group
-          = link_to t('.edit'), edit_admin_cms_user_path(user), class: 'btn btn-small'
-          = link_to t('.delete'), admin_cms_user_path(user), method: 'delete', data: {confirm: t('.are_you_sure')}, class: 'btn btn-small btn-danger'
+- if @users
+  %table.table.table-hover.table-bordered
+    - @users.each do |user|
+      %tr
+        %td
+          .icon
+        %td.main
+          .item-title
+            = user.email
+        %td
+          .btn-group
+            = link_to t('.edit'), edit_admin_cms_user_path(user), class: 'btn btn-small'
+            = link_to t('.delete'), admin_cms_user_path(user), method: 'delete', data: {confirm: t('.are_you_sure')}, class: 'btn btn-small btn-danger'
+- else
+  You don't have access to edit any users.

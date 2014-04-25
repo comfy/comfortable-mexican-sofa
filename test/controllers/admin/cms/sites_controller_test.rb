@@ -17,7 +17,7 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_index_only_shows_users_site
-    sign_in cms_users(:normal_user)
+    sign_in cms_users(:normal)
     get :index
     assert_response :success
     assert_equal 1, assigns(:sites).length
@@ -41,6 +41,13 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_template :edit
     assert_select "form[action=/admin/sites/#{site.id}]"
   end
+
+  def test_get_edit_unauthorized
+    sign_in cms_users(:normal)
+    site = cms_sites(:default)
+    get :edit, :id => site
+    assert_response :redirect
+  end
   
   def test_create
     assert_difference 'Cms::Site.count' do
@@ -54,6 +61,18 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
       assert_redirected_to admin_cms_site_layouts_path(site)
       assert_equal 'Site created', flash[:success]
     end
+  end
+
+  def test_create_as_non_admin
+    sign_in cms_users(:normal)
+    post :create, :site => {
+      :label      => 'Test Site',
+      :identifier => 'test-site',
+      :hostname   => 'test.site.local'
+    }
+    assert_response :redirect
+    site = Cms::Site.last
+    assert site.users.include? cms_users(:normal)
   end
 
   def test_creation_failure

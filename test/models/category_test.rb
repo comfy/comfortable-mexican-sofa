@@ -32,7 +32,7 @@ class CmsCategoryTest < ActiveSupport::TestCase
   end
   
   def test_scope_of_type
-    assert_equal 1, Cms::Category.of_type('Cms::File').count
+    assert_equal 2, Cms::Category.of_type('Cms::File').count
     assert_equal 0, Cms::Category.of_type('Invalid').count
   end
   

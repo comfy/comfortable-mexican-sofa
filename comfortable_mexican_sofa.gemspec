@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails',             '~> 4.0'
   s.add_dependency 'formatted_form',    '>= 2.1.0'
   s.add_dependency 'active_link_to',    '>= 1.0.0'
-  s.add_dependency 'paperclip',         '>= 3.4.0'
+  s.add_dependency 'paperclip',         '>= 4.0.0'
   s.add_dependency 'kramdown',          '>= 1.0.0'
   s.add_dependency 'jquery-rails',      '>= 3.0.0'
   s.add_dependency 'jquery-ui-rails',   '>= 4.0.0'
@@ -30,5 +30,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'devise',            '>= 3.0.0'
-  s.add_dependency 'cancan',             '>= 1.6.10'
+  s.add_dependency 'cancancan',         '~> 1.7'
 end
