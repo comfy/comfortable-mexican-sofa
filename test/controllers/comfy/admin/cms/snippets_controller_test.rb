@@ -136,7 +136,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_equal 0, snippet_one.position
     assert_equal 1, snippet_two.position
 
-    post :reorder, :site_id => comfy_cms_sites(:default), :cms_snippet => [snippet_two.id, snippet_one.id]
+    post :reorder, :site_id => comfy_cms_sites(:default), :comfy_cms_snippet => [snippet_two.id, snippet_one.id]
     assert_response :success
     snippet_one.reload
     snippet_two.reload

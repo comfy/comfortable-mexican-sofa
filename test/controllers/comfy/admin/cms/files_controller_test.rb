@@ -227,7 +227,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 0, file_one.position
     assert_equal 1, file_two.position
 
-    put :reorder, :site_id => comfy_cms_sites(:default), :cms_file => [file_two.id, file_one.id]
+    put :reorder, :site_id => comfy_cms_sites(:default), :comfy_cms_file => [file_two.id, file_one.id]
     assert_response :success
     file_one.reload
     file_two.reload
