@@ -5,10 +5,10 @@
 = form.text_field :hostname
 = form.text_field :path
 = form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| [l[1], l[0]]}
-= form.check_box :is_mirrored, :label => t('.is_mirrored')
+= form.form_group do
+  = form.check_box :is_mirrored, :label => t('.is_mirrored')
 
 = render 'comfy/admin/cms/partials/site_form_after', :object => form
 
-.form-actions
-  = form.submit t(@site.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
-
+= form.form_group :class => 'form-actions' do
+  = form.primary t(@site.new_record?? '.create' : '.update')

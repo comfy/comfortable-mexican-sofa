@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::ViewMethods
     # Wrapper around ComfortableMexicanSofa::FormBuilder
     def comfy_form_for(record, options = {}, &proc)
       options[:builder] = ComfortableMexicanSofa::FormBuilder
-      options[:type] ||= :horizontal
+      options[:layout] ||= :horizontal
       bootstrap_form_for(record, options, &proc)
     end
 

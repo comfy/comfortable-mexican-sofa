@@ -4,8 +4,9 @@
 = form.file_field :file, :multiple => @file.new_record?
 
 - unless @file.new_record?
-  = form.static_control t('.current_file') do
-    = image_tag @file.file.url if @file.is_image?
+  = form.form_group t('.current_file') do
+    - if @file.is_image?
+      .file-image= image_tag @file.file.url 
     = link_to @file.file.url, @file.file.url, :target => '_blank'
 
 = form.text_area :description
@@ -14,5 +15,5 @@
 
 = render 'comfy/admin/cms/partials/file_form_after', :object => form
 
-.form-actions
+= form.form_group :class => 'form-actions' do
   = form.submit t(@file.new_record?? '.create' : '.update'), :class => 'btn btn-primary'

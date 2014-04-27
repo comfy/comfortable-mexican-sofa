@@ -28,7 +28,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
     end
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
 
-    static_control label do 
+    form_group :label => {:text => label} do 
       content.html_safe
     end
   end
@@ -58,7 +58,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
     content = @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][content]", '', :id => nil)
     content << @template.check_box_tag("#{fieldname}[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    static_control tag.identifier.titleize + "?" do 
+    form_group :label => {:text => tag.identifier.titleize + "?"} do 
       content
     end
   end
@@ -108,7 +108,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       :id => nil
     )
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    static_control tag.identifier.titleize, :class => tag.class.to_s.demodulize.underscore do
+    form_group :label => {:text => tag.identifier.titleize}, :class => tag.class.to_s.demodulize.underscore do
       content
     end
   end

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'rails',             '~> 4.0'
   s.add_dependency 'rails-i18n',        '~> 4.0.0'
-  s.add_dependency 'bootstrap_form',    '~> 2.1.0'
+  s.add_dependency 'bootstrap_form',    '~> 2.1.1'
   s.add_dependency 'active_link_to',    '>= 1.0.0'
   s.add_dependency 'paperclip',         '>= 3.4.0'
   s.add_dependency 'kramdown',          '>= 1.0.0'

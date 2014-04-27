@@ -1,5 +1,5 @@
 .page-header
-  = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), :class => 'btn pull-right'
+  = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), :class => 'btn btn-default pull-right'
   %h2= t('.title')
   
 = render 'comfy/admin/cms/partials/files_before'
@@ -24,8 +24,8 @@
           .item-meta
             = link_to file.file_file_name, file.file.url, :target => '_blank'
         %td
-          .btn-group
-            = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-small'
-            = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-small btn-danger'
+          .btn-group.btn-group-sm
+            = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
+            = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
 
 = render 'comfy/admin/cms/partials/files_after'

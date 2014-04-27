@@ -64,7 +64,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def reorder
-    (params[:cms_page] || []).each_with_index do |id, index|
+    (params[:comfy_cms_page] || []).each_with_index do |id, index|
       ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
     end
     render :nothing => true

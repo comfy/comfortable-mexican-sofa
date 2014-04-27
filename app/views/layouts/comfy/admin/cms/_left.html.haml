@@ -1,7 +1,7 @@
 = render 'comfy/admin/cms/partials/navigation_before'
 
 %ul.navigation
-  %li= active_link_to t('comfy.admin.cms.base.sites'), comfy_admin_cms_sites_path, :active => ['admin/cms/sites']
+  %li= active_link_to t('comfy.admin.cms.base.sites'), comfy_admin_cms_sites_path, :active => ['comfy/admin/cms/sites']
   
   - if @site && !@site.new_record?
     %li= active_link_to t('comfy.admin.cms.base.layouts'), comfy_admin_cms_site_layouts_path(@site)

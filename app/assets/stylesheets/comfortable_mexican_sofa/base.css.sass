@@ -33,6 +33,7 @@ body#comfy
   .left-column-content ul.navigation
     list-style: none
     margin: 0
+    padding: 0
     a
       position: relative
       display: block
@@ -70,6 +71,7 @@ body#comfy
       margin-bottom: 10px
       overflow: auto
     #mirrors select
+      width: 100%
       margin-bottom: 0
     #form-save
       label
@@ -238,16 +240,17 @@ body#comfy
         display: none
     form
       margin: 0
-      .input-append
-        margin: 0 
-        input[type=text]
+      .input-group
+        input.form-control
           width: 125px
-          font-size: 11px
-          line-height: 14px
+          height: 22px
           padding: 3px
+          font-size: 11px
+          line-height: 11px
           
   // -- Sortable List -------------------------------------------------------
   ul.list
+    padding: 0
     margin: 0
     list-style: none
     .item
@@ -283,15 +286,16 @@ body#comfy
         float: right
     li ul
       list-style: none
+      padding: 0
       margin: 0 0 0 28px
           
   // -- Sites ---------------------------------------------------------------
-  &.c-admin-cms-sites
+  &.c-comfy-admin-cms-sites
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_site.gif"))
       
   // -- Layouts -------------------------------------------------------------
-  &.c-admin-cms-layouts
+  &.c-comfy-admin-cms-layouts
     ul.list
       .item
         .icon
@@ -300,7 +304,7 @@ body#comfy
           margin-left: 35px
       
   // -- Pages ---------------------------------------------------------------
-  &.c-admin-cms-pages
+  &.c-comfy-admin-cms-pages
     #form-blocks
       ul.nav-tabs
         margin-left: 180px
@@ -321,17 +325,17 @@ body#comfy
           font-size: 12px
         
   // -- Snippets ------------------------------------------------------------
-  &.c-admin-cms-snippets
+  &.c-comfy-admin-cms-snippets
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_snippet.gif"))
       
   // -- Files ---------------------------------------------------------------
-  &.c-admin-cms-files
+  &.c-comfy-admin-cms-files
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
     
   // -- Revisions -----------------------------------------------------------
-  &.c-admin-cms-revisions
+  &.c-comfy-admin-cms-revisions
     td.with-table
       padding: 0
     table.diff

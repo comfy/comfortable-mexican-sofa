@@ -4,8 +4,8 @@
   .categories-widget-label= t('.label')
   
   .action-links
-    .edit= link_to t('.edit'), '#', :class => 'btn btn-mini'
-    .done= link_to t('.done'), '#', :class => 'btn btn-mini'
+    .edit= link_to t('.edit'), '#', :class => 'btn btn-default btn-xs'
+    .done= link_to t('.done'), '#', :class => 'btn btn-default btn-xs'
   
   .categories.read
     .category.all{:class => params[:category].blank?? 'active' : nil}
@@ -19,6 +19,7 @@
     
     = form_for :category, :url => comfy_admin_cms_site_categories_path(@site), :remote => true, :html => {:id => 'new_category'} do |form|
       = form.hidden_field :categorized_type, :value => type
-      .input-append
-        = form.text_field :label, :placeholder => t('.add_placeholder')
-        %button.btn.btn-mini= t('.add')
+      .input-group
+        = form.text_field :label, :placeholder => t('.add_placeholder'), :class => 'form-control'
+        .input-group-btn
+          %button.btn.btn-primary.btn-xs= t('.add')

@@ -11,5 +11,5 @@
 
 = render :partial => 'comfy/admin/cms/partials/snippet_form_after', :object => form
 
-.form-actions
+= form.form_group :class => 'form-actions' do
   = form.submit t(@snippet.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
