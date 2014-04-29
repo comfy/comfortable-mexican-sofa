@@ -40,6 +40,13 @@ class AssetTagTest < ActiveSupport::TestCase
     )
     assert_equal "<link href='/cms-css/#{comfy_cms_sites(:default).id}/default.css' media='screen' rel='stylesheet' type='text/css' />", tag.render
   end
+
+  def test_render_for_css_when_site_has_path
+    tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
+      page_for_site_with_path('/foo'), '{{ cms:asset:default:css }}'
+    )
+    assert_equal "/cms-css/#{comfy_cms_sites(:default).id}/default.css?cms_path=/foo", tag.render
+  end
   
   def test_render_for_js
     tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
@@ -52,5 +59,17 @@ class AssetTagTest < ActiveSupport::TestCase
     )
     assert_equal "<script src='/cms-js/#{comfy_cms_sites(:default).id}/default.js' type='text/javascript'></script>", tag.render
   end
-  
+
+  def test_render_for_js_when_site_has_path
+    tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
+      page_for_site_with_path('/foo'), '{{ cms:asset:default:js }}'
+    )
+    assert_equal "/cms-js/#{comfy_cms_sites(:default).id}/default.js?cms_path=/foo", tag.render
+  end
+
+  def page_for_site_with_path(path)
+    page = comfy_cms_pages(:default)
+    page.site.update_attribute(:path, path)
+    page
+  end
 end
