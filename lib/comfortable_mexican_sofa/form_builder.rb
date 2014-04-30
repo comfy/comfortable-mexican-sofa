@@ -30,7 +30,11 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   def field_date_time(tag, index)
     default_tag_field(tag, index, :text_field_tag, :data => {:datetime => true})
   end
-  
+
+  def field_editable(tag, index)
+    default_tag_field(tag, index, :text_area_tag)
+  end
+
   def field_integer(tag, index)
     default_tag_field(tag, index, :number_field_tag)
   end

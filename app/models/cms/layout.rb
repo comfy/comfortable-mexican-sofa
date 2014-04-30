@@ -51,6 +51,22 @@ class Cms::Layout < ActiveRecord::Base
       filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
     end.compact.sort
   end
+
+  # Creates layouts inheriting from application layouts, so that pages can choose a layout if none
+  # exist.
+  def self.create_layouts_from_application_layouts(site)
+    Cms::Layout.app_layouts_for_select.each do |app_layout|
+      logger.debug("Checking application layout: #{app_layout}.")
+      layout_for_app_layout = Cms::Layout.where(identifier: app_layout,
+                                                site_id: site.id)
+                                           .first_or_create
+      # logger.debug("Current layout ID: #{layout_for_app_layout.id}.")
+      layout_for_app_layout.app_layout = app_layout
+      layout_for_app_layout.label ||= app_layout.capitalize
+      layout_for_app_layout.content ||= '{{ cms:page:content:text }}'
+      layout_for_app_layout.save!
+    end
+  end
   
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is {cms:page:content} If parent layout has this tag
@@ -114,5 +130,4 @@ protected
     Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content => nil)
     self.children.each{ |child_layout| child_layout.clear_cached_page_content }
   end
-
 end

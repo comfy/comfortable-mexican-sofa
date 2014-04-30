@@ -1,0 +1,154 @@
+body#comfy
+  iframe.wysihtml5-sandbox, iframe.wysihtml5-sandbox *
+    -moz-box-sizing: content-box
+    -webkit-box-sizing: content-box
+    box-sizing: content-box
+
+#editorSubmitStatusWrapper
+  position: absolute
+  left: 40%
+  width: 10%
+  right: 40%
+  text-align: center
+  font-size: 20px
+  background: white
+  padding: 5px
+  border-radius: 6px
+  top: 40%
+  border: 1px solid black
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  .success
+    color: #66CD00
+  .error
+    color: #DB2929
+
+#editorWrapper
+  position: fixed
+  top: 25%
+  left: 10%
+  right: 10%
+  background: grey
+  padding: 1%
+  width: 80%
+  border-radius: 4px
+  z-index: 1000
+  border: 1px solid black
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.75)
+  border-raius: 4px
+  z-index: 1000
+
+  textarea
+    width: 99%
+    height: 200px
+  form
+    margin-top: 0px
+
+
+#closeEditor
+  position: absolute
+  top: 3px
+  resize: none
+  right: 3px
+  background: white
+  border: 1px solid black
+  width: 16px
+  height: 16px
+  line-height: 1
+  color: black
+
+#editorTitle
+  font-size: 20px
+  color: white
+  margin-bottom: 4px
+  display: inline-block
+  font-family: arial
+  line-height: 1
+
+#wysihtml5-toolbar
+  a
+    -moz-box-shadow: inset 0px 1px 0px 0px #ffffff
+    -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff
+    box-shadow: inset 0px 1px 0px 0px #ffffff
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf))
+    background: -moz-linear-gradient(center top, #ededed 5%, #dfdfdf 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf')
+    background-color: #ededed
+    -webkit-border-top-left-radius: 6px
+    -moz-border-radius-topleft: 6px
+    border-top-left-radius: 6px
+    -webkit-border-top-right-radius: 6px
+    -moz-border-radius-topright: 6px
+    border-top-right-radius: 6px
+    -webkit-border-bottom-right-radius: 6px
+    -moz-border-radius-bottomright: 6px
+    border-bottom-right-radius: 6px
+    -webkit-border-bottom-left-radius: 6px
+    -moz-border-radius-bottomleft: 6px
+    border-bottom-left-radius: 6px
+    text-indent: 0
+    border: 1px solid #dcdcdc
+    display: inline-block
+    color: #777777
+    font-family: arial
+    font-size: 15px
+    font-weight: bold
+    font-style: normal
+    text-decoration: none
+    text-align: center
+    text-shadow: 1px 1px 0px white
+    padding: 5px
+    margin-bottom: 4px
+    line-height: 1
+    &:hover
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed))
+      background: -moz-linear-gradient(center top, #dfdfdf 5%, #ededed 100%)
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed')
+      background-color: #dfdfdf
+    &:active
+      position: relative
+      top: 1px
+
+  div[data-wysihtml5-dialog="createImageLink"] label
+    div.selectorWrapper
+      display: inline-block
+      width: 100%
+      select
+        float: left
+    div.imageWrapper
+      margin-top: 1em
+      margin-bottom: 1em
+      padding-left: 0.5em
+      img#editor_comfy_image_preview
+        border: 1px
+        border-style: solid
+        width: auto
+        height: 50px
+
+#submitChanges
+  background-color: white
+  border: 2px inset
+  cursor: auto
+  color: black
+  font-size: 18px
+  text-transform: none
+  font-family: arial
+  border: 1px solid black
+  box-shadow: none
+  margin-top: 10px
+  padding: 4px
+  border-radius: 3px
+  line-height: 1
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+    color: white
+    background: black
+
+body span.inline-editable
+  border: 1px dashed black
+  display: block
+  min-height: 5px

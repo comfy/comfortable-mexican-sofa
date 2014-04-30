@@ -1,8 +1,10 @@
 class Admin::Cms::PagesController < Admin::Cms::BaseController
+  include ComfortableMexicanSofa::ViewMethods
 
+  before_action :create_application_layouts, :only => [:new, :edit]
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
-  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_action :load_cms_page,     :only => [:edit, :update, :destroy, :edit_block]
   before_action :preview_cms_page,  :only => [:create, :update]
   before_action :build_file,        :only => [:new, :edit]
 
@@ -95,6 +97,41 @@ class Admin::Cms::PagesController < Admin::Cms::BaseController
     redirect_to edit_admin_cms_site_page_path(@site, @page)
   end
 
+  def edit_block
+    @block = @page.blocks.find(params[:block_id])
+    @files_and_urls = @site.files
+      .where('strpos(file_content_type, ?) > 0', "image")
+      .map { |image| [image.file_file_name, image.file_file_name + ' # ' + image.file.url] }
+
+    render :edit_block, layout: false
+  end
+  
+  def update_block
+    begin
+      page = @site.pages.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Cannot edit page #{params[:id]}" }, status: 422
+      return
+    end
+
+    block_params = update_block_params
+
+    @block = page.blocks.where(:id => block_params[:id]).first
+
+    unless @block && @block.update(block_params) && page.save
+      render json: { error: "Cannot edit page #{page.label}, please try again later" }, status: 422
+      return
+    end
+
+    # HACK HACK HACK HACK!!!!!
+    # Set @cms_site so that rendered partials which expect @cms_site to be available have it
+    @cms_site ||= @site
+    
+    @content = cms_page_block_content(@block.identifier.to_sym, page)
+
+    render :update_block, layout: false, status: 200
+  end
+
 protected
 
   def check_for_layouts
@@ -112,6 +149,10 @@ protected
 
   def build_file
     @file = Cms::File.new
+  end
+
+  def create_application_layouts
+    Cms::Layout.create_layouts_from_application_layouts(@site) if ComfortableMexicanSofa.config.application_layouts
   end
 
   def load_cms_page
@@ -135,5 +176,10 @@ protected
   
   def page_params
     params.fetch(:page, {}).permit!
+  end
+
+
+  def update_block_params
+    params.require(:block).permit(:id, :content)
   end
 end

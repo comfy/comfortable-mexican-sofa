@@ -9,16 +9,18 @@ class Cms::ContentControllerTest < ActionController::TestCase
     assert_equal cms_pages(:default), assigns(:cms_page)
     
     assert_response :success
-    assert_equal rendered_content_formatter(
-      '
+      %w(
       layout_content_a
       default_page_text_content_a
       default_snippet_content
       default_page_text_content_b
       layout_content_b
       default_snippet_content
-      layout_content_c'
-    ), response.body
+      layout_content_c
+      edit_content).each do |item|
+        assert_match item, response.body
+      end
+
     assert_equal 'text/html', response.content_type
   end
   

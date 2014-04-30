@@ -1,0 +1,5 @@
+<%
+  # render inline: actually processes erb and we use erb when we use something like {{ cms:partial:foo/bar }} 
+  # we cant do this from the controller as we can only call render once.
+%>
+{"content": <%= raw (render inline: @content).to_json %>, "block_id": "<%= @block.id %>"}

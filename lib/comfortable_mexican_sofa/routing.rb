@@ -9,6 +9,10 @@ module ComfortableMexicanSofa::Routing
           get '/', :to => 'base#jump'
           devise_for :users, class_name: "Cms::User", controllers: {sessions: "admin/cms/sessions"}
           resources :users
+          resources :pages do
+            get "edit_block/:block_id" => "pages#edit_block", :on => :member
+            post :update_block, :on => :member
+          end
           resources :sites do
             resources :pages do
               get  :form_blocks,    :on => :member
