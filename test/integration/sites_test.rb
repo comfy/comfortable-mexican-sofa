@@ -27,7 +27,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to admin_cms_sites_path
-    assert_equal 'Site not found', flash[:error]
+    assert_equal 'You are not authorized to access this page.', flash[:alert]
 
     Cms::Site.delete_all
   end
