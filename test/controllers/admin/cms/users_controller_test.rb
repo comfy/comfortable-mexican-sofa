@@ -36,6 +36,15 @@ class Admin::Cms::UsersControllerTest < ActionController::TestCase
     assert_template :new
   end
 
+  def test_new_super_admin
+    # sign_in cms_users(:normal)
+    sign_in an_admin
+    get :new
+    assert_response :success
+    assert assigns(:user)
+    assert_template :new
+  end
+
   def test_new_unauthorized
     sign_in cms_users(:normal)
     get :new
