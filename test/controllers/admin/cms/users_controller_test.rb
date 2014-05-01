@@ -25,8 +25,7 @@ class Admin::Cms::UsersControllerTest < ActionController::TestCase
   def test_edit_unauthorized
     sign_in cms_users(:normal)
     get :edit, id: cms_users(:admin)
-    assert_response :redirect
-    assert_equal 'You are not authorized to access this page.', flash[:alert]
+    assert_response :unauthorized
   end
 
   def test_new
@@ -36,11 +35,19 @@ class Admin::Cms::UsersControllerTest < ActionController::TestCase
     assert_template :new
   end
 
+  def test_new_super_admin
+    # sign_in cms_users(:normal)
+    sign_in an_admin
+    get :new
+    assert_response :success
+    assert assigns(:user)
+    assert_template :new
+  end
+
   def test_new_unauthorized
     sign_in cms_users(:normal)
     get :new
-    assert_response :redirect
-    assert_equal 'You are not authorized to access this page.', flash[:alert]
+    assert_response :unauthorized
   end
 
   def test_create
@@ -60,8 +67,7 @@ class Admin::Cms::UsersControllerTest < ActionController::TestCase
   def test_create_unauthorized
     sign_in cms_users(:normal)
     post :create, user: {email: "foo"}
-    assert_response :redirect
-    assert_equal 'You are not authorized to access this page.', flash[:alert]
+    assert_response :unauthorized
   end
 
   def test_update_self

@@ -131,6 +131,24 @@ class ActionDispatch::IntegrationTest
     post_via_redirect '/admin/users/sign_in', 'admin_cms_user[email]' => admin.email, 'admin_cms_user[password]' => 'password'
     send(method, path, options)
   end
+
+  # Same semantics as http_auth for user who can create sites but is not a super admin.
+  # Example use: http_auth_normal :get, '/cms-admin/pages'
+  def http_auth_normal(method, path, options = {}, username = 'username', password = 'password')
+    admin = Cms::User.where(super_admin: false).first
+    # Ensure that user has at least one site
+    if admin.sites.count == 0
+      site = Cms::Site.new(label: "label_of_#{admin.email}",
+                                      identifier: "site_of_#{admin.id}",
+                                      hostname: "user-site-#{admin.id}.host",
+                                      is_mirrored: false)
+      site.save!
+      site.users << admin
+      site.save!
+    end
+    post_via_redirect '/admin/users/sign_in', 'admin_cms_user[email]' => admin.email, 'admin_cms_user[password]' => 'password'
+    send(method, path, options)
+  end
 end
 
 class Rails::Generators::TestCase

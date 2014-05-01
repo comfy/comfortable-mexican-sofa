@@ -1,5 +1,6 @@
 .page-header
-  = link_to t('.new_link'), new_admin_cms_site_path, :class => 'btn pull-right'
+  - if can? :create, Cms::Site.new
+    = link_to t('.new_link'), new_admin_cms_site_path, :class => 'btn pull-right'
   %h2= t('.title')
 
 = text_field_tag "Search", nil, id: "quick_search", placeholder: "search"

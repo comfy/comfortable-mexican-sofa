@@ -29,7 +29,7 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_cms_path, :alert => exception.message
+    render "admin/cms/unauthorized", status: :unauthorized
   end
   
 protected
@@ -40,7 +40,7 @@ protected
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
       flash[:error] = I18n.t('cms.base.site_not_found')
-      return redirect_to(admin_cms_sites_path)
+      return redirect_to(new_admin_cms_site_path)
     end
   end
 

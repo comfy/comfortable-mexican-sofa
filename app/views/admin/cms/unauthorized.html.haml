@@ -1,0 +1,34 @@
+%h1 Unauthorized
+
+%p
+  Whoops! It looks like you’re not allowed to view this page or do what you
+  were trying to do.
+
+%p
+  If you think this is a mistake, and you should be able to, then please
+  contact an administrator.
+
+%h3 Request details
+
+%table.table
+  %tbody
+    %tr
+      %th HTTP method
+      %td
+        %pre= request.method
+    %tr
+      %th Request path
+      %td
+        %pre= request.original_fullpath
+    %tr
+      %th Request parameters
+      %td
+        %pre= params.inspect
+    %tr
+      %th User ID
+      %td
+        %pre= current_admin_cms_user.try(:id) || "-"
+    %tr
+      %th Current site ID
+      %td
+        %pre= @site.try(:id) || "-"

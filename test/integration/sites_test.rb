@@ -4,20 +4,30 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   
   def test_get_admin_with_single_site
     http_auth :get, admin_cms_path
+    new_admin_cms_site_path :get, admin_cms_path
     assert assigns(:site)
     assert_equal cms_sites(:default), assigns(:site)
     assert_response :redirect
     assert_redirected_to admin_cms_site_pages_path(assigns(:site))
   end
-  
-  def test_get_admin_with_no_site
+
+  def test_get_super_admin
     Cms::Site.delete_all
     http_auth :get, admin_cms_path
+    new_admin_cms_site_path :get, admin_cms_path
     assert_response :redirect
     assert_redirected_to new_admin_cms_site_path
     assert_equal 'Site not found', flash[:error]
   end
-  
+
+  def test_get_admin_with_no_site
+    Cms::Site.delete_all
+    http_auth_normal :get, new_admin_cms_site_path
+    get new_admin_cms_site_path
+
+    assert_response :unauthorized
+  end
+
   def test_get_public_page_with_single_site
     Cms::Site.where("hostname <> ?", 'test.host').destroy_all
     host! 'bogus.host'

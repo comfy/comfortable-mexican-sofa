@@ -42,11 +42,19 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_select "form[action=/admin/sites/#{site.id}]"
   end
 
+  def test_get_edit_for_site_owner
+    sign_in cms_users(:normal)
+
+    # site_owner should be able to view edit page:
+    get :edit, :id => cms_sites(:users_site).id
+    assert_response :success
+  end
+
   def test_get_edit_unauthorized
     sign_in cms_users(:normal)
     site = cms_sites(:default)
     get :edit, :id => site
-    assert_response :redirect
+    assert_response :unauthorized
   end
   
   def test_create
@@ -63,16 +71,16 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     end
   end
 
-  def test_create_as_non_admin
+  def test_create_fails_as_normal_user
     sign_in cms_users(:normal)
-    post :create, :site => {
-      :label      => 'Test Site',
-      :identifier => 'test-site',
-      :hostname   => 'test.site.local'
-    }
-    assert_response :redirect
-    site = Cms::Site.last
-    assert site.users.include? cms_users(:normal)
+    assert_no_difference 'Cms::Site.count' do
+      post :create, :site => {
+        :label      => 'Test Site',
+        :identifier => 'test-site',
+        :hostname   => 'test.site.local'
+      }
+      assert_response :unauthorized
+    end
   end
 
   def test_creation_failure
