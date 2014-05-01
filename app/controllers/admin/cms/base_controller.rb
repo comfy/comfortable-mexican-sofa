@@ -30,7 +30,7 @@ class Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller
 
   rescue_from CanCan::AccessDenied do |exception|
     if ::Cms::Site.accessible_by(current_ability).exists?
-      flash.now[:alert] = 'You are not authorized to access this page.'
+      flash[:alert] = 'You are not authorized to access this page.'
       redirect_to(admin_cms_sites_path)
     else
       redirect_to admin_cms_path, :alert => exception.message
