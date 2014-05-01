@@ -6,4 +6,4 @@
       .file{:class => dom_id(file)}
         = link_to file.file_file_name, file.file.url, :target => '_blank'
         = link_to comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' do
-          %i.icon-remove-circle
+          %i.glyphicon.glyphicon-remove-circle
