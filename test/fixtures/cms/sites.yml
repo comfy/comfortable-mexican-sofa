@@ -11,10 +11,3 @@ users_site:
   hostname: user-site.host
   path:
   is_mirrored: false
-
-another_site:
-  label: Your Site
-  identifier: your-site
-  hostname: your-site.host
-  path:
-  is_mirrored: false

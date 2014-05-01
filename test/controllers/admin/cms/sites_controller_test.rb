@@ -43,28 +43,19 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_for_site_owner
-    # Get a site and assign to owner user:
-    another_site = cms_sites(:another_site)
-    another_site.users << cms_users(:site_owner)
-    another_site.save!
-
-    sign_in cms_users(:site_owner)
+    sign_in cms_users(:normal)
 
     # site_owner should be able to view edit page:
-    get :edit, :id => another_site.id
+    get :edit, :id => cms_sites(:users_site).id
     assert_response :success
   end
 
   def test_get_edit_for_not_owner_user
-    # Get a site and assign to owner user:
-    another_site = cms_sites(:another_site)
-    another_site.users << cms_users(:site_owner)
-    another_site.save!
-
+    # Remove user's access to site
+    cms_site_users(:normal_users_site).destroy
     sign_in cms_users(:normal)
 
-    # site_owner should be able to view edit page:
-    get :edit, :id => another_site.id
+    get :edit, :id => cms_sites(:users_site).id
     assert_response :redirect
   end
 

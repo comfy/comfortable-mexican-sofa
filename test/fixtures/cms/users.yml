@@ -12,7 +12,3 @@ admin:
 normal:
   email: user@example.com
   encrypted_password: <%= Cms::User.new.send(:password_digest, 'password') %>
-
-site_owner:
-  email: site_owner@example.com
-  encrypted_password: <%= Cms::User.new.send(:password_digest, 'password') %>
