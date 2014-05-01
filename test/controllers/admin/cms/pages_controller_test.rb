@@ -484,7 +484,8 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
     block = page.blocks.last
     new_content = block.content + "\nAdditional line\n"
 
-    post :update_block, block: { :id => block.id, :content => new_content }, :id => page
+    post :update_block, block: { :id => block.id, :content => new_content }, :id => page,
+      :format => 'json'
 
     reloaded_page = cms_pages(:default)
     changed_block = reloaded_page.blocks.last
