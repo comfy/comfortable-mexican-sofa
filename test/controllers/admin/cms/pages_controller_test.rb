@@ -163,8 +163,8 @@ class Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
   
   def test_get_new_with_boolean_field
-    comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:boolean}}')
-    get :new, :site_id => comfy_cms_sites(:default)
+    cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:boolean}}')
+    get :new, :site_id => cms_sites(:default)
     assert_response :success
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][content]'][value='']"
