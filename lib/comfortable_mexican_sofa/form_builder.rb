@@ -50,6 +50,14 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   def field_rich_text(tag, index)
     default_tag_field(tag, index, :text_area_tag, :data => {:rich_text => true})
   end
+
+  def field_boolean(tag, index)
+    fieldname = field_name_for(tag)
+    content = @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][content]", '', :id => nil)
+    content << @template.check_box_tag("#{fieldname}[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
+    content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    element(tag.identifier.titleize + "?", content)
+  end
   
   def page_date_time(tag, index)
     default_tag_field(tag, index, :text_field_tag, :data => {:datetime => true})
