@@ -50,15 +50,6 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_get_edit_for_not_owner_user
-    # Remove user's access to site
-    cms_site_users(:normal_users_site).destroy
-    sign_in cms_users(:normal)
-
-    get :edit, :id => cms_sites(:users_site).id
-    assert_response :unauthorized
-  end
-
   def test_get_edit_unauthorized
     sign_in cms_users(:normal)
     site = cms_sites(:default)
