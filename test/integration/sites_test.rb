@@ -25,9 +25,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     http_auth_normal :get, new_admin_cms_site_path
     get new_admin_cms_site_path
 
-    assert_response :redirect
-    assert_redirected_to admin_cms_sites_path
-    assert_equal 'You are not authorized to access this page.', flash[:alert]
+    assert_response :unauthorized
 
     Cms::Site.delete_all
   end
