@@ -89,16 +89,16 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     end
   end
 
-  def test_create_as_non_admin
+  def test_create_fails_as_normal_user
     sign_in cms_users(:normal)
-    post :create, :site => {
-      :label      => 'Test Site',
-      :identifier => 'test-site',
-      :hostname   => 'test.site.local'
-    }
-    assert_response :redirect
-    site = Cms::Site.last
-    assert site.users.include? cms_users(:normal)
+    assert_no_difference 'Cms::Site.count' do
+      post :create, :site => {
+        :label      => 'Test Site',
+        :identifier => 'test-site',
+        :hostname   => 'test.site.local'
+      }
+      assert_response :redirect
+    end
   end
 
   def test_creation_failure
