@@ -56,14 +56,14 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
     sign_in cms_users(:normal)
 
     get :edit, :id => cms_sites(:users_site).id
-    assert_response :redirect
+    assert_response :unauthorized
   end
 
   def test_get_edit_unauthorized
     sign_in cms_users(:normal)
     site = cms_sites(:default)
     get :edit, :id => site
-    assert_response :redirect
+    assert_response :unauthorized
   end
   
   def test_create
@@ -88,7 +88,7 @@ class Admin::Cms::SitesControllerTest < ActionController::TestCase
         :identifier => 'test-site',
         :hostname   => 'test.site.local'
       }
-      assert_response :redirect
+      assert_response :unauthorized
     end
   end
 
