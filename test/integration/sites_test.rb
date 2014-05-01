@@ -20,14 +20,12 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 'Site not found', flash[:error]
   end
 
-  def test_get_admin_with_site
+  def test_get_admin_with_no_site
     Cms::Site.delete_all
     http_auth_normal :get, new_admin_cms_site_path
     get new_admin_cms_site_path
 
     assert_response :unauthorized
-
-    Cms::Site.delete_all
   end
 
   def test_get_public_page_with_single_site
