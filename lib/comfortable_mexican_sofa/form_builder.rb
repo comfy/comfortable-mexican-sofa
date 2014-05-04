@@ -24,6 +24,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       content << @template.send(method, name, input_params)
       content << @template.render(:partial => 'comfy/admin/cms/files/page_form', :object => tag.block)
     else
+      options[:class] = ' form-control'
       content << @template.send(method, "#{fieldname}[blocks_attributes][#{index}][content]", tag.content, options)
     end
     content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
