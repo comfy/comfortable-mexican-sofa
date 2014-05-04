@@ -15,6 +15,9 @@ class UpgradeTo1120 < ActiveRecord::Migration
     rename_table :cms_snippets,         :comfy_cms_snippets
     rename_table :cms_files,            :comfy_cms_files
     rename_table :cms_revisions,        :comfy_cms_revisions
+    rename_index :cms_categories,
+      'index_cms_categories_on_site_id_and_categorized_type_and_label',
+      'index_cms_categories_on_site_id_and_cat_type_and_label'
     rename_table :cms_categories,       :comfy_cms_categories
     rename_table :cms_categorizations,  :comfy_cms_categorizations
   end
