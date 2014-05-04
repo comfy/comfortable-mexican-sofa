@@ -85,7 +85,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'File not found', flash[:error]
+    assert_equal 'File not found', flash[:danger]
   end
   
   def test_create
@@ -110,7 +110,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
       post :create, :site_id => comfy_cms_sites(:default), :file => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to upload files', flash[:error]
+      assert_equal 'Failed to upload files', flash[:danger]
     end
   end
   
@@ -200,7 +200,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_template :edit
     file.reload
     assert_not_equal nil, file.file
-    assert_equal 'Failed to update file', flash[:error]
+    assert_equal 'Failed to update file', flash[:danger]
   end
   
   def test_destroy

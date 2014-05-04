@@ -59,7 +59,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     if params[:ajax]
       render :nothing => true, :status => :unprocessable_entity
     else
-      flash.now[:error] = I18n.t('comfy.admin.cms.files.creation_failure')
+      flash.now[:danger] = I18n.t('comfy.admin.cms.files.creation_failure')
       render :action => :new
     end
   end
@@ -69,7 +69,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     flash[:success] = I18n.t('comfy.admin.cms.files.updated')
     redirect_to :action => :edit, :id => @file
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('comfy.admin.cms.files.update_failure')
+    flash.now[:danger] = I18n.t('comfy.admin.cms.files.update_failure')
     render :action => :edit
   end
   
@@ -102,7 +102,7 @@ protected
   def load_file
     @file = @site.files.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('comfy.admin.cms.files.not_found')
+    flash[:danger] = I18n.t('comfy.admin.cms.files.not_found')
     redirect_to :action => :index
   end
   

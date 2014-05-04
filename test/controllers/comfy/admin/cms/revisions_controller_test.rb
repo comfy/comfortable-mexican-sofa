@@ -58,7 +58,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     get :show, :site_id => comfy_cms_sites(:default), :snippet_id => 'invalid', :id => comfy_cms_revisions(:snippet)
     assert_response :redirect
     assert_redirected_to comfy_admin_cms_path
-    assert_equal 'Record Not Found', flash[:error]
+    assert_equal 'Record Not Found', flash[:danger]
   end
   
   def test_get_show_for_layout_failure
@@ -67,7 +67,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_layout_path(site, assigns(:record))
-    assert_equal 'Revision Not Found', flash[:error]
+    assert_equal 'Revision Not Found', flash[:danger]
   end
   
   def test_get_show_for_page_failure
@@ -76,7 +76,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_page_path(site, assigns(:record))
-    assert_equal 'Revision Not Found', flash[:error]
+    assert_equal 'Revision Not Found', flash[:danger]
   end
   
   def test_get_show_for_snippet_failure
@@ -85,7 +85,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_snippet_path(site, assigns(:record))
-    assert_equal 'Revision Not Found', flash[:error]
+    assert_equal 'Revision Not Found', flash[:danger]
   end
   
   def test_revert_for_layout

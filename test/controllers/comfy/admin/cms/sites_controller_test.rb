@@ -38,7 +38,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
     get :edit, :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'Site not found', flash[:error]
+    assert_equal 'Site not found', flash[:danger]
   end
   
   def test_create
@@ -60,7 +60,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
       post :create, :site => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create site', flash[:error]
+      assert_equal 'Failed to create site', flash[:danger]
     end
   end
 
@@ -91,7 +91,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_template :edit
     site.reload
     assert_not_equal '', site.hostname
-    assert_equal 'Failed to update site', flash[:error]
+    assert_equal 'Failed to update site', flash[:danger]
   end
 
   def test_destroy

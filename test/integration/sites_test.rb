@@ -15,7 +15,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     http_auth :get, comfy_admin_cms_path
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_path
-    assert_equal 'Site not found', flash[:error]
+    assert_equal 'Site not found', flash[:danger]
   end
   
   def test_get_public_page_with_single_site

@@ -49,7 +49,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'Layout not found', flash[:error]
+    assert_equal 'Layout not found', flash[:danger]
   end
   
   def test_creation
@@ -72,7 +72,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
       post :create, :site_id => comfy_cms_sites(:default), :layout => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create layout', flash[:error]
+      assert_equal 'Failed to create layout', flash[:danger]
     end
   end
   
@@ -99,7 +99,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_template :edit
     layout.reload
     assert_not_equal '', layout.identifier
-    assert_equal 'Failed to update layout', flash[:error]
+    assert_equal 'Failed to update layout', flash[:danger]
   end
   
   def test_destroy

@@ -238,7 +238,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'Page not found', flash[:error]
+    assert_equal 'Page not found', flash[:danger]
   end
 
   def test_get_edit_with_blank_layout
@@ -304,7 +304,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
       assert_equal 2, page.blocks.size
       assert_equal ['content content', 'title content'], page.blocks.collect{|b| b.content}
       assert_template :new
-      assert_equal 'Failed to create page', flash[:error]
+      assert_equal 'Failed to create page', flash[:danger]
     end
   end
 
@@ -352,7 +352,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :edit
     assert assigns(:page)
-    assert_equal 'Failed to update page', flash[:error]
+    assert_equal 'Failed to update page', flash[:danger]
   end
 
   def test_destroy
@@ -441,7 +441,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     get :new, :site_id => comfy_cms_sites(:default)
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(comfy_cms_sites(:default))
-    assert_equal 'No Layouts found. Please create one.', flash[:error]
+    assert_equal 'No Layouts found. Please create one.', flash[:danger]
   end
 
   def test_get_edit_with_no_layout
@@ -450,7 +450,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     get :edit, :site_id => page.site, :id => page
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(page.site)
-    assert_equal 'No Layouts found. Please create one.', flash[:error]
+    assert_equal 'No Layouts found. Please create one.', flash[:danger]
   end
 
   def test_get_toggle_branch

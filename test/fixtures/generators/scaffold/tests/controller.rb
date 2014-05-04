@@ -25,7 +25,7 @@ class Admin::FoosControllerTest < ActionController::TestCase
     get :show, :id => 'invalid'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'Foo not found', flash[:error]
+    assert_equal 'Foo not found', flash[:danger]
   end
 
   def test_get_new
@@ -61,7 +61,7 @@ class Admin::FoosControllerTest < ActionController::TestCase
       post :create, :foo => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create Foo', flash[:error]
+      assert_equal 'Failed to create Foo', flash[:danger]
     end
   end
 
@@ -82,7 +82,7 @@ class Admin::FoosControllerTest < ActionController::TestCase
     }
     assert_response :success
     assert_template :edit
-    assert_equal 'Failed to update Foo', flash[:error]
+    assert_equal 'Failed to update Foo', flash[:danger]
     @foo.reload
     refute_equal '', @foo.bar
   end

@@ -65,7 +65,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal 'Snippet not found', flash[:error]
+    assert_equal 'Snippet not found', flash[:danger]
   end
   
   def test_create
@@ -88,7 +88,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
       post :create, :site_id => comfy_cms_sites(:default), :snippet => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create snippet', flash[:error]
+      assert_equal 'Failed to create snippet', flash[:danger]
     end
   end
 
@@ -115,7 +115,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_template :edit
     snippet.reload
     assert_not_equal '', snippet.identifier
-    assert_equal 'Failed to update snippet', flash[:error]
+    assert_equal 'Failed to update snippet', flash[:danger]
   end
 
   def test_destroy

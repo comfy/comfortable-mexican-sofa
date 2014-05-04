@@ -29,7 +29,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     flash[:success] = I18n.t('comfy.admin.cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('comfy.admin.cms.pages.creation_failure')
+    flash.now[:danger] = I18n.t('comfy.admin.cms.pages.creation_failure')
     render :action => :new
   end
 
@@ -38,7 +38,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     flash[:success] = I18n.t('comfy.admin.cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = I18n.t('comfy.admin.cms.pages.update_failure')
+    flash.now[:danger] = I18n.t('comfy.admin.cms.pages.update_failure')
     render :action => :edit
   end
 
@@ -74,7 +74,7 @@ protected
 
   def check_for_layouts
     if @site.layouts.count == 0
-      flash[:error] = I18n.t('comfy.admin.cms.pages.layout_not_found')
+      flash[:danger] = I18n.t('comfy.admin.cms.pages.layout_not_found')
       redirect_to new_comfy_admin_cms_site_layout_path(@site)
     end
   end
@@ -94,7 +94,7 @@ protected
     @page.attributes = page_params
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = I18n.t('comfy.admin.cms.pages.not_found')
+    flash[:danger] = I18n.t('comfy.admin.cms.pages.not_found')
     redirect_to :action => :index
   end
 
