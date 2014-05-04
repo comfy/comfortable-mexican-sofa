@@ -12,7 +12,7 @@ protected
     end
     
     if @cms_site
-      if @cms_site.path.present?
+      if @cms_site.path.present? && !params[:site_id]
         if params[:cms_path] && params[:cms_path].match(/\A#{@cms_site.path}/)
           params[:cms_path].gsub!(/\A#{@cms_site.path}/, '')
           params[:cms_path] && params[:cms_path].gsub!(/\A\//, '')

@@ -3,7 +3,16 @@ require_relative '../../../test_helper'
 class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
 
   def test_render_css
-    get :render_css, :site_id => comfy_cms_sites(:default).id, :identifier => comfy_cms_layouts(:default).identifier
+    get :render_css, :site_id => comfy_cms_sites(:default), :identifier => comfy_cms_layouts(:default).identifier
+    assert_response :success
+    assert_match 'text/css', response.content_type
+    assert_equal comfy_cms_layouts(:default).css, response.body
+  end
+  
+  def test_render_css_with_site_with_path
+    site = comfy_cms_sites(:default)
+    site.update_column(:path, 'some/path')
+    get :render_css, :site_id => site, :identifier => comfy_cms_layouts(:default).identifier
     assert_response :success
     assert_match 'text/css', response.content_type
     assert_equal comfy_cms_layouts(:default).css, response.body
