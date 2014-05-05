@@ -20,7 +20,7 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
 
   def test_render_css_with_cache_buster
     layout = comfy_cms_layouts(:default)
-    get :render_css, :site_id => comfy_cms_sites(:default), :identifier => layout.identifier, cache_buster: layout.cache_buster
+    get :render_css, :site_id => comfy_cms_sites(:default), :identifier => layout.identifier, :cache_buster => layout.cache_buster
     assert_response :success
     assert_match 'text/css', response.content_type
     assert_equal comfy_cms_layouts(:default).css, response.body
