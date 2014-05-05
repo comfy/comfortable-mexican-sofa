@@ -15,6 +15,7 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
     get :render_css, :site_id => comfy_cms_sites(:default), :identifier => comfy_cms_layouts(:default).identifier
     assert_response :success
     assert_match 'text/css', response.content_type
+    assert_nil response.headers['Cache-Control']
     assert_equal comfy_cms_layouts(:default).css, response.body
   end
 
@@ -23,6 +24,7 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
     get :render_css, :site_id => comfy_cms_sites(:default), :identifier => layout.identifier, :cache_buster => layout.cache_buster
     assert_response :success
     assert_match 'text/css', response.content_type
+    assert_equal 'public, max-age=31557600', response.headers['Cache-Control']
     assert_equal comfy_cms_layouts(:default).css, response.body
   end
 
@@ -35,6 +37,7 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
     xhr :get, :render_js, :site_id => comfy_cms_sites(:default).id, :identifier => comfy_cms_layouts(:default).identifier
     assert_response :success
     assert_equal 'text/javascript', response.content_type
+    assert_nil response.headers['Cache-Control']
     assert_equal comfy_cms_layouts(:default).js, response.body
   end
 
@@ -43,6 +46,7 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
     xhr :get, :render_js, :site_id => comfy_cms_sites(:default).id, :identifier => layout.identifier, :cache_buster => layout.cache_buster
     assert_response :success
     assert_equal 'text/javascript', response.content_type
+    assert_equal 'public, max-age=31557600', response.headers['Cache-Control']
     assert_equal comfy_cms_layouts(:default).js, response.body
   end
 
