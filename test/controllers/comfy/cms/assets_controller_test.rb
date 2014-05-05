@@ -31,8 +31,16 @@ class Comfy::Cms::AssetsControllerTest < ActionController::TestCase
     assert_response 404
   end
 
-  def test_render_js
+  def test_render_js_without_cache_buster
     xhr :get, :render_js, :site_id => comfy_cms_sites(:default).id, :identifier => comfy_cms_layouts(:default).identifier
+    assert_response :success
+    assert_equal 'text/javascript', response.content_type
+    assert_equal comfy_cms_layouts(:default).js, response.body
+  end
+
+  def test_render_js_with_cache_buster
+    layout = comfy_cms_layouts(:default)
+    xhr :get, :render_js, :site_id => comfy_cms_sites(:default).id, :identifier => layout.identifier, :cache_buster => layout.cache_buster
     assert_response :success
     assert_equal 'text/javascript', response.content_type
     assert_equal comfy_cms_layouts(:default).js, response.body

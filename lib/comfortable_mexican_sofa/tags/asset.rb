@@ -17,7 +17,7 @@ class ComfortableMexicanSofa::Tag::Asset
       out = "<link href='#{out}' media='screen' rel='stylesheet' type='text/css' />" if format == 'html_tag'
       out
     when 'js'
-      out = "/cms-js/#{blockable.site.id}/#{identifier}.js"
+      out = "/cms-js/#{blockable.site.id}/#{identifier}/#{layout.cache_buster}.js"
       out = "<script src='#{out}' type='text/javascript'></script>" if format == 'html_tag'
       out
     end
