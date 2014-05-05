@@ -30,15 +30,18 @@ class AssetTagTest < ActiveSupport::TestCase
   end
   
   def test_render_for_css
+    site = comfy_cms_sites(:default)
+    layout = site.layouts.last
+
     tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
-      comfy_cms_pages(:default), '{{ cms:asset:default:css }}'
+      comfy_cms_pages(:default), "{{ cms:asset:#{layout.identifier}:css }}"
     )
-    assert_equal "/cms-css/#{comfy_cms_sites(:default).id}/default.css", tag.render
+    assert_equal "/cms-css/#{site.id}/#{layout.identifier}/#{layout.cache_buster}.css", tag.render
     
     tag = ComfortableMexicanSofa::Tag::Asset.initialize_tag(
-      comfy_cms_pages(:default), '{{ cms:asset:default:css:html_tag }}'
+      comfy_cms_pages(:default), "{{ cms:asset:#{layout.identifier}:css:html_tag }}"
     )
-    assert_equal "<link href='/cms-css/#{comfy_cms_sites(:default).id}/default.css' media='screen' rel='stylesheet' type='text/css' />", tag.render
+    assert_equal "<link href='/cms-css/#{site.id}/#{layout.identifier}/#{layout.cache_buster}.css' media='screen' rel='stylesheet' type='text/css' />", tag.render
   end
   
   def test_render_for_js
