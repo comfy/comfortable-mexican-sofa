@@ -6,12 +6,11 @@
     .left-column
       .left-column-content
         = render :partial => 'layouts/comfy/admin/cms/left'
+    .center-column
+      = render :partial => 'layouts/comfy/admin/cms/center'
+      = render :partial => 'layouts/comfy/admin/cms/footer'
     .right-column
       .right-column-content
         = render :partial => 'layouts/comfy/admin/cms/right'
-    .center-column
-      = render :partial => 'layouts/comfy/admin/cms/center'
-      
-      = render :partial => 'layouts/comfy/admin/cms/footer'
-  
+
   = render :partial => 'layouts/comfy/admin/cms/footer_js'
