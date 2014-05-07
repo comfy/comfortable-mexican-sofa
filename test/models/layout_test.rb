@@ -121,5 +121,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal "Updated content_content", page_1.content_cache
     assert_equal "Updated left_column_content\nleft_column_content", page_2.content_cache
   end
-  
+
+  def test_cache_buster
+    timestamp = Time.current
+    layout = comfy_cms_sites(:default).layouts.create(updated_at: timestamp)
+
+    assert_equal timestamp.to_i, layout.cache_buster
+  end
 end

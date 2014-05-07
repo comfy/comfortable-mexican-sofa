@@ -68,6 +68,10 @@ class Comfy::Cms::Layout < ActiveRecord::Base
       content.to_s
     end
   end
+
+  def cache_buster
+    updated_at.to_i
+  end
   
 protected
   
