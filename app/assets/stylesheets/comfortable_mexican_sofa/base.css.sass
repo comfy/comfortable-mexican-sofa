@@ -1,3 +1,14 @@
+//= depend_on_asset "comfortable_mexican_sofa/checkerboard.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_page.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_move.gif"
+//= depend_on_asset "comfortable_mexican_sofa/arrow_bottom.gif"
+//= depend_on_asset "comfortable_mexican_sofa/arrow_right.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_draft.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_site.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_layout.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_snippet.gif"
+//= depend_on_asset "comfortable_mexican_sofa/icon_file.gif"
+
 html, body#comfy
   height: 100%
   
@@ -33,6 +44,7 @@ body#comfy
   .left-column-content ul.navigation
     list-style: none
     margin: 0
+    padding: 0
     a
       position: relative
       display: block
@@ -58,6 +70,7 @@ body#comfy
     ul
       list-style: none
       margin: 0
+      padding: 0
       a
         padding: 7px 15px 7px 30px
   
@@ -70,6 +83,7 @@ body#comfy
       margin-bottom: 10px
       overflow: auto
     #mirrors select
+      width: 100%
       margin-bottom: 0
     #form-save
       label
@@ -238,16 +252,17 @@ body#comfy
         display: none
     form
       margin: 0
-      .input-append
-        margin: 0 
-        input[type=text]
+      .input-group
+        input.form-control
           width: 125px
-          font-size: 11px
-          line-height: 14px
+          height: 22px
           padding: 3px
+          font-size: 11px
+          line-height: 11px
           
   // -- Sortable List -------------------------------------------------------
   ul.list
+    padding: 0
     margin: 0
     list-style: none
     .item
@@ -283,15 +298,16 @@ body#comfy
         float: right
     li ul
       list-style: none
+      padding: 0
       margin: 0 0 0 28px
           
   // -- Sites ---------------------------------------------------------------
-  &.c-admin-cms-sites
+  &.c-comfy-admin-cms-sites
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_site.gif"))
       
   // -- Layouts -------------------------------------------------------------
-  &.c-admin-cms-layouts
+  &.c-comfy-admin-cms-layouts
     ul.list
       .item
         .icon
@@ -300,7 +316,7 @@ body#comfy
           margin-left: 35px
       
   // -- Pages ---------------------------------------------------------------
-  &.c-admin-cms-pages
+  &.c-comfy-admin-cms-pages
     #form-blocks
       ul.nav-tabs
         margin-left: 180px
@@ -321,22 +337,34 @@ body#comfy
           font-size: 12px
         
   // -- Snippets ------------------------------------------------------------
-  &.c-admin-cms-snippets
+  &.c-comfy-admin-cms-snippets
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_snippet.gif"))
       
   // -- Files ---------------------------------------------------------------
-  &.c-admin-cms-files
+  &.c-comfy-admin-cms-files
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
     
   // -- Revisions -----------------------------------------------------------
-  &.c-admin-cms-revisions
-    table
+  &.c-comfy-admin-cms-revisions
+    td.with-table
+      padding: 0
+    table.diff
+      th, td
+        border: 0
       th
-        min-width: 175px
-      td.main
-        width: 50%
+        color: #ccc
+      width: 100%
+      ins, del
+        display: inline
+      ins
+        background-color: #c6ffc6
+        text-decoration: none
+      del
+        background-color: #ffc6c6
+      tr.hide
+        display: none
     .box.revisions
       a
         font-size: 11px
@@ -345,5 +373,8 @@ body#comfy
         padding: 0 7px
         border-radius: 3px
         margin-bottom: 2px
+        text-decoration: none
       a:hover
         background-color: #f5f5f5
+      a.active
+        border-color: #0088CC

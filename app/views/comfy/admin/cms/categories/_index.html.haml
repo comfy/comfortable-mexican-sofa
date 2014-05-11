@@ -1,0 +1,25 @@
+- type ||= index
+
+.categories-widget
+  .categories-widget-label= t('.label')
+  
+  .action-links
+    .edit= link_to t('.edit'), '#', :class => 'btn btn-default btn-xs'
+    .done= link_to t('.done'), '#', :class => 'btn btn-default btn-xs'
+  
+  .categories.read
+    .category.all{:class => params[:category].blank?? 'active' : nil}
+      = link_to t('.all'), :category => nil
+    - @site.categories.of_type(type).each do |category|
+      = render :partial => 'comfy/admin/cms/categories/show', :object => category, :locals => { :read => true }
+  
+  .categories.editable
+    - @site.categories.of_type(type).each do |category|
+      = render :partial => 'comfy/admin/cms/categories/show', :object => category
+    
+    = form_for :category, :url => comfy_admin_cms_site_categories_path(@site), :remote => true, :html => {:id => 'new_category'} do |form|
+      = form.hidden_field :categorized_type, :value => type
+      .input-group
+        = form.text_field :label, :placeholder => t('.add_placeholder'), :class => 'form-control'
+        .input-group-btn
+          %button.btn.btn-primary.btn-xs= t('.add')

@@ -1,16 +1,20 @@
-class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
+class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
+
+  def field_name_for(tag)
+    tag.blockable.class.name.demodulize.underscore.gsub(/\//,'_')
+  end
 
   # -- Tag Field Fields -----------------------------------------------------
   def default_tag_field(tag, index, method = :text_field_tag, options = {})
 
-    label     = tag.page.class.human_attribute_name(tag.identifier.to_s)
-    css_class = tag.class.to_s.demodulize.underscore
-    content   = ''
-
+    label       = tag.blockable.class.human_attribute_name(tag.identifier.to_s)
+    css_class   = tag.class.to_s.demodulize.underscore
+    content     = ''
+    fieldname   = field_name_for(tag)
     case method
     when :file_field_tag
       input_params = {:id => nil}
-      name = "page[blocks_attributes][#{index}][content]"
+      name = "#{fieldname}[blocks_attributes][#{index}][content]"
 
       if options.delete(:multiple)
         input_params.merge!(:multiple => true)
@@ -18,13 +22,16 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
       end
 
       content << @template.send(method, name, input_params)
-      content << @template.render(:partial => 'admin/cms/files/page_form', :object => tag.block)
+      content << @template.render(:partial => 'comfy/admin/cms/files/page_form', :object => tag.block)
     else
-      content << @template.send(method, "page[blocks_attributes][#{index}][content]", tag.content, options)
+      options[:class] = ' form-control'
+      content << @template.send(method, "#{fieldname}[blocks_attributes][#{index}][content]", tag.content, options)
     end
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
 
-    element(label, content.html_safe)
+    form_group :label => {:text => label} do 
+      content.html_safe
+    end
   end
 
   def field_date_time(tag, index)
@@ -48,10 +55,13 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
   end
 
   def field_boolean(tag, index)
-    content = @template.hidden_field_tag("page[blocks_attributes][#{index}][content]", '', :id => nil)
-    content << @template.check_box_tag("page[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    element(tag.identifier.titleize + "?", content)
+    fieldname = field_name_for(tag)
+    content = @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][content]", '', :id => nil)
+    content << @template.check_box_tag("#{fieldname}[blocks_attributes][#{index}][content]", '1', tag.content.present?, :id => nil)
+    content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    form_group :label => {:text => tag.identifier.titleize + "?"} do 
+      content
+    end
   end
 
   def page_date_time(tag, index)
@@ -92,13 +102,16 @@ class ComfortableMexicanSofa::FormBuilder < FormattedForm::FormBuilder
         [m.send(tag.collection_title), m.send(tag.collection_identifier)]
       end
 
+    fieldname = field_name_for(tag)
     content = @template.select_tag(
-      "page[blocks_attributes][#{index}][content]",
+      "#{fieldname}[blocks_attributes][#{index}][content]",
       @template.options_for_select(options, :selected => tag.content),
       :id => nil
     )
-    content << @template.hidden_field_tag("page[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
-    element(tag.identifier.titleize, content, :class => tag.class.to_s.demodulize.underscore )
+    content << @template.hidden_field_tag("#{fieldname}[blocks_attributes][#{index}][identifier]", tag.identifier, :id => nil)
+    form_group :label => {:text => tag.identifier.titleize}, :class => tag.class.to_s.demodulize.underscore do
+      content
+    end
   end
 
 end

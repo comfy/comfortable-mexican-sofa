@@ -36,63 +36,71 @@ module ComfortableMexicanSofa::RenderMethods
     # 
     def render(options = {}, locals = {}, &block)
       
-      if options.is_a?(Hash) && identifier = options.delete(:cms_site)
-        unless @cms_site = Cms::Site.find_by_identifier(identifier)
-          raise ComfortableMexicanSofa::MissingSite.new(identifier)
+      return super unless options.is_a?(Hash)
+      
+      if site_identifier = options.delete(:cms_site)
+        unless @cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier)
+          raise ComfortableMexicanSofa::MissingSite.new(site_identifier)
         end
       end
       
-      if options.is_a?(Hash) && path = options.delete(:cms_page)
-        @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
-        path.gsub!(/^\/#{@cms_site.path}/, '') if @cms_site && @cms_site.path.present?
-        
-        if @cms_page = @cms_site && @cms_site.pages.find_by_full_path(path)
-          @cms_layout = @cms_page.layout
-          if (cms_blocks = options.delete(:cms_blocks)).present?
-            cms_blocks.each do |identifier, value|
-              content = if value.is_a?(Hash)
-                render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false)
-              else
-                value.to_s
-              end
-              page_block = @cms_page.blocks.detect{|b| b.identifier == identifier.to_s} ||
-                @cms_page.blocks.build(:identifier => identifier.to_s)
-              page_block.content = content
-            end
-          end
-          cms_app_layout = @cms_layout.try(:app_layout)
-          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = @cms_page.render
-          super(options, locals, &block)
-        else
-          raise ComfortableMexicanSofa::MissingPage.new(path)
+      if (page_path = options.delete(:cms_page)) || (layout_identifier = options.delete(:cms_layout))
+        unless @cms_site ||= Comfy::Cms::Site.find_site(request.host.downcase, request.fullpath)
+          raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
         end
-        
-      elsif options.is_a?(Hash) && identifier = options.delete(:cms_layout)
-        @cms_site ||= Cms::Site.find_site(request.host.downcase, request.fullpath)
-        if @cms_layout = @cms_site && @cms_site.layouts.find_by_identifier(identifier)
-          cms_app_layout = @cms_layout.try(:app_layout)
-          cms_page = @cms_site.pages.build(:layout => @cms_layout)
-          cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
-          cms_blocks.each do |identifier, value|
-            content = if value.is_a?(Hash)
-              render_to_string(value.keys.first.to_sym => value[value.keys.first], :layout => false)
-            else
-              value.to_s
-            end
-            cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
-          end
-          options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
-          options[:inline] = cms_page.render
-          super(options, locals, &block)
-        else
-          raise ComfortableMexicanSofa::MissingLayout.new(identifier)
-        end
-        
+      end
+      
+      if page_path
+        render_cms_page(page_path, options, locals, &block)
+      elsif layout_identifier
+        render_cms_layout(layout_identifier, options, locals, &block)
       else
-        super(options, locals, &block)
+        super
       end
     end
+    
+    def render_cms_page(path, options = {}, locals = {}, &block)
+      path.gsub!(/^\/#{@cms_site.path}/, '') if @cms_site.path.present?
+      
+      unless @cms_page = @cms_site.pages.find_by_full_path(path)
+        raise ComfortableMexicanSofa::MissingPage.new(path)
+      end
+      
+      @cms_layout = @cms_page.layout
+      if (cms_blocks = options.delete(:cms_blocks)).present?
+        cms_blocks.each do |identifier, value|
+          content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
+          page_block  = @cms_page.blocks.detect{|b| b.identifier == identifier.to_s} ||
+                        @cms_page.blocks.build(:identifier => identifier.to_s)
+          page_block.content = content
+        end
+      end
+      cms_app_layout = @cms_layout.app_layout
+      options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+      options[:inline] = @cms_page.render
+      
+      render(options, locals, &block)
+    end
+    
+    def render_cms_layout(identifier, options = {}, locals = {}, &block)
+      
+      unless @cms_layout = @cms_site.layouts.find_by_identifier(identifier)
+        raise ComfortableMexicanSofa::MissingLayout.new(identifier)
+      end
+      
+      cms_app_layout = @cms_layout.app_layout
+      cms_page = @cms_site.pages.build(:layout => @cms_layout)
+      cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
+      cms_blocks.each do |identifier, value|
+        content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
+        cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
+      end
+      options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+      options[:inline] = cms_page.render
+      
+      render(options, locals, &block)
+    end
+    
   end
 end
 

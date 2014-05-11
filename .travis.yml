@@ -2,14 +2,19 @@ language: ruby
 before_script:
   - rake db:migrate
 script:
-  - rake test:all
+  - rake ci
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.0
+  - 2.1.1
 gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
+  - test/gemfiles/Gemfile.rails.master
 branches:
   only:
     - master
+matrix:
+  fast_finish: true
+  allow_failures:
+    - gemfile: test/gemfiles/Gemfile.rails.master

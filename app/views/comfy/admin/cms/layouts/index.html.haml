@@ -1,0 +1,13 @@
+.page-header
+  = link_to t('.new_link'), new_comfy_admin_cms_site_layout_path(@site), :class => 'btn btn-default pull-right'
+  %h2= t('.title')
+
+- content_for :right_column do
+  = render 'comfy/admin/cms/sites/mirrors'
+
+= render 'comfy/admin/cms/partials/layouts_before'
+
+%ul.list.sortable
+  = render :partial => 'index_branch', :collection => @layouts
+
+= render 'comfy/admin/cms/partials/layouts_after'

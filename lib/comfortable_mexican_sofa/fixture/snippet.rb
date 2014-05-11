@@ -18,9 +18,13 @@ module ComfortableMexicanSofa::Fixture::Snippet
         end
         
         # setting content
-        if File.exists?(content_path = File.join(path, 'content.html'))
-          if fresh_fixture?(snippet, content_path)
-            snippet.content = read_as_haml(content_path)
+        %w(html haml).each do |extension|
+          if File.exists?(content_path = File.join(path, "content.#{extension}"))
+            if fresh_fixture?(snippet, content_path)
+              snippet.content = extension == "html" ? 
+                ::File.open(content_path).read : 
+                Haml::Engine.new(::File.open(content_path).read).render.rstrip
+            end
           end
         end
         

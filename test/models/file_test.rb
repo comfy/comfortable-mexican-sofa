@@ -8,29 +8,37 @@ class CmsFileTest < ActiveSupport::TestCase
       Paperclip::Validators::MediaTypeSpoofDetectionValidator.any_instance.stubs(:validate_each).returns(true)
     end
     
-    Cms::File.all.each do |file|
+    Comfy::Cms::File.all.each do |file|
       assert file.valid?, file.errors.full_messages.to_s
     end
   end
   
   def test_validations
-    file = Cms::File.new
+    file = Comfy::Cms::File.new
     assert file.invalid?
     assert_has_errors_on file, :site_id, :file
-    
-    cms_files(:default).update_column(:file_file_name, 'image.jpg')
-    file = cms_sites(:default).files.new(
+  end
+  
+  def test_validations_uniqueness
+    comfy_cms_files(:default).update_column(:file_file_name, 'image.jpg')
+    file = comfy_cms_sites(:default).files.new(
       :file => fixture_file_upload('files/image.jpg', 'image/jpeg')
     )
     assert file.invalid?
     assert_has_errors_on file, :file_file_name
+    
+    file = comfy_cms_sites(:default).files.new(
+      :block_id => comfy_cms_blocks(:default_field_text).id,
+      :file     => fixture_file_upload('files/image.jpg', 'image/jpeg')
+    )
+    assert file.valid?
   end
   
   def test_create
-    assert_difference 'Cms::File.count' do
+    assert_difference 'Comfy::Cms::File.count' do
       upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
       
-      file = cms_sites(:default).files.create(
+      file = comfy_cms_sites(:default).files.create(
         :file => upload
       )
       assert_equal 'Image', file.label
@@ -42,10 +50,10 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_create_with_dimensions
-    assert_difference 'Cms::File.count' do
+    assert_difference 'Comfy::Cms::File.count' do
       upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
       
-      file = cms_sites(:default).files.create!(
+      file = comfy_cms_sites(:default).files.create!(
         :dimensions => '10x10#',
         :file       => upload
       )
@@ -58,8 +66,8 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_create_with_non_image
-    assert_difference 'Cms::File.count' do
-      file = cms_sites(:default).files.create!(
+    assert_difference 'Comfy::Cms::File.count' do
+      file = comfy_cms_sites(:default).files.create!(
         :file => fixture_file_upload('files/data.zip', 'application/zip')
       )
       assert_equal 'Data', file.label
@@ -69,29 +77,38 @@ class CmsFileTest < ActiveSupport::TestCase
   end
   
   def test_create_failure
-    assert_no_difference 'Cms::File.count' do
-      cms_sites(:default).files.create
+    assert_no_difference 'Comfy::Cms::File.count' do
+      comfy_cms_sites(:default).files.create
     end
   end
   
   def test_image_mimetypes
     assert_equal %w(image/gif image/jpeg image/pjpeg image/png image/tiff),
-      Cms::File::IMAGE_MIMETYPES
+      Comfy::Cms::File::IMAGE_MIMETYPES
   end
   
-  def test_images_scope
-    file = cms_files(:default)
+  def test_scope_images
+    file = comfy_cms_files(:default)
     assert_equal 'image/jpeg', file.file_content_type
-    assert_equal 1, Cms::File.images.count
-    assert_equal 0, Cms::File.not_images.count
+    assert_equal 1, Comfy::Cms::File.images.count
+    assert_equal 0, Comfy::Cms::File.not_images.count
     
     file.update_columns(:file_content_type => 'application/pdf')
-    assert_equal 0, Cms::File.images.count
-    assert_equal 1, Cms::File.not_images.count
+    assert_equal 0, Comfy::Cms::File.images.count
+    assert_equal 1, Comfy::Cms::File.not_images.count
+  end
+  
+  def test_scope_not_page_file
+    file = comfy_cms_files(:default)
+    assert file.block.blank?
+    assert_equal 1, Comfy::Cms::File.not_page_file.count
+    
+    file.update_column(:block_id, comfy_cms_blocks(:default_field_text))
+    assert_equal 0, Comfy::Cms::File.not_page_file.count
   end
   
   def test_image?
-    file = cms_files(:default)
+    file = comfy_cms_files(:default)
     assert_equal 'image/jpeg', file.file_content_type
     assert file.is_image?
   end

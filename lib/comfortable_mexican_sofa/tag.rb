@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::Tag
   TOKENIZER_REGEX   = /(\{\{\s*cms:[^{}]*\}\})|((?:\{?[^{])+|\{+)/
   IDENTIFIER_REGEX  = /\w+[\-\.\w]+\w+/
   
-  attr_accessor :page,
+  attr_accessor :blockable,
                 :identifier,
                 :namespace,
                 :params,
@@ -33,7 +33,7 @@ module ComfortableMexicanSofa::Tag
     # First capture group in the regex is the tag identifier
     # Namespace is the string separated by a dot. So if identifier is:
     # 'sidebar.about' namespace is: 'sidebar'
-    def initialize_tag(page, tag_signature)
+    def initialize_tag(blockable, tag_signature)
       if match = tag_signature.match(regex_tag_signature)
         
         params = begin
@@ -43,7 +43,7 @@ module ComfortableMexicanSofa::Tag
         end.map{|p| p.gsub(/\\|'/) { |c| "\\#{c}" } }
         
         tag = self.new
-        tag.page        = page
+        tag.blockable   = blockable
         tag.identifier  = match[1]
         tag.namespace   = (ns = tag.identifier.split('.')[0...-1].join('.')).blank?? nil : ns
         tag.params      = params
@@ -85,18 +85,18 @@ module ComfortableMexicanSofa::Tag
       ComfortableMexicanSofa::Tag.sanitize_irb(content, ignore)
     end
     
-    # Find or initialize Cms::Block object
+    # Find or initialize Comfy::Cms::Block object
     def block
-      page.blocks.detect{|b| b.identifier == self.identifier.to_s} || 
-      page.blocks.build(:identifier => self.identifier.to_s)
+      blockable.blocks.detect{|b| b.identifier == self.identifier.to_s} || 
+      blockable.blocks.build(:identifier => self.identifier.to_s)
     end
     
-    # Checks if this tag is using Cms::Block
+    # Checks if this tag is using Comfy::Cms::Block
     def is_cms_block?
       %w(page field collection).member?(self.class.to_s.demodulize.underscore.split(/_/).first)
     end
     
-    # Used in displaying form elements for Cms::Block
+    # Used in displaying form elements for Comfy::Cms::Block
     def record_id
       block.id
     end
@@ -105,24 +105,24 @@ module ComfortableMexicanSofa::Tag
 private
   
   # Initializes a tag. It's handled by one of the tag classes
-  def self.initialize_tag(page, tag_signature)
+  def self.initialize_tag(blockable, tag_signature)
     tag_instance = nil
-    tag_classes.find{ |c| tag_instance = c.initialize_tag(page, tag_signature) }
+    tag_classes.find{ |c| tag_instance = c.initialize_tag(blockable, tag_signature) }
     tag_instance
   end
   
   # Scanning provided content and splitting it into [tag, text] tuples.
   # Tags are processed further and their content is expanded in the same way.
   # Tags are defined in the parent tags are ignored and not rendered.
-  def self.process_content(page, content = '', parent_tag = nil)
+  def self.process_content(blockable, content = '', parent_tag = nil)
     tokens = content.to_s.scan(TOKENIZER_REGEX)
     tokens.collect do |tag_signature, text|
       if tag_signature
-        if tag = self.initialize_tag(page, tag_signature)
+        if tag = self.initialize_tag(blockable, tag_signature)
           tag.parent = parent_tag if parent_tag
           if tag.ancestors.select{|a| a.id == tag.id}.blank?
-            page.tags << tag
-            self.process_content(page, tag.render, tag)
+            blockable.tags << tag
+            self.process_content(blockable, tag.render, tag)
           end
         end
       else

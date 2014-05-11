@@ -1,6 +1,5 @@
 # encoding: utf-8
 fr:
-  # -- Models ---------------------------------------------------------------
   attributes:
     label: Nom
     slug: Identifiant
@@ -9,237 +8,226 @@ fr:
     identifier: Identifiant
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Mise en page
-      cms/page: Page
-      cms/snippet: Fragment
-      cms/file: Fichier
+      comfy/cms/site: Site
+      comfy/cms/layout: Mise en page
+      comfy/cms/page: Page
+      comfy/cms/snippet: Fragment
+      comfy/cms/file: Fichier
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifiant
         hostname: Nom d'hôte
         path: Chemin
         locale: Langue
         is_mirrored: En miroir
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifiant
         label: Nom de la mise en page
         app_layout: Mise en page de l'application
         parent_id: Mise en page parent
         css: Feuille de style
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Nom de la page
         layout_id: Mise en page
         slug: Identifiant
         target_page_id: Rediriger vers
         is_published: Publié
-      cms/file:
+      comfy/cms/file:
         file: Fichier
         description: Description
-      cms/snippet:
+      comfy/cms/snippet:
         identifier: Identifiant
         
-  # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Site introuvable
-      fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
-
-    sites:
-      created: Site créé
-      creation_failure: Échec de la création du site
-      updated: Site modifié
-      update_failure: Échec de la modification du site
-      deleted: Site supprimé
-      not_found: Site introuvable
-      
-    layouts:
-      created: Mise en page créée
-      creation_failure: Échec de la création de la mise en page
-      updated: Mise en page modifiée
-      update_failure: Échec de la modification de la mise en page
-      deleted: Mise en page supprimée
-      not_found: Mise en page introuvable
-      
-    pages:
-      created: Page créée
-      creation_failure: Échec de la création de la page
-      updated: Page modifiée
-      update_failure: Échec de la modification de la page
-      deleted: Page supprimée
-      not_found: Page introuvable
-      layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
-      
-    snippets:
-      created: Fragment créé
-      creation_failure: Échec de la création du fragment
-      updated: Fragment modifié
-      update_failure: Échec de la modification du fragment
-      deleted: Fragment supprimé
-      not_found: Fragment introuvable
-      
-    revisions:
-      reverted: Contenu restauré
-      record_not_found: Enregistrement introuvable
-      not_found: Révision introuvable
-      
-    files:
-      created: Fichier téléchargé
-      creation_failure: Échec du téléchargement du fichier
-      updated: Fichier modifié
-      update_failure: Échec de la modification du fichier
-      deleted: Fichier supprimé
-      not_found: Fichier introuvable
-      
-    content:
-      site_not_found: Site introuvable
-      layout_not_found: Mise en page introuvable
-      page_not_found: Page introuvable
-  
-  # -- Views ----------------------------------------------------------------
-  admin:
+  comfy:
     cms:
-      base:
-        sites: Sites
-        layouts: Mises en page
-        pages: Pages
-        snippets: Fragments
-        files: Fichiers
-      
-      sites:
-        index:
-          title: Sites
-          new_link: Nouveau site
-          select: Sélectionner ce site
-          edit: Modifier
-          delete: Supprimer
-          are_you_sure: Êtes-vous sûr de vouloir supprimer ce site ?
-        new:
-          title: Nouveau site
-        edit:
-          title: Modification du site
-        form:
-          create: Créer le site
-          update: Modifier le site
-          is_mirrored: En miroir
+      content:
+        site_not_found: Site introuvable
+        layout_not_found: Mise en page introuvable
+        page_not_found: Page introuvable
         
-      layouts:
-        index:
-          title: Mises en page
-          new_link: Nouvelle mise en page
-        index_branch:
-          add_child_layout: Ajouter une mise en page enfant
-          edit: Modifier
-          delete: Supprimer
-          are_you_sure: Êtes-vous sûr de vouloir supprimer cette mise en page ?
-        new:
-          title: Nouvelle mise en page
-        edit:
-          title: Modification de la mise en page
-          revision: &revision
-            zero: No Revisions
-            one: '%{count} Revision'
-            few: '%{count} Revisions'
-            many: '%{count} Revisions'
-            other: '%{count} Revisions'
-        form:
-          select_parent_layout: Sélectionner une mise en page parent
-          select_app_layout: Sélectionner une mise en page de l'application
-          create: Créer la mise en page
-          update: Modifier la mise en page
-      
-      pages:
-        index:
-          title: Pages
-          new_link: Nouvelle page
-        index_branch:
-          toggle: Basculer
-          add_child_page: Ajouter une page enfant
-          edit: Modifier
-          delete: Supprimer
-          are_you_sure: Êtes-vous sûr de vouloir supprimer cette page ?
-        new:
-          title: Nouvelle page
-        edit:
-          title: Modification de la page
-          revision:
-            <<: *revision
-        form:
-          select_target_page: Pas de redirection
-          preview: Prévisualiser
-          create: Créer la page
-          update: Modifier la page
-          is_published: Publié
-        form_blocks:
-          no_tags: |-
-            Mise en page sans aucun tag de contenu.<br/>
-            Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
-      
-      snippets:
-        index:
-          title: Fragments
-          new_link: Nouveau fragment
-          edit: Modifier
-          delete: Supprimer
-          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
-        new:
-          title: Nouveau fragment
-        edit:
-          title: Modification du fragment
-          revision:
-            <<: *revision
-        form:
-          create: Créer le fragment
-          update: Modifier le fragment
+    admin:
+      cms:
+        base:
+          site_not_found: Site introuvable
+          fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
           
-      revisions:
-        show:
-          title: "Révisions :"
-          revision: révision
-          full_path: Chemin complet 
-          slug: Identifiant
-          update: Restaurer cette révision
-          current: Actuel
+          sites: Sites
+          layouts: Mises en page
+          pages: Pages
+          snippets: Fragments
+          files: Fichiers
+
+        sites:
+          created: Site créé
+          creation_failure: Échec de la création du site
+          updated: Site modifié
+          update_failure: Échec de la modification du site
+          deleted: Site supprimé
+          not_found: Site introuvable
+          
+          index:
+            title: Sites
+            new_link: Nouveau site
+            select: Sélectionner ce site
+            edit: Modifier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce site ?
+          new:
+            title: Nouveau site
+          edit:
+            title: Modification du site
+          form:
+            create: Créer le site
+            update: Modifier le site
+            is_mirrored: En miroir
       
-      files:
-        index:
-          title: Fichiers
-          new_link: Nouveau fichier
-          edit: Modifier
-          delete: Supprimer
-          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-          button: Ajouter des fichiers
-        new:
-          title: Nouveau fichier
-        edit:
-          title: Modification du fichier
-        form:
-          current_file: Fichier actuel
-          create: Envoyer
-          update: Modifier le fichier
-        page_form:
-          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-        file:
-          are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-        
-      categories:
-        index:
-          label: Catégories
-          edit: Modifier les catégories
-          done: Terminé
-          all: Tout
-          add: Ajouter
-          add_placeholder: Ajouter la Catégorie
-        show:
-          are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
-        edit:
-          save: Enregistrer
-        form:
-          label: Catégories
-        
-      dialogs:
-        image:
-          insert: Insérer une image
-        link:
-          create: Insérer un lien
+        layouts:
+          created: Mise en page créée
+          creation_failure: Échec de la création de la mise en page
+          updated: Mise en page modifiée
+          update_failure: Échec de la modification de la mise en page
+          deleted: Mise en page supprimée
+          not_found: Mise en page introuvable
+          
+          index:
+            title: Mises en page
+            new_link: Nouvelle mise en page
+          index_branch:
+            add_child_layout: Ajouter une mise en page enfant
+            edit: Modifier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer cette mise en page ?
+          new:
+            title: Nouvelle mise en page
+          edit:
+            title: Modification de la mise en page
+            revision: &revision
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
+          form:
+            select_parent_layout: Sélectionner une mise en page parent
+            select_app_layout: Sélectionner une mise en page de l'application
+            create: Créer la mise en page
+            update: Modifier la mise en page
+      
+        pages:
+          created: Page créée
+          creation_failure: Échec de la création de la page
+          updated: Page modifiée
+          update_failure: Échec de la modification de la page
+          deleted: Page supprimée
+          not_found: Page introuvable
+          layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
+          
+          index:
+            title: Pages
+            new_link: Nouvelle page
+          index_branch:
+            toggle: Basculer
+            add_child_page: Ajouter une page enfant
+            edit: Modifier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer cette page ?
+          new:
+            title: Nouvelle page
+          edit:
+            title: Modification de la page
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Pas de redirection
+            preview: Prévisualiser
+            create: Créer la page
+            update: Modifier la page
+            is_published: Publié
+          form_blocks:
+            no_tags: |-
+              Mise en page sans aucun tag de contenu.<br/>
+              Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
+      
+        snippets:
+          created: Fragment créé
+          creation_failure: Échec de la création du fragment
+          updated: Fragment modifié
+          update_failure: Échec de la modification du fragment
+          deleted: Fragment supprimé
+          not_found: Fragment introuvable
+          
+          index:
+            title: Fragments
+            new_link: Nouveau fragment
+            edit: Modifier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fragment ?
+          new:
+            title: Nouveau fragment
+          edit:
+            title: Modification du fragment
+            revision:
+              <<: *revision
+          form:
+            create: Créer le fragment
+            update: Modifier le fragment
+      
+        revisions:
+          reverted: Contenu restauré
+          record_not_found: Enregistrement introuvable
+          not_found: Révision introuvable
+          
+          show:
+            title: "Révisions :"
+            revision: révision
+            full_path: Chemin complet 
+            slug: Identifiant
+            update: Restaurer cette révision
+            content: Content
+            changes: Changes
+            previous: Previous
+            current: Actuel
+      
+        files:
+          created: Fichier téléchargé
+          creation_failure: Échec du téléchargement du fichier
+          updated: Fichier modifié
+          update_failure: Échec de la modification du fichier
+          deleted: Fichier supprimé
+          not_found: Fichier introuvable
+          
+          index:
+            title: Fichiers
+            new_link: Nouveau fichier
+            edit: Modifier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+            button: Ajouter des fichiers
+          new:
+            title: Nouveau fichier
+          edit:
+            title: Modification du fichier
+          form:
+            current_file: Fichier actuel
+            create: Envoyer
+            update: Modifier le fichier
+          page_form:
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+          file:
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+            
+        categories:
+          index:
+            label: Catégories
+            edit: Modifier les catégories
+            done: Terminé
+            all: Tout
+            add: Ajouter
+            add_placeholder: Ajouter la Catégorie
+          show:
+            are_you_sure: Êtes-vous sûr de vouloir supprimer cette catégorie ?
+          edit:
+            save: Enregistrer
+          form:
+            label: Catégories

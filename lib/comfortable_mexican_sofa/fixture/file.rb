@@ -40,7 +40,7 @@ module ComfortableMexicanSofa::Fixture::File
       end
       
       # cleaning up
-      self.site.files.where('id NOT IN (?)', fixture_ids).each{ |s| s.destroy }
+      self.site.files.where('id NOT IN (?) AND block_id IS NULL', fixture_ids).each{ |s| s.destroy }
     end
   end
   

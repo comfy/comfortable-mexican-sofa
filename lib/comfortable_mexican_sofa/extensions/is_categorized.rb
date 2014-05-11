@@ -10,11 +10,11 @@ module ComfortableMexicanSofa::IsCategorized
       
       has_many :categorizations,
         :as         => :categorized,
-        :class_name => 'Cms::Categorization',
+        :class_name => 'Comfy::Cms::Categorization',
         :dependent  => :destroy
       has_many :categories,
         :through    => :categorizations,
-        :class_name => 'Cms::Category'
+        :class_name => 'Comfy::Cms::Category'
         
       attr_accessor :category_ids
       
@@ -24,7 +24,7 @@ module ComfortableMexicanSofa::IsCategorized
         if (categories = [categories].flatten.compact).present?
           self.distinct.
             joins(:categorizations => :category).
-            where('cms_categories.label' => categories)
+            where('comfy_cms_categories.label' => categories)
         end
       }
     end
@@ -35,7 +35,7 @@ module ComfortableMexicanSofa::IsCategorized
       (self.category_ids || {}).each do |category_id, flag|
         case flag.to_i
         when 1
-          if category = Cms::Category.find_by_id(category_id)
+          if category = Comfy::Cms::Category.find_by_id(category_id)
             category.categorizations.create(:categorized => self)
           end
         when 0

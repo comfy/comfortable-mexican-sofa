@@ -56,7 +56,7 @@ module Comfy
       end
       
       def generate_navigation_link
-        partial_path = 'app/views/admin/cms/partials/_navigation_inner.html.haml'
+        partial_path = 'app/views/comfy/admin/cms/partials/_navigation_inner.html.haml'
         unless File.exist?(File.join(destination_root, partial_path))
           create_file partial_path
         end

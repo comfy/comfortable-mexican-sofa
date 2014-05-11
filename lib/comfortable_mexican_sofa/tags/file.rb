@@ -6,9 +6,9 @@ class ComfortableMexicanSofa::Tag::File
     /\{\{\s*cms:file:(#{identifier}):?(.*?)\s*\}\}/
   end
   
-  # Initializing Cms::File object
+  # Initializing Comfy::Cms::File object
   def file
-    page.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
+    blockable.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
   end
   
   def content

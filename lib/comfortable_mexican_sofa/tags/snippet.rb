@@ -6,10 +6,10 @@ class ComfortableMexicanSofa::Tag::Snippet
     /\{\{\s*cms:snippet:(#{identifier})\s*\}\}/
   end
   
-  # Find or initialize Cms::Snippet object
+  # Find or initialize Comfy::Cms::Snippet object
   def snippet
-    page.site.snippets.detect{|s| s.identifier == self.identifier.to_s} ||
-      page.site.snippets.build(:identifier => self.identifier.to_s)
+    blockable.site.snippets.detect{|s| s.identifier == self.identifier.to_s} ||
+      blockable.site.snippets.build(:identifier => self.identifier.to_s)
   end
   
   def content

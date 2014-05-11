@@ -19,11 +19,16 @@ module ComfortableMexicanSofa::Fixture::Layout
         end
         
         # setting content
-        if File.exists?(content_path = File.join(path, 'content.html'))
-          if fresh_fixture?(layout, content_path)
-            layout.content = read_as_haml(content_path)
+        %w(html haml).each do |extension|
+          if File.exists?(content_path = File.join(path, "content.#{extension}"))
+            if fresh_fixture?(layout, content_path)
+              layout.content = extension == "html" ? 
+                ::File.open(content_path).read : 
+                Haml::Engine.new(::File.open(content_path).read).render.rstrip
+            end
           end
         end
+        
         if File.exists?(content_path = File.join(path, 'stylesheet.css'))
           if fresh_fixture?(layout, content_path)
             layout.css = File.open(content_path).read

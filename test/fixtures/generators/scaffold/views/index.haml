@@ -1,8 +1,8 @@
 .page-header
-  = link_to 'New Foo', new_admin_foo_path, :class => 'btn pull-right'
+  = link_to 'New Foo', new_admin_foo_path, :class => 'btn btn-default pull-right'
   %h2= 'Foos'
 
-= paginate @foos
+= paginate @foos, :theme => 'comfy'
 
 %table.table.table-hover.table-bordered
   %tr
@@ -12,8 +12,8 @@
     %tr
       %td.main= foo.bar
       %td
-        .btn-group
-          = link_to 'Edit', edit_admin_foo_path(foo), :class => 'btn btn-small'
-          = link_to 'Delete', admin_foo_path(foo), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-small btn-danger'
+        .btn-group.btn-group-sm
+          = link_to 'Edit', edit_admin_foo_path(foo), :class => 'btn btn-default'
+          = link_to 'Delete', admin_foo_path(foo), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger'
 
-= paginate @foos
+= paginate @foos, :theme => 'comfy'
