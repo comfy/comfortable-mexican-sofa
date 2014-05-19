@@ -1,6 +1,9 @@
 class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
+  
+  skip_before_action :verify_authenticity_token
+  
   before_action :load_cms_layout
-
+  
   def render_css
     render :text => @cms_layout.css, :content_type => 'text/css'
     cache_control_header
