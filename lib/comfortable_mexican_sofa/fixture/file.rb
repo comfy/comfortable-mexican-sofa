@@ -30,7 +30,7 @@ module ComfortableMexicanSofa::Fixture::File
         if file.changed? || self.force_import
           if file.save
             save_categorizations!(file, categories)
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported File \t #{file.file_file_name}")
+            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported File \t #{file.file_file_name}")
           else
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import File \n#{file.errors.inspect}")
           end
@@ -68,12 +68,17 @@ module ComfortableMexicanSofa::Fixture::File
         data_path = file.file.options[:storage] == :filesystem ?
           file.file.path :
           file.file.url
+        
+        unless ::File.exists?(data_path)
+          ComfortableMexicanSofa.logger.warn("[FIXTURES] No physical File \t #{file.file_file_name}")
+          next
+        end
           
         open(::File.join(self.path, ::File.basename(file_path)), 'wb') do |f|
           open(data_path) { |src| f.write(src.read) }
         end
         
-        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported File \t #{file.file_file_name}")
+        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported File \t #{file.file_file_name}")
       end
     end
   end

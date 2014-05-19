@@ -66,7 +66,7 @@ module ComfortableMexicanSofa::Fixture::Page
         if page.changed? || page.blocks_attributes_changed || self.force_import
           if page.save
             save_categorizations!(page, categories)
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Page \t #{page.full_path}")
+            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Page \t #{page.full_path}")
           else
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
           end
@@ -121,7 +121,7 @@ module ComfortableMexicanSofa::Fixture::Page
           end
         end
         
-        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Page \t #{page.full_path}")
+        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Page \t #{page.full_path}")
       end
     end
   end
