@@ -91,7 +91,9 @@ class FixtureFilesTest < ActiveSupport::TestCase
     assert_equal ({
       'label'       => 'Default File',
       'description' => 'Default Description',
-      'categories'  => ['Default']
+      'categories'  => ['Default'],
+      'page'        => nil,
+      'block'       => nil
     }), YAML.load_file(attr_path)
     
     FileUtils.rm_rf(host_path)

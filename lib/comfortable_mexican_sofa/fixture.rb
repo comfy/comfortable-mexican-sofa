@@ -42,10 +42,10 @@ module ComfortableMexicanSofa::Fixture
     
     def import!
       ComfortableMexicanSofa::Fixture::Category::Importer.new(from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::File::Importer.new(    from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Layout::Importer.new(  from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Page::Importer.new(    from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::Snippet::Importer.new( from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::File::Importer.new(    from, to, force_import).import!
     end
   end
   

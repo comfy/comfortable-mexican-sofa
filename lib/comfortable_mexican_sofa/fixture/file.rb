@@ -10,9 +10,15 @@ module ComfortableMexicanSofa::Fixture::File
         if File.exists?(attrs_path = File.join(self.path, "_#{filename}.yml"))
           if fresh_fixture?(file, attrs_path)
             attrs = get_attributes(attrs_path)
+            
+            block = if (attrs['page'] && attrs['block']) && (page = self.site.pages.find_by_slug(attrs['page']))
+              page.blocks.find_by_identifier(attrs['block'])
+            end
+            
             file.label        = attrs['label']
             file.description  = attrs['description']
             categories        = attrs['categories']
+            file.block        = block
           end
         end
         
@@ -44,13 +50,17 @@ module ComfortableMexicanSofa::Fixture::File
       
       self.site.files.each do |file|
         file_path = File.join(self.path, file.file_file_name)
+        block = file.block
+        page = block.present?? block.page : nil
         
         # writing attributes
         open(::File.join(self.path, "_#{file.file_file_name}.yml"), 'w') do |f|
           f.write({
             'label'       => file.label,
             'description' => file.description,
-            'categories'  => file.categories.map{|c| c.label}
+            'categories'  => file.categories.map{|c| c.label},
+            'page'        => page.present? ? page.slug : nil,
+            'block'       => block.present? ? block.identifier : nil
           }.to_yaml)
         end
         
