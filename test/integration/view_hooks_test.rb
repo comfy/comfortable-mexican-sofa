@@ -2,6 +2,10 @@ require_relative '../test_helper'
 
 class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
   
+  def teardown
+    ComfortableMexicanSofa::ViewHooks.remove(:navigation)
+  end
+  
   def test_hooks_rendering
     Comfy::Admin::Cms::SitesController.append_view_path(File.expand_path('../fixtures/views', File.dirname(__FILE__)))
     ComfortableMexicanSofa::ViewHooks.add(:navigation, '/nav_hook')
