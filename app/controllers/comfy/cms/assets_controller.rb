@@ -10,7 +10,7 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   end
 
   def render_js
-    render :text => @cms_layout.js, :content_type => 'text/javascript'
+    render :text => @cms_layout.js, :content_type => 'application/javascript'
     cache_control_header
   end
 
