@@ -1,4 +1,5 @@
 class UpgradeTo1120 < ActiveRecord::Migration
+  COMFY_CLASSES = %w(Block Category Categorization File Layout Page Revision Site Snippet)
   def self.up
     add_column :cms_blocks, :blockable_type, :string
     add_index :cms_blocks, :blockable_type
@@ -20,9 +21,15 @@ class UpgradeTo1120 < ActiveRecord::Migration
       'index_cms_categories_on_site_id_and_cat_type_and_label'
     rename_table :cms_categories,       :comfy_cms_categories
     rename_table :cms_categorizations,  :comfy_cms_categorizations
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_categories      SET categorized_type = 'Comfy::Cms::#{c}' WHERE categorized_type = 'Cms::#{c}'") }
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_categorizations SET categorized_type = 'Comfy::Cms::#{c}' WHERE categorized_type = 'Cms::#{c}'") }
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_revisions       SET record_type      = 'Comfy::Cms::#{c}' WHERE record_type      = 'Cms::#{c}'") }
   end
 
   def self.down
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_revisions       SET record_type      = 'Cms::#{c}'        WHERE record_type      = 'Comfy::Cms::#{c}'") }
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_categorizations SET categorized_type = 'Cms::#{c}'        WHERE categorized_type = 'Comfy::Cms::#{c}'") }
+    COMFY_CLASSES.each {|c| execute("UPDATE comfy_cms_categories      SET categorized_type = 'Cms::#{c}'        WHERE categorized_type = 'Comfy::Cms::#{c}'") }
     rename_table :comfy_cms_sites,            :cms_sites
     rename_table :comfy_cms_layouts,          :cms_layouts
     rename_table :comfy_cms_pages,            :cms_pages
