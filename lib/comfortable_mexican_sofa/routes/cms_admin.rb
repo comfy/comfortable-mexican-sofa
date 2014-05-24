@@ -17,7 +17,7 @@ class ActionDispatch::Routing::Mapper
               end
             end
             resources :files do
-              post :reorder, :on => :collection
+              put :reorder, :on => :collection
             end
             resources :layouts do
               put :reorder, :on => :collection
