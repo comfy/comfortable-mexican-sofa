@@ -39,11 +39,10 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       label = (files.size > 1 && file_params[:label].present?) ? 
         "#{file_params[:label]} #{i + 1}" :
         file_params[:label]
-      @file = @site.files.create!(
+      @file = @site.files.create!(file_params.except(:file, :label).merge(
         :file         => file, 
-        :label        => label,
-        :description  => file_params[:description]
-      )
+        :label        => label
+      ))
       @files << @file
     end
     

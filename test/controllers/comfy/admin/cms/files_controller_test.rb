@@ -89,11 +89,12 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
   end
   
   def test_create
-    assert_difference 'Comfy::Cms::File.count' do
+    assert_difference ['Comfy::Cms::File.count', 'Comfy::Cms::Categorization.count'] do
       post :create, :site_id => comfy_cms_sites(:default), :file => {
         :label        => 'Test File',
         :description  => 'Test Description',
-        :file         => [fixture_file_upload('files/image.jpg', 'image/jpeg')]
+        :file         => [fixture_file_upload('files/image.jpg', 'image/jpeg')],
+        :category_ids => {comfy_cms_categories(:default).id => '1'}
       }
       assert_response :redirect
       file = Comfy::Cms::File.last
