@@ -95,7 +95,8 @@ class ComfortableMexicanSofa::Configuration
       'de'    => 'Deutsch',
       'nl'    => 'Nederlands',
       'it'    => 'Italiano',
-      'da'    => 'Dansk'
+      'da'    => 'Dansk',
+      'cs'    => 'Česky'
     }
     @admin_locale         = nil
     @admin_cache_sweeper  = nil
