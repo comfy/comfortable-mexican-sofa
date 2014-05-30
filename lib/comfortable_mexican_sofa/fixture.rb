@@ -40,13 +40,18 @@ module ComfortableMexicanSofa::Fixture
       end
     end
     
+    # def read_as_haml(path)
+    #   content = ::File.open(path).read
+    #   Haml::Engine.new(content).render.rstrip
+    # rescue # Bad haml, calls to helpers, plain html, who knows?
+    #   content
+    # end
+
+    # We never use HAML in our fixtures.
     def read_as_haml(path)
-      content = ::File.open(path).read
-      Haml::Engine.new(content).render.rstrip
-    rescue # Bad haml, calls to helpers, who knows?
-      content
+      ::File.open(path).read
     end
-    
+
     def import!
       ComfortableMexicanSofa::Fixture::Category::Importer.new(from, to, force_import).import!
       ComfortableMexicanSofa::Fixture::File::Importer.new(    from, to, force_import).import!
