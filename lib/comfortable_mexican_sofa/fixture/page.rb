@@ -43,7 +43,7 @@ module ComfortableMexicanSofa::Fixture::Page
           if fresh_fixture?(page, block_path)
             blocks_attributes << {
               :identifier => identifier,
-              :content    => read_as_haml(block_path)
+              :content    => File.open(block_path).read
             }
           end
         end
