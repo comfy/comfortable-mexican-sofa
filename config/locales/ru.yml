@@ -81,6 +81,7 @@ ru:
             title: Редактирование сайта
           form:
             create: Создать сайт
+            cancel: Oтменить
             update: Обновить сайт
             is_mirrored: Синхронизирован с другими сайтами
 
@@ -114,6 +115,7 @@ ru:
             select_parent_layout: Выбрать родительский шаблон
             select_app_layout: Выбрать шаблон приложения
             create: Создать шаблон
+            cancel: Oтменить
             update: Обновить шаблон
 
         pages:
@@ -144,6 +146,7 @@ ru:
             select_target_page: Без редиректа
             preview: Предпросмотр
             create: Создать страницу
+            cancel: Oтменить
             update: Обновить страницу
             is_published: Опубликована
           form_blocks:
@@ -173,6 +176,7 @@ ru:
               <<: *revision
           form:
             create: Создать сниппет
+            cancel: Oтменить
             update: Обновить сниппет
 
         revisions:
@@ -213,6 +217,7 @@ ru:
           form:
             current_file: Текущий файл
             create: Загрузить файл
+            cancel: Oтменить
             update: Обновить файл
           page_form:
             are_you_sure: Вы уверены?

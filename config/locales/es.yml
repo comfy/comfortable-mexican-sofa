@@ -79,6 +79,7 @@ es:
             title: Editando Sitio
           form:
             create: Crear Sitio
+            cancel: Cancelar
             update: Actualizar Sitio
             is_mirrored: Espejo
 
@@ -112,6 +113,7 @@ es:
             select_parent_layout: Seleccionar diseño padre
             select_app_layout: Seleccionar diseño (App)
             create: Crear Diseño
+            cancel: Cancelar
             update: Actualizar Diseño
 
         pages:
@@ -142,6 +144,7 @@ es:
             select_target_page: No Redirigir
             preview: Vista Previa
             create: Crear Página
+            cancel: Cancelar
             update: Actualizar Página
             is_published: Publicada
           form_blocks:
@@ -171,6 +174,7 @@ es:
               <<: *revision
           form:
             create: Crear Fragmento
+            cancel: Cancelar
             update: Actualizar Fragmento
 
         revisions:
@@ -211,6 +215,7 @@ es:
           form:
             current_file: Archivo Actual
             create: Subir Archivo
+            cancel: Cancelar
             update: Actualizar Archivo
           page_form:
             are_you_sure: ¿Estás seguro?

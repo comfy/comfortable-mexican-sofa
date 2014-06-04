@@ -79,6 +79,7 @@ sv:
             title: Ändrar Site
           form:
             create: Skapa Site
+            cancel: Avbryt
             update: Uppdatera Site
             is_mirrored: Speglad
       
@@ -112,6 +113,7 @@ sv:
             select_parent_layout: Välj överordnad layout
             select_app_layout: Väl Applikationslayout
             create: Skapa Layout
+            cancel: Avbryt
             update: Uppdatera Layout
       
         pages:
@@ -142,6 +144,7 @@ sv:
             select_target_page: Ingen vidarebefodring
             preview: Förhandsgranska
             create: Skapa sida
+            cancel: Avbryt
             update: Uppdatera sida
             is_published: Publicerad
           form_blocks:
@@ -171,6 +174,7 @@ sv:
               <<: *revision
           form:
             create: Skapa Snippet
+            cancel: Avbryt
             update: Uppdatera Snippet
       
         revisions:
@@ -211,6 +215,7 @@ sv:
           form:
             current_file: Nuvarande Fil
             create: Ladda upp fil
+            cancel: Avbryt
             update: Uppdatera fil
           page_form:
             are_you_sure: Är du säker?

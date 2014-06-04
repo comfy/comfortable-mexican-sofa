@@ -79,6 +79,7 @@ de:
             title: Web bearbeiten
           form:
             create: Web erstellen
+            cancel: Abbrechen
             update: Web speichern
             is_mirrored: Gespiegelt
 
@@ -112,6 +113,7 @@ de:
             select_parent_layout: Übergeordnetes Layout auswählen
             select_app_layout: Grundlegendes Layout auswählen
             create: Layout erstellen
+            cancel: Abbrechen
             update: Layout speichern
 
         pages:
@@ -142,6 +144,7 @@ de:
             select_target_page: Keine Weiterleitung
             preview: Vorschau
             create: Seite erstellen
+            cancel: Abbrechen
             update: Seite speichern
             is_published: Veröffentlicht
           form_blocks:
@@ -171,6 +174,7 @@ de:
               <<: *revision
           form:
             create: Schnipsel erstellen
+            cancel: Abbrechen
             update: Schnipsel speichern
 
         revisions:
@@ -211,6 +215,7 @@ de:
           form:
             current_file: Aktuelle Datei
             create: Datei aufspielen
+            cancel: Abbrechen
             update: Datei speichern
           page_form:
             are_you_sure: Sind Sie sicher?

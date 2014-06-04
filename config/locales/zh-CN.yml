@@ -79,6 +79,7 @@ zh-CN:
             title: 编辑站点
           form:
             create: 创建站点
+            cancel: 取消
             update: 更新站点
             is_mirrored: 镜像
 
@@ -112,6 +113,7 @@ zh-CN:
             select_parent_layout: 选择上级布局
             select_app_layout: 选择应用布局
             create: 创建布局
+            cancel: 取消
             update: 更新布局
 
         pages:
@@ -142,6 +144,7 @@ zh-CN:
             select_target_page: 没有跳转
             preview: 预览
             create: 创建页面
+            cancel: 取消
             update: 更新页面
             is_published: 发布
           form_blocks:
@@ -171,6 +174,7 @@ zh-CN:
               <<: *revision
           form:
             create: 创建片段
+            cancel: 取消
             update: 更新片段
 
         revisions:
@@ -211,6 +215,7 @@ zh-CN:
           form:
             current_file: 当前文件
             create: 上传文件
+            cancel: 取消
             update: 更新文件
           page_form:
             are_you_sure: 确定删除该文件吗？

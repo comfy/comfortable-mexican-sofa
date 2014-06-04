@@ -79,6 +79,7 @@ pt-BR:
             title: Editando Site
           form:
             create: Criar Site
+            cancel: Cancelar
             update: Atualizar Site
             is_mirrored: Espelhado
       
@@ -112,6 +113,7 @@ pt-BR:
             select_parent_layout: Selecione o Leiaute Pai
             select_app_layout: Selecione o Leiaute da Aplicação
             create: Criar Leiaute
+            cancel: Cancelar
             update: Atualizar Leiaute
       
         pages:
@@ -142,6 +144,7 @@ pt-BR:
             select_target_page: Não Redirecionar
             preview: Pré-visualização
             create: Criar Página
+            cancel: Cancelar
             update: Atualizar Página
             is_published: Publicada
           form_blocks:
@@ -171,6 +174,7 @@ pt-BR:
               <<: *revision
           form:
             create: Criar Fragmento
+            cancel: Cancelar
             update: Atualizar Fragmento
 
         revisions:
@@ -211,6 +215,7 @@ pt-BR:
           form:
             current_file: Arquivo Atual
             create: Enviar Arquivo
+            cancel: Cancelar
             update: Atualizar Arquivo
           page_form:
             are_you_sure: Tem certeza?
