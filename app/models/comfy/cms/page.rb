@@ -70,6 +70,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
   def url
     "//" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
+
+  def as_json(options={})
+    super(:include => { :blocks => { :only => [:identifier, :content, :created_at, :updated_at] } })
+  end
   
 protected
   
