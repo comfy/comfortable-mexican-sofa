@@ -64,13 +64,18 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def reorder
-    (params[:comfy_cms_page] || []).each_with_index do |id, index|
-      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
-    end
+    reorder_cms_pages(params[:comfy_cms_page]) unless params[:comfy_cms_page].nil?
     render :nothing => true
   end
 
 protected
+
+  def reorder_cms_pages(cms_page_ids)
+    cms_page_ids.each_with_index do |id, index|
+      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
+    end
+
+  end
 
   def site_has_no_pages?
     @site.pages.count == 0
