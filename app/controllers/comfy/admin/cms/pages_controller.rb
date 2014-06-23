@@ -7,7 +7,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :build_file,        :only => [:new, :edit]
 
   def index
-    return redirect_to :action => :new if @site.pages.count == 0
+    return redirect_to :action => :new if site_has_no_pages?
     @pages_by_parent = pages_grouped_by_parent
     if params[:category].present?
       @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
@@ -71,6 +71,10 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
 protected
+
+  def site_has_no_pages?
+    @site.pages.count == 0
+  end 
 
   def pages_grouped_by_parent
     @site.pages.includes(:categories).group_by(&:parent_id)
