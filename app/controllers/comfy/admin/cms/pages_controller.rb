@@ -8,7 +8,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   def index
     return redirect_to :action => :new if @site.pages.count == 0
-    @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
+    @pages_by_parent = pages_grouped_by_parent
     if params[:category].present?
       @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
     else
@@ -54,7 +54,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def toggle_branch
-    @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
+    @pages_by_parent = pages_grouped_by_parent
     @page = @site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
     id  = @page.id.to_s
@@ -71,6 +71,10 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
 protected
+
+  def pages_grouped_by_parent
+    @site.pages.includes(:categories).group_by(&:parent_id)
+  end 
 
   def check_for_layouts
     if @site.layouts.count == 0
