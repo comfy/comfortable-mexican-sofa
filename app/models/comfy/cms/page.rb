@@ -71,8 +71,19 @@ class Comfy::Cms::Page < ActiveRecord::Base
     "//" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
   end
 
+  def category_names
+    categories.select(:label).map(&:label)
+  end
+
   def as_json(options={})
-    super(:include => { :blocks => { :only => [:identifier, :content, :created_at, :updated_at] } })
+    super(
+      :include => {
+        :blocks => {
+          :only => [:identifier, :content, :created_at, :updated_at]
+        }
+      },
+      :methods => [:category_names]
+    )
   end
   
 protected

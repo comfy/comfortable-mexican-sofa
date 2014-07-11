@@ -289,8 +289,15 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'default_field_text_content', page.as_json['blocks'][0]['content']
   end
 
+  def test_as_json_with_category_names
+    page = comfy_cms_pages(:default)
+    page.categories << comfy_cms_categories(:default)
+
+    assert_equal ['Default'], page.category_names
+  end
+
 protected
-  
+
   def new_params(options = {})
     {
       :label  => 'Test Page',

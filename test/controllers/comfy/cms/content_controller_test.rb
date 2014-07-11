@@ -56,6 +56,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_equal 0,               json_response['position']
     assert_equal 1,               json_response['children_count']
     assert_equal true,            json_response['is_published']
+    assert_equal [],              json_response['category_names']
   end
 
   def test_show_with_app_layout
