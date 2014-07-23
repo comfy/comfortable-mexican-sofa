@@ -1,7 +1,7 @@
 class Cms::User < ActiveRecord::Base
 
   attr_reader :site_tokens
-  
+
   include Cms::Base
 
   self.table_name = 'cms_users'
@@ -15,5 +15,20 @@ class Cms::User < ActiveRecord::Base
   # Internal: Assign sites based on token input from form.
   def site_tokens=(ids)
     self.site_ids = ids.split(',')
+  end
+
+  before_save :ensure_authentication_token
+
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless Cms::User.where(authentication_token: token).first
+    end
   end
 end

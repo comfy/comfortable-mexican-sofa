@@ -1,6 +1,6 @@
 class Admin::Cms::SessionsController < ::Devise::SessionsController
   layout "admin/cms"
-  
+
   # Public: Sign the user out
   def destroy
     # Clear their site ID.
