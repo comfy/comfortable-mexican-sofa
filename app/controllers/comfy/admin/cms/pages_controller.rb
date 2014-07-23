@@ -9,8 +9,18 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to :action => :new if @site.pages.count == 0
     @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
-    if params[:category].present?
-      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+
+    # Clean up URL parameters before querying
+    params[:category].delete_if { |x| x.blank? } if params[:category].present?
+
+    params[:search].delete if params[:search].present? && params[:search].empty?
+
+    @filters_present = params[:category].present? || params[:search].present?
+
+    if @filters_present
+      @pages = @site.pages
+      @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
+      @pages = @pages.with_label_like(params[:search]) if params[:search].present?
     else
       @pages = [@site.pages.root].compact
     end
@@ -104,14 +114,14 @@ protected
       @cms_site   = @page.site
       @cms_layout = @page.layout
       @cms_page   = @page
-      
+
       # Chrome chokes on content with iframes. Issue #434
       response.headers['X-XSS-Protection'] = '0'
-      
+
       render :inline => @page.render, :layout => layout, :content_type => 'text/html'
     end
   end
-  
+
   def page_params
     params.fetch(:page, {}).permit!
   end

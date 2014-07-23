@@ -1,5 +1,10 @@
 .page-header
   = link_to t('.new_link'), new_comfy_admin_cms_site_page_path(@site), :class => 'btn btn-default pull-right'
+  %div.btn.pull-right
+    = form_tag(comfy_admin_cms_site_pages_path, method: "get", id: "search-form") do
+      = text_field_tag(:search, params[:search], placeholder: "Search by label")
+      = submit_tag("Search", name: nil)
+
   %h2= t('.title')
 
 - content_for :right_column do
