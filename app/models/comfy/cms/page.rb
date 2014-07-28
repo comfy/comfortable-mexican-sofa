@@ -68,7 +68,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   
   # Full url for a page
   def url
-    "//" + "#{self.site.hostname}/#{self.site.path}/#{self.full_path}".squeeze("/")
+    "//" + "#{self.site.hostname}/#{Rails.application.config.comfy_cms_path ? Rails.application.config.comfy_cms_path + "/" : "" }#{self.site.path}/#{self.full_path}".squeeze("/")
   end
   
 protected
