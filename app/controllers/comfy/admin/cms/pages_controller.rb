@@ -20,7 +20,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     if @filters_present
       @pages = @site.pages
       @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
-      @pages = @pages.with_label_like(params[:search]) if params[:search].present?
+      @pages = @pages.search(:with_label_like, params[:search]) if params[:search].present?
     else
       @pages = [@site.pages.root].compact
     end
