@@ -34,4 +34,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'tinymce-rails',     '>= 4.0.0'
   s.add_dependency 'bootstrap-sass',    '~> 3.1.0'
+
+  s.add_development_dependency 'pry-rails'
 end

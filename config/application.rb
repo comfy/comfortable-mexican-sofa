@@ -1,15 +1,16 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'pry-rails'
 
 # Assets should be precompiled for production (so we don't need the gems loaded then)
 Bundler.require(*Rails.groups(assets: %w(development test)))
 
 module ComfortableMexicanSofa
   class Application < Rails::Application
-    
+
     require_relative '../lib/comfortable_mexican_sofa'
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
