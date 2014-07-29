@@ -10,20 +10,13 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     return redirect_to :action => :new if @site.pages.count == 0
     @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
 
-    # Clean up URL parameters before querying
-    params[:category].delete_if { |x| x.blank? } if params[:category].present?
-
-    params[:search].delete if params[:search].present? && params[:search].empty?
-
     @filters_present = params[:category].present? || params[:search].present?
 
-    if @filters_present
-      @pages = @site.pages
-      @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
-      @pages = @pages.search(:with_label_like, params[:search]) if params[:search].present?
-    else
-      @pages = [@site.pages.root].compact
-    end
+    @pages = @site.pages
+    @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
+    @pages = Comfy::Cms::Search.new(@pages, params[:search]).results if params[:search].present?
+
+    @pages = [@pages.root].compact unless @filters_present
   end
 
   def new

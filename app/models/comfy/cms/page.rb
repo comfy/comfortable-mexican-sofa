@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Comfy::Cms::Page < ActiveRecord::Base
-  include Comfy::Cms::Concerns::Searchable
   self.table_name = 'comfy_cms_pages'
 
   cms_acts_as_tree :counter_cache => :children_count
