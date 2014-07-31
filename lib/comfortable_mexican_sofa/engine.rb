@@ -14,7 +14,7 @@ require 'coffee-rails'
 require 'codemirror-rails'
 require 'kaminari'
 require 'tinymce-rails'
-require 'bootstrap-sass'
+# require 'bootstrap-sass'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
