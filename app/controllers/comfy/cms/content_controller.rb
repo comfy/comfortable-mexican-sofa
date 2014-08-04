@@ -23,6 +23,14 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     end
   end
 
+  def preview
+    @cms_page = @cms_site.pages.find_by_full_path!("/#{params[:cms_path]}")
+
+    respond_with(@cms_page) do |format|
+      format.html { render_html }
+    end
+  end
+
   def render_sitemap
     render
   end

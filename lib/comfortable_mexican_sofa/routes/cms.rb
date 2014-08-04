@@ -13,6 +13,7 @@ class ActionDispatch::Routing::Mapper
             :format       => :xml
         end
 
+        get '/:format' => 'content#preview', :as => 'preview_page', :path => "preview/(*cms_path)"
         get '/:format' => 'content#show', :as => 'render_page', :path => "(*cms_path)"
       end
     end
