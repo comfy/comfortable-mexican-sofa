@@ -18,6 +18,6 @@ require 'bootstrap-sass'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
-    # ...
+    config.autoload_paths += Dir["#{config.root}/app/presenters"]
   end
 end
