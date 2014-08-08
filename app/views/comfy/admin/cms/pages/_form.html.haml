@@ -36,5 +36,5 @@
 = render 'comfy/admin/cms/partials/page_form_after', :object => form
 
 = form.form_group :class => 'form-actions' do
-  = link_to t('.preview'), "https://www.moneyadviceservice.org.uk/#{I18n.locale}/articles#{@page.full_path}/preview", :class => 'btn btn-default', target: '_blank'
+  = link_to t('.preview'), "https://www.moneyadviceservice.org.uk/#{I18n.locale}/articles#{@page.full_path}/preview", :class => 'btn btn-default', id: 'preview', target: '_blank'
   = form.submit t(@page.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
