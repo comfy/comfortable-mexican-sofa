@@ -68,7 +68,7 @@ window.CMS.codemirror = ->
       autoCloseTags:  true
       lineNumbers:    true
     CMS.code_mirror_instances.push(cm)
-    $(element).resizable resize: ->
+    $(cm.display.wrapper).resizable resize: ->
       cm.setSize($(@).width(), $(@).height())
       cm.refresh()
       return
