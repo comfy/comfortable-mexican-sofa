@@ -17,9 +17,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     if @cms_page.target_page.present?
       redirect_to @cms_page.target_page.url
     else
-      respond_with(@cms_page) do |format|
-        format.html { render_html }
-      end
+      render_page
     end
   end
 
@@ -29,13 +27,19 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 
 protected
 
-  def render_html(status = 200)
+  def render_page(status = 200)
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render :inline => @cms_page.content_cache, :layout => app_layout, :status => status, :content_type => 'text/html'
+      render :inline => @cms_page.content_cache, :layout => app_layout, :status => status, :content_type => mime_type
     else
       render :text => I18n.t('comfy.cms.content.layout_not_found'), :status => 404
     end
+  end
+  alias_method :render_html, :render_page
+
+  def mime_type
+    mime_block = @cms_page.blocks.find_by_identifier(:mime_type)
+    mime_block && mime_block.content || 'text/html'
   end
 
   def load_fixtures
