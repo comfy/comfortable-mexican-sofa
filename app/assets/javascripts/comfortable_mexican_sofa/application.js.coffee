@@ -68,10 +68,17 @@ window.CMS.codemirror = ->
       autoCloseTags:  true
       lineNumbers:    true
     CMS.code_mirror_instances.push(cm)
-  
+    $(element).resizable resize: ->
+      cm.setSize($(@).width(), $(@).height())
+      cm.refresh()
+      return
+    return
+
   $('a[data-toggle="tab"]').on 'shown', ->
     for cm in CMS.code_mirror_instances
       cm.refresh()
+    return
+  return
 
 window.CMS.sortable_list = ->
   $('.sortable').sortable
