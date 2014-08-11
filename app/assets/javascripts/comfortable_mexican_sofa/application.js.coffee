@@ -1,6 +1,6 @@
 #= require jquery
 #= require jquery_ujs
-#= require jquery.ui
+#= require jquery-ui
 #= require tinymce-jquery
 #= require codemirror
 #= require codemirror/modes/css
