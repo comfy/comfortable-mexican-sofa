@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paperclip',         '>= 4.0.0'
   s.add_dependency 'kramdown',          '>= 1.0.0'
   s.add_dependency 'jquery-rails',      '>= 3.0.0'
-  s.add_dependency 'jquery-ui-rails',   '>= 4.0.0'
+  s.add_dependency 'jquery-ui-rails',   '>= 5.0.0'
   s.add_dependency 'haml-rails',        '>= 0.3.0'
   s.add_dependency 'sass-rails',        '>= 4.0.3'
   s.add_dependency 'coffee-rails',      '>= 3.1.0'
