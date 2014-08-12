@@ -172,6 +172,59 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_match "text 4 text", response.body
   end
 
+  def test_preview_published
+    page = comfy_cms_pages(:default)
+    page.update_columns(:is_published => true)
+
+    get :preview, :cms_path => ''
+    assert_response :success
+  end
+
+  def test_preview_unpublished
+    page = comfy_cms_pages(:default)
+    page.update_columns(:is_published => false)
+
+    get :preview, :cms_path => ''
+    assert_response :success
+  end
+
+  def test_preview_as_json
+    get :preview, :cms_path => '', :format => 'json'
+    assert_response :success
+
+    content = rendered_content_formatter(
+        '
+      layout_content_a
+      default_page_text_content_a
+      default_snippet_content
+      default_page_text_content_b
+      layout_content_b
+      default_snippet_content
+      layout_content_c'
+    )
+    page = comfy_cms_pages(:default)
+    json_response = JSON.parse(response.body)
+    assert_equal page.id,         json_response['id']
+    assert_equal page.site.id,    json_response['site_id']
+    assert_equal page.layout.id,  json_response['layout_id']
+    assert_equal nil,             json_response['parent_id']
+    assert_equal nil,             json_response['target_page_id']
+    assert_equal 'Default Page',  json_response['label']
+    assert_equal nil,             json_response['slug']
+    assert_equal '/',             json_response['full_path']
+    assert_equal content,         json_response['content_cache']
+    assert_equal 0,               json_response['position']
+    assert_equal 1,               json_response['children_count']
+    assert_equal true,            json_response['is_published']
+    assert_equal [],              json_response['category_names']
+  end
+
+  def test_preview_not_found
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found at: "doesnotexist"' do
+      get :preview, :cms_path => 'doesnotexist'
+    end
+  end
+
   def test_render_sitemap
     get :render_sitemap, :format => :xml
     assert_response :success
