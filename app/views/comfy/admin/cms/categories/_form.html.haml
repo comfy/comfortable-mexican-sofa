@@ -1,6 +1,5 @@
 - object = form.object
 - if @categories.present?
   = form.form_group :label => {:text => t('.label')}, :class => 'categories' do
-    - categories_presenter = Comfy::Cms::CategoriesListPresenter.new(@categories)
     = select_tag "#{object.class.to_s.demodulize.underscore.downcase}[category_ids]",
-                 options_for_select(categories_presenter.all, categories_presenter.selected(object)), multiple: true, id: 'categories--select'
+                 options_for_select(@categories.all, @categories.selected_for(object)), multiple: true, id: 'categories--select'

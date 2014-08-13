@@ -13,8 +13,7 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
   end
 
   def edit
-    @categories = @site.categories.of_type(@snippet.class.to_s)
-    @categories_presenter = Comfy::Cms::CategoriesListPresenter.new(@categories)
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@snippet.class.to_s))
     @snippet.attributes = snippet_params
   end
 

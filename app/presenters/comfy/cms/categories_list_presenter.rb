@@ -6,7 +6,7 @@ class Comfy::Cms::CategoriesListPresenter < SimpleDelegator
     model.all.map { |category| [category.label, category.id] }
   end
 
-  def selected(page)
+  def selected_for(page)
     model.all.map { |category| category.id if page.categories.member?(category) }.compact
   end
 

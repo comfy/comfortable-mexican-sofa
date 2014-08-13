@@ -32,6 +32,7 @@ module ComfortableMexicanSofa::IsCategorized
 
   module InstanceMethods
     def sync_categories
+      # FIXME: It'd be really useful to update only the categories that change, so that we can keep track of change timestamps. @finitud
       self.categorizations.destroy_all
       (self.category_ids || {}).each do |category_id|
         if category = Comfy::Cms::Category.find_by_id(category_id)

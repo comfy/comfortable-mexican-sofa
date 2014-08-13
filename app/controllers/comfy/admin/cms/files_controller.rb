@@ -28,14 +28,12 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   end
 
   def new
-    @categories = @site.categories.of_type(@file.class.to_s)
-    @categories_presenter = Comfy::Cms::CategoriesListPresenter.new(@categories)
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
     render
   end
 
   def edit
-    @categories = @site.categories.of_type(@file.class.to_s)
-    @categories_presenter = Comfy::Cms::CategoriesListPresenter.new(@categories)
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
     render
   end
 
