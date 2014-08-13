@@ -1,13 +1,13 @@
 class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
-  
+
   skip_before_action :load_fixtures
-  
+
   before_action :build_file,  :only => [:new, :create]
   before_action :load_file,   :only => [:edit, :update, :destroy]
-  
+
   def index
     @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).order('comfy_cms_files.position')
-    
+
     if params[:ajax]
       if params[:not_images]
         files = @files.not_images.collect do |file|
@@ -26,26 +26,32 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       return redirect_to :action => :new if @site.files.count == 0
     end
   end
-  
+
   def new
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
+    render
+  end
+
+  def edit
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
     render
   end
 
   def create
     @files = []
-    
+
     files = [file_params[:file]].flatten
     files.each_with_index do |file, i|
-      label = (files.size > 1 && file_params[:label].present?) ? 
+      label = (files.size > 1 && file_params[:label].present?) ?
         "#{file_params[:label]} #{i + 1}" :
         file_params[:label]
       @file = @site.files.create!(file_params.except(:file, :label).merge(
-        :file         => file, 
+        :file         => file,
         :label        => label
       ))
       @files << @file
     end
-    
+
     if params[:ajax]
       view = render_to_string(:partial => 'comfy/admin/cms/files/file', :collection => @files, :layout => false)
       render :json => {:filelink => @file.file.url, :filename => @file.file_file_name, :view => view.gsub("\n", '')}
@@ -53,7 +59,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       flash[:success] = I18n.t('comfy.admin.cms.files.created')
       redirect_to :action => :edit, :id => @file
     end
-    
+
   rescue ActiveRecord::RecordInvalid
     if params[:ajax]
       render :nothing => true, :status => :unprocessable_entity
@@ -62,7 +68,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       render :action => :new
     end
   end
-  
+
   def update
     @file.update_attributes!(file_params)
     flash[:success] = I18n.t('comfy.admin.cms.files.updated')
@@ -71,7 +77,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     flash.now[:danger] = I18n.t('comfy.admin.cms.files.update_failure')
     render :action => :edit
   end
-  
+
   def destroy
     @file.destroy
     respond_to do |format|
@@ -82,7 +88,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       end
     end
   end
-  
+
   def reorder
     (params[:comfy_cms_file] || []).each_with_index do |id, index|
       if (cms_file = ::Comfy::Cms::File.find_by_id(id))
@@ -91,20 +97,20 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     end
     render :nothing => true
   end
-  
+
 protected
 
   def build_file
     @file = @site.files.new
   end
-  
+
   def load_file
     @file = @site.files.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.files.not_found')
     redirect_to :action => :index
   end
-  
+
   def file_params
     # single file upload
     unless (file = params[:file]).is_a?(Hash)
@@ -113,5 +119,5 @@ protected
     end
     params.fetch(:file, {}).permit!
   end
-  
+
 end
