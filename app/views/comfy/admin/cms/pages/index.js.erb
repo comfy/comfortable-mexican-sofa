@@ -1,0 +1,2 @@
+$("ul.list.sortable").html("");
+$("<%= escape_javascript(render :partial => 'index_branch', :collection => @pages) %>").appendTo($("ul.list.sortable"));

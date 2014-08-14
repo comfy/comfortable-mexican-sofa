@@ -15,6 +15,8 @@ group :test do
   gem 'activerecord-jdbcsqlite3-adapter', :platform => :jruby
   gem 'mocha',      :require => false
   gem 'coveralls',  :require => false
+  gem 'timecop'
 end
 
 gem 'mas-build', :git => 'git@github.com:moneyadviceservice/mas-build' if ENV['MAS_BUILD']
+
