@@ -1,8 +1,5 @@
 class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 
-  # Respond with HTML by default so that requests with 'Accept: */*' get a web page (e.g. Facebook)
-  respond_to :html, :json
-
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.public_auth.to_s.constantize
 
@@ -17,7 +14,10 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     if @cms_page.target_page.present?
       redirect_to @cms_page.target_page.url
     else
-      render_page
+      respond_to do |format|
+        format.json { render json: @cms_page }
+        format.all { render_page }
+      end
     end
   end
 
