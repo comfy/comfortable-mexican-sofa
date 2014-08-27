@@ -21,6 +21,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def new
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@page.class.to_s))
     render
   end
 
