@@ -104,11 +104,11 @@ nl:
           edit:
             title: Lay-out Bewerken
             revision: &revision
-              zero: '%{count} Revisie'
+              zero: '%{count} Revisies'
               one: '%{count} Revisie'
-              few: '%{count} Revisie'
-              many: '%{count} Revisie'
-              other: '%{count} Revisie'
+              few: '%{count} Revisies'
+              many: '%{count} Revisies'
+              other: '%{count} Revisies'
           form:
             select_parent_layout: Selecteer Ouder Lay-out
             select_app_layout: Selecteer Applicatie Lay-out
