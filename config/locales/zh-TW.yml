@@ -80,6 +80,7 @@ zh-TW:
             title: 編輯站點
           form:
             create: 創建站點
+            cancel: Cancel
             update: 更新站點
             is_mirrored: 鏡像
 
@@ -113,6 +114,7 @@ zh-TW:
             select_parent_layout: 選擇上級佈局
             select_app_layout: 選擇應用佈局
             create: 創建佈局
+            cancel: Cancel
             update: 更新佈局
 
         pages:
@@ -143,6 +145,7 @@ zh-TW:
             select_target_page: 沒有跳轉
             preview: 預覽
             create: 創建頁面
+            cancel: Cancel
             update: 更新頁面
             is_published: 發佈
           form_blocks:
@@ -172,6 +175,7 @@ zh-TW:
               <<: *revision
           form:
             create: 創建片段
+            cancel: Cancel
             update: 更新片段
 
         revisions:
@@ -212,6 +216,7 @@ zh-TW:
           form:
             current_file: 當前文件
             create: 上傳文件
+            cancel: Cancel
             update: 更新文件
           page_form:
             are_you_sure: 確定刪除該文件嗎？
