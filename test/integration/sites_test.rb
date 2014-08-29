@@ -87,6 +87,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:cms_site)
     assert_equal :fr, I18n.locale
+
+    reset_locale
   end
   
   def test_get_admin_with_locale
@@ -98,6 +100,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     http_auth :get, comfy_admin_cms_site_pages_path(comfy_cms_sites(:default))
     assert_response :success
     assert_equal :fr, I18n.locale
+
+    reset_locale
   end
   
   def test_get_admin_with_forced_locale
@@ -114,7 +118,13 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal :en, I18n.locale
 
+    reset_locale
+  end
+
+  def reset_locale
+    comfy_cms_sites(:default).update_columns(:locale => 'en')
     I18n.default_locale = :en
+    I18n.locale = :en
   end
   
 end
