@@ -32,7 +32,7 @@ class FixtureTest < ActiveSupport::TestCase
     FileUtils.rm_rf(host_path)
   end
   
-  def test_import_all_with_no_site
+  def test_export_all_with_no_site
     comfy_cms_sites(:default).destroy
     
     assert_exception_raised ActiveRecord::RecordNotFound do
