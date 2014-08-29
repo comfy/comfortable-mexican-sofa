@@ -6,6 +6,7 @@ it:
     parent_id: Padre
     content: Contenuto
     identifier: Identificatore
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Sito

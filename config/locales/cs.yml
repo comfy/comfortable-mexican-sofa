@@ -6,6 +6,7 @@ cs:
     parent_id: Rodič
     content: Obsah
     identifier: Identifikátor
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Web

@@ -6,6 +6,7 @@ da:
     parent_id: Overordnet
     content: Indhold
     identifier: Nøgleord
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Websted

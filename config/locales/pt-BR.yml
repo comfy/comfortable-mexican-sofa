@@ -6,6 +6,7 @@ pt-BR:
     parent_id: Pai
     content: Conteúdo
     identifier: Identificador
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site

@@ -6,6 +6,7 @@ ja:
     parent_id: 親
     content: コンテンツ
     identifier: Identifier
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: サイト

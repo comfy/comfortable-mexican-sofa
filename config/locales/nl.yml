@@ -6,6 +6,7 @@ nl:
     parent_id: Ouder
     content: Inhoud
     identifier: Identifier
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site

@@ -6,6 +6,7 @@ ru:
     parent_id: Родитель
     content: Контент
     identifier: Идентификатор
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Сайт

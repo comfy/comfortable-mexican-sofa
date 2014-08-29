@@ -6,6 +6,7 @@ zh-TW:
     parent_id: 上級
     content: 內容
     identifier: 標識符
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: 站點

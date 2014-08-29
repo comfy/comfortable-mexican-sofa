@@ -6,6 +6,7 @@ de:
     parent_id: Vorfahre
     content: Inhalt
     identifier: Identifikator
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Web

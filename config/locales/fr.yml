@@ -6,6 +6,7 @@ fr:
     parent_id: Parent
     content: Contenu
     identifier: Identifiant
+    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
