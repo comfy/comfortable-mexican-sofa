@@ -80,6 +80,7 @@ ja:
             title: サイトを編集
           form:
             create: サイトを作成
+            cancel: キャンセル
             update: サイトを更新
             is_mirrored: ミラーリング済み
       
@@ -113,6 +114,7 @@ ja:
             select_parent_layout: 親レイアウトを選択
             select_app_layout: アプリケーションレイアウトを選択
             create: レイアウトを作成
+            cancel: キャンセル
             update: レイアウトを更新
       
         pages:
@@ -143,6 +145,7 @@ ja:
             select_target_page: リダイレクトなし
             preview: プレビュー
             create: ページを作成
+            cancel: キャンセル
             update: ページを更新
             is_published: パブリッシュ済み
           form_blocks:
@@ -172,6 +175,7 @@ ja:
               <<: *revision
           form:
             create: スニペットを作成
+            cancel: キャンセル
             update: スニペットを更新
       
         revisions:
@@ -212,6 +216,7 @@ ja:
           form:
             current_file: 現在のファイル
             create: ファイルをアップロード
+            cancel: キャンセル
             update: ファイルを更新
           page_form:
             are_you_sure: よろしいですか？

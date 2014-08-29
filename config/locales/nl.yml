@@ -80,6 +80,7 @@ nl:
             title: Site Bewerken
           form:
             create: Site Aanmaken
+            cancel: Annuleren
             update: Site Bijwerken
             is_mirrored: Gespiegeld
 
@@ -113,6 +114,7 @@ nl:
             select_parent_layout: Selecteer Ouder Lay-out
             select_app_layout: Selecteer Applicatie Lay-out
             create: Lay-out Aanmaken
+            cancel: Annuleren
             update: Lay-out Bijwerken
 
         pages:
@@ -143,6 +145,7 @@ nl:
             select_target_page: Geen Omleiding
             preview: Preview
             create: Pagina Aanmaken
+            cancel: Annuleren
             update: Pagina Bijwerken
             is_published: Gepubliceerd
           form_blocks:
@@ -172,6 +175,7 @@ nl:
               <<: *revision
           form:
             create: Snippet Aanmaken
+            cancel: Annuleren
             update: Snippet Bijwerken
 
         revisions:
@@ -212,6 +216,7 @@ nl:
           form:
             current_file: Huidig Bestand
             create: Upload Bestand
+            cancel: Annuleren
             update: Update Bestand
           page_form:
             are_you_sure: Weet u het zeker?

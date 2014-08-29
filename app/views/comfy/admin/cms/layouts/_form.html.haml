@@ -19,3 +19,4 @@
 
 = form.form_group :class => 'form-actions' do
   = form.submit t(@layout.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+  = link_to t('.cancel'), comfy_admin_cms_site_layouts_path, :class => 'btn btn-default pull-right'
