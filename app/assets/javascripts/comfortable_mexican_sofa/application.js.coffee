@@ -71,8 +71,6 @@ window.CMS.codemirror = ->
     $(cm.display.wrapper).resizable resize: ->
       cm.setSize($(@).width(), $(@).height())
       cm.refresh()
-      return
-    return
 
   $('a[data-toggle="tab"]').on 'shown', ->
     for cm in CMS.code_mirror_instances
