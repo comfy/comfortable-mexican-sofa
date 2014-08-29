@@ -80,6 +80,7 @@ it:
             title: Modifica sito
           form:
             create: Crea sito
+            cancel: Cancellare
             update: Modifica sito
             is_mirrored: Mirrored
 
@@ -113,6 +114,7 @@ it:
             select_parent_layout: Seleziona Layout padre
             select_app_layout: Seleziona Layout applicazione
             create: Crea Layout
+            cancel: Cancellare
             update: Modifica Layout
 
         pages:
@@ -143,6 +145,7 @@ it:
             select_target_page: Nessun reindirizzamento
             preview: Anteprima
             create: Crea Pagina
+            cancel: Cancellare
             update: Modifica Pagina
             is_published: Pubblicata
           form_blocks:
@@ -172,6 +175,7 @@ it:
               <<: *revision
           form:
             create: Crea Snippet
+            cancel: Cancellare
             update: Modifica Snippet
 
         revisions:
@@ -212,6 +216,7 @@ it:
           form:
             current_file: File attuale
             create: Carica File
+            cancel: Cancellare
             update: Modifica File
           page_form:
             are_you_sure: Sei sicuro?

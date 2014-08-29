@@ -80,6 +80,7 @@ en:
             title: Editing Site
           form:
             create: Create Site
+            cancel: Cancel
             update: Update Site
             is_mirrored: Mirrored
   
@@ -113,6 +114,7 @@ en:
             select_parent_layout: Select Parent Layout
             select_app_layout: Select Application Layout
             create: Create Layout
+            cancel: Cancel
             update: Update Layout
   
         pages:
@@ -143,6 +145,7 @@ en:
             select_target_page: No Redirect
             preview: Preview
             create: Create Page
+            cancel: Cancel
             update: Update Page
             is_published: Published
           form_blocks:
@@ -172,6 +175,7 @@ en:
               <<: *revision
           form:
             create: Create Snippet
+            cancel: Cancel
             update: Update Snippet
   
         revisions:
@@ -212,6 +216,7 @@ en:
           form:
             current_file: Current File
             create: Upload File
+            cancel: Cancel
             update: Update File
           page_form:
             are_you_sure: Are you sure?

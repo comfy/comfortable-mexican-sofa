@@ -80,6 +80,7 @@ cs:
             title: Úprava webu
           form:
             create: Vytvořit web
+            cancel: Zrušit
             update: Upravit web
             is_mirrored: Zrcadlený
   
@@ -113,6 +114,7 @@ cs:
             select_parent_layout: Zvolte rodičovské rozložení
             select_app_layout: Zvolte rozložení aplikace
             create: Vytvořit rozložení
+            cancel: Zrušit
             update: Upravit rozložení
   
         pages:
@@ -143,6 +145,7 @@ cs:
             select_target_page: Bez přesměrování
             preview: Náhled
             create: Vytvořit stránku
+            cancel: Zrušit
             update: Upravit stránku
             is_published: Publikovaná
           form_blocks:
@@ -172,6 +175,7 @@ cs:
               <<: *revision
           form:
             create: Vytvořit úryvek
+            cancel: Zrušit
             update: Upravit úryvek
   
         revisions:
@@ -212,6 +216,7 @@ cs:
           form:
             current_file: Aktuální soubor
             create: Nahrát soubor
+            cancel: Zrušit
             update: Upravit soubor
           page_form:
             are_you_sure: Určitě?

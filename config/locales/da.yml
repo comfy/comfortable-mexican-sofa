@@ -80,6 +80,7 @@ da:
             title: Rediger websted
           form:
             create: Opret websted
+            cancel: Annuller
             update: Opdater websted
             is_mirrored: Kopieret websted
     
@@ -113,6 +114,7 @@ da:
             select_parent_layout: Vælg overordnet layout
             select_app_layout: Vælg applikationens layout
             create: Opret layout
+            cancel: Annuller
             update: Opdater layout
     
         pages:
@@ -143,6 +145,7 @@ da:
             select_target_page: Ingen viderestilling
             preview: Preview
             create: Opret side
+            cancel: Annuller
             update: Opdater side
             is_published: Udgivet
           form_blocks:
@@ -172,6 +175,7 @@ da:
               <<: *revision
           form:
             create: Opret snippet
+            cancel: Annuller
             update: Opdater snippet
     
         revisions:
@@ -212,6 +216,7 @@ da:
           form:
             current_file: Nuværende fil
             create: Send fil
+            cancel: Annuller
             update: Opdater fil
           page_form:
             are_you_sure: Er du sikker?

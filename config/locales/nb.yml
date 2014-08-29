@@ -80,6 +80,7 @@ nb:
             title: Endrer nettside
           form:
             create: Opprett nettside
+            cancel: Cancel
             update: Oppdater nettside
             is_mirrored: Speilet
 
@@ -113,6 +114,7 @@ nb:
             select_parent_layout: Velg hovedlayout
             select_app_layout: Velg applikasjonslayout
             create: Opprett layout
+            cancel: Cancel
             update: Endre layout
 
         pages:
@@ -143,6 +145,7 @@ nb:
             select_target_page: Ingen videresending
             preview: Forhåndsvisning
             create: Opprett side
+            cancel: Cancel
             update: Endre side
             is_published: Publisert
           form_blocks:
@@ -172,6 +175,7 @@ nb:
               <<: *revision
           form:
             create: Oprett snutt
+            cancel: Cancel
             update: Endre snutt
 
         revisions:
@@ -212,6 +216,7 @@ nb:
           form:
             current_file: Nåværende fil
             create: Last opp fil
+            cancel: Cancel
             update: Endre fil
           page_form:
             are_you_sure: Er du sikker?

@@ -80,6 +80,7 @@ pl:
             title: Edytuj witrynę
           form:
             create: Utwórz witrynę
+            cancel: Anulować
             update: Uaktualnij witrynę
             is_mirrored: Mirror
       
@@ -113,6 +114,7 @@ pl:
             select_parent_layout: Wybierz szablon rodzic
             select_app_layout: Wybierz szablon aplikacji
             create: Stwórz szablon
+            cancel: Anulować
             update: Uaktualnij szablon
       
         pages:
@@ -143,6 +145,7 @@ pl:
             select_target_page: Bez przekierowania
             preview: Podgląd
             create: Utwórz stronę
+            cancel: Anulować
             update: Uaktualnij stronę
             is_published: Opublikowana
           form_blocks:
@@ -172,6 +175,7 @@ pl:
               <<: *revision
           form:
             create: Utwórz snippet
+            cancel: Anulować
             update: Uaktualnij snippet
       
         revisions:
@@ -212,6 +216,7 @@ pl:
           form:
             current_file: Aktualny plik
             create: Wrzuć plik
+            cancel: Anulować
             update: Uaktualnij plik
           page_form:
             are_you_sure: Jesteś pewien?
