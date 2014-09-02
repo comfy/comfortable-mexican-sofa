@@ -22,6 +22,11 @@ class Comfy::Cms::Block < ActiveRecord::Base
     @tag ||= blockable.tags(:reload).detect{|t| t.is_cms_block? && t.identifier == identifier}
   end
   
+
+  def render
+    tag.try(:render)
+  end
+
 protected
   
   def prepare_files
