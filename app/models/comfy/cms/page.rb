@@ -76,14 +76,20 @@ class Comfy::Cms::Page < ActiveRecord::Base
     categories.select(:label).map(&:label)
   end
 
+  def layout_identifier
+    layout.identifier
+  end
+
   def as_json(options={})
     super(
       :include => {
         :blocks => {
-          :only => [:identifier, :content, :created_at, :updated_at]
+          :only => [:identifier, :content, :created_at, :updated_at],
+          :methods => [:render]
         }
       },
-      :methods => [:category_names]
+      :except => [:id, :layout_id, :parent_id, :target_page_id, :site_id, :position, :children_count],
+      :methods => [:category_names, :layout_identifier]
     )
   end
 
