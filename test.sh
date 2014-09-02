@@ -12,8 +12,6 @@ BUNDLE_JOBS=$((CORES-1))
 bundle install --jobs $BUNDLE_JOBS
 
 if [ -n "$GO_PIPELINE_NAME" ]; then
-  cp config/database{-ci,}.yml
-
   rake db:drop db:create db:schema:load db:migrate
 fi
 
