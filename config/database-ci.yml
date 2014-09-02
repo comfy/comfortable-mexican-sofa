@@ -1,0 +1,19 @@
+test: &test
+  adapter: mysql2
+  username: mas
+  password: mas
+  host: 127.0.0.1
+  port: <%= ENV['MYSQL_PORT'] %>
+  database: mas<%= ENV['GO_AGENT_NUMBER'] %>_test<%= ENV['TEST_ENV_NUMBER'] %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+
+assets:
+  adapter: sqlite3
+  database: db/assets.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  <<: *test
