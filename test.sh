@@ -12,7 +12,7 @@ BUNDLE_JOBS=$((CORES-1))
 bundle install --jobs $BUNDLE_JOBS
 
 if [ -n "$GO_PIPELINE_NAME" ]; then
-  rake db:drop db:create db:schema:load db:migrate
+  rake db:drop db:create db:migrate
 fi
 
 CI_PIPELINE_COUNTER=${GO_PIPELINE_COUNTER-0}
