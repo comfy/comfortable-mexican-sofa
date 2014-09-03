@@ -3,7 +3,8 @@ class Comfy::Cms::Block < ActiveRecord::Base
   
   # -- Relationships --------------------------------------------------------
   belongs_to :blockable,
-    :polymorphic  => true
+    :polymorphic  => true,
+    :touch => true
   has_many :files,
     :autosave     => true,
     :dependent    => :destroy
