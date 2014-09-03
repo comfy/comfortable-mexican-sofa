@@ -9,46 +9,44 @@
 //= depend_on_asset "comfortable_mexican_sofa/icon_snippet.gif"
 //= depend_on_asset "comfortable_mexican_sofa/icon_file.gif"
 
+$sidebar-width: 18%
+
 html, body#comfy
   height: 100%
-  
+
 body#comfy
   background-color: #252525
-  
+
   // -- Containers ----------------------------------------------------------
   .body-wrapper
     height: 100%
     .left-column
-      width: 175px
-      float: left
-      .left-column-content
-        padding: 25px 0px
-        width: 175px
-        position: fixed
+      padding: 25px 0px
+      width: $sidebar-width
+      position: fixed
     .center-column
       position: relative
-      margin: 0px 250px 0px 175px
+      margin: 0 $sidebar-width
       min-height: 100%
       background-color: #fff
-      .center-column-content
-        padding: 25px
+      padding: 25px
     .right-column
-      width: 250px
-      float: right
-      .right-column-content
-        padding: 25px 10px
-        width: 250px
-        position: fixed
-  
+      padding: 25px 10px
+      width: $sidebar-width
+      position: fixed
+      right: 0
+      top: 0
+
   // -- Navigation ----------------------------------------------------------
-  .left-column-content ul.navigation
+  .left-column ul.navigation
     list-style: none
     margin: 0
     padding: 0
+    text-align: right
     a
       position: relative
       display: block
-      padding: 7px 15px
+      padding: 7px 20px
       color: #777
       border-bottom: 1px solid #333
       text-decoration: none
@@ -73,9 +71,9 @@ body#comfy
       padding: 0
       a
         padding: 7px 15px 7px 30px
-  
+
   // -- Right Side Boxes ----------------------------------------------------
-  .right-column-content
+  .right-column
     .box
       background-color: #fff
       padding: 5px
@@ -88,9 +86,9 @@ body#comfy
     #form-save
       label
         padding-top: 0
-        
+
   // -- File Uploads --------------------------------------------------------
-  .right-column-content .file-uploader
+  .right-column .file-uploader
     form
       margin-bottom: 5px
       .btn-file
@@ -152,7 +150,7 @@ body#comfy
                 cursor: default
     iframe#file-upload-frame
       display: none
-    
+
   // -- Common Elements -----------------------------------------------------
   table.table, ul.list
     .icon
@@ -186,7 +184,7 @@ body#comfy
   .item-meta
     font-size: 11px
     line-height: 14px
-    
+
   .cms-partial
     background-color: #252525
     color: #fff
@@ -197,14 +195,15 @@ body#comfy
     margin: 3px
     background-image: linear-gradient(-45deg, rgba(255, 255, 255, .05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%, transparent 75%, transparent)
     background-size: 50px 50px
-  
+
   // -- Sofa Version --------------------------------------------------------
   .center-column .body-footer
-    position: absolute
+    position: fixed
     background: #000
     bottom: 0px
-    left: -175px
-    width: 175px
+    left: 0
+    bottom: 0
+    width: $sidebar-width
     padding: 5px 10px
     font-size: 10px
     a
@@ -215,7 +214,7 @@ body#comfy
     span.version
       color: #f1f1f1
       margin-left: 2px
-      
+
   // -- Categories Widget ---------------------------------------------------
   .categories-widget
     background: #f5f5f5
@@ -259,7 +258,7 @@ body#comfy
           padding: 3px
           font-size: 11px
           line-height: 11px
-          
+
   // -- Sortable List -------------------------------------------------------
   ul.list
     padding: 0
@@ -300,12 +299,12 @@ body#comfy
       list-style: none
       padding: 0
       margin: 0 0 0 28px
-          
+
   // -- Sites ---------------------------------------------------------------
   &.c-comfy-admin-cms-sites
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_site.gif"))
-      
+
   // -- Layouts -------------------------------------------------------------
   &.c-comfy-admin-cms-layouts
     ul.list
@@ -314,7 +313,7 @@ body#comfy
           background: url(image-path("comfortable_mexican_sofa/icon_layout.gif"))
         .item-content
           margin-left: 35px
-      
+
   // -- Pages ---------------------------------------------------------------
   &.c-comfy-admin-cms-pages
     #form-blocks
@@ -335,17 +334,17 @@ body#comfy
           padding: 0 5px
           margin-bottom: 5px
           font-size: 12px
-        
+
   // -- Snippets ------------------------------------------------------------
   &.c-comfy-admin-cms-snippets
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_snippet.gif"))
-      
+
   // -- Files ---------------------------------------------------------------
   &.c-comfy-admin-cms-files
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
-    
+
   // -- Revisions -----------------------------------------------------------
   &.c-comfy-admin-cms-revisions
     td.with-table

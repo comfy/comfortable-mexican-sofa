@@ -74,7 +74,7 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 #### Dependencies
 
-As long as you sucessfuly ran `bundle install` you should be ok. However, Paperclip requires *ImageMagick* to be installed to handle thumbnail generation.
+As long as you successfully ran `bundle install` you should be ok. However, Paperclip requires *ImageMagick* to be installed to handle thumbnail generation.
 
 #### Help and Contact
 

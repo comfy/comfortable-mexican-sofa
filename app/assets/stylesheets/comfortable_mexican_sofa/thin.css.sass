@@ -1,0 +1,29 @@
+@media (max-width: 768px)
+  body#comfy
+
+    // -- Containers ----------------------------------------------------------
+    .body-wrapper
+      .left-column,
+      .right-column
+        width: 100%
+        position: static
+      .center-column
+        margin: 0
+      .left-column
+        padding: 0
+
+    // -- Navigation ----------------------------------------------------------
+    .left-column ul.navigation
+      text-align: center
+      li
+        display: inline-block
+      a
+        border-bottom: none
+      a.active:after
+        display: none
+
+    // -- Sofa Version --------------------------------------------------------
+    .center-column .body-footer
+      position: absolute
+      width: 100%
+
