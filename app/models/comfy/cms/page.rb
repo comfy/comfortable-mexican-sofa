@@ -41,7 +41,14 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
   scope :published, -> { where(:is_published => true) }
-  scope :with_label_like, ->(phrase) { where('label LIKE ?', "%#{phrase}%") }
+
+  scope :with_content_like, ->(phrase) { 
+    joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%") 
+  }
+
+  scope :with_label_like, ->(phrase) { 
+    where("label LIKE ?", "%#{phrase}%") 
+  }
 
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for pages

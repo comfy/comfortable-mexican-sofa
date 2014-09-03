@@ -18,6 +18,11 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     @pages = Comfy::Cms::Search.new(@pages, params[:search]).results if params[:search].present?
 
     @pages = [@pages.root].compact unless @filters_present
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
