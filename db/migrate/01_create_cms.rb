@@ -48,6 +48,7 @@ class CreateCms < ActiveRecord::Migration
       t.string  :slug
       t.string  :full_path,       :null => false
       t.text    :content_cache,   text_limit
+      t.string  :state,           :null => false
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true

@@ -1,6 +1,10 @@
 # encoding: utf-8
+require "transitions"
+require "active_model/transitions"
 
 class Comfy::Cms::Page < ActiveRecord::Base
+  include ActiveModel::Transitions
+
   self.table_name = 'comfy_cms_pages'
 
   cms_acts_as_tree :counter_cache => :children_count
@@ -62,6 +66,54 @@ class Comfy::Cms::Page < ActiveRecord::Base
     return out.compact
   end
 
+  # state machine
+  state_machine initial: :unsaved do
+    state :unsaved
+    state :draft
+    state :published
+    state :published_being_edited
+    state :redirected
+    state :unpublished
+    state :retired
+    state :deleted
+
+    event :save_unsaved do
+      transitions :to => :draft, :from => [:unsaved]
+    end
+
+    event :save_changes do
+      transitions :to => :draft, :from => [:draft, :unpublished]
+    end
+
+    event :publish do
+      transitions :to => :published, :from => [:draft, :redirected]
+    end
+
+    event :publish_changes do
+      transitions :to => :published, :from => [:published, :published_being_edited]
+    end
+
+    event :delete_page, :success => :do_deletion do
+      transitions :to => :deleted, :from => [:draft]
+    end
+
+    event :save_changes_as_draft do
+      transitions :to => :published_being_edited, :from => [:published]
+    end
+
+    event :save_draft_changes do
+      transitions :to => :published_being_edited, :from => [:published_being_edited]
+    end
+
+    event :unpublish do
+      transitions :to => :unpublished, :from => [:published]
+    end
+
+    event :retire do
+      transitions :to => :retired, :from => [:published]
+    end
+  end
+
   # -- Instance Methods -----------------------------------------------------
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
@@ -98,6 +150,12 @@ class Comfy::Cms::Page < ActiveRecord::Base
       :except => [:id, :layout_id, :parent_id, :target_page_id, :site_id, :position, :children_count],
       :methods => [:category_names, :layout_identifier]
     )
+  end
+
+  def update_state!(state_event)
+    if self.send("can_" + state_event.to_s + "?")
+      self.send((state_event.to_s + "!").to_sym)
+    end
   end
 
 protected
@@ -154,6 +212,12 @@ protected
   def unescape_slug_and_path
     self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
+  end
+
+  private
+
+  def do_deletion
+    delete
   end
 
 end
