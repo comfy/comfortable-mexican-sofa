@@ -15,6 +15,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
       redirect_to @cms_page.target_page.url
     else
       respond_to do |format|
+        format.html { render_html }
         format.json { render json: @cms_page } unless ComfortableMexicanSofa.config.allow_irb
         format.all { render_page }
       end
