@@ -59,6 +59,7 @@ window.CMS.wysiwyg = ->
     menubar:        false
     statusbar:      false
     relative_urls:  false
+    entity_encoding : 'raw'
 
 window.CMS.codemirror = ->
   $('textarea[data-cms-cm-mode]').each (i, element) ->
