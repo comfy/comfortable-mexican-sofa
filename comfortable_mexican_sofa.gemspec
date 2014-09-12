@@ -33,5 +33,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'tinymce-rails',     '>= 4.0.0'
-  s.add_dependency 'bootstrap-sass',    '~> 3.1.0'
+  s.add_dependency 'bootstrap-sass',    '~> 3.2.0'
 end
