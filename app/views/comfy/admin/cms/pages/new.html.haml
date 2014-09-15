@@ -1,5 +1,5 @@
 .page-header
-  %h2= t('.title')
+  %h2= current_status(@page.current_state)
 
 = comfy_form_for @page, :as => :page, :url => {:action => :create}, :html => {:multipart => true} do |form|
   = render form

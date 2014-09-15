@@ -281,13 +281,41 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
         }, :commit => 'Create Page'
         assert_response :redirect
         page = Comfy::Cms::Page.last
+        assert_equal :unsaved, page.current_state
         assert_equal comfy_cms_sites(:default), page.site
         assert_redirected_to :action => :edit, :id => page
         assert_equal 'Page created', flash[:success]
       end
     end
   end
-  
+
+  def test_creation_with_state_event
+    assert_difference 'Comfy::Cms::Page.count' do
+      assert_difference 'Comfy::Cms::Block.count', 2 do
+        post :create, :site_id => comfy_cms_sites(:default),
+        :state_event    => "save_unsaved",
+        :page => {
+          :label          => 'Test Page',
+          :slug           => 'test-page',
+          :parent_id      => comfy_cms_pages(:default).id,
+          :layout_id      => comfy_cms_layouts(:default).id,
+          :blocks_attributes => [
+            { :identifier => 'default_page_text',
+              :content    => 'content content' },
+            { :identifier => 'default_field_text',
+              :content    => 'title content' }
+          ]
+        }, :commit => 'Create Page'
+        assert_response :redirect
+        page = Comfy::Cms::Page.last
+        assert_equal :draft, page.current_state
+        assert_equal comfy_cms_sites(:default), page.site
+        assert_redirected_to :action => :edit, :id => page
+        assert_equal 'Page created', flash[:success]
+      end
+    end
+  end
+
   def test_creation_failure
     assert_no_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Block.count'] do
       post :create, :site_id => comfy_cms_sites(:default), :page => {
@@ -321,7 +349,21 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
       assert_equal 'Updated Label', page.label
     end
   end
-  
+
+  def test_update_with_state_event
+    page = comfy_cms_pages(:default)
+    assert_no_difference 'Comfy::Cms::Block.count' do
+      put :update, :site_id => page.site, :id => page, :state_event => "publish_changes", :page => {
+        :label => 'Updated Label'
+      }
+      page.reload
+      assert_response :redirect
+      assert_redirected_to :action => :edit, :id => page
+      assert_equal 'Page updated', flash[:success]
+      assert_equal 'Updated Label', page.label
+    end
+  end
+
   def test_update_with_layout_change
     page = comfy_cms_pages(:default)
     assert_difference 'Comfy::Cms::Block.count', 2 do

@@ -36,7 +36,12 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def create
-    @page.save!
+    if state_event == "save_unsaved"
+      @page.update_state!(state_event)
+    else
+      @page.save!
+    end
+
     flash[:success] = I18n.t('comfy.admin.cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
@@ -45,7 +50,11 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def update
-    @page.save!
+    if state_event
+      @page.update_state!(state_event)
+    else
+      @page.save!
+    end
     flash[:success] = I18n.t('comfy.admin.cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
@@ -125,5 +134,9 @@ protected
 
   def page_params
     params.fetch(:page, {}).permit!
+  end
+
+  def state_event
+    @state_event ||= params[:state_event]
   end
 end

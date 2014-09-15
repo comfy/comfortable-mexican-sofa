@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gemspec
 
+gem "transitions", :require => ["transitions", "active_model/transitions"]
+
 group :development do
   gem 'awesome_print'
   gem 'better_errors'

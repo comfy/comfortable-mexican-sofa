@@ -296,6 +296,60 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal ['Default'], page.category_names
   end
 
+  def test_initial_state
+    page = Comfy::Cms::Page.new
+    assert_equal :unsaved, page.current_state
+  end
+
+  def test_saving_page_state_to_draft
+    page = Comfy::Cms::Page.new
+    page.save_unsaved
+    assert_equal :draft, page.current_state
+  end
+
+  def test_cant_publish_from_unsaved
+    page = Comfy::Cms::Page.new
+    assert_raises(Transitions::InvalidTransition) { page.publish }
+    assert_equal :unsaved, page.current_state
+  end
+
+  def test_publish_to_draft_from_published
+    page = Comfy::Cms::Page.new
+    page.save_unsaved
+    page.publish
+    page.save_changes_as_draft
+    assert_equal :published_being_edited, page.current_state
+  end
+
+  def test_circular_draft_to_draft
+    page = Comfy::Cms::Page.new
+    page.save_unsaved
+    page.save_changes
+    assert_equal :draft, page.current_state
+  end
+
+  def test_save_changes_as_draft
+    page = Comfy::Cms::Page.new(state: "published")
+    page.save_changes_as_draft
+    assert_equal :published_being_edited, page.current_state
+  end
+
+  def test_deteltion_on_delete
+    page = comfy_cms_pages(:default)
+    page.unpublish!
+    page.save_changes!
+    assert_equal :draft, page.current_state
+    page_id = page.id
+    page.delete_page!
+    assert_equal nil, Comfy::Cms::Page.find_by(id: page_id)
+  end
+
+  def test_update_state
+    page = comfy_cms_pages(:default)
+    page.update_state!("save_changes_as_draft")
+    assert_equal :published_being_edited, page.current_state
+  end
+
 protected
 
   def new_params(options = {})

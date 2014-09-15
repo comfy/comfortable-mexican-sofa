@@ -9,8 +9,9 @@ default:
   children_count: 1
   position: 0
   is_published: true
+  state: :published
   content_cache: |-
-    
+
     layout_content_a
     default_page_text_content_a
     default_snippet_content
@@ -30,10 +31,11 @@ child:
   children_count: 0
   position: 0
   is_published: true
+  state: :published
   content_cache: |-
-    
+
     layout_content_a
-    
+
     layout_content_b
     default_snippet_content
     layout_content_c
