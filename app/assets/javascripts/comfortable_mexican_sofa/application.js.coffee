@@ -53,12 +53,12 @@ window.CMS.slugify = ->
 
 window.CMS.wysiwyg = ->
   tinymce.init
-    selector:       'textarea[data-cms-rich-text]'
-    plugins:        ['link', 'image', 'code']
-    toolbar:        'undo redo | styleselect | bullist numlist | link unlink image | code'
-    menubar:        false
-    statusbar:      false
-    relative_urls:  false
+    selector:         'textarea[data-cms-rich-text]'
+    plugins:          ['link', 'image', 'code']
+    toolbar:          'undo redo | styleselect | bullist numlist | link unlink image | code'
+    menubar:          false
+    statusbar:        false
+    relative_urls:    false
     entity_encoding : 'raw'
 
 window.CMS.codemirror = ->
@@ -104,6 +104,8 @@ window.CMS.page_blocks = ->
       url: $(this).data('url'),
       data:
         layout_id: $(this).val()
+      beforeSend: ->
+        tinymce.remove()
       complete: ->
         CMS.wysiwyg()
         CMS.timepicker()
