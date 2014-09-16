@@ -3,7 +3,3 @@
 - if content_for(:javascript)
   :javascript
     #{yield :javascript}
-    
-- if @site && !@site.new_record?
-  :javascript
-    CMS.file_upload_path = "#{comfy_admin_cms_site_files_path(@site)}"

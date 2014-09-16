@@ -2,15 +2,19 @@
 
 %ul.navigation
   %li= active_link_to t('comfy.admin.cms.base.sites'), comfy_admin_cms_sites_path, :active => ['comfy/admin/cms/sites']
-  
+
   - if @site && !@site.new_record?
     %li= active_link_to t('comfy.admin.cms.base.layouts'), comfy_admin_cms_site_layouts_path(@site)
     %li= active_link_to t('comfy.admin.cms.base.pages'), comfy_admin_cms_site_pages_path(@site)
     %li= active_link_to t('comfy.admin.cms.base.snippets'), comfy_admin_cms_site_snippets_path(@site)
-    %li= active_link_to t('comfy.admin.cms.base.files'), comfy_admin_cms_site_files_path(@site)
-    
+    %li{:style => 'position: relative'}
+      = active_link_to t('comfy.admin.cms.base.files'), comfy_admin_cms_site_files_path(@site)
+      - unless current_page?(comfy_admin_cms_site_files_path(@site))
+        %a.cms-files-open-modal{:href => '#', :title => 'Open library'}
+          %span.glyphicon.glyphicon-th
+
   = cms_hook :navigation
-    
+
   = render 'comfy/admin/cms/partials/navigation_inner'
-    
+
 = render 'comfy/admin/cms/partials/navigation_after'

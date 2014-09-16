@@ -4,7 +4,6 @@
       %input{:type => 'checkbox'}
       = ::Comfy::Cms::Page.human_attribute_name(:is_published)
     %button.btn.btn-sm.btn-primary.pull-right
-  = render 'comfy/admin/cms/files/index'
 
 = render 'comfy/admin/cms/partials/page_form_before', :form => form
 
@@ -17,7 +16,7 @@
 
 - if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {}, 'data-url' => form_blocks_comfy_admin_cms_site_page_path(@site, @page.id.to_i)
-  
+
 - if (options = ::Comfy::Cms::Page.options_for_select(@site, @page)).present?
   = form.select :parent_id, options
 

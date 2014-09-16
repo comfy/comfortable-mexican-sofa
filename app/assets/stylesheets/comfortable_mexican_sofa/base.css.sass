@@ -11,10 +11,10 @@
 
 html, body#comfy
   height: 100%
-  
+
 body#comfy
   background-color: #252525
-  
+
   // -- Containers ----------------------------------------------------------
   .body-wrapper
     height: 100%
@@ -39,7 +39,7 @@ body#comfy
         padding: 25px 10px
         width: 250px
         position: fixed
-  
+
   // -- Navigation ----------------------------------------------------------
   .left-column-content ul.navigation
     list-style: none
@@ -73,7 +73,7 @@ body#comfy
       padding: 0
       a
         padding: 7px 15px 7px 30px
-  
+
   // -- Right Side Boxes ----------------------------------------------------
   .right-column-content
     .box
@@ -88,71 +88,7 @@ body#comfy
     #form-save
       label
         padding-top: 0
-        
-  // -- File Uploads --------------------------------------------------------
-  .right-column-content .file-uploader
-    form
-      margin-bottom: 5px
-      .btn-file
-        width: 100%
-        position: relative
-        overflow: hidden
-        input
-          position: absolute
-          top: 0
-          left: 0
-          margin: 0
-          font-size: 23px
-          cursor: pointer
-          opacity: 0
-    .uploaded-files
-      margin: 0 -5px
-      max-height: 500px
-      overflow: auto
-      padding: 0 5px
-      .file
-        overflow: hidden
-        padding-bottom: 2px
-        &:hover .file-info
-          display: block
-        .file-name
-          overflow: hidden
-          border: 1px solid #ddd
-          border-radius: 3px
-          padding: 0 7px
-          &:hover
-            background-color: #f5f5f5
-          a.filename
-            display: block
-            margin-right: 20px
-            white-space: nowrap
-            overflow: hidden
-            font-size: 11px
-          a.delete
-            float: right
-        .file-info
-          display: none
-          padding: 1px 0
-          .thumb
-            height: 60px
-            width: 80px
-            float: left
-            background: url(image-path("comfortable_mexican_sofa/checkerboard.gif"))
-          .details
-            margin-left: 85px
-            font-size: 11px
-            line-height: 16px
-            input
-              padding: 2px
-              margin: 0
-              font-size: 11px
-              width: 100%
-              line-height: 12px
-              &:hover
-                cursor: default
-    iframe#file-upload-frame
-      display: none
-    
+
   // -- Common Elements -----------------------------------------------------
   table.table, ul.list
     .icon
@@ -186,7 +122,7 @@ body#comfy
   .item-meta
     font-size: 11px
     line-height: 14px
-    
+
   .cms-partial
     background-color: #252525
     color: #fff
@@ -197,7 +133,7 @@ body#comfy
     margin: 3px
     background-image: linear-gradient(-45deg, rgba(255, 255, 255, .05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%, transparent 75%, transparent)
     background-size: 50px 50px
-  
+
   // -- Sofa Version --------------------------------------------------------
   .center-column .body-footer
     position: absolute
@@ -215,7 +151,7 @@ body#comfy
     span.version
       color: #f1f1f1
       margin-left: 2px
-      
+
   // -- Categories Widget ---------------------------------------------------
   .categories-widget
     background: #f5f5f5
@@ -259,7 +195,7 @@ body#comfy
           padding: 3px
           font-size: 11px
           line-height: 11px
-          
+
   // -- Sortable List -------------------------------------------------------
   ul.list
     padding: 0
@@ -300,12 +236,12 @@ body#comfy
       list-style: none
       padding: 0
       margin: 0 0 0 28px
-          
+
   // -- Sites ---------------------------------------------------------------
   &.c-comfy-admin-cms-sites
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_site.gif"))
-      
+
   // -- Layouts -------------------------------------------------------------
   &.c-comfy-admin-cms-layouts
     ul.list
@@ -314,7 +250,7 @@ body#comfy
           background: url(image-path("comfortable_mexican_sofa/icon_layout.gif"))
         .item-content
           margin-left: 35px
-      
+
   // -- Pages ---------------------------------------------------------------
   &.c-comfy-admin-cms-pages
     #form-blocks
@@ -335,17 +271,17 @@ body#comfy
           padding: 0 5px
           margin-bottom: 5px
           font-size: 12px
-        
+
   // -- Snippets ------------------------------------------------------------
   &.c-comfy-admin-cms-snippets
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_snippet.gif"))
-      
+
   // -- Files ---------------------------------------------------------------
   &.c-comfy-admin-cms-files
     table .icon
       background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
-    
+
   // -- Revisions -----------------------------------------------------------
   &.c-comfy-admin-cms-revisions
     td.with-table

@@ -33,7 +33,7 @@ end
 
 module ComfortableMexicanSofa
   class << self
-    
+
     # Modify CMS configuration
     # Example:
     #   ComfortableMexicanSofa.configure do |config|
@@ -42,7 +42,7 @@ module ComfortableMexicanSofa
     def configure
       yield configuration
     end
-    
+
     # Accessor for ComfortableMexicanSofa::Configuration
     def configuration
       @configuration ||= Configuration.new
@@ -56,6 +56,6 @@ module ComfortableMexicanSofa
     def logger
       @logger ||= Rails.logger
     end
-    
+
   end
 end
