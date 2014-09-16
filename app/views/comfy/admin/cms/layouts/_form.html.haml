@@ -1,6 +1,3 @@
-- content_for :right_column do
-  = render 'comfy/admin/cms/files/index'
-  
 = render 'comfy/admin/cms/partials/layout_form_before', :form => form
 
 = form.text_field :label, :data => {:slugify => @layout.new_record?}
