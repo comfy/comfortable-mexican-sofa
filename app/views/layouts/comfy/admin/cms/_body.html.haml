@@ -5,13 +5,12 @@
   .body-wrapper
     .left-column
       .left-column-content
-        = render :partial => 'layouts/comfy/admin/cms/left'
+        = render 'layouts/comfy/admin/cms/left'
     .right-column
       .right-column-content
-        = render :partial => 'layouts/comfy/admin/cms/right'
+        = render 'layouts/comfy/admin/cms/right'
     .center-column
-      = render :partial => 'layouts/comfy/admin/cms/center'
-      
-      = render :partial => 'layouts/comfy/admin/cms/footer'
+      = render 'layouts/comfy/admin/cms/center'
+      = render 'layouts/comfy/admin/cms/footer'
   
-  = render :partial => 'layouts/comfy/admin/cms/footer_js'
+  = render 'layouts/comfy/admin/cms/footer_js'

@@ -1,4 +1,4 @@
-= render 'comfy/admin/cms/partials/file_form_before', :object => form
+= render 'comfy/admin/cms/partials/file_form_before', :form => form
 
 = form.text_field :label
 = form.file_field :file, :multiple => @file.new_record?
@@ -11,9 +11,9 @@
 
 = form.text_area :description
 
-= render :partial => 'comfy/admin/cms/categories/form', :object => form
+= render 'comfy/admin/cms/categories/form', :form => form
 
-= render 'comfy/admin/cms/partials/file_form_after', :object => form
+= render 'comfy/admin/cms/partials/file_form_after', :form => form
 
 = form.form_group :class => 'form-actions' do
   = form.submit t(@file.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
