@@ -2,6 +2,9 @@
 
 class ComfortableMexicanSofa::Configuration
 
+  # Set the domain for the preview url functionality
+  attr_accessor :preview_domain
+
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(
   attr_accessor :cms_title
 

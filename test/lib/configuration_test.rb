@@ -3,7 +3,7 @@
 require_relative '../test_helper'
 
 class ConfigurationTest < ActiveSupport::TestCase
-  
+
   def test_configuration_presence
     assert config = ComfortableMexicanSofa.configuration
     assert_equal 'ComfortableMexicanSofa CMS Engine', config.cms_title
@@ -14,7 +14,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal false, config.enable_fixtures
     assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
     assert_equal 25, config.revisions_limit
-    assert_equal ({ 
+    assert_equal ({
       'en'    => 'English',
       'es'    => 'Español'
     }), config.locales
@@ -25,15 +25,16 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal nil, config.allowed_helpers
     assert_equal nil, config.allowed_partials
     assert_equal nil, config.hostname_aliases
+    assert_equal nil, config.preview_domain
   end
-  
+
   def test_initialization_overrides
     ComfortableMexicanSofa.configuration.cms_title = 'New Title'
     assert_equal 'New Title', ComfortableMexicanSofa.configuration.cms_title
   end
-  
+
   def test_version
     assert ComfortableMexicanSofa::VERSION
   end
-  
+
 end
