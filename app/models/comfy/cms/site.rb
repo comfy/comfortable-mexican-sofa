@@ -28,19 +28,20 @@ class Comfy::Cms::Site < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :path },
     :format     => { :with => /\A[\w\.\-]+(?:\:\d+)?\z/ }
-    
+
   # -- Scopes ---------------------------------------------------------------
   scope :mirrored, -> { where(:is_mirrored => true) }
-  
+
   # -- Class Methods --------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path
   def self.find_site(host, path = nil)
     return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
     cms_site = nil
+
     Comfy::Cms::Site.where(:hostname => real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
-      elsif "#{path.to_s.split('?')[0]}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
+      elsif "#{path.to_s.split('?')[0]}/".match /(^\/preview\/)|(^\/)#{Regexp.escape(site.path.to_s)}\//
         cms_site = site
         break
       end
