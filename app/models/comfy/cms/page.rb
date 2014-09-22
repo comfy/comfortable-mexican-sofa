@@ -158,6 +158,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
+  def block_content
+    blocks.find {|b| b.identifier == "content" }.try(:content) || ""
+  end
+
 protected
 
   def assigns_label

@@ -350,6 +350,17 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal :published_being_edited, page.current_state
   end
 
+  def test_block_content
+    page = comfy_cms_pages(:default)
+    page.blocks.create!(identifier: "content", content: "block content")
+    assert_equal page.block_content, 'block content'
+  end
+
+  def test_block_content_with_no_content
+    page = comfy_cms_pages(:default)
+    assert_equal page.block_content, ''
+  end
+
 protected
 
   def new_params(options = {})
