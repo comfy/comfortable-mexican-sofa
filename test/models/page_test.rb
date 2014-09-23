@@ -361,6 +361,13 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal page.block_content, ''
   end
 
+  def test_preview_cache
+    page = comfy_cms_pages(:default)
+    page.blocks.create!(identifier: "content", content: "<b>test</b> block content")
+    page.save
+    assert_equal page.preview_cache, "test block content\n"
+  end
+
 protected
 
   def new_params(options = {})

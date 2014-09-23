@@ -24,6 +24,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
                     :assign_parent,
                     :escape_slug,
                     :assign_full_path
+
+  before_save       :cache_preview
   before_create     :assign_position
   after_save        :sync_child_full_paths!
   after_find        :unescape_slug_and_path
@@ -222,6 +224,10 @@ protected
 
   def do_deletion
     delete
+  end
+
+  def cache_preview
+    self.preview_cache = ActionView::Base.full_sanitizer.sanitize(Kramdown::Document.new(block_content).to_html).truncate(100)
   end
 
 end
