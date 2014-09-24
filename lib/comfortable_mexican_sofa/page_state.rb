@@ -1,29 +1,38 @@
 module ComfortableMexicanSofa
   class PageState
 
-    NEXT_STATE_OPTIONS = {
+    MAIN_STATE = {
       unsaved: [
         {value: :save_unsaved, label: "Save" }
       ],
       draft: [
-        {value: :save_changes, label: "Save Changes" },
-        {value: :publish, label: "Publish" },
-        {value: :delete_page, label: "Delete", data: {confirm: "Are you sure?" } },
+        {value: :save_changes, label: "Save Changes" }
       ],
       published: [
-        {value: :save_changes_as_draft, label: "Save changes as draft" },
-        {value: :publish_changes, label: "Publish changes" },
-        {value: :unpublish, label: "Unpublish" }
+        {value: :save_changes_as_draft, label: "Save changes as draft" }
       ],
       published_being_edited: [
-        {value: :save_draft_changes, label: "Save draft changes" },
-        {value: :publish_changes, label: "Publish changes" }
+        {value: :save_draft_changes, label: "Save draft changes" }
       ],
       unpublished: [
         {value: :save_changes, label: "Save Changes" }
       ],
       redirected: [
         {value: :re_publish, label: "Republish" }
+      ]
+    }
+
+    NEXT_STATE_OPTIONS = {
+      draft: [
+        {value: :publish, label: "Publish" },
+        {value: :delete_page, label: "Delete", data: {confirm: "Are you sure?" } }
+      ],
+      published: [
+        {value: :publish_changes, label: "Publish changes" },
+        {value: :unpublish, label: "Unpublish" }
+      ],
+      published_being_edited: [
+        {value: :publish_changes, label: "Publish changes" }
       ]
     }.freeze
 
@@ -33,6 +42,10 @@ module ComfortableMexicanSofa
 
     def self.next_states_for(state)
       NEXT_STATE_OPTIONS[state] || []
+    end
+
+    def self.main_state_for(state)
+      MAIN_STATE[state] || []
     end
 
     def self.current_status(state)

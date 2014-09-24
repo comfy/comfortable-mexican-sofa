@@ -3,15 +3,15 @@ require_relative '../test_helper'
 class PageStateTest < ActiveSupport::TestCase
 
   def test_unsaved
-    assert_equal [:save_unsaved], page_state_for(:unsaved).map {|state| state[:value]}
+    assert_equal [:save_unsaved], main_state_for(:unsaved).map {|state| state[:value]}
   end
 
   def test_draft
-    assert_equal [:save_changes, :publish, :delete_page], page_state_for(:draft).map {|state| state[:value]}
+    assert_equal [:publish, :delete_page], page_states_for(:draft).map {|state| state[:value]}
   end
 
   def test_published
-    assert_equal [:save_changes_as_draft, :publish_changes, :unpublish], page_state_for(:published).map {|state| state[:value]}
+    assert_equal [:publish_changes, :unpublish], page_states_for(:published).map {|state| state[:value]}
   end
 
   def test_publish_being_edited_current_status
@@ -28,8 +28,12 @@ class PageStateTest < ActiveSupport::TestCase
 
   private
 
-  def page_state_for(state)
+  def page_states_for(state)
     ComfortableMexicanSofa::PageState.next_states_for(state)
+  end
+
+  def main_state_for(state)
+    ComfortableMexicanSofa::PageState.main_state_for(state)
   end
 
   def page_current_status(state)
