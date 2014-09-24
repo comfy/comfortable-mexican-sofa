@@ -7,7 +7,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :build_file,        :only => [:new, :edit]
 
   def index
-    @pages = @site.pages
+    @pages = @site.pages.includes(:layout, :site).page params[:page]
 
     return redirect_to :action => :new if @pages.count == 0
     @pages_by_parent = @pages.includes(:categories).group_by(&:parent_id)
@@ -16,8 +16,6 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
     @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
     @pages = Comfy::Cms::Search.new(@pages, params[:search]).results if params[:search].present?
-
-    @pages = [@pages.root].compact unless @filters_present
 
     respond_to do |format|
       format.html
