@@ -68,6 +68,9 @@ class ComfortableMexicanSofa::Configuration
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   attr_accessor :reveal_cms_partials
+  
+  # Auto-setting parameter derived from the routes
+  attr_accessor :public_cms_path
 
   # Configuration defaults
   def initialize
@@ -98,7 +101,7 @@ class ComfortableMexicanSofa::Configuration
       'it'    => 'Italiano',
       'da'    => 'Dansk',
       'cs'    => 'Česky',
-      'nb' => 'Norsk'
+      'nb'    => 'Norsk'
     }
     @admin_locale         = nil
     @admin_cache_sweeper  = nil
@@ -107,6 +110,7 @@ class ComfortableMexicanSofa::Configuration
     @allowed_partials     = nil
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
+    @public_cms_path      = nil
   end
 
 end

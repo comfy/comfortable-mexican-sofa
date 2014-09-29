@@ -237,6 +237,12 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '//test.host/en/site/', comfy_cms_pages(:default).url
     assert_equal '//test.host/en/site/child-page', comfy_cms_pages(:child).url
   end
+  
+  def test_url_with_public_cms_path
+    ComfortableMexicanSofa.config.public_cms_path = '/custom'
+    assert_equal '//test.host/custom/', comfy_cms_pages(:default).url
+    assert_equal '//test.host/custom/child-page', comfy_cms_pages(:child).url
+  end
 
   def test_unicode_slug_escaping
     page = comfy_cms_pages(:child)
