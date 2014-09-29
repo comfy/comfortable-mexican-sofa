@@ -7,6 +7,11 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Snippet.delete_all
     
+    # need to have categories present before linking
+    site = comfy_cms_sites(:default)
+    site.categories.create!(:categorized_type => 'Comfy::Cms::Snippet', :label => 'category_a')
+    site.categories.create!(:categorized_type => 'Comfy::Cms::Snippet', :label => 'category_b')
+    
     assert_difference 'Comfy::Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
       assert snippet = Comfy::Cms::Snippet.last

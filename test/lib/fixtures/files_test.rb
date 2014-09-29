@@ -7,6 +7,11 @@ class FixtureFilesTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::File.delete_all
     
+    # need to have categories present before linking
+    site = comfy_cms_sites(:default)
+    site.categories.create!(:categorized_type => 'Comfy::Cms::File', :label => 'category_a')
+    site.categories.create!(:categorized_type => 'Comfy::Cms::File', :label => 'category_b')
+    
     assert_difference 'Comfy::Cms::File.count' do
       ComfortableMexicanSofa::Fixture::File::Importer.new('sample-site', 'default-site').import!
       assert file = Comfy::Cms::File.last

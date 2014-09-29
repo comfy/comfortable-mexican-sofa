@@ -5,6 +5,7 @@ require_relative '../../test_helper'
 class FixtureCategoriesTest < ActiveSupport::TestCase
   
   def test_creation
+    Comfy::Cms::Category.destroy_all
     assert_difference 'Comfy::Cms::Category.count', 3 do
       ComfortableMexicanSofa::Fixture::Category::Importer.new('sample-site', 'default-site').import!
       assert Comfy::Cms::Category.where(:label => 'File Category', :categorized_type => 'Comfy::Cms::File').present?

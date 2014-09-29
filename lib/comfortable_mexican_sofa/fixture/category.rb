@@ -7,9 +7,16 @@ module ComfortableMexicanSofa::Fixture::Category
         'snippets'  => 'Comfy::Cms::Snippet'
       }.each do |file, type|
         if File.exists?(attrs_path = File.join(path, "#{file}.yml"))
-          categories = get_attributes(attrs_path)
-          [categories].flatten.each do |label|
-            self.site.categories.find_or_create_by(:label => label, :categorized_type => type)
+          categories = [get_attributes(attrs_path)].flatten
+          existing_categories = self.site.categories.where(:categorized_type => type).map(&:label)
+          
+          self.site.categories.where(
+            :categorized_type => type,
+            :label            => existing_categories - categories
+          ).destroy_all
+          
+          (categories - existing_categories).each do |label|
+            self.site.categories.create(:label => label, :categorized_type => type)
           end
         end
       end

@@ -7,11 +7,16 @@ class FixturePagesTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Page.delete_all
     
-    layout = comfy_cms_layouts(:default)
+    site    = comfy_cms_sites(:default)
+    layout  = comfy_cms_layouts(:default)
     layout.update_column(:content, '<html>{{cms:page:content}}</html>')
     
     nested = comfy_cms_layouts(:nested)
     nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
+    
+    # need to have categories present before linking
+    site.categories.create!(:categorized_type => 'Comfy::Cms::Page', :label => 'category_a')
+    site.categories.create!(:categorized_type => 'Comfy::Cms::Page', :label => 'category_b')
     
     assert_difference 'Comfy::Cms::Page.count', 2 do
       ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
@@ -22,6 +27,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content_cache
       assert_equal 0, page.position
       assert page.is_published?
+      
       assert_equal 2, page.categories.count
       assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
       
@@ -33,6 +39,16 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal 42, child_page.position
       
       assert_equal child_page, page.target_page
+    end
+  end
+  
+  def test_creation_with_missing_categories
+    Comfy::Cms::Page.delete_all
+    
+    assert_difference 'Comfy::Cms::Page.count', 2 do
+      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+      assert page = Comfy::Cms::Page.where(:full_path => '/').first
+      assert_equal 0, page.categories.count
     end
   end
   
