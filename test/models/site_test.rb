@@ -149,4 +149,13 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal site_b, Comfy::Cms::Site.find_site('alias_c.host')
   end
   
+  def test_url
+    assert_equal '//test.host/', comfy_cms_sites(:default).url
+  end
+  
+  def test_url_with_public_cms_path
+    ComfortableMexicanSofa.config.public_cms_path = '/custom'
+    assert_equal '//test.host/custom/', comfy_cms_sites(:default).url
+  end
+  
 end

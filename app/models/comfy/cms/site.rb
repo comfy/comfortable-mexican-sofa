@@ -49,6 +49,11 @@ class Comfy::Cms::Site < ActiveRecord::Base
   end
 
   # -- Instance Methods -----------------------------------------------------
+  def url
+    public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
+    "//" + "#{self.hostname}/#{public_cms_path}/#{self.path}".squeeze("/")
+  end
+  
   # When removing entire site, let's not destroy content from other sites
   # Since before_destroy doesn't really work, this does the trick
   def destroy

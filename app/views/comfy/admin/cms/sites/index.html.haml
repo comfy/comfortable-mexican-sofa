@@ -17,8 +17,7 @@
             = site.identifier
             = "(#{site.locale})"
           .host
-            - host = "http://#{site.hostname}/#{site.path}"
-            = link_to host, host, :target => '_blank'
+            = link_to site.url, site.url, :target => '_blank'
       %td
         .btn-group.btn-group-sm
           = link_to t('.select'),  comfy_admin_cms_site_pages_path(site), :class => 'btn btn-default'
