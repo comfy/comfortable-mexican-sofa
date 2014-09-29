@@ -2,6 +2,7 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   
   skip_before_action :verify_authenticity_token
   
+  before_action :use_null_session
   before_action :load_cms_layout
   
   def render_css
@@ -15,6 +16,11 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   end
 
 protected
+  # null_session avoids cookies and flash updates
+  def use_null_session
+    # using protect_from_forgery :with => :null_session results in ugly warnings
+    ActionController::RequestForgeryProtection::ProtectionMethods::NullSession.new(self).handle_unverified_request
+  end
 
   def cache_control_header
     if params[:cache_buster].present?
