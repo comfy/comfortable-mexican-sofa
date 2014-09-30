@@ -8,7 +8,9 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   def index
     return redirect_to :action => :new if site_has_no_pages?
+    
     @pages_by_parent = pages_grouped_by_parent
+    
     if params[:category].present?
       @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
     else
@@ -64,18 +66,13 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def reorder
-    reorder_cms_pages(params[:comfy_cms_page]) unless params[:comfy_cms_page].nil?
+    (params[:comfy_cms_page] || []).each_with_index do |id, index|
+      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
+    end
     render :nothing => true
   end
 
 protected
-
-  def reorder_cms_pages(cms_page_ids)
-    cms_page_ids.each_with_index do |id, index|
-      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
-    end
-
-  end
 
   def site_has_no_pages?
     @site.pages.count == 0
