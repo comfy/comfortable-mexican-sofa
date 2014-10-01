@@ -4,9 +4,6 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   before_action :build_file,  :only => [:new, :create]
   before_action :load_file,   :only => [:edit, :update, :destroy]
-  before_action :set_column_layout
-
-
 
   def index
     @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).order('comfy_cms_files.position')
@@ -14,8 +11,6 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   def new
   end
-
-  # TODO: I don't think we need js create format...
 
   def create
     respond_to do |format|
@@ -83,43 +78,4 @@ protected
   def file_params
     params.fetch(:file, {}).permit!
   end
-
-  # The CMS files library can be accessed in two modes +fullpage+ and +modal+.
-  # In +modal+ the library is opend in a iframe of a modal window making it act
-  # like a actual file browser and the users stay on the page where they opened
-  # the library. In +fullpage+ the files library is opened like any other page.
-  def set_column_layout
-    @column_layout = :flat if modal_mode?
-  end
-
-  def modal_mode?
-    !!params[:modal]
-  end
-  helper_method :modal_mode?
-
-  # If we are in modal mode we need to add the parameter that identifies the
-  # modal mode to every url we generate.
-  # For some reason when added as a method and made a helper via <tt>helper_method</tt>
-  # it would always generate absolute urls with +http://test.host+ in test env
-  # which wasn't what we want :(
-  module UrlForHelper
-    def url_for(options = {})
-      if modal_mode?
-        modal_options = {:modal => true}
-        options = case options
-        when String
-          uri = Addressable::URI.new
-          uri.query_values = modal_options
-          options + (options.index('?').nil? ? '?' : '&') + uri.query
-        when Hash
-          options.reverse_merge(modal_options)
-        else
-          options
-        end
-      end
-      super
-    end
-  end
-  helper UrlForHelper
-
 end

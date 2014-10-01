@@ -1,7 +1,7 @@
 (function($) {
-   window.CMS || (window.CMS = {});
+  window.CMS || (window.CMS = {});
 
-   window.CMS.files = function() {
+  window.CMS.files = function() {
     var modal = $('.cms-files-modal');
 
     $('.cms-files-open-modal').on('click', function(e) {
@@ -31,5 +31,5 @@
       $(this).select();
     });
 
-   };
+  };
 })(jQuery);
