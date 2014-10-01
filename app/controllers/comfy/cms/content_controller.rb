@@ -16,7 +16,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     else
       respond_to do |format|
         format.all { render_page }
-        format.json { render :json => @cms_page }
+        format.json { render :json => @cms_page } unless ComfortableMexicanSofa.config.allow_irb
         format.all { render_page }
       end
     end
