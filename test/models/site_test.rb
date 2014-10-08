@@ -136,6 +136,7 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr?a=b')
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr/some/path')
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr/some/path?a=b')
+    assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/preview/fr/some/path?a=b')
   end
 
   def test_find_site_with_site_alias
