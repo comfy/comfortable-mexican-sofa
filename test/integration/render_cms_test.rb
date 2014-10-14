@@ -95,24 +95,24 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     def new
     end
   end
-  
+
   # -- Basic Render Tests ---------------------------------------------------
   def test_text
     get '/render-basic?type=text'
     assert_response :success
     assert_equal 'TestText', response.body
   end
-  
+
   def test_implicit_cms_page_failure
     assert_exception_raised ActionView::MissingTemplate do
       get '/render-basic'
     end
   end
-  
+
   # -- Page Render Test -----------------------------------------------------
   def test_implicit_cms_page
     page = comfy_cms_pages(:child)
-    page.update_attributes(:slug => 'render-basic')
+    page.update_attributes(:full_path => '/render-basic')
     get '/render-basic?type=page_implicit'
     assert_response :success
     assert assigns(:cms_site)
@@ -121,18 +121,18 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal page, assigns(:cms_page)
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_implicit_cms_page_with_site_path
     comfy_cms_sites(:default).update_column(:path, 'site-path')
-    comfy_cms_pages(:child).update_attributes(:slug => 'render-page')
+    comfy_cms_pages(:child).update_attributes(:full_path => '/render-page')
     get '/site-path/render-page?type=page_implicit'
     assert_response :success
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_explicit_cms_page
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: 'test-page')
+    page.update_attributes(full_path: '/test-page')
     get '/render-page?type=page_explicit'
     assert_response :success
     assert assigns(:cms_site)
@@ -141,10 +141,10 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal page, assigns(:cms_page)
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_explicit_cms_page_with_status
     page = comfy_cms_pages(:child)
-    page.update_attributes(:slug => 'test-page')
+    page.update_attributes(:full_path => '/test-page')
     get '/render-page?type=page_explicit_with_status'
     assert_response 404
     assert assigns(:cms_site)
@@ -171,21 +171,21 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal 'site-b', assigns(:cms_site).identifier
     assert_equal 'site-b SiteBContent', response.body
   end
-  
+
   def test_explicit_with_site_failure
     assert_exception_raised ComfortableMexicanSofa::MissingSite do
       get '/render-page?type=page_explicit_with_site'
     end
   end
-  
+
   def test_explicit_with_page_blocks
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: 'test-page')
+    page.update_attributes(full_path: '/test-page')
     get '/render-page?type=page_explicit_with_blocks'
     assert_response :success
     assert_equal 'custom page content', response.body
   end
-  
+
   # -- Layout Render Tests --------------------------------------------------
   def test_cms_layout_defaults
     get '/render-layout?type=layout_defaults'

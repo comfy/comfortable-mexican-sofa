@@ -47,7 +47,7 @@ module ComfortableMexicanSofa::IsMirrored
         when Comfy::Cms::Page
           m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
           m.attributes = {
-            :slug       => self.slug,
+            :slug       => m.slug.blank? ? self.slug : m.slug,
             :label      => m.label.blank?? self.label : m.label,
             :parent_id  => site.pages.find_by_full_path(self.parent.try(:full_path)).try(:id),
             :layout     => site.layouts.find_by_identifier(self.layout.try(:identifier))

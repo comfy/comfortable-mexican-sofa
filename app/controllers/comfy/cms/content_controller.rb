@@ -24,7 +24,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   end
 
   def preview
-    @cms_page = @cms_site.pages.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.with_slug("#{params[:cms_path]}")
 
     respond_with(@cms_page) do |format|
       format.html { render_html }
@@ -50,10 +50,10 @@ protected
     return unless ComfortableMexicanSofa.config.enable_fixtures
     ComfortableMexicanSofa::Fixture::Importer.new(@cms_site.identifier).import!
   end
-  
+
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
-  end    
+    @cms_page = @cms_site.pages.published.with_slug("#{params[:cms_path]}")
+  end
 
   def page_not_found
     @cms_page = @cms_site.pages.published.find_by_full_path!('/404')
