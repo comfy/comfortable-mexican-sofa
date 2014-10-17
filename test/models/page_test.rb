@@ -125,46 +125,46 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '/child-page/test-page-2', page_2.full_path
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
     assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
-    
+
     page.update_attributes!(:slug => 'updated-page')
-    assert_equal '/updated-page', page.full_path
+    assert_equal '/child-page', page.full_path
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
-    
+    assert_equal '/child-page/test-page-1', page_1.full_path
+    assert_equal '/child-page/test-page-2', page_2.full_path
+    assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
+    assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
+
     page_2.update_attributes!(:parent => page_1)
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal '/child-page/test-page-1', page_1.full_path
+    assert_equal '/child-page/test-page-2', page_2.full_path
+    assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
+    assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
   end
-  
+
   def test_children_count_updating
     page_1 = comfy_cms_pages(:default)
     page_2 = comfy_cms_pages(:child)
     assert_equal 1, page_1.children_count
     assert_equal 0, page_2.children_count
-    
+
     page_3 = comfy_cms_sites(:default).pages.create!(new_params(:parent => page_2))
     page_1.reload; page_2.reload
     assert_equal 1, page_1.children_count
     assert_equal 1, page_2.children_count
     assert_equal 0, page_3.children_count
-    
+
     page_3.update_attributes!(:parent => page_1)
     page_1.reload; page_2.reload
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
-    
+
     page_3.destroy
     page_1.reload; page_2.reload
     assert_equal 1, page_1.children_count
     assert_equal 0, page_2.children_count
   end
-  
+
   def test_cascading_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
       assert_difference 'Comfy::Cms::Block.count', -2 do

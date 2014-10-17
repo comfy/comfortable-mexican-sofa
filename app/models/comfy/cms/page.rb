@@ -48,12 +48,16 @@ class Comfy::Cms::Page < ActiveRecord::Base
   default_scope -> { order('comfy_cms_pages.position') }
   scope :published, -> { where(:is_published => true) }
 
-  scope :with_content_like, ->(phrase) { 
-    joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%") 
+  scope :with_content_like, ->(phrase) {
+    joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")
   }
 
-  scope :with_label_like, ->(phrase) { 
-    where("label LIKE ?", "%#{phrase}%") 
+  scope :with_label_like, ->(phrase) {
+    where("label LIKE ?", "%#{phrase}%")
+  }
+
+  scope :with_slug, ->(slug) {
+    find_by_slug(slug) || find_by_full_path!("/" + slug)
   }
 
   # -- Class Methods --------------------------------------------------------
@@ -176,7 +180,9 @@ protected
   end
 
   def assign_full_path
-    self.full_path = self.parent ? "#{CGI::escape(self.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
+    if self.read_attribute(:full_path).blank?
+      self.full_path = self.parent ? "#{CGI::escape(self.parent.full_path).gsub('%2F', '/')}/#{self.slug}".squeeze('/') : '/'
+    end
   end
 
   def assign_position
