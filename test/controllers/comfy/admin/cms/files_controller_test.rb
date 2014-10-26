@@ -32,15 +32,6 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 0, assigns(:files).count
   end
 
-  def test_get_index_in_modal_mode
-    site = comfy_cms_sites(:default)
-    get :index, :site_id => site, :modal => true
-    assert_response :success
-    assert assigns(:column_layout)
-    assert_no_select ".center-column"
-    assert_select "a[href=/admin/sites/#{site.id}/files/new?modal=true]"
-  end
-
   def test_get_new
     site = comfy_cms_sites(:default)
     get :new, :site_id => site
@@ -173,5 +164,4 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 1, file_one.position
     assert_equal 0, file_two.position
   end
-
 end
