@@ -1,13 +1,22 @@
-.file{:class => "#{dom_id(file)} #{file.is_image?? 'image' : nil}"}
-  .file-name
-    = link_to comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
-      %i.glyphicon.glyphicon-remove-circle
-    = link_to file.file_file_name, file.file.url, :target => '_blank', :class => 'filename'
-  
-  .file-info{:data => {:url => file.file.url}}
-    .thumb
-      = image_tag file.file.url(:cms_thumb) if file.is_image?
-    .details
+%tr{:id => dom_id(file)}
+  %td
+    - if file.is_image?
+      - icon_style = "background: url('#{file.file.url(:cms_thumb)}') no-repeat center"
+    .icon{:style => icon_style}
+      - if !params[:category].present? && @site.files.count > 1
+        .dragger
+          %span &#8645;
+  %td.main
+    .item-title
+      = link_to file.label, edit_comfy_admin_cms_site_file_path(@site, file)
+      = render :partial => 'comfy/admin/cms/categories/categories', :object => file
+    .item-meta
+      = link_to file.file_file_name, file.file.url, :target => '_blank'
+      = file.file_content_type
+      = number_to_human_size(file.file_file_size, :locale => :en)
       %input{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
-      .file-type= file.file_content_type
-      .file-size= number_to_human_size(file.file_file_size, :locale => :en)
+
+  %td
+    .btn-group.btn-group-sm
+      = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
+      = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'

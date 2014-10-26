@@ -11,7 +11,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
 
   def test_get_index_with_no_layouts
     Comfy::Cms::Layout.delete_all
-    get :index, :site_id => comfy_cms_sites(:default) 
+    get :index, :site_id => comfy_cms_sites(:default)
     assert_response :redirect
     assert_redirected_to :action => :new
   end
@@ -24,9 +24,8 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_equal '{{ cms:page:content:rich_text }}', assigns(:layout).content
     assert_template :new
     assert_select "form[action=/admin/sites/#{site.id}/layouts]"
-    assert_select "form[action='/admin/sites/#{site.id}/files?ajax=true']"
   end
-  
+
   def test_get_new_with_parent
     site    = comfy_cms_sites(:default)
     layout  = comfy_cms_layouts(:default)
@@ -51,7 +50,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_redirected_to :action => :index
     assert_equal 'Layout not found', flash[:danger]
   end
-  
+
   def test_creation
     assert_difference 'Comfy::Cms::Layout.count' do
       post :create, :site_id => comfy_cms_sites(:default), :layout => {
@@ -66,7 +65,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
       assert_equal 'Layout created', flash[:success]
     end
   end
-  
+
   def test_creation_failure
     assert_no_difference 'Comfy::Cms::Layout.count' do
       post :create, :site_id => comfy_cms_sites(:default), :layout => { }
@@ -75,7 +74,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
       assert_equal 'Failed to create layout', flash[:danger]
     end
   end
-  
+
   def test_update
     layout = comfy_cms_layouts(:default)
     put :update, :site_id => comfy_cms_sites(:default), :id => layout, :layout => {
@@ -89,7 +88,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_equal 'New Label', layout.label
     assert_equal 'New {{cms:page:content}}', layout.content
   end
-  
+
   def test_update_failure
     layout = comfy_cms_layouts(:default)
     put :update, :site_id => comfy_cms_sites(:default), :id => layout, :layout => {
@@ -101,7 +100,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_not_equal '', layout.identifier
     assert_equal 'Failed to update layout', flash[:danger]
   end
-  
+
   def test_destroy
     assert_difference 'Comfy::Cms::Layout.count', -1 do
       delete :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_layouts(:default)
@@ -110,7 +109,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
       assert_equal 'Layout deleted', flash[:success]
     end
   end
-  
+
   def test_reorder
     layout_one = comfy_cms_layouts(:default)
     layout_two = comfy_cms_sites(:default).layouts.create!(
