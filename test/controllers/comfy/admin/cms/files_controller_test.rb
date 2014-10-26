@@ -1,21 +1,14 @@
 require_relative '../../../../test_helper'
 
 class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
-  
+
   def test_get_index
     get :index, :site_id => comfy_cms_sites(:default)
     assert_response :success
     assert assigns(:files)
     assert_template :index
   end
-  
-  def test_get_index_with_no_files
-    Comfy::Cms::File.delete_all
-    get :index, :site_id => comfy_cms_sites(:default)
-    assert_response :redirect
-    assert_redirected_to :action => :new
-  end
-  
+
   def test_get_index_with_category
     get :index, :site_id => comfy_cms_sites(:default), :category => comfy_cms_categories(:default).label
     assert_response :success
@@ -23,44 +16,29 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:files).count
     assert assigns(:files).first.categories.member? comfy_cms_categories(:default)
   end
-  
+
   def test_get_index_with_category_invalid
     get :index, :site_id => comfy_cms_sites(:default), :category => 'invalid'
     assert_response :success
     assert assigns(:files)
     assert_equal 0, assigns(:files).count
   end
-  
-  def test_get_index_as_ajax
-    get :index, :site_id => comfy_cms_sites(:default), :ajax => true
-    assert_response :success
-    r = JSON.parse(response.body)
-    file = comfy_cms_files(:default)
-    assert_equal [{
-      'thumb' => file.file.url(:cms_thumb),
-      'image' => file.file.url
-    }], r
-  end
 
-  def test_get_index_as_ajax_with_no_images
-    file = comfy_cms_files(:default)
-    file.update_attribute(:file_content_type, 'text/plain')
-    get :index, :site_id => comfy_cms_sites(:default), :not_images => 1, :ajax => true
-    assert_response :success
-    r = JSON.parse(response.body)
-    assert_equal [{
-      'label'    => file.label,
-      'filename' => file.file_file_name,
-      'url'      => file.file.url
-    }], r
-  end
-  
   def test_get_index_with_page_files
     file = comfy_cms_files(:default)
     file.update_column(:block_id, comfy_cms_blocks(:default_field_text).id)
     get :index, :site_id => comfy_cms_sites(:default)
     assert_response :success
     assert_equal 0, assigns(:files).count
+  end
+
+  def test_get_index_in_modal_mode
+    site = comfy_cms_sites(:default)
+    get :index, :site_id => site, :modal => true
+    assert_response :success
+    assert assigns(:column_layout)
+    assert_no_select ".center-column"
+    assert_select "a[href=/admin/sites/#{site.id}/files/new?modal=true]"
   end
 
   def test_get_new
@@ -71,7 +49,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_template :new
     assert_select "form[action=/admin/sites/#{site.id}/files][enctype=multipart/form-data]"
   end
-  
+
   def test_get_edit
     file = comfy_cms_files(:default)
     get :edit, :site_id => file.site, :id => file
@@ -80,20 +58,20 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_template :edit
     assert_select "form[action=/admin/sites/#{file.site.id}/files/#{file.id}]"
   end
-  
+
   def test_get_edit_failure
     get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal 'File not found', flash[:danger]
   end
-  
+
   def test_create
     assert_difference ['Comfy::Cms::File.count', 'Comfy::Cms::Categorization.count'] do
       post :create, :site_id => comfy_cms_sites(:default), :file => {
         :label        => 'Test File',
         :description  => 'Test Description',
-        :file         => [fixture_file_upload('files/image.jpg', 'image/jpeg')],
+        :file         => fixture_file_upload('files/image.jpg', 'image/jpeg'),
         :category_ids => {comfy_cms_categories(:default).id => '1'}
       }
       assert_response :redirect
@@ -105,7 +83,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
       assert_equal 'Files uploaded', flash[:success]
     end
   end
-  
+
   def test_create_failure
     assert_no_difference 'Comfy::Cms::File.count' do
       post :create, :site_id => comfy_cms_sites(:default), :file => { }
@@ -114,69 +92,28 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
       assert_equal 'Failed to upload files', flash[:danger]
     end
   end
-  
-  def test_create_multiple
-    Comfy::Cms::File.delete_all
-    
-    assert_difference 'Comfy::Cms::File.count', 2 do
-      post :create, :site_id => comfy_cms_sites(:default), :file => {
-        :label        => 'Test File',
-        :description  => 'Test Description',
-        :file         => [
-          fixture_file_upload('files/image.jpg', 'image/jpeg'),
-          fixture_file_upload('files/image.gif', 'image/gif')
-        ]
-      }
-      assert_response :redirect
-      file_a, file_b = Comfy::Cms::File.all
-      assert_equal comfy_cms_sites(:default), file_a.site
-      
-      assert_equal 'image.jpg', file_a.file_file_name
-      assert_equal 'image.gif', file_b.file_file_name
-      assert_equal 'Test File 1', file_a.label
-      assert_equal 'Test File 2', file_b.label
-      assert_equal 'Test Description', file_a.description
-      assert_equal 'Test Description', file_b.description
-      
-      assert_redirected_to :action => :edit, :id => file_b
-      assert_equal 'Files uploaded', flash[:success]
-    end
-  end
-  
-  def test_create_as_ajax
+
+  def test_create_as_plupload
     assert_difference 'Comfy::Cms::File.count' do
       post :create,
-        :ajax     => true,
+        :format   => :plupload,
         :site_id  => comfy_cms_sites(:default),
         :file     => {
-          :file => [fixture_file_upload('files/image.jpg', 'image/jpeg')]
+          :file => fixture_file_upload('files/image.jpg', 'image/jpeg')
         }
       assert_response :success
-      file = Comfy::Cms::File.last
-      r = JSON.parse(response.body)
-      assert_equal file.file.url, r['filelink']
-      assert_equal file.file_file_name, r['filename']
-      assert r['view'].present?
+      assert_no_select "body"
+      assert_select "tr[id=comfy_cms_file_#{Comfy::Cms::File.last.id}]"
     end
   end
-  
-  def test_create_as_ajax_failure
+
+  def test_create_as_plupload_failure
     assert_no_difference 'Comfy::Cms::File.count' do
-      post :create, :ajax => true, :site_id => comfy_cms_sites(:default), :file => { }
+      post :create, :format => :plupload, :site_id => comfy_cms_sites(:default), :file => { }
       assert_response :unprocessable_entity
     end
   end
-  
-  def test_create_as_ajax_as_single_file
-    assert_difference 'Comfy::Cms::File.count' do
-      post :create,
-        :ajax     => true,
-        :site_id  => comfy_cms_sites(:default),
-        :file     => fixture_file_upload('files/image.jpg', 'image/jpeg')
-      assert_response :success
-    end
-  end
-  
+
   def test_update
     file = comfy_cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
@@ -191,7 +128,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 'New File', file.label
     assert_equal 'New Description', file.description
   end
-  
+
   def test_update_failure
     file = comfy_cms_files(:default)
     put :update, :site_id => file.site, :id => file, :file => {
@@ -203,7 +140,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_not_equal nil, file.file
     assert_equal 'Failed to update file', flash[:danger]
   end
-  
+
   def test_destroy
     assert_difference 'Comfy::Cms::File.count', -1 do
       delete :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_files(:default)
@@ -212,14 +149,14 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
       assert_equal 'File deleted', flash[:success]
     end
   end
-  
+
   def test_destroy_as_xhr
     assert_difference 'Comfy::Cms::File.count', -1 do
       xhr :delete, :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_files(:default)
       assert_response :success
     end
   end
-  
+
   def test_reorder
     file_one = comfy_cms_files(:default)
     file_two = comfy_cms_sites(:default).files.create(
@@ -236,5 +173,5 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 1, file_one.position
     assert_equal 0, file_two.position
   end
-  
+
 end

@@ -28,7 +28,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'text/html', response.content_type
   end
-  
+
   def test_show_as_json
     get :show, :cms_path => '', :format => 'json'
     assert_response :success
@@ -89,7 +89,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     get :show, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
-    assert_select "body[class='c-comfy-cms-content a-show']"
+    assert_select "body.c-comfy-cms-content.a-show"
   end
 
   def test_show_with_xhr
@@ -97,7 +97,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     xhr :get, :show, :cms_path => ''
     assert_response :success
     assert assigns(:cms_page)
-    assert_no_select "body[class='c_cms_content a_show']"
+    assert_no_select "body.c-comfy-cms-content.a-show"
   end
 
   def test_show_not_found

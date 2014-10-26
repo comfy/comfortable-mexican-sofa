@@ -39,26 +39,26 @@ en:
         description: Description
       comfy/cms/snippet:
         identifier: Identifier
-        
+
   comfy:
     cms:
       content:
         site_not_found: Site Not Found
         layout_not_found: Layout Not Found
         page_not_found: Page Not Found
-    
+
     admin:
       cms:
         base:
           site_not_found: Site not found
           fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
-          
+
           sites: Sites
           layouts: Layouts
           pages: Pages
           snippets: Snippets
           files: Files
-  
+
         sites:
           created: Site created
           creation_failure: Failed to create site
@@ -66,7 +66,7 @@ en:
           update_failure: Failed to update site
           deleted: Site deleted
           not_found: Site not found
-          
+
           index:
             title: Sites
             new_link: Create New Site
@@ -83,7 +83,7 @@ en:
             cancel: Cancel
             update: Update Site
             is_mirrored: Mirrored
-  
+
         layouts:
           created: Layout created
           creation_failure: Failed to create layout
@@ -91,7 +91,7 @@ en:
           update_failure: Failed to update layout
           deleted: Layout deleted
           not_found: Layout not found
-          
+
           index:
             title: Layouts
             new_link: Create New Layout
@@ -116,7 +116,7 @@ en:
             create: Create Layout
             cancel: Cancel
             update: Update Layout
-  
+
         pages:
           created: Page created
           creation_failure: Failed to create page
@@ -125,7 +125,7 @@ en:
           deleted: Page deleted
           not_found: Page not found
           layout_not_found: No Layouts found. Please create one.
-          
+
           index:
             title: Pages
             new_link: Create New Page
@@ -152,7 +152,7 @@ en:
             no_tags: |-
               Layout has no content tags defined.<br/>
               Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
-  
+
         snippets:
           created: Snippet created
           creation_failure: Failed to create snippet
@@ -160,7 +160,7 @@ en:
           update_failure: Failed to update snippet
           deleted: Snippet deleted
           not_found: Snippet not found
-          
+
           index:
             title: Snippets
             new_link: Create New Snippet
@@ -177,12 +177,12 @@ en:
             create: Create Snippet
             cancel: Cancel
             update: Update Snippet
-  
+
         revisions:
           reverted: Content Reverted
           record_not_found: Record Not Found
           not_found: Revision Not Found
-          
+
           show:
             title: Revisions for
             revision: Revision
@@ -193,7 +193,7 @@ en:
             changes: Changes
             previous: Previous
             current: Current
-  
+
         files:
           created: Files uploaded
           creation_failure: Failed to upload files
@@ -201,7 +201,7 @@ en:
           update_failure: Failed to update file
           deleted: File deleted
           not_found: File not found
-          
+
           index:
             title: Files
             new_link: Upload New File
@@ -218,11 +218,13 @@ en:
             create: Upload File
             cancel: Cancel
             update: Update File
+            delete: Delete File
+            are_you_sure: Are you sure?
           page_form:
             are_you_sure: Are you sure?
           file:
             are_you_sure: Are you sure?
-        
+
         categories:
           index:
             label: Categories

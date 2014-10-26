@@ -12,13 +12,13 @@ Gem::Specification.new do |s|
   s.summary       = "Rails 4 CMS Engine"
   s.description   = "ComfortableMexicanSofa is a powerful Rails 4 CMS Engine"
   s.license       = 'MIT'
-  
+
   s.files         = `git ls-files`.split("\n")
   s.platform      = Gem::Platform::RUBY
   s.require_paths = ['lib']
-  
+
   s.required_ruby_version = '>= 1.9.3'
-  
+
   s.add_dependency 'rails',             '>= 4.0.0'
   s.add_dependency 'rails-i18n',        '~> 4.0.0'
   s.add_dependency 'bootstrap_form',    '~> 2.1.1'
@@ -34,4 +34,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'tinymce-rails',     '>= 4.0.0'
   s.add_dependency 'bootstrap-sass',    '~> 3.2.0'
+  s.add_dependency 'plupload-rails',    '~> 1.2.1'
+  s.add_dependency 'addressable',       '~> 2.3.6'
 end

@@ -15,18 +15,18 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_redirected_to :action => :new
   end
-  
+
   def test_get_index_with_category
     category = comfy_cms_sites(:default).categories.create!(:label => 'Test Category', :categorized_type => 'Comfy::Cms::Snippet')
     category.categorizations.create!(:categorized => comfy_cms_snippets(:default))
-    
+
     get :index, :site_id => comfy_cms_sites(:default), :category => category.label
     assert_response :success
     assert assigns(:snippets)
     assert_equal 1, assigns(:snippets).count
     assert assigns(:snippets).first.categories.member? category
   end
-  
+
   def test_get_index_with_category_invalid
     get :index, :site_id => comfy_cms_sites(:default), :category => 'invalid'
     assert_response :success
@@ -41,7 +41,6 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert assigns(:snippet)
     assert_template :new
     assert_select "form[action=/admin/sites/#{site.id}/snippets]"
-    assert_select "form[action='/admin/sites/#{site.id}/files?ajax=true']"
   end
 
   def test_get_edit
@@ -52,7 +51,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_template :edit
     assert_select "form[action=/admin/sites/#{snippet.site.id}/snippets/#{snippet.id}]"
   end
-  
+
   def test_get_edit_with_params
     snippet = comfy_cms_snippets(:default)
     get :edit, :site_id => snippet.site, :id => snippet, :snippet => {:label => 'New Label'}
@@ -67,7 +66,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_redirected_to :action => :index
     assert_equal 'Snippet not found', flash[:danger]
   end
-  
+
   def test_create
     assert_difference 'Comfy::Cms::Snippet.count' do
       post :create, :site_id => comfy_cms_sites(:default), :snippet => {
@@ -126,7 +125,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
       assert_equal 'Snippet deleted', flash[:success]
     end
   end
-  
+
   def test_reorder
     snippet_one = comfy_cms_snippets(:default)
     snippet_two = comfy_cms_sites(:default).snippets.create!(

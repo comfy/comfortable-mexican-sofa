@@ -1,31 +1,27 @@
-.page-header
-  = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), :class => 'btn btn-default pull-right'
-  %h2= t('.title')
-  
-= render 'comfy/admin/cms/partials/files_before'
+#cms-uploader
+  #cms-uploader-drag-drop-target
+  .page-header
+    = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), :class => 'btn btn-default pull-right', id: 'cms-uploader-browse'
+    %h2= t('.title')
+    .cms-uploader-drag-drop-info You can drag and drop files here too.
 
-= render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::File'
+  = render 'comfy/admin/cms/partials/files_before'
 
-%table.table.table-hover.table-bordered
-  %tbody.sortable
-    - @files.each do |file|
-      %tr{:id => dom_id(file)}
-        %td
-          - if file.is_image?
-            - icon_style = "background: url('#{file.file.url(:cms_thumb)}') no-repeat center"
-          .icon{:style => icon_style}
-            - if !params[:category].present? && @site.files.count > 1
-              .dragger
-                %span &#8645;
-        %td.main
-          .item-title
-            = link_to file.label, edit_comfy_admin_cms_site_file_path(@site, file)
-            = render :partial => 'comfy/admin/cms/categories/categories', :object => file
-          .item-meta
-            = link_to file.file_file_name, file.file.url, :target => '_blank'
-        %td
-          .btn-group.btn-group-sm
-            = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
-            = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+  = render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::File'
 
-= render 'comfy/admin/cms/partials/files_after'
+  %table.table.table-hover.table-bordered
+    %tbody.sortable.cms-uploader-filelist
+      = render :partial => 'file', :collection => @files
+
+  = render 'comfy/admin/cms/partials/files_after'
+
+:javascript
+  $(function(){
+    window.CMS.uploader($("#cms-uploader"), {
+      url: '#{comfy_admin_cms_site_files_path(@site)}',
+      multipart_params: {
+        '#{request_forgery_protection_token}': '#{form_authenticity_token}',
+        '#{Rails.application.config.session_options[:key]}': '#{request.session_options[:id]}'
+      }
+    });
+  });
