@@ -35,6 +35,7 @@ window.CMS.init = ->
   CMS.page_update_preview()
   CMS.page_update_publish()
   CMS.categories()
+  CMS.set_iframe_layout()
   CMS.files()
 
 window.CMS.slugify = ->
@@ -147,3 +148,18 @@ window.CMS.categories = ->
     $('.categories.editable', '.categories-widget').toggle()
     $('.edit', '.categories-widget').toggle()
     $('.done', '.categories-widget').toggle()
+
+
+# If we are inside an iframe remove the columns and just keep the center column content.
+# This is used for the files widget that opens in a modal window.
+window.CMS.set_iframe_layout = ->
+  inIframe = ->
+    try
+      return window.self isnt window.top
+    catch e
+      return true
+
+  if inIframe()
+    $("body").css("background-color", "transparent").css('padding', '20px')
+    $(".center-column-content").detach().appendTo('body')
+    $(".body-wrapper").remove()
