@@ -16,7 +16,6 @@ require 'kaminari'
 require 'tinymce-rails'
 require 'bootstrap-sass'
 require 'plupload-rails'
-require 'addressable/uri'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
