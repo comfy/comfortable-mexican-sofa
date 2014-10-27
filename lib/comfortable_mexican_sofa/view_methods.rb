@@ -1,9 +1,9 @@
 module ComfortableMexicanSofa::ViewMethods
-  
+
   def self.cms_block_tag(identifier, blockable)
     blockable && (block = blockable.blocks.find_by_identifier(identifier)) && block.tag
   end
-  
+
   module Helpers
     # Wrapper around ComfortableMexicanSofa::FormBuilder
     def comfy_form_for(record, options = {}, &proc)
@@ -16,7 +16,7 @@ module ComfortableMexicanSofa::ViewMethods
     def cms_hook(name, options = {})
       ComfortableMexicanSofa::ViewHooks.render(name, self, options)
     end
-  
+
     # Content of a snippet. Examples:
     #   cms_snippet_content(:my_snippet)
     #   <%= cms_snippet_content(:my_snippet) do %>
@@ -28,9 +28,9 @@ module ComfortableMexicanSofa::ViewMethods
         cms_site = Comfy::Cms::Site.find_site(host, path)
       end
       return '' unless cms_site
-    
+
       snippet = cms_site.snippets.find_by_identifier(identifier)
-    
+
       if !snippet && block_given?
         snippet = cms_site.snippets.create(
           :identifier => identifier,
@@ -38,10 +38,10 @@ module ComfortableMexicanSofa::ViewMethods
           :content    => capture(&block)
         )
       end
-    
+
       snippet ? snippet.content : ''
     end
-  
+
     # Same as cms_snippet_content but cms tags will be expanded
     def cms_snippet_render(identifier, cms_site = @cms_site, &block)
       return '' unless cms_site
@@ -50,7 +50,7 @@ module ComfortableMexicanSofa::ViewMethods
         cms_site.pages.build, ComfortableMexicanSofa::Tag.sanitize_irb(content)
       )
     end
-  
+
     # Content of a page block. This is how you get content from page:field
     # Example:
     #   cms_block_content(:left_column, CmsPage.first)
@@ -84,6 +84,31 @@ module ComfortableMexicanSofa::ViewMethods
     def current_status(state)
       ComfortableMexicanSofa::PageState.current_status(state)
     end
+
+    def page_category_list(page)
+      displayed_string = page.categories.first.label if page.categories.first
+      displayed_string += ", ..." if page.categories.second
+      displayed_string
+    end
+
+    def user_list(label)
+      Comfy::Cms::User.all.inject([[label, nil]]) do |list, user|
+        list << [user.email]
+      end
+    end
+
+    def category_list(label, cms_site = @site)
+      cms_site.categories.of_type('Comfy::Cms::Page').inject([[label, nil]]) do |list, category|
+        list << [category.label]
+      end
+    end
+
+    def layout_list(label, cms_site = @site)
+      cms_site.layouts.inject([[label, nil]]) do |list, layout|
+        list << [layout.label]
+      end
+    end
+
   end
 
   ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods::Helpers
