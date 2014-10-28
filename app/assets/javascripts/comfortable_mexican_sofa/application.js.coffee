@@ -57,12 +57,14 @@ window.CMS.slugify = ->
 window.CMS.wysiwyg = ->
   tinymce.init
     selector:         'textarea[data-cms-rich-text]'
-    plugins:          ['link', 'image', 'code']
+    plugins:          ['link', 'image', 'code', 'autoresize']
     toolbar:          'undo redo | styleselect | bullist numlist | link unlink image | code'
     menubar:          false
     statusbar:        false
     relative_urls:    false
     entity_encoding : 'raw'
+    autoresize_bottom_margin : 0
+
 
 window.CMS.codemirror = ->
   $('textarea[data-cms-cm-mode]').each (i, element) ->
