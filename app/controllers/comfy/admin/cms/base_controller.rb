@@ -5,8 +5,8 @@ class Comfy::Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_con
   # Authentication module must have #authenticate method
   include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
 
-  before_action :authenticate,
-                :load_admin_site,
+  before_action :load_admin_site,
+                :authenticate,
                 :set_locale,
                 :load_fixtures,
                 :except => :jump
@@ -53,4 +53,22 @@ protected
   def current_site
     @site ||= ::Comfy::Cms::Site.find_by_id(params[:site_id] || session[:site_id]) || ::Comfy::Cms::Site.first
   end
+
+  # Return main resource for current controller and action
+  # @return [Class, ActiveRecord::Base] a class for index actions or a model for other restful actions
+  def current_resource
+    params[:action] == 'index' ? resource_class : resource_variable
+  end
+
+  # Return a resource instance variable i.e. @site, @layout, etc according to controller name
+  def resource_variable
+    instance_variable_get("@#{controller_name.singularize.to_sym}")
+  end
+
+  # Find class of current resource
+  # @return [Class] a class object for current controller
+  def resource_class
+    controller_path.classify.gsub('::Admin', '').constantize
+  end
+
 end
