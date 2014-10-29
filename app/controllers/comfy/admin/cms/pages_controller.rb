@@ -5,6 +5,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
   before_action :preview_cms_page,  :only => [:create, :update]
   before_action :build_file,        :only => [:new, :edit]
+  before_action :set_categories,    :only => [:new, :edit]
 
   def index
     @pages = @site.pages.includes(:layout, :site).page params[:page]
@@ -24,13 +25,9 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def new
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type('Comfy::Cms::Page'))
-    render
   end
 
   def edit
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type('Comfy::Cms::Page'))
-    render
   end
 
   def create
@@ -43,6 +40,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     flash[:success] = I18n.t('comfy.admin.cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
+    set_categories
     flash.now[:danger] = I18n.t('comfy.admin.cms.pages.creation_failure')
     render :action => :new
   end
@@ -128,6 +126,10 @@ protected
 
       render :inline => @page.render, :layout => layout, :content_type => 'text/html'
     end
+  end
+
+  def set_categories
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type('Comfy::Cms::Page'))
   end
 
   def page_params
