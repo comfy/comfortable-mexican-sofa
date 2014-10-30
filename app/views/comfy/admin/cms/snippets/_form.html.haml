@@ -2,7 +2,7 @@
 
 = form.text_field :label, :data => {:slugify => @snippet.new_record?}
 = form.text_field :identifier, :data => {:slug => true}
-= form.text_area :content, :data => {'cms-rich-text' => true}
+= form.text_area :content, :data => {'cms-cm-mode' => 'text/html'}
 
 = render 'comfy/admin/cms/categories/form', :form => form
 
