@@ -1,5 +1,5 @@
 require_relative '../test_helper'
-require_relative '../../lib/generators/comfy/cms/cms_models_generator'
+require_relative '../../lib/generators/comfy/cms/cms/cms_models_generator'
 
 class CmsModelsGeneratorTest < Rails::Generators::TestCase
   tests Comfy::Generators::Cms::ModelsGenerator
