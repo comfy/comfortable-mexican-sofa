@@ -1,0 +1,7 @@
+{
+    "name": "comfortable_mexican_sofa",
+    "dependencies": {
+        "bootstrap-sass": "git://github.com/twbs/bootstrap-sass.git#v3.3.0"
+    },
+    "private": true
+}
