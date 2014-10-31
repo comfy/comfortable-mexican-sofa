@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_dependency 'rails',             '>= 4.0.0'
-  s.add_dependency 'rails-i18n',        '~> 4.0.0'
-  s.add_dependency 'bootstrap_form',    '~> 2.2.0'
+  s.add_dependency 'rails',             '>= 4.0.0', '< 5'
+  s.add_dependency 'rails-i18n',        '>= 4.0.0'
+  s.add_dependency 'bootstrap_form',    '>= 2.2.0'
   s.add_dependency 'active_link_to',    '>= 1.0.0'
   s.add_dependency 'paperclip',         '>= 4.0.0'
   s.add_dependency 'kramdown',          '>= 1.0.0'
@@ -33,6 +33,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
   s.add_dependency 'kaminari',          '>= 0.14.0'
   s.add_dependency 'tinymce-rails',     '>= 4.0.0'
-  s.add_dependency 'bootstrap-sass',    '~> 3.2.0'
-  s.add_dependency 'plupload-rails',    '~> 1.2.1'
+  s.add_dependency 'bootstrap-sass',    '>= 3.2.0'
+  s.add_dependency 'plupload-rails',    '>= 1.2.1'
 end
