@@ -1,5 +1,4 @@
 #= require jquery
-#= require bootstrap-sprockets
 #= require jquery_ujs
 #= require jquery-ui
 #= require tinymce-jquery
@@ -10,7 +9,7 @@
 #= require codemirror/modes/markdown
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
-#= require bootstrap
+#= require bootstrap-sprockets
 #= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
 #= require comfortable_mexican_sofa/lib/diff
 #= require comfortable_mexican_sofa/cms/uploader
