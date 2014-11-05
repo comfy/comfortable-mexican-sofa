@@ -9,6 +9,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+  gem 'byebug'
 end
 
 group :test do
@@ -18,6 +19,7 @@ group :test do
   gem 'mocha',      :require => false
   gem 'coveralls',  :require => false
   gem 'timecop'
+  gem 'byebug'
 end
 
 gem 'mas-build', :git => 'git@github.com:moneyadviceservice/mas-build' if ENV['MAS_BUILD']
