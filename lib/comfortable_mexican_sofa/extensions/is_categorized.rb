@@ -6,8 +6,6 @@ module ComfortableMexicanSofa::IsCategorized
 
   module ClassMethods
     def cms_is_categorized
-      include ComfortableMexicanSofa::IsCategorized::InstanceMethods
-
       has_many :categorizations,
         :as         => :categorized,
         :class_name => 'Comfy::Cms::Categorization',
@@ -29,6 +27,7 @@ module ComfortableMexicanSofa::IsCategorized
             where('comfy_cms_categories.label' => categories)
         end
       }
+      include ComfortableMexicanSofa::IsCategorized::InstanceMethods
     end
   end
 
@@ -36,7 +35,9 @@ module ComfortableMexicanSofa::IsCategorized
 
     # Method to reset the categories of a categorized item based in a form params.
     def category_ids=(new_ids)
+      @category_ids = new_ids
       self.is_mirrored_with_categorizations = true
+      new_ids = new_ids.select { |k, v| [1, '1', true, 'true'].include?(v) }.keys if new_ids.is_a?(Hash)
       assign_new_categories!(new_ids)
     end
 
@@ -66,7 +67,7 @@ module ComfortableMexicanSofa::IsCategorized
     # Synchorize the categorizations of this item with the ones in its mirrors. So all of them
     # are associated to the same categories.
     def sync_mirrors_with_categorizations
-      if is_mirrored_with_categorizations
+      if respond_to?(:mirrors) and is_mirrored_with_categorizations
         mirrors.each { |mirror| mirror.assign_new_categories!(corresponding_categories_in_site(mirror.site, categories).map(&:id)) }
       end
     end
