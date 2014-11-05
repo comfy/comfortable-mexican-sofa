@@ -37,27 +37,27 @@ module ComfortableMexicanSofa::IsCategorized
     # Method to reset the categories of a categorized item based in a form params.
     def category_ids=(new_ids)
       self.is_mirrored_with_categorizations = true
-      assign_new_categories!(new_ids: new_ids)
+      assign_new_categories!(new_ids)
     end
 
     # New categories for this item. Remove old ones, create new ones and keep the still valid ones.
-    def assign_new_categories!(new_ids:)
+    def assign_new_categories!(new_ids)
       valid_new_category_ids = new_ids.find_all(&:present?).map(&:to_i)
       current_category_ids   = categorizations.map(&:category_id)
-      categorize! category_ids: (valid_new_category_ids - current_category_ids)
-      uncategorize! category_ids: (current_category_ids - valid_new_category_ids)
+      categorize!(valid_new_category_ids - current_category_ids)
+      uncategorize!(current_category_ids - valid_new_category_ids)
     end
 
     private
 
     # Associates a category to this item.
-    def categorize!(category_ids:)
+    def categorize!(category_ids)
       action = is_mirrored_with_categorizations ? :build : :create
       category_ids.each { |id| categorizations.send(action, category_id: id) }
     end
 
     # Disassociates a category to this item.
-    def uncategorize!(category_ids:)
+    def uncategorize!(category_ids)
       categorizations.where(category_id: category_ids).each(&:destroy)
     end
 
@@ -67,7 +67,7 @@ module ComfortableMexicanSofa::IsCategorized
     # are associated to the same categories.
     def sync_mirrors_with_categorizations
       if is_mirrored_with_categorizations
-        mirrors.each { |mirror| mirror.assign_new_categories!(new_ids: corresponding_categories_in_site(mirror.site, categories).map(&:id)) }
+        mirrors.each { |mirror| mirror.assign_new_categories!(corresponding_categories_in_site(mirror.site, categories).map(&:id)) }
       end
     end
 
