@@ -24,9 +24,12 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
             :image  => file.file.url }
         end
       end
-      render :json => files
-    else
-      return redirect_to :action => :new if @site.files.count == 0
+    end
+
+    respond_to do |format|
+      format.html { params[:ajax] ? render(:json => files) : (redirect_to(:action => :new) if @site.files.count == 0) }
+      format.json { render(:json => files) }
+      format.js
     end
   end
 
