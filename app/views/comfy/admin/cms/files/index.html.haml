@@ -1,5 +1,6 @@
 #cms-uploader
   #cms-uploader-drag-drop-target
+    +
   .page-header
     = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), :class => 'btn btn-default pull-right', id: 'cms-uploader-browse'
     %h2= t('.title')
@@ -8,6 +9,7 @@
   = render 'comfy/admin/cms/partials/files_before'
 
   = render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::File'
+
   = paginate @files, :theme => 'comfy'
 
   %table.table.table-hover.table-bordered
@@ -15,7 +17,9 @@
       = render :partial => 'file', :collection => @files
 
   = render 'comfy/admin/cms/partials/files_after'
+
   = paginate @files, :theme => 'comfy'
+
 :javascript
   $(function(){
     window.CMS.uploader($("#cms-uploader"), {

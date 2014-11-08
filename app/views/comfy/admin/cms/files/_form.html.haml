@@ -6,7 +6,8 @@
 - unless @file.new_record?
   = form.form_group t('.current_file') do
     - if @file.is_image?
-      .file-image= image_tag @file.file.url
+      .file-image
+        = image_tag @file.file.url
     = link_to @file.file.url, @file.file.url, :target => '_blank'
 
 = form.text_area :description

@@ -11,11 +11,15 @@
       = link_to file.label, edit_comfy_admin_cms_site_file_path(@site, file)
       = render :partial => 'comfy/admin/cms/categories/categories', :object => file
     .item-meta
-      = link_to file.file_file_name, file.file.url, :target => '_blank'
-      = file.file_content_type
-      = number_to_human_size(file.file_file_size, :locale => :en)
-      %input{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
+      %input.file-path{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
 
+      = link_to file.file.url, :title => file.file_file_name, :target => '_blank' do
+        %span.glyphicon.glyphicon-link
+  %td
+    .content-type
+      = file.file_content_type
+    .file-size
+      = number_to_human_size(file.file_file_size, :locale => :en)
   %td
     .btn-group.btn-group-sm
       = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'

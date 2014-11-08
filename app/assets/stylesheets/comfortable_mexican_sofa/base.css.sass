@@ -64,9 +64,13 @@ body#comfy
       position: absolute
       top: 10px
       right: 0px
-      z-index: 9999
+      z-index: 2
       content: ''
       display: block
+    a.cms-files-open-modal
+      float: right
+      position: relative
+      z-index: 2
     ul
       list-style: none
       margin: 0
@@ -278,37 +282,41 @@ body#comfy
       background: url(image-path("comfortable_mexican_sofa/icon_snippet.gif"))
 
   // -- Files ---------------------------------------------------------------
-  &.c-comfy-admin-cms-files
-    table .icon
-      background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
-
-  a.cms-files-open-modal
-    position: absolute !important
-    right: 0
-    top: 0
-
   .cms-files-modal iframe
     width: 100%
     height: 100%
     border: 0
 
-  .cms-uploader-drag-drop-info
-    text-align: right
-    font-size: 0.8em
+  &.c-comfy-admin-cms-files
+    .file-image img
+      width: 100%
+    table
+      .icon
+        background: url(image-path("comfortable_mexican_sofa/icon_file.gif"))
+      .content-type
+        font-size: 9px
+        text-transform: uppercase
+      input.file-path
+        width: 400px
+        font-size: 10px
 
-  .cms-uploader-drag-drop-target-active
-    position: fixed !important
-    z-index: 1000
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    border: dotted green 2px
-    background-color: rgba(0,255,0,0.1)
+    .cms-uploader-drag-drop-info
+      text-align: right
+      font-size: 0.8em
 
-  .cms-uploader-file-status-bar
-    background-color: $brand-success
-    height: 4px
+    .cms-uploader-drag-drop-target-active
+      position: fixed !important
+      z-index: 1000
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      border: dotted #ccc 1px
+      background-color: rgba(0, 255, 0, 0.1)
+
+    .cms-uploader-file-status-bar
+      background-color: $brand-success
+      height: 4px
 
   // -- Revisions -----------------------------------------------------------
   &.c-comfy-admin-cms-revisions
