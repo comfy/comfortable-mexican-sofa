@@ -8,13 +8,14 @@
   = render 'comfy/admin/cms/partials/files_before'
 
   = render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::File'
+  = paginate @files, :theme => 'comfy'
 
   %table.table.table-hover.table-bordered
     %tbody.sortable.cms-uploader-filelist
       = render :partial => 'file', :collection => @files
 
   = render 'comfy/admin/cms/partials/files_after'
-
+  = paginate @files, :theme => 'comfy'
 :javascript
   $(function(){
     window.CMS.uploader($("#cms-uploader"), {
