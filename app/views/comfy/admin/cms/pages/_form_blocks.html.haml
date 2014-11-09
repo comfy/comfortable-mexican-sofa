@@ -1,6 +1,6 @@
 - namespace = { }
 - cms_object = @page || cms_object
-- tags = cms_object.tags(true).select{|t| t.is_cms_block?}.uniq{|t| t.identifier} 
+- tags = cms_object.tags(true).select{|t| t.is_cms_block?}.uniq{|t| t.identifier}
 - tags.each do |tag|
   - namespace[tag.namespace || 'default'] ||= []
   - namespace[tag.namespace || 'default'] << tag
@@ -10,10 +10,10 @@
     .no-tags
       = link_to cms_object.layout.label, edit_comfy_admin_cms_site_layout_path(@site, cms_object.layout)
       = t('.no_tags').html_safe
-  
+
   - else
     = fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder, :layout => :horizontal do |cms_blocks|
-      
+
       .tabbable
         - if namespace.size > 1
           %ul.nav.nav-tabs
