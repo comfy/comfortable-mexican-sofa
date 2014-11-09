@@ -17,7 +17,7 @@
         %span.glyphicon.glyphicon-link
   %td
     .content-type
-      = file.file_content_type
+      = truncate(file.file_content_type)
     .file-size
       = number_to_human_size(file.file_file_size, :locale => :en)
   %td
