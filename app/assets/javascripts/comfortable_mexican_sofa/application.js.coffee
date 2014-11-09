@@ -16,13 +16,13 @@
 #= require comfortable_mexican_sofa/cms/uploader
 #= require comfortable_mexican_sofa/cms/files
 
-$ ->
-  CMS.init()
-
 window.CMS ||= {}
 
-window.CMS.current_path = window.location.pathname
-window.CMS.code_mirror_instances = []
+window.CMS.current_path           = window.location.pathname
+window.CMS.code_mirror_instances  = [ ]
+
+$ ->
+  CMS.init()
 
 window.CMS.init = ->
   CMS.slugify()
@@ -35,7 +35,6 @@ window.CMS.init = ->
   CMS.page_update_preview()
   CMS.page_update_publish()
   CMS.categories()
-  CMS.set_iframe_layout()
   CMS.files()
 
 window.CMS.slugify = ->
@@ -81,8 +80,6 @@ window.CMS.codemirror = ->
   $('a[data-toggle="tab"]').on 'shown', ->
     for cm in CMS.code_mirror_instances
       cm.refresh()
-    return
-  return
 
 
 window.CMS.sortable_list = ->
@@ -117,6 +114,7 @@ window.CMS.page_blocks = ->
         CMS.timepicker()
         CMS.codemirror()
         CMS.reinitialize_page_blocks() if CMS.reinitialize_page_blocks?
+
 
 window.CMS.mirrors = ->
   $('#mirrors select').change ->
@@ -155,13 +153,15 @@ window.CMS.categories = ->
 # If we are inside an iframe remove the columns and just keep the center column content.
 # This is used for the files widget that opens in a modal window.
 window.CMS.set_iframe_layout = ->
-  inIframe = ->
+  in_iframe = ->
     try
-      return window.self isnt window.top
+      return window.self != window.top
     catch e
       return true
 
-  if inIframe()
-    $("body").css("background-color", "transparent").css('padding', '20px')
-    $(".center-column-content").detach().appendTo('body')
-    $(".body-wrapper").remove()
+  $('body').ready ->
+    if in_iframe()
+      $('body').addClass('in-iframe')
+
+# Triggering this right away to prevent flicker
+window.CMS.set_iframe_layout()

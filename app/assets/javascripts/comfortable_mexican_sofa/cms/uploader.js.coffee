@@ -13,22 +13,21 @@
     addFile = (file) ->
       fileList = $(".cms-uploader-filelist", target)
 
-      fileList.prepend(
-        '<tr id="' + file.id + '">' +
-          '<td>' +
-            '<div class="icon"></div>' +
-          '</td>' +
-          '<td class="main">' +
-            '<div class="item-title cms-uploader-file-title">' + file.name + '</div>' +
-            '<div class="item-meta cms-uploader-file-meta"></div>' +
-          '</td>' +
-          '<td>' +
-            '<div class="btn-group btn-group-sm">' +
-              '<a class="btn btn-danger cms-uploader-file-delete" href="#">Delete</a>' +
-            '</div>' +
-          '</td>' +
-        '</tr>'
-      )
+      fileList.prepend("
+        <tr id='#{file.id}' class='temp'>
+          <td><div class='icon'></div></td>
+          <td class='main' colspan=2>
+            <div class='progress'>
+              <div class='progress-bar progress-bar-striped active'>
+                <span>#{file.name}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a class='btn btn-sm btn-danger pull-right cms-uploader-file-delete' href='#'>Delete</a>
+          </td>
+        </tr>
+      ")
 
       $("#" + file.id + " a.cms-uploader-file-delete").click (e) ->
         uploader.removeFile(file)
@@ -42,11 +41,12 @@
 
     # Update a files upload status in the file list.
     updateFileStatus = (file) ->
-      statusElm = $("#" + file.id + " .cms-uploader-file-meta", target)
+      progress_bar = $("##{file.id} .progress-bar", target)
       if file.status == plupload.UPLOADING
-        statusElm.addClass("cms-uploader-file-status-bar").css('width', "#{file.percent}%")
+        progress_bar.css('width', "#{file.percent}%")
       if file.status == plupload.FAILED
-        statusElm.removeClass("cms-uploader-file-status-bar").html(file.error_message).css('color', 'red')
+        progress_bar.css('width', '100%').addClass('progress-bar-danger')
+        $('span', progress_bar).html(file.error_message)
 
     uploader = undefined
     id      = target.attr("id")
@@ -72,7 +72,6 @@
       # Show drag and drop info and attach events if drag and drop is
       # supported and enabled.
       if up.settings.dragdrop and up.features.dragdrop
-        $('.cms-uploader-drag-drop-info', target).show()
         drop_element = $(up.settings.drop_element)
 
         # When dragging over the document add a class to the drop target
@@ -84,7 +83,7 @@
           drop_element.addClass('cms-uploader-drag-drop-target-active')
 
         drop_element.bind 'drop dragleave', (e) ->
-          drop_element.removeClass 'cms-uploader-drag-drop-target-active'
+          drop_element.removeClass('cms-uploader-drag-drop-target-active')
 
       else
         $('.cms-uploader-drag-drop-info', target).hide()
@@ -128,7 +127,7 @@
     uploader.bind "FileUploaded", (up, file, info) ->
       # Replace the dummy file entry in the file list with the the entry
       # from the server response.
-      $("##{file.id}").replaceWith(info.response)
+      $("tr##{file.id}").replaceWith(info.response)
 
     uploader.bind 'FilesRemoved', (up, files) ->
       $.each files, (i, file) ->

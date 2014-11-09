@@ -12,6 +12,14 @@
 html, body#comfy
   height: 100%
 
+body#comfy.in-iframe
+  background: transparent
+  .left-column, .right-column, .body-footer
+    display: none
+  .body-wrapper .center-column
+    background: transparent
+    margin: 0
+
 body#comfy
   background-color: #252525
 
@@ -300,9 +308,17 @@ body#comfy
         width: 400px
         font-size: 10px
 
-    .cms-uploader-drag-drop-info
-      text-align: right
-      font-size: 0.8em
+      tr.temp td.main
+        vertical-align: middle
+        .progress
+          margin: 0
+          box-shadow: none
+          background-color: #424242
+          .progress-bar
+            text-align: left
+            padding-left: 8px
+            span
+              white-space: nowrap
 
     .cms-uploader-drag-drop-target-active
       position: fixed !important
@@ -312,11 +328,7 @@ body#comfy
       width: 100%
       height: 100%
       border: dotted #ccc 1px
-      background-color: rgba(0, 255, 0, 0.1)
-
-    .cms-uploader-file-status-bar
-      background-color: $brand-success
-      height: 4px
+      background-color: rgba(255, 255, 255, 0.7)
 
   // -- Revisions -----------------------------------------------------------
   &.c-comfy-admin-cms-revisions
