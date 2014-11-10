@@ -15,7 +15,6 @@ module ComfortableMexicanSofa::IsCategorized
         :through    => :categorizations,
         :class_name => 'Comfy::Cms::Category'
 
-      attr_reader   :category_ids
       attr_accessor :is_mirrored_with_categorizations
 
       after_save :sync_mirrors_with_categorizations
@@ -35,7 +34,6 @@ module ComfortableMexicanSofa::IsCategorized
 
     # Method to reset the categories of a categorized item based in a form params.
     def category_ids=(new_ids)
-      @category_ids = new_ids
       self.is_mirrored_with_categorizations = true
       new_ids = new_ids.select { |k, v| [1, '1', true, 'true'].include?(v) }.keys if new_ids.is_a?(Hash)
       assign_new_categories!(new_ids)
