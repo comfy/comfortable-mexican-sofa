@@ -2,8 +2,9 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   skip_before_action :load_fixtures
 
-  before_action :build_file,  :only => [:new, :create]
-  before_action :load_file,   :only => [:edit, :update, :destroy]
+  before_action :build_file,     :only => [:new, :create]
+  before_action :load_file,      :only => [:edit, :update, :destroy]
+  before_action :set_categories, :only => [:new, :edit]
 
   def index
     @order = params[:order].presence
@@ -34,13 +35,9 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   end
 
   def new
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
-    render
   end
 
   def edit
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
-    render
   end
 
   def create
@@ -124,6 +121,10 @@ protected
       params[:file][:file] = [file]
     end
     params.fetch(:file, {}).permit!
+  end
+
+  def set_categories
+    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
   end
 
 end
