@@ -1,5 +1,4 @@
-- object = form.object
 - if @categories.present?
-  = form.form_group :label => {:text => t('.label')}, :class => 'categories' do
-    = select_tag "#{object.class.to_s.demodulize.underscore.downcase}[category_ids]",
-                 options_for_select(@categories.all, @categories.selected_for(object)), multiple: true, id: 'categories--select'
+  = form.collection_select(:category_ids, @categories, :id, :label, {label: t('.label')}, include_blank: false, multiple: true,
+                           id:    'categories--select',
+                           class: 'categories')
