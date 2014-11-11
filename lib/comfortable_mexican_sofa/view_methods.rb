@@ -109,6 +109,12 @@ module ComfortableMexicanSofa::ViewMethods
       end
     end
 
+    def state_list(label)
+      Comfy::Cms::Page.state_machine.states.inject([[label, nil]]) do |list, state|
+        list << [state.name.to_s.humanize]
+      end
+    end
+
   end
 
   ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods::Helpers

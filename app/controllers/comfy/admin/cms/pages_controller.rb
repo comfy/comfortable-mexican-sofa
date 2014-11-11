@@ -18,7 +18,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     if params[:search].present?
       @pages = Comfy::Cms::Search.new(@pages, params[:search]).results
     else
-      @pages = @pages.filter(params.slice(:category, :layout, :last_edit, :language))
+      @pages = @pages.filter(params.slice(:category, :layout, :last_edit, :status, :language))
     end
 
     respond_to do |format|
