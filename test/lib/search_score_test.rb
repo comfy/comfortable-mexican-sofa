@@ -6,6 +6,14 @@ class SearchScoreTest < ActiveSupport::TestCase
     assert_equal 100, search_score("term", "label term")
   end
 
+  def test_label_score
+    assert_equal 200, search_score("term label", "label term")
+  end
+
+  def test_label_score_with_dashes
+    assert_equal 200, search_score("term-label", "label term")
+  end
+
   def test_meta_description_score
     assert_equal 35, search_score("term", "no match", [{identifier: 'meta_description', content: "term"}])
   end

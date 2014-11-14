@@ -57,6 +57,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
     where("label LIKE ?", "%#{phrase}%")
   }
 
+  scope :with_slug_like, ->(phrase) {
+    where("slug LIKE ?", "%#{phrase}%")
+  }
+
   scope :with_slug, ->(slug) {
     find_by_slug(slug) || find_by_full_path!("/" + slug)
   }

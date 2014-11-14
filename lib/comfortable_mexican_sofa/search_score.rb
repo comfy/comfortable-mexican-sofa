@@ -22,7 +22,9 @@ module ComfortableMexicanSofa
     attr_reader :search_term, :label, :blocks
 
     def page_label_score
-      label.split.count {|w| matches?(w) } * LABEL_SCORE
+      search_term.split(/\s|\-/).map do |term|
+        label.split.count {|w| matches?(w, term) } * LABEL_SCORE
+      end.inject(:+)
     end
 
     def page_content_score
@@ -56,8 +58,8 @@ module ComfortableMexicanSofa
       end
     end
 
-    def matches?(string)
-      string.match(Regexp.new(search_term, true))
+    def matches?(string, term=search_term)
+      string.match(Regexp.new(term, true))
     end
   end
 end

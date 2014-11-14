@@ -15,7 +15,7 @@ class Comfy::Cms::Search
   private
 
   def matching_pages
-    (matching_page_labels + matching_page_content).uniq
+    (matching_page_labels + matching_page_content + matching_page_slug).uniq
   end
 
   def matching_page_labels
@@ -24,5 +24,9 @@ class Comfy::Cms::Search
 
   def matching_page_content
     scope.includes(:blocks).with_content_like(search_term)
+  end
+
+  def matching_page_slug
+    scope.with_slug_like(search_term)
   end
 end
