@@ -105,7 +105,7 @@ module ComfortableMexicanSofa::ViewMethods
 
     def layout_list(label, cms_site = @site)
       cms_site.layouts.inject([[label, nil]]) do |list, layout|
-        list << [layout.label]
+        list << [layout.label, layout.identifier]
       end
     end
 

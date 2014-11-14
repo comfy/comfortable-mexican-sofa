@@ -63,7 +63,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # These scopes are to be used with the Filtrable module
   scope :category, ->(category) { includes(:categories).for_category(category) }
-  scope :layout, ->(layout) { joins(:layout).merge(Comfy::Cms::Layout.where(label: layout)) }
+  scope :layout, ->(layout) { joins(:layout).merge(Comfy::Cms::Layout.where(identifier: layout)) }
   scope :language, ->(language) { all } # FIXME: To be implemented
   scope :status, ->(status) { where(state: status) }
   scope :last_edit, ->(last_edit) { all }  # FIXME: To be implemented after we add user edit info to pages

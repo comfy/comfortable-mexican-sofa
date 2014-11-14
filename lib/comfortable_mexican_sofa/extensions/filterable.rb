@@ -1,8 +1,6 @@
 module ComfortableMexicanSofa::Filterable
 
-  def self.included(base)
-    base.send :extend, ClassMethods
-  end
+  extend ActiveSupport::Concern
 
   module ClassMethods
 
