@@ -3,8 +3,8 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
   skip_before_action  :load_admin_site,
                       :load_fixtures
 
-  before_action :build_site,  :only => [:new, :create]
-  before_action :load_site,   :only => [:edit, :update, :destroy]
+  prepend_before_action :build_site,  :only => [:new, :create]
+  prepend_before_action :load_site,   :only => [:edit, :update, :destroy]
 
   def index
     return redirect_to :action => :new if ::Comfy::Cms::Site.count == 0

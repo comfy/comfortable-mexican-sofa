@@ -1,8 +1,8 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
+  prepend_before_action :build_cms_page,    :only => [:new, :create]
+  prepend_before_action :load_cms_page,     :only => [:edit, :update, :destroy]
   before_action :check_for_layouts, :only => [:new, :edit]
-  before_action :build_cms_page,    :only => [:new, :create]
-  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
   before_action :preview_cms_page,  :only => [:create, :update]
 
   def index
@@ -11,9 +11,9 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     @pages_by_parent = pages_grouped_by_parent
 
     if params[:category].present?
-      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+      @pages = current_site.pages.includes(:categories).for_category(params[:category]).order('label')
     else
-      @pages = [@site.pages.root].compact
+      @pages = [current_site.pages.root].compact
     end
   end
 
@@ -50,13 +50,13 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def form_blocks
-    @page = @site.pages.find_by_id(params[:id]) || @site.pages.new
-    @page.layout = @site.layouts.find_by_id(params[:layout_id])
+    @page = current_site.pages.find_by_id(params[:id]) || current_site.pages.new
+    @page.layout = current_site.layouts.find_by_id(params[:layout_id])
   end
 
   def toggle_branch
     @pages_by_parent = pages_grouped_by_parent
-    @page = @site.pages.find(params[:id])
+    @page = current_site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
     id  = @page.id.to_s
     s.member?(id) ? s.delete(id) : s << id
@@ -74,30 +74,30 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 protected
 
   def site_has_no_pages?
-    @site.pages.count == 0
-  end
+    current_site.pages.count == 0
+  end 
 
   def pages_grouped_by_parent
-    @site.pages.includes(:categories).group_by(&:parent_id)
-  end
+    current_site.pages.includes(:categories).group_by(&:parent_id)
+  end 
 
   def check_for_layouts
-    if @site.layouts.count == 0
+    if current_site.layouts.count == 0
       flash[:danger] = I18n.t('comfy.admin.cms.pages.layout_not_found')
-      redirect_to new_comfy_admin_cms_site_layout_path(@site)
+      redirect_to new_comfy_admin_cms_site_layout_path(current_site)
     end
   end
 
   def build_cms_page
-    @page = @site.pages.new(page_params)
-    @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
-    @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
+    @page = current_site.pages.new(page_params)
+    @page.parent ||= (current_site.pages.find_by_id(params[:parent_id]) || current_site.pages.root)
+    @page.layout ||= (@page.parent && @page.parent.layout || current_site.layouts.first)
   end
 
   def load_cms_page
-    @page = @site.pages.find(params[:id])
+    @page = current_site.pages.find(params[:id])
     @page.attributes = page_params
-    @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
+    @page.layout ||= (@page.parent && @page.parent.layout || current_site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.pages.not_found')
     redirect_to :action => :index
