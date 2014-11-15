@@ -3,8 +3,7 @@
 #
 #= require moxie
 #= require plupload.dev
-#= require plupload/i18n/de
-#= require plupload.settings
+
 (($, o) ->
   window.CMS or (window.CMS = {})
   window.CMS.uploader = (target, settings) ->
