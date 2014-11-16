@@ -4,6 +4,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   before_action :build_file,  :only => [:new, :create]
   before_action :load_file,   :only => [:edit, :update, :destroy]
+  before_action :authorize
 
   def index
     @files = @site.files.not_page_file.includes(:categories).for_category(params[:category])

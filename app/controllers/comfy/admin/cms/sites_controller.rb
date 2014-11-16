@@ -5,6 +5,7 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
 
   before_action :build_site,  :only => [:new, :create]
   before_action :load_site,   :only => [:edit, :update, :destroy]
+  before_action :authorize
 
   def index
     return redirect_to :action => :new if ::Comfy::Cms::Site.count == 0
@@ -58,7 +59,7 @@ protected
     flash[:danger] = I18n.t('comfy.admin.cms.sites.not_found')
     redirect_to :action => :index
   end
-  
+
   def site_params
     params.fetch(:site, {}).permit!
   end

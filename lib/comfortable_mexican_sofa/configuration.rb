@@ -12,6 +12,9 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
 
+  # Module that will handle authorization against admin cms resources
+  attr_accessor :admin_authorization
+
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
 
@@ -68,7 +71,7 @@ class ComfortableMexicanSofa::Configuration
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   attr_accessor :reveal_cms_partials
-  
+
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
@@ -76,8 +79,9 @@ class ComfortableMexicanSofa::Configuration
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
     @base_controller      = 'ApplicationController'
-    @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
-    @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
+    @admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
+    @admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
+    @public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
     @seed_data_path       = nil
     @admin_route_redirect = ''
     @enable_sitemap       = true

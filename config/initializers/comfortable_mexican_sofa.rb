@@ -9,12 +9,17 @@ ComfortableMexicanSofa.configure do |config|
 
   # Module responsible for authentication. You can replace it with your own.
   # It simply needs to have #authenticate method. See http_auth.rb for reference.
-  #   config.admin_auth = 'ComfortableMexicanSofa::HttpAuth'
+  #   config.admin_auth = 'ComfyAdminAuthentication'
+
+  # Module responsible for authorization on admin side. It should have #authorize
+  # method that returns true or false based on params and loaded instance
+  # variables available for a given controller.
+  #   config.admin_authorization = 'ComfyAdminAuthorization'
 
   # Module responsible for public authentication. Similar to the above. You also
   # will have access to @cms_site, @cms_layout, @cms_page so you can use them in
   # your logic. Default module doesn't do anything.
-  #   config.public_auth = 'ComfortableMexicanSofa::DummyAuth'
+  #   config.public_auth = 'ComfyPublicAuthentication'
 
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
@@ -89,15 +94,28 @@ ComfortableMexicanSofa.configure do |config|
 
 end
 
-# Default credentials for ComfortableMexicanSofa::HttpAuth
+# Default credentials for ComfortableMexicanSofa::AccessControl::AdminAuthentication
 # YOU REALLY WANT TO CHANGE THIS BEFORE PUTTING YOUR SITE LIVE
-ComfortableMexicanSofa::HttpAuth.username = 'username'
-ComfortableMexicanSofa::HttpAuth.password = 'password'
+ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'username'
+ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'password'
 
-# You can use bcrypt (gem 'bcrypt-ruby') if you want to:
-#   require 'bcrypt'
-#   ComfortableMexicanSofa::HttpAuth.username = 'username'
-#   ComfortableMexicanSofa::HttpAuth.password = BCrypt::Password.new '... bcrypt hash ...'
-#
-# To create a bcrypt hash:
-#   BCrypt::Password.create('password').to_s
+# Uncomment this module and `config.admin_auth` above to use custom admin authentication
+# module ComfyAdminAuthentication
+#   def authenticate
+#     return true
+#   end
+# end
+
+# Uncomment this module and `config.admin_authorization` above to use custom admin authorization
+# module ComfyAdminAuthorization
+#   def authorize
+#     return true
+#   end
+# end
+
+# Uncomment this module and `config.public_auth` above to use custom public authentication
+# module ComfyPublicAuthentication
+#   def authenticate
+#     return true
+#   end
+# end

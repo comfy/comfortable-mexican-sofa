@@ -1,31 +1,34 @@
 class Comfy::Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller.to_s.constantize
 
-  protect_from_forgery
-
-  # Authentication module must have #authenticate method
+  # Authentication module must have `authenticate` method
   include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
+
+  # Authorization module must have `authorize` method
+  include ComfortableMexicanSofa.config.admin_authorization.to_s.constantize
+
+  protect_from_forgery
 
   before_action :authenticate,
                 :load_admin_site,
                 :set_locale,
                 :load_fixtures,
                 :except => :jump
-  
+
   layout 'comfy/admin/cms'
-  
+
   if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
     cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper
   end
-  
+
   def jump
     path = ComfortableMexicanSofa.config.admin_route_redirect
     return redirect_to(path) unless path.blank?
     load_admin_site
     redirect_to comfy_admin_cms_site_pages_path(@site) if @site
   end
-  
+
 protected
-  
+
   def load_admin_site
     if @site = ::Comfy::Cms::Site.find_by_id(params[:site_id] || session[:site_id]) || ::Comfy::Cms::Site.first
       session[:site_id] = @site.id

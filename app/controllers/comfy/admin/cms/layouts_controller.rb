@@ -2,6 +2,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
 
   before_action :build_layout,  :only => [:new, :create]
   before_action :load_layout,   :only => [:edit, :update, :destroy]
+  before_action :authorize
 
   def index
     return redirect_to :action => :new if @site.layouts.count == 0
@@ -39,7 +40,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
     flash[:success] = I18n.t('comfy.admin.cms.layouts.deleted')
     redirect_to :action => :index
   end
-  
+
   def reorder
     (params[:comfy_cms_layout] || []).each_with_index do |id, index|
       ::Comfy::Cms::Layout.where(:id => id).update_all(:position => index)
@@ -62,9 +63,9 @@ protected
     flash[:danger] = I18n.t('comfy.admin.cms.layouts.not_found')
     redirect_to :action => :index
   end
-  
+
   def layout_params
     params.fetch(:layout, {}).permit!
   end
-  
+
 end

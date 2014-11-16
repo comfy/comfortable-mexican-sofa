@@ -16,24 +16,25 @@ Paperclip::Attachment.default_options[:use_timestamp] = false
 class ActiveSupport::TestCase
   fixtures :all
   include ActionDispatch::TestProcess
-  
+
   def setup
     reset_config
     reset_locale
     stub_paperclip
   end
-  
+
   # resetting default configuration
   def reset_config
     ComfortableMexicanSofa.configure do |config|
       config.cms_title            = 'ComfortableMexicanSofa CMS Engine'
-      config.admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
-      config.public_auth          = 'ComfortableMexicanSofa::DummyAuth'
+      config.admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
+      config.admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
+      config.public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
       config.admin_route_redirect = ''
       config.enable_fixtures      = false
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
       config.revisions_limit      = 25
-      config.locales              = { 
+      config.locales              = {
         'en' => 'English',
         'es' => 'Español'
       }
@@ -46,15 +47,15 @@ class ActiveSupport::TestCase
       config.hostname_aliases     = nil
       config.public_cms_path      = nil
     end
-    ComfortableMexicanSofa::HttpAuth.username = 'username'
-    ComfortableMexicanSofa::HttpAuth.password = 'password'
+    ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'username'
+    ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'password'
   end
-  
+
   def reset_locale
     I18n.default_locale = :en
     I18n.locale         = :en
   end
-  
+
   # Example usage:
   #   assert_has_errors_on @record, :field_1, :field_2
   def assert_has_errors_on(record, *fields)
@@ -63,7 +64,7 @@ class ActiveSupport::TestCase
     unmatched = fields.flatten - record.errors.keys
     assert unmatched.blank?, "#{record.class} doesn't have errors on '#{unmatched.join(', ')}'"
   end
-  
+
   # Example usage:
   #   assert_exception_raised                                 do ... end
   #   assert_exception_raised ActiveRecord::RecordInvalid     do ... end
@@ -93,13 +94,13 @@ class ActiveSupport::TestCase
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
   end
-  
+
   def stub_paperclip
     Comfy::Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
     Comfy::Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
     Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
-  
+
 end
 
 class ActionController::TestCase
@@ -109,14 +110,14 @@ class ActionController::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  
+
   def setup
     host! 'test.host'
     reset_config
     reset_locale
     stub_paperclip
   end
-  
+
   # Attaching http_auth stuff with request. Example use:
   #   http_auth :get, '/cms-admin/pages'
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
@@ -125,12 +126,12 @@ class ActionDispatch::IntegrationTest
 end
 
 class Rails::Generators::TestCase
-  
+
   destination File.expand_path('../tmp', File.dirname(__FILE__))
-  
+
   setup :prepare_destination,
         :prepare_files
-  
+
   def prepare_files
     config_path = File.join(self.destination_root, 'config')
     routes_path = File.join(config_path, 'routes.rb')
@@ -140,7 +141,7 @@ class Rails::Generators::TestCase
       f.write("Test::Application.routes.draw do\n\nend")
     end
   end
-  
+
   def read_file(filename)
     File.read(
       File.join(
@@ -149,5 +150,5 @@ class Rails::Generators::TestCase
       )
     )
   end
-  
+
 end
