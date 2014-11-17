@@ -10,7 +10,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     @order = params[:order].presence
     @type  = params[:type].presence
     @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).of_type(@type).
-               ordered_by(@order).page(params[:page])
+        search_by(params[:search]).ordered_by(@order).page(params[:page])
 
     if params[:ajax]
       if params[:not_images]

@@ -49,12 +49,19 @@ class Comfy::Cms::File < ActiveRecord::Base
   scope :images,        -> { where(:file_content_type => IMAGE_MIMETYPES) }
   scope :not_images,    -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
   scope :ordered_by,    ->(field) { order("comfy_cms_files.#{field.presence || "position DESC"}") }
+
   scope :of_type, ->(type) do
     return unless type.present?
     return images if IMAGE_TYPES.include?(type)
     where(file_content_type: SOME_MIMETYPES[type.to_sym]) if SOME_MIMETYPES.keys.include?(type.to_sym)
   end
 
+  scope :search_by, ->(phrase) do
+    if phrase.present?
+      where("((file_file_name LIKE ?) or (label LIKE ?) or (description LIKE ?))",
+            "%#{phrase}%", "%#{phrase}%", "%#{phrase}%")
+    end
+  end
 
   # -- Instance Methods -----------------------------------------------------
   def is_image?
