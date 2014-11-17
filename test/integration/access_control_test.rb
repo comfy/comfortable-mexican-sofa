@@ -29,7 +29,6 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_admin_authentication_custom
     skip
     ComfortableMexicanSofa.config.admin_auth = 'AccessControlTest::TestAuthentication'
-    reload_access_control_modules
 
     get '/admin/sites'
     assert_response :unauthorized
