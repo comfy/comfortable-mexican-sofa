@@ -47,7 +47,24 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     get :index, :site_id => comfy_cms_sites(:default)
     assert_response :success
   end
-  
+
+  def test_get_index_with_filtering
+    comfy_cms_sites(:default).pages.create!(
+      :label  => 'test1',
+      :slug   => 'test1',
+      :parent => comfy_cms_pages(:child),
+      :layout => comfy_cms_layouts(:default)
+    )
+    comfy_cms_sites(:default).pages.create!(
+      :label  => 'test2',
+      :slug   => 'test2',
+      :parent => comfy_cms_pages(:child),
+      :layout => comfy_cms_layouts(:nested)
+    )
+    get :index, :site_id => comfy_cms_sites(:default), layout: :nested
+    assert_equal 1, assigns(:pages).count
+  end
+
   def test_get_new
     site = comfy_cms_sites(:default)
     get :new, :site_id => site

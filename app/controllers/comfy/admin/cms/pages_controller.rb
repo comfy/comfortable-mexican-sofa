@@ -15,8 +15,11 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
     @filters_present = params[:category].present? || params[:search].present?
 
-    @pages = @pages.includes(:categories).for_category(params[:category]).order('label') if params[:category].present?
-    @pages = Comfy::Cms::Search.new(@pages, params[:search]).results if params[:search].present?
+    if params[:search].present?
+      @pages = Comfy::Cms::Search.new(@pages, params[:search]).results
+    else
+      @pages = @pages.filter(params.slice(:category, :layout, :last_edit, :status, :language))
+    end
 
     respond_to do |format|
       format.html
