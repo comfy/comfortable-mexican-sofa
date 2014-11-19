@@ -8,7 +8,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :set_categories,    :only => [:new, :edit]
 
   def index
-    @pages = @site.pages.includes(:layout, :site).page params[:page]
+    @pages = @site.pages.includes(:layout, :site)
 
     return redirect_to :action => :new if @pages.count == 0
     @pages_by_parent = @pages.includes(:categories).group_by(&:parent_id)
@@ -20,6 +20,8 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     else
       @pages = @pages.filter(params.slice(:category, :layout, :last_edit, :status, :language))
     end
+
+    @pages = @pages.unscoped.order(updated_at: :desc).page(params[:page])
 
     respond_to do |format|
       format.html
