@@ -1,39 +1,39 @@
 require_relative '../test_helper'
 
 class RevisionsTest < ActiveSupport::TestCase
-  
+
   def test_fixtures_validity
     assert_equal ({
-      'content' => 'revision {{cms:page:default_page_text}}', 
+      'content' => 'revision {{cms:page:default_page_text}}',
       'css'     => 'revision css',
       'js'      => 'revision js' }), comfy_cms_revisions(:layout).data
-      
+
     assert_equal ({'blocks_attributes' => [
       { 'identifier' => 'default_page_text',   'content' => 'revision page content'  },
       { 'identifier' => 'default_field_text',  'content' => 'revision field content' }
     ]}), comfy_cms_revisions(:page).data
-    
+
     assert_equal ({
       'content' => 'revision content'
     }), comfy_cms_revisions(:snippet).data
   end
-  
+
   def test_init_for_layouts
     assert_equal ['content', 'css', 'js'], comfy_cms_layouts(:default).revision_fields
   end
-  
+
   def test_init_for_pages
-    assert_equal ['blocks_attributes'], comfy_cms_pages(:default).revision_fields
+    assert_equal ['blocks_attributes', 'state'], comfy_cms_pages(:default).revision_fields
   end
-  
+
   def test_init_for_snippets
     assert_equal ['content'], comfy_cms_snippets(:default).revision_fields
   end
-  
+
   def test_creation_for_layout
     layout = comfy_cms_layouts(:default)
     old_attributes = layout.attributes.slice('content', 'css', 'js')
-    
+
     assert_difference 'layout.revisions.count' do
       layout.update_attributes!(
         :content  => 'new {{cms:page:content}}',

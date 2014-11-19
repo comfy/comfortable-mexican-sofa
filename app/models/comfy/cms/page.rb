@@ -12,7 +12,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   cms_is_categorized
   cms_is_regulated
   cms_manageable
-  cms_has_revisions_for :blocks_attributes
+  cms_has_revisions_for :blocks_attributes, :state
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
