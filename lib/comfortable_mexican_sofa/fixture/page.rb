@@ -1,38 +1,39 @@
 module ComfortableMexicanSofa::Fixture::Page
   class Importer < ComfortableMexicanSofa::Fixture::Importer
-    
+
     attr_accessor :target_pages
-    
+
     def import!(path = self.path, parent = nil)
       Dir["#{path}*/"].each do |path|
         slug = path.split('/').last
-        
+
         page = if parent
           parent.children.where(:slug => slug).first || site.pages.new(:parent => parent, :slug => slug)
         else
           site.pages.root || site.pages.new(:slug => slug)
         end
-        
+
         # setting attributes
         categories = []
         if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(page, attrs_path)
             attrs = get_attributes(attrs_path)
-            
+
             page.label        = attrs['label']
             page.layout       = site.layouts.where(:identifier => attrs['layout']).first || parent.try(:layout)
             page.is_published = attrs['is_published'].nil?? true : attrs['is_published']
+            page.state        = attrs['state']
             page.position     = attrs['position'] if attrs['position']
-            
+
             categories        = attrs['categories']
-            
+
             if attrs['target_page']
               self.target_pages ||= {}
               self.target_pages[page] = attrs['target_page']
             end
           end
         end
-        
+
         # setting content
         blocks_to_clear = page.blocks.collect(&:identifier)
         blocks_attributes = [ ]
@@ -56,12 +57,12 @@ module ComfortableMexicanSofa::Fixture::Page
             }
           end
         end
-        
+
         # deleting removed blocks
         page.blocks.where(:identifier => blocks_to_clear).destroy_all
-        
+
         page.blocks_attributes = blocks_attributes if blocks_attributes.present?
-        
+
         # saving
         if page.changed? || page.blocks_attributes_changed || self.force_import
           if page.save
@@ -71,13 +72,13 @@ module ComfortableMexicanSofa::Fixture::Page
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
           end
         end
-        
+
         self.fixture_ids << page.id
-        
+
         # importing child pages
         import!(path, page)
       end
-      
+
       # linking up target pages
       if self.target_pages.present?
         self.target_pages.each do |page, target|
@@ -87,7 +88,7 @@ module ComfortableMexicanSofa::Fixture::Page
           end
         end
       end
-      
+
       # cleaning up
       unless parent
         self.site.pages.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
@@ -98,7 +99,7 @@ module ComfortableMexicanSofa::Fixture::Page
   class Exporter < ComfortableMexicanSofa::Fixture::Exporter
     def export!
       prepare_folder!(self.path)
-      
+
       self.site.pages.each do |page|
         page.slug = 'index' if page.slug.blank?
         page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
@@ -120,7 +121,7 @@ module ComfortableMexicanSofa::Fixture::Page
             f.write(block[:content])
           end
         end
-        
+
         ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Page \t #{page.full_path}")
       end
     end
