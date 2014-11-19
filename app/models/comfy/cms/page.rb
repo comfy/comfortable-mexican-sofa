@@ -12,13 +12,16 @@ class Comfy::Cms::Page < ActiveRecord::Base
   cms_is_categorized
   cms_is_regulated
   cms_manageable
-  cms_has_revisions_for :blocks_attributes, :state
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
   belongs_to :target_page,
     :class_name => 'Comfy::Cms::Page'
+  has_many :revisions,
+     as:         :record,
+     dependent:  :destroy,
+     class_name: 'Comfy::Cms::Revision'
 
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
