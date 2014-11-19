@@ -29,20 +29,11 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_as_json
+    page = comfy_cms_pages(:default)
+    page.blocks.create!(identifier: 'content', content: 'content')
     get :show, :cms_path => '', :format => 'json'
     assert_response :success
 
-    content = rendered_content_formatter(
-      '
-      layout_content_a
-      default_page_text_content_a
-      default_snippet_content
-      default_page_text_content_b
-      layout_content_b
-      default_snippet_content
-      layout_content_c'
-    )
-    page = comfy_cms_pages(:default)
     json_response = JSON.parse(response.body)
     assert_equal page.layout.identifier,  json_response['layout_identifier']
     assert_equal nil,                     json_response['parent_id']
@@ -50,7 +41,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_equal 'Default Page',          json_response['label']
     assert_equal nil,                     json_response['slug']
     assert_equal '/',                     json_response['full_path']
-    assert_equal content,                 json_response['content_cache']
+    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['last_published_content']
     assert_equal true,                    json_response['is_published']
     assert_equal [],                      json_response['category_names']
   end
@@ -79,19 +70,20 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_not_found_with_custom_404
     page = comfy_cms_sites(:default).pages.create!(
-      :label          => '404',
-      :slug           => '404',
-      :parent_id      => comfy_cms_pages(:default).id,
-      :layout_id      => comfy_cms_layouts(:default).id,
-      :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'custom 404 page content' }
+      label:          '404',
+      slug:           '404',
+      parent_id:      comfy_cms_pages(:default).id,
+      layout_id:      comfy_cms_layouts(:default).id,
+      is_published:   '1',
+      state:          'published',
+      blocks_attributes: [
+        { identifier: 'default_page_text',
+          content:    'custom 404 page content' }
       ]
     )
     assert_equal '/404', page.full_path
     assert page.is_published?
-    get :show, :cms_path => 'doesnotexist'
+    get :show, cms_path: 'doesnotexist'
     assert_response 404
     assert assigns(:cms_page)
     assert_match /custom 404 page content/, response.body
@@ -123,49 +115,49 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_unpublished
     page = comfy_cms_pages(:default)
-    page.update_columns(:is_published => false)
+    page.update_columns(state: 'draft')
 
     assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
-      get :show, :cms_path => ''
+      get :show, cms_path: ''
     end
   end
 
   def test_show_with_irb_disabled
     assert_equal false, ComfortableMexicanSofa.config.allow_irb
 
-    irb_page = comfy_cms_sites(:default).pages.create!(
-      :label          => 'irb',
-      :slug           => 'irb',
-      :parent_id      => comfy_cms_pages(:default).id,
-      :layout_id      => comfy_cms_layouts(:default).id,
-      :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'text <%= 2 + 2 %> text' }
+    comfy_cms_sites(:default).pages.create!(
+      label:          'irb',
+      slug:           'irb',
+      parent_id:      comfy_cms_pages(:default).id,
+      layout_id:      comfy_cms_layouts(:default).id,
+      state:          'published',
+      blocks_attributes: [
+        { identifier: 'default_page_text',
+          content:    'text <%= 2 + 2 %> text' }
       ]
     )
-    get :show, :cms_path => 'irb'
+    get :show, cms_path: 'irb'
     assert_response :success
-    assert_match "text &lt;%= 2 + 2 %&gt; text", response.body
+    assert_match 'text &lt;%= 2 + 2 %&gt; text', response.body
   end
 
   def test_show_with_irb_enabled
     ComfortableMexicanSofa.config.allow_irb = true
 
-    irb_page = comfy_cms_sites(:default).pages.create!(
-      :label          => 'irb',
-      :slug           => 'irb',
-      :parent_id      => comfy_cms_pages(:default).id,
-      :layout_id  => comfy_cms_layouts(:default).id,
-      :is_published   => '1',
-      :blocks_attributes => [
-        { :identifier => 'default_page_text',
-          :content    => 'text <%= 2 + 2 %> text' }
+    comfy_cms_sites(:default).pages.create!(
+      label:          'irb',
+      slug:           'irb',
+      parent_id:      comfy_cms_pages(:default).id,
+      layout_id:      comfy_cms_layouts(:default).id,
+      state:          'published',
+      blocks_attributes: [
+        { identifier: 'default_page_text',
+          content:    'text <%= 2 + 2 %> text' }
       ]
     )
-    get :show, :cms_path => 'irb'
+    get :show, cms_path: 'irb'
     assert_response :success
-    assert_match "text 4 text", response.body
+    assert_match 'text 4 text', response.body
   end
 
   def test_preview_published
@@ -185,26 +177,17 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_preview_as_json
+    page = comfy_cms_pages(:default)
+    page.blocks.create!(identifier: 'content', content: 'content')
     get :preview, :cms_path => '', :format => 'json'
     assert_response :success
 
-    content = rendered_content_formatter(
-        '
-      layout_content_a
-      default_page_text_content_a
-      default_snippet_content
-      default_page_text_content_b
-      layout_content_b
-      default_snippet_content
-      layout_content_c'
-    )
-    page = comfy_cms_pages(:default)
     json_response = JSON.parse(response.body)
     assert_equal page.layout.identifier,  json_response['layout_identifier']
     assert_equal 'Default Page',          json_response['label']
     assert_equal nil,                     json_response['slug']
     assert_equal '/',                     json_response['full_path']
-    assert_equal content,                 json_response['content_cache']
+    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['last_published_content']
     assert_equal true,                    json_response['is_published']
     assert_equal [],                      json_response['category_names']
   end
@@ -239,5 +222,4 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
       get :render_sitemap, :cms_path => 'fr', :format => :xml
     end
   end
-
 end

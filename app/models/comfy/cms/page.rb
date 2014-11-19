@@ -47,7 +47,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
-  scope :published, -> { where(:is_published => true) }
+  scope :published, -> { where(state: ['published', 'published_being_edited']) }
 
   scope :with_content_like, ->(phrase) {
     joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")
@@ -157,16 +157,19 @@ class Comfy::Cms::Page < ActiveRecord::Base
     layout.identifier
   end
 
-  def as_json(options={})
+  def as_json(options = {})
     super(
-      :include => {
-        :blocks => {
-          :only => [:identifier, :content, :created_at, :updated_at],
-          :methods => [:render]
+      include: {
+        blocks: {
+          only: [:identifier, :content, :created_at, :updated_at],
+          methods: [:last_published_content]
         }
       },
-      :except => [:id, :layout_id, :parent_id, :target_page_id, :site_id, :position, :children_count],
-      :methods => [:category_names, :layout_identifier]
+      except: [:id, :layout_id, :parent_id, :target_page_id,
+               :site_id, :position, :children_count,
+               :content_cache, :preview_cache, :translation_id,
+               :custom_slug],
+      methods: [:category_names, :layout_identifier]
     )
   end
 
