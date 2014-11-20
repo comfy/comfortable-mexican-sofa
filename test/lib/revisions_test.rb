@@ -22,10 +22,6 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal ['content', 'css', 'js'], comfy_cms_layouts(:default).revision_fields
   end
 
-  def test_init_for_pages
-    assert_equal ['blocks_attributes', 'state'], comfy_cms_pages(:default).revision_fields
-  end
-
   def test_init_for_snippets
     assert_equal ['content'], comfy_cms_snippets(:default).revision_fields
   end
@@ -50,37 +46,6 @@ class RevisionsTest < ActiveSupport::TestCase
     layout = comfy_cms_layouts(:default)
     assert_no_difference 'layout.revisions.count' do
       layout.update_attributes(:label => 'new label')
-    end
-  end
-
-  def test_creation_for_page
-    page = comfy_cms_pages(:default)
-
-    assert_difference 'page.revisions.count' do
-      page.update_attributes!(
-        :blocks_attributes => [
-          { :identifier => 'default_page_text',
-            :content    => 'new content' }
-        ]
-      )
-      page.reload
-      assert_equal 2, page.revisions.count
-      revision = page.revisions.first
-      assert_equal ({
-        'blocks_attributes' => [
-          { identifier: 'default_field_text',
-            content: 'default_field_text_content' },
-          { identifier: 'default_page_text',
-            content: "default_page_text_content_a\n{{cms:snippet:default}}\ndefault_page_text_content_b" }],
-        'state' => 'published'
-      }), revision.data
-    end
-  end
-
-  def test_creation_for_page_ignore
-    page = comfy_cms_pages(:default)
-    assert_no_difference 'page.revisions.count' do
-      page.update_attributes(:label => 'new label')
     end
   end
 
@@ -127,20 +92,6 @@ class RevisionsTest < ActiveSupport::TestCase
       assert_equal 'revision {{cms:page:default_page_text}}', layout.content
       assert_equal 'revision css', layout.css
       assert_equal 'revision js', layout.js
-    end
-  end
-
-  def test_restore_from_revision_for_page
-    page = comfy_cms_pages(:default)
-    revision = comfy_cms_revisions(:page)
-
-    assert_difference 'page.revisions.count' do
-      page.restore_from_revision(revision)
-      page.reload
-      assert_equal [
-        { :identifier => 'default_field_text', :content => 'revision field content'  },
-        { :identifier => 'default_page_text',  :content => 'revision page content'   }
-      ], page.blocks_attributes
     end
   end
 

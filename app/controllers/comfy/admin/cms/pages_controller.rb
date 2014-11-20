@@ -4,29 +4,13 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :build_cms_page,    :only => [:new, :create]
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
   before_action :preview_cms_page,  :only => [:create, :update]
-  before_action :build_file,        :only => [:new, :edit]
-  before_action :set_categories,    :only => [:new, :edit]
 
   def index
-    @pages = @site.pages.unscoped.includes(:layout, :site)
+    return redirect_to action: :new if site_has_no_pages?
 
-    return redirect_to :action => :new if @pages.count == 0
-    @pages_by_parent = @pages.includes(:categories).group_by(&:parent_id)
+    @pages_by_parent = pages_grouped_by_parent
 
-    @filters_present = params[:category].present? || params[:search].present?
-
-    if params[:search].present?
-      @pages = Comfy::Cms::Search.new(@pages, params[:search]).results
-    else
-      @pages = @pages.filter(params.slice(:category, :layout, :last_edit, :status, :language))
-    end
-
-    @pages = @pages.order(updated_at: :desc).page(params[:page])
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @pages = apply_filters
   end
 
   def new
@@ -36,26 +20,16 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def create
-    if state_event == "save_unsaved"
-      @page.update_state!(state_event)
-    else
-      @page.save!
-    end
-
+    save_page
     flash[:success] = I18n.t('comfy.admin.cms.pages.created')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
-    set_categories
     flash.now[:danger] = I18n.t('comfy.admin.cms.pages.creation_failure')
     render :action => :new
   end
 
   def update
-    if state_event
-      @page.update_state!(state_event)
-    else
-      @page.save!
-    end
+    save_page
     flash[:success] = I18n.t('comfy.admin.cms.pages.updated')
     redirect_to :action => :edit, :id => @page
   rescue ActiveRecord::RecordInvalid
@@ -75,7 +49,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def toggle_branch
-    @pages_by_parent = @site.pages.includes(:categories).group_by(&:parent_id)
+    @pages_by_parent = pages_grouped_by_parent
     @page = @site.pages.find(params[:id])
     s   = (session[:cms_page_tree] ||= [])
     id  = @page.id.to_s
@@ -93,6 +67,43 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
 protected
 
+  # Overwrite to add customized conditions, create a join, or maybe use a
+  # namedscope to filter records.
+  #
+  # Example:
+  #
+  #   def apply_filters
+  #     @site.pages.filter(state: :draft)
+  #   end
+  #
+  def apply_filters
+    if params[:category].present?
+      @site.pages.includes(:categories).for_category(params[:category]).order('label')
+    else
+      [@site.pages.root].compact
+    end
+  end
+
+  # Overwrite to add customized conditions when creating and updating a page.
+  #
+  # Example:
+  #
+  #   def save_page
+  #     page.update(state: :draft) if page.state.equal?(:unsaved)
+  #   end
+  #
+  def save_page
+    @page.save!
+  end
+
+  def site_has_no_pages?
+    @site.pages.count == 0
+  end
+
+  def pages_grouped_by_parent
+    @site.pages.includes(:categories).group_by(&:parent_id)
+  end
+
   def check_for_layouts
     if @site.layouts.count == 0
       flash[:danger] = I18n.t('comfy.admin.cms.pages.layout_not_found')
@@ -104,10 +115,6 @@ protected
     @page = @site.pages.new(page_params)
     @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
-  end
-
-  def build_file
-    @file = Comfy::Cms::File.new
   end
 
   def load_cms_page
@@ -133,15 +140,7 @@ protected
     end
   end
 
-  def set_categories
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type('Comfy::Cms::Page'))
-  end
-
   def page_params
     params.fetch(:page, {}).permit!
-  end
-
-  def state_event
-    @state_event ||= params[:state_event]
   end
 end
