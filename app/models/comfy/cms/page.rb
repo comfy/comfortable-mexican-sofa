@@ -54,11 +54,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
   }
 
   scope :with_label_like, ->(phrase) {
-    where("label LIKE ?", "%#{phrase}%")
+    where("#{table_name}.label LIKE ?", "%#{phrase}%")
   }
 
   scope :with_slug_like, ->(phrase) {
-    where("slug LIKE ?", "%#{phrase}%")
+    where("#{table_name}.slug LIKE ?", "%#{phrase}%")
   }
 
   scope :with_slug, ->(slug) {

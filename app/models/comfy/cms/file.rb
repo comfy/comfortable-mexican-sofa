@@ -47,8 +47,8 @@ class Comfy::Cms::File < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   scope :not_page_file, -> { where(:block_id => nil)}
   scope :images,        -> { where(:file_content_type => IMAGE_MIMETYPES) }
-  scope :not_images,    -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
-  scope :ordered_by,    ->(field) { order("comfy_cms_files.#{field.presence || "position DESC"}") }
+  scope :not_images,    -> { where("#{table_name}.file_content_type NOT IN (?)", IMAGE_MIMETYPES) }
+  scope :ordered_by,    ->(field) { order("#{table_name}.#{field.presence || "position DESC"}") }
 
   scope :of_type, ->(type) do
     return unless type.present?
@@ -58,7 +58,7 @@ class Comfy::Cms::File < ActiveRecord::Base
 
   scope :search_by, ->(phrase) do
     if phrase.present?
-      where("((file_file_name LIKE ?) or (label LIKE ?) or (description LIKE ?))",
+      where("((#{table_name}.file_file_name LIKE ?) or (#{table_name}.label LIKE ?) or (#{table_name}.description LIKE ?))",
             "%#{phrase}%", "%#{phrase}%", "%#{phrase}%")
     end
   end
