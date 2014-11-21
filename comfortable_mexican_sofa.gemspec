@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'tinymce-rails',     '>= 4.0.0'
   s.add_dependency 'bootstrap-sass',    '~> 3.1.0'
   s.add_dependency 'transitions',       '>= 0.1.12'
+  s.add_dependency 'active_model_serializers', '>= 0.8.1'
 
   s.add_development_dependency 'pry-rails'
 end

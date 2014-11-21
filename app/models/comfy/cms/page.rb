@@ -160,22 +160,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
     layout.identifier
   end
 
-  def as_json(options = {})
-    super(
-      include: {
-        blocks: {
-          only: [:identifier, :content, :created_at, :updated_at],
-          methods: [:last_published_content]
-        }
-      },
-      except: [:id, :layout_id, :parent_id, :target_page_id,
-               :site_id, :position, :children_count,
-               :content_cache, :preview_cache, :translation_id,
-               :custom_slug],
-      methods: [:category_names, :layout_identifier]
-    )
-  end
-
   def update_state!(state_event)
     if self.send("can_" + state_event.to_s + "?")
       self.send((state_event.to_s + "!").to_sym)
