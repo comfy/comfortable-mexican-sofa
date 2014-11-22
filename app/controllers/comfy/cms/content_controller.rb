@@ -15,9 +15,8 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
       redirect_to @cms_page.target_page.url
     else
       respond_to do |format|
-        format.all { render_page }
+        format.html { render_page }
         format.json { render :json => @cms_page }
-        format.all { render_page }
       end
     end
   end
