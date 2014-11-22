@@ -24,7 +24,7 @@ class Cms::File < ActiveRecord::Base
     :styles => lambda { |f|
       (f.instance.dimensions.blank?? { } : { :original => f.instance.dimensions }).merge(
         :cms_thumb => '80x60#'
-      )
+      ).merge(ComfortableMexicanSofa.config.upload_file_options[:styles] || {})
     }
   )
   before_post_process :is_image?
