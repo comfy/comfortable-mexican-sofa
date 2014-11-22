@@ -3,17 +3,36 @@ require_relative '../test_helper'
 class AccessControlTest < ActionDispatch::IntegrationTest
 
   module TestAuthentication
-    def authenticate
-      render :text => 'Test Login Denied', :status => :unauthorized
+    module Authenticate
+      def authenticate
+        render :text => 'Test Login Denied', :status => :unauthorized
+      end
     end
+
+    # faking ComfortableMexicanSofa.config.admin_auth = 'AccessControlTest::TestAuthentication'
+    # faking ComfortableMexicanSofa.config.public_auth = 'AccessControlTest::TestAuthentication'
+    class SitesController   < Comfy::Admin::Cms::SitesController; include Authenticate; end
+    class ContentController < Comfy::Cms::ContentController;      include Authenticate; end
   end
 
   module TestAuthorization
-    def authorize
-      @authorization_vars = self.instance_variables
-      render :text => 'Test Access Denied', :status => :forbidden
+    module Authorize
+      def authorize
+        @authorization_vars = self.instance_variables
+        render :text => 'Test Access Denied', :status => :forbidden
+      end
     end
+
+    # faking ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
+    class SitesController       < Comfy::Admin::Cms::SitesController;       include Authorize; end
+    class LayoutsController     < Comfy::Admin::Cms::LayoutsController;     include Authorize; end
+    class PagesController       < Comfy::Admin::Cms::PagesController;       include Authorize; end
+    class SnippetsController    < Comfy::Admin::Cms::SnippetsController;    include Authorize; end
+    class FilesController       < Comfy::Admin::Cms::FilesController;       include Authorize; end
+    class CategoriesController  < Comfy::Admin::Cms::CategoriesController;  include Authorize; end
+    class RevisionsController   < Comfy::Admin::Cms::RevisionsController;   include Authorize; end
   end
+
 
   def test_admin_authentication_default
     assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthentication',
@@ -27,12 +46,15 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_authentication_custom
-    skip
-    ComfortableMexicanSofa.config.admin_auth = 'AccessControlTest::TestAuthentication'
+    with_routing do |routes|
+      routes.draw do
+        get '/admin/sites' => 'access_control_test/test_authentication/sites#index'
+      end
 
-    get '/admin/sites'
-    assert_response :unauthorized
-    assert_equal 'Test Login Denied', response.body
+      get '/admin/sites'
+      assert_response :unauthorized
+      assert_equal 'Test Login Denied', response.body
+    end
   end
 
   def test_admin_authorization_default
@@ -45,45 +67,56 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_authorization_custom
-    skip
-    ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
-
     site = comfy_cms_sites(:default)
-    http_auth :get, edit_comfy_admin_cms_site_path(site)
-    assert_response :forbidden
-    assert_equal 'Test Access Denied', response.body
-    assert assigns(:authorization_vars)
-    assert assigns(:authorization_vars).member?(:@site)
+    with_routing do |routes|
+      routes.draw do
+        s   = '/admin/sites'
+        ns  = 'access_control_test/test_authorization'
+        get "#{s}/:id/edit"                                   => "#{ns}/sites#edit"
+        get "#{s}/:site_id/layouts/:id/edit"                  => "#{ns}/layouts#edit"
+        get "#{s}/:site_id/layouts/:layout_id/revisions/:id"  => "#{ns}/revisions#show"
+        get "#{s}/:site_id/pages/:id/edit"                    => "#{ns}/pages#edit"
+        get "#{s}/:site_id/snippets/:id/edit"                 => "#{ns}/snippets#edit"
+        get "#{s}/:site_id/files/:id/edit"                    => "#{ns}/files#edit"
+        get "#{s}/:site_id/categories/:id/edit"               => "#{ns}/categories#edit"
+      end
 
-    layout = comfy_cms_layouts(:default)
-    http_auth :get, edit_comfy_admin_cms_site_layout_path(site, layout)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@layout)
+      http_auth :get, "/admin/sites/#{site.id}/edit"
+      assert_response :forbidden
+      assert_equal 'Test Access Denied', response.body
+      assert assigns(:authorization_vars)
+      assert assigns(:authorization_vars).member?(:@site)
 
-    revision = comfy_cms_revisions(:layout)
-    http_auth :get, comfy_admin_cms_site_layout_revision_path(site, layout, revision)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@record)
+      layout = comfy_cms_layouts(:default)
+      http_auth :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@layout)
 
-    page = comfy_cms_pages(:default)
-    http_auth :get, edit_comfy_admin_cms_site_page_path(site, page)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@page)
+      revision = comfy_cms_revisions(:layout)
+      http_auth :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/revisions/#{revision.id}"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@record)
 
-    snippet = comfy_cms_snippets(:default)
-    http_auth :get, edit_comfy_admin_cms_site_snippet_path(site, snippet)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@snippet)
+      page = comfy_cms_pages(:default)
+      http_auth :get, "/admin/sites/#{site.id}/pages/#{page.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@page)
 
-    file = comfy_cms_files(:default)
-    http_auth :get, edit_comfy_admin_cms_site_file_path(site, file)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@file)
+      snippet = comfy_cms_snippets(:default)
+      http_auth :get, "/admin/sites/#{site.id}/snippets/#{snippet.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@snippet)
 
-    category = comfy_cms_categories(:default)
-    http_auth :get, edit_comfy_admin_cms_site_category_path(site, category)
-    assert assigns(:authorization_vars).member?(:@site)
-    assert assigns(:authorization_vars).member?(:@category)
+      file = comfy_cms_files(:default)
+      http_auth :get, "/admin/sites/#{site.id}/files/#{file.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@file)
+
+      category = comfy_cms_categories(:default)
+      http_auth :get, "/admin/sites/#{site.id}/categories/#{category.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@category)
+    end
   end
 
   def test_public_authentication_default
@@ -95,11 +128,14 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   end
 
   def test_public_authentication_custom
-    skip
-    ComfortableMexicanSofa.config.public_auth = 'AccessControlTest::TestAuthentication'
+    with_routing do |routes|
+      routes.draw do
+        get '/:format' => 'access_control_test/test_authentication/content#show', :path => "(*cms_path)"
+      end
 
-    get '/'
-    assert_response :unauthorized
-    assert_equal 'Test Login Denied', response.body
+      get '/'
+      assert_response :unauthorized
+      assert_equal 'Test Login Denied', response.body
+    end
   end
 end

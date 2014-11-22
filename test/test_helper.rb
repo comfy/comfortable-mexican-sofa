@@ -123,6 +123,13 @@ class ActionDispatch::IntegrationTest
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
     send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
   end
+
+  # Overriding helper method as it doesn't really work for integration tests by default
+  def with_routing(&block)
+    yield ComfortableMexicanSofa::Application.routes
+  ensure
+    load File.expand_path('../config/cms_routes.rb', File.dirname(__FILE__))
+  end
 end
 
 class Rails::Generators::TestCase
