@@ -23,7 +23,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   end
 
   def test_show_default_html
-    @request.headers["Accept"] = "*/*"
+    request.headers["Accept"] = "*/*"
     get :show, :cms_path => ''
     assert_response :success
     assert_equal 'text/html', response.content_type
@@ -200,7 +200,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   def test_render_sitemap
     get :render_sitemap, :format => :xml
     assert_response :success
-    assert_match '<loc>//test.host/child-page</loc>', response.body
+    assert_match '<loc>http://test.host/child-page</loc>', response.body
   end
 
   def test_render_sitemap_with_path
@@ -210,7 +210,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     get :render_sitemap, :cms_path => site.path, :format => :xml
     assert_response :success
     assert_equal comfy_cms_sites(:default), assigns(:cms_site)
-    assert_match '<loc>//test.host/en/child-page</loc>', response.body
+    assert_match '<loc>http://test.host/en/child-page</loc>', response.body
   end
 
   def test_render_sitemap_with_path_invalid_with_single_site
