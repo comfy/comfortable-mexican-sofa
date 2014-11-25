@@ -41,7 +41,8 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_equal 'Default Page',          json_response['label']
     assert_equal nil,                     json_response['slug']
     assert_equal '/',                     json_response['full_path']
-    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['content']
+    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['last_published_content']
+    assert_equal true,                    json_response['is_published']
     assert_equal [],                      json_response['category_names']
   end
 
@@ -186,7 +187,8 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_equal 'Default Page',          json_response['label']
     assert_equal nil,                     json_response['slug']
     assert_equal '/',                     json_response['full_path']
-    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['content']
+    assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['last_published_content']
+    assert_equal true,                    json_response['is_published']
     assert_equal [],                      json_response['category_names']
   end
 

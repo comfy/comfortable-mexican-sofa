@@ -50,8 +50,6 @@ class CreateCms < ActiveRecord::Migration
       t.text    :content_cache,   text_limit
       t.string  :state,           :null => false
       t.string  :preview_cache
-      t.string  :meta_description
-      t.string  :meta_title
       t.string  :translation_id
       t.integer :position,        :null => false, :default => 0
       t.integer :children_count,  :null => false, :default => 0

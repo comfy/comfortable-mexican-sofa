@@ -18,7 +18,6 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
       redirect_to @cms_page.target_page.url
     else
       respond_with(@cms_page) do |format|
-        format.json { render json: @cms_page, serializer: PageSerializer }
         format.html { render_html }
       end
     end
@@ -28,7 +27,6 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     @cms_page = @cms_site.pages.with_slug("#{params[:cms_path]}")
 
     respond_with(@cms_page) do |format|
-      format.json { render json: @cms_page, serializer: PageSerializer, scope: "preview" }
       format.html { render_html }
     end
   end
