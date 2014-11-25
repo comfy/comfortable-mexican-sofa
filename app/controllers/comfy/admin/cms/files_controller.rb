@@ -2,15 +2,12 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   skip_before_action :load_fixtures
 
-  before_action :build_file,     :only => [:new, :create]
-  before_action :load_file,      :only => [:edit, :update, :destroy]
-  before_action :set_categories, :only => [:new, :edit]
+  before_action :build_file,  :only => [:new, :create]
+  before_action :load_file,   :only => [:edit, :update, :destroy]
 
   def index
-    @order = params[:order].presence
-    @type  = params[:type].presence
-    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).of_type(@type).
-        search_by(params[:search]).ordered_by(@order).page(params[:page])
+    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category]).
+        search_by(params[:search]).page(params[:page])
 
     if params[:ajax]
       if params[:not_images]
@@ -122,9 +119,4 @@ protected
     end
     params.fetch(:file, {}).permit!
   end
-
-  def set_categories
-    @categories = Comfy::Cms::CategoriesListPresenter.new(@site.categories.of_type(@file.class.to_s))
-  end
-
 end
