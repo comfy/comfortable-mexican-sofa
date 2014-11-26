@@ -195,23 +195,4 @@ class CmsBlockTest < ActiveSupport::TestCase
       end
     end
   end
-
-  def test_last_published_content_when_page_is_published
-    block = comfy_cms_blocks(:default_page_text)
-    page = block.blockable
-    page.stubs(:state).returns('published')
-    assert_equal block.last_published_content, block.content
-  end
-
-  def test_last_published_content_when_page_is_not_published
-    block = comfy_cms_blocks(:default_page_text)
-    page = block.blockable
-    page.stubs(:state).returns('unpublished')
-    revision = stub(data: {
-      'blocks_attributes' => [{ identifier: 'content', content: 'test content' }],
-      'state'             => 'published'
-    })
-    page.stubs(:revisions).returns([revision])
-    assert_equal block.last_published_content, 'test content'
-  end
 end

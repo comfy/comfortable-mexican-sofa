@@ -286,7 +286,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page = comfy_cms_pages(:default)
 
     assert_equal 'default_field_text', page.as_json['blocks'][0]['identifier']
-    assert_equal 'default_field_text_content', page.as_json['blocks'][0]['last_published_content']
+    assert_equal 'default_field_text_content', page.as_json['blocks'][0]['content']
   end
 
   def test_as_json_with_category_names

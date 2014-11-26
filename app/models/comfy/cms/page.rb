@@ -253,5 +253,4 @@ protected
   def cache_preview
     self.preview_cache = ActionView::Base.full_sanitizer.sanitize(Kramdown::Document.new(block_content).to_html).truncate(100)
   end
-
 end

@@ -27,10 +27,6 @@ class Comfy::Cms::Block < ActiveRecord::Base
     tag.try(:render)
   end
 
-  def last_published_content
-    blockable.state == 'published' ? content : published_content.fetch(:content, '')
-  end
-
   protected
 
   def prepare_files
@@ -50,19 +46,5 @@ class Comfy::Cms::Block < ActiveRecord::Base
     end
 
     self.content = nil unless self.content.is_a?(String)
-  end
-
-  private
-
-  def published_content
-    published_block_attributes.find { |a| a[:identifier] == 'content' } || {}
-  end
-
-  def published_block_attributes
-    (last_published_revision.try(:data) || {}).fetch('blocks_attributes', [])
-  end
-
-  def last_published_revision
-    blockable.revisions.find { |r| r.data['state'] == 'published' }
   end
 end
