@@ -202,6 +202,7 @@ it:
           update_failure: Impossibile aggiornare il file
           deleted: File eliminato
           not_found: File non trovato
+          open_library: Open files library
 
           index:
             title: Files
@@ -238,3 +239,8 @@ it:
             save: Salva
           form:
             label: Categorie
+
+        live_preview:
+          refresh: Refresh
+          refreshing: Refreshing
+          new_window: New Window

@@ -39,20 +39,20 @@ zh-TW:
         description: 描述
       comfy/cms/snippet:
         identifier: 標識符
-        
+
   comfy:
     cms:
       content:
         site_not_found: 站點不存在
         layout_not_found: 佈局不存在
         page_not_found: 頁面不存在
-      
+
     admin:
       cms:
         base:
           site_not_found: 沒有該站點
           fixtures_enabled: CMS夾具已經啟用，在此處的所有修改將被忽略。
-          
+
           sites: 站點
           layouts: 佈局
           pages: 頁面
@@ -66,7 +66,7 @@ zh-TW:
           update_failure: 站點更新失敗
           deleted: 站點刪除成功
           not_found: 站點不存在
-          
+
           index:
             title: 站點
             new_link: 創建站點
@@ -91,7 +91,7 @@ zh-TW:
           update_failure: 佈局更新失敗
           deleted: 佈局刪除成功
           not_found: 佈局不存在
-          
+
           index:
             title: 佈局
             new_link: 創建新佈局
@@ -125,7 +125,7 @@ zh-TW:
           deleted: 頁面刪除成功
           not_found: 頁面不存在
           layout_not_found: 沒有佈局，請先創建一個佈局。
-          
+
           index:
             title: 頁面
             new_link: 創建新頁面
@@ -161,7 +161,7 @@ zh-TW:
           update_failure: 片段更新失敗
           deleted: 片段刪除成功
           not_found: 片段不存在
-          
+
           index:
             title: 片段
             new_link: 創建新片段
@@ -183,7 +183,7 @@ zh-TW:
           reverted: 內容恢復成功
           record_not_found: 記錄不存在
           not_found: 修訂版本不存在
-          
+
           show:
             title: 修訂版本屬於
             revision: 修訂版本
@@ -202,7 +202,8 @@ zh-TW:
           update_failure: 文件更新失敗
           deleted: 文件刪除成功
           not_found: 文件不存在
-          
+          open_library: Open files library
+
           index:
             title: 文件
             new_link: 上傳新文件
@@ -223,7 +224,7 @@ zh-TW:
             are_you_sure: 確定刪除該文件嗎？
           file:
             are_you_sure: 確定刪除該文件嗎？
-            
+
         categories:
           index:
             label: 分類
@@ -238,3 +239,8 @@ zh-TW:
             save: 保存
           form:
             label: 分類
+
+        live_preview:
+          refresh: Refresh
+          refreshing: Refreshing
+          new_window: New Window

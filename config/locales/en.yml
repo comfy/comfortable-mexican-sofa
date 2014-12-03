@@ -116,6 +116,7 @@ en:
             create: Create Layout
             cancel: Cancel
             update: Update Layout
+            preview: Preview
 
         pages:
           created: Page created
@@ -202,6 +203,7 @@ en:
           update_failure: Failed to update file
           deleted: File deleted
           not_found: File not found
+          open_library: Open files library
 
           index:
             title: Files
@@ -240,3 +242,8 @@ en:
             save: Save
           form:
             label: Categories
+
+        live_preview:
+          refresh: Refresh
+          refreshing: Refreshing
+          new_window: New Window
