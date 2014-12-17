@@ -53,6 +53,8 @@ en:
           fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
 
           sites: Sites
+          admin: Admin
+          users: Users
           layouts: Layouts
           pages: Pages
           snippets: Snippets
@@ -125,7 +127,7 @@ en:
 
           index:
             title: Pages
-            new_link: Create New Page
+            new_link: Create new page
           index_branch:
             toggle: Toggle
             add_child_page: Add Child Page
