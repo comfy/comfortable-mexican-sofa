@@ -75,6 +75,10 @@ class ComfortableMexicanSofa::Configuration
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
+  # Directory to pull layouts from
+  # Default is ''
+  attr_accessor :app_layouts_directory
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
@@ -107,14 +111,15 @@ class ComfortableMexicanSofa::Configuration
       'cs'    => 'Česky',
       'nb'    => 'Norsk'
     }
-    @admin_locale         = nil
-    @admin_cache_sweeper  = nil
-    @allow_irb            = false
-    @allowed_helpers      = nil
-    @allowed_partials     = nil
-    @hostname_aliases     = nil
-    @reveal_cms_partials  = false
-    @public_cms_path      = nil
+    @admin_locale          = nil
+    @admin_cache_sweeper   = nil
+    @allow_irb             = false
+    @allowed_helpers       = nil
+    @allowed_partials      = nil
+    @hostname_aliases      = nil
+    @reveal_cms_partials   = false
+    @public_cms_path       = nil
+    @app_layouts_directory = ''
   end
 
 end
