@@ -56,7 +56,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/not_a_layout.erb', Rails.root))
     
     assert_equal ['comfy/admin/cms', 'comfy/admin/cms/nested'], Comfy::Cms::Layout.app_layouts_for_select
-    
+
+    ComfortableMexicanSofa.config.app_layouts_directory = 'comfy/'
+    assert_equal ['admin/cms', 'admin/cms/nested'], Comfy::Cms::Layout.app_layouts_for_select
+    ComfortableMexicanSofa.config.app_layouts_directory = ''
+
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/admin/cms/nested.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/_partial.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/not_a_layout.erb', Rails.root))
