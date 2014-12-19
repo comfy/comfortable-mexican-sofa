@@ -50,7 +50,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
-  scope :published, -> { where(state: ['published', 'published_being_edited']) }
+  scope :published, -> { where(state: ['published', 'published_being_edited', 'scheduled']) }
 
   scope :with_content_like, ->(phrase) {
     joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")
@@ -95,6 +95,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     state :published_being_edited
     state :redirected
     state :unpublished
+    state :scheduled
     state :retired
     state :deleted
 
@@ -107,11 +108,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
 
     event :publish do
-      transitions :to => :published, :from => [:draft, :redirected]
+      transitions :to => :published, :from => [:draft, :redirected, :scheduled]
     end
 
     event :publish_changes do
-      transitions :to => :published, :from => [:published, :published_being_edited]
+      transitions :to => :published, :from => [:published, :published_being_edited, :scheduled]
     end
 
     event :delete_page, :success => :do_deletion do
@@ -124,6 +125,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
     event :save_draft_changes do
       transitions :to => :published_being_edited, :from => [:published_being_edited]
+    end
+
+    event :schedule do
+      transitions :to => :scheduled, :from => [:published_being_edited, :published, :draft, :scheduled]
     end
 
     event :unpublish do
