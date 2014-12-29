@@ -41,7 +41,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :edit
-    assert_select "form['action=/admin/<%= file_name.pluralize %>/#{@<%= file_name %>.id}']"
+    assert_select "form[action='/admin/<%= file_name.pluralize %>/#{@<%= file_name %>.id}']"
   end
 
   def test_creation
