@@ -44,6 +44,7 @@ class ActiveSupport::TestCase
       config.allow_irb            = false
       config.allowed_helpers      = nil
       config.allowed_partials     = nil
+      config.allowed_templates    = nil
       config.hostname_aliases     = nil
       config.public_cms_path      = nil
     end

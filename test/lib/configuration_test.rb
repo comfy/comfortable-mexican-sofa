@@ -25,6 +25,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal false, config.allow_irb
     assert_equal nil, config.allowed_helpers
     assert_equal nil, config.allowed_partials
+    assert_equal nil, config.allowed_templates
     assert_equal nil, config.hostname_aliases
   end
 

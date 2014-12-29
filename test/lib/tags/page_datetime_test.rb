@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 
 class PageDateTimeTagTest < ActiveSupport::TestCase
-  
+
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::PageDateTime.initialize_tag(
       comfy_cms_pages(:default), '{{ cms:page:content:datetime }}'
@@ -22,7 +22,7 @@ class PageDateTimeTagTest < ActiveSupport::TestCase
     assert_equal 'namespace.content', tag.identifier
     assert_equal 'namespace', tag.namespace
   end
-  
+
   def test_initialize_tag_failure
     [
       '{{cms:page:content:not_datetime}}',
@@ -35,16 +35,16 @@ class PageDateTimeTagTest < ActiveSupport::TestCase
       )
     end
   end
-  
+
   def test_content_and_render
     tag = ComfortableMexicanSofa::Tag::PageDateTime.initialize_tag(
       comfy_cms_pages(:default), '{{cms:page:content:datetime}}'
     )
     assert tag.block.content.blank?
-    time = 2.days.ago
+    time = 2.days.ago.to_s
     tag.block.content = time
     assert_equal time, tag.content
     assert_equal time.to_s, tag.render
   end
-  
+
 end
