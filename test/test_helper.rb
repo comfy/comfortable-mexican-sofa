@@ -14,14 +14,14 @@ require 'mocha/setup'
 Paperclip::Attachment.default_options[:use_timestamp] = false
 
 class ActiveSupport::TestCase
-  fixtures :all
+
   include ActionDispatch::TestProcess
 
-  def setup
-    reset_config
-    reset_locale
-    stub_paperclip
-  end
+  fixtures :all
+
+  setup :reset_config,
+        :reset_locale,
+        :stub_paperclip
 
   # resetting default configuration
   def reset_config
@@ -105,18 +105,20 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  def setup
+
+  setup :setup_auth
+
+  def setup_auth
     @request.env['HTTP_AUTHORIZATION'] = "Basic #{Base64.encode64('username:password')}"
   end
 end
 
 class ActionDispatch::IntegrationTest
 
-  def setup
+  setup :setup_host
+
+  def setup_host
     host! 'test.host'
-    reset_config
-    reset_locale
-    stub_paperclip
   end
 
   # Attaching http_auth stuff with request. Example use:
@@ -135,10 +137,10 @@ end
 
 class Rails::Generators::TestCase
 
-  destination File.expand_path('../tmp', File.dirname(__FILE__))
-
   setup :prepare_destination,
         :prepare_files
+
+  destination File.expand_path('../tmp', File.dirname(__FILE__))
 
   def prepare_files
     config_path = File.join(self.destination_root, 'config')
