@@ -23,7 +23,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert assigns(:layout)
     assert_equal '{{ cms:page:content:rich_text }}', assigns(:layout).content
     assert_template :new
-    assert_select "form[action=/admin/sites/#{site.id}/layouts]"
+    assert_select "form[action='/admin/sites/#{site.id}/layouts']"
   end
 
   def test_get_new_with_parent
@@ -41,7 +41,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:layout)
     assert_template :edit
-    assert_select "form[action=/admin/sites/#{layout.site.id}/layouts/#{layout.id}]"
+    assert_select "form[action='/admin/sites/#{layout.site.id}/layouts/#{layout.id}']"
   end
 
   def test_get_edit_failure

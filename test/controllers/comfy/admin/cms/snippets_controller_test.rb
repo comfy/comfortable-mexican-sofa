@@ -40,7 +40,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:snippet)
     assert_template :new
-    assert_select "form[action=/admin/sites/#{site.id}/snippets]"
+    assert_select "form[action='/admin/sites/#{site.id}/snippets']"
   end
 
   def test_get_edit
@@ -49,7 +49,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:snippet)
     assert_template :edit
-    assert_select "form[action=/admin/sites/#{snippet.site.id}/snippets/#{snippet.id}]"
+    assert_select "form[action='/admin/sites/#{snippet.site.id}/snippets/#{snippet.id}']"
   end
 
   def test_get_edit_with_params

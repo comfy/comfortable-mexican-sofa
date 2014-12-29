@@ -33,7 +33,7 @@ class Admin::FoosControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:foo)
     assert_template :new
-    assert_select 'form[action=/admin/foos]'
+    assert_select "form[action='/admin/foos']"
   end
 
   def test_get_edit
@@ -41,7 +41,7 @@ class Admin::FoosControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:foo)
     assert_template :edit
-    assert_select "form[action=/admin/foos/#{@foo.id}]"
+    assert_select "form[action='/admin/foos/#{@foo.id}']"
   end
 
   def test_creation

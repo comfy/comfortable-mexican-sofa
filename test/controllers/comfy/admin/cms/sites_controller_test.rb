@@ -22,7 +22,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert assigns(:site)
     assert_equal 'test.host', assigns(:site).hostname
     assert_template :new
-    assert_select 'form[action=/admin/sites]'
+    assert_select "form[action='/admin/sites']"
   end
 
   def test_get_edit
@@ -31,7 +31,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:site)
     assert_template :edit
-    assert_select "form[action=/admin/sites/#{site.id}]"
+    assert_select "form[action='/admin/sites/#{site.id}']"
   end
 
   def test_get_edit_failure
@@ -40,7 +40,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
     assert_redirected_to :action => :index
     assert_equal 'Site not found', flash[:danger]
   end
-  
+
   def test_create
     assert_difference 'Comfy::Cms::Site.count' do
       post :create, :site => {
