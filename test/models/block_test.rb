@@ -14,6 +14,27 @@ class CmsBlockTest < ActiveSupport::TestCase
     assert_equal 'page_text_default_page_text', block.tag.id
   end
 
+  def test_content_assignment
+    block = Comfy::Cms::Block.new
+
+    block.content = 'test'
+    assert_equal 'test', block.content
+
+    block.content = 12345
+    assert_equal 12345, block.content
+
+    block.content = [1, 2, 3]
+    assert_equal [1, 2, 3], block.content
+  end
+
+  def test_content_assignment_with_files
+    block = Comfy::Cms::Block.new
+
+    block.content = fixture_file_upload('files/image.jpg', 'image/jpeg')
+    assert_equal nil, block.content
+    assert_equal 1, block.files.size
+  end
+
   def test_creation_via_page_nested_attributes
     assert_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Block.count'] do
       page = comfy_cms_sites(:default).pages.create!(
@@ -94,7 +115,11 @@ class CmsBlockTest < ActiveSupport::TestCase
         :parent_id  => comfy_cms_pages(:default).id,
         :blocks_attributes => [
           { :identifier => 'file',
-            :content    => [fixture_file_upload('files/image.jpg', "image/jpeg"), fixture_file_upload('files/document.pdf', "application/pdf")] }
+            :content    => [
+              fixture_file_upload('files/image.jpg', 'image/jpeg'),
+              fixture_file_upload('files/document.pdf', 'application/pdf')
+            ]
+          }
         ]
       )
       assert_equal 1, page.blocks.count
@@ -144,6 +169,7 @@ class CmsBlockTest < ActiveSupport::TestCase
             }
           ]
         )
+
         assert_equal 1, page.blocks.count
         block = page.blocks.first
         assert_equal 'files', block.identifier
