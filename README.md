@@ -74,12 +74,13 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 #### Dependencies
 
-  * [ImageMagick](http://www.imagemagick.org/) for [Paperclip](https://github.com/thoughtbot/paperclip) gem
-  * Either [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate) for pagination
+  * Install [ImageMagick](http://www.imagemagick.org/) for [paperclip](https://github.com/thoughtbot/paperclip)'s image processing
+  * Make sure that Gemfile has either [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate)
 
 #### Help and Contact
 
 GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
+
 Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
 
 ---
