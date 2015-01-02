@@ -147,7 +147,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_equal comfy_cms_pages(:default), comfy_cms_pages(:child).target_page
     get :show, :cms_path => 'child-page'
     assert_response :redirect
-    assert_redirected_to comfy_cms_pages(:default).url
+    assert_redirected_to comfy_cms_pages(:default).full_path
   end
 
   def test_show_unpublished
