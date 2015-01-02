@@ -7,8 +7,11 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   before_action :authorize
 
   def index
-    @files = @site.files.not_page_file.includes(:categories).for_category(params[:category])
-      .order('comfy_cms_files.position').page(params[:page]).per(50)
+    files_scope = @site.files.not_page_file
+      .includes(:categories)
+      .for_category(params[:category])
+      .order('comfy_cms_files.position')
+    @files = comfy_paginate(files_scope, 50)
   end
 
   def new

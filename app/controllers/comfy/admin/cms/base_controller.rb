@@ -52,4 +52,15 @@ protected
       flash.now[:danger] = I18n.t('comfy.admin.cms.base.fixtures_enabled')
     end
   end
+
+  # Wrapper to deal with WillPaginate vs Kaminari nonsense
+  def comfy_paginate(scope, per_page = 50)
+    if defined?(WillPaginate)
+      scope.paginate(:page => params[:page], :per_page => per_page)
+    elsif defined?(Kaminari)
+      scope.page(params[:page]).per(per_page)
+    else
+      raise 'Please install either Kaminari or WillPaginate'
+    end
+  end
 end

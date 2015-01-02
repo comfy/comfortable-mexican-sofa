@@ -70,4 +70,13 @@ module Comfy::CmsHelper
     return '' unless tag
     render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
   end
+
+  # Wrapper to deal with Kaminari vs WillPaginate
+  def comfy_paginate(collection)
+    if defined?(WillPaginate)
+      will_paginate collection
+    elsif defined?(Kaminari)
+      paginate collection, :theme => 'comfy'
+    end
+  end
 end
