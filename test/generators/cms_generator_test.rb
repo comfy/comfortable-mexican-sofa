@@ -11,7 +11,8 @@ class CmsGeneratorTest < Rails::Generators::TestCase
 
     assert_file 'config/initializers/comfortable_mexican_sofa.rb'
     assert_file 'config/initializers/mime_types.rb' do |file|
-      assert_match "Mime::Type.register 'text/plupload', :plupload", file
+      mime = "Mime::Type.register 'text/plupload', :plupload unless Mime::Type.lookup_by_extension(:plupload)"
+      assert_match mime, file
     end
 
     assert_file 'config/routes.rb', read_file('cms/routes.rb')

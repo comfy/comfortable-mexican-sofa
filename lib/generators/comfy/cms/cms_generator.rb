@@ -29,7 +29,7 @@ module Comfy
       def generate_mime_types
         create_file 'config/initializers/mime_types.rb'
         append_to_file 'config/initializers/mime_types.rb' do
-          "Mime::Type.register 'text/plupload', :plupload"
+          "Mime::Type.register 'text/plupload', :plupload unless Mime::Type.lookup_by_extension(:plupload)"
         end
       end
 
