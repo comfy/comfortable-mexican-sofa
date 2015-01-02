@@ -32,7 +32,7 @@ class CmsBlockTest < ActiveSupport::TestCase
 
     block.content = fixture_file_upload('files/image.jpg', 'image/jpeg')
     assert_equal nil, block.content
-    assert_equal 1, block.files.size
+    assert_equal 1, block.temp_files.size
   end
 
   def test_creation_via_page_nested_attributes

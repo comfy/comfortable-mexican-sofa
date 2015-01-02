@@ -33,12 +33,11 @@ class Comfy::Cms::Block < ActiveRecord::Base
     self.temp_files = [value].flatten.select do |f|
       FILE_CLASSES.member?(f.class.name)
     end
-    if self.temp_files.present?
-      value = nil
-      content_will_change!
-    end
 
+    # correctly triggering dirty
+    value = nil               if self.temp_files.present?
     write_attribute(:content, value)
+    self.content_will_change! if self.temp_files.present?
   end
 
 protected

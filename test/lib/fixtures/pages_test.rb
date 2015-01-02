@@ -21,7 +21,8 @@ class FixturePagesTest < ActiveSupport::TestCase
     assert_difference 'Comfy::Cms::Page.count', 2 do
       ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
 
-      assert page = Comfy::Cms::Page.where(:full_path => '/').first
+      assert page = Comfy::Cms::Page.find_by(:full_path => '/')
+
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
       assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content_cache
@@ -31,7 +32,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       assert_equal 2, page.categories.count
       assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
 
-      assert child_page = Comfy::Cms::Page.where(:full_path => '/child').first
+      assert child_page = Comfy::Cms::Page.find_by(:full_path => '/child')
       assert_equal page, child_page.parent
       assert_equal nested, child_page.layout
       assert_equal 'child', child_page.slug

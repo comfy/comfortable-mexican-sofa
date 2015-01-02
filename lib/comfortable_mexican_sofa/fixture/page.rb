@@ -48,7 +48,7 @@ module ComfortableMexicanSofa::Fixture::Page
             when 'haml'
               Haml::Engine.new(::File.open(block_path).read).render.rstrip
             else
-              ::File.open(block_path)
+              ::File.open(block_path).read
             end
 
             blocks_attributes << {
