@@ -74,7 +74,8 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 #### Dependencies
 
-As long as you successfully ran `bundle install` you should be ok. However, Paperclip requires *ImageMagick* to be installed to handle thumbnail generation.
+  * [ImageMagick](http://www.imagemagick.org/) for [Paperclip](https://github.com/thoughtbot/paperclip) gem
+  * Either [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate) for pagination
 
 #### Help and Contact
 
@@ -85,8 +86,5 @@ Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE)
 
-Copyright 2009-2014 Oleg Khabarov
+Copyright 2009-2015 Oleg Khabarov
 
----
-
-DOGE: DMTBhZjcgUZunCKMpKCJogBXBhQx2h7h5c
