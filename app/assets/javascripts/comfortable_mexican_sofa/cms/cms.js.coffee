@@ -3,7 +3,7 @@ window.CMS ||= {}
 window.CMS.current_path           = window.location.pathname
 window.CMS.code_mirror_instances  = [ ]
 
-$ ->
+$(document).on 'page:load ready', ->
   CMS.init()
 
 window.CMS.init = ->
