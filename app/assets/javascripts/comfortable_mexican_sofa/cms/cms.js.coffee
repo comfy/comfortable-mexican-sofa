@@ -6,6 +6,9 @@ $(document).on 'page:load ready', ->
   window.CMS.current_path = window.location.pathname
   CMS.init()
 
+$(document).on 'page:receive', ->
+  tinymce.remove()
+
 window.CMS.init = ->
   CMS.slugify()
   CMS.wysiwyg()
