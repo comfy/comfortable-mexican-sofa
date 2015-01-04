@@ -287,7 +287,14 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 0, page_2.children_count
     assert_equal 0, page_3.children_count
   end
-  
+
+  def test_as_json_with_blocks
+    page = comfy_cms_pages(:default)
+
+    assert_equal 'default_field_text', page.as_json['blocks'][0]['identifier']
+    assert_equal 'default_field_text_content', page.as_json['blocks'][0]['content']
+  end
+
 protected
   
   def new_params(options = {})
