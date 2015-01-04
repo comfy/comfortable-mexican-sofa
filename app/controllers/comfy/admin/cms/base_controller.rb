@@ -60,7 +60,7 @@ protected
     elsif defined?(Kaminari)
       scope.page(params[:page]).per(per_page)
     else
-      raise 'Please install either Kaminari or WillPaginate'
+      scope
     end
   end
 end
