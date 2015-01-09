@@ -150,6 +150,15 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_redirected_to comfy_cms_pages(:default).full_path
   end
 
+  def test_show_with_redirect_and_site_path
+    comfy_cms_sites(:default).update_column(:path, '/test-site-path')
+    comfy_cms_pages(:child).update_columns(:target_page_id => comfy_cms_pages(:default).id)
+    assert_equal comfy_cms_pages(:default), comfy_cms_pages(:child).target_page
+    get :show, :cms_path => '/test-site-path/child-page'
+    assert_response :redirect
+    assert_redirected_to "/test-site-path#{comfy_cms_pages(:default).full_path}"
+  end
+
   def test_show_unpublished
     page = comfy_cms_pages(:default)
     page.update_columns(:is_published => false)
