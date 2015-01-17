@@ -12,6 +12,11 @@
 #= require bootstrap-sprockets
 #= require comfy/admin/cms/lib/bootstrap-datetimepicker
 #= require comfy/admin/cms/lib/diff
+#= require comfy/admin/cms/lib/redactor
+#= require comfy/admin/cms/lib/redactor-filemanager
+#= require comfy/admin/cms/lib/redactor-imagemanager
+#= require comfy/admin/cms/lib/redactor-table
+#= require comfy/admin/cms/lib/redactor-video
 #= require comfy/admin/cms/base
 #= require comfy/admin/cms/uploader
 #= require comfy/admin/cms/files

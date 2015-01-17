@@ -6,9 +6,6 @@ $(document).on 'page:load ready', ->
   window.CMS.current_path = window.location.pathname
   CMS.init()
 
-$(document).on 'page:receive', ->
-  tinymce.remove()
-
 window.CMS.init = ->
   CMS.slugify()
   CMS.wysiwyg()
@@ -39,15 +36,26 @@ window.CMS.slugify = ->
 
 
 window.CMS.wysiwyg = ->
-  tinymce.init
-    selector:         'textarea[data-cms-rich-text]'
-    plugins:          ['link', 'image', 'code', 'autoresize']
-    toolbar:          'undo redo | styleselect | bullist numlist | link unlink image | code'
-    menubar:          false
-    statusbar:        false
-    relative_urls:    false
-    entity_encoding : 'raw'
-    autoresize_bottom_margin : 0
+  csrf_token = $('meta[name=csrf-token]').attr('content')
+  csrf_param = $('meta[name=csrf-param]').attr('content')
+
+  if (csrf_param != undefined && csrf_token != undefined)
+    params = csrf_param + "=" + encodeURIComponent(csrf_token)
+
+  $('textarea.rich-text-editor, textarea[data-cms-rich-text]').redactor
+    minHeight:      160
+    autoresize:     true
+    imageUpload:    "#{CMS.file_upload_path}?editor=redactor&#{params}"
+    imageGetJson:   "#{CMS.file_upload_path}?editor=redactor"
+    fileUpload:     "/admin/sites/1/files?editor=redactor&#{params}"
+    fileGetJson:    "/admin/sites/1/files?editor=redactor"
+    buttons:        [ 'html', 'formatting', '|',
+                      'bold', 'italic', 'alignment', 'horizontalrule', '|',
+                      'unorderedlist', 'orderedlist', '|',
+                      'outdent', 'indent', '|',
+                      'image', 'video', 'file', 'table', 'link']
+    formattingTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+    plugins:        ['imagemanager', 'filenamager', 'table', 'video']
 
 
 window.CMS.codemirror = ->
@@ -92,8 +100,6 @@ window.CMS.page_blocks = ->
       url: $(this).data('url'),
       data:
         layout_id: $(this).val()
-      beforeSend: ->
-        tinymce.remove()
       complete: ->
         CMS.wysiwyg()
         CMS.timepicker()

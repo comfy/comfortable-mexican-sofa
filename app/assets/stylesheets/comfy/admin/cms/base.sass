@@ -289,10 +289,12 @@ body#comfy
       background: url(image-path("comfy/admin/cms/icon_snippet.gif"))
 
   // -- Files ---------------------------------------------------------------
-  .cms-files-modal iframe
-    width: 100%
-    height: 100%
-    border: 0
+  .cms-files-modal
+    z-index: 99999
+    iframe
+      width: 100%
+      height: 100%
+      border: 0
 
   &.c-comfy-admin-cms-files
     .file-image img
