@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails',        '>= 4.0.3'
   s.add_dependency 'coffee-rails',      '>= 3.1.0'
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
-  s.add_dependency 'tinymce-rails',     '>= 4.0.0'
   s.add_dependency 'bootstrap-sass',    '>= 3.2.0'
   s.add_dependency 'plupload-rails',    '>= 1.2.1'
 end

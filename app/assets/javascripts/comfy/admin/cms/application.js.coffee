@@ -1,8 +1,6 @@
 #= require jquery
-#= require bootstrap-sprockets
 #= require jquery_ujs
 #= require jquery-ui
-#= require tinymce-jquery
 #= require codemirror
 #= require codemirror/modes/css
 #= require codemirror/modes/htmlmixed
@@ -11,8 +9,10 @@
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
 #= require bootstrap
-#= require comfortable_mexican_sofa/lib/bootstrap-datetimepicker
-#= require comfortable_mexican_sofa/lib/diff
-#= require comfortable_mexican_sofa/cms/cms
-#= require comfortable_mexican_sofa/cms/uploader
-#= require comfortable_mexican_sofa/cms/files
+#= require bootstrap-sprockets
+#= require comfy/admin/cms/lib/bootstrap-datetimepicker
+#= require comfy/admin/cms/lib/diff
+#= require comfy/admin/cms/base
+#= require comfy/admin/cms/uploader
+#= require comfy/admin/cms/files
+#= require comfy/admin/cms/custom

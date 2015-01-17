@@ -1,13 +1,11 @@
 %head
-  %meta{'http-equiv' => "Content-type", :content => "text/html; charset=utf-8"}
+  %meta{'http-equiv' => 'Content-type', :content => 'text/html; charset=utf-8'}
   %title= ComfortableMexicanSofa.config.cms_title
   = csrf_meta_tag
-  
-  = stylesheet_link_tag 'comfortable_mexican_sofa/application', 'data-turbolinks-track' => true
-  = stylesheet_link_tag 'comfortable_mexican_sofa/admin/application', 'data-turbolinks-track' => true
-  = javascript_include_tag 'comfortable_mexican_sofa/application', 'data-turbolinks-track' => true
-  = javascript_include_tag 'comfortable_mexican_sofa/admin/application', 'data-turbolinks-track' => true
-  
+
+  = stylesheet_link_tag     'comfy/admin/cms/application', 'data-turbolinks-track' => true
+  = javascript_include_tag  'comfy/admin/cms/application', 'data-turbolinks-track' => true
+
   = yield :head
-  
+
   = render 'comfy/admin/cms/partials/html_head'

@@ -45,10 +45,10 @@ module Comfy
       end
 
       def generate_assets
-        directory 'app/assets/javascripts/comfortable_mexican_sofa/admin',
-          'app/assets/javascripts/comfortable_mexican_sofa/admin'
-        directory 'app/assets/stylesheets/comfortable_mexican_sofa/admin',
-          'app/assets/stylesheets/comfortable_mexican_sofa/admin'
+        copy_file 'app/assets/javascripts/comfy/admin/cms/custom.js.coffee',
+          'app/assets/javascripts/comfy/admin/cms/custom.js.coffee'
+        copy_file 'app/assets/stylesheets/comfy/admin/cms/custom.sass',
+          'app/assets/stylesheets/comfy/admin/cms/custom.sass'
       end
 
       def show_readme

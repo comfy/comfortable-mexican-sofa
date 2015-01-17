@@ -6,8 +6,8 @@ class CmsAssetsGeneratorTest < Rails::Generators::TestCase
 
   def test_generator
     run_generator
-    assert_directory 'app/assets/images/comfortable_mexican_sofa'
-    assert_directory 'app/assets/javascripts/comfortable_mexican_sofa'
-    assert_directory 'app/assets/stylesheets/comfortable_mexican_sofa'
+    assert_directory 'app/assets/images/comfy/admin/cms'
+    assert_directory 'app/assets/javascripts/comfy/admin/cms'
+    assert_directory 'app/assets/stylesheets/comfy/admin/cms'
   end
 end
