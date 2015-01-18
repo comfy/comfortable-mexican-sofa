@@ -12,7 +12,7 @@ ComfortableMexicanSofa is a powerful Rails 4 CMS Engine
 * Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, zh-CN, zh-TW)
 * [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
-* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [TinyMCE](http://www.tinymce.com/)
+* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [Redactor](http://imperavi.com/redactor)
 
 ## Installation
 
@@ -85,7 +85,7 @@ Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
 
 #### Acknowledgements
 
-* Big thanks to Roman Almeida ([@nasmorn](https://github.com/nasmorn)) for contributing OEM Lisence for [Redactor Text Editor](http://imperavi.com/redactor/download/)
+* Big thanks to Roman Almeida ([@nasmorn](https://github.com/nasmorn)) for contributing OEM Lisence for [Redactor Text Editor](http://imperavi.com/redactor)
 
 ---
 
