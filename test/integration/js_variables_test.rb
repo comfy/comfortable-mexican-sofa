@@ -18,4 +18,3 @@ class JsVariablesIntegrationTest < ActionDispatch::IntegrationTest
   end
 
 end
-

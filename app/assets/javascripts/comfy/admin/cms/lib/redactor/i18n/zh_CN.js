@@ -1,5 +1,5 @@
 (function ($) {
-$.Redactor.opts.langs['zh_cn'] = {
+$.Redactor.opts.langs['zh-CN'] = {
 	html: 'HTML代码',
 	video: '视频',
 	image: '图片',
