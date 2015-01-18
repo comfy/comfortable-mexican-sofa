@@ -46,8 +46,9 @@ protected
 
   def load_fixtures
     return unless ComfortableMexicanSofa.config.enable_fixtures
-    controllers = %w(comfy/admin/cms/layouts comfy/admin/cms/pages comfy/admin/cms/snippets)
-    if controllers.member?(params[:controller])
+
+    controllers = %w(layouts pages snippets files).collect{|c| 'comfy/admin/cms/' + c}
+    if controllers.member?(params[:controller]) && params[:action] == 'index'
       ComfortableMexicanSofa::Fixture::Importer.new(@site.identifier).import!
       flash.now[:danger] = I18n.t('comfy.admin.cms.base.fixtures_enabled')
     end

@@ -73,6 +73,7 @@ module Comfy::CmsHelper
 
   # Wrapper to deal with Kaminari vs WillPaginate
   def comfy_paginate(collection)
+    return unless collection
     if defined?(WillPaginate)
       will_paginate collection
     elsif defined?(Kaminari)

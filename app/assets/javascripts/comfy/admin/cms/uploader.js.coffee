@@ -61,8 +61,6 @@
       browse_button:  "#{id}-browse"
       container:      id
       file_data_name: "file[file]"
-      headers:
-        Accept: "text/plupload"
     , settings)
 
     uploader = new plupload.Uploader(settings)

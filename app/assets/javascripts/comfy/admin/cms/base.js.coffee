@@ -43,19 +43,15 @@ window.CMS.wysiwyg = ->
     params = csrf_param + "=" + encodeURIComponent(csrf_token)
 
   $('textarea.rich-text-editor, textarea[data-cms-rich-text]').redactor
-    minHeight:      160
-    autoresize:     true
-    imageUpload:    "#{CMS.file_upload_path}?editor=redactor&#{params}"
-    imageGetJson:   "#{CMS.file_upload_path}?editor=redactor"
-    fileUpload:     "/admin/sites/1/files?editor=redactor&#{params}"
-    fileGetJson:    "/admin/sites/1/files?editor=redactor"
-    buttons:        [ 'html', 'formatting', '|',
-                      'bold', 'italic', 'alignment', 'horizontalrule', '|',
-                      'unorderedlist', 'orderedlist', '|',
-                      'outdent', 'indent', '|',
-                      'image', 'video', 'file', 'table', 'link']
-    formattingTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-    plugins:        ['imagemanager', 'filenamager', 'table', 'video']
+    minHeight:        160
+    autoresize:       true
+    imageUpload:      "#{CMS.file_upload_path}?source=redactor&type=image&#{params}"
+    imageManagerJson: "#{CMS.file_upload_path}?source=redactor&type=image"
+    fileUpload:       "#{CMS.file_upload_path}?source=redactor&type=file&#{params}"
+    fileManagerJson:  "#{CMS.file_upload_path}?source=redactor&type=file"
+    buttonSource:     true
+    formattingTags:   ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+    plugins:          ['imagemanager', 'filemanager', 'table', 'video']
 
 
 window.CMS.codemirror = ->
