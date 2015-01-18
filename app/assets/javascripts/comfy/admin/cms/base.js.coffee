@@ -52,6 +52,7 @@ window.CMS.wysiwyg = ->
     buttonSource:     true
     formattingTags:   ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
     plugins:          ['imagemanager', 'filemanager', 'table', 'video']
+    lang:             CMS.locale
 
 
 window.CMS.codemirror = ->

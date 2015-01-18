@@ -7,12 +7,6 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     @file = comfy_cms_files(:default)
   end
 
-  def test_redactor_js_variables
-    get :index, :site_id => @site
-    js = "CMS.file_upload_path = '#{comfy_admin_cms_site_files_path(@site)}';"
-    assert_select 'script', /\s*#{js}\s*/
-  end
-
   def test_get_index
     get :index, :site_id => @site
     assert_response :success
