@@ -7,6 +7,7 @@ $(document).on 'page:load ready', ->
   CMS.init()
 
 window.CMS.init = ->
+  CMS.set_iframe_layout()
   CMS.slugify()
   CMS.wysiwyg()
   CMS.codemirror()
@@ -150,6 +151,3 @@ window.CMS.set_iframe_layout = ->
   $('body').ready ->
     if in_iframe()
       $('body').addClass('in-iframe')
-
-# Triggering this right away to prevent flicker
-window.CMS.set_iframe_layout()
