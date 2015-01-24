@@ -9,7 +9,7 @@ ComfortableMexicanSofa is a powerful Rails 4 CMS Engine
 * Build your application in Rails, not in CMS
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
-* Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, zh-CN, zh-TW)
+* Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, uk, zh-CN, zh-TW)
 * [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
 * [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://twitter.github.com/bootstrap/), [CodeMirror](http://codemirror.net/) and [Redactor](http://imperavi.com/redactor)
