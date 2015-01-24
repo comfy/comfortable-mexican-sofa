@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
-  
+
   def setup
     super
     Rails.application.routes.draw do
@@ -15,11 +15,11 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       { :identifier => 'content', :content => 'TestBlockContent' }
     ])
   end
-  
+
   def teardown
     Rails.application.reload_routes!
   end
-  
+
   def create_site_b
     site    = Comfy::Cms::Site.create!(
       :identifier => 'site-b',
@@ -32,23 +32,23 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       :layout => layout,
       :blocks_attributes  => [{ :identifier => 'content', :content => 'SiteBContent' }])
   end
-  
+
   class ::RenderTestController < ApplicationController
     append_view_path(File.expand_path('../fixtures/views', File.dirname(__FILE__)))
-    
+
     def render_basic
       case params[:type]
       when 'text'
         render :text => 'TestText'
       when 'update'
-        render :update do |page| 
+        render :update do |page|
           page.alert('rendered text')
         end
       else
         render
       end
     end
-    
+
     def render_page
       case params[:type]
       when 'page_implicit'
@@ -67,7 +67,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
         raise 'Invalid or no param[:type] provided'
       end
     end
-    
+
     def render_layout
       @test_value = 'TestValue'
       case params[:type]
@@ -95,20 +95,21 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     def new
     end
   end
-  
+
   # -- Basic Render Tests ---------------------------------------------------
   def test_text
     get '/render-basic?type=text'
     assert_response :success
     assert_equal 'TestText', response.body
   end
-  
+
   def test_implicit_cms_page_failure
+    Comfy::Cms::Site.destroy_all
     assert_exception_raised ActionView::MissingTemplate do
       get '/render-basic'
     end
   end
-  
+
   # -- Page Render Test -----------------------------------------------------
   def test_implicit_cms_page
     page = comfy_cms_pages(:child)
@@ -121,7 +122,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal page, assigns(:cms_page)
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_implicit_cms_page_with_site_path
     comfy_cms_sites(:default).update_column(:path, 'site-path')
     comfy_cms_pages(:child).update_attributes(:slug => 'render-page')
@@ -129,7 +130,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_explicit_cms_page
     page = comfy_cms_pages(:child)
     page.update_attributes(slug: 'test-page')
@@ -141,7 +142,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal page, assigns(:cms_page)
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_explicit_cms_page_with_status
     page = comfy_cms_pages(:child)
     page.update_attributes(:slug => 'test-page')
@@ -153,7 +154,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal page, assigns(:cms_page)
     assert_equal 'TestBlockContent', response.body
   end
-  
+
   def test_explicit_cms_page_failure
     page = comfy_cms_pages(:child)
     page.update_attributes(:slug => 'invalid')
@@ -162,7 +163,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       raise Rails.env.to_s
     end
   end
-  
+
   def test_explicit_with_site
     create_site_b
     get '/render-page?type=page_explicit_with_site'
@@ -171,13 +172,13 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal 'site-b', assigns(:cms_site).identifier
     assert_equal 'site-b SiteBContent', response.body
   end
-  
+
   def test_explicit_with_site_failure
     assert_exception_raised ComfortableMexicanSofa::MissingSite do
       get '/render-page?type=page_explicit_with_site'
     end
   end
-  
+
   def test_explicit_with_page_blocks
     page = comfy_cms_pages(:child)
     page.update_attributes(slug: 'test-page')
@@ -185,7 +186,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'custom page content', response.body
   end
-  
+
   # -- Layout Render Tests --------------------------------------------------
   def test_cms_layout_defaults
     get '/render-layout?type=layout_defaults'
@@ -195,7 +196,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_layout)
     assert_equal comfy_cms_layouts(:default), assigns(:cms_layout)
   end
-  
+
   def test_cms_layout
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:content}} {{cms:page:content_b}} {{cms:page:content_c}}')
     get '/render-layout?type=layout'
@@ -205,7 +206,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_layout)
     assert_equal comfy_cms_layouts(:default), assigns(:cms_layout)
   end
-  
+
   def test_cms_layout_with_status
     get '/render-layout?type=layout_with_status'
     assert_response 404
@@ -224,13 +225,13 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert assigns(:cms_layout)
     assert_equal comfy_cms_layouts(:default), assigns(:cms_layout)
   end
-  
+
   def test_cms_layout_failure
     assert_exception_raised ComfortableMexicanSofa::MissingLayout do
       get '/render-layout?type=layout_invalid'
     end
   end
-  
+
   def test_cms_layout_defaults_with_site
     create_site_b
     get '/render-layout?type=layout_defaults_with_site'
@@ -239,11 +240,11 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal 'site-b', assigns(:cms_site).identifier
     assert_equal 'site-b TestTemplate TestValue', response.body
   end
-  
+
   def test_cms_layout_defaults_with_site_failure
     assert_exception_raised ComfortableMexicanSofa::MissingSite do
       get '/render-layout?type=layout_defaults_with_site'
     end
   end
-  
+
 end
