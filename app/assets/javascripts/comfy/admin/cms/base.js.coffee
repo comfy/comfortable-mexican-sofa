@@ -14,6 +14,7 @@ window.CMS.init = ->
   CMS.sortable_list()
   CMS.timepicker()
   CMS.page_blocks()
+  CMS.page_file_popovers()
   CMS.mirrors()
   CMS.page_update_preview()
   CMS.page_update_publish()
@@ -102,7 +103,14 @@ window.CMS.page_blocks = ->
         CMS.wysiwyg()
         CMS.timepicker()
         CMS.codemirror()
-        CMS.reinitialize_page_blocks() if CMS.reinitialize_page_blocks?
+        CMS.page_file_popovers()
+
+
+window.CMS.page_file_popovers = ->
+  $('[data-toggle="page-file-popover"]').popover
+    trigger:    'hover'
+    placement:  'top'
+    html:       true
 
 
 window.CMS.mirrors = ->
