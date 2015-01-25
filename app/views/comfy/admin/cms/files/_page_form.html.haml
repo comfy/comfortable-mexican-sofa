@@ -4,6 +4,14 @@
   .files
     - files.each do |file|
       .file{:class => dom_id(file)}
-        = link_to file.file_file_name, file.file.url, :target => '_blank'
-        = link_to comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
-          %i.glyphicon.glyphicon-remove-circle
+        = link_to file.file.url, :target => '_blank' do
+          - geometry = Paperclip::Geometry.from_file(file.file)
+          #{file.label} | #{file.file_file_name} | #{geometry.width.to_i} x #{geometry.height.to_i} px|  #{file.file_content_type} | #{number_to_human_size(file.file_file_size, precision: 4)}
+          %br
+          %img{src: file.file.url(:cms_thumb)}
+        = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+
+  :coffeescript
+    $ ->
+      $("a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
+        location.reload()
