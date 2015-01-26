@@ -148,6 +148,7 @@ en:
             cancel: Cancel
             update: Update Page
             is_published: Published
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Layout has no content tags defined.<br/>

@@ -148,6 +148,7 @@ de:
             cancel: Abbrechen
             update: Seite speichern
             is_published: Veröffentlicht
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Das gewählte Layout hat kein Comfy-Tag deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>

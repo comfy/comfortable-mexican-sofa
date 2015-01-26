@@ -148,6 +148,7 @@ ja:
             cancel: キャンセル
             update: ページを更新
             is_published: パブリッシュ済み
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>

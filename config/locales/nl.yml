@@ -148,6 +148,7 @@ nl:
             cancel: Annuleren
             update: Pagina Bijwerken
             is_published: Gepubliceerd
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Lay-out heeft geen inhoud-tags gedefinieerd.<br/>

@@ -9,12 +9,20 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to :action => :new if site_has_no_pages?
 
-    @pages_by_parent = pages_grouped_by_parent
-
-    if params[:category].present?
-      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+    case params[:source]
+    when 'redactor'
+      @pages = @site.pages.published
+      render :json => @pages.sort_by{|l| l.ancestors.reverse.map{|l|l.position + 1}.join('') + (l.position + 1).to_s }.map{|l|
+          { "name" => l.ancestors.map{|l|'&nbsp;'}.join('') + l.label, "url" => l.url(:relative) }
+        }.insert(0, { "name" => I18n.t('comfy.admin.cms.pages.form.choose_link'), "url" => false } )
     else
-      @pages = [@site.pages.root].compact
+      @pages_by_parent = pages_grouped_by_parent
+
+      if params[:category].present?
+        @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+      else
+        @pages = [@site.pages.root].compact
+      end
     end
   end
 

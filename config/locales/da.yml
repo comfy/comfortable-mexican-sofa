@@ -148,6 +148,7 @@ da:
             cancel: Annuller
             update: Opdater side
             is_published: Udgivet
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>
