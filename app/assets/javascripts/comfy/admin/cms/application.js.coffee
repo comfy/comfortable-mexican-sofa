@@ -15,6 +15,7 @@
 #= require comfy/admin/cms/lib/redactor
 #= require comfy/admin/cms/lib/redactor/filemanager
 #= require comfy/admin/cms/lib/redactor/imagemanager
+#= require comfy/admin/cms/lib/redactor/definedlinks
 #= require comfy/admin/cms/lib/redactor/table
 #= require comfy/admin/cms/lib/redactor/video
 #= require_directory ./lib/redactor/i18n/

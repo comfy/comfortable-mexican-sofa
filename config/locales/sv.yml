@@ -148,6 +148,7 @@ sv:
             cancel: Avbryt
             update: Uppdatera sida
             is_published: Publicerad
+            choose_link: Välj sida...
           form_blocks:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>

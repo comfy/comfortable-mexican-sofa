@@ -10,6 +10,7 @@ class JsVariablesIntegrationTest < ActionDispatch::IntegrationTest
     js_vars = <<-HTML.strip_heredoc
       <script>
         CMS.file_upload_path  = '#{comfy_admin_cms_site_files_path(site)}';
+        CMS.pages_path  = '#{comfy_admin_cms_site_pages_path(site)}';
         CMS.locale            = 'en';
       </script>
     HTML

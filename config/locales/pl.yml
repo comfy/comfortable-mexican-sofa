@@ -148,6 +148,7 @@ pl:
             cancel: Anulować
             update: Uaktualnij stronę
             is_published: Opublikowana
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>

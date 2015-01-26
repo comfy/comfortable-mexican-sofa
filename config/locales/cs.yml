@@ -148,6 +148,7 @@ cs:
             cancel: Zrušit
             update: Upravit stránku
             is_published: Publikovaná
+            choose_link: Select page...
           form_blocks:
             no_tags: |-
               Rozložení nedefinuje žádné obsahové značky.<br/>

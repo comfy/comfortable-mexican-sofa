@@ -483,4 +483,16 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_equal 0, page_two.position
   end
 
+  def test_get_links_with_redactor
+    page = comfy_cms_pages(:default)
+
+    get :index, :site_id => comfy_cms_sites(:default), :source => 'redactor'
+    assert_response :success
+
+    assert_equal ({
+      'name' => page.label,
+      'url' => page.url(:relative)
+    }), JSON.parse(response.body)[1]
+  end
+
 end

@@ -148,6 +148,7 @@ nb:
             cancel: Cancel
             update: Endre side
             is_published: Publisert
+            choose_link: Velg side...
           form_blocks:
             no_tags: |-
               layout har ingen innholdsknagger definert.<br/>
