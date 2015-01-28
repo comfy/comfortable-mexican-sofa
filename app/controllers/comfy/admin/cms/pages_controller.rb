@@ -9,20 +9,14 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to :action => :new if site_has_no_pages?
 
-    case params[:source]
-    when 'redactor'
-      @pages = @site.pages.published
-      render :json => @pages.sort_by{|l| l.ancestors.reverse.map{|l|l.position + 1}.join('') + (l.position + 1).to_s }.map{|l|
-          { "name" => l.ancestors.map{|l|'&nbsp;'}.join('') + l.label, "url" => l.url(:relative) }
-        }.insert(0, { "name" => I18n.t('comfy.admin.cms.pages.form.choose_link'), "url" => false } )
-    else
-      @pages_by_parent = pages_grouped_by_parent
+    return index_for_redactor if params[:source] == 'redactor'
 
-      if params[:category].present?
-        @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
-      else
-        @pages = [@site.pages.root].compact
-      end
+    @pages_by_parent = pages_grouped_by_parent
+
+    if params[:category].present?
+      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+    else
+      @pages = [@site.pages.root].compact
     end
   end
 
@@ -81,6 +75,25 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
 protected
+
+  def index_for_redactor
+    tree_walker = ->(page, list, offset) do
+      return unless page.present?
+      label = "#{'. . ' * offset}#{page.label}"
+      list << {:name => label, :url => page.url(:relative)}
+      page.children.each do |child_page|
+        tree_walker.(child_page, list, offset + 1)
+      end
+      list
+    end
+
+    page_select_options = [{
+      :name => I18n.t('comfy.admin.cms.pages.form.choose_link'),
+      :url  => false
+    }] + tree_walker.(@site.pages.root, [ ], 0)
+
+    render :json => page_select_options
+  end
 
   def site_has_no_pages?
     @site.pages.count == 0
