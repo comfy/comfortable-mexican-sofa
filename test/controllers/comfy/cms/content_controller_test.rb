@@ -34,6 +34,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'application/json', response.content_type
 
+
     content = rendered_content_formatter(
       '
       layout_content_a

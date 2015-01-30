@@ -2,21 +2,21 @@
 
 class Comfy::Cms::Layout < ActiveRecord::Base
   self.table_name = 'comfy_cms_layouts'
-  
+
   cms_acts_as_tree
   cms_is_mirrored
   cms_has_revisions_for :content, :css, :js
-  
+
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   has_many :pages, :dependent => :nullify
-  
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
   after_save    :clear_page_content_cache
   after_destroy :clear_page_content_cache
-  
+
   # -- Validations ----------------------------------------------------------
   validates :site_id,
     :presence   => true
@@ -26,10 +26,10 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     :presence   => true,
     :uniqueness => { :scope => :site_id },
     :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
-    
+
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_layouts.position') }
-  
+
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
@@ -43,7 +43,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     end
     return out.compact
   end
-  
+
   # List of available application layouts
   def self.app_layouts_for_select
     Dir.glob(File.expand_path('app/views/layouts/**/*.html.*', Rails.root)).collect do |filename|
@@ -51,7 +51,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
       filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
     end.compact.sort
   end
-  
+
   # -- Instance Methods -----------------------------------------------------
   # magical merging tag is {cms:page:content} If parent layout has this tag
   # defined its content will be merged. If no such tag found, parent content
@@ -72,23 +72,23 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   def cache_buster
     updated_at.to_i
   end
-  
+
 protected
-  
+
   def assign_label
     self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
-  
+
   def assign_position
     return if self.position.to_i > 0
     max = self.site.layouts.where(:parent_id => self.parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
-  
+
   # Forcing page content reload
   def clear_page_content_cache
-    Comfy::Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content_cache => nil)
+    self.pages.each { |page| page.clear_content_cache! }
     self.children.each{ |child_layout| child_layout.clear_page_content_cache }
   end
-  
+
 end

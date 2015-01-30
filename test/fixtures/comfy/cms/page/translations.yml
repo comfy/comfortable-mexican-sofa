@@ -1,0 +1,13 @@
+default:
+  translateable: default (Comfy::Cms::Page)
+  locale: de
+  slug:
+  full_path: '/'
+  is_published: true
+  content_cache: |-
+
+    layout_content_a
+
+    layout_content_b
+    default_snippet_content
+    layout_content_c

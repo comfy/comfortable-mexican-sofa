@@ -1,4 +1,20 @@
 .page-header
+  = link_to t('.delete'), comfy_admin_cms_site_page_path(@site, @page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger pull-right'
+  - if @page.translations?
+    .btn-group.pull-right
+      %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+        = t('.translation.translate')
+        %span.caret
+      %ul.dropdown-menu{role: "menu"}
+        - @page.translations.each do |translation|
+          %li
+            = link_to comfy_admin_cms_site_page_translation_path(@site, @page, translation), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
+              %i.glyphicon.glyphicon-remove-circle
+            = link_to t('.translation.edit', language: t("comfy.locales.#{translation.locale}", default: translation.locale.humanize)), edit_comfy_admin_cms_site_page_translation_path(@site, @page, translation)
+        %li.divider{role: "presentation"}
+        %li= link_to t('.translation.add'), new_comfy_admin_cms_site_page_translation_path(@site, @page)
+  - else
+    = link_to t('.translation.translate'), new_comfy_admin_cms_site_page_translation_path(@site, @page), :class => 'btn btn-default pull-right'
   = link_to t('.revision', :count => @page.revisions.count), comfy_admin_cms_site_page_revisions_path(@site, @page), :class => 'btn btn-default pull-right'
   %h2= t('.title')
 

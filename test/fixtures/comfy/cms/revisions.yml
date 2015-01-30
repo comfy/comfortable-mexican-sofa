@@ -4,7 +4,7 @@ layout:
     'content' => 'revision {{cms:page:default_page_text}}',
     'css'     => 'revision css',
     'js'      => 'revision js' }.to_yaml.inspect %>
-    
+
 page:
   record: default (Comfy::Cms::Page)
   data: <%= {
@@ -14,8 +14,16 @@ page:
       { 'identifier'  => 'default_field_text',
         'content'     => 'revision field content'}
     ]}.to_yaml.inspect %>
-      
+
 snippet:
   record: default (Comfy::Cms::Snippet)
   data: <%= {
     'content' => 'revision content' }.to_yaml.inspect %>
+
+translation:
+  record: default (Comfy::Cms::Translation)
+  data: <%= {
+    'blocks_attributes' => [
+      { 'identifier'  => 'default_translation_text',
+        'content'     => 'revision translation content' }
+    ]}.to_yaml.inspect %>

@@ -103,6 +103,7 @@ body#comfy
       label
         padding-top: 0
 
+
   // -- Common Elements -----------------------------------------------------
   table.table, ul.list
     .icon
@@ -136,6 +137,9 @@ body#comfy
   .item-meta
     font-size: 11px
     line-height: 14px
+  .dropdown-menu a.delete
+    position: absolute
+    right: 0
 
   .cms-partial
     background-color: #252525
@@ -147,6 +151,7 @@ body#comfy
     margin: 3px
     background-image: linear-gradient(-45deg, rgba(255, 255, 255, .05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%, transparent 75%, transparent)
     background-size: 50px 50px
+
 
   // -- Sofa Version --------------------------------------------------------
   .center-column .body-footer
@@ -216,7 +221,6 @@ body#comfy
     margin: 0
     list-style: none
     .item
-      overflow: hidden
       padding: 5px
       border-radius: 3px
       margin-bottom: 5px
@@ -244,9 +248,7 @@ body#comfy
         margin-left: 60px
         a.item-label
           color: #000
-      .btn-group
-        float: right
-    li ul
+    li ul.children
       list-style: none
       padding: 0
       margin: 0 0 0 28px

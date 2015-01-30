@@ -10,3 +10,11 @@ default_page_text:
     default_page_text_content_a
     {{cms:snippet:default}}
     default_page_text_content_b
+
+default_translation_text:
+  blockable: default (Comfy::Cms::Translation)
+  identifier: default_translation_text
+  content: |-
+    default_page_text_content_a
+    {{cms:snippet:default}}
+    default_page_text_content_b

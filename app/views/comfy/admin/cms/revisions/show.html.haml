@@ -3,7 +3,7 @@
     = t('.title')
     = @record.class.to_s.demodulize
   %h4
-    = @record.is_a?(::Comfy::Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}"
+    = @record.respond_to?(:full_path) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}"
 
 - content_for :right_column do
   .box.revisions

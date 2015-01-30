@@ -12,24 +12,42 @@
       - if !category_view && has_children && !page.root?
         = link_to toggle_branch_comfy_admin_cms_site_page_path(@site, page), :remote => true do
           %span= t('.toggle')
-        
+
     .icon{:class => page.is_published?? 'published' : 'draft'}
       - if !category_view && has_siblings
         .dragger
           %span &#8645;
-          
-    .btn-group.btn-group-sm
+
+    .btn-group.btn-group-sm.pull-right
       = link_to t('.add_child_page'), new_comfy_admin_cms_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-default'
+
+      - if page.translations?
+        .btn-group.btn-group-sm
+          %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
+            = t('.translation.translate')
+            %span.caret
+          %ul.dropdown-menu{role: "menu"}
+            - page.translations.each do |translation|
+              %li
+                = link_to comfy_admin_cms_site_page_translation_path(@site, page, translation), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
+                  %i.glyphicon.glyphicon-remove-circle
+                = link_to t('.translation.edit', language: t("comfy.locales.#{translation.locale}", default: translation.locale.humanize)), edit_comfy_admin_cms_site_page_translation_path(@site, page, translation)
+            %li.divider{role: "presentation"}
+            %li= link_to t('.translation.add'), new_comfy_admin_cms_site_page_translation_path(@site, page)
+      - else
+        = link_to t('.translation.translate'), new_comfy_admin_cms_site_page_translation_path(@site, page), :class => 'btn btn-default'
+
       = link_to t('.edit'), edit_comfy_admin_cms_site_page_path(@site, page), :class => 'btn btn-default'
       = link_to t('.delete'), comfy_admin_cms_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
-      
+
     .item-content
       .item-title
         = link_to page.label, edit_comfy_admin_cms_site_page_path(@site, page), :class => 'item-label'
         = render :partial => 'comfy/admin/cms/categories/categories', :object => page
       .item-meta
         = link_to page.url, page.url, :target => '_blank'
-        
+        = page.available_locales.join(', ') if page.translations?
+
   - if !category_view && has_children && branch_open
     %ul.children.sortable
       = render :partial => 'index_branch', :collection => children

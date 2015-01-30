@@ -370,8 +370,8 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Block.count', -2 do
-        delete :destroy, :site_id => @site, :id => comfy_cms_pages(:default)
+      assert_difference 'Comfy::Cms::Block.count', -3 do
+        delete :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_pages(:default)
         assert_response :redirect
         assert_redirected_to :action => :index
         assert_equal 'Page deleted', flash[:success]
