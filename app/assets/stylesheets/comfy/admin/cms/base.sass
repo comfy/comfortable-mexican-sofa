@@ -278,12 +278,27 @@ body#comfy
       .files
         margin: 5px 0
         .file
-          display: inline-block
-          border: 1px solid #ccc
-          border-radius: 3px
-          padding: 0 5px
-          margin-bottom: 5px
-          font-size: 12px
+          $size: 100px
+          height: $size
+          .thumbnail
+            display: block
+            float: left
+            width: $size
+            height: $size
+            line-height: $size - 8px - 2px // size - padding - border from TWBS .thumbnail
+            margin-right: 10px
+            text-align: center
+            img
+              display: inline-block
+              max-width: 100%
+              max-height: 100%
+            i
+              font-size: 40px
+              top: 12px
+              left: 5px
+          .file-label
+            display: inline-block
+            margin: 20px 0 5px 0
 
   // -- Snippets ------------------------------------------------------------
   &.c-comfy-admin-cms-snippets
