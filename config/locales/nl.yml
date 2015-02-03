@@ -46,13 +46,13 @@ nl:
         site_not_found: Site niet gevonden
         layout_not_found: Lay-out niet gevonden
         page_not_found: Pagina niet gevonden
-        
+
     admin:
       cms:
         base:
           site_not_found: Site niet gevonden
           fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
-          
+
           sites: Sites
           layouts: Lay-outs
           pages: Pagina's
@@ -66,7 +66,7 @@ nl:
           update_failure: Site bijwerken mislukt
           deleted: Site verwijderd
           not_found: Site niet gevonden
-          
+
           index:
             title: Sites
             new_link: Maak Nieuwe Site Aan
@@ -91,7 +91,7 @@ nl:
           update_failure: Lay-out bijwerken mislukt
           deleted: Lay-out verwijderd
           not_found: Lay-out niet gevonden
-          
+
           index:
             title: Lay-outs
             new_link: Maak Nieuwe Lay-out Aan
@@ -125,7 +125,7 @@ nl:
           deleted: Pagina verwijderd
           not_found: Pagina niet gevonden
           layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
-          
+
           index:
             title: Pagina's
             new_link: Maak Nieuwe Pagina Aan
@@ -161,7 +161,7 @@ nl:
           update_failure: Snippet bijwerken mislukt
           deleted: Snippet verwijderd
           not_found: Snippet niet gevonden
-          
+
           index:
             title: Snippets
             new_link: Maak Nieuw Snippet Aan
@@ -183,7 +183,7 @@ nl:
           reverted: Content teruggezet
           record_not_found: Record niet gevonden
           not_found: Revisie niet gevonden
-          
+
           show:
             title: Revisies van
             revision: Revisie
@@ -202,7 +202,7 @@ nl:
           update_failure: Bestand bijwerken mislukt
           deleted: Bestand verwijderd
           not_found: Bestand niet gevonden
-          
+
           index:
             title: Bestanden
             new_link: Upload Nieuw Bestand
@@ -219,11 +219,18 @@ nl:
             create: Upload Bestand
             cancel: Annuleren
             update: Update Bestand
-          page_form:
-            are_you_sure: Weet u het zeker?
           file:
             are_you_sure: Weet u het zeker?
-            
+
+        tags:
+          page_file:
+            are_you_sure: Weet u het zeker?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
+
         categories:
           index:
             label: Categorieën

@@ -21,5 +21,6 @@
 #= require_directory ./lib/redactor/i18n/
 #= require comfy/admin/cms/base
 #= require comfy/admin/cms/uploader
+#= require comfy/admin/cms/files_library
 #= require comfy/admin/cms/files
 #= require comfy/admin/cms/custom

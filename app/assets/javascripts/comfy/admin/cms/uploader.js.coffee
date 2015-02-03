@@ -48,7 +48,7 @@
         $('span', progress_bar).html(file.error_message)
 
     uploader = undefined
-    id      = target.attr("id")
+    id = target.attr("id")
 
     unless id
       id = plupload.guid()
@@ -65,7 +65,6 @@
 
     uploader = new plupload.Uploader(settings)
     uploader.bind "PostInit", (up) ->
-
       # Show drag and drop info and attach events if drag and drop is
       # supported and enabled.
       if up.settings.dragdrop and up.features.dragdrop
@@ -125,6 +124,11 @@
       # Replace the dummy file entry in the file list with the the entry
       # from the server response.
       $("tr##{file.id}").replaceWith(info.response)
+
+      # Show the file select button if the other file select buttons are vissible too.
+      # That means that the files library is opened in file select mode.
+      if $('.cms-files-select-file').is(':visible')
+        $('.cms-files-select-file').show()
 
     uploader.bind 'FilesRemoved', (up, files) ->
       $.each files, (i, file) ->

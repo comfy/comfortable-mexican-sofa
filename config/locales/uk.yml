@@ -221,9 +221,16 @@ uk:
             update: Оновити файл
             delete: Видалити
             are_you_sure: Ви впевнені?
-          page_form:
-            are_you_sure: Ви впевнені?
           file:
+            are_you_sure: Ви впевнені?
+
+        tags:
+          page_file:
+            are_you_sure: Ви впевнені?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Видалити
             are_you_sure: Ви впевнені?
 
         categories:

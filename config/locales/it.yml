@@ -219,9 +219,16 @@ it:
             create: Carica File
             cancel: Cancellare
             update: Modifica File
-          page_form:
-            are_you_sure: Sei sicuro?
           file:
+            are_you_sure: Sei sicuro?
+
+        tags:
+          page_file:
+            are_you_sure: Sei sicuro?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Elimina
             are_you_sure: Sei sicuro?
 
         categories:

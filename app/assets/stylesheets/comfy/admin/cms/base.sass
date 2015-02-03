@@ -77,7 +77,7 @@ body#comfy
       z-index: 2
       content: ''
       display: block
-    a.cms-files-open-modal
+    a.cms-files-open
       float: right
       position: relative
       z-index: 2
@@ -275,9 +275,9 @@ body#comfy
         padding: 10px
         background-color: #f5f5f5
         margin-bottom: 10px
-      .files
+      .page-files
         margin: 5px 0
-        .file
+        .page-file
           $size: 100px
           height: $size
           .thumbnail
@@ -286,16 +286,12 @@ body#comfy
             width: $size
             height: $size
             line-height: $size - 8px - 2px // size - padding - border from TWBS .thumbnail
-            margin-right: 10px
+            margin: 0 10px 0 0
             text-align: center
             img
               display: inline-block
               max-width: 100%
               max-height: 100%
-            i
-              font-size: 40px
-              top: 12px
-              left: 5px
           .file-label
             display: inline-block
             margin: 20px 0 5px 0

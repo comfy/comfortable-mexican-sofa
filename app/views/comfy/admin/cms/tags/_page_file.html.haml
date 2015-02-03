@@ -1,14 +1,12 @@
-- block ||= page_form
-
 - if (files = block.files).present?
-  .files
+  .page-files
     - files.each do |file|
-      .file{ id: dom_id(file) }
-        = link_to file.file.url, target: '_blank', class: 'thumbnail' do
+      .page-file{ id: dom_id(file) }
+        = link_to file.url, target: '_blank', class: 'thumbnail' do
           - if file.is_image?
-            = image_tag file.file.url(:cms_thumb)
+            = image_tag file.url(:cms_thumb)
           - else
-            %i.glyphicon.glyphicon-file
+            = image_tag 'comfy/admin/cms/icon_page.gif'
         .file-label= file.label
         %br
         = link_to 'Delete', comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: { confirm: t('.are_you_sure') }, class: 'delete btn btn-danger btn-xs'

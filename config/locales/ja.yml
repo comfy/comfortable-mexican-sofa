@@ -39,26 +39,26 @@ ja:
         description: Description
       comfy/cms/snippet:
         identifier: Identifier
-        
+
   comfy:
     cms:
       content:
         site_not_found: サイトが見つかりません
         layout_not_found: レイアウトが見つかりません
         page_not_found: ページが見つかりません
-        
+
     admin:
       cms:
         base:
           site_not_found: サイトが見つかりません
           fixtures_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
-          
+
           sites: サイト
           layouts: レイアウト
           pages: ページ
           snippets: スニペット
           files: ファイル
-      
+
         sites:
           created: サイトが作成されました
           creation_failure: サイトの作成に失敗しました
@@ -66,7 +66,7 @@ ja:
           update_failure: サイトの更新に失敗しました
           deleted: サイトが削除されました
           not_found: サイトが見つかりません
-          
+
           index:
             title: サイト
             new_link: 新規サイトを作成
@@ -83,7 +83,7 @@ ja:
             cancel: キャンセル
             update: サイトを更新
             is_mirrored: ミラーリング済み
-      
+
         layouts:
           created: レイアウトが作成されました
           creation_failure: レイアウトの作成に失敗しました
@@ -91,7 +91,7 @@ ja:
           update_failure: レイアウトの更新に失敗しました
           deleted: レイアウトが削除されました
           not_found: レイアウトが見つかりません
-          
+
           index:
             title: レイアウト
             new_link: 新規レイアウトを作成
@@ -116,7 +116,7 @@ ja:
             create: レイアウトを作成
             cancel: キャンセル
             update: レイアウトを更新
-      
+
         pages:
           created: ページが作成されました
           creation_failure: ページの作成に失敗しました
@@ -125,7 +125,7 @@ ja:
           deleted: ページが削除されました
           not_found: ページが見つかりません
           layout_not_found: レイアウトが見つかりません。 レイアウトを作成してください。
-          
+
           index:
             title: ページ
             new_link: 新規ページを作成
@@ -153,7 +153,7 @@ ja:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
               コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: スニペットが作成されました
           creation_failure: スニペットの作成に失敗しました
@@ -161,7 +161,7 @@ ja:
           update_failure: スニペットの更新に失敗しました
           deleted: スニペットが削除されました
           not_found: スニペットが見つかりません
-          
+
           index:
             title: スニペット
             new_link: 新規スニペットを作成
@@ -178,12 +178,12 @@ ja:
             create: スニペットを作成
             cancel: キャンセル
             update: スニペットを更新
-      
+
         revisions:
           reverted: コンテンツが元に戻りました
           record_not_found: レコードが見つかりません
           not_found: リビジョンが見つかりません
-          
+
           show:
             title: リビジョン
             revision: リビジョン
@@ -194,7 +194,7 @@ ja:
             changes: Changes
             previous: Previous
             current: Current
-      
+
         files:
           created: ファイルがアップロードされました
           creation_failure: ファイルのアップロードに失敗しました
@@ -202,7 +202,7 @@ ja:
           update_failure: ファイルの更新に失敗しました
           deleted: ファイルが削除されました
           not_found: ファイルが見つかりません
-          
+
           index:
             title: ファイル
             new_link: 新規ファイルをアップロード
@@ -219,11 +219,18 @@ ja:
             create: ファイルをアップロード
             cancel: キャンセル
             update: ファイルを更新
-          page_form:
-            are_you_sure: よろしいですか？
           file:
             are_you_sure: よろしいですか？
-            
+
+        tags:
+          page_file:
+            are_you_sure: よろしいですか？
+          page_file_library:
+            select: Select
+            change: Change
+            delete: 削除
+            are_you_sure: よろしいですか？
+
         categories:
           index:
             label: カテゴリー

@@ -19,6 +19,8 @@ class Comfy::Cms::File < ActiveRecord::Base
   )
   before_post_process :is_image?
 
+  delegate :url, to: :file # so we don't need to write confusing file.file.url
+
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :block
