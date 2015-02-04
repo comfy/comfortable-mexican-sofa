@@ -13,13 +13,14 @@
 #= require comfy/admin/cms/lib/bootstrap-datetimepicker
 #= require comfy/admin/cms/lib/diff
 #= require comfy/admin/cms/lib/redactor
-#= require comfy/admin/cms/lib/redactor/filemanager
-#= require comfy/admin/cms/lib/redactor/imagemanager
 #= require comfy/admin/cms/lib/redactor/definedlinks
 #= require comfy/admin/cms/lib/redactor/table
 #= require comfy/admin/cms/lib/redactor/video
+#= require comfy/admin/cms/lib/redactor/comfy_imagemanager
+#= require comfy/admin/cms/lib/redactor/comfy_filemanager
 #= require_directory ./lib/redactor/i18n/
 #= require comfy/admin/cms/base
 #= require comfy/admin/cms/uploader
+#= require comfy/admin/cms/files_library
 #= require comfy/admin/cms/files
 #= require comfy/admin/cms/custom

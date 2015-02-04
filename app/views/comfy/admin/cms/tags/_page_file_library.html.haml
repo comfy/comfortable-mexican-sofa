@@ -1,0 +1,24 @@
+.page-files{ data: { page_files_for: field_name } }
+  / This serves as a template for new files.
+  .page-file{ id: "page_file_#{tag.identifier}", style: 'display: none;'}
+    = link_to '#', target: '_blank', class: 'thumbnail' do
+      = image_tag 'comfy/admin/cms/icon_page.gif'
+    .file-label file.label
+    %br
+    = link_to t('.change'), '#', class: 'cms-files-open btn btn-default btn-xs', data: { mode: 'select', field_name: field_name, on_select: 'selectCmsPageFile' }
+    = link_to t('.delete'), '#', class: 'cms-page-file-delete btn btn-danger btn-xs', data: { field_name: field_name, ask: t('.are_you_sure') }
+
+  - if (file = tag.file).present?
+    - id = "page_file_#{tag.identifier}_#{file.id}"
+    .page-file{id: id}
+      = link_to file.url, target: '_blank', class: 'thumbnail' do
+        - if file.is_image?
+          = image_tag file.url(:cms_thumb)
+        - else
+          = image_tag 'comfy/admin/cms/icon_page.gif'
+      .file-label= file.label
+      %br
+      = link_to t('.change'), '#', class: 'cms-files-open btn btn-default btn-xs', data: { mode: 'select', field_name: field_name, on_select: 'selectCmsPageFile', current_page_file: id }
+      = link_to t('.delete'), '#', class: 'cms-page-file-delete btn btn-danger btn-xs', data: { field_name: field_name, ask: t('.are_you_sure') }
+
+  = link_to t('.select'), '#', class: 'cms-files-open btn btn-default', style: "display: #{file.present? ? 'none' : 'inline-block'};", data: { mode: 'select', field_name: field_name, on_select: 'selectCmsPageFile' }

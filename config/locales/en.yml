@@ -221,9 +221,16 @@ en:
             update: Update File
             delete: Delete File
             are_you_sure: Are you sure?
-          page_form:
-            are_you_sure: Are you sure?
           file:
+            are_you_sure: Are you sure?
+
+        tags:
+          page_file:
+            are_you_sure: Are you sure?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Delete
             are_you_sure: Are you sure?
 
         categories:

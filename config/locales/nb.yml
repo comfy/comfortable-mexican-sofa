@@ -219,9 +219,16 @@ nb:
             create: Last opp fil
             cancel: Cancel
             update: Endre fil
-          page_form:
-            are_you_sure: Er du sikker?
           file:
+            are_you_sure: Er du sikker?
+
+        tags:
+          page_file:
+            are_you_sure: Er du sikker?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Fjerne
             are_you_sure: Er du sikker?
 
         categories:

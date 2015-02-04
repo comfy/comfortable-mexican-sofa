@@ -39,20 +39,20 @@ fr:
         description: Description
       comfy/cms/snippet:
         identifier: Identifiant
-        
+
   comfy:
     cms:
       content:
         site_not_found: Site introuvable
         layout_not_found: Mise en page introuvable
         page_not_found: Page introuvable
-        
+
     admin:
       cms:
         base:
           site_not_found: Site introuvable
           fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
-          
+
           sites: Sites
           layouts: Mises en page
           pages: Pages
@@ -66,7 +66,7 @@ fr:
           update_failure: Échec de la modification du site
           deleted: Site supprimé
           not_found: Site introuvable
-          
+
           index:
             title: Sites
             new_link: Nouveau site
@@ -83,7 +83,7 @@ fr:
             cancel: Annuler
             update: Modifier le site
             is_mirrored: En miroir
-      
+
         layouts:
           created: Mise en page créée
           creation_failure: Échec de la création de la mise en page
@@ -91,7 +91,7 @@ fr:
           update_failure: Échec de la modification de la mise en page
           deleted: Mise en page supprimée
           not_found: Mise en page introuvable
-          
+
           index:
             title: Mises en page
             new_link: Nouvelle mise en page
@@ -116,7 +116,7 @@ fr:
             create: Créer la mise en page
             cancel: Annuler
             update: Modifier la mise en page
-      
+
         pages:
           created: Page créée
           creation_failure: Échec de la création de la page
@@ -125,7 +125,7 @@ fr:
           deleted: Page supprimée
           not_found: Page introuvable
           layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
-          
+
           index:
             title: Pages
             new_link: Nouvelle page
@@ -153,7 +153,7 @@ fr:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>
               Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: Fragment créé
           creation_failure: Échec de la création du fragment
@@ -161,7 +161,7 @@ fr:
           update_failure: Échec de la modification du fragment
           deleted: Fragment supprimé
           not_found: Fragment introuvable
-          
+
           index:
             title: Fragments
             new_link: Nouveau fragment
@@ -178,23 +178,23 @@ fr:
             create: Créer le fragment
             cancel: Annuler
             update: Modifier le fragment
-      
+
         revisions:
           reverted: Contenu restauré
           record_not_found: Enregistrement introuvable
           not_found: Révision introuvable
-          
+
           show:
             title: "Révisions :"
             revision: révision
-            full_path: Chemin complet 
+            full_path: Chemin complet
             slug: Identifiant
             update: Restaurer cette révision
             content: Content
             changes: Changes
             previous: Previous
             current: Actuel
-      
+
         files:
           created: Fichier téléchargé
           creation_failure: Échec du téléchargement du fichier
@@ -202,7 +202,7 @@ fr:
           update_failure: Échec de la modification du fichier
           deleted: Fichier supprimé
           not_found: Fichier introuvable
-          
+
           index:
             title: Fichiers
             new_link: Nouveau fichier
@@ -219,11 +219,18 @@ fr:
             create: Envoyer
             cancel: Annuler
             update: Modifier le fichier
-          page_form:
-            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           file:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-            
+
+        tags:
+          page_file:
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+          page_file_library:
+            select: Select
+            change: Change
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
+
         categories:
           index:
             label: Catégories

@@ -1,0 +1,12 @@
+- if (files = block.files).present?
+  .page-files
+    - files.each do |file|
+      .page-file{ id: dom_id(file) }
+        = link_to file.url, target: '_blank', class: 'thumbnail' do
+          - if file.is_image?
+            = image_tag file.url(:cms_thumb)
+          - else
+            = image_tag 'comfy/admin/cms/icon_page.gif'
+        .file-label= file.label
+        %br
+        = link_to 'Delete', comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: { confirm: t('.are_you_sure') }, class: 'delete btn btn-danger btn-xs'

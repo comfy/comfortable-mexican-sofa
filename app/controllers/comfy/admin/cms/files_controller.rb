@@ -1,5 +1,4 @@
 class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
-
   include ActionView::Helpers::NumberHelper
 
   before_action :build_file,  :only => [:new, :create]
@@ -7,32 +6,14 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   before_action :authorize
 
   def index
-    case params[:source]
-    when 'redactor'
-      file_scope  = @site.files.limit(100).order('created_at DESC')
-      file_hashes = case params[:type]
-      when 'image'
-        file_scope.images.collect do |image|
-          { :thumb => image.file.url(:cms_thumb),
-            :image => image.file.url,
-            :title => image.label }
-        end
-      else
-        file_scope.collect do |file|
-          { :title  => file.label,
-            :name   => file.file_file_name,
-            :link   => file.file.url,
-            :size   => number_to_human_size(file.file_file_size) }
-        end
-      end
-      render :json => file_hashes
-    else
-      files_scope = @site.files.not_page_file
-        .includes(:categories)
-        .for_category(params[:category])
-        .order('comfy_cms_files.position')
-      @files = comfy_paginate(files_scope, 50)
-    end
+    files_scope = @site.files.not_page_file
+      .includes(:categories)
+      .for_category(params[:category])
+      .order('comfy_cms_files.position')
+
+    files_scope = files_scope.images if params[:type] == 'image'
+
+    @files = comfy_paginate(files_scope, 50)
   end
 
   def new
@@ -45,8 +26,6 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     case params[:source]
     when 'plupload'
       render :text => render_to_string(:partial => 'file', :object => @file)
-    when 'redactor'
-      render :json => {:filelink => @file.file.url, :filename => @file.label}
     else
       flash[:success] = I18n.t('comfy.admin.cms.files.created')
       redirect_to :action => :edit, :id => @file
@@ -56,8 +35,6 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     case params[:source]
     when 'plupload'
       render :text => @file.errors.full_messages.to_sentence, :status => :unprocessable_entity
-    when 'redactor'
-      render :nothing => true, :status => :unprocessable_entity
     else
       flash.now[:danger] = I18n.t('comfy.admin.cms.files.creation_failure')
       render :action => :new

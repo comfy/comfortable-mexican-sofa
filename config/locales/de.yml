@@ -219,9 +219,16 @@ de:
             create: Datei aufspielen
             cancel: Abbrechen
             update: Datei speichern
-          page_form:
-            are_you_sure: Sind Sie sicher?
           file:
+            are_you_sure: Sind Sie sicher?
+
+        tags:
+          page_file:
+            are_you_sure: Sind Sie sicher?
+          page_file_library:
+            select: Auswählen
+            change: Ändern
+            delete: Löschen
             are_you_sure: Sind Sie sicher?
 
         categories:

@@ -9,7 +9,7 @@
     %li= active_link_to t('comfy.admin.cms.base.snippets'), comfy_admin_cms_site_snippets_path(@site)
     %li
       - unless is_active_link?(comfy_admin_cms_site_files_path(@site))
-        %a.cms-files-open-modal{:href => '#', :title => 'Open library'}
+        %a.cms-files-open{:href => '#', :title => 'Open library'}
           %span.glyphicon.glyphicon-th-list
       = active_link_to t('comfy.admin.cms.base.files'), comfy_admin_cms_site_files_path(@site)
 

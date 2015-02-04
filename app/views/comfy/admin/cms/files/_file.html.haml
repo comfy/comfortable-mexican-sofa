@@ -22,5 +22,6 @@
       = number_to_human_size(file.file_file_size, :locale => :en)
   %td
     .btn-group.btn-group-sm
+      = link_to 'Select', '#', :class => 'btn btn-default cms-files-select-file', :data => { :file_id => file.id, :file_label => file.label, :file_url => file.file.url, :file_thumbnail => file.file.url(:cms_thumb), :file_is_image => file.is_image? }, :style => 'display: none;'
       = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
       = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'

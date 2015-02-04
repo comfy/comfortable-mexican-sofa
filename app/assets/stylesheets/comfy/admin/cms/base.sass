@@ -77,7 +77,7 @@ body#comfy
       z-index: 2
       content: ''
       display: block
-    a.cms-files-open-modal
+    a.cms-files-open
       float: right
       position: relative
       z-index: 2
@@ -275,15 +275,26 @@ body#comfy
         padding: 10px
         background-color: #f5f5f5
         margin-bottom: 10px
-      .files
+      .page-files
         margin: 5px 0
-        .file
-          display: inline-block
-          border: 1px solid #ccc
-          border-radius: 3px
-          padding: 0 5px
-          margin-bottom: 5px
-          font-size: 12px
+        .page-file
+          $size: 100px
+          height: $size
+          .thumbnail
+            display: block
+            float: left
+            width: $size
+            height: $size
+            line-height: $size - 8px - 2px // size - padding - border from TWBS .thumbnail
+            margin: 0 10px 0 0
+            text-align: center
+            img
+              display: inline-block
+              max-width: 100%
+              max-height: 100%
+          .file-label
+            display: inline-block
+            margin: 20px 0 5px 0
 
   // -- Snippets ------------------------------------------------------------
   &.c-comfy-admin-cms-snippets
