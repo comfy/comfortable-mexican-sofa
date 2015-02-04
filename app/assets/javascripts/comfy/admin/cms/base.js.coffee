@@ -37,6 +37,10 @@ window.CMS.slugify = ->
 
 
 window.CMS.wysiwyg = ->
+  # Get Rails CSRF tokens. If you use Redactor plugins that access Rails
+  # controllers you might need to attach CSRF to URLS. For example:
+  #   $('textarea.rich-text-editor, textarea[data-cms-rich-text]').redactor
+  #     fileUpload: "#{CMS.file_upload_path}?source=redactor&type=file&#{params}"
   csrf_token = $('meta[name=csrf-token]').attr('content')
   csrf_param = $('meta[name=csrf-param]').attr('content')
 
@@ -46,15 +50,11 @@ window.CMS.wysiwyg = ->
   $('textarea.rich-text-editor, textarea[data-cms-rich-text]').redactor
     minHeight:        160
     autoresize:       true
-    imageUpload:      "#{CMS.file_upload_path}?source=redactor&type=image&#{params}"
-    imageManagerJson: "#{CMS.file_upload_path}?source=redactor&type=image"
-    fileUpload:       "#{CMS.file_upload_path}?source=redactor&type=file&#{params}"
-    fileManagerJson:  "#{CMS.file_upload_path}?source=redactor&type=file"
     buttonSource:     true
     formattingTags:   ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-    plugins:          ['imagemanager', 'filemanager', 'table', 'video', 'definedlinks']
+    plugins:          ['comfyImagemanager', 'comfyFilemanager', 'table', 'video', 'definedlinks']
     lang:             CMS.locale
-    definedLinks: "#{CMS.pages_path}?source=redactor"
+    definedLinks:     "#{CMS.pages_path}?source=redactor"
 
 
 window.CMS.codemirror = ->

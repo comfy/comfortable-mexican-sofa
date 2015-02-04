@@ -1,3 +1,5 @@
+require_relative './page_file'
+
 class ComfortableMexicanSofa::Tag::PageFileLibrary < ComfortableMexicanSofa::Tag::PageFile
   include ComfortableMexicanSofa::Tag
 

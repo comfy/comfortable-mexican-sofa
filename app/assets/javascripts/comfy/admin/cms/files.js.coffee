@@ -52,13 +52,6 @@ window.selectCmsPageFile = (file, options) ->
   fileList.find('> .cms-files-open').hide()
 
 
-# This method is called when a file was selected via the TinyMCE file browser.
-# file: fileId, fileLabel, fileUrl, file_thumbnail, fileIsImage
-# options: a hash with options from the files library open method
-window.selectCmsTinymceFile = (file, options) ->
-  $('input#' + options.fieldId).val(file.fileUrl)
-
-
 # When the files library is opened in a modal window we need to remove the
 # left and right columns. Triggering this early to prevent flicker.
 $('body').ready ->
