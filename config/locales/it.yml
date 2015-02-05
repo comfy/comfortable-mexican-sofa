@@ -135,10 +135,18 @@ it:
             edit: Modifica
             delete: Elimina
             are_you_sure: Sei sicuro di voler eliminare questa pagina?
+            translation: &translation
+              translate: Translate
+              add: Add Translation
+              edit: 'Edit %{language}'
           new:
             title: Nuova Pagina
           edit:
             title: Modifica Pagina
+            delete: Elimina
+            are_you_sure: Sei sicuro?
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:

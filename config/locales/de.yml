@@ -135,10 +135,18 @@ de:
             edit: Bearbeiten
             delete: Löschen
             are_you_sure: Sind Sie sicher, dass Sie diese Seite löschen möchten?
+            translation: &translation
+              translate: Übersetzen
+              add: Neue Übersetzung
+              edit: 'Bearbeite %{language}'
           new:
             title: Seite erstellen
           edit:
             title: Seite bearbeiten
+            delete: Löschen
+            are_you_sure: Sind Sie sicher?
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:

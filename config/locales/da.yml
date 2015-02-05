@@ -46,19 +46,19 @@ da:
         site_not_found: Websted findes ikke
         layout_not_found: Layout findes ikke
         page_not_found: Side findes ikke
-        
+
     admin:
         cms:
           base:
             site_not_found: Webstedet findes ikke
             fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
-            
+
             sites: Websteder
             layouts: Layouts
             pages: Sider
             snippets: Snippets
             files: Filer
-    
+
         sites:
           created: Websted oprettet
           creation_failure: Oprettelse af websted mislykkedes
@@ -66,7 +66,7 @@ da:
           update_failure: Opdatering af websted mislykkedes
           deleted: Websted slettet
           not_found: Websted findes ikke
-          
+
           index:
             title: Websteder
             new_link: Opret nyt websted
@@ -83,7 +83,7 @@ da:
             cancel: Annuller
             update: Opdater websted
             is_mirrored: Kopieret websted
-    
+
         layouts:
           created: Layout oprettet
           creation_failure: Oprettelse af layout mislykkedes
@@ -91,7 +91,7 @@ da:
           update_failure: Opdatering af layout mislykkedes
           deleted: Layout slettet
           not_found: Layout findes ikke
-          
+
           index:
             title: Layouts
             new_link: Opret nyt layout
@@ -116,7 +116,7 @@ da:
             create: Opret layout
             cancel: Annuller
             update: Opdater layout
-    
+
         pages:
           created: Side oprettet
           creation_failure: Oprettelse af side mislykkedes
@@ -125,7 +125,7 @@ da:
           deleted: Side slettet
           not_found: Side findes ikke
           layout_not_found: Ingen layouts findes. Opret venligst et layout.
-          
+
           index:
             title: Sider
             new_link: Opret ny side
@@ -135,10 +135,18 @@ da:
             edit: Rediger
             delete: Slet
             are_you_sure: Er du sikker?
+            translation: &translation
+              translate: Translate
+              add: Add Translation
+              edit: 'Edit %{language}'
           new:
             title: Ny side
           edit:
             title: Rediger side
+            delete: Slet
+            are_you_sure: Er du sikker?
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:
@@ -153,7 +161,7 @@ da:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>
               Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:page:content}}</code>
-    
+
         snippets:
           created: Snippet oprettet
           creation_failure: Oprettelse af snippet mislykkedes
@@ -161,7 +169,7 @@ da:
           update_failure: Opdatering af snippet mislykkedes
           deleted: Snippet slettet
           not_found: Snippet findes ikke
-          
+
           index:
             title: Snippets
             new_link: Opret ny snippet
@@ -178,12 +186,12 @@ da:
             create: Opret snippet
             cancel: Annuller
             update: Opdater snippet
-    
+
         revisions:
           reverted: Indhold gendannet
           record_not_found: Indhold findes ikke
           not_found: Revision findes ikke
-          
+
           show:
             title: Revisioner for
             revision: Revision
@@ -194,7 +202,7 @@ da:
             changes: Ændringer
             previous: Forrige
             current: Nuværende
-    
+
         files:
           created: Filer sendt
           creation_failure: Sending af filer mislykkedes
@@ -202,7 +210,7 @@ da:
           update_failure: Opdatering af fil mislykkedes
           deleted: Fil slettet
           not_found: Fil findes ikke
-          
+
           index:
             title: Filer
             new_link: Send ny fil
@@ -223,7 +231,7 @@ da:
             are_you_sure: Er du sikker?
           file:
             are_you_sure: Er du sikker?
-            
+
         categories:
           index:
             label: Kategorier
