@@ -2,11 +2,11 @@
 de:
   attributes:
     label: Bezeichnung
-    slug: Form
+    slug: URL
     parent_id: Vorfahre
     content: Inhalt
-    identifier: Identifikator
-    full_path: Full path
+    identifier: Eindeutige Bezeichnung
+    full_path: Vollständiger Pfad
   activerecord:
     models:
       comfy/cms/site: Web
@@ -16,29 +16,29 @@ de:
       comfy/cms/file: Datei
     attributes:
       comfy/cms/site:
-        identifier: Kennzeichnung
-        hostname: Server (Hostname)
-        path: Pfad (URL-Suffix)
-        locale: Landessprache
-        is_mirrored: Web gespiegelt
+        identifier: Name
+        hostname: Hostname
+        path: Pfad
+        locale: Sprache
+        is_mirrored: Gespiegelt
       comfy/cms/layout:
-        identifier: Kennzeichnung
+        identifier: Eindeutiger Name
         label: Name
         app_layout: Grundlegendes Layout
         parent_id: Übergeordnetes Layout
-        css: Stilvorlage (CSS)
-        js: Skript (JavaScript)
+        css: CSS-Stilvorlage
+        js: JavaScript
       comfy/cms/page:
-        label: Bezeichnung
+        label: Titel
         layout_id: Layout
-        slug: Form
+        slug: URL
         target_page_id: Weiterleitung zu Seite
         is_published: Veröffentlicht
       comfy/cms/file:
         file: Datei
         description: Beschreibung
       comfy/cms/snippet:
-        identifier: Kennzeichnung
+        identifier: Eindeutiger Name
 
   comfy:
     cms:
@@ -156,10 +156,10 @@ de:
             cancel: Abbrechen
             update: Seite speichern
             is_published: Veröffentlicht
-            choose_link: Select page...
+            choose_link: Seite auswählen...
           form_blocks:
             no_tags: |-
-              Das gewählte Layout hat kein Comfy-Tag deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
+              Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
               Beispiel: <code>{{ cms:page:content }}</code>
 
         snippets:
@@ -196,7 +196,7 @@ de:
             title: Versionen von
             revision: Version
             full_path: Vollständiger Pfad
-            slug: Form
+            slug: URL
             update: Zurücksetzen auf gewählte Version
             content: Inhalt
             changes: Änderungen
@@ -204,29 +204,31 @@ de:
             current: Aktuell
 
         files:
-          created: Datei aufgespielt
-          creation_failure: Fehler beim Aufspielen der Datei!
-          updated: Datei aufgespielt
+          created: Datei hochgeladen
+          creation_failure: Fehler beim Hochladen der Datei!
+          updated: Datei hochgeladen
           update_failure: Fehler beim Aktualisieren der Datei!
           deleted: Datei gelöscht
           not_found: Datei nicht gefunden
 
           index:
             title: Datei
-            new_link: Neue Datei aufspielen
+            new_link: Neue Datei hochladen
             edit: Datei bearbeiten
             delete: Datei löschen
             are_you_sure: Sind Sie sicher, dass Sie diese Datei löschen möchten?
-            button: Datei aufspielen
+            button: Datei hochladen
           new:
-            title: Datei anlegen
+            title: Datei erstellen
           edit:
             title: Datei bearbeiten
           form:
             current_file: Aktuelle Datei
-            create: Datei aufspielen
+            create: Datei hochladen
             cancel: Abbrechen
             update: Datei speichern
+            delete: Datei löschen
+            are_you_sure: Sind Sie sicher, dass Sie diese Datei löschen möchten?
           page_form:
             are_you_sure: Sind Sie sicher?
           file:

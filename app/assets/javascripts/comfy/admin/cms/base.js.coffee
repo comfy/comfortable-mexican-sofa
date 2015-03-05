@@ -51,11 +51,12 @@ window.CMS.wysiwyg = ->
     imageManagerJson: "#{CMS.file_upload_path}?source=redactor&type=image"
     fileUpload:       "#{CMS.file_upload_path}?source=redactor&type=file&#{params}"
     fileManagerJson:  "#{CMS.file_upload_path}?source=redactor&type=file"
+    definedLinks:     "#{CMS.pages_path}?source=redactor"
     buttonSource:     true
-    formattingTags:   ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+    formatting:       ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
     plugins:          ['imagemanager', 'filemanager', 'table', 'video', 'definedlinks']
     lang:             CMS.locale
-    definedLinks: "#{CMS.pages_path}?source=redactor"
+    convertDivs:      false
 
 
 window.CMS.codemirror = ->
