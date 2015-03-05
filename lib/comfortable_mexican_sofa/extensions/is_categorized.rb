@@ -17,8 +17,6 @@ module ComfortableMexicanSofa::IsCategorized
 
       attr_accessor :is_mirrored_with_categorizations
 
-      after_save :sync_mirrors_with_categorizations
-
       scope :for_category, lambda { |*categories|
         if (categories = [categories].flatten.compact).present?
           self.distinct.
@@ -59,22 +57,6 @@ module ComfortableMexicanSofa::IsCategorized
     def uncategorize!(category_ids)
       categorizations.where(category_id: category_ids).each(&:destroy)
     end
-
-    # Callbacks
-
-    # Synchorize the categorizations of this item with the ones in its mirrors. So all of them
-    # are associated to the same categories.
-    def sync_mirrors_with_categorizations
-      if respond_to?(:mirrors) and is_mirrored_with_categorizations
-        mirrors.each { |mirror| mirror.assign_new_categories!(corresponding_categories_in_site(mirror.site, categories).map(&:id)) }
-      end
-    end
-
-    # A list of categories on a site similar to the ones given.
-    def corresponding_categories_in_site(site, categories)
-      site.categories.where(label: categories.map(&:label))
-    end
-
   end
 end
 
