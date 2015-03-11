@@ -25,7 +25,7 @@ module ComfortableMexicanSofa
         { value: :re_publish, label: 'Republish' }
       ],
       scheduled: [
-        { value: :schedule, label: 'Schedule', data: SCHEDULE_DATA }
+        { value: :schedule, label: 'Scheduled', data: SCHEDULE_DATA }
       ]
     }
 
