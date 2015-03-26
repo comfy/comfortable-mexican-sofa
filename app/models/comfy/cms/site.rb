@@ -58,6 +58,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # Since before_destroy doesn't really work, this does the trick
   def destroy
     self.class.where(:id => self.id).update_all(:is_mirrored => false) if self.is_mirrored?
+    # self.update_attributes(:is_mirrored => false) if self.is_mirrored?
     super
   end
 
