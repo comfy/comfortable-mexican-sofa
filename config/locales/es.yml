@@ -46,13 +46,13 @@ es:
         site_not_found: Sitio no encontrado
         layout_not_found: Diseño no encontrado
         page_not_found: Página no encontrada
-        
+
     admin:
       cms:
         base:
           site_not_found: Sitio no encontrado
           fixtures_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
-          
+
           sites: Sitios
           layouts: Diseños
           pages: Páginas
@@ -66,7 +66,7 @@ es:
           update_failure: El sitio no ha podido ser actualizado
           deleted: Sitio eliminado
           not_found: Sitio no encontrado
-          
+
           index:
             title: Listado de Sitios
             new_link: Crear nuevo Sitio
@@ -91,7 +91,7 @@ es:
           update_failure: El diseño NO ha podido ser Actualizado
           deleted: Diseñó Eliminado
           not_found: Diseño no encontrado
-          
+
           index:
             title: Diseños
             new_link: Crear Nuevo Diseño
@@ -125,7 +125,7 @@ es:
           deleted: Página eliminada
           not_found: Página no encontrada
           layout_not_found: No se ha encontrado una plantilla. Cree una primero.
-          
+
           index:
             title: Páginas
             new_link: Crear Nueva Página
@@ -161,7 +161,7 @@ es:
           update_failure: El fragmento no ha podido ser actualizado
           deleted: Fragmento eliminado
           not_found: Fragmento no encontrado
-          
+
           index:
             title: Fragmentos
             new_link: Crear nuevo Fragmento
@@ -183,7 +183,7 @@ es:
           reverted: Contenido revertido
           record_not_found: Registro no encontrado
           not_found: Revisión no encontrada
-          
+
           show:
             title: Revisiones de
             revision: Revisión
@@ -202,7 +202,8 @@ es:
           update_failure: Fallo la actualización del archivo
           deleted: Archivo borrado
           not_found: Archivo no encontrado
-          
+          open_library: Open files library
+
           index:
             title: Archivos
             new_link: Subir Nuevo Archivo
@@ -223,7 +224,7 @@ es:
             are_you_sure: ¿Estás seguro?
           file:
             are_you_sure: ¿Estás seguro?
-            
+
         categories:
           index:
             label: Categorias
@@ -238,3 +239,8 @@ es:
             save: Guardar
           form:
             label: Categorias
+
+        live_preview:
+          refresh: Refresh
+          refreshing: Refreshing
+          new_window: New Window

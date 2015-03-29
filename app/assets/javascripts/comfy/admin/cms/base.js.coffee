@@ -16,7 +16,8 @@ window.CMS.init = ->
   CMS.page_blocks()
   CMS.page_file_popovers()
   CMS.mirrors()
-  CMS.page_update_preview()
+  CMS.update_preview()
+  CMS.live_preview()
   CMS.page_update_publish()
   CMS.categories()
   CMS.files()
@@ -120,11 +121,77 @@ window.CMS.mirrors = ->
     window.location = $(this).val()
 
 
-window.CMS.page_update_preview = ->
+window.CMS.update_preview = ->
   $('input[name=commit]').click ->
     $(this).parents('form').attr('target', '')
   $('input[name=preview]').click ->
     $(this).parents('form').attr('target', '_blank')
+
+
+window.CMS.live_preview = ->
+  form = $('form[data-live-preview="true"]')
+  return unless form.length > 0
+
+  # Disable LivePreview on small screens.
+  return if window.screen.width < 1280
+
+  previewWindow = $('iframe#preview')
+  updatePreviewLink = $('a.live-preview-update')
+  updatePreviewLinkText = updatePreviewLink.text()
+
+  # Show the live preview window and controls
+  $('body').addClass "live-preview"
+
+  # We don't need the standard preview link
+  $('input[name=preview]').hide()
+
+  updatePreviewLink.click (e) ->
+    updatePreview()
+    e.preventDefault()
+
+  $('a.live-preview-new-window').click (e) ->
+    submitPreviewForm '_blank'
+    e.preventDefault()
+
+  previewWindow.on 'load', ->
+    # When the preview is updated, scroll back to previous position.
+    $(this).contents().scrollTop($(this).data('scrollPos') || 0)
+    updatePreviewLink.text updatePreviewLinkText
+
+  # Update the preview when the form was changed. Use a timeout to prevent
+  # updates on every keystroke to save CPU.
+  form.bind 'change input', (evt) ->
+    clearTimeout form.data("previewTimeout")
+    form.data 'previewTimeout', setTimeout(->
+      updatePreview()
+    , 1000)
+
+  $(window).on 'resize', ->
+    fitContentAndPreviewHeight()
+
+  updatePreview = ->
+    updatePreviewLink.text updatePreviewLink.data('live-preview-updating')
+
+    # Remember scroll position.
+    previewWindow.data('scrollPos', previewWindow.contents().scrollTop())
+
+    submitPreviewForm()
+
+  submitPreviewForm = (target = 'live-preview') ->
+    # The standard preview works by checking if the preview button was clicked
+    # when the form is submitted. We just fake this by adding a hidden field to the form.
+    form.append($("<input>").attr("type", "hidden").attr("name", "preview").val("1"));
+    form.attr('target', target)
+    form.submit()
+    form.find('input[type=hidden][name=preview]').remove()
+
+  # We have set overflow scrolling on content and preview and set the to the
+  # viewport height so we can scroll content and preview individually.
+  fitContentAndPreviewHeight = ->
+    $('.center-column-content, .center-column-live-preview').css('height', $(window).height());
+
+  fitContentAndPreviewHeight()
+  updatePreview()
 
 
 window.CMS.page_update_publish = ->

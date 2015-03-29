@@ -204,6 +204,7 @@ de:
           update_failure: Fehler beim Aktualisieren der Datei!
           deleted: Datei gelöscht
           not_found: Datei nicht gefunden
+          open_library: Bibliothek öffnen
 
           index:
             title: Datei
@@ -242,3 +243,8 @@ de:
             save: Kategorie speichern
           form:
             label: Kategorien
+
+        live_preview:
+          refresh: Aktualisieren
+          refreshing: Aktualisiere
+          new_window: Neues Fenster

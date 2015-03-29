@@ -202,6 +202,7 @@ nb:
           update_failure: Klarte ikke å endre fil
           deleted: Fil fjernet
           not_found: File not found
+          open_library: Open files library
 
           index:
             title: Filer
@@ -238,3 +239,8 @@ nb:
             save: Lagre
           form:
             label: Kategorier
+
+        live_preview:
+          refresh: Refresh
+          refreshing: Refreshing
+          new_window: New Window
