@@ -228,18 +228,31 @@ class MirrorsTest < ActiveSupport::TestCase
   end
   
   def test_site_destruction
-    site = comfy_cms_sites(:default)
-    Comfy::Cms::Site.update_all(:is_mirrored => true) # bypassing callbacks
-    
-    mirror = Comfy::Cms::Site.create!(
-      :identifier   => 'mirror',
-      :hostname     => 'mirror.host',
-      :is_mirrored  => true
-    )
-    mirror.reload
-    assert_no_difference ['site.layouts.count', 'site.pages.count', 'site.snippets.count'] do
-      mirror.destroy
-      site.reload
+    Comfy::Cms::Site.delete_all
+    Comfy::Cms::Page.delete_all
+
+    site_a = Comfy::Cms::Site.create!(
+        :identifier => 'site-a',
+        :hostname   => 'site-a.test',
+        :is_mirrored => true)
+    site_b = Comfy::Cms::Site.create!(
+        :identifier => 'site-b',
+        :hostname   => 'site-b.test',
+        :is_mirrored => true)
+    site_c = Comfy::Cms::Site.create!(
+        :identifier => 'site-c',
+        :hostname   => 'site-c.test',
+        :is_mirrored => true)
+
+    assert_difference 'Comfy::Cms::Page.count', 3 do
+      layout = site_a.layouts.create!(:identifier => 'default')
+      site_a.pages.create!(
+          :label  => 'default',
+          :layout => layout)
+    end
+
+    assert_difference ['Comfy::Cms::Site.count', 'Comfy::Cms::Page.count'], -1 do
+      Comfy::Cms::Site.first.destroy
     end
   end
   
