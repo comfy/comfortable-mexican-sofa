@@ -1,6 +1,6 @@
 language: ruby
-# before_install:
-#  - gem install bundler
+before_install:
+  - gem install bundler
 before_script:
   - rake db:migrate
 script:
