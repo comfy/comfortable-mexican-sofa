@@ -1,12 +1,5 @@
 # encoding: utf-8
 ru:
-  attributes:
-    label: Название
-    slug: Ссылка
-    parent_id: Родитель
-    content: Контент
-    identifier: Идентификатор
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Сайт
@@ -14,9 +7,11 @@ ru:
       comfy/cms/page: Страница
       comfy/cms/snippet: Сниппет
       comfy/cms/file: Файл
+
     attributes:
       comfy/cms/site:
         identifier: Идентификатор
+        label: Название
         hostname: Имя хоста
         path: Путь
         locale: Язык
@@ -26,6 +21,7 @@ ru:
         label: Название шаблона
         app_layout: Шаблон приложения
         parent_id: Родительский шаблон
+        content: Контент
         css: CSS
         js: Javascript
       comfy/cms/page:
@@ -35,12 +31,16 @@ ru:
         full_path: Полный путь
         slug: Ссылка
         target_page_id: Редирект на страницу
+        content: Контент
         is_published: Опубликована
       comfy/cms/file:
+        label: Название
         file: Файл
         description: Описание
       comfy/cms/snippet:
         identifier: Идентификатор
+        label: Название
+        content: Контент
 
   comfy:
     cms:
@@ -48,13 +48,13 @@ ru:
         site_not_found: Сайт не найден
         layout_not_found: Шаблон не найден
         page_not_found: Страница не найдена
-      
+
     admin:
       cms:
         base:
           site_not_found: Сайт не найден
           fixtures_enabled: CMS Fixtures включены. Все изменения, сделанные здесь, будут отменены.
-          
+
           sites: Сайты
           layouts: Шаблоны
           pages: Страницы
@@ -68,7 +68,7 @@ ru:
           update_failure: Не удалось обновить сайт
           deleted: Сайт удален
           not_found: Сайт не найден
-          
+
           index:
             title: Сайты
             new_link: Создать новый сайт
@@ -93,7 +93,7 @@ ru:
           update_failure: Не удалось обновить шаблон
           deleted: Шаблон удален
           not_found: Шаблон не найден
-          
+
           index:
             title: Шаблоны
             new_link: Создать новый шаблон
@@ -127,7 +127,7 @@ ru:
           deleted: Страница удалена
           not_found: Страница не найдена
           layout_not_found: Шаблоны не найдены. Пожалуйста, создайте хотя бы один шаблон.
-          
+
           index:
             title: Страницы
             new_link: Создать новую страницу
@@ -163,7 +163,7 @@ ru:
           update_failure: Не удалось обновить сниппет
           deleted: Сниппет удален
           not_found: Сниппет не найден
-          
+
           index:
             title: Сниппеты
             new_link: Создать новый сниппет
@@ -185,7 +185,7 @@ ru:
           reverted: Контент возвращен в прежнее состояние
           record_not_found: Запись не найдена
           not_found: Ревизия не найдена
-          
+
           show:
             title: Ревизии для
             revision: Ревизия
@@ -204,7 +204,7 @@ ru:
           update_failure: Не удалось обновить файл
           deleted: Файл удален
           not_found: Файл не найден
-          
+
           index:
             title: Файлы
             new_link: Загрузить новый файл
@@ -221,11 +221,13 @@ ru:
             create: Загрузить файл
             cancel: Oтменить
             update: Обновить файл
+            delete: Удалить
+            are_you_sure: Вы уверены?
           page_form:
             are_you_sure: Вы уверены?
           file:
             are_you_sure: Вы уверены?
-            
+
         categories:
           index:
             label: Категории

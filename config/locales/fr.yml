@@ -1,12 +1,5 @@
 # encoding: utf-8
 fr:
-  attributes:
-    label: Nom
-    slug: Identifiant
-    parent_id: Parent
-    content: Contenu
-    identifier: Identifiant
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ fr:
       comfy/cms/page: Page
       comfy/cms/snippet: Fragment
       comfy/cms/file: Fichier
+
     attributes:
       comfy/cms/site:
         identifier: Identifiant
+        label: Nom
         hostname: Nom d'hôte
         path: Chemin
         locale: Langue
@@ -26,33 +21,40 @@ fr:
         label: Nom de la mise en page
         app_layout: Mise en page de l'application
         parent_id: Mise en page parent
+        content: Contenu
         css: Feuille de style
         js: Javascript
       comfy/cms/page:
         label: Nom de la page
         layout_id: Mise en page
         slug: Identifiant
+        full_path: Full path
+        parent_id: Parent
         target_page_id: Rediriger vers
+        content: Contenu
         is_published: Publié
       comfy/cms/file:
+        label: Nom
         file: Fichier
         description: Description
       comfy/cms/snippet:
         identifier: Identifiant
-        
+        label: Nom
+        content: Contenu
+
   comfy:
     cms:
       content:
         site_not_found: Site introuvable
         layout_not_found: Mise en page introuvable
         page_not_found: Page introuvable
-        
+
     admin:
       cms:
         base:
           site_not_found: Site introuvable
           fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
-          
+
           sites: Sites
           layouts: Mises en page
           pages: Pages
@@ -66,7 +68,7 @@ fr:
           update_failure: Échec de la modification du site
           deleted: Site supprimé
           not_found: Site introuvable
-          
+
           index:
             title: Sites
             new_link: Nouveau site
@@ -83,7 +85,7 @@ fr:
             cancel: Annuler
             update: Modifier le site
             is_mirrored: En miroir
-      
+
         layouts:
           created: Mise en page créée
           creation_failure: Échec de la création de la mise en page
@@ -91,7 +93,7 @@ fr:
           update_failure: Échec de la modification de la mise en page
           deleted: Mise en page supprimée
           not_found: Mise en page introuvable
-          
+
           index:
             title: Mises en page
             new_link: Nouvelle mise en page
@@ -116,7 +118,7 @@ fr:
             create: Créer la mise en page
             cancel: Annuler
             update: Modifier la mise en page
-      
+
         pages:
           created: Page créée
           creation_failure: Échec de la création de la page
@@ -125,7 +127,7 @@ fr:
           deleted: Page supprimée
           not_found: Page introuvable
           layout_not_found: Aucune mise en page disponible. Créez-en une nouvelle.
-          
+
           index:
             title: Pages
             new_link: Nouvelle page
@@ -153,7 +155,7 @@ fr:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>
               Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: Fragment créé
           creation_failure: Échec de la création du fragment
@@ -161,7 +163,7 @@ fr:
           update_failure: Échec de la modification du fragment
           deleted: Fragment supprimé
           not_found: Fragment introuvable
-          
+
           index:
             title: Fragments
             new_link: Nouveau fragment
@@ -178,23 +180,23 @@ fr:
             create: Créer le fragment
             cancel: Annuler
             update: Modifier le fragment
-      
+
         revisions:
           reverted: Contenu restauré
           record_not_found: Enregistrement introuvable
           not_found: Révision introuvable
-          
+
           show:
             title: "Révisions :"
             revision: révision
-            full_path: Chemin complet 
+            full_path: Chemin complet
             slug: Identifiant
             update: Restaurer cette révision
             content: Content
             changes: Changes
             previous: Previous
             current: Actuel
-      
+
         files:
           created: Fichier téléchargé
           creation_failure: Échec du téléchargement du fichier
@@ -202,7 +204,7 @@ fr:
           update_failure: Échec de la modification du fichier
           deleted: Fichier supprimé
           not_found: Fichier introuvable
-          
+
           index:
             title: Fichiers
             new_link: Nouveau fichier
@@ -219,11 +221,13 @@ fr:
             create: Envoyer
             cancel: Annuler
             update: Modifier le fichier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           page_form:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           file:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
-            
+
         categories:
           index:
             label: Catégories

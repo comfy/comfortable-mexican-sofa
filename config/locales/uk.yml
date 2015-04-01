@@ -1,12 +1,5 @@
 # encoding: utf-8
 uk:
-  attributes:
-    label: Label
-    slug: Посилання
-    parent_id: Parent
-    content: Зміст
-    identifier: Ідентифікатор
-    full_path: Повний Шлях
   activerecord:
     models:
       comfy/cms/site: Сайт
@@ -14,9 +7,11 @@ uk:
       comfy/cms/page: Сторінка
       comfy/cms/snippet: Сніппет
       comfy/cms/file: Файл
+
     attributes:
       comfy/cms/site:
         identifier: Ідентифікатор
+        label: Назва
         hostname: Ім'я хоста
         path: Шлях
         locale: Мова
@@ -26,19 +21,26 @@ uk:
         label: Назва шаблону
         app_layout: Шаблон додатку
         parent_id: Батьківскький шаблон
+        content: Зміст
         css: CSS
         js: Javascript
       comfy/cms/page:
         label: Назва
         layout_id: Шаблон
         slug: Посилання
+        full_path: Повний Шлях
+        parent_id: Parent
         target_page_id: Редірект на сторінку
+        content: Зміст
         is_published: Опублікована
       comfy/cms/file:
+        label: Назва
         file: Файл
         description: Опис
       comfy/cms/snippet:
         identifier: Ідентифікатор
+        label: Назва
+        content: Зміст
 
   comfy:
     cms:

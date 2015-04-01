@@ -1,22 +1,17 @@
 # encoding: utf-8
 pl:
-  attributes:
-    label: Tytuł
-    slug: Ścieżka
-    parent_id: Rodzic
-    content: Zawartość
-    identifier: Identyfikator
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Witryna
       comfy/cms/layout: Szablin
       comfy/cms/page: Strona
       comfy/cms/snippet: Snippet
-      comcomfy/fy/cms/file: Plik
+      comfy/cms/file: Plik
+
     attributes:
       comfy/cms/site:
         identifier: Identyfikator
+        label: Tytuł
         hostname: Nazwa hosta
         path: Ścieżka
         locale: Język
@@ -26,19 +21,26 @@ pl:
         label: Nazwa layout'u
         app_layout: Nazwa aplikacji
         parent_id: Rodzic
+        content: Zawartość
         css: Style
         js: Javascript
       comfy/cms/page:
         label: Tytuł
         layout_id: Identyfikator szablonu
         slug: Ścieżka
+        full_path: Full path
+        parent_id: Rodzic
         target_page_id: Przekieruj do strony
+        content: Zawartość
         is_published: Opublikowana
       comfy/cms/file:
+        label: Tytuł
         file: Plik
         description: Opis
       comfy/cms/snippet:
         identifier: Identyfikator
+        label: Tytuł
+        content: Zawartość
 
   comfy:
     cms:
@@ -46,19 +48,19 @@ pl:
         site_not_found: Witryna nie została znaleziona
         layout_not_found: Szablon nie został znaleziony
         page_not_found: Strona nie została znaleziona
-      
+
     admin:
       cms:
         base:
           site_not_found: Strona nie została znaleziona
           fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
-          
+
           sites: Witryny
           layouts: Szablony
           pages: Pages
           snippets: Snippets
           files: Files
-      
+
         sites:
           created: Witryna została utworzona
           creation_failure: Błąd przy tworzeniu witryny
@@ -66,7 +68,7 @@ pl:
           update_failure: Błąd przy uaktualnianiu witryny
           deleted: Witryna została usunięta
           not_found: Nie znaleziono witryny
-          
+
           index:
             title: Witryny
             new_link: Utwórz nowa witrynę
@@ -83,7 +85,7 @@ pl:
             cancel: Anulować
             update: Uaktualnij witrynę
             is_mirrored: Mirror
-      
+
         layouts:
           created: Szablon został utworzony
           creation_failure: Błąd przy tworzeniu layoutu
@@ -91,7 +93,7 @@ pl:
           update_failure: Błąd przy uaktualnianiu layoutu
           deleted: Szablon został usunięty
           not_found: Nie znaleziono layoutu
-          
+
           index:
             title: Szablony
             new_link: Utwórz nowy szablon
@@ -116,7 +118,7 @@ pl:
             create: Stwórz szablon
             cancel: Anulować
             update: Uaktualnij szablon
-      
+
         pages:
           created: Strona została utworzona
           creation_failure: Błąd przy tworzeniu strony
@@ -125,7 +127,7 @@ pl:
           deleted: Strona została usunięta
           not_found: Nie znaleziono strony
           layout_not_found: Brakuje layoutu. Proszę utworzyć
-          
+
           index:
             title: Strony
             new_link: Utwórz nową stronę
@@ -153,7 +155,7 @@ pl:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
               Wyedytuj treść aby dodać stronę lub pole np. <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: Snippet został utworzony
           creation_failure: Błąd przy tworzeniu snippeta
@@ -161,7 +163,7 @@ pl:
           update_failure: Błąd przy uaktualnianiu snippeta
           deleted: Snippet został usunięty
           not_found: Nie znaleziono snippeta
-          
+
           index:
             title: Snippets
             new_link: Utwórz nowy snippet
@@ -178,12 +180,12 @@ pl:
             create: Utwórz snippet
             cancel: Anulować
             update: Uaktualnij snippet
-      
+
         revisions:
           reverted: Zawartość zostala przywrócona
           record_not_found: Wpis nie został znaleziony
           not_found: Wersja nie została znaleziona
-          
+
           show:
             title: Wersje dla
             revision: Wersja
@@ -194,7 +196,7 @@ pl:
             changes: Changes
             previous: Previous
             current: Aktualna
-      
+
         files:
           created: Plik wrzucony na serwer
           creation_failure: Błąd przy wrzucaniu pliku
@@ -202,7 +204,7 @@ pl:
           update_failure: Błąd przy uaktualnianiu pliku
           deleted: Plik został usunięty
           not_found: Plik nie został znaleziony
-          
+
           index:
             title: Pliki
             new_link: Wrzuć nowy plik
@@ -219,11 +221,13 @@ pl:
             create: Wrzuć plik
             cancel: Anulować
             update: Uaktualnij plik
+            delete: Usuń
+            are_you_sure: Jesteś pewien?
           page_form:
             are_you_sure: Jesteś pewien?
           file:
             are_you_sure: Jesteś pewien?
-            
+
         categories:
           index:
             label: Kategorie

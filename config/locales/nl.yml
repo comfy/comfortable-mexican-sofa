@@ -1,12 +1,5 @@
 # encoding: utf-8
 nl:
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Ouder
-    content: Inhoud
-    identifier: Identifier
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ nl:
       comfy/cms/page: Pagina
       comfy/cms/snippet: Snippet
       comfy/cms/file: Bestand
+
     attributes:
       comfy/cms/site:
         identifier: Identifier
+        label: Label
         hostname: Hostname
         path: Pad
         locale: Taal
@@ -26,19 +21,26 @@ nl:
         label: Lay-out Naam
         app_layout: App Lay-out
         parent_id: Ouder Lay-out
+        content: Inhoud
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Label
         layout_id: Lay-out
         slug: Slug
+        full_path: Full path
+        parent_id: Ouder
         target_page_id: Omleiding naar Pagina
+        content: Inhoud
         is_published: Gepubliceerd
       comfy/cms/file:
+        label: Label
         file: Bestand
         description: Omschrijving
       comfy/cms/snippet:
         identifier: Identifier
+        label: Label
+        content: Inhoud
 
   comfy:
     cms:
@@ -46,13 +48,13 @@ nl:
         site_not_found: Site niet gevonden
         layout_not_found: Lay-out niet gevonden
         page_not_found: Pagina niet gevonden
-        
+
     admin:
       cms:
         base:
           site_not_found: Site niet gevonden
           fixtures_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
-          
+
           sites: Sites
           layouts: Lay-outs
           pages: Pagina's
@@ -66,7 +68,7 @@ nl:
           update_failure: Site bijwerken mislukt
           deleted: Site verwijderd
           not_found: Site niet gevonden
-          
+
           index:
             title: Sites
             new_link: Maak Nieuwe Site Aan
@@ -91,7 +93,7 @@ nl:
           update_failure: Lay-out bijwerken mislukt
           deleted: Lay-out verwijderd
           not_found: Lay-out niet gevonden
-          
+
           index:
             title: Lay-outs
             new_link: Maak Nieuwe Lay-out Aan
@@ -125,7 +127,7 @@ nl:
           deleted: Pagina verwijderd
           not_found: Pagina niet gevonden
           layout_not_found: Geen Lay-outs gevonden. Maak er a.u.b. een aan.
-          
+
           index:
             title: Pagina's
             new_link: Maak Nieuwe Pagina Aan
@@ -161,7 +163,7 @@ nl:
           update_failure: Snippet bijwerken mislukt
           deleted: Snippet verwijderd
           not_found: Snippet niet gevonden
-          
+
           index:
             title: Snippets
             new_link: Maak Nieuw Snippet Aan
@@ -183,7 +185,7 @@ nl:
           reverted: Content teruggezet
           record_not_found: Record niet gevonden
           not_found: Revisie niet gevonden
-          
+
           show:
             title: Revisies van
             revision: Revisie
@@ -202,7 +204,7 @@ nl:
           update_failure: Bestand bijwerken mislukt
           deleted: Bestand verwijderd
           not_found: Bestand niet gevonden
-          
+
           index:
             title: Bestanden
             new_link: Upload Nieuw Bestand
@@ -219,11 +221,13 @@ nl:
             create: Upload Bestand
             cancel: Annuleren
             update: Update Bestand
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
           page_form:
             are_you_sure: Weet u het zeker?
           file:
             are_you_sure: Weet u het zeker?
-            
+
         categories:
           index:
             label: Categorieën

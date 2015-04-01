@@ -1,12 +1,5 @@
 # encoding: utf-8
 sv:
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Förälder
-    content: Innehåll
-    identifier: Identifierare
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ sv:
       comfy/cms/page: Sida
       comfy/cms/snippet: Snippet
       comfy/cms/file: Fil
+
     attributes:
       comfy/cms/site:
         identifier: Identifierare
+        label: Label
         hostname: Hostnamn
         path: Sökväg
         locale: Språk
@@ -26,39 +21,46 @@ sv:
         label: Layout Namn
         app_layout: App Layout
         parent_id: Förälderlayout
+        content: Innehåll
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Label
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Förälder
         target_page_id: Vidarebefodra till sida
+        content: Innehåll
         is_published: Publicerad
       comfy/cms/file:
+        label: Label
         file: Fil
         description: Beskrivninig
       comfy/cms/snippet:
         identifier: Identifierare
-        
+        label: Label
+        content: Innehåll
+
   comfy:
     cms:
       content:
         site_not_found: Kunde inte hitta site
         layout_not_found: Kunde inte hitta layout
         page_not_found: Kunde inte hitta sida
-      
+
     admin:
       cms:
         base:
           site_not_found: Site kan inte hittas
           fixtures_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
-          
+
           sites: Sites
           layouts: Layouter
           pages: Sidor
           snippets: Snippets
           files: Filer
-      
+
         sites:
           created: Site skapad
           creation_failure: Kunde inte skapa site
@@ -66,7 +68,7 @@ sv:
           update_failure: Uppdatering av site misslyckades
           deleted: Site borttagen
           not_found: Kunde inte hitta site
-          
+
           index:
             title: Siter
             new_link: Skapa ny site
@@ -83,7 +85,7 @@ sv:
             cancel: Avbryt
             update: Uppdatera Site
             is_mirrored: Speglad
-      
+
         layouts:
           created: Layout skapad
           creation_failure: Misslyckades att skapa site
@@ -91,7 +93,7 @@ sv:
           update_failure: Uppdatering av layout misslyckades
           deleted: Layout borttagen
           not_found: Layout kunde inte hittas
-          
+
           index:
             title: Layouter
             new_link: Skapa ny layout
@@ -116,7 +118,7 @@ sv:
             create: Skapa Layout
             cancel: Avbryt
             update: Uppdatera Layout
-      
+
         pages:
           created: Sida skapad
           creation_failure: Misslyckades att skapa sida
@@ -125,7 +127,7 @@ sv:
           deleted: Sidan borttagen
           not_found: Sida kunde inte hittas
           layout_not_found: Kunde inte hitta layout. Vänligen skapa en.
-          
+
           index:
             title: Sidor
             new_link: Skapa ny sida
@@ -153,7 +155,7 @@ sv:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>
               Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: Snippet skapad
           creation_failure: Misslyckades att skapa snippet
@@ -161,7 +163,7 @@ sv:
           update_failure: Uppdateringen av snippet misslyckades
           deleted: Snippet borttagen
           not_found: Snippet kunde inte hittas
-          
+
           index:
             title: Snippets
             new_link: Skapa Ny Snippet
@@ -178,12 +180,12 @@ sv:
             create: Skapa Snippet
             cancel: Avbryt
             update: Uppdatera Snippet
-      
+
         revisions:
           reverted: Innehåll återställt
           record_not_found: Kunde inte hitta data för återställning
           not_found: Återställningspunkt inte hittad
-          
+
           show:
             title: Revisioner för
             revision: Revision
@@ -194,7 +196,7 @@ sv:
             changes: Changes
             previous: Previous
             current: Nuvarande
-      
+
         files:
           created: Filer uppladdade
           creation_failure: Kunde inte skapa fil
@@ -202,7 +204,7 @@ sv:
           update_failure: Kunde inte uppdatera fil
           deleted: Fil borttagen
           not_found: Kunde inte hitta fil
-          
+
           index:
             title: Filer
             new_link: Ladda upp en ny fil
@@ -219,11 +221,13 @@ sv:
             create: Ladda upp fil
             cancel: Avbryt
             update: Uppdatera fil
+            delete: Delete
+            are_you_sure: Är du säker?
           page_form:
             are_you_sure: Är du säker?
           file:
             are_you_sure: Är du säker?
-            
+
         categories:
           index:
             label: Kategorier

@@ -1,12 +1,5 @@
 # encoding: utf-8
 zh-CN:
-  attributes:
-    label: 标签
-    slug: 嵌条
-    parent_id: 上级
-    content: 内容
-    identifier: 标识符
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: 站点
@@ -14,9 +7,11 @@ zh-CN:
       comfy/cms/page: 页面
       comfy/cms/snippet: 片段
       comfy/cms/file: 文件
+
     attributes:
       comfy/cms/site:
         identifier: 标识符
+        label: 标签
         hostname: 主机名
         path: 路径
         locale: 语言
@@ -26,33 +21,40 @@ zh-CN:
         label: 布局名称
         app_layout: 应用布局
         parent_id: 上级布局
+        content: 内容
         css: 样式
         js: Javascript
       comfy/cms/page:
         label: 页面名称
         layout_id: 布局
         slug: Slug
+        full_path: Full path
+        parent_id: 上级
         target_page_id: 跳转至
+        content: 内容
         is_published: 发布
       comfy/cms/file:
+        label: 标签
         file: 文件
         description: 描述
       comfy/cms/snippet:
         identifier: 标识符
-        
+        label: 标签
+        content: 内容
+
   comfy:
     cms:
       content:
         site_not_found: 站点不存在
         layout_not_found: 布局不存在
         page_not_found: 页面不存在
-      
+
     admin:
       cms:
         base:
           site_not_found: 没有该站点
           fixtures_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
-          
+
           sites: 站点
           layouts: 布局
           pages: 页面
@@ -66,7 +68,7 @@ zh-CN:
           update_failure: 站点更新失败
           deleted: 站点删除成功
           not_found: 站点不存在
-          
+
           index:
             title: 站点
             new_link: 创建站点
@@ -91,7 +93,7 @@ zh-CN:
           update_failure: 布局更新失败
           deleted: 布局删除成功
           not_found: 布局不存在
-          
+
           index:
             title: 布局
             new_link: 创建新布局
@@ -125,7 +127,7 @@ zh-CN:
           deleted: 页面删除成功
           not_found: 页面不存在
           layout_not_found: 没有布局，请先创建一个布局。
-          
+
           index:
             title: 页面
             new_link: 创建新页面
@@ -161,7 +163,7 @@ zh-CN:
           update_failure: 片段更新失败
           deleted: 片段删除成功
           not_found: 片段不存在
-          
+
           index:
             title: 片段
             new_link: 创建新片段
@@ -183,7 +185,7 @@ zh-CN:
           reverted: 内容恢复成功
           record_not_found: 记录不存在
           not_found: 修订版本不存在
-          
+
           show:
             title: 修订版本属于
             revision: 修订版本
@@ -202,7 +204,7 @@ zh-CN:
           update_failure: 文件更新失败
           deleted: 文件删除成功
           not_found: 文件不存在
-          
+
           index:
             title: 文件
             new_link: 上传新文件
@@ -219,11 +221,13 @@ zh-CN:
             create: 上传文件
             cancel: 取消
             update: 更新文件
+            delete: 删除
+            are_you_sure: 确定删除该文件吗？
           page_form:
             are_you_sure: 确定删除该文件吗？
           file:
             are_you_sure: 确定删除该文件吗？
-            
+
         categories:
           index:
             label: 分类

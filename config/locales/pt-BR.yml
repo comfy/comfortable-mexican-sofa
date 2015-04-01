@@ -1,12 +1,5 @@
 # encoding: utf-8
 pt-BR:
-  attributes:
-    label: Nome
-    slug: Identificador
-    parent_id: Pai
-    content: Conteúdo
-    identifier: Identificador
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ pt-BR:
       comfy/cms/page: Página
       comfy/cms/snippet: Fragmento
       comfy/cms/file: Arquivo
+
     attributes:
       comfy/cms/site:
         identifier: Identificador
+        label: Nome
         hostname: Nome do Host
         path: Caminho
         locale: Idioma
@@ -26,39 +21,46 @@ pt-BR:
         label: Nome do Leiaute
         app_layout: Leiaute da Aplicação
         parent_id: Leiaute Pai
+        content: Conteúdo
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Título
         layout_id: Leiaute
         slug: Identificador
+        full_path: Full path
+        parent_id: Pai
         target_page_id: Redirecionar para a Página
+        content: Conteúdo
         is_published: Publicada
       comfy/cms/file:
+        label: Nome
         file: Arquivo
         description: Descrição
       comfy/cms/snippet:
         identifier: Identificador
-        
+        label: Nome
+        content: Conteúdo
+
   comfy:
     cms:
       content:
         site_not_found: Site Não Encontrado
         layout_not_found: Leiaute Não Encontrado
         page_not_found: Página Não Encontrada
-        
+
     admin:
       cms:
         base:
           site_not_found: Site não encontrado
           fixtures_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
-          
+
           sites: Sites
           layouts: Leiautes
           pages: Páginas
           snippets: Fragmentos
           files: Arquivos
-      
+
         sites:
           created: Site criado com sucesso.
           creation_failure: Não foi possível criar site.
@@ -66,7 +68,7 @@ pt-BR:
           update_failure: Não foi possível atualizar site.
           deleted: Site excluído com sucesso.
           not_found: Site não encontrado.
-          
+
           index:
             title: Sites
             new_link: Criar Novo Site
@@ -83,7 +85,7 @@ pt-BR:
             cancel: Cancelar
             update: Atualizar Site
             is_mirrored: Espelhado
-      
+
         layouts:
           created: Leiaute criado com sucesso.
           creation_failure: Não foi possível criar leiaute.
@@ -91,7 +93,7 @@ pt-BR:
           update_failure: Não foi possível atualizar leiaute.
           deleted: Leiaute excluído com sucesso.
           not_found: Leiaute não encontrado.
-          
+
           index:
             title: Leiautes
             new_link: Criar Novo Leiaute
@@ -116,7 +118,7 @@ pt-BR:
             create: Criar Leiaute
             cancel: Cancelar
             update: Atualizar Leiaute
-      
+
         pages:
           created: Página criada com sucesso.
           creation_failure: Não foi possível criar página.
@@ -125,7 +127,7 @@ pt-BR:
           deleted: Página excluída com sucesso.
           not_found: Página não encontrada.
           layout_not_found: "Nenhum leiaute foi encontrado. Por favor, crie um."
-          
+
           index:
             title: Páginas
             new_link: Criar Nova Página
@@ -153,7 +155,7 @@ pt-BR:
             no_tags: |-
               O leiaute não possui tags de conteúdo definidas.<br/>
               Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
-      
+
         snippets:
           created: Fragmento criado com sucesso.
           creation_failure: Não foi possível criar fragmento.
@@ -161,7 +163,7 @@ pt-BR:
           update_failure: Não foi possível atualizar fragmento.
           deleted: Fragmento excluído com sucesso.
           not_found: Fragmento não encontrado.
-          
+
           index:
             title: Fragmentos
             new_link: Criar Novo Fragmento
@@ -183,7 +185,7 @@ pt-BR:
           reverted: Conteúdo revertido com sucesso.
           record_not_found: Registro não encontrado.
           not_found: Revisão não encontrada.
-          
+
           show:
             title: Revisões de
             revision: Revisão
@@ -194,7 +196,7 @@ pt-BR:
             changes: Changes
             previous: Previous
             current: Atual
-      
+
         files:
           created: Arquivo enviado com sucesso.
           creation_failure: Não foi possível enviar arquivo.
@@ -202,7 +204,7 @@ pt-BR:
           update_failure: Não foi possível atualizar arquivo.
           deleted: Arquivo excluído com sucesso.
           not_found: Arquivo não encontrado.
-          
+
           index:
             title: Arquivos
             new_link: Enviar Novo Arquivo
@@ -219,11 +221,13 @@ pt-BR:
             create: Enviar Arquivo
             cancel: Cancelar
             update: Atualizar Arquivo
+            delete: Excluir
+            are_you_sure: Tem certeza?
           page_form:
             are_you_sure: Tem certeza?
           file:
             are_you_sure: Tem certeza?
-            
+
         categories:
           index:
             label: Categorias

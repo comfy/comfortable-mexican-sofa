@@ -1,12 +1,5 @@
 # encoding: utf-8
 cs:
-  attributes:
-    label: Popis
-    slug: Slug
-    parent_id: Rodič
-    content: Obsah
-    identifier: Identifikátor
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Web
@@ -14,9 +7,11 @@ cs:
       comfy/cms/page: Stránka
       comfy/cms/snippet: Úryvek
       comfy/cms/file: Soubor
+
     attributes:
       comfy/cms/site:
         identifier: Identifikátor
+        label: Popis
         hostname: Doména
         path: Cesta
         locale: Jazyk
@@ -26,39 +21,46 @@ cs:
         label: Název rozložení
         app_layout: Rozložení aplikace
         parent_id: Rodičovské rozložení
+        content: Obsah
         css: Styl
         js: Javascript
       comfy/cms/page:
         label: Popis
         layout_id: Rozložení
         slug: Slug
+        full_path: Full path
+        parent_id: Rodič
         target_page_id: Přesměrovat na stránku
+        content: Obsah
         is_published: Publikovaný
       comfy/cms/file:
+        label: Popis
         file: Soubor
         description: Popis
       comfy/cms/snippet:
         identifier: Identifikátor
-        
+        label: Popis
+        content: Obsah
+
   comfy:
     cms:
       content:
         site_not_found: Web nenalezen
         layout_not_found: Rozložení nenalezeno
         page_not_found: Stránka nenalezena
-    
+
     admin:
       cms:
         base:
           site_not_found: Web nenalezen
           fixtures_enabled: Je povolen pevně definovaný obsah CMS. Všechny zde provedené změny budou ztraceny.
-          
+
           sites: Weby
           layouts: Rozložení
           pages: Stránky
           snippets: Úryvky
           files: Soubory
-  
+
         sites:
           created: Web vytvořen
           creation_failure: Nepodařilo se vytvořit web
@@ -66,7 +68,7 @@ cs:
           update_failure: Nepodařilo se upravit web
           deleted: Web odstraněn
           not_found: Web nenalezen
-          
+
           index:
             title: Weby
             new_link: Vytvořit web
@@ -83,7 +85,7 @@ cs:
             cancel: Zrušit
             update: Upravit web
             is_mirrored: Zrcadlený
-  
+
         layouts:
           created: Rozložení vytvořeno
           creation_failure: Nepodařilo se vytvořit rozložení
@@ -91,7 +93,7 @@ cs:
           update_failure: Nepodařilo se upravit rozložení
           deleted: Rozložení odstraněno
           not_found: Rozložení nenalezeno
-          
+
           index:
             title: Rozložení
             new_link: Vytvořit nové rozložení
@@ -116,7 +118,7 @@ cs:
             create: Vytvořit rozložení
             cancel: Zrušit
             update: Upravit rozložení
-  
+
         pages:
           created: Stránka vytvořena
           creation_failure: Nepodařilo se vytvořit stránku
@@ -125,7 +127,7 @@ cs:
           deleted: Stránka odstraněna
           not_found: Stránka nenalezena
           layout_not_found: "Nebyla nalezena žádná rozložení, vytvořte je prosím."
-          
+
           index:
             title: Stránky
             new_link: Vytvořit novou stránku
@@ -153,7 +155,7 @@ cs:
             no_tags: |-
               Rozložení nedefinuje žádné obsahové značky.<br/>
               Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:page:content}}</code>
-  
+
         snippets:
           created: Úryvek vytvořen
           creation_failure: Nepodařilo se vytvořit úryvek
@@ -161,7 +163,7 @@ cs:
           update_failure: Nepodařilo se upravit úryvek
           deleted: Úryvek odstraněn
           not_found: Úryvek nenalezen
-          
+
           index:
             title: Úryvky
             new_link: Vytvořit úryvek
@@ -178,12 +180,12 @@ cs:
             create: Vytvořit úryvek
             cancel: Zrušit
             update: Upravit úryvek
-  
+
         revisions:
           reverted: Obsah byl obnoven
           record_not_found: Záznam nenalezen
           not_found: Revize nenalezena
-          
+
           show:
             title: Revize pro
             revision: Revize
@@ -194,7 +196,7 @@ cs:
             changes: Změny
             previous: Předchozí
             current: Aktuální
-  
+
         files:
           created: Soubory nahrány
           creation_failure: Nepodařilo se nahrát soubory
@@ -202,7 +204,7 @@ cs:
           update_failure: Nepodařilo se upravit soubor
           deleted: Soubor odstraněn
           not_found: Soubor nenalezen
-          
+
           index:
             title: Soubory
             new_link: Nahrát nový soubor
@@ -219,11 +221,13 @@ cs:
             create: Nahrát soubor
             cancel: Zrušit
             update: Upravit soubor
+            delete: Smazat
+            are_you_sure: Určitě?
           page_form:
             are_you_sure: Určitě?
           file:
             are_you_sure: Určitě?
-        
+
         categories:
           index:
             label: Kategorie
