@@ -1,12 +1,5 @@
 # encoding: utf-8
 fr:
-  attributes:
-    label: Nom
-    slug: Identifiant
-    parent_id: Parent
-    content: Contenu
-    identifier: Identifiant
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ fr:
       comfy/cms/page: Page
       comfy/cms/snippet: Fragment
       comfy/cms/file: Fichier
+
     attributes:
       comfy/cms/site:
         identifier: Identifiant
+        label: Nom
         hostname: Nom d'hôte
         path: Chemin
         locale: Langue
@@ -26,19 +21,26 @@ fr:
         label: Nom de la mise en page
         app_layout: Mise en page de l'application
         parent_id: Mise en page parent
+        content: Contenu
         css: Feuille de style
         js: Javascript
       comfy/cms/page:
         label: Nom de la page
         layout_id: Mise en page
         slug: Identifiant
+        full_path: Full path
+        parent_id: Parent
         target_page_id: Rediriger vers
+        content: Contenu
         is_published: Publié
       comfy/cms/file:
+        label: Nom
         file: Fichier
         description: Description
       comfy/cms/snippet:
         identifier: Identifiant
+        label: Nom
+        content: Contenu
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ fr:
           index:
             title: Fichiers
             new_link: Nouveau fichier
-            edit: Modifier
-            delete: Supprimer
-            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
             button: Ajouter des fichiers
           new:
             title: Nouveau fichier
@@ -227,9 +226,13 @@ fr:
             create: Envoyer
             cancel: Annuler
             update: Modifier le fichier
+            delete: Supprimer
+            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           page_form:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           file:
+            edit: Modifier
+            delete: Supprimer
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
 
         categories:

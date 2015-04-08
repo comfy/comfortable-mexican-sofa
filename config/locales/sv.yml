@@ -1,12 +1,5 @@
 # encoding: utf-8
 sv:
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Förälder
-    content: Innehåll
-    identifier: Identifierare
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ sv:
       comfy/cms/page: Sida
       comfy/cms/snippet: Snippet
       comfy/cms/file: Fil
+
     attributes:
       comfy/cms/site:
         identifier: Identifierare
+        label: Label
         hostname: Hostnamn
         path: Sökväg
         locale: Språk
@@ -26,19 +21,26 @@ sv:
         label: Layout Namn
         app_layout: App Layout
         parent_id: Förälderlayout
+        content: Innehåll
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Label
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Förälder
         target_page_id: Vidarebefodra till sida
+        content: Innehåll
         is_published: Publicerad
       comfy/cms/file:
+        label: Label
         file: Fil
         description: Beskrivninig
       comfy/cms/snippet:
         identifier: Identifierare
+        label: Label
+        content: Innehåll
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ sv:
           index:
             title: Filer
             new_link: Ladda upp en ny fil
-            edit: Ända
-            delete: Delete
-            are_you_sure: Är du säker?
             button: Ladda upp filer
           new:
             title: Ny Fil
@@ -227,9 +226,13 @@ sv:
             create: Ladda upp fil
             cancel: Avbryt
             update: Uppdatera fil
+            delete: Delete
+            are_you_sure: Är du säker?
           page_form:
             are_you_sure: Är du säker?
           file:
+            edit: Ända
+            delete: Delete
             are_you_sure: Är du säker?
 
         categories:

@@ -1,12 +1,5 @@
 # encoding: utf-8
 nl:
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Ouder
-    content: Inhoud
-    identifier: Identifier
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ nl:
       comfy/cms/page: Pagina
       comfy/cms/snippet: Snippet
       comfy/cms/file: Bestand
+
     attributes:
       comfy/cms/site:
         identifier: Identifier
+        label: Label
         hostname: Hostname
         path: Pad
         locale: Taal
@@ -26,19 +21,26 @@ nl:
         label: Lay-out Naam
         app_layout: App Lay-out
         parent_id: Ouder Lay-out
+        content: Inhoud
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Label
         layout_id: Lay-out
         slug: Slug
+        full_path: Full path
+        parent_id: Ouder
         target_page_id: Omleiding naar Pagina
+        content: Inhoud
         is_published: Gepubliceerd
       comfy/cms/file:
+        label: Label
         file: Bestand
         description: Omschrijving
       comfy/cms/snippet:
         identifier: Identifier
+        label: Label
+        content: Inhoud
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ nl:
           index:
             title: Bestanden
             new_link: Upload Nieuw Bestand
-            edit: Bewerk
-            delete: Verwijder
-            are_you_sure: Weet u het zeker?
             button: Upload Bestanden
           new:
             title: Nieuw Bestand
@@ -227,9 +226,13 @@ nl:
             create: Upload Bestand
             cancel: Annuleren
             update: Update Bestand
+            delete: Verwijder
+            are_you_sure: Weet u het zeker?
           page_form:
             are_you_sure: Weet u het zeker?
           file:
+            edit: Bewerk
+            delete: Verwijder
             are_you_sure: Weet u het zeker?
 
         categories:

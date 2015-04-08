@@ -1,12 +1,5 @@
 # encoding: utf-8
 de:
-  attributes:
-    label: Bezeichnung
-    slug: URL
-    parent_id: Vorfahre
-    content: Inhalt
-    identifier: Eindeutige Bezeichnung
-    full_path: Vollständiger Pfad
   activerecord:
     models:
       comfy/cms/site: Web
@@ -14,9 +7,11 @@ de:
       comfy/cms/page: Seite
       comfy/cms/snippet: Schnipsel
       comfy/cms/file: Datei
+
     attributes:
       comfy/cms/site:
         identifier: Name
+        label: Bezeichnung
         hostname: Hostname
         path: Pfad
         locale: Sprache
@@ -26,19 +21,26 @@ de:
         label: Name
         app_layout: Grundlegendes Layout
         parent_id: Übergeordnetes Layout
+        content: Inhalt
         css: CSS-Stilvorlage
         js: JavaScript
       comfy/cms/page:
         label: Titel
         layout_id: Layout
         slug: URL
+        full_path: Vollständiger Pfad
+        parent_id: Vorfahre
         target_page_id: Weiterleitung zu Seite
+        content: Inhalt
         is_published: Veröffentlicht
       comfy/cms/file:
+        label: Bezeichnung
         file: Datei
         description: Beschreibung
       comfy/cms/snippet:
         identifier: Eindeutiger Name
+        label: Bezeichnung
+        content: Inhalt
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ de:
           index:
             title: Datei
             new_link: Neue Datei hochladen
-            edit: Datei bearbeiten
-            delete: Datei löschen
-            are_you_sure: Sind Sie sicher, dass Sie diese Datei löschen möchten?
             button: Datei hochladen
           new:
             title: Datei erstellen
@@ -232,6 +231,8 @@ de:
           page_form:
             are_you_sure: Sind Sie sicher?
           file:
+            edit: Datei bearbeiten
+            delete: Datei löschen
             are_you_sure: Sind Sie sicher?
 
         categories:

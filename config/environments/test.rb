@@ -35,4 +35,10 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   config.active_support.deprecation = :stderr
 
   config.active_support.test_order = :random
+
+  if Rails.version >= '4.2'
+    config.active_record.raise_in_transactional_callbacks = true
+  end
+
+  config.action_view.raise_on_missing_translations = true
 end

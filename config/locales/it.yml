@@ -1,12 +1,5 @@
 # encoding: utf-8
 it:
-  attributes:
-    label: Etichetta
-    slug: Slug
-    parent_id: Padre
-    content: Contenuto
-    identifier: Identificatore
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Sito
@@ -14,9 +7,11 @@ it:
       comfy/cms/page: Pagina
       comfy/cms/snippet: Snippet
       comfy/cms/file: File
+
     attributes:
       comfy/cms/site:
         identifier: Identificatore
+        label: Etichetta
         hostname: Indirizzo Host
         path: Percorso
         locale: Lingua
@@ -26,19 +21,26 @@ it:
         label: Nome Layout
         app_layout: Layout Applicazione
         parent_id: Layout Padre
+        content: Contenuto
         css: Foglio di stile
         js: Javascript
       comfy/cms/page:
         label: Etichetta
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Padre
         target_page_id: Reindirizza a Pagina
+        content: Contenuto
         is_published: Pubblicato
       comfy/cms/file:
+        label: Etichetta
         file: File
         description: Descrizione
       comfy/cms/snippet:
+        label: Etichetta
         identifier: Identificatore
+        content: Contenuto
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ it:
           index:
             title: Files
             new_link: Carica nuovo file
-            edit: Modifica
-            delete: Elimina
-            are_you_sure: Sei sicuro di voler eliminare questo file?
             button: Carica File
           new:
             title: Nuovo File
@@ -227,9 +226,13 @@ it:
             create: Carica File
             cancel: Cancellare
             update: Modifica File
+            delete: Elimina
+            are_you_sure: Sei sicuro?
           page_form:
             are_you_sure: Sei sicuro?
           file:
+            edit: Modifica
+            delete: Elimina
             are_you_sure: Sei sicuro?
 
         categories:

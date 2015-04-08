@@ -1,12 +1,5 @@
 # encoding: utf-8
 pt-BR:
-  attributes:
-    label: Nome
-    slug: Identificador
-    parent_id: Pai
-    content: Conteúdo
-    identifier: Identificador
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ pt-BR:
       comfy/cms/page: Página
       comfy/cms/snippet: Fragmento
       comfy/cms/file: Arquivo
+
     attributes:
       comfy/cms/site:
         identifier: Identificador
+        label: Nome
         hostname: Nome do Host
         path: Caminho
         locale: Idioma
@@ -26,19 +21,26 @@ pt-BR:
         label: Nome do Leiaute
         app_layout: Leiaute da Aplicação
         parent_id: Leiaute Pai
+        content: Conteúdo
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Título
         layout_id: Leiaute
         slug: Identificador
+        full_path: Full path
+        parent_id: Pai
         target_page_id: Redirecionar para a Página
+        content: Conteúdo
         is_published: Publicada
       comfy/cms/file:
+        label: Nome
         file: Arquivo
         description: Descrição
       comfy/cms/snippet:
         identifier: Identificador
+        label: Nome
+        content: Conteúdo
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ pt-BR:
           index:
             title: Arquivos
             new_link: Enviar Novo Arquivo
-            edit: Editar
-            delete: Excluir
-            are_you_sure: Tem certeza?
             button: Enviar Arquivos
           new:
             title: Novo Arquivo
@@ -227,9 +226,13 @@ pt-BR:
             create: Enviar Arquivo
             cancel: Cancelar
             update: Atualizar Arquivo
+            delete: Excluir
+            are_you_sure: Tem certeza?
           page_form:
             are_you_sure: Tem certeza?
           file:
+            edit: Editar
+            delete: Excluir
             are_you_sure: Tem certeza?
 
         categories:

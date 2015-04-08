@@ -1,12 +1,5 @@
 # encoding: utf-8
 ja:
-  attributes:
-    label: ラベル
-    slug: スラッグ
-    parent_id: 親
-    content: コンテンツ
-    identifier: Identifier
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: サイト
@@ -14,9 +7,11 @@ ja:
       comfy/cms/page: ページ
       comfy/cms/snippet: スニペット
       comfy/cms/file: File
+
     attributes:
       comfy/cms/site:
         identifier: Identifier
+        label: ラベル
         hostname: ホスト名
         path: パス
         locale: 言語
@@ -26,19 +21,26 @@ ja:
         label: レイアウト名
         app_layout: アプリケーションレイアウト
         parent_id: 親レイアウト
+        content: コンテンツ
         css: スタイルシート
         js: Javascript
       comfy/cms/page:
         label: ラベル
         layout_id: レイアウト
         slug: スラッグ
+        full_path: Full path
+        parent_id: 親
         target_page_id: ページにリダイレクト
+        content: コンテンツ
         is_published: パブリッシュ済み
       comfy/cms/file:
+        label: ラベル
         file: File
         description: Description
       comfy/cms/snippet:
         identifier: Identifier
+        label: ラベル
+        content: コンテンツ
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ ja:
           index:
             title: ファイル
             new_link: 新規ファイルをアップロード
-            edit: 編集
-            delete: 削除
-            are_you_sure: よろしいですか？
             button: ファイルをアップロード
           new:
             title: 新規ファイル
@@ -227,9 +226,13 @@ ja:
             create: ファイルをアップロード
             cancel: キャンセル
             update: ファイルを更新
+            delete: 削除
+            are_you_sure: よろしいですか？
           page_form:
             are_you_sure: よろしいですか？
           file:
+            edit: 編集
+            delete: 削除
             are_you_sure: よろしいですか？
 
         categories:

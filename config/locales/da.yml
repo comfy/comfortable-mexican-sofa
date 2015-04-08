@@ -1,12 +1,5 @@
 # encoding: utf-8
 da:
-  attributes:
-    label: Etiket
-    slug: Slug
-    parent_id: Overordnet
-    content: Indhold
-    identifier: Nøgleord
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Websted
@@ -14,9 +7,11 @@ da:
       comfy/cms/page: Side
       comfy/cms/snippet: Snippet
       comfy/cms/file: Fil
+
     attributes:
       comfy/cms/site:
         identifier: Nøgleord
+        label: Etiket
         hostname: Værtsnavn
         path: Sti
         locale: Sprog
@@ -26,19 +21,26 @@ da:
         label: Layout Navn
         app_layout: App Layout
         parent_id: Overordnet Layout
+        content: Indhold
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Etiket
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Overordnet
         target_page_id: Viderestil til Side
+        content: Indhold
         is_published: Udgivet
       comfy/cms/file:
+        label: Etiket
         file: Fil
         description: Beskrivelse
       comfy/cms/snippet:
         identifier: Nøgleord
+        label: Etiket
+        content: Indhold
 
   comfy:
     cms:
@@ -48,16 +50,16 @@ da:
         page_not_found: Side findes ikke
 
     admin:
-        cms:
-          base:
-            site_not_found: Webstedet findes ikke
-            fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
+      cms:
+        base:
+          site_not_found: Webstedet findes ikke
+          fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
 
-            sites: Websteder
-            layouts: Layouts
-            pages: Sider
-            snippets: Snippets
-            files: Filer
+          sites: Websteder
+          layouts: Layouts
+          pages: Sider
+          snippets: Snippets
+          files: Filer
 
         sites:
           created: Websted oprettet
@@ -214,9 +216,6 @@ da:
           index:
             title: Filer
             new_link: Send ny fil
-            edit: Rediger
-            delete: Slet
-            are_you_sure: Er du sikker?
             button: Send filer
           new:
             title: Ny fil
@@ -227,9 +226,13 @@ da:
             create: Send fil
             cancel: Annuller
             update: Opdater fil
+            delete: Slet
+            are_you_sure: Er du sikker?
           page_form:
             are_you_sure: Er du sikker?
           file:
+            edit: Rediger
+            delete: Slet
             are_you_sure: Er du sikker?
 
         categories:

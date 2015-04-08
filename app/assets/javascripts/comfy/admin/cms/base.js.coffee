@@ -23,15 +23,50 @@ window.CMS.init = ->
 
 window.CMS.slugify = ->
   slugify = (str) ->
-    str   = str.replace(/^\s+|\s+$/g, '')
-    from  = "ÀÁÄÂÃÈÉËÊÌÍÏÎÒÓÖÔÕÙÚÜÛàáäâãèéëêìíïîòóöôõùúüûÑñÇç"
-    to    = "aaaaaeeeeiiiiooooouuuuaaaaaeeeeiiiiooooouuuunncc"
-    for i in [0..from.length - 1]
-      str = str.replace(new RegExp(from[i], "g"), to[i])
-    chars_to_replace_with_delimiter = new RegExp('[·/,:;_]', 'g')
-    str = str.replace(chars_to_replace_with_delimiter, '-')
-    chars_to_remove = new RegExp('[^a-zA-Z0-9 -]', 'g')
-    str = str.replace(chars_to_remove, '').replace(/\s+/g, '-').toLowerCase()
+    # Trim string and lower case.
+    str = str.replace(/^\s+|\s+$/g, '').toLowerCase()
+
+    # Replace special chars.
+    replacements = [
+      ['à', 'a'],
+      ['á', 'a'],
+      ['ä', 'ae'],
+      ['â', 'a'],
+      ['ã', 'a'],
+      ['è', 'e'],
+      ['é', 'e'],
+      ['ë', 'e'],
+      ['ê', 'e'],
+      ['ì', 'i'],
+      ['í', 'i'],
+      ['ï', 'i'],
+      ['î', 'i'],
+      ['ò', 'o'],
+      ['ó', 'o'],
+      ['ö', 'oe'],
+      ['ô', 'o'],
+      ['õ', 'o'],
+      ['ù', 'u'],
+      ['ú', 'u'],
+      ['ü', 'ue'],
+      ['û', 'u'],
+      ['ñ', 'n'],
+      ['ç', 'c'],
+      ['ß', 'ss'],
+      ['·', '-'],
+      ['/', '-'],
+      [',', '-'],
+      [':', '-'],
+      [';', '-'],
+      ['_', '-'],
+      [' ', '-'],
+    ]
+
+    for replacement in replacements
+      str = str.replace(new RegExp(replacement[0], 'g'), replacement[1])
+
+    # Remove any other URL incompatible characters and replace multiple dashes with just a single one.
+    str = str.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-')
 
   $('input[data-slugify=true]').bind 'keyup.cms', ->
     $('input[data-slug=true]').val(slugify($(this).val()))
@@ -123,7 +158,7 @@ window.CMS.page_update_preview = ->
   $('input[name=commit]').click ->
     $(this).parents('form').attr('target', '')
   $('input[name=preview]').click ->
-    $(this).parents('form').attr('target', '_blank')
+    $(this).parents('form').attr('target', 'comfy-cms-preview')
 
 
 window.CMS.page_update_publish = ->

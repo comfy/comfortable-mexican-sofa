@@ -1,12 +1,5 @@
 # encoding: utf-8
 nb:
-  attributes:
-    label: Navn
-    slug: Sti
-    parent_id: Underside til
-    content: Innhold
-    identifier: Identifikator
-    full_path: Fullstendig sti
   activerecord:
     models:
       comfy/cms/site: Nettside
@@ -14,9 +7,11 @@ nb:
       comfy/cms/page: Side
       comfy/cms/snippet: Snutt
       comfy/cms/file: Fil
+
     attributes:
       comfy/cms/site:
         identifier: Identifikator
+        label: Navn
         hostname: Tjenestenavn
         path: Sti
         locale: Språk
@@ -26,19 +21,26 @@ nb:
         label: Layoutnavn
         app_layout: Applayout
         parent_id: Hovedlayout
+        content: Innhold
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Navn
         layout_id: Layout
         slug: Sti
+        full_path: Fullstendig sti
+        parent_id: Underside til
         target_page_id: Videresend til
+        content: Innhold
         is_published: Publisert
       comfy/cms/file:
+        label: Navn
         file: Fil
         description: Beskrivelse
       comfy/cms/snippet:
         identifier: Identifikator
+        label: Navn
+        content: Innhold
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ nb:
           index:
             title: Filer
             new_link: Last opp ny fil
-            edit: Endre
-            delete: Fjerne
-            are_you_sure: Er du sikker?
             button: Last opp filer
           new:
             title: Ny fil
@@ -227,9 +226,13 @@ nb:
             create: Last opp fil
             cancel: Cancel
             update: Endre fil
+            delete: Fjerne
+            are_you_sure: Er du sikker?
           page_form:
             are_you_sure: Er du sikker?
           file:
+            edit: Endre
+            delete: Fjerne
             are_you_sure: Er du sikker?
 
         categories:

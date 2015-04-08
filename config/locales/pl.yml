@@ -1,22 +1,17 @@
 # encoding: utf-8
 pl:
-  attributes:
-    label: Tytuł
-    slug: Ścieżka
-    parent_id: Rodzic
-    content: Zawartość
-    identifier: Identyfikator
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Witryna
       comfy/cms/layout: Szablin
       comfy/cms/page: Strona
       comfy/cms/snippet: Snippet
-      comcomfy/fy/cms/file: Plik
+      comfy/cms/file: Plik
+
     attributes:
       comfy/cms/site:
         identifier: Identyfikator
+        label: Tytuł
         hostname: Nazwa hosta
         path: Ścieżka
         locale: Język
@@ -26,19 +21,26 @@ pl:
         label: Nazwa layout'u
         app_layout: Nazwa aplikacji
         parent_id: Rodzic
+        content: Zawartość
         css: Style
         js: Javascript
       comfy/cms/page:
         label: Tytuł
         layout_id: Identyfikator szablonu
         slug: Ścieżka
+        full_path: Full path
+        parent_id: Rodzic
         target_page_id: Przekieruj do strony
+        content: Zawartość
         is_published: Opublikowana
       comfy/cms/file:
+        label: Tytuł
         file: Plik
         description: Opis
       comfy/cms/snippet:
         identifier: Identyfikator
+        label: Tytuł
+        content: Zawartość
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ pl:
           index:
             title: Pliki
             new_link: Wrzuć nowy plik
-            edit: Edytuj
-            delete: Usuń
-            are_you_sure: Jesteś pewien?
             button: Wrzuć plik
           new:
             title: Nowy plik
@@ -227,9 +226,13 @@ pl:
             create: Wrzuć plik
             cancel: Anulować
             update: Uaktualnij plik
+            delete: Usuń
+            are_you_sure: Jesteś pewien?
           page_form:
             are_you_sure: Jesteś pewien?
           file:
+            edit: Edytuj
+            delete: Usuń
             are_you_sure: Jesteś pewien?
 
         categories:

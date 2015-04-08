@@ -1,12 +1,5 @@
 # encoding: utf-8
 ru:
-  attributes:
-    label: Название
-    slug: Ссылка
-    parent_id: Родитель
-    content: Контент
-    identifier: Идентификатор
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Сайт
@@ -14,9 +7,11 @@ ru:
       comfy/cms/page: Страница
       comfy/cms/snippet: Сниппет
       comfy/cms/file: Файл
+
     attributes:
       comfy/cms/site:
         identifier: Идентификатор
+        label: Название
         hostname: Имя хоста
         path: Путь
         locale: Язык
@@ -26,6 +21,7 @@ ru:
         label: Название шаблона
         app_layout: Шаблон приложения
         parent_id: Родительский шаблон
+        content: Контент
         css: CSS
         js: Javascript
       comfy/cms/page:
@@ -35,12 +31,16 @@ ru:
         full_path: Полный путь
         slug: Ссылка
         target_page_id: Редирект на страницу
+        content: Контент
         is_published: Опубликована
       comfy/cms/file:
+        label: Название
         file: Файл
         description: Описание
       comfy/cms/snippet:
         identifier: Идентификатор
+        label: Название
+        content: Контент
 
   comfy:
     cms:
@@ -216,9 +216,6 @@ ru:
           index:
             title: Файлы
             new_link: Загрузить новый файл
-            edit: Редактировать
-            delete: Удалить
-            are_you_sure: Вы уверены?
             button: Загрузить файлы
           new:
             title: Новый файл
@@ -229,9 +226,13 @@ ru:
             create: Загрузить файл
             cancel: Oтменить
             update: Обновить файл
+            delete: Удалить
+            are_you_sure: Вы уверены?
           page_form:
             are_you_sure: Вы уверены?
           file:
+            edit: Редактировать
+            delete: Удалить
             are_you_sure: Вы уверены?
 
         categories:

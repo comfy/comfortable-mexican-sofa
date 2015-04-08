@@ -1,12 +1,5 @@
 # encoding: utf-8
 en:
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Parent
-    content: Content
-    identifier: Identifier
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Site
@@ -14,9 +7,11 @@ en:
       comfy/cms/page: Page
       comfy/cms/snippet: Snippet
       comfy/cms/file: File
+
     attributes:
       comfy/cms/site:
         identifier: Identifier
+        label: Label
         hostname: Hostname
         path: Path
         locale: Language
@@ -26,19 +21,26 @@ en:
         label: Layout Name
         app_layout: App Layout
         parent_id: Parent Layout
+        content: Content
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Label
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Parent
         target_page_id: Redirect to Page
+        content: Content
         is_published: Published
       comfy/cms/file:
+        label: Label
         file: File
         description: Description
       comfy/cms/snippet:
+        label: Label
         identifier: Identifier
+        content: Content
 
   comfy:
     locales:
@@ -258,9 +260,6 @@ en:
           index:
             title: Files
             new_link: Upload New File
-            edit: Edit
-            delete: Delete
-            are_you_sure: Are you sure?
             button: Upload Files
           new:
             title: New File
@@ -276,6 +275,8 @@ en:
           page_form:
             are_you_sure: Are you sure?
           file:
+            edit: Edit
+            delete: Delete
             are_you_sure: Are you sure?
 
         categories:

@@ -1,12 +1,5 @@
 # encoding: utf-8
 zh-TW:
-  attributes:
-    label: 標籤
-    slug: 嵌條
-    parent_id: 上級
-    content: 內容
-    identifier: 標識符
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: 站點
@@ -14,9 +7,11 @@ zh-TW:
       comfy/cms/page: 頁面
       comfy/cms/snippet: 片段
       comfy/cms/file: 文件
+
     attributes:
       comfy/cms/site:
         identifier: 標識符
+        label: 標籤
         hostname: 主機名
         path: 路徑
         locale: 語言
@@ -26,19 +21,26 @@ zh-TW:
         label: 佈局名稱
         app_layout: 應用佈局
         parent_id: 上級佈局
+        content: 內容
         css: 樣式
         js: Javascript
       comfy/cms/page:
         label: 頁面名稱
         layout_id: 佈局
         slug: Slug
+        full_path: Full path
+        parent_id: 上級
         target_page_id: 跳轉至
+        content: 內容
         is_published: 發佈
       comfy/cms/file:
+        label: 標籤
         file: 文件
         description: 描述
       comfy/cms/snippet:
         identifier: 標識符
+        label: 標籤
+        content: 內容
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ zh-TW:
           index:
             title: 文件
             new_link: 上傳新文件
-            edit: 編輯
-            delete: 刪除
-            are_you_sure: 確定刪除該文件嗎？
             button: 上傳文件
           new:
             title: 新文件
@@ -227,9 +226,13 @@ zh-TW:
             create: 上傳文件
             cancel: Cancel
             update: 更新文件
+            delete: 刪除
+            are_you_sure: 確定刪除該文件嗎？
           page_form:
             are_you_sure: 確定刪除該文件嗎？
           file:
+            edit: 編輯
+            delete: 刪除
             are_you_sure: 確定刪除該文件嗎？
 
         categories:

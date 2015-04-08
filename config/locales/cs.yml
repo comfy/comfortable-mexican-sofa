@@ -1,12 +1,5 @@
 # encoding: utf-8
 cs:
-  attributes:
-    label: Popis
-    slug: Slug
-    parent_id: Rodič
-    content: Obsah
-    identifier: Identifikátor
-    full_path: Full path
   activerecord:
     models:
       comfy/cms/site: Web
@@ -14,9 +7,11 @@ cs:
       comfy/cms/page: Stránka
       comfy/cms/snippet: Úryvek
       comfy/cms/file: Soubor
+
     attributes:
       comfy/cms/site:
         identifier: Identifikátor
+        label: Popis
         hostname: Doména
         path: Cesta
         locale: Jazyk
@@ -26,19 +21,26 @@ cs:
         label: Název rozložení
         app_layout: Rozložení aplikace
         parent_id: Rodičovské rozložení
+        content: Obsah
         css: Styl
         js: Javascript
       comfy/cms/page:
         label: Popis
         layout_id: Rozložení
         slug: Slug
+        full_path: Full path
+        parent_id: Rodič
         target_page_id: Přesměrovat na stránku
+        content: Obsah
         is_published: Publikovaný
       comfy/cms/file:
+        label: Popis
         file: Soubor
         description: Popis
       comfy/cms/snippet:
         identifier: Identifikátor
+        label: Popis
+        content: Obsah
 
   comfy:
     cms:
@@ -214,9 +216,6 @@ cs:
           index:
             title: Soubory
             new_link: Nahrát nový soubor
-            edit: Upravit
-            delete: Smazat
-            are_you_sure: Určitě?
             button: Nahrát soubory
           new:
             title: Nový soubor
@@ -227,9 +226,13 @@ cs:
             create: Nahrát soubor
             cancel: Zrušit
             update: Upravit soubor
+            delete: Smazat
+            are_you_sure: Určitě?
           page_form:
             are_you_sure: Určitě?
           file:
+            edit: Upravit
+            delete: Smazat
             are_you_sure: Určitě?
 
         categories:
