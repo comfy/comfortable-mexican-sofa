@@ -208,9 +208,6 @@ nl:
           index:
             title: Bestanden
             new_link: Upload Nieuw Bestand
-            edit: Bewerk
-            delete: Verwijder
-            are_you_sure: Weet u het zeker?
             button: Upload Bestanden
           new:
             title: Nieuw Bestand
@@ -226,6 +223,8 @@ nl:
           page_form:
             are_you_sure: Weet u het zeker?
           file:
+            edit: Bewerk
+            delete: Verwijder
             are_you_sure: Weet u het zeker?
 
         categories:

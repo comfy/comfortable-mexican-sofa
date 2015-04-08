@@ -208,9 +208,6 @@ ru:
           index:
             title: Файлы
             new_link: Загрузить новый файл
-            edit: Редактировать
-            delete: Удалить
-            are_you_sure: Вы уверены?
             button: Загрузить файлы
           new:
             title: Новый файл
@@ -226,6 +223,8 @@ ru:
           page_form:
             are_you_sure: Вы уверены?
           file:
+            edit: Редактировать
+            delete: Удалить
             are_you_sure: Вы уверены?
 
         categories:

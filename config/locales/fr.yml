@@ -208,9 +208,6 @@ fr:
           index:
             title: Fichiers
             new_link: Nouveau fichier
-            edit: Modifier
-            delete: Supprimer
-            are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
             button: Ajouter des fichiers
           new:
             title: Nouveau fichier
@@ -226,6 +223,8 @@ fr:
           page_form:
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
           file:
+            edit: Modifier
+            delete: Supprimer
             are_you_sure: Êtes-vous sûr de vouloir supprimer ce fichier ?
 
         categories:

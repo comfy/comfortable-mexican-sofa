@@ -208,9 +208,6 @@ zh-CN:
           index:
             title: 文件
             new_link: 上传新文件
-            edit: 编辑
-            delete: 删除
-            are_you_sure: 确定删除该文件吗？
             button: 上传文件
           new:
             title: 新文件
@@ -226,6 +223,8 @@ zh-CN:
           page_form:
             are_you_sure: 确定删除该文件吗？
           file:
+            edit: 编辑
+            delete: 删除
             are_you_sure: 确定删除该文件吗？
 
         categories:

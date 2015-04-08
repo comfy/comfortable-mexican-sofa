@@ -208,9 +208,6 @@ ja:
           index:
             title: ファイル
             new_link: 新規ファイルをアップロード
-            edit: 編集
-            delete: 削除
-            are_you_sure: よろしいですか？
             button: ファイルをアップロード
           new:
             title: 新規ファイル
@@ -226,6 +223,8 @@ ja:
           page_form:
             are_you_sure: よろしいですか？
           file:
+            edit: 編集
+            delete: 削除
             are_you_sure: よろしいですか？
 
         categories:

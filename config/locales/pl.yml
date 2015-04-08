@@ -208,9 +208,6 @@ pl:
           index:
             title: Pliki
             new_link: Wrzuć nowy plik
-            edit: Edytuj
-            delete: Usuń
-            are_you_sure: Jesteś pewien?
             button: Wrzuć plik
           new:
             title: Nowy plik
@@ -226,6 +223,8 @@ pl:
           page_form:
             are_you_sure: Jesteś pewien?
           file:
+            edit: Edytuj
+            delete: Usuń
             are_you_sure: Jesteś pewien?
 
         categories:

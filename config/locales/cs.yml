@@ -208,9 +208,6 @@ cs:
           index:
             title: Soubory
             new_link: Nahrát nový soubor
-            edit: Upravit
-            delete: Smazat
-            are_you_sure: Určitě?
             button: Nahrát soubory
           new:
             title: Nový soubor
@@ -226,6 +223,8 @@ cs:
           page_form:
             are_you_sure: Určitě?
           file:
+            edit: Upravit
+            delete: Smazat
             are_you_sure: Určitě?
 
         categories:

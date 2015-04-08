@@ -208,9 +208,6 @@ it:
           index:
             title: Files
             new_link: Carica nuovo file
-            edit: Modifica
-            delete: Elimina
-            are_you_sure: Sei sicuro di voler eliminare questo file?
             button: Carica File
           new:
             title: Nuovo File
@@ -226,6 +223,8 @@ it:
           page_form:
             are_you_sure: Sei sicuro?
           file:
+            edit: Modifica
+            delete: Elimina
             are_you_sure: Sei sicuro?
 
         categories:

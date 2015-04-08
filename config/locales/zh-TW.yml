@@ -208,9 +208,6 @@ zh-TW:
           index:
             title: 文件
             new_link: 上傳新文件
-            edit: 編輯
-            delete: 刪除
-            are_you_sure: 確定刪除該文件嗎？
             button: 上傳文件
           new:
             title: 新文件
@@ -226,6 +223,8 @@ zh-TW:
           page_form:
             are_you_sure: 確定刪除該文件嗎？
           file:
+            edit: 編輯
+            delete: 刪除
             are_you_sure: 確定刪除該文件嗎？
 
         categories:

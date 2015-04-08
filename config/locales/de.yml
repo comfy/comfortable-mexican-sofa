@@ -208,9 +208,6 @@ de:
           index:
             title: Datei
             new_link: Neue Datei hochladen
-            edit: Datei bearbeiten
-            delete: Datei löschen
-            are_you_sure: Sind Sie sicher, dass Sie diese Datei löschen möchten?
             button: Datei hochladen
           new:
             title: Datei erstellen
@@ -226,6 +223,8 @@ de:
           page_form:
             are_you_sure: Sind Sie sicher?
           file:
+            edit: Datei bearbeiten
+            delete: Datei löschen
             are_you_sure: Sind Sie sicher?
 
         categories:

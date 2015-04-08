@@ -208,9 +208,6 @@ es:
           index:
             title: Archivos
             new_link: Subir Nuevo Archivo
-            edit: Editar
-            delete: Borrar
-            are_you_sure: ¿Estás seguro?
             button: Cargar Archivos
           new:
             title: Nuevo Archivo
@@ -226,6 +223,8 @@ es:
           page_form:
             are_you_sure: ¿Estás seguro?
           file:
+            edit: Editar
+            delete: Borrar
             are_you_sure: ¿Estás seguro?
 
         categories:

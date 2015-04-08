@@ -208,9 +208,6 @@ en:
           index:
             title: Files
             new_link: Upload New File
-            edit: Edit
-            delete: Delete
-            are_you_sure: Are you sure?
             button: Upload Files
           new:
             title: New File
@@ -226,6 +223,8 @@ en:
           page_form:
             are_you_sure: Are you sure?
           file:
+            edit: Edit
+            delete: Delete
             are_you_sure: Are you sure?
 
         categories:

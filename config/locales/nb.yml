@@ -208,9 +208,6 @@ nb:
           index:
             title: Filer
             new_link: Last opp ny fil
-            edit: Endre
-            delete: Fjerne
-            are_you_sure: Er du sikker?
             button: Last opp filer
           new:
             title: Ny fil
@@ -226,6 +223,8 @@ nb:
           page_form:
             are_you_sure: Er du sikker?
           file:
+            edit: Endre
+            delete: Fjerne
             are_you_sure: Er du sikker?
 
         categories:

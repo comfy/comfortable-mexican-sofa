@@ -208,9 +208,6 @@ da:
           index:
             title: Filer
             new_link: Send ny fil
-            edit: Rediger
-            delete: Slet
-            are_you_sure: Er du sikker?
             button: Send filer
           new:
             title: Ny fil
@@ -226,6 +223,8 @@ da:
           page_form:
             are_you_sure: Er du sikker?
           file:
+            edit: Rediger
+            delete: Slet
             are_you_sure: Er du sikker?
 
         categories:

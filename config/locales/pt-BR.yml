@@ -208,9 +208,6 @@ pt-BR:
           index:
             title: Arquivos
             new_link: Enviar Novo Arquivo
-            edit: Editar
-            delete: Excluir
-            are_you_sure: Tem certeza?
             button: Enviar Arquivos
           new:
             title: Novo Arquivo
@@ -226,6 +223,8 @@ pt-BR:
           page_form:
             are_you_sure: Tem certeza?
           file:
+            edit: Editar
+            delete: Excluir
             are_you_sure: Tem certeza?
 
         categories:

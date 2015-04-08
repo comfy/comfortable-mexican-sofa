@@ -208,9 +208,6 @@ sv:
           index:
             title: Filer
             new_link: Ladda upp en ny fil
-            edit: Ända
-            delete: Delete
-            are_you_sure: Är du säker?
             button: Ladda upp filer
           new:
             title: Ny Fil
@@ -226,6 +223,8 @@ sv:
           page_form:
             are_you_sure: Är du säker?
           file:
+            edit: Ända
+            delete: Delete
             are_you_sure: Är du säker?
 
         categories:

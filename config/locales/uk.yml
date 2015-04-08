@@ -208,9 +208,6 @@ uk:
           index:
             title: Файли
             new_link: Завантажити новий файл
-            edit: Редагувати
-            delete: Видалити
-            are_you_sure: Ви впевнені?
             button: Завантажити файли
           new:
             title: Новий файл
@@ -226,6 +223,8 @@ uk:
           page_form:
             are_you_sure: Ви впевнені?
           file:
+            edit: Редагувати
+            delete: Видалити
             are_you_sure: Ви впевнені?
 
         categories:
