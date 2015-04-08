@@ -70,6 +70,9 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
     def preview_translation
       if params[:preview]
         layout = @translation.layout.app_layout.blank? ? false : @translation.layout.app_layout
+        @cms_site   = @translation.site
+        @cms_layout = @translation.layout
+        @cms_page   = @translation
 
         # Chrome chokes on content with iframes. Issue #434
         response.headers['X-XSS-Protection'] = '0'
