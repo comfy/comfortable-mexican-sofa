@@ -3,7 +3,6 @@
   = link_to t('.revision', :count => @translation.revisions.count), comfy_admin_cms_site_page_translation_revisions_path(@site, @translateable, @translation), :class => 'btn btn-default pull-right'
   %h2= t('.title')
 
-
 - content_for :right_column do
   = render 'comfy/admin/cms/sites/mirrors', :object => @translation
 

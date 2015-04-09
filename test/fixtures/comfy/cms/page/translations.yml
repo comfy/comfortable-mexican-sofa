@@ -1,6 +1,7 @@
 default:
   translateable: default (Comfy::Cms::Page)
   locale: de
+  label: Default Page Translation
   slug:
   full_path: '/'
   is_published: true

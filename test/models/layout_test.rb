@@ -113,6 +113,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     )
     page_1_translation_1 = page_1.translations.create!(
       :locale  => :de,
+      :label   => 'Test Translation',
       :slug   => 'test-translation',
       :blocks_attributes => [
         { :identifier => 'header',

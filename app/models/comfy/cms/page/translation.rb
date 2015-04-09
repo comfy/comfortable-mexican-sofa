@@ -14,10 +14,14 @@ class Comfy::Cms::Page::Translation < Comfy::Cms::Translation
 
   delegate :layout, to: :translateable
 
+  # Returns the translated parent.
+  def parent
+    (translateable.parent && translateable.parent.translations.find_by_locale(locale)) || translateable.parent
+  end
+
   protected
     def assign_full_path
       return unless translateable
-      parent = (translateable.parent && translateable.parent.translations.find_by_locale(locale)) || translateable.parent
       self.full_path = parent ? "#{CGI::escape(parent.full_path).gsub('%2F', '/')}/#{slug}".squeeze('/') : '/'
     end
 

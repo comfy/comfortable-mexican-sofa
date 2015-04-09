@@ -37,6 +37,7 @@ class CmsPageTranslationTest < ActiveSupport::TestCase
     assert_difference ['Comfy::Cms::Translation.count', 'Comfy::Cms::Block.count'] do
       translation = comfy_cms_pages(:default).translations.create!(
         :locale  => :es,
+        :label   => 'Test',
         :slug   => 'test',
         :blocks_attributes => [
           { :identifier => 'default_translation_text',
@@ -98,6 +99,18 @@ class CmsPageTranslationTest < ActiveSupport::TestCase
     assert_equal translation.layout, comfy_cms_layouts(:default)
   end
 
+  def test_translate_parent
+    page = comfy_cms_pages(:default)
+    child_page = comfy_cms_pages(:child)
+
+    assert_equal 'Default Page', child_page.parent.label
+
+    page_translation = page.translations.create!(new_params(:label => 'Page Translation', :slug => 'page-translation', :locale => :es))
+    child_page_translation = child_page.translations.create!(new_params(:label => 'Child Page Translation', :slug => 'child-page-translation', :locale => :es))
+
+    assert_equal 'Page Translation', child_page_translation.parent.label
+  end
+
   def test_cascading_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
       assert_difference 'Comfy::Cms::Page::Translation.count', -1 do
@@ -111,6 +124,7 @@ protected
   def new_params(options = {})
     {
       :locale  => :de,
+      :label   => 'Test Translation',
       :slug   => 'test-translation'
     }.merge(options)
   end

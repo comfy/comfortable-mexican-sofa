@@ -31,7 +31,7 @@
               %li
                 = link_to comfy_admin_cms_site_page_translation_path(@site, page, translation), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'delete' do
                   %i.glyphicon.glyphicon-remove-circle
-                = link_to t('.translation.edit', language: t("comfy.locales.#{translation.locale}", default: translation.locale.humanize)), edit_comfy_admin_cms_site_page_translation_path(@site, page, translation)
+                = link_to t('.translation.edit', language: (ComfortableMexicanSofa.config.locales[translation.locale.to_sym] || translation.locale.humanize)), edit_comfy_admin_cms_site_page_translation_path(@site, page, translation)
             %li.divider{role: "presentation"}
             %li= link_to t('.translation.add'), new_comfy_admin_cms_site_page_translation_path(@site, page)
       - else

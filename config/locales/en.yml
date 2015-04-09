@@ -43,22 +43,6 @@ en:
         content: Content
 
   comfy:
-    locales:
-      en: 'English'
-      fr: 'French'
-      es: 'Spanish'
-      pt-BR: 'Brazilian Portuguese'
-      zh-CN: 'Simplified Chinese'
-      ja: 'Japanese'
-      sv: 'Swedish'
-      ru: 'Russian'
-      pl: 'Polish'
-      de: 'German'
-      nl: 'Dutch'
-      it: 'Italian'
-      da: 'Danish'
-      cs: 'Czech'
-
     cms:
       content:
         site_not_found: Site Not Found
@@ -203,6 +187,7 @@ en:
             update: Update Translation
             back: Back to Page
             is_published: Published
+            select_locale: Select Locale
           form_blocks:
             no_tags: |-
               Layout has no content tags defined.<br/>

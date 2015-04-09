@@ -37,6 +37,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionController::TestCase
       assert_difference 'Comfy::Cms::Block.count', 1 do
         post :create, :site_id => page.site, :page_id => page, :translation => {
           :locale         => :es,
+          :label           => 'Test Translation',
           :slug           => 'test-translation',
           :blocks_attributes => [
             { :identifier => 'default_translation_text',
@@ -57,6 +58,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionController::TestCase
 
     assert_no_difference ['Comfy::Cms::Page::Translation.count', 'Comfy::Cms::Block.count'] do
       post :create, :site_id => page.site, :page_id => page, :translation => {
+        :label           => 'Test Translation',
         :slug           => 'test-translation',
         :blocks_attributes => [
           { :identifier => 'default_translation_text',
@@ -118,6 +120,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionController::TestCase
     assert_no_difference 'Comfy::Cms::Page::Translation.count' do
       post :create, :site_id => page.site, :page_id => page, :preview => 'Preview', :translation => {
         :locale         => :es,
+        :label           => 'Test Translation',
         :slug           => 'test-translation',
         :blocks_attributes => [
           { :identifier => 'default_page_text',
