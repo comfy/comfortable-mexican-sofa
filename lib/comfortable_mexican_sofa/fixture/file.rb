@@ -51,7 +51,7 @@ module ComfortableMexicanSofa::Fixture::File
       self.site.files.each do |file|
         file_path = File.join(self.path, file.file_file_name)
         block = file.block
-        page = block.present?? block.page : nil
+        page = block.present? && block.methods.include?(:page) ? block.page : nil
         
         # writing attributes
         open(::File.join(self.path, "_#{file.file_file_name}.yml"), 'w') do |f|
