@@ -11,7 +11,7 @@ module ComfortableMexicanSofa::Fixture::File
           if fresh_fixture?(file, attrs_path)
             attrs = get_attributes(attrs_path)
 
-            block = if (attrs['page'] && attrs['block']) && (page = self.site.pages.find_by_slug(attrs['page']))
+            block = if (attrs['page'] && attrs['block']) && (page = self.site.pages.find_by_full_path(attrs['page']))
               page.blocks.find_by_identifier(attrs['block'])
             end
 
@@ -59,8 +59,8 @@ module ComfortableMexicanSofa::Fixture::File
             'label'       => file.label,
             'description' => file.description,
             'categories'  => file.categories.map{|c| c.label},
-            'page'        => page.present? ? page.slug : nil,
-            'block'       => block.present? ? block.identifier : nil
+            'page'        => page.present?? page.full_path : nil,
+            'block'       => block.present?? block.identifier : nil
           }.to_yaml)
         end
 
