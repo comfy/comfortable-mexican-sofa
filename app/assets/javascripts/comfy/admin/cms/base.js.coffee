@@ -106,7 +106,7 @@ window.CMS.codemirror = ->
       cm.setSize($(@).width(), $(@).height())
       cm.refresh()
 
-  $('a[data-toggle="tab"]').on 'shown', ->
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', ->
     for cm in CMS.code_mirror_instances
       cm.refresh()
 
