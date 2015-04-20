@@ -307,23 +307,19 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_nil Comfy::Cms::Page.find_page('/', published: true)
   end
 
-  def test_find_and_translate_pages
+  def test_find_translated_page
     page = Comfy::Cms::Page.find_page('/', locale: :de)
-    assert_equal page, comfy_cms_pages(:default)
-    assert_not_equal page.content_cache, comfy_cms_pages(:default).content_cache
+    assert_equal page, comfy_cms_page_translations(:default)
     assert_equal page.content_cache, comfy_cms_page_translations(:default).content_cache
   end
 
   def test_only_find_published_translations
     page = Comfy::Cms::Page.find_page('/', locale: :de)
-    assert_equal page.content_cache, comfy_cms_page_translations(:default).content_cache
-    assert_not_equal page.content_cache, comfy_cms_pages(:default).content_cache
+    assert_equal page, comfy_cms_page_translations(:default)
 
-    page.translations.find_by_locale(:de).update!(is_published: false)
-
+    page.update!(is_published: false)
     page = Comfy::Cms::Page.find_page('/', locale: :de)
-    assert_not_equal page.content_cache, comfy_cms_page_translations(:default).content_cache
-    assert_equal page.content_cache, comfy_cms_pages(:default).content_cache
+    assert_equal nil, page
   end
 
 protected
