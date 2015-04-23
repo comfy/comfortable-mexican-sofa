@@ -75,21 +75,24 @@ class ComfortableMexicanSofa::Configuration
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
+  # Where to insert a page in the tree
+  attr_accessor :insert_page_at_beginning
+
   # Configuration defaults
   def initialize
-    @cms_title            = 'ComfortableMexicanSofa CMS Engine'
-    @base_controller      = 'ApplicationController'
-    @admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
-    @admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
-    @public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
-    @seed_data_path       = nil
-    @admin_route_redirect = ''
-    @enable_sitemap       = true
-    @upload_file_options  = { }
-    @enable_fixtures      = false
-    @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
-    @revisions_limit      = 25
-    @locales              = {
+    @cms_title                 = 'ComfortableMexicanSofa CMS Engine'
+    @base_controller           = 'ApplicationController'
+    @admin_auth                = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
+    @admin_authorization       = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
+    @public_auth               = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
+    @seed_data_path            = nil
+    @admin_route_redirect      = ''
+    @enable_sitemap            = true
+    @upload_file_options       = { }
+    @enable_fixtures           = false
+    @fixtures_path             = File.expand_path('db/cms_fixtures', Rails.root)
+    @revisions_limit           = 25
+    @locales                   = {
       'cs'    => 'Česky',
       'da'    => 'Dansk',
       'de'    => 'Deutsch',
@@ -108,14 +111,15 @@ class ComfortableMexicanSofa::Configuration
       'zh-CN' => '简体中文',
       'zh-TW' => '正體中文'
     }
-    @admin_locale         = nil
-    @admin_cache_sweeper  = nil
-    @allow_irb            = false
-    @allowed_helpers      = nil
-    @allowed_partials     = nil
-    @hostname_aliases     = nil
-    @reveal_cms_partials  = false
-    @public_cms_path      = nil
+    @admin_locale              = nil
+    @admin_cache_sweeper       = nil
+    @allow_irb                 = false
+    @allowed_helpers           = nil
+    @allowed_partials          = nil
+    @hostname_aliases          = nil
+    @reveal_cms_partials       = false
+    @public_cms_path           = nil
+    @insert_page_at_beginning  = false
   end
 
 end
