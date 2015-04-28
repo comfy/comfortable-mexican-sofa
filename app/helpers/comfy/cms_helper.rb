@@ -51,7 +51,7 @@ module Comfy::CmsHelper
   #   cms_block_content(:left_column, CmsPage.first)
   #   cms_block_content(:left_column) # if @cms_page is present
   def cms_block_content(identifier, blockable = @cms_page)
-    tag = blockable && (block = blockable.blocks.find_by_identifier(identifier)) && block.tag
+    tag = blockable && (block = blockable.blocks.find{|b| b.identifier == identifier.to_s}) && block.tag
     return '' unless tag
     tag.content
   end
@@ -59,14 +59,14 @@ module Comfy::CmsHelper
   # For those times when we need to render content that shouldn't be renderable
   # Example: {{cms:field}} tags
   def cms_block_content_render(identifier, blockable = @cms_page)
-    tag = blockable && (block = blockable.blocks.find_by_identifier(identifier)) && block.tag
+    tag = blockable && (block = blockable.blocks.find{|b| b.identifier == identifier.to_s}) && block.tag
     return '' unless tag
     render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.content)
   end
 
   # Same as cms_block_content but with cms tags expanded
   def cms_block_render(identifier, blockable = @cms_page)
-    tag = blockable && (block = blockable.blocks.find_by_identifier(identifier)) && block.tag
+    tag = blockable && (block = blockable.blocks.find{|b| b.identifier == identifier.to_s}) && block.tag
     return '' unless tag
     render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
   end
