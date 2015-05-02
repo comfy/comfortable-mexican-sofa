@@ -118,7 +118,6 @@ window.CMS.sortable_list = ->
     update: ->
       $.post("#{CMS.current_path}/reorder", "_method=put&#{$(this).sortable('serialize')}")
 
-
 window.CMS.timepicker = ->
   $('input[type=text][data-cms-datetime]').datetimepicker
     format:     'yyyy-mm-dd hh:ii'

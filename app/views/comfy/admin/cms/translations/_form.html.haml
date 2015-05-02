@@ -1,0 +1,32 @@
+- content_for :right_column do
+  #form-save.box
+    %label.checkbox-inline
+      %input{:type => 'checkbox'}
+      = ::Comfy::Cms::Page.human_attribute_name(:is_published)
+    %button.btn.btn-sm.btn-primary.pull-right
+
+= render 'comfy/admin/cms/partials/page_form_before', :object => form
+
+= form.select :locale, [[t('.select_locale', language: @site.locale), nil]] + ComfortableMexicanSofa.config.locales.to_a.collect{|l| [l[1], l[0]]}
+
+= form.text_field :label, :data => {:slugify => @translation.new_record?}
+
+- if @translation.parent.present?
+  = form.text_field :slug, :data => {:slug => true}, :prepend => @translation.parent.full_path
+
+- if (options = ::Comfy::Cms::Page.options_for_select(@site, @translation.translateable, nil, 0, false)).present?
+  = form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options
+
+= render 'comfy/admin/cms/partials/page_form_inner', :object => form
+
+= render :partial => 'comfy/admin/cms/pages/form_blocks', :locals => { :cms_object => @translation }
+
+= form.form_group :is_published do
+  = form.check_box :is_published, :label => t('.is_published')
+
+= render 'comfy/admin/cms/partials/page_form_after', :object => form
+
+= form.form_group :class => 'form-actions' do
+  = form.submit t('.preview'), :name => 'preview', :id => nil, :class => 'btn btn-default'
+  = form.submit t(@translation.new_record? ? '.create' : '.update'), :class => 'btn btn-primary'
+  = link_to t('.back'), edit_comfy_admin_cms_site_page_path(@site, @translation.translateable)

@@ -20,12 +20,15 @@ require_relative 'comfortable_mexican_sofa/fixture/layout'
 require_relative 'comfortable_mexican_sofa/fixture/page'
 require_relative 'comfortable_mexican_sofa/fixture/snippet'
 require_relative 'comfortable_mexican_sofa/fixture/file'
+require_relative 'comfortable_mexican_sofa/fixture/translation'
 require_relative 'comfortable_mexican_sofa/extensions/rails'
 require_relative 'comfortable_mexican_sofa/extensions/acts_as_tree'
 require_relative 'comfortable_mexican_sofa/extensions/cms_manageable'
 require_relative 'comfortable_mexican_sofa/extensions/has_revisions'
 require_relative 'comfortable_mexican_sofa/extensions/is_mirrored'
 require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
+require_relative 'comfortable_mexican_sofa/extensions/has_slug'
+require_relative 'comfortable_mexican_sofa/extensions/is_translateable'
 
 Dir.glob(File.expand_path('comfortable_mexican_sofa/tags/*.rb', File.dirname(__FILE__))).each do |path|
   require_relative path

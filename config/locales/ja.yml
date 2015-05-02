@@ -137,10 +137,18 @@ ja:
             edit: 編集
             delete: 削除
             are_you_sure: よろしいですか？
+            translation: &translation
+              translate: Translate
+              add: Add Translation
+              edit: 'Edit %{language}'
           new:
             title: 新規ページ
           edit:
             title: ページを編集
+            delete: 削除
+            are_you_sure: よろしいですか？
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:
@@ -155,6 +163,35 @@ ja:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
               コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:page:content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+          layout_not_found: No Layouts found. Please create one.
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            delete: Delete
+            are_you_sure: Are you sure?
+            revision:
+              <<: *revision
+          form:
+            select_target_page: No Redirect
+            preview: Preview
+            create: Create Translation
+            update: Update Translation
+            back: Back to Page
+            is_published: Published
+            select_locale: Select Locale
+          form_blocks:
+            no_tags: |-
+              Layout has no content tags defined.<br/>
+              Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
 
         snippets:
           created: スニペットが作成されました

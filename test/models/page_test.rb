@@ -3,7 +3,6 @@
 require_relative '../test_helper'
 
 class CmsPageTest < ActiveSupport::TestCase
-
   def test_fixtures_validity
     Comfy::Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
@@ -167,7 +166,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_cascading_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Block.count', -2 do
+      assert_difference 'Comfy::Cms::Block.count', -3 do
         comfy_cms_pages(:default).destroy
       end
     end
@@ -229,9 +228,6 @@ class CmsPageTest < ActiveSupport::TestCase
 
     assert_equal '//test.host/', comfy_cms_pages(:default).url
     assert_equal '//test.host/child-page', comfy_cms_pages(:child).url
-
-    assert_equal '/', comfy_cms_pages(:default).url(:relative)
-    assert_equal '/child-page', comfy_cms_pages(:child).url(:relative)
 
     site.update_columns(:path => '/en/site')
     comfy_cms_pages(:default).reload
@@ -295,6 +291,35 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
     assert_equal 0, page_3.children_count
+  end
+
+  def test_find_pages
+    page = Comfy::Cms::Page.find_page('/')
+    assert_equal page, comfy_cms_pages(:default)
+    assert_equal page.content_cache, comfy_cms_pages(:default).content_cache
+  end
+
+  def test_only_find_published_pages
+    page = Comfy::Cms::Page.find_page('/')
+    assert_not_nil page
+    page.update!(is_published: false)
+    assert_nil Comfy::Cms::Page.find_page('/')
+    assert_nil Comfy::Cms::Page.find_page('/', published: true)
+  end
+
+  def test_find_translated_page
+    page = Comfy::Cms::Page.find_page('/', locale: :de)
+    assert_equal page, comfy_cms_page_translations(:default)
+    assert_equal page.content_cache, comfy_cms_page_translations(:default).content_cache
+  end
+
+  def test_only_find_published_translations
+    page = Comfy::Cms::Page.find_page('/', locale: :de)
+    assert_equal page, comfy_cms_page_translations(:default)
+
+    page.update!(is_published: false)
+    page = Comfy::Cms::Page.find_page('/', locale: :de)
+    assert_equal nil, page
   end
 
 protected

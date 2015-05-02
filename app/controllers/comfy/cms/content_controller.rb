@@ -51,11 +51,11 @@ protected
   end
 
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.find_page!("/#{params[:cms_path]}", locale: I18n.locale)
   end
 
   def page_not_found
-    @cms_page = @cms_site.pages.published.find_by_full_path!('/404')
+    @cms_page = @cms_site.pages.find_page!('/404', locale: I18n.locale)
 
     respond_to do |format|
       format.html { render_page(404) }

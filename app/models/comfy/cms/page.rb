@@ -8,6 +8,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   cms_is_mirrored
   cms_manageable
   cms_has_revisions_for :blocks_attributes
+  cms_has_slug
+  cms_is_translateable
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
@@ -17,12 +19,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
-                    :assign_parent,
-                    :escape_slug,
-                    :assign_full_path
+                    :assign_parent
   before_create     :assign_position
-  after_save        :sync_child_full_paths!
-  after_find        :unescape_slug_and_path
+  after_save        :sync_child_full_paths!, if: :full_path_changed?
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -36,7 +35,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
   validates :layout,
     :presence   => true
   validate :validate_target_page
-  validate :validate_format_of_unescaped_slug
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
@@ -55,25 +53,45 @@ class Comfy::Cms::Page < ActiveRecord::Base
   end
 
   # -- Instance Methods -----------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set. This
-  # full path take care of the pages and its childs but not of the site path
-  def full_path
-    self.read_attribute(:full_path) || self.assign_full_path
-  end
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    self.parent_id.blank?? 'index' : self.full_path[1..-1].slugify
+    self.parent_id.blank? ? 'index' : self.full_path[1..-1].slugify
   end
 
-  # Full url for a page
-  def url(relative = false)
-    public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
-    if relative
-      [public_cms_path, self.site.path, self.full_path].join('/').squeeze('/')
-    else
-      '//' + [self.site.hostname, public_cms_path, self.site.path, self.full_path].join('/').squeeze('/')
+  # Find a page for the given path.
+  # If a locale is given in the options it must be the same as the site locale.
+  # If not it tries to find a translation with the given locale for the given path.
+  # If a translation is found it will return the translation instead of the page.
+  # Translation objects acts just like a page object but with translated content.
+  # Returns *nil* if no page or translation was found.
+  #
+  #   @cms_site.pages.find_page('/')
+  #   @cms_site.pages.find_page('/', locale: :de, published: true)
+  def self.find_page(path, options={})
+    options = { locale: nil, published: true }.merge(options)
+
+    page = where(full_path: path)
+    page = page.where(is_published: true) if options[:published]
+    page = page.includes(:site).where("comfy_cms_sites.locale" => options[:locale]) if options[:locale].present?
+    page = page.first
+
+    # If no page was found try to find one via translation.
+    if page.nil? && options[:locale].present?
+      page = reflect_on_association(:translations).klass.where(full_path: path, locale: options[:locale])
+      page = page.where(is_published: true) if options[:published]
+      page = page.first
     end
+
+    page
+  end
+
+  # Same as <tt>find_page</tt> but raises *ActiveRecord::RecordNotFound*
+  # if no page was found.
+  def self.find_page!(*args)
+    page = find_page(*args)
+    raise ActiveRecord::RecordNotFound unless page
+    page
   end
 
 protected
@@ -85,12 +103,6 @@ protected
   def assign_parent
     return unless site
     self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count == 0
-  end
-
-  def assign_full_path
-    self.full_path = self.parent ?
-      [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
-      '/'
   end
 
   def assign_position
@@ -108,30 +120,15 @@ protected
     end
   end
 
-  def validate_format_of_unescaped_slug
-    return unless slug.present?
-    unescaped_slug = CGI::unescape(self.slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
-  end
-
-  # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
-    return unless full_path_changed?
     children.each do |p|
       p.update_column(:full_path, p.send(:assign_full_path))
       p.send(:sync_child_full_paths!)
     end
-  end
-
-  # Escape slug unless it's nonexistent (root)
-  def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
-  end
-
-  # Unescape the slug and full path back into their original forms unless they're nonexistent
-  def unescape_slug_and_path
-    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
-    self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
+    translations.each do |t|
+      t.send(:assign_full_path)
+      t.save!
+    end
   end
 
 end

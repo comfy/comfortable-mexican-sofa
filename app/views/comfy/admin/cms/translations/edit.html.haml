@@ -1,0 +1,10 @@
+.page-header
+  = link_to t('.delete'), comfy_admin_cms_site_page_translation_path(@site, @translateable, @translation), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger pull-right'
+  = link_to t('.revision', :count => @translation.revisions.count), comfy_admin_cms_site_page_translation_revisions_path(@site, @translateable, @translation), :class => 'btn btn-default pull-right'
+  %h2= t('.title')
+
+- content_for :right_column do
+  = render 'comfy/admin/cms/sites/mirrors', :object => @translation
+
+= comfy_form_for @translation, :as => :translation, :url => {:action => :update}, :html => {:multipart => true} do |form|
+  = render form

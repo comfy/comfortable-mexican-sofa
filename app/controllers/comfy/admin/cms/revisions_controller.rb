@@ -9,8 +9,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   end
 
   def show
-    case @record
-    when Comfy::Cms::Page
+    if @record.respond_to?(:blocks)
       @current_content    = @record.blocks.inject({}){|c, b| c[b.identifier] = b.content; c }
       @versioned_content  = @record.blocks.inject({}){|c, b| c[b.identifier] = @revision.data['blocks_attributes'].detect{|r| r[:identifier] == b.identifier}.try(:[], :content); c }
     else
@@ -30,6 +29,8 @@ protected
   def load_record
     @record = if params[:layout_id]
       ::Comfy::Cms::Layout.find(params[:layout_id])
+    elsif params[:page_id] && params[:translation_id]
+      ::Comfy::Cms::Page::Translation.find(params[:translation_id])
     elsif params[:page_id]
       ::Comfy::Cms::Page.find(params[:page_id])
     elsif params[:snippet_id]
@@ -51,6 +52,7 @@ protected
     redirect_to case @record
       when ::Comfy::Cms::Layout  then edit_comfy_admin_cms_site_layout_path(@site, @record)
       when ::Comfy::Cms::Page    then edit_comfy_admin_cms_site_page_path(@site, @record)
+      when ::Comfy::Cms::Page::Translation then edit_comfy_admin_cms_site_page_translation_path(@site, @record.translateable, @record)
       when ::Comfy::Cms::Snippet then edit_comfy_admin_cms_site_snippet_path(@site, @record)
     end
   end

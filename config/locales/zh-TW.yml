@@ -137,10 +137,18 @@ zh-TW:
             edit: 編輯
             delete: 刪除
             are_you_sure: 確定刪除該頁面嗎？
+            translation: &translation
+              translate: Translate
+              add: Add Translation
+              edit: 'Edit %{language}'
           new:
             title: 新頁面
           edit:
             title: 編輯頁面
+            delete: 刪除
+            are_you_sure: 確定刪除該頁面嗎？
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:
@@ -155,6 +163,35 @@ zh-TW:
             no_tags: |-
               佈局中沒有定義內容標籤。<br/>
               編輯內容使其包含一個頁面或者field標籤。例如： <code>{{cms:page:content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+          layout_not_found: No Layouts found. Please create one.
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            delete: Delete
+            are_you_sure: Are you sure?
+            revision:
+              <<: *revision
+          form:
+            select_target_page: No Redirect
+            preview: Preview
+            create: Create Translation
+            update: Update Translation
+            back: Back to Page
+            is_published: Published
+            select_locale: Select Locale
+          form_blocks:
+            no_tags: |-
+              Layout has no content tags defined.<br/>
+              Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
 
         snippets:
           created: 片段創建成功

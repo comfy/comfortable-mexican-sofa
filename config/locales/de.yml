@@ -137,10 +137,18 @@ de:
             edit: Bearbeiten
             delete: Löschen
             are_you_sure: Sind Sie sicher, dass Sie diese Seite löschen möchten?
+            translation: &translation
+              translate: Übersetzen
+              add: Neue Übersetzung
+              edit: 'Bearbeite %{language}'
           new:
             title: Seite erstellen
           edit:
             title: Seite bearbeiten
+            delete: Löschen
+            are_you_sure: Sind Sie sicher?
+            translation:
+              <<: *translation
             revision:
               <<: *revision
           form:
@@ -153,6 +161,35 @@ de:
             choose_link: Seite auswählen...
           form_blocks:
             no_tags: |-
+              Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
+              Beispiel: <code>{{ cms:page:content }}</code>
+
+        translations:
+          created: Übersetzung erstellt
+          creation_failure: Fehler beim Erstellen der Übersetzung!
+          updated: Übersetzung aktualisiert
+          update_failure: Fehler beim Aktualisieren der Übersetzung!
+          deleted: Übersetzung gelöscht
+          not_found: Übersetzung nicht gefunden
+          layout_not_found: Bisher wurde kein Layout angelegt!
+          new:
+            title: Übersetzung erstellen
+          edit:
+            title: Übersetzung bearbeiten
+            delete: Löschen
+            are_you_sure: Sind Sie sicher?
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Keine Weiterleitung
+            preview: Vorschau
+            create: Übersetzung erstellen
+            update: Übersetzung speichern
+            back: Zurück zur Seite
+            is_published: Veröffentlicht
+            select_locale: Sprache auswählen
+          form_blocks:
+            no_tags:  |-
               Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
               Beispiel: <code>{{ cms:page:content }}</code>
 
