@@ -33,35 +33,7 @@ module ComfortableMexicanSofa::Fixture::Page
           end
         end
 
-        # setting content
-        blocks_to_clear = page.blocks.collect(&:identifier)
-        blocks_attributes = [ ]
-        file_extentions = %w(html haml jpg png gif)
-        Dir.glob("#{path}/*.{#{file_extentions.join(',')}}").each do |block_path|
-          extention = File.extname(block_path)[1..-1]
-          identifier = block_path.split('/').last.gsub(/\.(#{file_extentions.join('|')})\z/, '')
-          blocks_to_clear.delete(identifier)
-          if fresh_fixture?(page, block_path)
-            content = case extention
-            when 'jpg', 'png', 'gif'
-              ::File.open(block_path)
-            when 'haml'
-              Haml::Engine.new(::File.open(block_path).read).render.rstrip
-            else
-              ::File.open(block_path).read
-            end
-
-            blocks_attributes << {
-              :identifier => identifier,
-              :content    => content
-            }
-          end
-        end
-
-        # deleting removed blocks
-        page.blocks.where(:identifier => blocks_to_clear).destroy_all
-
-        page.blocks_attributes = blocks_attributes if blocks_attributes.present?
+        import_blockable page, path
 
         # saving
         if page.changed? || page.blocks_attributes_changed || self.force_import

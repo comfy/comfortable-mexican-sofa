@@ -12,8 +12,6 @@ class Comfy::Cms::Page::Translation < Comfy::Cms::Translation
 
   after_save :sync_child_translation_full_paths!, if: :full_path_changed?
 
-  delegate :layout, to: :translateable
-
   # Returns the translated parent.
   def parent
     (translateable.parent && translateable.parent.translations.find_by_locale(locale)) || translateable.parent

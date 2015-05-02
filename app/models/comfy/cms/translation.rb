@@ -12,6 +12,7 @@ class Comfy::Cms::Translation < ActiveRecord::Base
   validates :locale, presence: true, uniqueness: { scope: :translateable_id }
 
   delegate :site, to: :translateable
+  delegate :layout, to: :translateable # Blocks from *cms_manageable* module need this.
 
   scope :published, -> { where(:is_published => true) }
 end

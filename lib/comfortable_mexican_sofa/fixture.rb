@@ -1,5 +1,5 @@
 module ComfortableMexicanSofa::Fixture
-  
+
   class Importer
     attr_accessor :site,
                   :path,
@@ -7,56 +7,89 @@ module ComfortableMexicanSofa::Fixture
                   :to,
                   :fixture_ids,
                   :force_import
-    
+
     def initialize(from, to = from, force_import = false)
       self.from         = from
       self.to           = to
       self.site         = Comfy::Cms::Site.where(:identifier => to).first!
       self.fixture_ids  = []
       self.force_import = force_import
-      
+
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = ::File.join(ComfortableMexicanSofa.config.fixtures_path, from, dir, '/')
     end
-    
+
     def fresh_fixture?(object, file_path)
       object.new_record? || self.force_import || ::File.mtime(file_path) > object.updated_at
     end
-    
+
     def get_attributes(file_path)
       YAML.load_file(file_path) || { }
     end
-    
+
     def save_categorizations!(object, categories)
       object.categorizations.delete_all
-      
+
       [categories].flatten.compact.each do |label|
         category = self.site.categories.where(
           :label            => label,
           :categorized_type => object.class.to_s
         ).first
-        
+
         next unless category
-        
+
         category.categorizations.create!(:categorized => object)
       end
     end
-    
+
+    def import_blockable(blockable, path)
+      # setting content
+      blocks_to_clear = blockable.blocks.collect(&:identifier)
+      blocks_attributes = [ ]
+      file_extentions = %w(html haml jpg png gif)
+      Dir.glob("#{path}/*.{#{file_extentions.join(',')}}").each do |block_path|
+        extention = ::File.extname(block_path)[1..-1]
+        identifier = block_path.split('/').last.gsub(/\.(#{file_extentions.join('|')})\z/, '')
+        blocks_to_clear.delete(identifier)
+        if fresh_fixture?(blockable, block_path)
+          content = case extention
+          when 'jpg', 'png', 'gif'
+            ::File.open(block_path)
+          when 'haml'
+            ::Haml::Engine.new(::File.open(block_path).read).render.rstrip
+          else
+            ::File.open(block_path).read
+          end
+
+          blocks_attributes << {
+            :identifier => identifier,
+            :content    => content
+          }
+        end
+      end
+
+      # deleting removed blocks
+      blockable.blocks.where(:identifier => blocks_to_clear).destroy_all
+
+      blockable.blocks_attributes = blocks_attributes if blocks_attributes.present?
+    end
+
     def import!
       ComfortableMexicanSofa::Fixture::Category::Importer.new(from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::Layout::Importer.new(  from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::Page::Importer.new(    from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new( from, to, force_import).import!
-      ComfortableMexicanSofa::Fixture::File::Importer.new(    from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Layout::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Page::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Snippet::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::File::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Fixture::Translation::Importer.new(from, to, force_import).import!
     end
   end
-  
+
   class Exporter
     attr_accessor :site,
                   :path,
                   :from,
                   :to
-    
+
     def initialize(from, to = from)
       self.from = from
       self.to   = to
@@ -64,19 +97,20 @@ module ComfortableMexicanSofa::Fixture
       dir = self.class.name.split('::')[2].downcase.pluralize
       self.path = ::File.join(ComfortableMexicanSofa.config.fixtures_path, to, dir)
     end
-    
+
     def prepare_folder!(path)
       FileUtils.rm_rf(path)
       FileUtils.mkdir_p(path)
     end
-    
+
     def export!
-      ComfortableMexicanSofa::Fixture::File::Exporter.new(    from, to).export!
+      ComfortableMexicanSofa::Fixture::File::Exporter.new(from, to).export!
       ComfortableMexicanSofa::Fixture::Category::Exporter.new(from, to).export!
-      ComfortableMexicanSofa::Fixture::Layout::Exporter.new(  from, to).export!
-      ComfortableMexicanSofa::Fixture::Page::Exporter.new(    from, to).export!
-      ComfortableMexicanSofa::Fixture::Snippet::Exporter.new( from, to).export!
+      ComfortableMexicanSofa::Fixture::Layout::Exporter.new(from, to).export!
+      ComfortableMexicanSofa::Fixture::Page::Exporter.new(from, to).export!
+      ComfortableMexicanSofa::Fixture::Snippet::Exporter.new(from, to).export!
+      ComfortableMexicanSofa::Fixture::Translation::Exporter.new(from, to).export!
     end
   end
-  
+
 end
