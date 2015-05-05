@@ -10,14 +10,15 @@ class ComfortableMexicanSofa::Tag::Asset
     return unless (layout = Comfy::Cms::Layout.find_by_identifier(identifier))
     type    = params[0]
     format  = params[1]
-    
+
+    base = ComfortableMexicanSofa.config.public_cms_path || ''
     case type
     when 'css'
-      out = "/cms-css/#{blockable.site.id}/#{identifier}/#{layout.cache_buster}.css"
+      out = "#{base}/cms-css/#{blockable.site.id}/#{identifier}/#{layout.cache_buster}.css"
       out = "<link href='#{out}' media='screen' rel='stylesheet' type='text/css' />" if format == 'html_tag'
       out
     when 'js'
-      out = "/cms-js/#{blockable.site.id}/#{identifier}/#{layout.cache_buster}.js"
+      out = "#{base}/cms-js/#{blockable.site.id}/#{identifier}/#{layout.cache_buster}.js"
       out = "<script src='#{out}' type='text/javascript'></script>" if format == 'html_tag'
       out
     end
