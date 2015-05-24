@@ -1,5 +1,4 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
-
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
@@ -131,6 +130,10 @@ protected
       @cms_site   = @page.site
       @cms_layout = @page.layout
       @cms_page   = @page
+
+      # Make sure to use the site locale to render the preview becaue it might
+      # be different from the admin locale.
+      I18n.locale = @cms_site.locale
 
       # Chrome chokes on content with iframes. Issue #434
       response.headers['X-XSS-Protection'] = '0'
