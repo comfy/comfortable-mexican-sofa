@@ -20,6 +20,18 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
       layout_content_c'
     ), response.body
     assert_equal 'text/html', response.content_type
+
+    assert_equal :en, assigns(:locale)
+    assert_equal :en, I18n.locale
+  end
+
+  def test_show_with_locale
+    comfy_cms_sites(:default).update_column(:locale, 'fr')
+    get :show, :cms_path => ''
+    assert_response :success
+
+    assert_equal :fr, assigns(:locale)
+    assert_equal :fr, I18n.locale
   end
 
   def test_show_default_html

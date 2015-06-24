@@ -48,7 +48,6 @@ class Comfy::Cms::File < ActiveRecord::Base
     IMAGE_MIMETYPES.include?(file_content_type)
   end
 
-
 protected
 
   def assign_label
