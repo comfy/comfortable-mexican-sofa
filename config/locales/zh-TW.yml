@@ -27,8 +27,8 @@ zh-TW:
       comfy/cms/page:
         label: 頁面名稱
         layout_id: 佈局
-        slug: Slug
-        full_path: Full path
+        slug: 路徑名
+        full_path: 完整路徑
         parent_id: 上級
         target_page_id: 跳轉至
         content: 內容
@@ -53,7 +53,7 @@ zh-TW:
       cms:
         base:
           site_not_found: 沒有該站點
-          fixtures_enabled: CMS夾具已經啟用，在此處的所有修改將被忽略。
+          fixtures_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
 
           sites: 站點
           layouts: 佈局
@@ -82,7 +82,7 @@ zh-TW:
             title: 編輯站點
           form:
             create: 創建站點
-            cancel: Cancel
+            cancel: 取消
             update: 更新站點
             is_mirrored: 鏡像
 
@@ -147,14 +147,14 @@ zh-TW:
             select_target_page: 沒有跳轉
             preview: 預覽
             create: 創建頁面
-            cancel: Cancel
+            cancel: 取消
             update: 更新頁面
             is_published: 發佈
-            choose_link: Select page...
+            choose_link: 選擇頁面...
           form_blocks:
             no_tags: |-
-              佈局中沒有定義內容標籤。<br/>
-              編輯內容使其包含一個頁面或者field標籤。例如： <code>{{cms:page:content}}</code>
+              佈局中沒有定義內容標記。<br/>
+              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:page:content}}</code>
 
         snippets:
           created: 片段創建成功
@@ -178,7 +178,7 @@ zh-TW:
               <<: *revision
           form:
             create: 創建片段
-            cancel: Cancel
+            cancel: 取消
             update: 更新片段
 
         revisions:
@@ -192,10 +192,10 @@ zh-TW:
             full_path: 全路徑
             slug: 嵌條
             update: 更新到該修訂版本
-            content: Content
-            changes: Changes
-            previous: Previous
-            current: Current
+            content: 內容
+            changes: 變更
+            previous: 先前
+            current: 現在
 
         files:
           created: 文件上傳成功
@@ -216,7 +216,7 @@ zh-TW:
           form:
             current_file: 當前文件
             create: 上傳文件
-            cancel: Cancel
+            cancel: 取消
             update: 更新文件
             delete: 刪除
             are_you_sure: 確定刪除該文件嗎？
