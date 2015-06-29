@@ -92,6 +92,10 @@ ComfortableMexicanSofa.configure do |config|
   # Default is false.
   #   config.reveal_cms_partials = false
 
+  # Rescue from page not found errors inside CMS?
+  # Exceptions from child controllers are not propageted up to ApplicationController since Rails 4
+  config.rescue_from_404 = true
+
 end
 
 # Default credentials for ComfortableMexicanSofa::AccessControl::AdminAuthentication

@@ -8,7 +8,11 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
                 :authenticate,
                 :only => :show
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :page_not_found
+  if ComfortableMexicanSofa.config.rescue_from_404
+    rescue_from ActiveRecord::RecordNotFound, :with => :page_not_found
+  else
+    self.rescue_handlers.delete(["ActiveRecord::RecordNotFound", :page_not_found])
+  end
 
   def show
     if @cms_page.target_page.present?
