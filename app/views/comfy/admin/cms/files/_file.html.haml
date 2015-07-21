@@ -19,7 +19,7 @@
     .content-type
       = truncate(file.file_content_type)
     .file-size
-      = number_to_human_size(file.file_file_size, :locale => :en)
+      = number_to_human_size(file.file_file_size)
   %td
     .btn-group.btn-group-sm
       = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
