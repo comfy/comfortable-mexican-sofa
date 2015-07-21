@@ -2,8 +2,9 @@ module ComfortableMexicanSofa::AccessControl
   module AdminAuthentication
     # Set username and password in config/initializers/comfortable_mexican_sofa.rb
     # Like this:
-    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication = 'myname'
-    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication = 'mypassword'
+    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'myname'
+    #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'mypassword'
+
 
     mattr_accessor  :username,
                     :password
