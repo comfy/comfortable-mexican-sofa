@@ -92,6 +92,11 @@ ComfortableMexicanSofa.configure do |config|
   # Default is false.
   #   config.reveal_cms_partials = false
 
+  # Where should a new page be inserted? At the beginning of a partial
+  # tree or at the end? The default is always at the end. You can
+  # change this by setting the following option to true
+  #  config.insert_page_at_beginning = true
+
 end
 
 # Default credentials for ComfortableMexicanSofa::AccessControl::AdminAuthentication

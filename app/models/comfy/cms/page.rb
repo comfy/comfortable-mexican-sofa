@@ -96,8 +96,19 @@ protected
   def assign_position
     return unless self.parent
     return if self.position.to_i > 0
+    ComfortableMexicanSofa.config.insert_page_at_beginning ? assign_position_at_beginning : assign_position_at_end
+  end
+
+  def assign_position_at_end
     max = self.parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
+  end
+
+  def assign_position_at_beginning
+    self.position = 0
+    self.parent.children.each do |child|
+      child.update(position: child.position + 1)
+    end
   end
 
   def validate_target_page
