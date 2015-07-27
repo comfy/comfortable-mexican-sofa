@@ -3,9 +3,13 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   # Authentication module must have `authenticate` method
   include ComfortableMexicanSofa.config.public_auth.to_s.constantize
 
+  # Authorization module must have `authorize` method
+  include ComfortableMexicanSofa.config.public_authorization.to_s.constantize
+
   before_action :load_fixtures
   before_action :load_cms_page,
                 :authenticate,
+                :authorize,
                 :only => :show
 
   rescue_from ActiveRecord::RecordNotFound, :with => :page_not_found

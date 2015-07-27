@@ -21,6 +21,11 @@ ComfortableMexicanSofa.configure do |config|
   # your logic. Default module doesn't do anything.
   #   config.public_auth = 'ComfyPublicAuthentication'
 
+  # Module responsible for public authorization. It should have #authorize
+  # method that returns true or false based on params and loaded instance
+  # variables available for a given controller.
+  #   config.public_authorization = 'ComfyPublicAuthorization'
+
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
   #   config.admin_route_redirect = ''
@@ -116,6 +121,13 @@ ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'password'
 # Uncomment this module and `config.public_auth` above to use custom public authentication
 # module ComfyPublicAuthentication
 #   def authenticate
+#     return true
+#   end
+# end
+
+# Uncomment this module and `config.public_authorization` above to use custom public authorization
+# module ComfyPublicAuthorization
+#   def authorize
 #     return true
 #   end
 # end

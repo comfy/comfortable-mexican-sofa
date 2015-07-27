@@ -18,6 +18,9 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
 
+  # Module that will handle authorization against public resources
+  attr_accessor :public_authorization
+
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
   attr_accessor :admin_route_redirect
@@ -82,6 +85,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
     @admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
     @public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
+    @public_authorization = 'ComfortableMexicanSofa::AccessControl::PublicAuthorization'
     @seed_data_path       = nil
     @admin_route_redirect = ''
     @enable_sitemap       = true
