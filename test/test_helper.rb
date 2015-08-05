@@ -30,6 +30,7 @@ class ActiveSupport::TestCase
       config.admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
       config.admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
       config.public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
+      config.public_authorization = 'ComfortableMexicanSofa::AccessControl::PublicAuthorization'
       config.admin_route_redirect = ''
       config.enable_fixtures      = false
       config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)

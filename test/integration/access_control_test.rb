@@ -24,6 +24,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     end
 
     # faking ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
+    # faking ComfortableMexicanSofa.config.public_authorization = 'AccessControlTest::TestAuthorization'
     class SitesController       < Comfy::Admin::Cms::SitesController;       include Authorize; end
     class LayoutsController     < Comfy::Admin::Cms::LayoutsController;     include Authorize; end
     class PagesController       < Comfy::Admin::Cms::PagesController;       include Authorize; end
@@ -31,6 +32,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     class FilesController       < Comfy::Admin::Cms::FilesController;       include Authorize; end
     class CategoriesController  < Comfy::Admin::Cms::CategoriesController;  include Authorize; end
     class RevisionsController   < Comfy::Admin::Cms::RevisionsController;   include Authorize; end
+    class ContentController     < Comfy::Cms::ContentController;            include Authorize; end
   end
 
 
@@ -127,6 +129,14 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     assert_response :success, response.body
   end
 
+  def test_public_authorization_default
+    assert_equal 'ComfortableMexicanSofa::AccessControl::PublicAuthorization',
+      ComfortableMexicanSofa.config.public_authorization
+
+    get '/'
+    assert_response :success, response.body
+  end
+
   def test_public_authentication_custom
     with_routing do |routes|
       routes.draw do
@@ -138,4 +148,17 @@ class AccessControlTest < ActionDispatch::IntegrationTest
       assert_equal 'Test Login Denied', response.body
     end
   end
+
+  def test_public_authorization_custom
+    with_routing do |routes|
+      routes.draw do
+        get '/:format' => 'access_control_test/test_authorization/content#show', :path => "(*cms_path)"
+      end
+
+      get '/'
+      assert_response :forbidden
+      assert_equal 'Test Access Denied', response.body
+    end
+  end
+
 end
