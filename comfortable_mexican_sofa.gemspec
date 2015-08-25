@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_dependency 'rails',             '>= 4.0.0'
+  s.add_dependency 'rails',             '>= 4.0.0', '<= 4.1.9'
   s.add_dependency 'rails-i18n',        '~> 4.0.0'
   s.add_dependency 'i18n',              '~> 0.6.11'
   s.add_dependency 'bootstrap_form',    '~> 2.1.1'
