@@ -3,7 +3,7 @@ pl:
   activerecord:
     models:
       comfy/cms/site: Witryna
-      comfy/cms/layout: Szablin
+      comfy/cms/layout: Szablon
       comfy/cms/page: Strona
       comfy/cms/snippet: Snippet
       comfy/cms/file: Plik
@@ -15,20 +15,20 @@ pl:
         hostname: Nazwa hosta
         path: Ścieżka
         locale: Język
-        is_mirrored: Mirror
+        is_mirrored: Lustrzana
       comfy/cms/layout:
         identifier: Identyfikator
-        label: Nazwa layout'u
-        app_layout: Nazwa aplikacji
+        label: Szablon
+        app_layout: Szablon aplikacji
         parent_id: Rodzic
         content: Zawartość
         css: Style
         js: Javascript
       comfy/cms/page:
         label: Tytuł
-        layout_id: Identyfikator szablonu
-        slug: Ścieżka
-        full_path: Full path
+        layout_id: Szablon
+        slug: Przyjazna ścieżka
+        full_path: Pełna ścieżka
         parent_id: Rodzic
         target_page_id: Przekieruj do strony
         content: Zawartość
@@ -53,25 +53,25 @@ pl:
       cms:
         base:
           site_not_found: Strona nie została znaleziona
-          fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zpisane tutaj nie będą uwzględnione.
+          fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zapisane tutaj nie będą uwzględnione.
 
           sites: Witryny
           layouts: Szablony
-          pages: Pages
-          snippets: Snippets
-          files: Files
+          pages: Strony
+          snippets: Snippety
+          files: Pliki
 
         sites:
           created: Witryna została utworzona
           creation_failure: Błąd przy tworzeniu witryny
-          updated: Witryna została uaktulaniona
+          updated: Witryna została uaktualniona
           update_failure: Błąd przy uaktualnianiu witryny
           deleted: Witryna została usunięta
           not_found: Nie znaleziono witryny
 
           index:
             title: Witryny
-            new_link: Utwórz nowa witrynę
+            new_link: Utwórz nową witrynę
             select: Wybierz witrynę
             edit: Edytuj
             delete: Usuń
@@ -82,17 +82,17 @@ pl:
             title: Edytuj witrynę
           form:
             create: Utwórz witrynę
-            cancel: Anulować
+            cancel: Anuluj
             update: Uaktualnij witrynę
-            is_mirrored: Mirror
+            is_mirrored: Lustrzana
 
         layouts:
           created: Szablon został utworzony
-          creation_failure: Błąd przy tworzeniu layoutu
-          updated: Szanlon został uaktualniony
-          update_failure: Błąd przy uaktualnianiu layoutu
+          creation_failure: Błąd przy tworzeniu szablonu
+          updated: Szablon został uaktualniony
+          update_failure: Błąd przy uaktualnianiu szablonu
           deleted: Szablon został usunięty
-          not_found: Nie znaleziono layoutu
+          not_found: Nie znaleziono szablonu
 
           index:
             title: Szablony
@@ -107,16 +107,16 @@ pl:
           edit:
             title: Edytuj szablon
             revision: &revision
-              zero: '%{count} Wersje'
-              one: '%{count} Wersje'
+              zero: '%{count} Wersji'
+              one: '%{count} Wersja'
               few: '%{count} Wersje'
-              many: '%{count} Wersje'
+              many: '%{count} Wersji'
               other: '%{count} Wersje'
           form:
-            select_parent_layout: Wybierz szablon rodzic
+            select_parent_layout: Wybierz szablon rodzica
             select_app_layout: Wybierz szablon aplikacji
             create: Stwórz szablon
-            cancel: Anulować
+            cancel: Anuluj
             update: Uaktualnij szablon
 
         pages:
@@ -126,7 +126,7 @@ pl:
           update_failure: Błąd przy uaktualnianiu strony
           deleted: Strona została usunięta
           not_found: Nie znaleziono strony
-          layout_not_found: Brakuje layoutu. Proszę utworzyć
+          layout_not_found: Brakuje szablonu. Proszę utworzyć
 
           index:
             title: Strony
@@ -147,14 +147,14 @@ pl:
             select_target_page: Bez przekierowania
             preview: Podgląd
             create: Utwórz stronę
-            cancel: Anulować
+            cancel: Anuluj
             update: Uaktualnij stronę
             is_published: Opublikowana
             choose_link: Select page...
           form_blocks:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
-              Wyedytuj treść aby dodać stronę lub pole np. <code>{{cms:page:content}}</code>
+              Dodaj do jego treści tag strony lub pola, np. <code>{{cms:page:content}}</code>
 
         snippets:
           created: Snippet został utworzony
@@ -165,7 +165,7 @@ pl:
           not_found: Nie znaleziono snippeta
 
           index:
-            title: Snippets
+            title: Snippety
             new_link: Utwórz nowy snippet
             edit: Edytuj
             delete: Usuń
@@ -178,11 +178,11 @@ pl:
               <<: *revision
           form:
             create: Utwórz snippet
-            cancel: Anulować
+            cancel: Anuluj
             update: Uaktualnij snippet
 
         revisions:
-          reverted: Zawartość zostala przywrócona
+          reverted: Zawartość została przywrócona
           record_not_found: Wpis nie został znaleziony
           not_found: Wersja nie została znaleziona
 
@@ -192,9 +192,9 @@ pl:
             full_path: Pełna ścieżka
             slug: Ścieżka
             update: Uaktualnij do tej wersji
-            content: Content
-            changes: Changes
-            previous: Previous
+            content: Pole
+            changes: Wersje
+            previous: Historyczna
             current: Aktualna
 
         files:
@@ -207,16 +207,16 @@ pl:
 
           index:
             title: Pliki
-            new_link: Wrzuć nowy plik
-            button: Wrzuć plik
+            new_link: Wgraj nowy plik
+            button: Wgraj plik
           new:
             title: Nowy plik
           edit:
             title: Edytuj plik
           form:
             current_file: Aktualny plik
-            create: Wrzuć plik
-            cancel: Anulować
+            create: Wgraj plik
+            cancel: Anuluj
             update: Uaktualnij plik
             delete: Usuń
             are_you_sure: Jesteś pewien?
@@ -234,7 +234,7 @@ pl:
             done: Zrobione
             all: Wszystko
             add: Dodaj
-            add_placeholder: Dodać Kategorię
+            add_placeholder: Dodaj Kategorię
           show:
             are_you_sure: Jesteś pewien?
           edit:
