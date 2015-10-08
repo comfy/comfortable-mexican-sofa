@@ -20,4 +20,5 @@
         = layout.identifier
 
   - if layout.children.present?
-    %ul= render :partial => 'index_branch', :collection => layout.children
+    %ul.children.sortable
+      = render :partial => 'index_branch', :collection => layout.children
