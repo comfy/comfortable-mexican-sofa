@@ -70,7 +70,9 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
-![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
+![Sofa's Page Edit View](https://raw.githubusercontent.com/davidahopp/comfortable-mexican-sofa/readme_image_updates/doc/page_edit.png)
+![Sofa's Page Index View](https://raw.githubusercontent.com/davidahopp/comfortable-mexican-sofa/readme_image_updates/doc/page_index.png)
+![Sofa's Layout Edit View](https://raw.githubusercontent.com/davidahopp/comfortable-mexican-sofa/readme_image_updates/doc/layout_edit.png)
 
 #### Dependencies
 
