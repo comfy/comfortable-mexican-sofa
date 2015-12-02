@@ -216,4 +216,19 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
     assert_equal 1, file_one.position
     assert_equal 0, file_two.position
   end
+
+  def test_create_as_plupload_with_selected_category
+    assert_difference 'Comfy::Cms::File.count' do
+      post :create,
+        :source   => 'plupload',
+        :site_id  => @site,
+        :file     => {
+          :file => fixture_file_upload('files/image.jpg', 'image/jpeg')
+        },
+        :category => [comfy_cms_categories(:default).label]
+      assert_response :success
+      assert_no_select "body"
+      assert_select "tr[id=comfy_cms_file_#{Comfy::Cms::File.last.id}] .category", comfy_cms_categories(:default).label
+    end
+  end
 end
