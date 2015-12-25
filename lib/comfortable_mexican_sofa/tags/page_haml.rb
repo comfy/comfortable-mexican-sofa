@@ -13,6 +13,5 @@ class ComfortableMexicanSofa::Tag::PageHaml
   def render
     engine = Haml::Engine.new(content.to_s)
     engine.render
-    # Kramdown::Document.new(content.to_s).to_html
   end
 end
