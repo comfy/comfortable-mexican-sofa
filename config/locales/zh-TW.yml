@@ -1,0 +1,243 @@
+# encoding: utf-8
+zh-TW:
+  activerecord:
+    models:
+      comfy/cms/site: 站點
+      comfy/cms/layout: 佈局
+      comfy/cms/page: 頁面
+      comfy/cms/snippet: 片段
+      comfy/cms/file: 文件
+
+    attributes:
+      comfy/cms/site:
+        identifier: 標識符
+        label: 標籤
+        hostname: 主機名
+        path: 路徑
+        locale: 語言
+        is_mirrored: 鏡像
+      comfy/cms/layout:
+        identifier: 標識符
+        label: 佈局名稱
+        app_layout: 應用佈局
+        parent_id: 上級佈局
+        content: 內容
+        css: 樣式
+        js: Javascript
+      comfy/cms/page:
+        label: 頁面名稱
+        layout_id: 佈局
+        slug: 路徑名
+        full_path: 完整路徑
+        parent_id: 上級
+        target_page_id: 跳轉至
+        content: 內容
+        is_published: 發佈
+      comfy/cms/file:
+        label: 標籤
+        file: 文件
+        description: 描述
+      comfy/cms/snippet:
+        identifier: 標識符
+        label: 標籤
+        content: 內容
+
+  comfy:
+    cms:
+      content:
+        site_not_found: 站點不存在
+        layout_not_found: 佈局不存在
+        page_not_found: 頁面不存在
+
+    admin:
+      cms:
+        base:
+          site_not_found: 沒有該站點
+          fixtures_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
+
+          sites: 站點
+          layouts: 佈局
+          pages: 頁面
+          snippets: 片段
+          files: 文件
+
+        sites:
+          created: 站點創建成功
+          creation_failure: 站點創建失敗
+          updated: 站點更新成功
+          update_failure: 站點更新失敗
+          deleted: 站點刪除成功
+          not_found: 站點不存在
+
+          index:
+            title: 站點
+            new_link: 創建站點
+            select: 選擇站點
+            edit: 編輯
+            delete: 刪除
+            are_you_sure: 確定刪除該站點嗎？
+          new:
+            title: 新站點
+          edit:
+            title: 編輯站點
+          form:
+            create: 創建站點
+            cancel: 取消
+            update: 更新站點
+            is_mirrored: 鏡像
+
+        layouts:
+          created: 佈局創建成功
+          creation_failure: 佈局創建失敗
+          updated: 佈局更新成功
+          update_failure: 佈局更新失敗
+          deleted: 佈局刪除成功
+          not_found: 佈局不存在
+
+          index:
+            title: 佈局
+            new_link: 創建新佈局
+          index_branch:
+            add_child_layout: 創建子佈局
+            edit: 編輯
+            delete: 刪除
+            are_you_sure: 確定刪除該佈局嗎？
+          new:
+            title: 新佈局
+          edit:
+            title: 編輯佈局
+            revision: &revision
+              zero: '%{count} 修訂版本'
+              one: '%{count} 修訂版本'
+              few: '%{count} 修訂版本'
+              many: '%{count} 修訂版本'
+              other: '%{count} 修訂版本'
+          form:
+            select_parent_layout: 選擇上級佈局
+            select_app_layout: 選擇應用佈局
+            create: 創建佈局
+            cancel: Cancel
+            update: 更新佈局
+
+        pages:
+          created: 頁面創建成功
+          creation_failure: 頁面創建失敗
+          updated: 頁面更新成功
+          update_failure: 頁面更新失敗
+          deleted: 頁面刪除成功
+          not_found: 頁面不存在
+          layout_not_found: 沒有佈局，請先創建一個佈局。
+
+          index:
+            title: 頁面
+            new_link: 創建新頁面
+          index_branch:
+            toggle: 切換
+            add_child_page: 創建子頁面
+            edit: 編輯
+            delete: 刪除
+            are_you_sure: 確定刪除該頁面嗎？
+          new:
+            title: 新頁面
+          edit:
+            title: 編輯頁面
+            revision:
+              <<: *revision
+          form:
+            select_target_page: 沒有跳轉
+            preview: 預覽
+            create: 創建頁面
+            cancel: 取消
+            update: 更新頁面
+            is_published: 發佈
+            choose_link: 選擇頁面...
+          form_blocks:
+            no_tags: |-
+              佈局中沒有定義內容標記。<br/>
+              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: 片段創建成功
+          creation_failure: 片段創建失敗
+          updated: 片段更新成功
+          update_failure: 片段更新失敗
+          deleted: 片段刪除成功
+          not_found: 片段不存在
+
+          index:
+            title: 片段
+            new_link: 創建新片段
+            edit: 編輯
+            delete: 刪除
+            are_you_sure: 確定刪除該片段嗎？
+          new:
+            title: 新片段
+          edit:
+            title: 編輯片段
+            revision:
+              <<: *revision
+          form:
+            create: 創建片段
+            cancel: 取消
+            update: 更新片段
+
+        revisions:
+          reverted: 內容恢復成功
+          record_not_found: 記錄不存在
+          not_found: 修訂版本不存在
+
+          show:
+            title: 修訂版本屬於
+            revision: 修訂版本
+            full_path: 全路徑
+            slug: 嵌條
+            update: 更新到該修訂版本
+            content: 內容
+            changes: 變更
+            previous: 先前
+            current: 現在
+
+        files:
+          created: 文件上傳成功
+          creation_failure: 文件上傳失敗
+          updated: 文件更新成功
+          update_failure: 文件更新失敗
+          deleted: 文件刪除成功
+          not_found: 文件不存在
+
+          index:
+            title: 文件
+            new_link: 上傳新文件
+            button: 上傳文件
+          new:
+            title: 新文件
+          edit:
+            title: 編輯文件
+          form:
+            current_file: 當前文件
+            create: 上傳文件
+            cancel: 取消
+            update: 更新文件
+            delete: 刪除
+            are_you_sure: 確定刪除該文件嗎？
+          page_form:
+            are_you_sure: 確定刪除該文件嗎？
+          file:
+            edit: 編輯
+            delete: 刪除
+            are_you_sure: 確定刪除該文件嗎？
+
+        categories:
+          index:
+            label: 分類
+            edit: 編輯
+            done: 完成
+            all: 全部
+            add: 創建
+            add_placeholder: 添加類別
+          show:
+            are_you_sure: 確定刪除該分類嗎？
+          edit:
+            save: 保存
+          form:
+            label: 分類

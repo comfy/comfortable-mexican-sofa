@@ -1,0 +1,243 @@
+# encoding: utf-8
+nb:
+  activerecord:
+    models:
+      comfy/cms/site: Nettside
+      comfy/cms/layout: Layout
+      comfy/cms/page: Side
+      comfy/cms/snippet: Snutt
+      comfy/cms/file: Fil
+
+    attributes:
+      comfy/cms/site:
+        identifier: Identifikator
+        label: Navn
+        hostname: Tjenestenavn
+        path: Sti
+        locale: Språk
+        is_mirrored: Speilet
+      comfy/cms/layout:
+        identifier: Identifikator
+        label: Layoutnavn
+        app_layout: Applayout
+        parent_id: Hovedlayout
+        content: Innhold
+        css: Stylesheet
+        js: Javascript
+      comfy/cms/page:
+        label: Navn
+        layout_id: Layout
+        slug: Sti
+        full_path: Fullstendig sti
+        parent_id: Underside til
+        target_page_id: Videresend til
+        content: Innhold
+        is_published: Publisert
+      comfy/cms/file:
+        label: Navn
+        file: Fil
+        description: Beskrivelse
+      comfy/cms/snippet:
+        identifier: Identifikator
+        label: Navn
+        content: Innhold
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Fant ikke nettside
+        layout_not_found: Fant ikke layout
+        page_not_found: Fant ikke side
+
+    admin:
+      cms:
+        base:
+          site_not_found: Fant ikke nettside
+          fixtures_enabled: CMS Fixtures er aktivert. Alle endringer som er er utført vil bli fjernet.
+
+          sites: Nettsider
+          layouts: Layouter
+          pages: Sider
+          snippets: Snutter
+          files: Filer
+
+        sites:
+          created: Nettside opprettet
+          creation_failure: Klarte ikke å opprette ny nettside
+          updated: Nettside oppdatert
+          update_failure: Klarte ikke å endre nettside
+          deleted: Nettside fjernet
+          not_found: Fant ikke nettside
+
+          index:
+            title: Nettsider
+            new_link: Opprett ny nettside
+            select: Velg nettside
+            edit: Endre
+            delete: Fjern
+            are_you_sure: Er du sikker på at du vil fjerne denne nettsiden?
+          new:
+            title: Ny nettside
+          edit:
+            title: Endrer nettside
+          form:
+            create: Opprett nettside
+            cancel: Cancel
+            update: Oppdater nettside
+            is_mirrored: Speilet
+
+        layouts:
+          created: Layout opprettet
+          creation_failure: Klarte ikke å opprette ny layout
+          updated: Layout oppdatert
+          update_failure: Klarte ikke å endre layout
+          deleted: Layout fjernet
+          not_found: Fant ikke layout
+
+          index:
+            title: Layouter
+            new_link: Opprett ny layout
+          index_branch:
+            add_child_layout: Legg til underlayout
+            edit: Endre
+            delete: Fjern
+            are_you_sure: Er du sikker?
+          new:
+            title: Ny layout
+          edit:
+            title: Endrer layout
+            revision: &revision
+              zero: Ingen revisjoner
+              one: '%{count} revisjon'
+              few: '%{count} revisjoner'
+              many: '%{count} revisjoner'
+              other: '%{count} revisjoner'
+          form:
+            select_parent_layout: Velg hovedlayout
+            select_app_layout: Velg applikasjonslayout
+            create: Opprett layout
+            cancel: Cancel
+            update: Endre layout
+
+        pages:
+          created: Side opprettet
+          creation_failure: Klarte ikke å opprette side
+          updated: Side oppdatert
+          update_failure: Klarte ikke å endre side
+          deleted: Side fjernet
+          not_found: Fant ikke side
+          layout_not_found: Ingen layouter eksisterer. Vennligst opprett en.
+
+          index:
+            title: Sider
+            new_link: Opprett ny side
+          index_branch:
+            toggle: Toggle
+            add_child_page: Legg til underside
+            edit: Endre
+            delete: Fjern
+            are_you_sure: Er du sikker?
+          new:
+            title: Ny side
+          edit:
+            title: Endrer side
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Ingen videresending
+            preview: Forhåndsvisning
+            create: Opprett side
+            cancel: Cancel
+            update: Endre side
+            is_published: Publisert
+            choose_link: Velg side...
+          form_blocks:
+            no_tags: |-
+              layout har ingen innholdsknagger definert.<br/>
+              Endre innholdet til å inkludere innhold- eller feltknagg. For eksempel: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Snutt opprettet
+          creation_failure: Klarte ikke å opprette snutt
+          updated: Snutt oppdatert
+          update_failure: Klarte ikke å oppdatere snutt
+          deleted: Snutt fjernet
+          not_found: Fant ikke snutt
+
+          index:
+            title: Snutter
+            new_link: Opprett ny snutt
+            edit: Endre
+            delete: Fjerne
+            are_you_sure: Er du sikker?
+          new:
+            title: Ny snutt
+          edit:
+            title: Endrer snutt
+            revision:
+              <<: *revision
+          form:
+            create: Oprett snutt
+            cancel: Cancel
+            update: Endre snutt
+
+        revisions:
+          reverted: Innhold tilbakeført
+          record_not_found: Fant ikke revisjon
+          not_found: Revisjon ikke funnet
+
+          show:
+            title: Revisjon for
+            revision: Revisjon
+            full_path: Fullstendig sti
+            slug: Sti
+            update: Oppdatert til denne revisjonen
+            content: Innhold
+            changes: Endringer
+            previous: Forrige
+            current: Nåværende
+
+        files:
+          created: Opplastede filer
+          creation_failure: Klarte ikke å laste opp filer
+          updated: Fil oppdatert
+          update_failure: Klarte ikke å endre fil
+          deleted: Fil fjernet
+          not_found: File not found
+
+          index:
+            title: Filer
+            new_link: Last opp ny fil
+            button: Last opp filer
+          new:
+            title: Ny fil
+          edit:
+            title: Endrer fil
+          form:
+            current_file: Nåværende fil
+            create: Last opp fil
+            cancel: Cancel
+            update: Endre fil
+            delete: Fjerne
+            are_you_sure: Er du sikker?
+          page_form:
+            are_you_sure: Er du sikker?
+          file:
+            edit: Endre
+            delete: Fjerne
+            are_you_sure: Er du sikker?
+
+        categories:
+          index:
+            label: Kategorier
+            edit: Endre
+            done: Ferdig
+            all: Alle
+            add: Legg til
+            add_placeholder: Legg til kategori
+          show:
+            are_you_sure: Er du sikker?
+          edit:
+            save: Lagre
+          form:
+            label: Kategorier

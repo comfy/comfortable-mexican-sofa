@@ -6,32 +6,32 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal ({
       'content' => 'revision {{cms:page:default_page_text}}', 
       'css'     => 'revision css',
-      'js'      => 'revision js' }), cms_revisions(:layout).data
+      'js'      => 'revision js' }), comfy_cms_revisions(:layout).data
       
     assert_equal ({'blocks_attributes' => [
       { 'identifier' => 'default_page_text',   'content' => 'revision page content'  },
       { 'identifier' => 'default_field_text',  'content' => 'revision field content' }
-    ]}), cms_revisions(:page).data
+    ]}), comfy_cms_revisions(:page).data
     
     assert_equal ({
       'content' => 'revision content'
-    }), cms_revisions(:snippet).data
+    }), comfy_cms_revisions(:snippet).data
   end
   
   def test_init_for_layouts
-    assert_equal ['content', 'css', 'js'], cms_layouts(:default).revision_fields
+    assert_equal ['content', 'css', 'js'], comfy_cms_layouts(:default).revision_fields
   end
   
   def test_init_for_pages
-    assert_equal ['blocks_attributes'], cms_pages(:default).revision_fields
+    assert_equal ['blocks_attributes'], comfy_cms_pages(:default).revision_fields
   end
   
   def test_init_for_snippets
-    assert_equal ['content'], cms_snippets(:default).revision_fields
+    assert_equal ['content'], comfy_cms_snippets(:default).revision_fields
   end
   
   def test_creation_for_layout
-    layout = cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     old_attributes = layout.attributes.slice('content', 'css', 'js')
     
     assert_difference 'layout.revisions.count' do
@@ -47,14 +47,14 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_creation_for_layout_ignore
-    layout = cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     assert_no_difference 'layout.revisions.count' do
       layout.update_attributes(:label => 'new label')
     end
   end
   
   def test_creation_for_page
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     
     assert_difference 'page.revisions.count' do
       page.update_attributes!(
@@ -77,14 +77,14 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_creation_for_page_ignore
-    page = cms_pages(:default)
+    page = comfy_cms_pages(:default)
     assert_no_difference 'page.revisions.count' do
       page.update_attributes(:label => 'new label')
     end
   end
   
   def test_creation_for_snippet
-    snippet = cms_snippets(:default)
+    snippet = comfy_cms_snippets(:default)
     old_attributes  = snippet.attributes.slice('content')
     
     assert_difference 'snippet.revisions.count' do
@@ -97,16 +97,16 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_creation_for_snippet_ignore
-    snippet = cms_snippets(:default)
+    snippet = comfy_cms_snippets(:default)
     assert_no_difference 'snippet.revisions.count' do
       snippet.update_attributes(:label => 'new label')
     end
   end
   
   def test_creation_for_new_record
-    assert_difference 'Cms::Snippet.count' do
-      assert_no_difference 'Cms::Revision.count' do
-        snippet = cms_sites(:default).snippets.create!(
+    assert_difference 'Comfy::Cms::Snippet.count' do
+      assert_no_difference 'Comfy::Cms::Revision.count' do
+        snippet = comfy_cms_sites(:default).snippets.create!(
           :label      => 'test snippet',
           :identifier => 'test_snippet',
           :content    => 'test content'
@@ -117,8 +117,8 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_restore_from_revision_for_layout
-    layout = cms_layouts(:default)
-    revision = cms_revisions(:layout)
+    layout = comfy_cms_layouts(:default)
+    revision = comfy_cms_revisions(:layout)
     
     assert_difference 'layout.revisions.count' do
       layout.restore_from_revision(revision)
@@ -130,8 +130,8 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_restore_from_revision_for_page
-    page = cms_pages(:default)
-    revision = cms_revisions(:page)
+    page = comfy_cms_pages(:default)
+    revision = comfy_cms_revisions(:page)
     
     assert_difference 'page.revisions.count' do
       page.restore_from_revision(revision)
@@ -144,8 +144,8 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_restore_from_revision_for_snippet
-    snippet = cms_snippets(:default)
-    revision = cms_revisions(:snippet)
+    snippet = comfy_cms_snippets(:default)
+    revision = comfy_cms_revisions(:snippet)
     
     assert_difference 'snippet.revisions.count' do
       snippet.restore_from_revision(revision)
@@ -155,8 +155,8 @@ class RevisionsTest < ActiveSupport::TestCase
   end
   
   def test_restore_from_revision_with_wrong_revision_type
-    snippet = cms_snippets(:default)
-    revision = cms_revisions(:layout)
+    snippet = comfy_cms_snippets(:default)
+    revision = comfy_cms_revisions(:layout)
     
     assert_no_difference 'snippet.revisions.count' do
       snippet.restore_from_revision(revision)
@@ -167,14 +167,14 @@ class RevisionsTest < ActiveSupport::TestCase
   
   def test_creation_with_limit
     ComfortableMexicanSofa.config.revisions_limit = 1
-    snippet = cms_snippets(:default)
-    revision = cms_revisions(:snippet)
+    snippet = comfy_cms_snippets(:default)
+    revision = comfy_cms_revisions(:snippet)
     
     assert_equal 1, snippet.revisions.count
     
     assert_no_difference 'snippet.revisions.count' do
       snippet.update_attributes(:content => 'new content')
-      assert_nil Cms::Revision.find_by_id(revision.id)
+      assert_nil Comfy::Cms::Revision.find_by_id(revision.id)
       
       snippet.reload
       revision = snippet.revisions.first

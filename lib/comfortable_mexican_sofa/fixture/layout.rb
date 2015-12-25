@@ -43,7 +43,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         # saving
         if layout.changed? || self.force_import
           if layout.save
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Layout \t #{layout.identifier}")
+            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Layout \t #{layout.identifier}")
           else
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Layout \n#{layout.errors.inspect}")
           end
@@ -88,7 +88,7 @@ module ComfortableMexicanSofa::Fixture::Layout
           f.write(layout.js)
         end
         
-        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Layout \t #{layout.identifier}")
+        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Layout \t #{layout.identifier}")
       end
     end
   end

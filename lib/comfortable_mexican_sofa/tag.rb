@@ -85,18 +85,18 @@ module ComfortableMexicanSofa::Tag
       ComfortableMexicanSofa::Tag.sanitize_irb(content, ignore)
     end
     
-    # Find or initialize Cms::Block object
+    # Find or initialize Comfy::Cms::Block object
     def block
       blockable.blocks.detect{|b| b.identifier == self.identifier.to_s} || 
       blockable.blocks.build(:identifier => self.identifier.to_s)
     end
     
-    # Checks if this tag is using Cms::Block
+    # Checks if this tag is using Comfy::Cms::Block
     def is_cms_block?
       %w(page field collection).member?(self.class.to_s.demodulize.underscore.split(/_/).first)
     end
     
-    # Used in displaying form elements for Cms::Block
+    # Used in displaying form elements for Comfy::Cms::Block
     def record_id
       block.id
     end

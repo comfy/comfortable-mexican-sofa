@@ -1,0 +1,367 @@
+//= depend_on_asset "comfy/admin/cms/checkerboard.gif"
+//= depend_on_asset "comfy/admin/cms/icon_page.gif"
+//= depend_on_asset "comfy/admin/cms/icon_move.gif"
+//= depend_on_asset "comfy/admin/cms/arrow_bottom.gif"
+//= depend_on_asset "comfy/admin/cms/arrow_right.gif"
+//= depend_on_asset "comfy/admin/cms/icon_draft.gif"
+//= depend_on_asset "comfy/admin/cms/icon_site.gif"
+//= depend_on_asset "comfy/admin/cms/icon_layout.gif"
+//= depend_on_asset "comfy/admin/cms/icon_snippet.gif"
+//= depend_on_asset "comfy/admin/cms/icon_file.gif"
+
+html, body#comfy
+  height: 100%
+
+body#comfy.in-iframe
+  background: transparent
+  .left-column, .right-column, .body-footer
+    display: none
+  .body-wrapper .center-column
+    background: transparent
+    margin: 0
+
+body#comfy
+  background-color: #252525
+
+  // -- Containers ----------------------------------------------------------
+  .body-wrapper
+    height: 100%
+    .left-column
+      width: 175px
+      float: left
+      .left-column-content
+        padding: 25px 0px
+        width: 175px
+        position: fixed
+    .center-column
+      position: relative
+      margin: 0px 250px 0px 175px
+      min-height: 100%
+      background-color: #fff
+      .center-column-content
+        padding: 25px
+    .right-column
+      width: 250px
+      float: right
+      .right-column-content
+        padding: 25px 10px
+        width: 250px
+        position: fixed
+        height: 100%
+        background-color: #f5f5f5
+
+  // -- Navigation ----------------------------------------------------------
+  .left-column-content ul.navigation
+    list-style: none
+    margin: 0
+    padding: 0
+    a
+      position: relative
+      display: block
+      padding: 7px 15px
+      color: #777
+      border-bottom: 1px solid #333
+      text-decoration: none
+      text-shadow: 0 0 2px #000
+    a:hover, a.active
+      color: #ddd
+    a.active
+      background-color: #1f1f1f
+      box-shadow: inset 0px 0px 10px #000
+    a.active:after
+      border: 7px solid transparent
+      border-right-color: #fff
+      position: absolute
+      top: 10px
+      right: 0px
+      z-index: 2
+      content: ''
+      display: block
+    a.cms-files-open-modal
+      float: right
+      position: relative
+      z-index: 2
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+      a
+        padding: 7px 15px 7px 30px
+
+  // -- Right Side Boxes ----------------------------------------------------
+  .right-column-content
+    .box
+      background-color: #fff
+      padding: 5px
+      border-radius: 3px
+      margin-bottom: 10px
+      overflow: auto
+    #mirrors select
+      width: 100%
+      margin-bottom: 0
+    #form-save
+      label
+        padding-top: 0
+
+  // -- Common Elements -----------------------------------------------------
+  table.table, ul.list
+    .icon
+      width: 28px
+      height: 28px
+      background: url(image-path("comfy/admin/cms/icon_page.gif"))
+      .dragger
+        width: 28px
+        height: 28px
+        background: url(image-path("comfy/admin/cms/icon_move.gif"))
+        cursor: move
+        display: none
+        span
+          display: none
+      &:hover .dragger
+        display: block
+    div.category
+      display: inline-block
+      vertical-align: top
+      font-size: 11px
+      line-height: 11px
+      border: 1px solid #ddd
+      padding: 2px 5px
+      background-color: #fff
+      border-radius: 3px
+      border-left-width: 7px
+  .item-title
+    color: #000
+    a
+      color: #000
+  .item-meta
+    font-size: 11px
+    line-height: 14px
+
+  .cms-partial
+    background-color: #252525
+    color: #fff
+    outline: 1px dotted #444
+    font-size: 9px
+    line-height: 11px
+    padding: 5px
+    margin: 3px
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, .05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%, transparent 75%, transparent)
+    background-size: 50px 50px
+
+  // -- Sofa Version --------------------------------------------------------
+  .center-column .body-footer
+    position: absolute
+    background: #000
+    bottom: 0px
+    left: -175px
+    width: 175px
+    padding: 5px 10px
+    font-size: 10px
+    a
+      color: #484848
+      text-decoration: none
+    a:hover
+      color: #f1f1f1
+    span.version
+      color: #f1f1f1
+      margin-left: 2px
+
+  // -- Categories Widget ---------------------------------------------------
+  .categories-widget
+    background: #f5f5f5
+    border-radius: 3px
+    border: 1px solid #ddd
+    padding: 5px 10px
+    margin-bottom: 10px
+    .categories-widget-label
+      width: 100px
+      float: left
+      color: #777
+    .categories
+      overflow: hidden
+      margin: 0px 50px 0px 110px
+      &.editable
+        display: none
+      .category
+        display: inline-block
+        font-size: 11px
+        line-height: 20px
+        border-radius: 3px
+        background-color: #fff
+        padding: 0 7px
+        border: 1px solid #eee
+        &.active
+          border-color: #a5a5a5
+      form
+        display: inline-block
+        vertical-align: middle
+    .action-links
+      float: right
+      margin-left: 10px
+      .done
+        display: none
+    form
+      margin: 0
+      .input-group
+        input.form-control
+          width: 125px
+          height: 22px
+          padding: 3px
+          font-size: 11px
+          line-height: 11px
+
+  // -- Sortable List -------------------------------------------------------
+  ul.list
+    padding: 0
+    margin: 0
+    list-style: none
+    .item
+      overflow: hidden
+      padding: 5px
+      border-radius: 3px
+      margin-bottom: 5px
+      border: 1px solid #ddd
+      &:hover
+        background-color: #f5f5f5
+      .toggle
+        float: left
+        height: 28px
+        width: 28px
+        &.open a
+          background-image: url(image-path("comfy/admin/cms/arrow_bottom.gif"))
+        a
+          display: block
+          height: 28px
+          width: 28px
+          background: url(image-path("comfy/admin/cms/arrow_right.gif")) center center no-repeat
+          span
+            display: none
+      .icon
+        float: left
+        &.draft
+          background: url(image-path("comfy/admin/cms/icon_draft.gif"))
+      .item-content
+        margin-left: 60px
+        a.item-label
+          color: #000
+      .btn-group
+        float: right
+    li ul
+      list-style: none
+      padding: 0
+      margin: 0 0 0 28px
+
+  // -- Sites ---------------------------------------------------------------
+  &.c-comfy-admin-cms-sites
+    table .icon
+      background: url(image-path("comfy/admin/cms/icon_site.gif"))
+
+  // -- Layouts -------------------------------------------------------------
+  &.c-comfy-admin-cms-layouts
+    ul.list
+      .item
+        .icon
+          background: url(image-path("comfy/admin/cms/icon_layout.gif"))
+        .item-content
+          margin-left: 35px
+
+  // -- Pages ---------------------------------------------------------------
+  &.c-comfy-admin-cms-pages
+    #form-blocks
+      ul.nav-tabs
+        margin-bottom: 10px
+      .no-tags
+        text-align: center
+        padding: 10px
+        background-color: #f5f5f5
+        margin-bottom: 10px
+      .files
+        margin: 5px 0
+        .file
+          display: inline-block
+          border: 1px solid #ccc
+          border-radius: 3px
+          padding: 0 5px
+          margin-bottom: 5px
+          font-size: 12px
+
+  // -- Snippets ------------------------------------------------------------
+  &.c-comfy-admin-cms-snippets
+    table .icon
+      background: url(image-path("comfy/admin/cms/icon_snippet.gif"))
+
+  // -- Files ---------------------------------------------------------------
+  .cms-files-modal
+    z-index: 99999
+    iframe
+      width: 100%
+      height: 100%
+      border: 0
+
+  &.c-comfy-admin-cms-files
+    .file-image img
+      width: 100%
+    table
+      .icon
+        background: url(image-path("comfy/admin/cms/icon_file.gif"))
+      .content-type
+        font-size: 9px
+        text-transform: uppercase
+      input.file-path
+        width: 400px
+        font-size: 10px
+
+      tr.temp td.main
+        vertical-align: middle
+        .progress
+          margin: 0
+          box-shadow: none
+          background-color: #424242
+          .progress-bar
+            text-align: left
+            padding-left: 8px
+            span
+              white-space: nowrap
+
+    .cms-uploader-drag-drop-target-active
+      position: fixed !important
+      z-index: 1000
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      border: dotted #ccc 1px
+      background-color: rgba(255, 255, 255, 0.7)
+
+  // -- Revisions -----------------------------------------------------------
+  &.c-comfy-admin-cms-revisions
+    td.with-table
+      padding: 0
+    table.diff
+      th, td
+        border: 0
+      th
+        color: #ccc
+      width: 100%
+      ins, del
+        display: inline
+      ins
+        background-color: #c6ffc6
+        text-decoration: none
+      del
+        background-color: #ffc6c6
+      tr.hide
+        display: none
+    .box.revisions
+      a
+        font-size: 11px
+        border: 1px solid #ddd
+        display: block
+        padding: 0 7px
+        border-radius: 3px
+        margin-bottom: 2px
+        text-decoration: none
+      a:hover
+        background-color: #f5f5f5
+      a.active
+        border-color: #0088CC

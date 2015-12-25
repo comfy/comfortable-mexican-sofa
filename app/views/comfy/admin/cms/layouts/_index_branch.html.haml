@@ -1,0 +1,24 @@
+- layout      ||= index_branch
+- has_siblings  = layout.siblings.select{|l| l.site_id == @site.id}.size > 0
+
+%li{:id => dom_id(layout)}
+  .item
+    .icon
+      - if !params[:category].present? && has_siblings
+        .dragger
+          %span &#8645;
+          
+    .btn-group.btn-group-sm
+      = link_to t('.add_child_layout'), new_comfy_admin_cms_site_layout_path(@site, :parent_id => layout.id), :class => 'btn btn-default'
+      = link_to t('.edit'), edit_comfy_admin_cms_site_layout_path(@site, layout), :class => 'btn btn-default'
+      = link_to t('.delete'), comfy_admin_cms_site_layout_path(@site, layout), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+    
+    .item-content
+      .item-title
+        = link_to layout.label, edit_comfy_admin_cms_site_layout_path(@site, layout)
+      .item-meta
+        = layout.identifier
+
+  - if layout.children.present?
+    %ul.children.sortable
+      = render :partial => 'index_branch', :collection => layout.children

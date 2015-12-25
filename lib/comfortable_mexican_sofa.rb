@@ -7,11 +7,12 @@ require_relative 'comfortable_mexican_sofa/version'
 require_relative 'comfortable_mexican_sofa/error'
 require_relative 'comfortable_mexican_sofa/configuration'
 require_relative 'comfortable_mexican_sofa/routing'
-require_relative 'comfortable_mexican_sofa/authentication/http_auth'
-require_relative 'comfortable_mexican_sofa/authentication/dummy_auth'
+require_relative 'comfortable_mexican_sofa/access_control/admin_authentication'
+require_relative 'comfortable_mexican_sofa/access_control/admin_authorization'
+require_relative 'comfortable_mexican_sofa/access_control/public_authentication'
+require_relative 'comfortable_mexican_sofa/access_control/public_authorization'
 require_relative 'comfortable_mexican_sofa/render_methods'
 require_relative 'comfortable_mexican_sofa/view_hooks'
-require_relative 'comfortable_mexican_sofa/view_methods'
 require_relative 'comfortable_mexican_sofa/form_builder'
 require_relative 'comfortable_mexican_sofa/tag'
 require_relative 'comfortable_mexican_sofa/fixture'
@@ -33,7 +34,7 @@ end
 
 module ComfortableMexicanSofa
   class << self
-    
+
     # Modify CMS configuration
     # Example:
     #   ComfortableMexicanSofa.configure do |config|
@@ -42,7 +43,7 @@ module ComfortableMexicanSofa
     def configure
       yield configuration
     end
-    
+
     # Accessor for ComfortableMexicanSofa::Configuration
     def configuration
       @configuration ||= Configuration.new
@@ -56,6 +57,6 @@ module ComfortableMexicanSofa
     def logger
       @logger ||= Rails.logger
     end
-    
+
   end
 end

@@ -32,7 +32,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         if snippet.changed? || self.force_import
           if snippet.save
             save_categorizations!(snippet, categories)
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Imported Snippet \t #{snippet.identifier}")
+            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Snippet \t #{snippet.identifier}")
           else
             ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Snippet \n#{snippet.errors.inspect}")
           end
@@ -68,7 +68,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
           f.write(snippet.content)
         end
         
-        ComfortableMexicanSofa.logger.warn("[FIXTURES] Exported Snippet \t #{snippet.identifier}")
+        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Snippet \t #{snippet.identifier}")
       end
     end
   end

@@ -1,0 +1,243 @@
+# encoding: utf-8
+cs:
+  activerecord:
+    models:
+      comfy/cms/site: Web
+      comfy/cms/layout: Rozložení
+      comfy/cms/page: Stránka
+      comfy/cms/snippet: Úryvek
+      comfy/cms/file: Soubor
+
+    attributes:
+      comfy/cms/site:
+        identifier: Identifikátor
+        label: Popis
+        hostname: Doména
+        path: Cesta
+        locale: Jazyk
+        is_mirrored: Zrcadlený
+      comfy/cms/layout:
+        identifier: Identifikátor
+        label: Název rozložení
+        app_layout: Rozložení aplikace
+        parent_id: Rodičovské rozložení
+        content: Obsah
+        css: Styl
+        js: Javascript
+      comfy/cms/page:
+        label: Popis
+        layout_id: Rozložení
+        slug: Slug
+        full_path: Full path
+        parent_id: Rodič
+        target_page_id: Přesměrovat na stránku
+        content: Obsah
+        is_published: Publikovaný
+      comfy/cms/file:
+        label: Popis
+        file: Soubor
+        description: Popis
+      comfy/cms/snippet:
+        identifier: Identifikátor
+        label: Popis
+        content: Obsah
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Web nenalezen
+        layout_not_found: Rozložení nenalezeno
+        page_not_found: Stránka nenalezena
+
+    admin:
+      cms:
+        base:
+          site_not_found: Web nenalezen
+          fixtures_enabled: Je povolen pevně definovaný obsah CMS. Všechny zde provedené změny budou ztraceny.
+
+          sites: Weby
+          layouts: Rozložení
+          pages: Stránky
+          snippets: Úryvky
+          files: Soubory
+
+        sites:
+          created: Web vytvořen
+          creation_failure: Nepodařilo se vytvořit web
+          updated: Web upraven
+          update_failure: Nepodařilo se upravit web
+          deleted: Web odstraněn
+          not_found: Web nenalezen
+
+          index:
+            title: Weby
+            new_link: Vytvořit web
+            select: Vyberte web
+            edit: Upravit
+            delete: Smazat
+            are_you_sure: Určitě chcete odstranit tento web?
+          new:
+            title: Nový web
+          edit:
+            title: Úprava webu
+          form:
+            create: Vytvořit web
+            cancel: Zrušit
+            update: Upravit web
+            is_mirrored: Zrcadlený
+
+        layouts:
+          created: Rozložení vytvořeno
+          creation_failure: Nepodařilo se vytvořit rozložení
+          updated: Rozložení upraveno
+          update_failure: Nepodařilo se upravit rozložení
+          deleted: Rozložení odstraněno
+          not_found: Rozložení nenalezeno
+
+          index:
+            title: Rozložení
+            new_link: Vytvořit nové rozložení
+          index_branch:
+            add_child_layout: Přidat odvozené rozložení
+            edit: Upravit
+            delete: Smazat
+            are_you_sure: Určitě?
+          new:
+            title: Nové rozložení
+          edit:
+            title: Úprava rozložení
+            revision: &revision
+              zero: Žádné revize
+              one: '%{count} revize'
+              few: '%{count} revize'
+              many: '%{count} revizí'
+              other: '%{count} revizí'
+          form:
+            select_parent_layout: Zvolte rodičovské rozložení
+            select_app_layout: Zvolte rozložení aplikace
+            create: Vytvořit rozložení
+            cancel: Zrušit
+            update: Upravit rozložení
+
+        pages:
+          created: Stránka vytvořena
+          creation_failure: Nepodařilo se vytvořit stránku
+          updated: Stránka upravena
+          update_failure: Nepodařilo se upravit stránku
+          deleted: Stránka odstraněna
+          not_found: Stránka nenalezena
+          layout_not_found: "Nebyla nalezena žádná rozložení, vytvořte je prosím."
+
+          index:
+            title: Stránky
+            new_link: Vytvořit novou stránku
+          index_branch:
+            toggle: Přepnout
+            add_child_page: Přidat podstránku
+            edit: Upravit
+            delete: Smazat
+            are_you_sure: Určitě?
+          new:
+            title: Nová stránka
+          edit:
+            title: Úprava stránky
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Bez přesměrování
+            preview: Náhled
+            create: Vytvořit stránku
+            cancel: Zrušit
+            update: Upravit stránku
+            is_published: Publikovaná
+            choose_link: Select page...
+          form_blocks:
+            no_tags: |-
+              Rozložení nedefinuje žádné obsahové značky.<br/>
+              Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Úryvek vytvořen
+          creation_failure: Nepodařilo se vytvořit úryvek
+          updated: Úryvek upraven
+          update_failure: Nepodařilo se upravit úryvek
+          deleted: Úryvek odstraněn
+          not_found: Úryvek nenalezen
+
+          index:
+            title: Úryvky
+            new_link: Vytvořit úryvek
+            edit: Upravit
+            delete: Smazat
+            are_you_sure: Určitě?
+          new:
+            title: Nový úryvek
+          edit:
+            title: Upravit úryvek
+            revision:
+              <<: *revision
+          form:
+            create: Vytvořit úryvek
+            cancel: Zrušit
+            update: Upravit úryvek
+
+        revisions:
+          reverted: Obsah byl obnoven
+          record_not_found: Záznam nenalezen
+          not_found: Revize nenalezena
+
+          show:
+            title: Revize pro
+            revision: Revize
+            full_path: Celá cesta
+            slug: Slug
+            update: Použít tuto revizi
+            content: Obsah
+            changes: Změny
+            previous: Předchozí
+            current: Aktuální
+
+        files:
+          created: Soubory nahrány
+          creation_failure: Nepodařilo se nahrát soubory
+          updated: Soubor upraven
+          update_failure: Nepodařilo se upravit soubor
+          deleted: Soubor odstraněn
+          not_found: Soubor nenalezen
+
+          index:
+            title: Soubory
+            new_link: Nahrát nový soubor
+            button: Nahrát soubory
+          new:
+            title: Nový soubor
+          edit:
+            title: Upravit soubor
+          form:
+            current_file: Aktuální soubor
+            create: Nahrát soubor
+            cancel: Zrušit
+            update: Upravit soubor
+            delete: Smazat
+            are_you_sure: Určitě?
+          page_form:
+            are_you_sure: Určitě?
+          file:
+            edit: Upravit
+            delete: Smazat
+            are_you_sure: Určitě?
+
+        categories:
+          index:
+            label: Kategorie
+            edit: Upravit
+            done: Hotovo
+            all: Všechny
+            add: Přidat
+            add_placeholder: Přidat kategorii
+          show:
+            are_you_sure: Určitě?
+          edit:
+            save: Uložit
+          form:
+            label: Kategorie

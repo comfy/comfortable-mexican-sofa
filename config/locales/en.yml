@@ -1,248 +1,243 @@
 # encoding: utf-8
 en:
-  # -- Models ---------------------------------------------------------------
-  attributes:
-    label: Label
-    slug: Slug
-    parent_id: Parent
-    content: Content
-    identifier: Identifier
   activerecord:
     models:
-      cms/site: Site
-      cms/layout: Layout
-      cms/page: Page
-      cms/snippet: Snippet
-      cms/file: File
+      comfy/cms/site: Site
+      comfy/cms/layout: Layout
+      comfy/cms/page: Page
+      comfy/cms/snippet: Snippet
+      comfy/cms/file: File
+
     attributes:
-      cms/site:
+      comfy/cms/site:
         identifier: Identifier
+        label: Label
         hostname: Hostname
         path: Path
         locale: Language
         is_mirrored: Mirrored
-      cms/layout:
+      comfy/cms/layout:
         identifier: Identifier
         label: Layout Name
         app_layout: App Layout
         parent_id: Parent Layout
+        content: Content
         css: Stylesheet
         js: Javascript
-      cms/page:
+      comfy/cms/page:
         label: Label
         layout_id: Layout
         slug: Slug
+        full_path: Full path
+        parent_id: Parent
         target_page_id: Redirect to Page
+        content: Content
         is_published: Published
-      cms/file:
+      comfy/cms/file:
+        label: Label
         file: File
         description: Description
-      cms/snippet:
+      comfy/cms/snippet:
+        label: Label
         identifier: Identifier
-        
-  # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Site not found
-      fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
-    
-    sites:
-      created: Site created
-      creation_failure: Failed to create site
-      updated: Site updated
-      update_failure: Failed to update site
-      deleted: Site deleted
-      not_found: Site not found
-    
-    layouts:
-      created: Layout created
-      creation_failure: Failed to create layout
-      updated: Layout updated
-      update_failure: Failed to update layout
-      deleted: Layout deleted
-      not_found: Layout not found
-    
-    pages:
-      created: Page created
-      creation_failure: Failed to create page
-      updated: Page updated
-      update_failure: Failed to update page
-      deleted: Page deleted
-      not_found: Page not found
-      layout_not_found: No Layouts found. Please create one.
-    
-    snippets:
-      created: Snippet created
-      creation_failure: Failed to create snippet
-      updated: Snippet updated
-      update_failure: Failed to update snippet
-      deleted: Snippet deleted
-      not_found: Snippet not found
-    
-    revisions:
-      reverted: Content Reverted
-      record_not_found: Record Not Found
-      not_found: Revision Not Found
-    
-    files:
-      created: Files uploaded
-      creation_failure: Failed to upload files
-      updated: File updated
-      update_failure: Failed to update file
-      deleted: File deleted
-      not_found: File not found
-    
-    content:
-      site_not_found: Site Not Found
-      layout_not_found: Layout Not Found
-      page_not_found: Page Not Found
-  
-  # -- Views ----------------------------------------------------------------
-  admin:
+        content: Content
+
+  comfy:
     cms:
-      base:
-        sites: Sites
-        layouts: Layouts
-        pages: Pages
-        snippets: Snippets
-        files: Files
-      
-      sites:
-        index:
-          title: Sites
-          new_link: Create New Site
-          select: Select Site
-          edit: Edit
-          delete: Delete
-          are_you_sure: Are you sure you want to delete this site?
-        new:
-          title: New Site
-        edit:
-          title: Editing Site
-        form:
-          create: Create Site
-          update: Update Site
-          is_mirrored: Mirrored
-        
-      layouts:
-        index:
-          title: Layouts
-          new_link: Create New Layout
-        index_branch:
-          add_child_layout: Add Child Layout
-          edit: Edit
-          delete: Delete
-          are_you_sure: Are you sure?
-        new:
-          title: New Layout
-        edit:
-          title: Editing Layout
-          revision: &revision
-            zero: No Revisions
-            one: '%{count} Revision'
-            few: '%{count} Revisions'
-            many: '%{count} Revisions'
-            other: '%{count} Revisions'
-        form:
-          select_parent_layout: Select Parent Layout
-          select_app_layout: Select Application Layout
-          create: Create Layout
-          update: Update Layout
-      
-      pages:
-        index:
-          title: Pages
-          new_link: Create New Page
-        index_branch:
-          toggle: Toggle
-          add_child_page: Add Child Page
-          edit: Edit
-          delete: Delete
-          are_you_sure: Are you sure?
-        new:
-          title: New Page
-        edit:
-          title: Editing Page
-          revision:
-            <<: *revision
-        form:
-          select_target_page: No Redirect
-          preview: Preview
-          create: Create Page
-          update: Update Page
-          is_published: Published
-        form_blocks:
-          no_tags: |-
-            Layout has no content tags defined.<br/>
-            Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
-      
-      snippets:
-        index:
-          title: Snippets
-          new_link: Create New Snippet
-          edit: Edit
-          delete: Delete
-          are_you_sure: Are you sure?
-        new:
-          title: New Snippet
-        edit:
-          title: Editing Snippet
-          revision:
-            <<: *revision
-        form:
-          create: Create Snippet
-          update: Update Snippet
-          
-      revisions:
-        show:
-          title: Revisions for
-          revision: Revision
-          full_path: Full Path
-          slug: Slug
-          update: Update to this Revision
-          content: Content
-          changes: Changes
-          previous: Previous
-          current: Current
-      
-      files:
-        index:
-          title: Files
-          new_link: Upload New File
-          edit: Edit
-          delete: Delete
-          are_you_sure: Are you sure?
-          button: Upload Files
-        new:
-          title: New File
-        edit:
-          title: Editing File
-        form:
-          current_file: Current File
-          create: Upload File
-          update: Update File
-        page_form:
-          are_you_sure: Are you sure?
-        file:
-          are_you_sure: Are you sure?
-        
-      categories:
-        index:
-          label: Categories
-          edit: Edit
-          done: Done
-          all: All
-          add: Add
-          add_placeholder: Add Category
-        show:
-          are_you_sure: Are you sure?
-        edit:
-          save: Save
-        form:
-          label: Categories
-        
-      dialogs:
-        image:
-          insert: Insert Image
-        link:
-          create: Create Link
+      content:
+        site_not_found: Site Not Found
+        layout_not_found: Layout Not Found
+        page_not_found: Page Not Found
+
+    admin:
+      cms:
+        base:
+          site_not_found: Site not found
+          fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
+
+          sites: Sites
+          layouts: Layouts
+          pages: Pages
+          snippets: Snippets
+          files: Files
+
+        sites:
+          created: Site created
+          creation_failure: Failed to create site
+          updated: Site updated
+          update_failure: Failed to update site
+          deleted: Site deleted
+          not_found: Site not found
+
+          index:
+            title: Sites
+            new_link: Create New Site
+            select: Select Site
+            edit: Edit
+            delete: Delete
+            are_you_sure: Are you sure you want to delete this site?
+          new:
+            title: New Site
+          edit:
+            title: Editing Site
+          form:
+            create: Create Site
+            cancel: Cancel
+            update: Update Site
+            is_mirrored: Mirrored
+
+        layouts:
+          created: Layout created
+          creation_failure: Failed to create layout
+          updated: Layout updated
+          update_failure: Failed to update layout
+          deleted: Layout deleted
+          not_found: Layout not found
+
+          index:
+            title: Layouts
+            new_link: Create New Layout
+          index_branch:
+            add_child_layout: Add Child Layout
+            edit: Edit
+            delete: Delete
+            are_you_sure: Are you sure?
+          new:
+            title: New Layout
+          edit:
+            title: Editing Layout
+            revision: &revision
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
+          form:
+            select_parent_layout: Select Parent Layout
+            select_app_layout: Select Application Layout
+            create: Create Layout
+            cancel: Cancel
+            update: Update Layout
+
+        pages:
+          created: Page created
+          creation_failure: Failed to create page
+          updated: Page updated
+          update_failure: Failed to update page
+          deleted: Page deleted
+          not_found: Page not found
+          layout_not_found: No Layouts found. Please create one.
+
+          index:
+            title: Pages
+            new_link: Create New Page
+          index_branch:
+            toggle: Toggle
+            add_child_page: Add Child Page
+            edit: Edit
+            delete: Delete
+            are_you_sure: Are you sure?
+          new:
+            title: New Page
+          edit:
+            title: Editing Page
+            revision:
+              <<: *revision
+          form:
+            select_target_page: No Redirect
+            preview: Preview
+            create: Create Page
+            cancel: Cancel
+            update: Update Page
+            is_published: Published
+            choose_link: Select page...
+          form_blocks:
+            no_tags: |-
+              Layout has no content tags defined.<br/>
+              Edit the content to include a page or field tag. For example: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Snippet created
+          creation_failure: Failed to create snippet
+          updated: Snippet updated
+          update_failure: Failed to update snippet
+          deleted: Snippet deleted
+          not_found: Snippet not found
+
+          index:
+            title: Snippets
+            new_link: Create New Snippet
+            edit: Edit
+            delete: Delete
+            are_you_sure: Are you sure?
+          new:
+            title: New Snippet
+          edit:
+            title: Editing Snippet
+            revision:
+              <<: *revision
+          form:
+            create: Create Snippet
+            cancel: Cancel
+            update: Update Snippet
+
+        revisions:
+          reverted: Content Reverted
+          record_not_found: Record Not Found
+          not_found: Revision Not Found
+
+          show:
+            title: Revisions for
+            revision: Revision
+            full_path: Full Path
+            slug: Slug
+            update: Update to this Revision
+            content: Content
+            changes: Changes
+            previous: Previous
+            current: Current
+
+        files:
+          created: Files uploaded
+          creation_failure: Failed to upload files
+          updated: File updated
+          update_failure: Failed to update file
+          deleted: File deleted
+          not_found: File not found
+
+          index:
+            title: Files
+            new_link: Upload New File
+            button: Upload Files
+          new:
+            title: New File
+          edit:
+            title: Editing File
+          form:
+            current_file: Current File
+            create: Upload File
+            cancel: Cancel
+            update: Update File
+            delete: Delete File
+            are_you_sure: Are you sure?
+          page_form:
+            are_you_sure: Are you sure?
+          file:
+            edit: Edit
+            delete: Delete
+            are_you_sure: Are you sure?
+
+        categories:
+          index:
+            label: Categories
+            edit: Edit
+            done: Done
+            all: All
+            add: Add
+            add_placeholder: Add Category
+          show:
+            are_you_sure: Are you sure?
+          edit:
+            save: Save
+          form:
+            label: Categories

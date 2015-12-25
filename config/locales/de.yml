@@ -1,248 +1,243 @@
 # encoding: utf-8
 de:
-  # -- Models ---------------------------------------------------------------
-  attributes:
-    label: Bezeichnung
-    slug: Slug
-    parent_id: Parent
-    content: Inhalt
-    identifier: Identifikator
   activerecord:
     models:
-      cms/site: Web-Site
-      cms/layout: Layout
-      cms/page: Seite
-      cms/snippet: Schnipsel
-      cms/file: Datei
+      comfy/cms/site: Web
+      comfy/cms/layout: Layout
+      comfy/cms/page: Seite
+      comfy/cms/snippet: Schnipsel
+      comfy/cms/file: Datei
+
     attributes:
-      cms/site:
-        identifier: Identifikator
+      comfy/cms/site:
+        identifier: Name
+        label: Bezeichnung
         hostname: Hostname
         path: Pfad
         locale: Sprache
         is_mirrored: Gespiegelt
-      cms/layout:
-        identifier: Identifikator
-        label: Layout Name
-        app_layout: App Layout
-        parent_id: Parent Layout
-        css: Stylesheet
-        js: Javascript
-      cms/page:
-        label: Bezeichnung
+      comfy/cms/layout:
+        identifier: Eindeutiger Name
+        label: Name
+        app_layout: Grundlegendes Layout
+        parent_id: Übergeordnetes Layout
+        content: Inhalt
+        css: CSS-Stilvorlage
+        js: JavaScript
+      comfy/cms/page:
+        label: Titel
         layout_id: Layout
-        slug: Slug
-        target_page_id: Weiterleiten zu Seite
+        slug: URL
+        full_path: Vollständiger Pfad
+        parent_id: Vorfahre
+        target_page_id: Weiterleitung zu Seite
+        content: Inhalt
         is_published: Veröffentlicht
-      cms/file:
+      comfy/cms/file:
+        label: Bezeichnung
         file: Datei
         description: Beschreibung
-      cms/snippet:
-        identifier: Identifikator
+      comfy/cms/snippet:
+        identifier: Eindeutiger Name
+        label: Bezeichnung
+        content: Inhalt
 
-  # -- Controllers ----------------------------------------------------------
-  cms:
-    base:
-      site_not_found: Web-Site nicht gefunden
-      fixtures_enabled: CMS Fixtures are aktiviert. Alle Änderungen hier gespeichert werden verworfen.
-
-    sites:
-      created: Web-Site erstellt
-      creation_failure: Fehler beim erstellen der Web-Site
-      updated: Web-Site aktualisiert
-      update_failure: Fehler beim speichern der Web-Site
-      deleted: Web-Site gelöscht
-      not_found: Web-Site nicht gefunden
-
-    layouts:
-      created: Layout erstellt
-      creation_failure: Fehler beim erstellen des Layouts
-      updated: Layout aktualisiert
-      update_failure: Fehler beim speichern des Layouts
-      deleted: Layout gelöscht
-      not_found: Layout nicht gefunden
-
-    pages:
-      created: Seite erstellt
-      creation_failure: Fehler beim erstellen der Seite
-      updated: Seite aktualisiert
-      update_failure: Fehler beim speichern der Seite
-      deleted: Seite gelöscht
-      not_found: Seite nicht gefunden
-      layout_not_found: Kein Layout gefunden. Bitte erstellen Sie eines.
-
-    snippets:
-      created: Schnipsel erstellt
-      creation_failure: Fehler beim erstellen des Schnipsels
-      updated: Schnipsel aktualisiert
-      update_failure: Fehler beim speichern des Schnipsel
-      deleted: Schnipsel gelöscht
-      not_found: Schnipsel nicht gefunden
-
-    revisions:
-      reverted: Inhalt wiederhergestellt
-      record_not_found: Eintrag nicht gefunden
-      not_found: Revision nicht gefunden
-
-    files:
-      created: Datei hochgeladet
-      creation_failure: Fehler beim hochladen der Datei
-      updated: Datei hochgeladet
-      update_failure: Fehler beim hochladen der Datei
-      deleted: Datei gelöscht
-      not_found: Datei nicht gefunden
-
-    content:
-      site_not_found: Web-Site nicht gefunden
-      layout_not_found: Layout nicht gefunden
-      page_not_found: Seite nicht gefunden
-
-  # -- Views ----------------------------------------------------------------
-  admin:
+  comfy:
     cms:
-      base:
-        sites: Web-Sites
-        layouts: Layouts
-        pages: Seiten
-        snippets: Schnipsel
-        files: Datei
+      content:
+        site_not_found: Web nicht gefunden
+        layout_not_found: Layout nicht gefunden
+        page_not_found: Seite nicht gefunden
 
-      sites:
-        index:
-          title: Web-Sites
-          new_link: Erstelle neue Web-Site
-          select: Wähle Web-Site
-          edit: Bearbeiten
-          delete: Löschen
-          are_you_sure: Sind Sie sicher, dass Sie diese Web-Site löschen wollen?
-        new:
-          title: Neue Web-Site
-        edit:
-          title: Web-Site bearbeiten
-        form:
-          create: Erstelle Web-Site
-          update: Web-Site speichern
-          is_mirrored: Gespiegelt
+    admin:
+      cms:
+        base:
+          site_not_found: Fehler
+          fixtures_enabled: Fixtures sind aktiviert - alle Änderungen werden verworfen!
 
-      layouts:
-        index:
-          title: Layouts
-          new_link: Erstelle neue Layout
-        index_branch:
-          add_child_layout: Erstelle untergeordnetes Layout
-          edit: Bearbeiten
-          delete: Löschen
-          are_you_sure: Sind Sie sicher?
-        new:
-          title: Neues Layout
-        edit:
-          title: Layout bearbeiten
-          revision: &revision
-            zero: No Revisions
-            one: '%{count} Revision'
-            few: '%{count} Revisions'
-            many: '%{count} Revisions'
-            other: '%{count} Revisions'
-        form:
-          select_parent_layout: Select Parent Layout
-          select_app_layout: Select Application Layout
-          create: Erstelle Layout
-          update: Layout speichern
+          sites: Webs
+          layouts: Layouts
+          pages: Seiten
+          snippets: Schnipsel
+          files: Dateien
 
-      pages:
-        index:
-          title: Seiten
-          new_link: Erstelle neue Seite
-        index_branch:
-          toggle: Toggle
-          add_child_page: Erstelle untergeordnete Seite
-          edit: Bearbeiten
-          delete: Löschen
-          are_you_sure: Sind Sie sicher?
-        new:
-          title: Neue Seite
-        edit:
-          title: Seite bearbeiten
-          revision:
-            <<: *revision
-        form:
-          select_target_page: Keine Weiterleitung
-          preview: Vorschau
-          create: Erstelle Seite
-          update: Seite speichern
-          is_published: Veröffentlicht
-        form_blocks:
-          no_tags: |-
-            Layout has hat keine Inhalt-Tags definiert.<br/>
-            Bearbeiten den Inhalt des Layout um ein Inhalt-Tag hinzuzufügen. Zum Beispiel: <code>{{cms:page:content}}</code>
+        sites:
+          created: Web erstellt
+          creation_failure: Fehler beim Erstellen des Webs!
+          updated: Web aktualisiert
+          update_failure: Fehler beim Aktualisieren des Webs!
+          deleted: Web gelöscht
+          not_found: Web existiert nicht
 
-      snippets:
-        index:
-          title: Schnipsels
-          new_link: Erstelle neuen Schnipsel
-          edit: Bearbeiten
-          delete: Löschen
-          are_you_sure: Sind Sie sicher?
-        new:
-          title: Neuer Schnipsel
-        edit:
-          title: Schnipsel bearbeiten
-          revision:
-            <<: *revision
-        form:
-          create: Erstelle Schnipsel
-          update: Schnipsel speichern
+          index:
+            title: Webs
+            new_link: Neues Web erstellen
+            select: Auswählen
+            edit: Bearbeiten
+            delete: Löschen
+            are_you_sure: Sicher, dass Sie dieses Web löschen möchten?
+          new:
+            title: Web erstellen
+          edit:
+            title: Web bearbeiten
+          form:
+            create: Web erstellen
+            cancel: Abbrechen
+            update: Web speichern
+            is_mirrored: Gespiegelt
 
-      revisions:
-        show:
-          title: Revisionen von
-          revision: Revision
-          full_path: Completer Pfad
-          slug: Slug
-          update: Zurücksetzen auf diese Revision
-          content: Content
-          changes: Changes
-          previous: Previous
-          current: Aktuell
+        layouts:
+          created: Layout erstellt
+          creation_failure: Fehler beim Erstellen des Layouts!
+          updated: Layout aktualisiert
+          update_failure: Fehler beim Aktualisieren des Layouts!
+          deleted: Layout gelöscht
+          not_found: Layout nicht angelegt
 
-      files:
-        index:
-          title: Datei
-          new_link: Neue Datei hochladen
-          edit: Bearbeiten
-          delete: Löschen
-          are_you_sure: Sind Sie sicher?
-          button: Datei hochladen
-        new:
-          title: Neue Datei
-        edit:
-          title: Datei bearbeiten
-        form:
-          current_file: Aktuelle Datei
-          create: Lade Datei hoch
-          update: Datei speichern
-        page_form:
-          are_you_sure: Sind Sie sicher?
-        file:
-          are_you_sure: Sind Sie sicher?
+          index:
+            title: Layouts
+            new_link: Neues Layout erstellen
+          index_branch:
+            add_child_layout: Neues, untergeordnetes Layout erstellen
+            edit: Layout bearbeiten
+            delete: Layout löschen
+            are_you_sure: Sind Sie sicher, dass Sie dieses Layout löschen möchten?
+          new:
+            title: Neues Layout
+          edit:
+            title: Layout bearbeiten
+            revision: &revision
+              zero: Keine Versionen
+              one: '%{count} Version'
+              few: '%{count} Versionen'
+              many: '%{count} Versionen'
+              other: '%{count} Versionen'
+          form:
+            select_parent_layout: Übergeordnetes Layout auswählen
+            select_app_layout: Grundlegendes Layout auswählen
+            create: Layout erstellen
+            cancel: Abbrechen
+            update: Layout speichern
 
-      categories:
-        index:
-          label: Kategorien
-          edit: Bearbeiten
-          done: Erledigt
-          all: Alle
-          add: Hinzuzufügen
-          add_placeholder: Kategorie Hinzuzufügen
-        show:
-          are_you_sure: Sind Sie sicher?
-        edit:
-          save: Speichern
-        form:
-          label: Kategorien
+        pages:
+          created: Seite erstellt
+          creation_failure: Fehler beim Erstellen der Seite!
+          updated: Seite aktualisiert
+          update_failure: Fehler beim Aktualisieren der Seite!
+          deleted: Seite gelöscht
+          not_found: Seite nicht gefunden
+          layout_not_found: Bisher wurde kein Layout angelegt!
 
-      dialogs:
-        image:
-          insert: Bild einfügen
-        link:
-          create: Link erstellen
+          index:
+            title: Seiten
+            new_link: Neue Seite erstellen
+          index_branch:
+            toggle: Schalter
+            add_child_page: Neue, untergeordnete Seite erstellen
+            edit: Bearbeiten
+            delete: Löschen
+            are_you_sure: Sind Sie sicher, dass Sie diese Seite löschen möchten?
+          new:
+            title: Seite erstellen
+          edit:
+            title: Seite bearbeiten
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Keine Weiterleitung
+            preview: Vorschau
+            create: Seite erstellen
+            cancel: Abbrechen
+            update: Seite speichern
+            is_published: Veröffentlicht
+            choose_link: Seite auswählen...
+          form_blocks:
+            no_tags: |-
+              Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
+              Beispiel: <code>{{ cms:page:content }}</code>
+
+        snippets:
+          created: Schnipsel erstellt
+          creation_failure: Fehler beim Erstellen des Schnipsels!
+          updated: Schnipsel aktualisiert
+          update_failure: Fehler beim Aktualisieren des Schnipsels!
+          deleted: Schnipsel gelöscht
+          not_found: Schnipsel nicht angelegt
+
+          index:
+            title: Schnipsel
+            new_link: Neuen Schnipsel erstellen
+            edit: Schnipsel bearbeiten
+            delete: Schnipsel löschen
+            are_you_sure: Sind Sie sicher, dass Sie diesen Schnipsel löschen möchten?
+          new:
+            title: Schnipsel erstellen
+          edit:
+            title: Schnipsel bearbeiten
+            revision:
+              <<: *revision
+          form:
+            create: Schnipsel erstellen
+            cancel: Abbrechen
+            update: Schnipsel speichern
+
+        revisions:
+          reverted: Inhalt wurde aus gewählter Version wiederhergestellt
+          record_not_found: Eintrag in gewählter Version nicht gefunden
+          not_found: Version nicht gefunden
+
+          show:
+            title: Versionen von
+            revision: Version
+            full_path: Vollständiger Pfad
+            slug: URL
+            update: Zurücksetzen auf gewählte Version
+            content: Inhalt
+            changes: Änderungen
+            previous: Vorherige Version
+            current: Aktuell
+
+        files:
+          created: Datei hochgeladen
+          creation_failure: Fehler beim Hochladen der Datei!
+          updated: Datei hochgeladen
+          update_failure: Fehler beim Aktualisieren der Datei!
+          deleted: Datei gelöscht
+          not_found: Datei nicht gefunden
+
+          index:
+            title: Datei
+            new_link: Neue Datei hochladen
+            button: Datei hochladen
+          new:
+            title: Datei erstellen
+          edit:
+            title: Datei bearbeiten
+          form:
+            current_file: Aktuelle Datei
+            create: Datei hochladen
+            cancel: Abbrechen
+            update: Datei speichern
+            delete: Datei löschen
+            are_you_sure: Sind Sie sicher, dass Sie diese Datei löschen möchten?
+          page_form:
+            are_you_sure: Sind Sie sicher?
+          file:
+            edit: Datei bearbeiten
+            delete: Datei löschen
+            are_you_sure: Sind Sie sicher?
+
+        categories:
+          index:
+            label: Kategorien
+            edit: Bearbeiten
+            done: Erledigt
+            all: Alle
+            add: Hinzuzufügen
+            add_placeholder: Kategorie hinzuzufügen
+          show:
+            are_you_sure: Sind Sie sicher, dass Sie diese Kategorie löschen möchten?
+          edit:
+            save: Kategorie speichern
+          form:
+            label: Kategorien

@@ -13,7 +13,7 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
@@ -33,4 +33,12 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.active_support.test_order = :random
+
+  if Rails.version >= '4.2'
+    config.active_record.raise_in_transactional_callbacks = true
+  end
+
+  config.action_view.raise_on_missing_translations = true
 end

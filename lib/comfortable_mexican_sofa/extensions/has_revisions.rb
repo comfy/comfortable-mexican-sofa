@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::HasRevisions
       has_many :revisions,
         :as         => :record,
         :dependent  => :destroy,
-        :class_name => 'Cms::Revision'
+        :class_name => 'Comfy::Cms::Revision'
       
       before_save :prepare_revision
       after_save  :create_revision

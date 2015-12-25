@@ -1,4 +1,4 @@
-class Admin::FoosController < Admin::Cms::BaseController
+class Admin::FoosController < Comfy::Admin::Cms::BaseController
 
   before_action :build_foo,  :only => [:new, :create]
   before_action :load_foo,   :only => [:show, :edit, :update, :destroy]
@@ -24,7 +24,7 @@ class Admin::FoosController < Admin::Cms::BaseController
     flash[:success] = 'Foo created'
     redirect_to :action => :show, :id => @foo
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to create Foo'
+    flash.now[:danger] = 'Failed to create Foo'
     render :action => :new
   end
 
@@ -33,7 +33,7 @@ class Admin::FoosController < Admin::Cms::BaseController
     flash[:success] = 'Foo updated'
     redirect_to :action => :show, :id => @foo
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = 'Failed to update Foo'
+    flash.now[:danger] = 'Failed to update Foo'
     render :action => :edit
   end
 
@@ -52,7 +52,7 @@ protected
   def load_foo
     @foo = Foo.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = 'Foo not found'
+    flash[:danger] = 'Foo not found'
     redirect_to :action => :index
   end
 

@@ -12,8 +12,14 @@ class ComfortableMexicanSofa::Configuration
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
 
+  # Module that will handle authorization against admin cms resources
+  attr_accessor :admin_authorization
+
   # Module that will handle authentication for public pages
   attr_accessor :public_auth
+
+  # Module that will handle authorization against public resources
+  attr_accessor :public_authorization
 
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
@@ -39,12 +45,6 @@ class ComfortableMexicanSofa::Configuration
   # Admin interface will respect the locale of the site being managed. However you can
   # force it to English by setting this to `:en`
   attr_accessor :admin_locale
-
-  # Database prefix.  If you want to keep your comfortable mexican sofa tables
-  # in a location other than the default databases add a database_config.
-  # Setting this to `cms` will look for a cms_#{Rails.env} database definition
-  # in your database.yml file
-  attr_accessor :database_config
 
   # A class that is included as a sweeper to admin base controller if it's set
   attr_accessor :admin_cache_sweeper
@@ -75,12 +75,17 @@ class ComfortableMexicanSofa::Configuration
   # Default is false.
   attr_accessor :reveal_cms_partials
 
+  # Auto-setting parameter derived from the routes
+  attr_accessor :public_cms_path
+
   # Configuration defaults
   def initialize
     @cms_title            = 'ComfortableMexicanSofa CMS Engine'
     @base_controller      = 'ApplicationController'
-    @admin_auth           = 'ComfortableMexicanSofa::HttpAuth'
-    @public_auth          = 'ComfortableMexicanSofa::DummyAuth'
+    @admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
+    @admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
+    @public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
+    @public_authorization = 'ComfortableMexicanSofa::AccessControl::PublicAuthorization'
     @seed_data_path       = nil
     @admin_route_redirect = ''
     @enable_sitemap       = true
@@ -89,28 +94,32 @@ class ComfortableMexicanSofa::Configuration
     @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
     @revisions_limit      = 25
     @locales              = {
-      'en'    => 'English',
-      'fr'    => 'Français',
-      'es'    => 'Español',
-      'pt-BR' => 'Português Brasileiro',
-      'zh-CN' => '简体中文',
-      'ja'    => '日本語',
-      'sv'    => 'Svenska',
-      'ru'    => 'Русский',
-      'pl'    => 'Polski',
+      'cs'    => 'Česky',
+      'da'    => 'Dansk',
       'de'    => 'Deutsch',
-      'nl'    => 'Nederlands',
+      'en'    => 'English',
+      'es'    => 'Español',
+      'fr'    => 'Français',
       'it'    => 'Italiano',
-      'da'    => 'Dansk'
+      'ja'    => '日本語',
+      'nb'    => 'Norsk',
+      'nl'    => 'Nederlands',
+      'pl'    => 'Polski',
+      'pt-BR' => 'Português Brasileiro',
+      'ru'    => 'Русский',
+      'sv'    => 'Svenska',
+      'uk'    => 'Українська',
+      'zh-CN' => '简体中文',
+      'zh-TW' => '正體中文'
     }
     @admin_locale         = nil
-    @database_config      = nil
     @admin_cache_sweeper  = nil
     @allow_irb            = false
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
+    @public_cms_path      = nil
   end
 
 end

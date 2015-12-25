@@ -1,0 +1,23 @@
+= render 'comfy/admin/cms/partials/file_form_before', :form => form
+
+= form.text_field :label
+= form.file_field :file
+
+- unless @file.new_record?
+  = form.form_group t('.current_file') do
+    - if @file.is_image?
+      .file-image
+        = image_tag @file.file.url
+    = link_to @file.file.url, @file.file.url, :target => '_blank'
+
+= form.text_area :description
+
+= render 'comfy/admin/cms/categories/form', :form => form
+
+= render 'comfy/admin/cms/partials/file_form_after', :form => form
+
+= form.form_group :class => 'form-actions' do
+  = form.submit t(@file.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+  - unless @file.new_record?
+    = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, @file), :method => :delete, :data => {:confirm => t('.are_you_sure')},  :class => 'btn btn-danger'
+  = link_to t('.cancel'), comfy_admin_cms_site_files_path, :class => 'btn btn-link'

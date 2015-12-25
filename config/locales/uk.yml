@@ -1,0 +1,243 @@
+# encoding: utf-8
+uk:
+  activerecord:
+    models:
+      comfy/cms/site: Сайт
+      comfy/cms/layout: Шаблон
+      comfy/cms/page: Сторінка
+      comfy/cms/snippet: Сніппет
+      comfy/cms/file: Файл
+
+    attributes:
+      comfy/cms/site:
+        identifier: Ідентифікатор
+        label: Назва
+        hostname: Ім'я хоста
+        path: Шлях
+        locale: Мова
+        is_mirrored: Синхронізований з іншими сайтами
+      comfy/cms/layout:
+        identifier: Ідентифікатор
+        label: Назва шаблону
+        app_layout: Шаблон додатку
+        parent_id: Батьківскький шаблон
+        content: Зміст
+        css: CSS
+        js: Javascript
+      comfy/cms/page:
+        label: Назва
+        layout_id: Шаблон
+        slug: Посилання
+        full_path: Повний Шлях
+        parent_id: Parent
+        target_page_id: Редірект на сторінку
+        content: Зміст
+        is_published: Опублікована
+      comfy/cms/file:
+        label: Назва
+        file: Файл
+        description: Опис
+      comfy/cms/snippet:
+        identifier: Ідентифікатор
+        label: Назва
+        content: Зміст
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Сайт не знайдено
+        layout_not_found: Шаблон не знайдено
+        page_not_found: Сторінку не знайдено
+
+    admin:
+      cms:
+        base:
+          site_not_found: Сайт не знайдено
+          fixtures_enabled: CMS Fixtures ввімкнені. Всі зміни, зроблені тут, будуть скасовані.
+
+          sites: Сайти
+          layouts: Шаблони
+          pages: Сторінки
+          snippets: Сніппети
+          files: Файли
+
+        sites:
+          created: Сайт створено
+          creation_failure: Не вийшло створити сайт
+          updated: Сайт оновлено
+          update_failure: Не вдалося оновити сайт
+          deleted: Сайт видалено
+          not_found: Сайт не знайдено
+
+          index:
+            title: Сайти
+            new_link: Створити новий сайт
+            select: Обрати сайт
+            edit: Редагувати
+            delete: Видалити
+            are_you_sure: Ви впевнені що хочете видалити цей сайт?
+          new:
+            title: Новий сайт
+          edit:
+            title: Редагувати сайт
+          form:
+            create: Створити сайт
+            cancel: Cкасувати
+            update: Оновити сайт
+            is_mirrored: Синхронізований
+
+        layouts:
+          created: Шаблон створено
+          creation_failure: Не вдалося створити шаблон
+          updated: Шаблон оновлено
+          update_failure: Не вдалося оновити шаблон
+          deleted: Шаблон видалено
+          not_found: Шаблон не знайдено
+
+          index:
+            title: Шаблони
+            new_link: Створити новий шаблон
+          index_branch:
+            add_child_layout: Додати дочірній шаблон
+            edit: Редагувати
+            delete: Видалити
+            are_you_sure: Ви впевнені?
+          new:
+            title: Новий шаблон
+          edit:
+            title: Редагувати шаблон
+            revision: &revision
+              zero: Нeмa Ревізій
+              one: '%{count} Ревізія'
+              few: '%{count} Ревізій'
+              many: '%{count} Ревізій'
+              other: '%{count} Ревізій'
+          form:
+            select_parent_layout: Вибрати батьківский шаблон
+            select_app_layout: Вибрати шаблон додатку
+            create: Створити шаблон
+            cancel: Cкасувати
+            update: Оновити шаблон
+
+        pages:
+          created: Сторінка створена
+          creation_failure: Не вийшло створити сторінку
+          updated: Сторінку оновлено
+          update_failure: Не вийшло оновити сторінку
+          deleted: Сторінка видалена
+          not_found: Сторінку не знайдено
+          layout_not_found: Жодного шаблону не знайдено
+
+          index:
+            title: Сторінки
+            new_link: Створити нову сторінку
+          index_branch:
+            toggle: Перемикач
+            add_child_page: Додати дочірню сторінку
+            edit: Редагувати
+            delete: Видалити
+            are_you_sure: Ви впевнені?
+          new:
+            title: Нова сторінка
+          edit:
+            title: Редагування сторінки
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Без редіректу
+            preview: Передперегляд
+            create: Створити сторінку
+            cancel: Cкасувати
+            update: Оновити сторінку
+            is_published: Опублікована
+            choose_link: Select page...
+          form_blocks:
+            no_tags: |-
+              Шаблон не містить жодного контент-тега. <br/>
+              Відредагуйте контент, вставивши тег сторінки або поля. Наприклад: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Сніппет створено
+          creation_failure: Не вдалося створити сніппет
+          updated: Сніппет оновлено
+          update_failure: Не вдалося оновити сніппет
+          deleted: Сніппет видалено
+          not_found: Сніппет не знайдено
+
+          index:
+            title: Сніппети
+            new_link: Створити новий сніппет
+            edit: Редагувати
+            delete: Видалити
+            are_you_sure: Ви впевнені?
+          new:
+            title: Новий сніппет
+          edit:
+            title: Редагувати сніппет
+            revision:
+              <<: *revision
+          form:
+            create: Створити сніппет
+            cancel: Cкасувати
+            update: Оновити сніппет
+
+        revisions:
+          reverted: Контент повернутий до попереднього стану
+          record_not_found: Запису не знайдено
+          not_found: Ревізії не знайдено
+
+          show:
+            title: Ревізія для
+            revision: Ревізія
+            full_path: Повний Шлях
+            slug: Посилання
+            update: Оновити до цієї ревізії
+            content: Зміст
+            changes: Зміни
+            previous: Попередній
+            current: Поточний
+
+        files:
+          created: Файли завантажені
+          creation_failure: Не вдалося завантажити файли
+          updated: Файл оновлено
+          update_failure: Не вдалося оновити файл
+          deleted: Файл видалено
+          not_found: Файл не знайдено
+
+          index:
+            title: Файли
+            new_link: Завантажити новий файл
+            button: Завантажити файли
+          new:
+            title: Новий файл
+          edit:
+            title: Редагувати файл
+          form:
+            current_file: Поочний файл
+            create: Оновити файл
+            cancel: Cкасувати
+            update: Оновити файл
+            delete: Видалити
+            are_you_sure: Ви впевнені?
+          page_form:
+            are_you_sure: Ви впевнені?
+          file:
+            edit: Редагувати
+            delete: Видалити
+            are_you_sure: Ви впевнені?
+
+        categories:
+          index:
+            label: Категорії
+            edit: Редагувати
+            done: Зроблено
+            all: Всі
+            add: Додати
+            add_placeholder: Додати Категорію
+          show:
+            are_you_sure: Ви впевнені?
+          edit:
+            save: Save
+          form:
+            label: Зберегти

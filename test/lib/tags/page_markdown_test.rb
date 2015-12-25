@@ -4,20 +4,20 @@ class PageMarkdownTagTest < ActiveSupport::TestCase
   
   def test_initialize_tag
     assert tag = ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-      cms_pages(:default), '{{ cms:page:content:markdown }}'
+      comfy_cms_pages(:default), '{{ cms:page:content:markdown }}'
     )
     assert_equal 'content', tag.identifier
     assert_nil tag.namespace
     assert tag = ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-      cms_pages(:default), '{{cms:page:content:markdown}}'
+      comfy_cms_pages(:default), '{{cms:page:content:markdown}}'
     )
     assert_equal 'content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-      cms_pages(:default), '{{cms:page:dash-content:markdown}}'
+      comfy_cms_pages(:default), '{{cms:page:dash-content:markdown}}'
     )
     assert_equal 'dash-content', tag.identifier
     assert tag = ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-      cms_pages(:default), '{{cms:page:namespace.content:markdown}}'
+      comfy_cms_pages(:default), '{{cms:page:namespace.content:markdown}}'
     )
     assert_equal 'namespace.content', tag.identifier
     assert_equal 'namespace', tag.namespace
@@ -31,14 +31,14 @@ class PageMarkdownTagTest < ActiveSupport::TestCase
       '{not_a_tag}'
     ].each do |tag_signature|
       assert_nil ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-        cms_pages(:default), tag_signature
+        comfy_cms_pages(:default), tag_signature
       )
     end
   end
   
   def test_content_and_render
     tag = ComfortableMexicanSofa::Tag::PageMarkdown.initialize_tag(
-      cms_pages(:default), '{{cms:page:content:markdown}}'
+      comfy_cms_pages(:default), '{{cms:page:content:markdown}}'
     )
     assert tag.block.content.blank?
     tag.block.content = '_test_content_'

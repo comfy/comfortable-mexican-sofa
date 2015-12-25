@@ -1,0 +1,38 @@
+- content_for :right_column do
+  #form-save.box
+    %label.checkbox-inline
+      %input{:type => 'checkbox'}
+      = ::Comfy::Cms::Page.human_attribute_name(:is_published)
+    %button.btn.btn-sm.btn-primary.pull-right
+
+= render 'comfy/admin/cms/partials/page_form_before', :form => form
+
+= form.text_field :label, :data => {:slugify => @page.new_record?}
+
+- if @page.parent.present?
+  = form.text_field :slug, :data => {:slug => true}, :prepend => @page.parent.full_path
+
+- if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
+  = form.select :layout_id, options, {}, 'data-url' => form_blocks_comfy_admin_cms_site_page_path(@site, @page.id.to_i)
+
+- if (options = ::Comfy::Cms::Page.options_for_select(@site, @page)).present?
+  = form.select :parent_id, options
+
+- if (options = ::Comfy::Cms::Page.options_for_select(@site, @page, nil, 0, false)).present?
+  = form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options
+
+= render 'comfy/admin/cms/partials/page_form_inner', :form => form
+
+= render 'comfy/admin/cms/categories/form', :form => form
+
+= render 'form_blocks'
+
+= form.form_group :is_published do
+  = form.check_box :is_published, :label => t('.is_published')
+
+= render 'comfy/admin/cms/partials/page_form_after', :form => form
+
+= form.form_group :class => 'form-actions' do
+  = form.submit t('.preview'), :name => 'preview', :id => nil, :class => 'btn btn-default'
+  = form.submit t(@page.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+  = link_to t('.cancel'), comfy_admin_cms_site_pages_path, :class => 'btn btn-link'

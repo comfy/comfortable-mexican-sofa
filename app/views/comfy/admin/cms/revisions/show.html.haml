@@ -1,0 +1,35 @@
+.page-header
+  %h2
+    = t('.title')
+    = @record.class.to_s.demodulize
+  %h4
+    = @record.is_a?(::Comfy::Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}"
+
+- content_for :right_column do
+  .box.revisions
+    - @record.revisions.each do |revision|
+      = active_link_to l(revision.created_at), :id => revision.id
+
+%table.table
+  %tr
+    %th= t('.content')
+    %th= t('.changes')
+
+  - @current_content.each do |label, content|
+    %tr
+      %th= label
+      %td.main.with-table
+        %table.table.diff
+          %tr
+            %th= t('.previous')
+            %td.main.original= @versioned_content[label]
+          %tr.hide
+            %th= t('.current')
+            %td.main.changed= content
+          %tr
+            %th= t('.current')
+            %td.main.diff
+
+= comfy_form_for @revision, :url => {:action => :revert} do |form|
+  = form.form_group :class => 'form-actions' do
+    = form.submit t('.update'), :class => 'btn btn-primary'

@@ -1,0 +1,26 @@
+%tr{:id => dom_id(file)}
+  %td
+    - if file.is_image?
+      - icon_style = "background: url('#{file.file.url(:cms_thumb)}') no-repeat center"
+    .icon{:style => icon_style}
+      - if !params[:category].present? && @site.files.count > 1
+        .dragger
+          %span &#8645;
+  %td.main
+    .item-title
+      = link_to file.label, edit_comfy_admin_cms_site_file_path(@site, file)
+      = render :partial => 'comfy/admin/cms/categories/categories', :object => file
+    .item-meta
+      %input.file-path{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
+
+      = link_to file.file.url, :title => file.file_file_name, :target => '_blank' do
+        %span.glyphicon.glyphicon-link
+  %td
+    .content-type
+      = truncate(file.file_content_type)
+    .file-size
+      = number_to_human_size(file.file_file_size)
+  %td
+    .btn-group.btn-group-sm
+      = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), :class => 'btn btn-default'
+      = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'

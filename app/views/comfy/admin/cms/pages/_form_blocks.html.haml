@@ -1,0 +1,32 @@
+- namespace = { }
+- cms_object = @page || cms_object
+- tags = cms_object.tags(true).select{|t| t.is_cms_block?}.uniq{|t| t.identifier}
+- tags.each do |tag|
+  - namespace[tag.namespace || 'default'] ||= []
+  - namespace[tag.namespace || 'default'] << tag
+
+#form-blocks
+  - if tags.empty?
+    .no-tags
+      = link_to cms_object.layout.label, edit_comfy_admin_cms_site_layout_path(@site, cms_object.layout)
+      = t('.no_tags').html_safe
+
+  - else
+    = fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder, :layout => :horizontal do |cms_blocks|
+
+      .tabbable
+        - if namespace.size > 1
+          %ul.nav.nav-tabs
+            - namespace.each_with_index do |(name, tags), index|
+              %li{:class => index == 0 ? 'active' : nil}
+                = link_to name.humanize, "#ns-#{name}", :data => {:toggle => 'tab'}
+        .tab-content
+          - block_index = 0
+          - namespace.each_with_index do |(name, tags), index|
+            .tab-pane{:id => "ns-#{name}", :class => index == 0 ? 'active' : nil}
+              - tags.each do |tag|
+                - begin
+                  = cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, block_index)
+                - rescue
+                  - Rails.env.production?? nil : raise
+                - block_index += 1

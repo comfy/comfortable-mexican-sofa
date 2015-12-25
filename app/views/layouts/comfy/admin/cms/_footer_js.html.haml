@@ -1,0 +1,5 @@
+= render 'comfy/admin/cms/partials/html_footer'
+
+- if content_for(:javascript)
+  :javascript
+    #{yield :javascript}

@@ -1,0 +1,13 @@
+= render 'comfy/admin/cms/partials/snippet_form_before', :form => form
+
+= form.text_field :label, :data => {:slugify => @snippet.new_record?}
+= form.text_field :identifier, :data => {:slug => true}
+= form.text_area :content, :data => {'cms-cm-mode' => 'text/html'}
+
+= render 'comfy/admin/cms/categories/form', :form => form
+
+= render 'comfy/admin/cms/partials/snippet_form_after', :form => form
+
+= form.form_group :class => 'form-actions' do
+  = form.submit t(@snippet.new_record?? '.create' : '.update'), :class => 'btn btn-primary'
+  = link_to t('.cancel'), comfy_admin_cms_site_snippets_path, :class => 'btn btn-link'

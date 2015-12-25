@@ -25,7 +25,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     get :show, :id => 'invalid'
     assert_response :redirect
     assert_redirected_to :action => :index
-    assert_equal '<%= class_name.titleize %> not found', flash[:error]
+    assert_equal '<%= class_name.titleize %> not found', flash[:danger]
   end
 
   def test_get_new
@@ -33,7 +33,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :new
-    assert_select 'form[action=/admin/<%= file_name.pluralize %>]'
+    assert_select "form[action='/admin/<%= file_name.pluralize %>']"
   end
 
   def test_get_edit
@@ -41,7 +41,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :edit
-    assert_select "form[action=/admin/<%= file_name.pluralize %>/#{@<%= file_name %>.id}]"
+    assert_select "form[action='/admin/<%= file_name.pluralize %>/#{@<%= file_name %>.id}']"
   end
 
   def test_creation
@@ -63,7 +63,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
       post :create, :<%= file_name %> => { }
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create <%= class_name.titleize %>', flash[:error]
+      assert_equal 'Failed to create <%= class_name.titleize %>', flash[:danger]
     end
   end
 
@@ -86,7 +86,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionController::TestC
     }
     assert_response :success
     assert_template :edit
-    assert_equal 'Failed to update <%= class_name.titleize %>', flash[:error]
+    assert_equal 'Failed to update <%= class_name.titleize %>', flash[:danger]
     @<%= file_name %>.reload
     refute_equal '', @<%= file_name %>.<%= attr.try(:name) || 'attribute' %>
   end
