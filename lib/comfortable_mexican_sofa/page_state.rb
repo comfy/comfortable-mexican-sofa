@@ -46,8 +46,7 @@ module ComfortableMexicanSofa
         { value: :publish_changes, label: 'Publish changes' }
       ],
       scheduled: [
-        { value: :publish_changes, label: 'Publish changes' },
-        { value: :save_draft_changes, label: 'Save draft changes' }
+        { value: :publish_changes, label: 'Publish changes' }
       ]
     }.freeze
 
