@@ -54,16 +54,16 @@ module ComfortableMexicanSofa
       published_being_edited: 'Published (being edited)'
     }
 
-    def self.next_states_for(state)
-      NEXT_STATE_OPTIONS[state] || []
+    def self.next_states_for(page)
+      NEXT_STATE_OPTIONS[page.state] || []
     end
 
-    def self.main_state_for(state)
-      MAIN_STATE[state] || []
+    def self.main_state_for(page)
+      MAIN_STATE[page.state] || []
     end
 
-    def self.current_status(state)
-      CURRENT_STATUS[state] || state.to_s.titleize
+    def self.current_status(page)
+      CURRENT_STATUS[page.state] || page.state.titleize
     end
   end
 end

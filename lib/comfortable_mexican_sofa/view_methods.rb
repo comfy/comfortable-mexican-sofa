@@ -73,16 +73,16 @@ module ComfortableMexicanSofa::ViewMethods
       render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
     end
 
-    def main_state_button(state)
-      ComfortableMexicanSofa::PageState.main_state_for(state)
+    def main_state_button(page)
+      ComfortableMexicanSofa::PageState.main_state_for(page)
     end
 
-    def page_state_buttons(state)
-      ComfortableMexicanSofa::PageState.next_states_for(state)
+    def page_state_buttons(page)
+      ComfortableMexicanSofa::PageState.next_states_for(page)
     end
 
-    def current_status(state)
-      ComfortableMexicanSofa::PageState.current_status(state)
+    def current_status(page)
+      ComfortableMexicanSofa::PageState.current_status(page)
     end
 
     def page_category_list(page)

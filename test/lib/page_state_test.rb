@@ -28,14 +28,17 @@ class PageStateTest < ActiveSupport::TestCase
   private
 
   def page_states_for(state)
-    ComfortableMexicanSofa::PageState.next_states_for(state)
+    page_object = stub(state: state.to_s)
+    ComfortableMexicanSofa::PageState.next_states_for(page_object)
   end
 
   def main_state_for(state)
-    ComfortableMexicanSofa::PageState.main_state_for(state)
+    page_object = stub(state: state.to_s)
+    ComfortableMexicanSofa::PageState.main_state_for(page_object)
   end
 
   def page_current_status(state)
-    ComfortableMexicanSofa::PageState.current_status(state)
+    page_object = stub(state: state.to_s)
+    ComfortableMexicanSofa::PageState.current_status(page_object)
   end
 end
