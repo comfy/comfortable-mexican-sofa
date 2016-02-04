@@ -24,8 +24,11 @@ module ComfortableMexicanSofa
       redirected: [
         { value: :re_publish, label: 'Republish' }
       ],
-      scheduled: [
-        { value: :schedule, label: 'Scheduled', data: SCHEDULE_DATA }
+      scheduled_offline: [
+        { value: :schedule, label: 'Save Changes', data: SCHEDULE_DATA }
+      ],
+      scheduled_live: [
+        { value: :schedule, label: 'Save Changes', data: SCHEDULE_DATA }
       ]
     }
 
@@ -45,25 +48,45 @@ module ComfortableMexicanSofa
         { value: :schedule, label: 'Schedule', data: SCHEDULE_DATA },
         { value: :publish_changes, label: 'Publish changes' }
       ],
-      scheduled: [
-        { value: :publish_changes, label: 'Publish changes' }
+      scheduled_offline: [
+        { value: :publish_changes, label: 'Publish now' },
+      ],
+      scheduled_live: [
+        { value: :publish, label: 'Publish changes' },
+        { value: :unpublish, label: 'Unpublish' },
       ]
     }.freeze
 
     CURRENT_STATUS = {
-      published_being_edited: 'Published (being edited)'
+      published_being_edited: 'Published (being edited)',
+      scheduled_offline: 'Scheduled',
+      scheduled_live: 'Scheduled (live)'
     }
 
     def self.next_states_for(page)
-      NEXT_STATE_OPTIONS[page.state] || []
+      NEXT_STATE_OPTIONS[lookup_state_for(page)] || []
     end
 
     def self.main_state_for(page)
-      MAIN_STATE[page.state] || []
+      MAIN_STATE[lookup_state_for(page)] || []
     end
 
     def self.current_status(page)
-      CURRENT_STATUS[page.state] || page.state.titleize
+      CURRENT_STATUS[lookup_state_for(page)] || page.state.titleize
+    end
+
+    private
+
+    def self.lookup_state_for(page)
+      if page.state == 'scheduled'
+        if page.scheduled_on <= Time.current
+          :scheduled_live
+        else
+          :scheduled_offline
+        end
+      else
+        page.state.to_sym
+      end
     end
   end
 end
