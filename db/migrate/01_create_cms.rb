@@ -40,6 +40,7 @@ class CreateCms < ActiveRecord::Migration
 
     # -- Pages --------------------------------------------------------------
     create_table :comfy_cms_pages do |t|
+      t.integer :active_revision_id
       t.integer :site_id,         :null => false
       t.integer :layout_id
       t.integer :parent_id

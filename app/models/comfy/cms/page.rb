@@ -23,6 +23,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
      dependent:  :destroy,
      class_name: 'Comfy::Cms::Revision'
 
+  # The active_revision points to a revision that is treated as live
+  # in the case of editing published articles, or scheduling future changes
+  belongs_to :active_revision,
+     class_name: 'Comfy::Cms::Revision'
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent,
