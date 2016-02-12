@@ -85,6 +85,15 @@ class Comfy::Cms::Page < ActiveRecord::Base
     )
   }
 
+  scope :scheduled, -> {
+    joins('LEFT JOIN comfy_cms_revisions ON comfy_cms_pages.active_revision_id = comfy_cms_revisions.id').
+    where(
+      (arel_table[:state].eq('scheduled')).
+      and(arel_table[:scheduled_on].gt(Time.now)).
+      and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+    )
+  }
+
   scope :with_content_like, ->(phrase) {
     joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")
   }
