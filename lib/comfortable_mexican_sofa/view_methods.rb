@@ -109,10 +109,18 @@ module ComfortableMexicanSofa::ViewMethods
       end
     end
 
-    def state_list(label)
-      Comfy::Cms::Page.state_machine.states.inject([[label, nil]]) do |list, state|
-        list << [state.name.to_s.humanize]
-      end
+    # States offered to users don't map directly to internal states
+    # used in the state machine. These should all match scopes defined
+    # in the page model.
+    def pseudo_state_list(label)
+      [
+        [label, nil],
+        ['Draft (new)', 'draft'],
+        ['Draft (new versions)', 'published_being_edited'],
+        ['Published', 'published'],
+        ['Scheduled', 'scheduled'],
+        ['Unpublished', 'unpublished']
+      ]
     end
 
   end
