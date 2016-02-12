@@ -55,7 +55,35 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
-  scope :published, -> { where(state: ['published', 'published_being_edited', 'scheduled']) }
+
+  scope :published, -> {
+    joins('LEFT JOIN comfy_cms_revisions ON comfy_cms_pages.active_revision_id = comfy_cms_revisions.id').
+    where(
+      # Pages with state 'published'
+      arel_table[:state].eq('published').
+
+      # Or pages with state 'published_being_edited',
+      # but also an active_revision
+      or(
+        arel_table[:state].eq('published_being_edited').
+        and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+      ).
+
+      # Or pages with state 'scheduled' and timestamp in the past
+      or(
+        arel_table[:state].eq('scheduled').
+        and(arel_table[:scheduled_on].lt(Time.now))
+      ).
+
+      # Or pages with state 'scheduled' and timestamp in the future,
+      # but also an active_revision
+      or(
+        (arel_table[:state].eq('scheduled')).
+        and(arel_table[:scheduled_on].gt(Time.now)).
+        and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+      )
+    )
+  }
 
   scope :with_content_like, ->(phrase) {
     joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")

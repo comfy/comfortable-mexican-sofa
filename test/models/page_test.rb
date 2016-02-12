@@ -213,12 +213,6 @@ class CmsPageTest < ActiveSupport::TestCase
     refute_equal old_content, page.content_cache
   end
 
-  def test_scope_published
-    assert_equal 2, Comfy::Cms::Page.published.count
-    comfy_cms_pages(:child).update_columns(state: 'unpublished')
-    assert_equal 1, Comfy::Cms::Page.published.count
-  end
-
   def test_root?
     assert comfy_cms_pages(:default).root?
     assert !comfy_cms_pages(:child).root?
