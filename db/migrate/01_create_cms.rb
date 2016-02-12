@@ -56,6 +56,7 @@ class CreateCms < ActiveRecord::Migration
       t.integer :children_count,  :null => false, :default => 0
       t.boolean :is_published,    :null => false, :default => true
       t.boolean :is_shared,       :null => false, :default => false
+      t.datetime :scheduled_on
       t.timestamps
     end
     add_index :comfy_cms_pages, [:site_id, :full_path]
