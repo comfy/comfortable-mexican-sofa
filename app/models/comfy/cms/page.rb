@@ -141,11 +141,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
     state :draft
     state :published
     state :published_being_edited
-    state :redirected
     state :unpublished
     state :scheduled
-    state :retired
-    state :deleted
 
     event :save_unsaved do
       transitions :to => :draft, :from => [:unsaved]
@@ -156,15 +153,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
 
     event :publish do
-      transitions :to => :published, :from => [:draft, :redirected, :scheduled]
+      transitions :to => :published, :from => [:draft, :scheduled]
     end
 
     event :publish_changes do
       transitions :to => :published, :from => [:published, :published_being_edited, :scheduled]
-    end
-
-    event :delete_page, :success => :do_deletion do
-      transitions :to => :deleted, :from => [:draft]
     end
 
     event :save_changes_as_draft do
@@ -181,10 +174,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
     event :unpublish do
       transitions :to => :unpublished, :from => [:published]
-    end
-
-    event :retire do
-      transitions :to => :retired, :from => [:published]
     end
   end
 
@@ -298,10 +287,6 @@ protected
   end
 
   private
-
-  def do_deletion
-    delete
-  end
 
   def cache_preview
     self.preview_cache = ActionView::Base.full_sanitizer.sanitize(Kramdown::Document.new(block_content).to_html).truncate(100)

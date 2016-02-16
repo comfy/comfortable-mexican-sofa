@@ -328,16 +328,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal :published_being_edited, page.current_state
   end
 
-  def test_deteltion_on_delete
-    page = comfy_cms_pages(:default)
-    page.unpublish!
-    page.save_changes!
-    assert_equal :draft, page.current_state
-    page_id = page.id
-    page.delete_page!
-    assert_equal nil, Comfy::Cms::Page.find_by(id: page_id)
-  end
-
   def test_update_state
     page = comfy_cms_pages(:default)
     page.update_state!("save_changes_as_draft")
