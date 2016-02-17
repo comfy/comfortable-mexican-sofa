@@ -148,10 +148,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
       transitions :to => :draft, :from => [:unsaved]
     end
 
-    event :save_changes do
-      transitions :to => :draft, :from => [:draft, :unpublished]
-    end
-
     event :publish do
       transitions :to => :published, :from => [:draft, :scheduled]
     end
@@ -174,6 +170,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
     event :unpublish do
       transitions :to => :unpublished, :from => [:published]
+    end
+
+    event :return_to_draft do
+      transitions :to => :draft, :from => [:unpublished]
     end
   end
 

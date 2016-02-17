@@ -315,13 +315,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal :published_being_edited, page.current_state
   end
 
-  def test_circular_draft_to_draft
-    page = Comfy::Cms::Page.new
-    page.save_unsaved
-    page.save_changes
-    assert_equal :draft, page.current_state
-  end
-
   def test_save_changes_as_draft
     page = Comfy::Cms::Page.new(state: "published")
     page.save_changes_as_draft
