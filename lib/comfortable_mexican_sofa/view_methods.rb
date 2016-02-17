@@ -73,16 +73,26 @@ module ComfortableMexicanSofa::ViewMethods
       render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
     end
 
-    def main_state_button(page)
-      ComfortableMexicanSofa::PageState.main_state_for(page)
-    end
-
-    def page_state_buttons(page)
-      ComfortableMexicanSofa::PageState.next_states_for(page)
-    end
-
     def current_status(page)
-      ComfortableMexicanSofa::PageState.current_status(page)
+      if page.state == 'scheduled'
+        if page.scheduled_on <= Time.current
+          'Published'
+        else
+          if page.active_revision.present?
+            'Published | Scheduled'
+          else
+            'Scheduled'
+          end
+        end
+      else
+        {
+          unsaved: 'Unsaved',
+          draft: 'Draft',
+          published: 'Published',
+          published_being_edited: 'Published | Draft',
+          unpublished: 'Unpublished'
+        }[page.state.to_sym]
+      end
     end
 
     def page_category_list(page)
@@ -127,5 +137,3 @@ module ComfortableMexicanSofa::ViewMethods
 
   ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods::Helpers
 end
-
-
