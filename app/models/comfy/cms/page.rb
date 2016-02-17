@@ -144,7 +144,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     state :unpublished
     state :scheduled
 
-    event :save_unsaved do
+    event :create_initial_draft do
       transitions :to => :draft, :from => [:unsaved]
     end
 
@@ -158,7 +158,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
       transitions :to => :published, :from => [:published]
     end
 
-    event :save_changes_as_draft do
+    event :create_new_draft do
       transitions :to => :published_being_edited, :from => [:published]
     end
 

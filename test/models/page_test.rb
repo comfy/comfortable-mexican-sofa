@@ -297,7 +297,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_saving_page_state_to_draft
     page = Comfy::Cms::Page.new
-    page.save_unsaved
+    page.create_initial_draft
     assert_equal :draft, page.current_state
   end
 
@@ -309,21 +309,21 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_publish_to_draft_from_published
     page = Comfy::Cms::Page.new
-    page.save_unsaved
+    page.create_initial_draft
     page.publish
-    page.save_changes_as_draft
+    page.create_new_draft
     assert_equal :published_being_edited, page.current_state
   end
 
-  def test_save_changes_as_draft
+  def test_create_new_draft
     page = Comfy::Cms::Page.new(state: "published")
-    page.save_changes_as_draft
+    page.create_new_draft
     assert_equal :published_being_edited, page.current_state
   end
 
   def test_update_state
     page = comfy_cms_pages(:default)
-    page.update_state!("save_changes_as_draft")
+    page.update_state!("create_new_draft")
     assert_equal :published_being_edited, page.current_state
   end
 
