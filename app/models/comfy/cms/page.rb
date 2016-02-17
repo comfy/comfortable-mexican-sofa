@@ -162,10 +162,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
       transitions :to => :published_being_edited, :from => [:published]
     end
 
-    event :save_draft_changes do
-      transitions :to => :published_being_edited, :from => [:published_being_edited]
-    end
-
     event :schedule do
       transitions :to => :scheduled, :from => [:published_being_edited, :published, :draft, :scheduled]
     end
