@@ -163,7 +163,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
 
     event :schedule do
-      transitions :to => :scheduled, :from => [:published_being_edited, :published, :draft, :scheduled]
+      transitions :to => :scheduled, :from => [:draft, :published_being_edited]
     end
 
     event :unpublish do
