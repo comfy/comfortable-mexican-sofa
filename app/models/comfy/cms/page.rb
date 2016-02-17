@@ -149,11 +149,13 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
 
     event :publish do
-      transitions :to => :published, :from => [:draft]
+      transitions :to => :published, :from => [:draft, :published_being_edited]
     end
 
+    # We typically don't have events where the state doesn't changes
+    # however we do here due to it triggering a timestamp (published_at)
     event :publish_changes do
-      transitions :to => :published, :from => [:published, :published_being_edited]
+      transitions :to => :published, :from => [:published]
     end
 
     event :save_changes_as_draft do
