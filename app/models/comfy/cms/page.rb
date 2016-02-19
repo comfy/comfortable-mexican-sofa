@@ -217,9 +217,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   end
 
   def update_state!(state_event)
-    if self.send("can_" + state_event.to_s + "?")
-      self.send((state_event.to_s + "!").to_sym)
-    end
+    self.send((state_event.to_s + "!").to_sym)
+  end
   end
 
   def block_content
