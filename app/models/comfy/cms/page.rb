@@ -219,6 +219,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
   def update_state!(state_event)
     self.send((state_event.to_s + "!").to_sym)
   end
+
+  def update_state(state_event)
+    self.send(state_event.to_sym)
   end
 
   def block_content
