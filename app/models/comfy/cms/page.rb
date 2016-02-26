@@ -158,8 +158,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
       transitions :to => :published, :from => [:published]
     end
 
-    event :create_new_draft do
-      transitions :to => :published_being_edited, :from => [:published]
+    # Should only create a draft of a scheduled post after it's gone live (i.e. it's "published")
+    event :create_new_draft, :guard => :can_create_new_draft? do
+      transitions :to => :published_being_edited, :from => [:published, :scheduled]
     end
 
     event :schedule do
@@ -173,6 +174,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
     event :return_to_draft do
       transitions :to => :draft, :from => [:unpublished]
     end
+  end
+
+  # -- State related methods ------------------------------------------------
+  def can_create_new_draft?
+    published? || scheduled_on <= Time.current
   end
 
   # -- Instance Methods -----------------------------------------------------
