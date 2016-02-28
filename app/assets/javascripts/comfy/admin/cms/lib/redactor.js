@@ -1,6 +1,6 @@
 /*
-	Redactor 10.2.3
-	Updated: August 15, 2015
+	Redactor 10.2.5
+	Updated: October 1, 2015
 
 	http://imperavi.com/redactor/
 
@@ -92,7 +92,7 @@
 
 	// Functionality
 	$.Redactor = Redactor;
-	$.Redactor.VERSION = '10.2.3';
+	$.Redactor.VERSION = '10.2.5';
 	$.Redactor.modules = ['alignment', 'autosave', 'block', 'buffer', 'build', 'button',
 						  'caret', 'clean', 'code', 'core', 'dropdown', 'file', 'focus',
 						  'image', 'indent', 'inline', 'insert', 'keydown', 'keyup',
@@ -477,14 +477,17 @@
 				set: function(type)
 				{
 					// focus
-					if (!this.utils.browser('msie')) this.$editor.focus();
-
-					this.buffer.set();
-					this.selection.save();
+					if (!this.utils.browser('msie') && !this.opts.linebreaks)
+					{
+						this.$editor.focus();
+					}
 
 					// get blocks
 					this.alignment.blocks = this.selection.getBlocks();
 					this.alignment.type = type;
+
+					this.buffer.set();
+					this.selection.save();
 
 					// set alignment
 					if (this.alignment.isLinebreaksOrNoBlocks())
@@ -717,7 +720,6 @@
 						return;
 					}
 
-
 					var block = this.block.blocks[0];
 					if (block === false) return;
 
@@ -786,6 +788,7 @@
 				setMultiple: function(tag)
 				{
 					var block = this.block.blocks[0];
+
 					var isContainerTable = (this.block.containerTag  == 'TD' || this.block.containerTag  == 'TH');
 
 					if (block !== false && this.block.blocksSize === 1)
@@ -1238,6 +1241,8 @@
 		build: function()
 		{
 			return {
+				focused: false,
+				blured: true,
 				run: function()
 				{
 					this.build.createContainerBox();
@@ -1349,7 +1354,8 @@
 				{
 					e.preventDefault();
 
-					if (!this.opts.dragImageUpload || !this.opts.dragFileUpload) return;
+					if (!this.opts.dragImageUpload && !this.opts.dragFileUpload) return;
+					if (this.opts.imageUpload === null && this.opts.fileUpload === null) return;
 
 					var files = e.dataTransfer.files;
 					this.upload.directUpload(files[0], e);
@@ -1363,6 +1369,12 @@
 				setEvents: function()
 				{
 					// drop
+					this.$editor.on('dragover.redactor dragenter.redactor', function(e)
+					{
+						e.preventDefault();
+						e.stopPropagation();
+				    });
+
 					this.$editor.on('drop.redactor', $.proxy(function(e)
 					{
 						e = e.originalEvent || e;
@@ -1423,7 +1435,13 @@
 					// focus
 					this.$editor.on('focus.redactor', $.proxy(function(e)
 					{
-						if ($.isFunction(this.opts.focusCallback)) this.core.setCallback('focus', e);
+						if ($.isFunction(this.opts.focusCallback))
+						{
+							this.core.setCallback('focus', e);
+						}
+
+						this.build.focused = true;
+						this.build.blured = false;
 
 						if (this.selection.getCurrent() === false)
 						{
@@ -1449,7 +1467,13 @@
 						}
 
 						this.utils.disableSelectAll();
-						if ($.isFunction(this.opts.blurCallback)) this.core.setCallback('blur', e);
+						if (!this.build.blured && $.isFunction(this.opts.blurCallback))
+						{
+							this.core.setCallback('blur', e);
+						}
+
+						this.build.focused = false;
+						this.build.blured = true;
 
 					}, this));
 
@@ -1585,15 +1609,19 @@
 
 					$button.on('mouseover', function()
 					{
-						if ($(this).hasClass('redactor-button-disabled')) return;
+						if ($(this).hasClass('redactor-button-disabled'))
+						{
+							return;
+						}
 
 						var pos = $button.offset();
 
-						$tooltip.show();
 						$tooltip.css({
 							top: (pos.top + $button.innerHeight()) + 'px',
 							left: (pos.left + $button.innerWidth()/2 - $tooltip.innerWidth()/2) + 'px'
 						});
+						$tooltip.show();
+
 					});
 
 					$button.on('mouseout', function()
@@ -1945,7 +1973,7 @@
 					var node, offset = 0;
 					var walker = document.createTreeWalker(this.$editor[0], NodeFilter.SHOW_TEXT, null, null);
 
-					while (node == walker.nextNode())
+					while (node = walker.nextNode())
 					{
 						offset += node.nodeValue.length;
 						if (offset > start)
@@ -2608,6 +2636,8 @@
 				getPlainText: function(html, paragraphize)
 				{
 					html = this.clean.getTextFromHtml(html);
+					html = html.replace(/\n\s*\n/g, "\n");
+					html = html.replace(/\n\n/g, "\n");
 					html = html.replace(/\n/g, '<br />');
 
 					if (this.opts.paragraphize && typeof paragraphize == 'undefined' && !this.utils.browser('mozilla'))
@@ -2870,7 +2900,7 @@
 					var html = this.$editor.html();
 
 					// is there a need to synchronize
-					if (this.code.syncCode && this.code.syncCode == html)
+					if (this.code.syncCode && this.code.syncCode == html || (this.start && html == '' ))
 					{
 						// do not sync
 						return;
@@ -3432,7 +3462,6 @@
 					// disable scroll whan dropdown scroll
 					$dropdown.on('mouseover.redactor-dropdown', $.proxy(this.utils.disableBodyScroll, this)).on('mouseout.redactor-dropdown', $.proxy(this.utils.enableBodyScroll, this));
 
-
 					e.stopPropagation();
 				},
 				closeHandler: function(e)
@@ -3466,8 +3495,11 @@
 
 					if (!$dropdown.hasClass('dropact') && !$dropdown.hasClass('redactor-dropdown-link-inactive'))
 					{
-						$dropdown.removeClass('dropact');
-						$dropdown.off('mouseover mouseout');
+						if ($dropdown.hasClass('redactor-dropdown'))
+						{
+							$dropdown.removeClass('dropact');
+							$dropdown.off('mouseover mouseout');
+						}
 
 						this.dropdown.hideAll();
 					}
@@ -3610,13 +3642,7 @@
 				},
 				isFocused: function()
 				{
-					var focusNode = document.getSelection().focusNode;
-					if (focusNode === null) return false;
-
-					if (this.opts.linebreaks && $(focusNode.parentNode).hasClass('redactor-linebreaks')) return true;
-					else if (!this.utils.isRedactorParent(focusNode.parentNode)) return false;
-
-					return this.$editor.is(':focus');
+					return this.$editor[0] === document.activeElement;
 				}
 			};
 		},
@@ -4428,6 +4454,15 @@
 						});
 					}
 
+					if (tag != 'u')
+					{
+						var _this = this;
+						this.$editor.find('unline').each(function(i,s)
+						{
+							_this.utils.replaceToTag(s, 'u');
+						});
+					}
+
 					this.selection.restore();
 					this.code.sync();
 
@@ -4484,6 +4519,14 @@
 						this.$editor.find('del').each(function(i,s)
 						{
 							self.utils.replaceToTag(s, 'inline');
+						});
+					}
+
+					if (tag != 'u')
+					{
+						this.$editor.find('u').each(function(i,s)
+						{
+							self.utils.replaceToTag(s, 'unline');
 						});
 					}
 
@@ -4824,6 +4867,7 @@
 				{
 					node = node[0] || node;
 
+					var offset = this.caret.getOffset();
 					var html = this.utils.getOuterHtml(node);
 					html = this.clean.setVerified(html);
 
@@ -4842,6 +4886,8 @@
 					this.range.insertNode(node);
 					this.range.collapse(false);
 					this.selection.addRange();
+
+					this.caret.setOffset(offset);
 
 					return node;
 				},
@@ -5512,7 +5558,9 @@
 							space.innerHTML = '&#x200b;';
 
 							$(br1).after(space);
-							this.caret.setAfter(space);
+
+							this.range.setStartAfter(space);
+							this.range.setEndAfter(space);
 							$(space).remove();
 						}
 						else
@@ -5523,7 +5571,6 @@
 							var selection = window.getSelection();
 							selection.removeAllRanges();
 							selection.addRange(range);
-
 						}
 					}
 
@@ -5644,6 +5691,8 @@
 							$(this.keyup.current).remove();
 						}
 
+						this.keyup.removeEmptyLists();
+
 						// if empty
 						return this.keyup.formatEmpty(e);
 					}
@@ -5670,6 +5719,20 @@
 					}
 
 					this.caret.setEnd(node);
+				},
+				removeEmptyLists: function()
+				{
+					var removeIt = function()
+					{
+						var html = $.trim(this.innerHTML).replace(/\/t\/n/g, '');
+						if (html === '')
+						{
+							$(this).remove();
+						}
+					};
+
+					this.$editor.find('li').each(removeIt);
+					this.$editor.find('ul, ol').each(removeIt);
 				},
 				formatEmpty: function(e)
 				{
@@ -5922,6 +5985,7 @@
 					// mailto
 					if (link.search('@') != -1 && /(http|ftp|https):\/\//i.test(link) === false)
 					{
+						link = link.replace('mailto:', '');
 						link = 'mailto:' + link;
 					}
 					// url, not anchor
@@ -6289,7 +6353,11 @@
 				toggle: function(cmd)
 				{
 					this.placeholder.remove();
-					if (!this.utils.browser('msie')) this.$editor.focus();
+
+					if (!this.utils.browser('msie') && !this.opts.linebreaks)
+					{
+						this.$editor.focus();
+					}
 
 					this.buffer.set();
 					this.selection.save();
@@ -7240,19 +7308,18 @@
 					else
 					{
 						// bootstrap modal
-						if ($('.modal-body').length > 0)
+						var $visibleModals = $('.modal-body:visible');
+						if ($visibleModals.length > 0)
 						{
-
-							$('.modal.in .modal-body').append(this.$pasteBox);
+							$visibleModals.append(this.$pasteBox);
 						}
 						else
 						{
 							$('body').append(this.$pasteBox);
 						}
-
 					}
 
-					this.$pasteBox.focus();
+					this.$pasteBox.get(0).focus();
 				},
 				insert: function(html)
 				{
@@ -7486,11 +7553,11 @@
 
 					var blocks = [];
 					nodes = (typeof nodes == 'undefined') ? this.selection.getNodes() : nodes;
+
 					$.each(nodes, $.proxy(function(i,node)
 					{
 						if (this.utils.isBlock(node))
 						{
-							this.selection.lastBlock = node;
 							blocks.push(node);
 						}
 
@@ -8854,6 +8921,12 @@
 					{
 						this.upload.type = 'file';
 					}
+
+					if (this.opts.imageUpload === null && this.opts.fileUpload !== null)
+					{
+						this.upload.type = 'file';
+					}
+
 				},
 				getHiddenFields: function(obj, fd)
 				{
