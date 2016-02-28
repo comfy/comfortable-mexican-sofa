@@ -1,9 +1,13 @@
 # encoding: utf-8
 ENV['RAILS_ENV'] = 'test'
 
+require 'simplecov'
 require 'coveralls'
-Coveralls.wear! 'rails'
-
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start do
+  add_filter 'lib/generators'
+  add_filter 'lib/comfortable_mexican_sofa/engine.rb '
+end
 require_relative '../config/environment'
 
 require 'rails/test_help'
