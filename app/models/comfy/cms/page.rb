@@ -167,6 +167,18 @@ class Comfy::Cms::Page < ActiveRecord::Base
       transitions :to => :scheduled, :from => [:draft, :published_being_edited]
     end
 
+    # This is only meant for scheduled new posts, if unscheduling an update
+    # there is the event below, unschedule_update.
+    event :unschedule, :guard => :can_unschedule? do
+      transitions :to => :draft, :from => [:scheduled]
+    end
+
+    # This could essentially be done with the create_new_draft event but having
+    # a separate event emphasises it's purpose for a different scenario.
+    event :unschedule_update, :guard => :can_unschedule_update? do
+      transitions :to => :published_being_edited, :from => [:scheduled]
+    end
+
     event :unpublish do
       transitions :to => :unpublished, :from => [:published]
     end
@@ -179,6 +191,14 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # -- State related methods ------------------------------------------------
   def can_create_new_draft?
     published? || scheduled_on <= Time.current
+  end
+
+  def can_unschedule?
+    !active_revision.present? && scheduled_on > Time.current
+  end
+
+  def can_unschedule_update?
+    active_revision.present? && scheduled_on > Time.current
   end
 
   # -- Instance Methods -----------------------------------------------------
