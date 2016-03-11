@@ -23,6 +23,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
      dependent:  :destroy,
      class_name: 'Comfy::Cms::Revision'
 
+  # The active_revision points to a revision that is treated as live
+  # in the case of editing published articles, or scheduling future changes
+  belongs_to :active_revision,
+     class_name: 'Comfy::Cms::Revision'
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent,
@@ -50,7 +55,50 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
-  scope :published, -> { where(state: ['published', 'published_being_edited', 'scheduled']) }
+
+  scope :draft, -> { where(state: :draft) }
+
+  scope :published, -> {
+    joins('LEFT JOIN comfy_cms_revisions ON comfy_cms_pages.active_revision_id = comfy_cms_revisions.id').
+    where(
+      # Pages with state 'published'
+      arel_table[:state].eq('published').
+
+      # Or pages with state 'published_being_edited',
+      # but also an active_revision
+      or(
+        arel_table[:state].eq('published_being_edited').
+        and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+      ).
+
+      # Or pages with state 'scheduled' and timestamp in the past
+      or(
+        arel_table[:state].eq('scheduled').
+        and(arel_table[:scheduled_on].lt(Time.now))
+      ).
+
+      # Or pages with state 'scheduled' and timestamp in the future,
+      # but also an active_revision
+      or(
+        (arel_table[:state].eq('scheduled')).
+        and(arel_table[:scheduled_on].gt(Time.now)).
+        and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+      )
+    )
+  }
+
+  scope :published_being_edited, -> { where(state: :published_being_edited) }
+
+  scope :scheduled, -> {
+    joins('LEFT JOIN comfy_cms_revisions ON comfy_cms_pages.active_revision_id = comfy_cms_revisions.id').
+    where(
+      (arel_table[:state].eq('scheduled')).
+      and(arel_table[:scheduled_on].gt(Time.now)).
+      and(Comfy::Cms::Revision.arel_table[:id].not_eq(nil))
+    )
+  }
+
+  scope :unpublished, -> { where(state: :unpublished) }
 
   scope :with_content_like, ->(phrase) {
     joins(:blocks).where("comfy_cms_blocks.content LIKE ?", "%#{phrase}%")
@@ -93,51 +141,64 @@ class Comfy::Cms::Page < ActiveRecord::Base
     state :draft
     state :published
     state :published_being_edited
-    state :redirected
     state :unpublished
     state :scheduled
-    state :retired
-    state :deleted
 
-    event :save_unsaved do
+    event :create_initial_draft do
       transitions :to => :draft, :from => [:unsaved]
     end
 
-    event :save_changes do
-      transitions :to => :draft, :from => [:draft, :unpublished]
+    event :publish, :timestamp => :published_at do
+      transitions :to => :published, :from => [:draft, :published_being_edited]
     end
 
-    event :publish do
-      transitions :to => :published, :from => [:draft, :redirected, :scheduled]
+    # We typically don't have events where the state doesn't changes
+    # however we do here due to it triggering a timestamp (published_at)
+    event :publish_changes, :timestamp => :published_at do
+      transitions :to => :published, :from => [:published]
     end
 
-    event :publish_changes do
-      transitions :to => :published, :from => [:published, :published_being_edited, :scheduled]
-    end
-
-    event :delete_page, :success => :do_deletion do
-      transitions :to => :deleted, :from => [:draft]
-    end
-
-    event :save_changes_as_draft do
-      transitions :to => :published_being_edited, :from => [:published]
-    end
-
-    event :save_draft_changes do
-      transitions :to => :published_being_edited, :from => [:published_being_edited]
+    # Should only create a draft of a scheduled post after it's gone live (i.e. it's "published")
+    event :create_new_draft, :guard => :can_create_new_draft? do
+      transitions :to => :published_being_edited, :from => [:published, :scheduled]
     end
 
     event :schedule do
-      transitions :to => :scheduled, :from => [:published_being_edited, :published, :draft, :scheduled]
+      transitions :to => :scheduled, :from => [:draft, :published_being_edited]
+    end
+
+    # This is only meant for scheduled new posts, if unscheduling an update
+    # there is the event below, unschedule_update.
+    event :unschedule, :guard => :can_unschedule? do
+      transitions :to => :draft, :from => [:scheduled]
+    end
+
+    # This could essentially be done with the create_new_draft event but having
+    # a separate event emphasises it's purpose for a different scenario.
+    event :unschedule_update, :guard => :can_unschedule_update? do
+      transitions :to => :published_being_edited, :from => [:scheduled]
     end
 
     event :unpublish do
       transitions :to => :unpublished, :from => [:published]
     end
 
-    event :retire do
-      transitions :to => :retired, :from => [:published]
+    event :return_to_draft do
+      transitions :to => :draft, :from => [:unpublished]
     end
+  end
+
+  # -- State related methods ------------------------------------------------
+  def can_create_new_draft?
+    published? || scheduled_on <= Time.current
+  end
+
+  def can_unschedule?
+    !active_revision.present? && scheduled_on > Time.current
+  end
+
+  def can_unschedule_update?
+    active_revision.present? && scheduled_on > Time.current
   end
 
   # -- Instance Methods -----------------------------------------------------
@@ -182,9 +243,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
   end
 
   def update_state!(state_event)
-    if self.send("can_" + state_event.to_s + "?")
-      self.send((state_event.to_s + "!").to_sym)
-    end
+    self.send((state_event.to_s + "!").to_sym)
+  end
+
+  def update_state(state_event)
+    self.send(state_event.to_sym)
   end
 
   def block_content
@@ -250,10 +313,6 @@ protected
   end
 
   private
-
-  def do_deletion
-    delete
-  end
 
   def cache_preview
     self.preview_cache = ActionView::Base.full_sanitizer.sanitize(Kramdown::Document.new(block_content).to_html).truncate(100)

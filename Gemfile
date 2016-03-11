@@ -19,4 +19,8 @@ group :test do
   gem 'coveralls',  :require => false
   gem 'timecop'
   gem 'rspec-core'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'faker', '~> 1.6.0'
+  gem 'pry-byebug'
 end

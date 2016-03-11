@@ -20,6 +20,8 @@ class ActiveSupport::TestCase
   def setup
     reset_config
     stub_paperclip
+
+    DatabaseCleaner.strategy = :transaction
   end
   
   # resetting default configuration

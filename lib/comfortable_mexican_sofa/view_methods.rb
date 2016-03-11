@@ -73,16 +73,26 @@ module ComfortableMexicanSofa::ViewMethods
       render :inline => ComfortableMexicanSofa::Tag.process_content(blockable, tag.render)
     end
 
-    def main_state_button(page)
-      ComfortableMexicanSofa::PageState.main_state_for(page)
-    end
-
-    def page_state_buttons(page)
-      ComfortableMexicanSofa::PageState.next_states_for(page)
-    end
-
     def current_status(page)
-      ComfortableMexicanSofa::PageState.current_status(page)
+      if page.state == 'scheduled'
+        if page.scheduled_on <= Time.current
+          'Published'
+        else
+          if page.active_revision.present?
+            'Published | Scheduled'
+          else
+            'Scheduled'
+          end
+        end
+      else
+        {
+          unsaved: 'Unsaved',
+          draft: 'Draft',
+          published: 'Published',
+          published_being_edited: 'Published | Draft',
+          unpublished: 'Unpublished'
+        }[page.state.to_sym]
+      end
     end
 
     def page_category_list(page)
@@ -109,15 +119,21 @@ module ComfortableMexicanSofa::ViewMethods
       end
     end
 
-    def state_list(label)
-      Comfy::Cms::Page.state_machine.states.inject([[label, nil]]) do |list, state|
-        list << [state.name.to_s.humanize]
-      end
+    # States offered to users don't map directly to internal states
+    # used in the state machine. These should all match scopes defined
+    # in the page model.
+    def pseudo_state_list(label)
+      [
+        [label, nil],
+        ['Draft (new)', 'draft'],
+        ['Draft (new versions)', 'published_being_edited'],
+        ['Published', 'published'],
+        ['Scheduled', 'scheduled'],
+        ['Unpublished', 'unpublished']
+      ]
     end
 
   end
 
   ActionView::Base.send :include, ComfortableMexicanSofa::ViewMethods::Helpers
 end
-
-

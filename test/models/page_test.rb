@@ -213,12 +213,6 @@ class CmsPageTest < ActiveSupport::TestCase
     refute_equal old_content, page.content_cache
   end
 
-  def test_scope_published
-    assert_equal 2, Comfy::Cms::Page.published.count
-    comfy_cms_pages(:child).update_columns(state: 'unpublished')
-    assert_equal 1, Comfy::Cms::Page.published.count
-  end
-
   def test_root?
     assert comfy_cms_pages(:default).root?
     assert !comfy_cms_pages(:child).root?
@@ -303,7 +297,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_saving_page_state_to_draft
     page = Comfy::Cms::Page.new
-    page.save_unsaved
+    page.create_initial_draft
     assert_equal :draft, page.current_state
   end
 
@@ -315,38 +309,21 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_publish_to_draft_from_published
     page = Comfy::Cms::Page.new
-    page.save_unsaved
+    page.create_initial_draft
     page.publish
-    page.save_changes_as_draft
+    page.create_new_draft
     assert_equal :published_being_edited, page.current_state
   end
 
-  def test_circular_draft_to_draft
-    page = Comfy::Cms::Page.new
-    page.save_unsaved
-    page.save_changes
-    assert_equal :draft, page.current_state
-  end
-
-  def test_save_changes_as_draft
+  def test_create_new_draft
     page = Comfy::Cms::Page.new(state: "published")
-    page.save_changes_as_draft
+    page.create_new_draft
     assert_equal :published_being_edited, page.current_state
-  end
-
-  def test_deteltion_on_delete
-    page = comfy_cms_pages(:default)
-    page.unpublish!
-    page.save_changes!
-    assert_equal :draft, page.current_state
-    page_id = page.id
-    page.delete_page!
-    assert_equal nil, Comfy::Cms::Page.find_by(id: page_id)
   end
 
   def test_update_state
     page = comfy_cms_pages(:default)
-    page.update_state!("save_changes_as_draft")
+    page.update_state!("create_new_draft")
     assert_equal :published_being_edited, page.current_state
   end
 
