@@ -12,7 +12,7 @@ if [ -n "$GO_PIPELINE_NAME" ]; then
   rake db:drop db:create db:migrate
 fi
 
-CI_PIPELINE_COUNTER=${GO_PIPELINE_COUNTER-0}
+CI_PIPELINE_COUNTER=${GO_PIPELINE_LABEL-0}
 CI_EXECUTOR_NUMBER=${EXECUTOR_NUMBER-0}
 
 rake test
