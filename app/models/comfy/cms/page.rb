@@ -56,7 +56,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_pages.position') }
 
-  scope :draft, -> { where(state: :draft) }
+  # 'unsaved' is a bit of a pointless state, so lump it in with drafts
+  scope :draft, -> { where(state: [:draft, :unsaved]) }
 
   scope :published, -> {
     joins('LEFT JOIN comfy_cms_revisions ON comfy_cms_pages.active_revision_id = comfy_cms_revisions.id').
