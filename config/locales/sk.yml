@@ -1,0 +1,243 @@
+# encoding: utf-8
+sk:
+  activerecord:
+    models:
+      comfy/cms/site: Web
+      comfy/cms/layout: Rozloženie
+      comfy/cms/page: Stránka
+      comfy/cms/snippet: Fragment
+      comfy/cms/file: Súbor
+
+    attributes:
+      comfy/cms/site:
+        identifier: Identifikátor
+        label: Popis
+        hostname: Doména
+        path: Cesta
+        locale: Jazyk
+        is_mirrored: Zrkadlené
+      comfy/cms/layout:
+        identifier: Identifikátor
+        label: Názov rozloženia
+        app_layout: Rozloženie aplikácie
+        parent_id: Nadradené rozloženie
+        content: Obsah
+        css: Štýl
+        js: Javascript
+      comfy/cms/page:
+        label: Popis
+        layout_id: Rozloženie
+        slug: Strojový názov
+        full_path: Plná cesta
+        parent_id: Nadradené
+        target_page_id: Presmerovať na stránku
+        content: Obsah
+        is_published: Zverejnené
+      comfy/cms/file:
+        label: Popis
+        file: Súbor
+        description: Popis
+      comfy/cms/snippet:
+        identifier: Identifikátor
+        label: Popis
+        content: Obsah
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Web nenájdený
+        layout_not_found: Rozloženie nenájdené
+        page_not_found: Stránka nenájdená
+
+    admin:
+      cms:
+        base:
+          site_not_found: Web nenájdený
+          fixtures_enabled: Sú povolené CMS Fixtures. Všetky tu vykonané zmeny budú stratené.
+
+          sites: Weby
+          layouts: Rozloženia
+          pages: Stránky
+          snippets: Fragmenty
+          files: Súbory
+
+        sites:
+          created: Web vytvorený
+          creation_failure: Nepodarilo sa vytvoriť web
+          updated: Web upravený
+          update_failure: Nepodarilo sa upraviť web
+          deleted: Web odstránený
+          not_found: Web nenájdený
+
+          index:
+            title: Weby
+            new_link: Vytvoriť web
+            select: Zvoľte web
+            edit: Upraviť
+            delete: Zmazať
+            are_you_sure: Ste si istí, že chcete odstrániť tento web?
+          new:
+            title: Nový web
+          edit:
+            title: Úprava webu
+          form:
+            create: Vytvoriť web
+            cancel: Zrušiť
+            update: Upraviť web
+            is_mirrored: Zrkadlené
+
+        layouts:
+          created: Rozloženie vytvorené
+          creation_failure: Nepodarilo sa vytvoriť rozloženie
+          updated: Rozloženie upravené
+          update_failure: Nepodarilo sa upraviť rozloženie
+          deleted: Rozloženie odstránené
+          not_found: Rozloženie nenájdené
+
+          index:
+            title: Rozloženia
+            new_link: Vytvoriť nové rozloženie
+          index_branch:
+            add_child_layout: Pridať podriadené rozloženie
+            edit: Upraviť
+            delete: Zmazať
+            are_you_sure: Ste si istí?
+          new:
+            title: Nové rozloženie
+          edit:
+            title: Úprava rozloženia
+            revision: &revision
+              zero: Žiadne revízie
+              one: '%{count} revízia'
+              few: '%{count} revízie'
+              many: '%{count} revízií'
+              other: '%{count} revízií'
+          form:
+            select_parent_layout: Zvoľte nadradené rozloženie
+            select_app_layout: Zvoľte rozloženie aplikácie
+            create: Vytvoriť rozloženie
+            cancel: Zrušiť
+            update: Upraviť rozloženie
+
+        pages:
+          created: Stránka vytvorená
+          creation_failure: Nepodarilo sa vytvoriť stránku
+          updated: Stránka upravená
+          update_failure: Nepodarilo sa upraviť stránku
+          deleted: Stránka odstránená
+          not_found: Stránka nenájdená
+          layout_not_found: "Neboli nájdené žiadne rozloženia, vytvorte prosím nejaké."
+
+          index:
+            title: Stránky
+            new_link: Vytvoriť novú stránku
+          index_branch:
+            toggle: Prepnúť
+            add_child_page: Pridať podstránku
+            edit: Upraviť
+            delete: Zmazať
+            are_you_sure: Ste si istí?
+          new:
+            title: Nová stránka
+          edit:
+            title: Úprava stránky
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Bez presmerovania
+            preview: Náhľad
+            create: Vytvoriť stránku
+            cancel: Zrušiť
+            update: Upraviť stránku
+            is_published: Zverejnené
+            choose_link: Zvoľte stránku...
+          form_blocks:
+            no_tags: |-
+              Rozloženie nemá definované žiadne značky obsahu.<br/>
+              Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Fragment vytvorený
+          creation_failure: Nepodarilo sa vytvoriť fragment
+          updated: Fragment upravený
+          update_failure: Nepodarilo sa upraviť fragment
+          deleted: Fragment odstránený
+          not_found: Fragment nenájdený
+
+          index:
+            title: Fragmenty
+            new_link: Vytvoriť fragment
+            edit: Upraviť
+            delete: Zmazať
+            are_you_sure: Ste si istí?
+          new:
+            title: Nový fragment
+          edit:
+            title: Upraviť fragment
+            revision:
+              <<: *revision
+          form:
+            create: Vytvoriť fragment
+            cancel: Zrušiť
+            update: Upraviť fragment
+
+        revisions:
+          reverted: Obsah bol obnovený
+          record_not_found: Záznam nenájdený
+          not_found: Revízia nenájdená
+
+          show:
+            title: Revízia pre
+            revision: Revízia
+            full_path: Celá cesta
+            slug: Strojový názov
+            update: Použiť túto revíziu
+            content: Obsah
+            changes: Zmeny
+            previous: Predchádzajúca
+            current: Súčasná
+
+        files:
+          created: Súbory nahrané
+          creation_failure: Nepodarilo sa nahrať súbory
+          updated: Súbor upravený
+          update_failure: Nepodarilo sa upraviť súbor
+          deleted: Súbor odstránený
+          not_found: Súbor nenájdený
+
+          index:
+            title: Súbory
+            new_link: Nahrať nový súbor
+            button: Nahrať súbory
+          new:
+            title: Nový súbor
+          edit:
+            title: Upraviť súbor
+          form:
+            current_file: Aktuálny súbor
+            create: Nahrať súbor
+            cancel: Zrušiť
+            update: Upraviť súbor
+            delete: Zmazať
+            are_you_sure: Ste si istí?
+          page_form:
+            are_you_sure: Ste si istí?
+          file:
+            edit: Upraviť
+            delete: Zmazať
+            are_you_sure: Ste si istí?
+
+        categories:
+          index:
+            label: Kategórie
+            edit: Upraviť
+            done: Hotovo
+            all: Všetky
+            add: Pridať
+            add_placeholder: Pridať kategóriu
+          show:
+            are_you_sure: Ste si istí?
+          edit:
+            save: Uložiť
+          form:
+            label: Kategórie
