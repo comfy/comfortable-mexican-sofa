@@ -1,5 +1,5 @@
 (function ($) {
-$.Redactor.opts.langs['cs'] = {
+$.Redactor.opts.langs['sk'] = {
 	html: 'HTML',
 	video: 'Video',
 	image: 'Obrázok',
@@ -81,6 +81,6 @@ $.Redactor.opts.langs['cs'] = {
 	alignment: 'Zarovnanie',
 	filename: 'Názov (voliteľné)',
 	edit: 'Upraviť',
-	center: 'Center'
+	center: 'Na stred'
 };
 })( jQuery );
