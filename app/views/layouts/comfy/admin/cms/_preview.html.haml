@@ -1,0 +1,7 @@
+.live-preview-toolbar
+  %div
+    %a.live-preview-update{ href: '#', data: { live_preview_updating: t('comfy.admin.cms.live_preview.refreshing') } }= t('comfy.admin.cms.live_preview.refresh')
+    |
+    %a.live-preview-new-window{ href: '#' }= t('comfy.admin.cms.live_preview.new_window')
+
+%iframe#preview{name: 'live-preview'}

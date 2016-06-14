@@ -3,6 +3,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
   before_action :build_layout,  :only => [:new, :create]
   before_action :load_layout,   :only => [:edit, :update, :destroy]
   before_action :authorize
+  before_action :preview_layout,  :only => [:create, :update]
 
   def index
     return redirect_to :action => :new if @site.layouts.count == 0
@@ -59,10 +60,32 @@ protected
 
   def load_layout
     @layout = @site.layouts.find(params[:id])
+    @layout.attributes = layout_params
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.layouts.not_found')
     redirect_to :action => :index
   end
+
+  def preview_layout
+    if params[:preview]
+      # Build a page we can use to preview the layout.
+      # If pages exists that use the current layout we could let the user
+      # select one of those to preview the layout.
+      @page = @site.pages.new({layout: @layout})
+
+      # Same code as in Comfy::Admin::Cms::PagesController.preview_cms_page. Add concern?
+      layout = @page.layout.app_layout.blank?? false : @page.layout.app_layout
+      @cms_site   = @page.site
+      @cms_layout = @page.layout
+      @cms_page   = @page
+
+      # Chrome chokes on content with iframes. Issue #434
+      response.headers['X-XSS-Protection'] = '0'
+
+      render :inline => @page.render, :layout => layout, :content_type => 'text/html'
+    end
+  end
+
 
   def layout_params
     params.fetch(:layout, {}).permit!

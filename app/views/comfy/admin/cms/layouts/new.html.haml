@@ -1,5 +1,7 @@
 .page-header
   %h2= t('.title')
 
-= comfy_form_for @layout, :as => :layout, :url => {:action => :create} do |form|
+/ Removed live preview from layouts for the moment because it does not preview
+/ js and css because those are always loaded from the database and not the form data.
+= comfy_form_for @layout, :as => :layout, :url => {:action => :create}, :html => {:data => {:live_preview => false}} do |form|
   = render form
