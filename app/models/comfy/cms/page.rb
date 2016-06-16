@@ -88,9 +88,10 @@ protected
   end
 
   def assign_full_path
-    self.full_path = self.parent ?
-      [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
-      '/'
+    self.full_path = self.slug
+    # self.full_path = self.parent ?
+    #   [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
+    #   '/'
   end
 
   def assign_position
@@ -110,8 +111,8 @@ protected
 
   def validate_format_of_unescaped_slug
     return unless slug.present?
-    unescaped_slug = CGI::unescape(self.slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
+    #unescaped_slug = CGI::unescape(self.slug)
+    #errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
   # Forcing re-saves for child pages so they can update full_paths
