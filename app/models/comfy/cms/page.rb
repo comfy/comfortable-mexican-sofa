@@ -88,7 +88,7 @@ protected
   end
 
   def assign_full_path
-    self.full_path = self.slug
+    self.full_path = "/#{self.slug}"
     # self.full_path = self.parent ?
     #   [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
     #   '/'
