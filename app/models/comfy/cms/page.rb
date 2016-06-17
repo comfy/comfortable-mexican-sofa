@@ -126,11 +126,12 @@ protected
 
   # Escape slug unless it's nonexistent (root)
   def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
+    # self.slug = CGI::escape(self.slug) unless self.slug.nil?
   end
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent
   def unescape_slug_and_path
+    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
