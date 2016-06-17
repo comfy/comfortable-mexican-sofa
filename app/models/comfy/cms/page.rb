@@ -88,10 +88,13 @@ protected
   end
 
   def assign_full_path
-    self.full_path = "/#{self.slug}"
-    # self.full_path = self.parent ?
-    #   [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
-    #   '/'
+    if self.parent && self.parent.full_path != '/'
+      self.full_path = [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/')
+    elsif self.parent
+      self.full_path = "/#{self.slug}"
+    else
+      self.full_path = '/'
+    end
   end
 
   def assign_position
