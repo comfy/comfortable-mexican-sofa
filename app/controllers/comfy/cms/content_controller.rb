@@ -6,6 +6,8 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   # Authorization module must have `authorize` method
   include ComfortableMexicanSofa.config.public_authorization.to_s.constantize
 
+  include Comfy::Cms::PageHelper
+
   before_action :load_fixtures
   before_action :load_cms_page,
                 :authenticate,
@@ -56,13 +58,8 @@ protected
 
   def load_cms_page
     @cms_page = @cms_site.pages.find_by_full_path!("/#{params[:cms_path]}")
-    if @cms_page && !@cms_page.published? && @cms_page.revisions.count
-      @cms_page.revisions.each do |revision|
-        if revision.data[:is_published]
-          @cms_page.assign_attributes(revision.data)
-          break
-        end
-      end
+    if @cms_page
+      @cms_page.assign_revision_if_draft
     end
   end
 

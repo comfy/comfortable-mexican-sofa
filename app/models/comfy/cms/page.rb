@@ -1,6 +1,9 @@
 # encoding: utf-8
 
 class Comfy::Cms::Page < ActiveRecord::Base
+
+  include Comfy::Cms::PageHelper
+
   self.table_name = 'comfy_cms_pages'
 
   cms_acts_as_tree :counter_cache => :children_count
@@ -55,6 +58,36 @@ class Comfy::Cms::Page < ActiveRecord::Base
   end
 
   # -- Instance Methods -----------------------------------------------------
+  def content(identifier)
+    tag = self && (block = self.blocks.find_by_identifier(identifier)) && block.tag
+    return nil unless tag
+    # make the tag belong to the page that is being rendered, in case we are rendering a revision
+    tag.blockable = self
+    tag.content.present? ? tag.content : nil
+  end
+
+  def render_latest
+    self.assign_revision_if_draft
+    render
+  end
+
+  def assign_revision_if_draft
+    if !self.published? && self.revisions.count
+      # cms_page.revisions.order(:created_at).each do |revision|
+      #   if revision.data[:is_published]
+      #     cms_page.assign_attributes(revision.data)
+      #     break
+      #   end
+      # end
+
+      # find the most recent published revision
+      revision = self.revisions.find{|k,v| k.data[:is_published]}
+      if revision
+        self.assign_attributes(revision.data)
+      end
+    end
+  end
+
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path
