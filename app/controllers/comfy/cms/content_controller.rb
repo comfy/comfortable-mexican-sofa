@@ -55,7 +55,15 @@ protected
   end
 
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.find_by_full_path!("/#{params[:cms_path]}")
+    if @cms_page && !@cms_page.published? && @cms_page.revisions.count
+      @cms_page.revisions.each do |revision|
+        if revision.data[:is_published]
+          @cms_page.assign_attributes(revision.data)
+          break
+        end
+      end
+    end
   end
 
   def page_not_found
