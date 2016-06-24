@@ -17,8 +17,8 @@ module ComfortableMexicanSofa::HasRevisions
         :dependent  => :destroy,
         :class_name => 'Comfy::Cms::Revision'
 
-      before_save  :prepare_revision
-      before_save  :create_revision
+      after_save  :prepare_revision
+      after_save  :create_revision
 
       define_method(:revision_fields) do
         fields.collect(&:to_s)
