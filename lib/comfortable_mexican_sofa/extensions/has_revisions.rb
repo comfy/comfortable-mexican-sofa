@@ -17,8 +17,8 @@ module ComfortableMexicanSofa::HasRevisions
         :dependent  => :destroy,
         :class_name => 'Comfy::Cms::Revision'
 
-      before_save :prepare_revision
-      after_save  :create_revision
+      before_save  :prepare_revision
+      before_save  :create_revision
 
       define_method(:revision_fields) do
         fields.collect(&:to_s)
@@ -36,16 +36,17 @@ module ComfortableMexicanSofa::HasRevisions
           c[field] = self.send("#{field}_was")
           c
         end
-        self.revision_data[:is_published] = self.is_published
       end
     end
 
     # Revision is created only if relevant data changed
     def create_revision
+      prepare_revision
       return unless self.revision_data
 
       # creating revision
       if ComfortableMexicanSofa.config.revisions_limit.to_i != 0
+        self.revision_data[:is_published] = self.is_published
         self.revisions.create!(:data => self.revision_data)
       end
 
