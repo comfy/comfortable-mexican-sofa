@@ -2,8 +2,6 @@
 
 class Comfy::Cms::Page < ActiveRecord::Base
 
-  include Comfy::Cms::PageHelper
-
   self.table_name = 'comfy_cms_pages'
 
   cms_acts_as_tree :counter_cache => :children_count
@@ -73,13 +71,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   def assign_revision_if_draft
     if !self.published? && self.revisions.count
-      # cms_page.revisions.order(:created_at).each do |revision|
-      #   if revision.data[:is_published]
-      #     cms_page.assign_attributes(revision.data)
-      #     break
-      #   end
-      # end
-
       # find the most recent published revision
       revision = self.revisions.find{|k,v| k.data[:is_published]}
       if revision

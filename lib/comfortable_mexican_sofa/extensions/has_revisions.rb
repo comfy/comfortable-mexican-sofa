@@ -41,7 +41,6 @@ module ComfortableMexicanSofa::HasRevisions
 
     # Revision is created only if relevant data changed
     def create_revision
-      prepare_revision
       return unless self.revision_data
 
       # creating revision

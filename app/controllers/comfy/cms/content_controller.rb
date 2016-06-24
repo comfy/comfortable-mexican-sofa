@@ -6,8 +6,6 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   # Authorization module must have `authorize` method
   include ComfortableMexicanSofa.config.public_authorization.to_s.constantize
 
-  include Comfy::Cms::PageHelper
-
   before_action :load_fixtures
   before_action :load_cms_page,
                 :authenticate,
