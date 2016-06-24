@@ -36,6 +36,7 @@ module ComfortableMexicanSofa::HasRevisions
           c[field] = self.send("#{field}_was")
           c
         end
+        self.revision_data[:is_published] = self.is_published
       end
     end
 
@@ -45,7 +46,6 @@ module ComfortableMexicanSofa::HasRevisions
 
       # creating revision
       if ComfortableMexicanSofa.config.revisions_limit.to_i != 0
-        self.revision_data[:is_published] = self.is_published
         self.revisions.create!(:data => self.revision_data)
       end
 
