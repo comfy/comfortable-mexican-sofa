@@ -89,20 +89,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
-  def render_children
-    # this page is the "parent" page rendering its children
-    self.children.each do |child_page|
-      # skip if the page isn't in a state to be rendered
-      if child_page.is_renderable?
-        # assign @cms_page to be child page while it renders
-        @cms_page = child_page
-        child_page.render_latest
-        @cms_page = self
-      end
-    end.join.html_safe
-    # reset @cms_page after changing it for rendering children
-  end
-
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path
