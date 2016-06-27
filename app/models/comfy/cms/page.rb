@@ -64,19 +64,43 @@ class Comfy::Cms::Page < ActiveRecord::Base
     tag.content.present? ? tag.content : nil
   end
 
-  def render_latest
-    self.assign_revision_if_draft
-    render
+  def latest_published_revision
+    self.revisions.find{|k,v| k.data[:is_published]}
   end
 
-  def assign_revision_if_draft
-    if !self.published? && self.revisions.count
-      # find the most recent published revision
-      revision = self.revisions.find{|k,v| k.data[:is_published]}
-      if revision
-        self.assign_attributes(revision.data)
-      end
+  def has_published_revision?
+    latest_published_revision.present?
+  end
+
+  def assign_latest_published_revision
+    self.assign_attributes(latest_published_revision.data)
+  end
+
+  def is_renderable?
+    self.is_published? || has_published_revision?
+  end
+
+  def render_latest
+    if self.published?
+      render
+    else
+      self.assign_latest_published_revision
+      render
     end
+  end
+
+  def render_children
+    # this page is the "parent" page rendering its children
+    self.children.each do |child_page|
+      # skip if the page isn't in a state to be rendered
+      if child_page.is_renderable?
+        # assign @cms_page to be child page while it renders
+        @cms_page = child_page
+        child_page.render_latest
+        @cms_page = self
+      end
+    end.join.html_safe
+    # reset @cms_page after changing it for rendering children
   end
 
   # For previewing purposes sometimes we need to have full_path set. This

@@ -56,8 +56,15 @@ protected
 
   def load_cms_page
     @cms_page = @cms_site.pages.find_by_full_path!("/#{params[:cms_path]}")
-    if @cms_page
-      @cms_page.assign_revision_if_draft
+    return if !@cms_page || @cms_page.published?
+
+    # page exists and is not published, so...
+    if @cms_page.has_published_revision?
+      # this is a draft page with a published revision? lets use it
+      @cms_page.assign_latest_published_revision
+    else
+      # this is a drafted page with no published revision? 404
+      page_not_found
     end
   end
 
