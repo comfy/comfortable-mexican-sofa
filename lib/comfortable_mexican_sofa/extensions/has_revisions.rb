@@ -45,7 +45,9 @@ module ComfortableMexicanSofa::HasRevisions
 
       # creating revision
       if ComfortableMexicanSofa.config.revisions_limit.to_i != 0
-        self.revision_data[:is_published] = self.is_published
+        if self.respond_to?(:is_published?)
+          self.revision_data[:is_published] = self.is_published?
+        end
         self.revisions.create!(:data => self.revision_data)
       end
 
