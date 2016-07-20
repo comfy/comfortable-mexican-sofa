@@ -141,6 +141,7 @@ window.CMS.page_blocks = ->
         CMS.timepicker()
         CMS.codemirror()
         CMS.page_file_popovers()
+        document.dispatchEvent(new CustomEvent('cms_page_blocks'))
 
 
 window.CMS.page_file_popovers = ->

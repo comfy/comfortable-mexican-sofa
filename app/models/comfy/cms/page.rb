@@ -148,8 +148,12 @@ protected
 
   def validate_format_of_unescaped_slug
     return unless slug.present?
-    #unescaped_slug = CGI::unescape(self.slug)
-    #errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
+    # We are disabling this validation so we can define more than one level of hierarchy
+    # in a page slug, for example a page`baz` with path /foo/bar/baz, without
+    # needing a page to exist at foo and bar.
+
+    # unescaped_slug = CGI::unescape(self.slug)
+    # errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
   # Forcing re-saves for child pages so they can update full_paths
@@ -163,12 +167,14 @@ protected
 
   # Escape slug unless it's nonexistent (root)
   def escape_slug
+    # commented out as for our purposes we dont want to escape slugs
+    # see block comment above in validate_format_of_unescaped_slug
+
     # self.slug = CGI::escape(self.slug) unless self.slug.nil?
   end
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent
   def unescape_slug_and_path
-    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
