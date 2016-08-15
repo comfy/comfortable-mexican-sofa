@@ -8,11 +8,11 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   after_action :set_cache_control_header
   
   def render_css
-    render :text => @cms_layout.css, :content_type => 'text/css'
+    render :raw => @cms_layout.css, :content_type => 'text/css'
   end
 
   def render_js
-    render :text => @cms_layout.js, :content_type => 'application/javascript'
+    render :raw => @cms_layout.js, :content_type => 'application/javascript'
   end
 
 protected
