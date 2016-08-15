@@ -140,7 +140,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_public_authentication_custom
     with_routing do |routes|
       routes.draw do
-        get '/:format' => 'access_control_test/test_authentication/content#show', :path => "(*cms_path)"
+        get "(*cms_path)" => 'access_control_test/test_authentication/content#show'
       end
 
       get '/'
@@ -152,7 +152,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_public_authorization_custom
     with_routing do |routes|
       routes.draw do
-        get '/:format' => 'access_control_test/test_authorization/content#show', :path => "(*cms_path)"
+        get "(*cms_path)" => 'access_control_test/test_authorization/content#show'
       end
 
       get '/'
