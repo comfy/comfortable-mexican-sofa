@@ -48,7 +48,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
       :parent => comfy_cms_pages(:child),
       :layout => comfy_cms_layouts(:default)
     )
-    get :index, :site_id => @site
+    get :index, params: {:site_id => @site}
     assert_response :success
   end
 
@@ -280,7 +280,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_creation
     assert_difference 'Comfy::Cms::Page.count' do
       assert_difference 'Comfy::Cms::Block.count', 2 do
-        post :create, :site_id => @site, :page => {
+        post :create, params: {:site_id => @site, :page => {
           :label          => 'Test Page',
           :slug           => 'test-page',
           :parent_id      => comfy_cms_pages(:default).id,
@@ -291,7 +291,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
             { :identifier => 'default_field_text',
               :content    => 'title content' }
           ]
-        }, :commit => 'Create Page'
+        }, :commit => 'Create Page'}
         assert_response :redirect
         page = Comfy::Cms::Page.last
         assert_equal @site, page.site
@@ -303,7 +303,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_creation_failure
     assert_no_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Block.count'] do
-      post :create, :site_id => @site, :page => {
+      post :create, params: {:site_id => @site, :page => {
         :layout_id => comfy_cms_layouts(:default).id,
         :blocks_attributes => [
           { :identifier => 'default_page_text',
@@ -311,7 +311,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
           { :identifier => 'default_field_text',
             :content    => 'title content' }
         ]
-      }
+      }}
       assert_response :success
       page = assigns(:page)
       assert_equal 2, page.blocks.size
@@ -324,9 +324,9 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_update
     page = comfy_cms_pages(:default)
     assert_no_difference 'Comfy::Cms::Block.count' do
-      put :update, :site_id => page.site, :id => page, :page => {
+      put :update, params: {:site_id => page.site, :id => page, :page => {
         :label => 'Updated Label'
-      }
+      }}
       page.reload
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => page
@@ -338,7 +338,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_update_with_layout_change
     page = comfy_cms_pages(:default)
     assert_difference 'Comfy::Cms::Block.count', 2 do
-      put :update, :site_id => page.site, :id => page, :page => {
+      put :update, params: {:site_id => page.site, :id => page, :page => {
         :label      => 'Updated Label',
         :layout_id  => comfy_cms_layouts(:nested).id,
         :blocks_attributes => [
@@ -347,7 +347,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
           { :identifier => 'header',
             :content    => 'new_page_string_content' }
         ]
-      }
+      }}
       page.reload
       assert_response :redirect
       assert_redirected_to :action => :edit, :id => page
@@ -359,9 +359,9 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_update_failure
-    put :update, :site_id => @site, :id => comfy_cms_pages(:default), :page => {
+    put :update, params: {:site_id => @site, :id => comfy_cms_pages(:default), :page => {
       :label => ''
-    }
+    }}
     assert_response :success
     assert_template :edit
     assert assigns(:page)
@@ -371,7 +371,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
       assert_difference 'Comfy::Cms::Block.count', -2 do
-        delete :destroy, :site_id => @site, :id => comfy_cms_pages(:default)
+        delete :destroy, params: {:site_id => @site, :id => comfy_cms_pages(:default)}
         assert_response :redirect
         assert_redirected_to :action => :index
         assert_equal 'Page deleted', flash[:success]
@@ -381,13 +381,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_form_blocks
     site = @site
-    xhr :get, :form_blocks, :site_id => site, :id => comfy_cms_pages(:default), :layout_id => comfy_cms_layouts(:nested).id
+    get :form_blocks, xhr: true, params: {:site_id => site, :id => comfy_cms_pages(:default), :layout_id => comfy_cms_layouts(:nested).id}
     assert_response :success
     assert assigns(:page)
     assert_equal 2, assigns(:page).tags.size
     assert_template :form_blocks
 
-    xhr :get, :form_blocks, :site_id => site, :id => comfy_cms_pages(:default), :layout_id => comfy_cms_layouts(:default).id
+    get :form_blocks, xhr: true, params: { :site_id => site, :id => comfy_cms_pages(:default), :layout_id => comfy_cms_layouts(:default).id}
     assert_response :success
     assert assigns(:page)
     assert_equal 4, assigns(:page).tags.size
@@ -395,7 +395,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_form_blocks_for_new_page
-    xhr :get, :form_blocks, :site_id => @site, :id => 0, :layout_id => comfy_cms_layouts(:default).id
+    get :form_blocks, xhr: true, params: {:site_id => @site, :id => 0, :layout_id => comfy_cms_layouts(:default).id}
     assert_response :success
     assert assigns(:page)
     assert_equal 3, assigns(:page).tags.size
@@ -407,7 +407,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     layout  = comfy_cms_layouts(:default)
 
     assert_no_difference 'Comfy::Cms::Page.count' do
-      post :create, :site_id => site, :preview => 'Preview', :page => {
+      post :create, params: {:site_id => site, :preview => 'Preview', :page => {
         :label      => 'Test Page',
         :slug       => 'test-page',
         :parent_id  => comfy_cms_pages(:default).id,
@@ -416,7 +416,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
           { :identifier => 'default_page_text',
             :content    => 'preview content' }
         ]
-      }
+      }}
       assert_response :success
       assert_match /preview content/, response.body
       assert_equal 'text/html', response.content_type
@@ -431,13 +431,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_update_preview
     page = comfy_cms_pages(:default)
     assert_no_difference 'Comfy::Cms::Page.count' do
-      put :update, :site_id => page.site, :preview => 'Preview', :id => page, :page => {
+      put :update, params: {:site_id => page.site, :preview => 'Preview', :id => page, :page => {
         :label => 'Updated Label',
         :blocks_attributes => [
           { :identifier => 'default_page_text',
             :content    => 'preview content' }
         ]
-      }
+      }}
       assert_response :success
       assert_match /preview content/, response.body
       page.reload
@@ -456,7 +456,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
     assert_equal :en, I18n.locale
 
-    post :create, :site_id => site, :preview => 'Preview', :page => {
+    post :create, params: {:site_id => site, :preview => 'Preview', :page => {
       :label      => 'Test Page',
       :slug       => 'test-page',
       :parent_id  => comfy_cms_pages(:default).id,
@@ -465,7 +465,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
         { :identifier => 'default_page_text',
           :content    => 'preview content' }
       ]
-    }
+    }}
 
     assert_response :success
     assert_equal :de, I18n.locale
@@ -482,7 +482,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_get_edit_with_no_layout
     Comfy::Cms::Layout.destroy_all
     page = comfy_cms_pages(:default)
-    get :edit, :site_id => page.site, :id => page
+    get :edit, params: {:site_id => page.site, :id => page}
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(page.site)
     assert_equal 'No Layouts found. Please create one.', flash[:danger]
@@ -490,11 +490,11 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_toggle_branch
     page = comfy_cms_pages(:default)
-    xhr :get, :toggle_branch, :site_id => page.site, :id => page, :format => :js
+    get :toggle_branch, xhr: true, params: {:site_id => page.site, :id => page, :format => :js}
     assert_response :success
     assert_equal [page.id.to_s], session[:cms_page_tree]
 
-    xhr :get, :toggle_branch, :site_id => page.site, :id => page, :format => :js
+    get :toggle_branch, xhr: true, params: {:site_id => page.site, :id => page, :format => :js}
     assert_response :success
     assert_equal [], session[:cms_page_tree]
   end
@@ -510,7 +510,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     assert_equal 0, page_one.position
     assert_equal 1, page_two.position
 
-    put :reorder, :site_id => @site, :comfy_cms_page => [page_two.id, page_one.id]
+    put :reorder, params: {:site_id => @site, :comfy_cms_page => [page_two.id, page_one.id]}
     assert_response :success
     page_one.reload
     page_two.reload
