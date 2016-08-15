@@ -107,7 +107,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_field_rich_text
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:rich_text}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -115,7 +115,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_datetime
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:datetime}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-cms-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -123,7 +123,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_integer
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:integer}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='number'][name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -131,7 +131,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_string
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:string}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -139,7 +139,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_text
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode='text/html']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -147,7 +147,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_file
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page_file:test_label}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='file'][name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -155,7 +155,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_files
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page_files:test_label}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='file'][name='page[blocks_attributes][0][content][]'][multiple=multiple]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -164,7 +164,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_collection
     snippet = comfy_cms_snippets(:default)
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:collection:snippet:comfy/cms/snippet}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "select[name='page[blocks_attributes][0][content]']" do
       assert_select "option[value='']", :html => '---- Select Comfy/Cms/Snippet ----'
@@ -175,7 +175,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_rich_text
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:rich_text}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-rich-text]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -183,7 +183,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_page_markdown
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label:markdown}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode='text/x-markdown']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -191,7 +191,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_boolean_field
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:boolean}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][content]'][value='']"
@@ -200,7 +200,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_several_tag_fields
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:label_a}}{{cms:page:label_b}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='label_a']"
@@ -211,17 +211,17 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_get_new_with_crashy_tag
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:collection:label:invalid}}')
     assert_exception_raised do
-      get :new, :site_id => @site
+      get :new, params: {:site_id => @site}
     end
 
     Rails.stubs(:env => ActiveSupport::StringInquirer.new('production'))
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
   end
 
   def test_get_new_with_repeated_tag
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:page:test_label}}{{cms:page:test_label}}')
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -230,7 +230,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_as_child_page
-    get :new, :site_id => @site, :parent_id => comfy_cms_pages(:default)
+    get :new, params: {:site_id => @site, :parent_id => comfy_cms_pages(:default)}
     assert_response :success
     assert assigns(:page)
     assert_equal comfy_cms_pages(:default), assigns(:page).parent
@@ -239,7 +239,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_edit
     page = comfy_cms_pages(:default)
-    get :edit, :site_id => page.site, :id => page
+    get :edit, params: {:site_id => page.site, :id => page}
     assert_response :success
     assert assigns(:page)
     assert_template :edit
@@ -248,7 +248,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_failure
-    get :edit, :site_id => @site, :id => 'not_found'
+    get :edit, params: {:site_id => @site, :id => 'not_found'}
     assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal 'Page not found', flash[:danger]
@@ -257,7 +257,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_get_edit_with_blank_layout
     page = comfy_cms_pages(:default)
     page.update_columns(:layout_id => nil)
-    get :edit, :site_id => page.site, :id => page
+    get :edit, params: {:site_id => page.site, :id => page}
     assert_response :success
     assert assigns(:page)
     assert assigns(:page).layout
@@ -266,14 +266,14 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   def test_get_edit_with_non_english_locale
     site = @site
     site.update_columns(:locale => 'es')
-    get :edit, :site_id => site, :id => comfy_cms_pages(:default)
+    get :edit, params: {:site_id => site, :id => comfy_cms_pages(:default)}
     assert_response :success
   end
 
   def test_get_edit_with_layout_and_no_tags
     page = comfy_cms_pages(:default)
     page.layout.update_column(:content, '')
-    get :edit, :site_id => page.site, :id => page
+    get :edit, params: {:site_id => page.site, :id => page}
     assert_response :success
   end
 
@@ -473,7 +473,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_no_layout
     Comfy::Cms::Layout.destroy_all
-    get :new, :site_id => @site
+    get :new, params: {:site_id => @site}
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(@site)
     assert_equal 'No Layouts found. Please create one.', flash[:danger]
