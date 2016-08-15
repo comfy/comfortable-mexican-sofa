@@ -41,7 +41,7 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
 
   config.active_support.test_order = :random
 
-  if Rails.version >= '4.2'
+  if Rails.version >= '4.2' && Rails.version < '5'
     config.active_record.raise_in_transactional_callbacks = true
   end
 
