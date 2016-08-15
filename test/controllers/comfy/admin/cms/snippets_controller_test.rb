@@ -84,7 +84,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_creation_failure
     assert_no_difference 'Comfy::Cms::Snippet.count' do
-      post :create, :site_id => comfy_cms_sites(:default), :snippet => { }
+      post :create, params: {:site_id => comfy_cms_sites(:default), :snippet => { }}
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create snippet', flash[:danger]
@@ -107,9 +107,9 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_update_failure
     snippet = comfy_cms_snippets(:default)
-    put :update, :site_id => snippet.site, :id => snippet, :snippet => {
+    put :update, params: {:site_id => snippet.site, :id => snippet, :snippet => {
       :identifier => ''
-    }
+    }}
     assert_response :success
     assert_template :edit
     snippet.reload
