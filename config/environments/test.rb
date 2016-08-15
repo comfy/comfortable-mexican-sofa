@@ -13,7 +13,11 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_files = true
+  if config.respond_to(:public_file_server)
+    config.public_file_server.enabled = true
+  else
+    config.serve_static_files = true
+  end
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.
