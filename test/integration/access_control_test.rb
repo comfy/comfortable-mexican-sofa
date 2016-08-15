@@ -5,7 +5,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   module TestAuthentication
     module Authenticate
       def authenticate
-        render :text => 'Test Login Denied', :status => :unauthorized
+        render :plain => 'Test Login Denied', :status => :unauthorized
       end
     end
 
@@ -19,7 +19,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     module Authorize
       def authorize
         @authorization_vars = self.instance_variables
-        render :text => 'Test Access Denied', :status => :forbidden
+        render :plain => 'Test Access Denied', :status => :forbidden
       end
     end
 
