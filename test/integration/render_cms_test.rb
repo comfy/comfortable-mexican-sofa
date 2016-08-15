@@ -39,7 +39,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     def render_basic
       case params[:type]
       when 'text'
-        render :text => 'TestText'
+        render :plain => 'TestText'
       when 'update'
         render :update do |page|
           page.alert('rendered text')
