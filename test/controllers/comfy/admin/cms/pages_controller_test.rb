@@ -7,7 +7,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_index
-    get :index, :site_id => @site
+    get :index, params: {:site_id => @site}
     assert_response :success
     assert assigns(:pages)
     assert_template :index
@@ -15,7 +15,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_index_with_no_pages
     Comfy::Cms::Page.delete_all
-    get :index, :site_id => @site
+    get :index, params: {:site_id => @site}
     assert_response :redirect
     assert_redirected_to :action => :new
   end
@@ -27,7 +27,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
     )
     category.categorizations.create!(:categorized => comfy_cms_pages(:child))
 
-    get :index, :site_id => @site, :category => category.label
+    get :index, params: {:site_id => @site, :category => category.label}
     assert_response :success
     assert assigns(:pages)
     assert_equal 1, assigns(:pages).count
@@ -35,7 +35,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_category_invalid
-    get :index, :site_id => @site, :category => 'invalid'
+    get :index, params: {:site_id => @site, :category => 'invalid'}
     assert_response :success
     assert assigns(:pages)
     assert_equal 0, assigns(:pages).count
@@ -53,7 +53,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_links_with_redactor
-    get :index, :site_id => @site, :source => 'redactor'
+    get :index, params: {site_id: @site, source: 'redactor'}
     assert_response :success
 
     assert_equal [
@@ -64,7 +64,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new
-    get :new, :site_id => @site
+    get :new, params: {site_id: @site}
     assert_response :success
     assert assigns(:page)
     assert_equal comfy_cms_layouts(:default), assigns(:page).layout
@@ -75,7 +75,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_field_datetime
     comfy_cms_layouts(:default).update_columns(:content =>'{{cms:field:test_label:datetime}}')
-    get :new, :site_id => @site
+    get :new, params: {site_id: @site}
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]'][data-cms-datetime]"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -83,7 +83,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_field_integer
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:integer}}')
-    get :new, :site_id => @site
+    get :new, params: {site_id: @site}
     assert_response :success
     assert_select "input[type='number'][name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -91,7 +91,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_field_string
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:string}}')
-    get :new, :site_id => @site
+    get :new, params: {site_id: @site}
     assert_response :success
     assert_select "input[type='text'][name='page[blocks_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
@@ -99,7 +99,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionController::TestCase
 
   def test_get_new_with_field_text
     comfy_cms_layouts(:default).update_columns(:content => '{{cms:field:test_label:text}}')
-    get :new, :site_id => @site
+    get :new, params: {site_id: @site}
     assert_response :success
     assert_select "textarea[name='page[blocks_attributes][0][content]'][data-cms-cm-mode='text/html']"
     assert_select "input[type='hidden'][name='page[blocks_attributes][0][identifier]'][value='test_label']"
