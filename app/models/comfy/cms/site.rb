@@ -96,9 +96,12 @@ protected
     return unless is_mirrored_changed? && is_mirrored?
 
     [self, Comfy::Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
-      (site.layouts(:reload).roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
-      (site.pages(:reload).roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
-      site.snippets(:reload).map(&:sync_mirror)
+      site.layouts.reload
+      site.pages.reload
+      site.snippets.reload
+      (site.layouts.roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
+      (site.pages.roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
+      site.snippets.map(&:sync_mirror)
     end
   end
 
