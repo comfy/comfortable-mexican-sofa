@@ -8,11 +8,11 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   after_action :set_cache_control_header
   
   def render_css
-    render :raw => @cms_layout.css, :content_type => 'text/css'
+    render :body => @cms_layout.css, :content_type => 'text/css'
   end
 
   def render_js
-    render :raw => @cms_layout.js, :content_type => 'application/javascript'
+    render :body => @cms_layout.js, :content_type => 'application/javascript'
   end
 
 protected
@@ -20,7 +20,7 @@ protected
   def load_cms_layout
     @cms_layout = @cms_site.layouts.find_by_identifier!(params[:identifier])
   rescue ActiveRecord::RecordNotFound
-    render :nothing => true, :status => 404
+    render :body => nil, :status => 404
   end
   
   # null_session avoids cookies and flash updates
