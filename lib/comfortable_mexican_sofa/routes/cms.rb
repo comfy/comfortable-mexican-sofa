@@ -16,7 +16,7 @@ class ActionDispatch::Routing::Mapper
             :format       => :xml
         end
 
-        get '/:format' => 'content#show', :as => 'render_page', :path => "(*cms_path)"
+        get "(:cms_path)/:format" => 'content#show', :as => 'render_page'
       end
     end
   end
