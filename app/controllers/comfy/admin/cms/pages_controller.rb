@@ -4,6 +4,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :load_cms_page,     :only => [:edit, :update, :destroy]
   before_action :authorize
   before_action :preview_cms_page,  :only => [:create, :update]
+  after_action  :clear_cache, :only => :update
 
   def index
     return redirect_to :action => :new if site_has_no_pages?
@@ -71,6 +72,10 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
       ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
     end
     render :nothing => true
+  end
+
+  def clear_cache
+    expire_page controller: '/comfy/cms/content', action: 'show', cms_path: @page.full_path
   end
 
 protected
