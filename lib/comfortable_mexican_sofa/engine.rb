@@ -14,6 +14,7 @@ require 'coffee-rails'
 require 'codemirror-rails'
 require 'bootstrap-sass'
 require 'plupload-rails'
+require 'actionpack/page_caching'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine

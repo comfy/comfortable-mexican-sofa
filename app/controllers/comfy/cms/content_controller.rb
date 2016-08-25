@@ -1,5 +1,5 @@
 class Comfy::Cms::ContentController < Comfy::Cms::BaseController
-
+  caches_page :show
   # Authentication module must have `authenticate` method
   include ComfortableMexicanSofa.config.public_auth.to_s.constantize
 
