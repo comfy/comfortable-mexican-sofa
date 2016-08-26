@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :authorize
   before_action :preview_cms_page,  :only => [:create, :update]
   before_action :clear_cache, :only => [:destroy]
-  after_action  :clear_cache, :only => [:create, :update]
+  after_action  :clear_cache, :only => [:create, :update, :reorder]
 
   def index
     return redirect_to :action => :new if site_has_no_pages?
