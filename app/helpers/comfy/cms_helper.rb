@@ -81,5 +81,10 @@ module Comfy
         paginate collection, :theme => 'comfy'
       end
     end
+
+    def friendly_date(date)
+      date.in_time_zone(Time.zone.name).strftime('%b %e, %l:%M%p')
+    end
+
   end
 end
