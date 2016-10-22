@@ -108,7 +108,8 @@ protected
   end
 
   def file_params
-    unless (file = params[:file]).is_a?(Hash)
+    file = params[:file]
+    unless file.is_a?(Hash) || file.respond_to?(:to_unsafe_hash)
       params[:file] = { }
       params[:file][:file] = file
     end

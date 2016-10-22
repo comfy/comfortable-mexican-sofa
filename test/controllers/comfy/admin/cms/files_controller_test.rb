@@ -173,9 +173,8 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionController::TestCase
   end
 
   def test_update_failure
-    file = comfy_cms_files(:default)
     put :update, :site_id => @site, :id => @file, :file => {
-      :file => nil
+      :file_file_name => ""
     }
     assert_response :success
     assert_template :edit
