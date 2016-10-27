@@ -44,7 +44,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
     case params[:source]
     when 'plupload'
-      render :text => render_to_string(:partial => 'file', :object => @file)
+      render :body => render_to_string(:partial => 'file', :object => @file)
     when 'redactor'
       render :json => {:filelink => @file.file.url, :filename => @file.label}
     else
@@ -55,9 +55,9 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   rescue ActiveRecord::RecordInvalid
     case params[:source]
     when 'plupload'
-      render :text => @file.errors.full_messages.to_sentence, :status => :unprocessable_entity
+      render :body => @file.errors.full_messages.to_sentence, :status => :unprocessable_entity
     when 'redactor'
-      render :nothing => true, :status => :unprocessable_entity
+      render body: nil, :status => :unprocessable_entity
     else
       flash.now[:danger] = I18n.t('comfy.admin.cms.files.creation_failure')
       render :action => :new
@@ -91,7 +91,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         cms_file.update_column(:position, index)
       end
     end
-    render :nothing => true
+    head :ok
   end
 
 protected

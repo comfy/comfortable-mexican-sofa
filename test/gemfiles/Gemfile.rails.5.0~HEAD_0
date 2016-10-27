@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails',            '~> 5.0.0'
 gem 'bootstrap_form',   '>= 2.2.0'
 gem 'active_link_to',   '>= 1.0.0'
-gem 'paperclip',        '>= 3.4.0', '< 5'
+gem 'paperclip',        '>= 3.4.0'
 gem 'kramdown',         '>= 1.0.0'
 gem 'jquery-rails',     '>= 3.0.0'
 gem 'jquery-ui-rails',  '>= 5.0.0'
@@ -19,4 +19,5 @@ group :test do
   gem 'sqlite3'
   gem 'coveralls',  :require => false
   gem 'mocha',      :require => false
+  gem 'rails-controller-testing'
 end

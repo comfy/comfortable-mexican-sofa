@@ -10,13 +10,13 @@ class Comfy::Admin::Cms::CategoriesController < Comfy::Admin::Cms::BaseControlle
   def create
     @category = @site.categories.create!(category_params)
   rescue ActiveRecord::RecordInvalid
-    render :nothing => true
+    head :ok
   end
 
   def update
     @category.update_attributes!(category_params)
   rescue ActiveRecord::RecordInvalid
-    render :nothing => true
+    head :ok
   end
 
   def destroy
@@ -28,7 +28,7 @@ protected
   def load_category
     @category = @site.categories.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render :nothing => true
+    head :ok
   end
 
   def category_params

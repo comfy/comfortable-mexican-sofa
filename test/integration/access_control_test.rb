@@ -5,7 +5,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   module TestAuthentication
     module Authenticate
       def authenticate
-        render :text => 'Test Login Denied', :status => :unauthorized
+        render :plain => 'Test Login Denied', :status => :unauthorized
       end
     end
 
@@ -19,7 +19,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     module Authorize
       def authorize
         @authorization_vars = self.instance_variables
-        render :text => 'Test Access Denied', :status => :forbidden
+        render :plain => 'Test Access Denied', :status => :forbidden
       end
     end
 
@@ -140,7 +140,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_public_authentication_custom
     with_routing do |routes|
       routes.draw do
-        get '/' => 'access_control_test/test_authentication/content#show', :path => "(*cms_path)"
+        get "(*cms_path)" => 'access_control_test/test_authentication/content#show'
       end
 
       get '/'
@@ -152,7 +152,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_public_authorization_custom
     with_routing do |routes|
       routes.draw do
-        get '/' => 'access_control_test/test_authorization/content#show', :path => "(*cms_path)"
+        get "(*cms_path)" => 'access_control_test/test_authorization/content#show'
       end
 
       get '/'
@@ -160,5 +160,4 @@ class AccessControlTest < ActionDispatch::IntegrationTest
       assert_equal 'Test Access Denied', response.body
     end
   end
-
 end
