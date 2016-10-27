@@ -2,11 +2,11 @@ window.CMS ||= {}
 
 window.CMS.code_mirror_instances = [ ]
 
-$(document).on 'page:load ready', ->
-  window.CMS.current_path = window.location.pathname
-  CMS.init()
+$ -> window.CMS.init()
+$(document).on 'page:load', -> window.CMS.init()
 
 window.CMS.init = ->
+  window.CMS.current_path = window.location.pathname
   CMS.set_iframe_layout()
   CMS.slugify()
   CMS.wysiwyg()
