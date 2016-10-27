@@ -10,7 +10,7 @@
   - when ::Comfy::Cms::Snippet
     - object.mirrors.collect{|m| [m.site.label, edit_comfy_admin_cms_site_snippet_path(m.site, m)]}
   - else
-    - (::Comfy::Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(params.merge(:site_id => s))]}
+    - (::Comfy::Cms::Site.mirrored - [@site]).collect{|s| [s.label, url_for(params.permit!.merge(:site_id => s))]}
 
 - options = [[@site.label, request.fullpath]] + options
 

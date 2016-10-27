@@ -103,7 +103,7 @@ class CmsFileTest < ActiveSupport::TestCase
     assert file.block.blank?
     assert_equal 1, Comfy::Cms::File.not_page_file.count
     
-    file.update_column(:block_id, comfy_cms_blocks(:default_field_text))
+    file.update_attribute(:block, comfy_cms_blocks(:default_field_text))
     assert_equal 0, Comfy::Cms::File.not_page_file.count
   end
   

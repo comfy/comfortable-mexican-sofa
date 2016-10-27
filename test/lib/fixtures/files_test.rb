@@ -83,7 +83,7 @@ class FixtureFilesTest < ActiveSupport::TestCase
   end
 
   def test_export
-    comfy_cms_files(:default).update_column(:block_id, comfy_cms_blocks(:default_field_text))
+    comfy_cms_files(:default).update_attribute(:block, comfy_cms_blocks(:default_field_text))
 
     host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
     attr_path = File.join(host_path, 'files/_sample.jpg.yml')

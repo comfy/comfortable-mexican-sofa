@@ -14,13 +14,19 @@ gemfile:
   - test/gemfiles/Gemfile.rails.4.0
   - test/gemfiles/Gemfile.rails.4.1
   - test/gemfiles/Gemfile.rails.4.2
+  - test/gemfiles/Gemfile.rails.5.0
 branches:
   only:
     - master
 matrix:
   fast_finish: true
   include:
-    - rvm: 2.2.0
+    - rvm: 2.3.0
       gemfile: test/gemfiles/Gemfile.rails.master
+  exclude:
+    - rvm: 2.0.0
+      gemfile: test/gemfiles/Gemfile.rails.5.0
+    - rvm: 2.1.8
+      gemfile: test/gemfiles/Gemfile.rails.5.0
   allow_failures:
     - gemfile: test/gemfiles/Gemfile.rails.master
