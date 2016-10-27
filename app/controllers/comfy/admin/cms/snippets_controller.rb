@@ -45,7 +45,7 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
     (params[:comfy_cms_snippet] || []).each_with_index do |id, index|
       ::Comfy::Cms::Snippet.where(:id => id).update_all(:position => index)
     end
-    render :nothing => true
+    head :ok
   end
 
 protected

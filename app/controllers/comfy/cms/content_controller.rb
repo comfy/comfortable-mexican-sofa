@@ -39,7 +39,7 @@ protected
               :status       => status,
               :content_type => mime_type
     else
-      render :text => I18n.t('comfy.cms.content.layout_not_found'), :status => 404
+      render :plain => I18n.t('comfy.cms.content.layout_not_found'), :status => 404
     end
   end
 

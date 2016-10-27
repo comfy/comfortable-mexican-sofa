@@ -129,7 +129,12 @@ class ActionDispatch::IntegrationTest
   # Attaching http_auth stuff with request. Example use:
   #   http_auth :get, '/cms-admin/pages'
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
-    send(method, path, options, {'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"})
+    options.merge!({
+      headers: {
+        'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"
+      }
+    })
+    send(method, path, options)
   end
 
   # Overriding helper method as it doesn't really work for integration tests by default
