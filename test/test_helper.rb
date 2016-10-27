@@ -130,7 +130,7 @@ class ActionDispatch::IntegrationTest
   #   http_auth :get, '/cms-admin/pages'
   def http_auth(method, path, options = {}, username = 'username', password = 'password')
     options.merge!({
-      headers: {
+      :headers => {
         'HTTP_AUTHORIZATION' => "Basic #{Base64.encode64(username + ':' + password)}"
       }
     })
