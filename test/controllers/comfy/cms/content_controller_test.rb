@@ -3,7 +3,7 @@ require_relative '../../../test_helper'
 class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show
-    get :show, params: {:cms_path => ''}
+    get :show, :params => {:cms_path => ''}
     assert_equal comfy_cms_sites(:default), assigns(:cms_site)
     assert_equal comfy_cms_layouts(:default), assigns(:cms_layout)
     assert_equal comfy_cms_pages(:default), assigns(:cms_page)
@@ -27,7 +27,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_with_locale
     comfy_cms_sites(:default).update_column(:locale, 'fr')
-    get :show, params: {:cms_path => ''}
+    get :show, :params => {:cms_path => ''}
     assert_response :success
 
     assert_equal :fr, assigns(:locale)
@@ -36,13 +36,13 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_default_html
     request.headers["Accept"] = "*/*"
-    get :show, params: {:cms_path => ''}
+    get :show, :params => {:cms_path => ''}
     assert_response :success
     assert_equal 'text/html', response.content_type
   end
 
   def test_show_as_json
-    get :show, params: {:cms_path => '', :format => 'json'}
+    get :show, :params => {:cms_path => '', :format => 'json'}
     assert_response :success
     assert_equal 'application/json', response.content_type
 
@@ -91,14 +91,14 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
           :content    => 'application/rss+xml' }
       ]
     )
-    get :show, params: {:cms_path => 'rss'}
+    get :show, :params => {:cms_path => 'rss'}
     assert_response :success
     assert_equal 'application/rss+xml', response.content_type
   end
 
   def test_show_with_app_layout
     comfy_cms_layouts(:default).update_columns(:app_layout => 'comfy/admin/cms')
-    get :show, params: {:cms_path => ''}
+    get :show, :params => {:cms_path => ''}
     assert_response :success
     assert assigns(:cms_page)
     assert_select "body.c-comfy-cms-content.a-show"
@@ -106,7 +106,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_with_xhr
     comfy_cms_layouts(:default).update_columns(:app_layout => 'cms_admin')
-    get :show, xhr: true, params: {:cms_path => ''}
+    get :show, :xhr => true, :params => {:cms_path => ''}
     assert_response :success
     assert assigns(:cms_page)
     assert_no_select "body.c-comfy-cms-content.a-show"
@@ -114,7 +114,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
   def test_show_not_found
     assert_exception_raised ActionController::RoutingError, 'Page Not Found at: "doesnotexist"' do
-      get :show, params: {:cms_path => 'doesnotexist'}
+      get :show, :params => {:cms_path => 'doesnotexist'}
     end
   end
 
@@ -132,7 +132,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     )
     assert_equal '/404', page.full_path
     assert page.is_published?
-    get :show, params: {:cms_path => 'doesnotexist'}
+    get :show, :params => {:cms_path => 'doesnotexist'}
     assert_response 404
     assert assigns(:cms_page)
     assert_match /custom 404 page content/, response.body
@@ -142,14 +142,14 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     Comfy::Cms::Site.destroy_all
 
     assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
-      get :show, params: {:cms_path => ''}
+      get :show, :params => {:cms_path => ''}
     end
   end
 
   def test_show_with_no_layout
     Comfy::Cms::Layout.destroy_all
 
-    get :show, params: {:cms_path => ''}
+    get :show, :params => {:cms_path => ''}
     assert_response 404
     assert_equal 'Layout Not Found', response.body
   end
@@ -157,7 +157,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
   def test_show_with_redirect
     comfy_cms_pages(:child).update_columns(:target_page_id => comfy_cms_pages(:default).id)
     assert_equal comfy_cms_pages(:default), comfy_cms_pages(:child).target_page
-    get :show, params: {:cms_path => 'child-page'}
+    get :show, :params => {:cms_path => 'child-page'}
     assert_response :redirect
     assert_redirected_to comfy_cms_pages(:default).full_path
   end
@@ -166,7 +166,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     comfy_cms_sites(:default).update_column(:path, '/test-site-path')
     comfy_cms_pages(:child).update_columns(:target_page_id => comfy_cms_pages(:default).id)
     assert_equal comfy_cms_pages(:default), comfy_cms_pages(:child).target_page
-    get :show, params: {:cms_path => '/test-site-path/child-page'}
+    get :show, :params => {:cms_path => '/test-site-path/child-page'}
     assert_response :redirect
     assert_redirected_to "/test-site-path#{comfy_cms_pages(:default).full_path}"
   end
@@ -176,7 +176,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     page.update_columns(:is_published => false)
 
     assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
-      get :show, params: {:cms_path => ''}
+      get :show, :params => {:cms_path => ''}
     end
   end
 
@@ -194,7 +194,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
           :content    => 'text <%= 2 + 2 %> text' }
       ]
     )
-    get :show, params: {:cms_path => 'irb'}
+    get :show, :params => {:cms_path => 'irb'}
     assert_response :success
     assert_match "text &lt;%= 2 + 2 %&gt; text", response.body
   end
@@ -213,7 +213,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
           :content    => 'text <%= 2 + 2 %> text' }
       ]
     )
-    get :show, params: {:cms_path => 'irb'}
+    get :show, :params => {:cms_path => 'irb'}
     assert_response :success
     assert_match "text 4 text", response.body
   end
@@ -228,7 +228,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     site = comfy_cms_sites(:default)
     site.update_columns(:path => 'en')
 
-    get :render_sitemap, params: {:cms_path => site.path, :format => :xml}
+    get :render_sitemap, :params => {:cms_path => site.path, :format => :xml}
     assert_response :success
     assert_equal comfy_cms_sites(:default), assigns(:cms_site)
     assert_match '<loc>http://test.host/en/child-page</loc>', response.body
@@ -239,7 +239,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     site.update_columns(:path => 'en')
 
     assert_exception_raised ActionController::RoutingError, 'Site Not Found' do
-      get :render_sitemap, params: {:cms_path => 'fr', :format => :xml}
+      get :render_sitemap, :params => {:cms_path => 'fr', :format => :xml}
     end
   end
 

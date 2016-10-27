@@ -3,32 +3,32 @@ require_relative '../../../../test_helper'
 class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   
   def test_get_index_for_layouts
-    get :index, params: {:site_id => comfy_cms_sites(:default), :layout_id => comfy_cms_layouts(:default)}
+    get :index, :params => {:site_id => comfy_cms_sites(:default), :layout_id => comfy_cms_layouts(:default)}
     assert_response :redirect
     assert_redirected_to :action => :show, :id => comfy_cms_revisions(:layout)
   end
   
   def test_get_index_for_pages
-    get :index, params: {:site_id => comfy_cms_sites(:default), :page_id => comfy_cms_pages(:default)}
+    get :index, :params => {:site_id => comfy_cms_sites(:default), :page_id => comfy_cms_pages(:default)}
     assert_response :redirect
     assert_redirected_to :action => :show, :id => comfy_cms_revisions(:page)
   end
   
   def test_get_index_for_snippets
-    get :index, params: {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default)}
+    get :index, :params => {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default)}
     assert_response :redirect
     assert_redirected_to :action => :show, :id => comfy_cms_revisions(:snippet)
   end
   
   def test_get_index_for_snippets_with_no_revisions
     Comfy::Cms::Revision.delete_all
-    get :index, params: {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default)}
+    get :index, :params => {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default)}
     assert_response :redirect
     assert_redirected_to :action => :show, :id => 0
   end
   
   def test_get_show_for_layout
-    get :show, params: {:site_id => comfy_cms_sites(:default), :layout_id => comfy_cms_layouts(:default), :id => comfy_cms_revisions(:layout)}
+    get :show, :params => {:site_id => comfy_cms_sites(:default), :layout_id => comfy_cms_layouts(:default), :id => comfy_cms_revisions(:layout)}
     assert_response :success
     assert assigns(:record)
     assert assigns(:revision)
@@ -37,7 +37,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   end
   
   def test_get_show_for_page
-    get :show, params: {:site_id => comfy_cms_sites(:default), :page_id => comfy_cms_pages(:default), :id => comfy_cms_revisions(:page)}
+    get :show, :params => {:site_id => comfy_cms_sites(:default), :page_id => comfy_cms_pages(:default), :id => comfy_cms_revisions(:page)}
     assert_response :success
     assert assigns(:record)
     assert assigns(:revision)
@@ -46,7 +46,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   end
   
   def test_get_show_for_snippet
-    get :show, params: {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default), :id => comfy_cms_revisions(:snippet)}
+    get :show, :params => {:site_id => comfy_cms_sites(:default), :snippet_id => comfy_cms_snippets(:default), :id => comfy_cms_revisions(:snippet)}
     assert_response :success
     assert assigns(:record)
     assert assigns(:revision)
@@ -55,7 +55,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   end
   
   def test_get_show_for_bad_type
-    get :show, params: {:site_id => comfy_cms_sites(:default), :snippet_id => 'invalid', :id => comfy_cms_revisions(:snippet)}
+    get :show, :params => {:site_id => comfy_cms_sites(:default), :snippet_id => 'invalid', :id => comfy_cms_revisions(:snippet)}
     assert_response :redirect
     assert_redirected_to comfy_admin_cms_path
     assert_equal 'Record Not Found', flash[:danger]
@@ -63,7 +63,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   
   def test_get_show_for_layout_failure
     site = comfy_cms_sites(:default)
-    get :show, params: {:site_id => site, :layout_id => comfy_cms_layouts(:default), :id => 'invalid'}
+    get :show, :params => {:site_id => site, :layout_id => comfy_cms_layouts(:default), :id => 'invalid'}
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_layout_path(site, assigns(:record))
@@ -72,7 +72,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   
   def test_get_show_for_page_failure
     site = comfy_cms_sites(:default)
-    get :show, params: {:site_id => site, :page_id => comfy_cms_pages(:default), :id => 'invalid'}
+    get :show, :params => {:site_id => site, :page_id => comfy_cms_pages(:default), :id => 'invalid'}
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_page_path(site, assigns(:record))
@@ -81,7 +81,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
   
   def test_get_show_for_snippet_failure
     site = comfy_cms_sites(:default)
-    get :show, params: {:site_id => site, :snippet_id => comfy_cms_snippets(:default), :id => 'invalid'}
+    get :show, :params => {:site_id => site, :snippet_id => comfy_cms_snippets(:default), :id => 'invalid'}
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_snippet_path(site, assigns(:record))
@@ -92,7 +92,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     layout = comfy_cms_layouts(:default)
     
     assert_difference 'layout.revisions.count' do 
-      put :revert, params: {:site_id => comfy_cms_sites(:default), :layout_id => layout, :id => comfy_cms_revisions(:layout)}
+      put :revert, :params => {:site_id => comfy_cms_sites(:default), :layout_id => layout, :id => comfy_cms_revisions(:layout)}
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_layout_path(layout.site, layout)
       assert_equal 'Content Reverted', flash[:success]
@@ -108,7 +108,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     page = comfy_cms_pages(:default)
     
     assert_difference 'page.revisions.count' do
-      put :revert, params: {:site_id => comfy_cms_sites(:default), :page_id => page, :id => comfy_cms_revisions(:page)}
+      put :revert, :params => {:site_id => comfy_cms_sites(:default), :page_id => page, :id => comfy_cms_revisions(:page)}
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_path(page.site, page)
       assert_equal 'Content Reverted', flash[:success]
@@ -125,7 +125,7 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionController::TestCase
     snippet = comfy_cms_snippets(:default)
     
     assert_difference 'snippet.revisions.count' do
-      put :revert, params: {:site_id => comfy_cms_sites(:default), :snippet_id => snippet, :id => comfy_cms_revisions(:snippet)}
+      put :revert, :params => {:site_id => comfy_cms_sites(:default), :snippet_id => snippet, :id => comfy_cms_revisions(:snippet)}
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_snippet_path(snippet.site, snippet)
       assert_equal 'Content Reverted', flash[:success]
