@@ -19,4 +19,5 @@ group :test do
   gem 'activerecord-jdbcsqlite3-adapter', :platform => :jruby
   gem 'mocha',      :require => false
   gem 'coveralls',  :require => false
+  gem 'rails-controller-testing'
 end

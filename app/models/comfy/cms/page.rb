@@ -118,8 +118,7 @@ protected
   def sync_child_full_paths!
     return unless full_path_changed?
     children.each do |p|
-      p.update_column(:full_path, p.send(:assign_full_path))
-      p.send(:sync_child_full_paths!)
+      p.update_attribute(:full_path, p.send(:assign_full_path))
     end
   end
 
