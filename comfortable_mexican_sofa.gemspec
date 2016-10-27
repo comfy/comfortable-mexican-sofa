@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ["Oleg Khabarov"]
   s.email         = ["oleg@khabarov.ca"]
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
-  s.summary       = "Rails 4 CMS Engine"
-  s.description   = "ComfortableMexicanSofa is a powerful Rails 4 CMS Engine"
+  s.summary       = "Rails 4/5 CMS Engine"
+  s.description   = "ComfortableMexicanSofa is a powerful Rails 4/5 CMS Engine"
   s.license       = 'MIT'
 
   s.files         = `git ls-files`.split("\n")

@@ -18,7 +18,6 @@ gemfile:
 branches:
   only:
     - master
-    - "rails5-passing-tests"
 matrix:
   fast_finish: true
   include:
