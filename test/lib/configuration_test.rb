@@ -27,6 +27,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal nil, config.allowed_partials
     assert_equal nil, config.allowed_templates
     assert_equal nil, config.hostname_aliases
+    assert_equal true, config.rescue_from_404
   end
 
   def test_initialization_overrides

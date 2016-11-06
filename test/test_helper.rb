@@ -52,6 +52,7 @@ class ActiveSupport::TestCase
       config.allowed_templates    = nil
       config.hostname_aliases     = nil
       config.public_cms_path      = nil
+      config.rescue_from_404      = true
     end
     ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'username'
     ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'password'
