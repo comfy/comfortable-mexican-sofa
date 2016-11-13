@@ -1,0 +1,243 @@
+# encoding: utf-8
+tr:
+  activerecord:
+    models:
+      comfy/cms/site: Site
+      comfy/cms/layout: Şablon
+      comfy/cms/page: Sayfa
+      comfy/cms/snippet: Pasaj
+      comfy/cms/file: Dosya
+
+    attributes:
+      comfy/cms/site:
+        identifier: Tanımlayıcı
+        label: Etiket
+        hostname: Sunucu Adı
+        path: Yol
+        locale: Dil
+        is_mirrored: Mirrored
+      comfy/cms/layout:
+        identifier: Tanımlayıcı
+        label: Şablon Adı
+        app_layout: Uygulama Şablonu
+        parent_id: Üst Şablon
+        content: İçerik
+        css: Stylesheet
+        js: Javascript
+      comfy/cms/page:
+        label: Etiket
+        layout_id: Şablon
+        slug: Slug
+        full_path: Tam Yol
+        parent_id: Üst
+        target_page_id: Sayfaya Yönlendir
+        content: İçerik
+        is_published: Yayında mı?
+      comfy/cms/file:
+        label: Etiket
+        file: Dosya
+        description: Açıklama
+      comfy/cms/snippet:
+        label: Etiket
+        identifier: Tanımlayıcı
+        content: İçerik
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Site Bulunamadı
+        layout_not_found: Şablon Bulunamadı
+        page_not_found: Sayfa Bulunamadı
+
+    admin:
+      cms:
+        base:
+          site_not_found: Site Bulunamadı
+          fixtures_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
+
+          sites: Siteler
+          layouts: Şablonlar
+          pages: Sayfalar
+          snippets: Pasajlar
+          files: Dosyalar
+
+        sites:
+          created: Site oluşturuldu
+          creation_failure: Site oluşturulamadı
+          updated: Site güncellendi
+          update_failure: Site güncellenemedi
+          deleted: Site silindi
+          not_found: Site bulunamadı
+
+          index:
+            title: Siteler
+            new_link: Yeni Site Oluştur
+            select: Site Seç
+            edit: Düzenle
+            delete: Sil
+            are_you_sure: Bu siteyi silmek istediğinizden emin misiniz?
+          new:
+            title: Yeni Site
+          edit:
+            title: Siteyi Düzenle
+          form:
+            create: Siteyi Oluştur
+            cancel: İptal
+            update: Siteyi Güncelle
+            is_mirrored: Mirrored
+
+        layouts:
+          created: Şablon oluşturuldu
+          creation_failure: Şablon oluşturulamadı
+          updated: Şablon güncellendi
+          update_failure: Şablon güncellenemedi
+          deleted: Şablon silindi
+          not_found: Şablon bulunamadı
+
+          index:
+            title: Şablonlar
+            new_link: Yeni Şablon Oluştur
+          index_branch:
+            add_child_layout: Alt Şablon Oluştur
+            edit: Düzenle
+            delete: Sil
+            are_you_sure: Emin misin?
+          new:
+            title: Yeni Şablon
+          edit:
+            title: Şablon Düzenleniyor
+            revision: &revision
+              zero: Revize Yok
+              one: '%{count} Revizyon'
+              few: '%{count} Revizyon'
+              many: '%{count} Revizyon'
+              other: '%{count} Revizyon'
+          form:
+            select_parent_layout: Üst Şablon Seç
+            select_app_layout: Uygulama Şablonu Seç
+            create: Şablon Oluştur
+            cancel: İptal
+            update: Şablonu Güncelle
+
+        pages:
+          created: Sayfa oluşturuldu
+          creation_failure: Sayfa oluşturulamadı
+          updated: Sayfa güncellendi
+          update_failure: Sayfa güncellenemedi
+          deleted: Sayfa silindi
+          not_found: Sayfa bulunamadı
+          layout_not_found: Şablon bulunamadı. Lütfen oluşturun.
+
+          index:
+            title: Sayfalar
+            new_link: Yeni Sayfa Oluştur
+          index_branch:
+            toggle: Toggle
+            add_child_page: Alt Sayfa Oluştur
+            edit: Düzenle
+            delete: Sil
+            are_you_sure: Emin misin?
+          new:
+            title: Yeni Sayfa
+          edit:
+            title: Sayfa Düzenleniyor
+            revision:
+              <<: *revision
+          form:
+            select_target_page: Yönlendirme Yok
+            preview: Önizle
+            create: Sayfa Oluştur
+            cancel: İptal
+            update: Sayfayı Güncelle
+            is_published: Yayınlandı
+            choose_link: Sayfa Seç...
+          form_blocks:
+            no_tags: |-
+              Şablon etiket içermiyor.<br/>
+              Lütfen bir etiket ekleyin. Örnek: <code>{{cms:page:content}}</code>
+
+        snippets:
+          created: Pasaj oluşturuldu
+          creation_failure: Pasaj oluşturulamadı
+          updated: Pasaj güncellendi
+          update_failure: Pasaj güncellenemedi
+          deleted: Pasaj silindi
+          not_found: Pasaj bulunamadı
+
+          index:
+            title: Pasajlar
+            new_link: Yeni Pasaj Oluştur
+            edit: Düzenle
+            delete: Sil
+            are_you_sure: Emin misin?
+          new:
+            title: Yeni Pasaj
+          edit:
+            title: Pasaj Düzenleniyor
+            revision:
+              <<: *revision
+          form:
+            create: Pasaj Oluştur
+            cancel: İptal
+            update: Pasajı Güncelle
+
+        revisions:
+          reverted: İçerik Geri Alındı
+          record_not_found: Kayıt bulunamadı
+          not_found: Revizyon bulunamadı
+
+          show:
+            title: Revizeler
+            revision: Revizyon
+            full_path: Tam Yol
+            slug: Slug
+            update: Bu revizyona Güncelle
+            content: İçerik
+            changes: Değişiklikler
+            previous: Önceki
+            current: Şimdiki
+
+        files:
+          created: Dosyalar yüklendi
+          creation_failure: Dosyalar yüklenemedi
+          updated: Dosya güncellendi
+          update_failure: Dosya güncellenemedi
+          deleted: Dosya silindi
+          not_found: Dosya bulunamadı
+
+          index:
+            title: Dosyalar
+            new_link: Yeni Dosya Yükle
+            button: Dosyaları Yükle
+          new:
+            title: Yeni Dosya
+          edit:
+            title: Dosyayı Düzenle
+          form:
+            current_file: Şimdiki Dosya
+            create: Dosya Yükle
+            cancel: İptal
+            update: Dosyayı Güncelle
+            delete: Dosyayı Sil
+            are_you_sure: Emin misin?
+          page_form:
+            are_you_sure: Emin misin?
+          file:
+            edit: Düzenle
+            delete: Sil
+            are_you_sure: Emin misin?
+
+        categories:
+          index:
+            label: Kategoriler
+            edit: Düzenle
+            done: Tamam
+            all: Hepsi
+            add: Ekle
+            add_placeholder: Kategori Ekle
+          show:
+            are_you_sure: Emin misin?
+          edit:
+            save: Kaydet
+          form:
+            label: Kategoriler
