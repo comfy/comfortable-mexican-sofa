@@ -10,7 +10,7 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   end
   
   def test_get_edit_failure
-    get :edit, :xhr => true, :site_id => comfy_cms_sites(:default), :id => 'invalid'
+    xhr :get, :edit, :site_id => comfy_cms_sites(:default), :id => 'invalid'
     assert_response :success
     assert response.body.blank?
   end
