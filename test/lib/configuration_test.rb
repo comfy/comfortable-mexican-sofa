@@ -19,14 +19,14 @@ class ConfigurationTest < ActiveSupport::TestCase
       'en'    => 'English',
       'es'    => 'Español'
     }), config.locales
-    assert_equal nil, config.admin_locale
+    assert_nil config.admin_locale
     assert_equal ({}), config.upload_file_options
-    assert_equal nil, config.admin_cache_sweeper
+    assert_nil config.admin_cache_sweeper
     assert_equal false, config.allow_irb
-    assert_equal nil, config.allowed_helpers
-    assert_equal nil, config.allowed_partials
-    assert_equal nil, config.allowed_templates
-    assert_equal nil, config.hostname_aliases
+    assert_nil config.allowed_helpers
+    assert_nil config.allowed_partials
+    assert_nil config.allowed_templates
+    assert_nil config.hostname_aliases
   end
 
   def test_initialization_overrides

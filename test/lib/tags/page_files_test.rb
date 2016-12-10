@@ -8,8 +8,8 @@ class PageFilesTagTest < ActiveSupport::TestCase
     )
     assert 'url', tag.type
     assert_equal 'label', tag.identifier
-    assert_equal nil, tag.namespace
-    assert_equal nil, tag.dimensions
+    assert_nil tag.namespace
+    assert_nil tag.dimensions
 
     assert tag = ComfortableMexicanSofa::Tag::PageFiles.initialize_tag(
       comfy_cms_pages(:default), '{{ cms:page_files:label:partial }}'

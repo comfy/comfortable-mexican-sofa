@@ -31,7 +31,7 @@ class CmsBlockTest < ActiveSupport::TestCase
     block = Comfy::Cms::Block.new
 
     block.content = fixture_file_upload('files/image.jpg', 'image/jpeg')
-    assert_equal nil, block.content
+    assert_nil block.content
     assert_equal 1, block.temp_files.size
   end
 
@@ -125,7 +125,7 @@ class CmsBlockTest < ActiveSupport::TestCase
       assert_equal 1, page.blocks.count
       block = page.blocks.first
       assert_equal 'file', block.identifier
-      assert_equal nil, block.content
+      assert_nil block.content
       assert_equal 1, block.files.count
       assert_equal 'image.jpg', block.files.first.file_file_name
 
@@ -173,7 +173,7 @@ class CmsBlockTest < ActiveSupport::TestCase
         assert_equal 1, page.blocks.count
         block = page.blocks.first
         assert_equal 'files', block.identifier
-        assert_equal nil, block.content
+        assert_nil block.content
         assert_equal 2, block.files.count
         assert_equal ['image.jpg', 'image.gif'], block.files.collect(&:file_file_name)
       end

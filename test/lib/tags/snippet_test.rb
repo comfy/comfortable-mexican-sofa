@@ -39,7 +39,7 @@ class SnippetTagTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Tag::Snippet.initialize_tag(
       comfy_cms_pages(:default), "{{cms:snippet:doesnot_exist}}"
     )
-    assert_equal nil, tag.content
+    assert_nil tag.content
     assert_equal '', tag.render
   end
 end

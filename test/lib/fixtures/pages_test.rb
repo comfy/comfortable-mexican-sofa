@@ -90,7 +90,7 @@ class FixturePagesTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
 
-    assert_equal nil, page.slug
+    assert_nil page.slug
     assert_equal 'Test', page.label
     block = page.blocks.where(:identifier => 'content').first
     assert_equal 'test content', block.content

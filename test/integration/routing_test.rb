@@ -8,7 +8,7 @@ class RoutingIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_cms_public_prefix
     
-    assert_equal nil, ComfortableMexicanSofa.config.public_cms_path
+    assert_nil ComfortableMexicanSofa.config.public_cms_path
     
     Rails.application.routes.draw do
       comfy_route :cms, :path => '/custom'

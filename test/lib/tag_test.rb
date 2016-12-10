@@ -6,55 +6,55 @@ class TagTest < ActiveSupport::TestCase
     regex = ComfortableMexicanSofa::Tag::TOKENIZER_REGEX
     
     tokens = 'text { text } text'.scan(regex)
-    assert_equal nil,                   tokens[0][0]
+    assert_nil                          tokens[0][0]
     assert_equal 'text { text } text',  tokens[0][1]
     
     tokens = 'content<{{cms:some_tag content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal nil,                     tokens[1][0]
+    assert_nil                            tokens[1][0]
     assert_equal '{{',                    tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[2][0]
     assert_equal 'cms:some_tag content',  tokens[2][1]
     
     tokens = 'content<{{cms some_tag}}>content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
-    assert_equal nil,                     tokens[1][0]
+    assert_nil                            tokens[1][0]
     assert_equal '{{',                    tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[2][0]
     assert_equal 'cms some_tag}}>content',tokens[2][1]
     
     tokens = 'content<{{cms:some_tag}}>content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
     assert_equal '{{cms:some_tag}}',      tokens[1][0]
-    assert_equal nil,                     tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[1][1]
+    assert_nil                            tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
     tokens = 'content<{{cms:type:label}}>content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
     assert_equal '{{cms:type:label}}',    tokens[1][0]
-    assert_equal nil,                     tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[1][1]
+    assert_nil                            tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
     tokens = 'content<{{cms:type:label }}>content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
     assert_equal '{{cms:type:label }}',   tokens[1][0]
-    assert_equal nil,                     tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[1][1]
+    assert_nil                            tokens[2][0]
     assert_equal '>content',              tokens[2][1]
     
     tokens = 'content<{{ cms:type:la/b el }}>content'.scan(regex)
-    assert_equal nil,                     tokens[0][0]
+    assert_nil                            tokens[0][0]
     assert_equal 'content<',              tokens[0][1]
     assert_equal '{{ cms:type:la/b el }}',tokens[1][0]
-    assert_equal nil,                     tokens[1][1]
-    assert_equal nil,                     tokens[2][0]
+    assert_nil                            tokens[1][1]
+    assert_nil                            tokens[2][0]
     assert_equal '>content',              tokens[2][1]
   end
   
@@ -62,7 +62,7 @@ class TagTest < ActiveSupport::TestCase
     string = '<p>text</p>' * 400
     tokens = string.scan(ComfortableMexicanSofa::Tag::TOKENIZER_REGEX)
     assert_equal 1, tokens.count
-    assert_equal nil, tokens[0][0]
+    assert_nil tokens[0][0]
     assert_equal string, tokens[0][1]
   end
   
@@ -285,7 +285,7 @@ class TagTest < ActiveSupport::TestCase
       comfy_cms_pages(:default), '{{ cms:page:content:string }}'
     )
     assert_equal 'content', tag.identifier
-    assert_equal nil, tag.namespace
+    assert_nil tag.namespace
     
     assert tag = ComfortableMexicanSofa::Tag::PageString.initialize_tag(
       comfy_cms_pages(:default), '{{ cms:page:home.content:string }}'

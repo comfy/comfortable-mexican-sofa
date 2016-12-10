@@ -70,7 +70,7 @@ class PartialTagTest < ActiveSupport::TestCase
       comfy_cms_pages(:default), '{{cms:partial:unsafe/path}}'
     )
     assert_equal "<%= render :partial => 'unsafe/path' %>", tag.content
-    assert_equal nil, tag.render
+    assert_nil tag.render
   end
   
 end
