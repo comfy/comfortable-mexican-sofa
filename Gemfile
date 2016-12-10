@@ -12,7 +12,7 @@ group :development do
 end
 
 group :test do
-  gem 'rails-controller-testing'
+  # gem 'rails-controller-testing'
   
   gem 'sqlite3',                          :platform => [:ruby, :mswin, :mingw]
   gem 'jdbc-sqlite3',                     :platform => :jruby
