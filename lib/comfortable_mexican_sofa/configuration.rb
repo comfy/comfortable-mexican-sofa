@@ -109,10 +109,10 @@ class ComfortableMexicanSofa::Configuration
       'ru'    => 'Русский',
       'sk'    => 'Slovensky',
       'sv'    => 'Svenska',
+      'tr'    => 'Türkçe',
       'uk'    => 'Українська',
       'zh-CN' => '简体中文',
-      'zh-TW' => '正體中文',
-      'tr'    => 'Türkçe'
+      'zh-TW' => '正體中文'
     }
     @admin_locale         = nil
     @admin_cache_sweeper  = nil
