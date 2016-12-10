@@ -69,6 +69,7 @@ $.Redactor.opts.langs['da'] = {
 	alignment: 'Justering',
 	filename: 'Navn (valgfrit)',
 	edit: 'Rediger',
-	center: 'Centrer'
+	center: 'Centrer',
+	upload_label: 'Drop file here or '
 };
 })( jQuery );

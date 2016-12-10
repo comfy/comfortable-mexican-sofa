@@ -81,6 +81,7 @@ $.Redactor.opts.langs['cs'] = {
 	alignment: 'Zarovnání',
 	filename: 'Název (volitelné)',
 	edit: 'Upravit',
-	center: 'Center'
+	center: 'Center',
+	upload_label: 'Drop file here or '
 };
 })( jQuery );
