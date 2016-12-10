@@ -27,7 +27,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_get_edit
     site = comfy_cms_sites(:default)
-    get :edit, :params => {:id => site}
+    get :edit, :id => site
     assert_response :success
     assert assigns(:site)
     assert_template :edit
@@ -35,7 +35,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_failure
-    get :edit, :params => {:id => 'not_found'}
+    get :edit, :id => 'not_found'
     assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal 'Site not found', flash[:danger]
@@ -43,11 +43,11 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference 'Comfy::Cms::Site.count' do
-      post :create, :params => {:site => {
+      post :create, :site => {
         :label      => 'Test Site',
         :identifier => 'test-site',
         :hostname   => 'test.site.local'
-      }}
+      }
       assert_response :redirect
       site = Comfy::Cms::Site.last
       assert_redirected_to comfy_admin_cms_site_layouts_path(site)
@@ -57,7 +57,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_creation_failure
     assert_no_difference 'Comfy::Cms::Site.count' do
-      post :create, :params => {:site => { }}
+      post :create, :site => { }
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create site', flash[:danger]
@@ -66,12 +66,12 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_update
     site = comfy_cms_sites(:default)
-    put :update, :params => {:id => site, :site => {
+    put :update, :id => site, :site => {
       :label        => 'New Site',
       :hostname     => 'new.site.local',
       :locale       => 'es',
       :is_mirrored  => '1'
-    }}
+    }
     assert_response :redirect
     assert_redirected_to :action => :edit, :id => site
     assert_equal 'Site updated', flash[:success]
@@ -84,9 +84,9 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_update_failure
     site = comfy_cms_sites(:default)
-    put :update, :params => {:id => site, :site => {
+    put :update, :id => site, :site => {
       :hostname => ''
-    }}
+    }
     assert_response :success
     assert_template :edit
     site.reload
@@ -96,7 +96,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionController::TestCase
 
   def test_destroy
     assert_difference 'Comfy::Cms::Site.count', -1 do
-      delete :destroy, :params => {:id => comfy_cms_sites(:default)}
+      delete :destroy, :id => comfy_cms_sites(:default)
       assert_response :redirect
       assert_redirected_to :action => :index
       assert_equal 'Site deleted', flash[:success]
