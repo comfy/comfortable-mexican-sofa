@@ -40,7 +40,13 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   end
 
   def create
-    @file.category_ids = @site.categories.where(label: params[:category]).inject({}) {|hash, category| hash.merge category.id => 1} if params[:category]
+    if params[:category]
+      ids = @site.categories.of_type('Comfy::Cms::File')
+        .where(:label => params[:category])
+        .each_with_object({}){|c, h| h[c.id] = 1}
+      @file.category_ids = ids
+    end
+    
     @file.save!
 
     case params[:source]
