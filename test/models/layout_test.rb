@@ -54,12 +54,23 @@ class CmsLayoutTest < ActiveSupport::TestCase
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/admin/cms/nested.html.erb', Rails.root))
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/_partial.html.erb', Rails.root))
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/not_a_layout.erb', Rails.root))
-    
-    assert_equal ['comfy/admin/cms', 'comfy/admin/cms/nested'], Comfy::Cms::Layout.app_layouts_for_select
-    
+
+    view_paths = [File.expand_path('app/views/', Rails.root)]
+    assert_equal ['comfy/admin/cms', 'comfy/admin/cms/nested'], Comfy::Cms::Layout.app_layouts_for_select(view_paths)
+  ensure
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/admin/cms/nested.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/_partial.html.erb', Rails.root))
     FileUtils.rm(File.expand_path('app/views/layouts/comfy/not_a_layout.erb', Rails.root))
+  end
+
+  def test_multiple_view_paths
+    FileUtils.mkdir_p(File.expand_path('app/additional_views/layouts', Rails.root))
+    FileUtils.touch(File.expand_path('app/additional_views/layouts/additional_layout.html.erb', Rails.root))
+
+    view_paths = [File.expand_path('app/views/', Rails.root), File.expand_path('app/additional_views', Rails.root)]
+    assert_equal ['additional_layout', 'comfy/admin/cms'], Comfy::Cms::Layout.app_layouts_for_select(view_paths)
+  ensure
+    FileUtils.rm_r(File.expand_path('app/additional_views', Rails.root))
   end
   
   def test_merged_content_with_same_child_content

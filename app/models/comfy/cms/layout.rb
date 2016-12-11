@@ -45,10 +45,12 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   end
   
   # List of available application layouts
-  def self.app_layouts_for_select
-    Dir.glob(File.expand_path('app/views/layouts/**/*.html.*', Rails.root)).collect do |filename|
-      filename.gsub!("#{File.expand_path('app/views/layouts', Rails.root)}/", '')
-      filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
+  def self.app_layouts_for_select(view_paths)
+    view_paths.map(&:to_s).select { |path| path.start_with?(Rails.root.to_s) }.flat_map do |full_path|
+      Dir.glob("#{full_path}/layouts/**/*.html.*").collect do |filename|
+        filename.gsub!("#{full_path}/layouts/", '')
+        filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
+      end.compact.sort
     end.compact.sort
   end
   
