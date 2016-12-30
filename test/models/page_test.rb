@@ -84,12 +84,17 @@ class CmsPageTest < ActiveSupport::TestCase
         :parent => comfy_cms_pages(:default),
         :layout => comfy_cms_layouts(:default),
         :blocks_attributes => [
-          { :identifier => 'default_page_text',
-            :content    => 'test' }
+          {
+            :identifier => 'default_page_text',
+            :content    => 'test',
+            :processed_content => '<p>default_page_text</p>'
+          }
         ]
       )
       assert page.is_published?
       assert_equal 1, page.position
+      assert_equal page.blocks.first[:processed_content], '<p>default_page_text</p>'
+
     end
   end
 

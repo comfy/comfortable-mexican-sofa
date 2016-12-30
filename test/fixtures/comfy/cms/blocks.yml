@@ -2,6 +2,7 @@ default_field_text:
   blockable: default (Comfy::Cms::Page)
   identifier: default_field_text
   content: default_field_text_content
+  processed_content: default_field_text_cached_content
 
 default_page_text:
   blockable: default (Comfy::Cms::Page)
