@@ -21,6 +21,6 @@ group :test do
   gem 'rspec-core'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'faker', '~> 1.6.0'
+  gem 'faker', '~> 1.7'
   gem 'pry-byebug'
 end
