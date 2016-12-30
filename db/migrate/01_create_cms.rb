@@ -67,6 +67,7 @@ class CreateCms < ActiveRecord::Migration
     create_table :comfy_cms_blocks do |t|
       t.string     :identifier,  :null => false
       t.text       :content,     text_limit
+      t.text       :processed_content, text_limit
       t.references :blockable, :polymorphic => true
       t.timestamps
     end
