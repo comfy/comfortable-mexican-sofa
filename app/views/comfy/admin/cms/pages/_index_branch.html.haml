@@ -19,8 +19,11 @@
           %span &#8645;
 
     .btn-group.btn-group-sm
-      = link_to t('.add_child_page'), new_comfy_admin_cms_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-default'
       = link_to t('.edit'), edit_comfy_admin_cms_site_page_path(@site, page), :class => 'btn btn-default'
+      - if page.can_have_children
+        = link_to t('.add_child_page'), new_comfy_admin_cms_site_page_path(@site, :parent_id => page.id), :class => 'btn btn-default'
+      - if page.can_be_cloned
+        = link_to t('.clone'), clone_comfy_admin_cms_site_page_path(@site, page), :method => :put, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-default'
       = link_to t('.delete'), comfy_admin_cms_site_page_path(@site, page), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
 
     .item-content

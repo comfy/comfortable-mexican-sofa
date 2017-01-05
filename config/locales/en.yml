@@ -135,6 +135,7 @@ en:
             toggle: Toggle
             add_child_page: Add Child Page
             edit: Edit
+            clone: Clone
             delete: Delete
             are_you_sure: Are you sure?
           new:

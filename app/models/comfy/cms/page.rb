@@ -110,6 +110,18 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
+  # Whether we allow a page to have child pages.
+  # Currently we only allow top level pages and sites to have children
+  def can_have_children
+    self.ancestors.count < 2
+  end
+
+  # Whether we allow a page to be cloned
+  # Currently we only allow top level pages can be cloned
+  def can_be_cloned
+    self.ancestors.count == 1
+  end
+
 protected
 
   def assigns_label

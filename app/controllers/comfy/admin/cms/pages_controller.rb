@@ -1,7 +1,7 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   before_action :check_for_layouts, :only => [:new, :edit]
   before_action :build_cms_page,    :only => [:new, :create]
-  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_action :load_cms_page,     :only => [:edit, :update, :clone, :destroy]
   before_action :authorize
   before_action :preview_cms_page,  :only => [:create, :update]
   before_action :clear_cache, :only => [:create, :update, :destroy]
@@ -77,6 +77,11 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     render :nothing => true
   end
 
+  def clone
+    deep_clone_cms_page
+    redirect_to :action => :index
+  end
+
   def clear_cache(page = @page)
     page_and_ancestors = [page] + page.ancestors
     page_and_ancestors.each do |p|
@@ -150,6 +155,22 @@ protected
       response.headers['X-XSS-Protection'] = '0'
 
       render :inline => @page.render, :layout => layout, :content_type => 'text/html'
+    end
+  end
+
+  def deep_clone_cms_page
+    cloned_page = @page.dup
+    cloned_page.slug = "#{@page.slug}-copy-#{SecureRandom.hex 2}"
+    cloned_page.label = "#{@page.label} - Copy"
+    cloned_page.aasm_state = 'drafted'
+    cloned_page.save!
+    # changing the state to drafted above creates a revision, so blast it
+    cloned_page.revisions.destroy_all
+    # clone all child pages
+    @page.children.each do |child_page|
+      cloned_child = child_page.dup
+      cloned_child.parent = cloned_page
+      cloned_child.save!
     end
   end
 
