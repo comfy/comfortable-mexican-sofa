@@ -49,13 +49,16 @@ module ComfortableMexicanSofa::CmsManageable
       block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
       block_hashes.each do |block_hash|
         block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-        block =
-          self.blocks.detect{|b| b.identifier == block_hash[:identifier]} ||
-          self.blocks.build(:identifier => block_hash[:identifier])
+        block = find_or_initialize_block(block_hash)
         block.content = block_hash[:content]
         block.processed_content = block_hash[:processed_content]
         self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
       end
+    end
+
+    def find_or_initialize_block(block_hash)
+      self.blocks.detect { |b| b.identifier == block_hash[:identifier] } ||
+      self.blocks.build(identifier: block_hash[:identifier])
     end
 
     # Processing content will return rendered content and will populate
