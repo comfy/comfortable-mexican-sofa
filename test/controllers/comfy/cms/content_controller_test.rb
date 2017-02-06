@@ -36,10 +36,10 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
 
     json_response = JSON.parse(response.body)
     assert_equal page.layout.identifier,  json_response['layout_identifier']
-    assert_equal nil,                     json_response['parent_id']
-    assert_equal nil,                     json_response['target_page_id']
+    assert_nil                      json_response['parent_id']
+    assert_nil                      json_response['target_page_id']
     assert_equal 'Default Page',          json_response['label']
-    assert_equal nil,                     json_response['slug']
+    assert_nil                      json_response['slug']
     assert_equal '/',                     json_response['full_path']
     assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['content']
     assert_equal true,                    json_response['is_published']
@@ -185,7 +185,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     json_response = JSON.parse(response.body)
     assert_equal page.layout.identifier,  json_response['layout_identifier']
     assert_equal 'Default Page',          json_response['label']
-    assert_equal nil,                     json_response['slug']
+    assert_nil                      json_response['slug']
     assert_equal '/',                     json_response['full_path']
     assert_equal page.block_content,      json_response['blocks'].find {|b| b['identifier'] == 'content'}['content']
     assert_equal true,                    json_response['is_published']

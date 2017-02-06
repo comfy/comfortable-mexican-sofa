@@ -1,7 +1,7 @@
 def load_gem_configs
   if defined?(Rails)
     mas_build_config_file = "#{::Rails.root}/config/mas-build"
-    require_relative(mas_build_config_file) if File.exists?(mas_build_config_file + '.rb')
+    require_relative(mas_build_config_file) if File.exist?(mas_build_config_file + '.rb')
   end
 end
 

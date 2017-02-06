@@ -62,7 +62,7 @@ class HelperTagTest < ActiveSupport::TestCase
         comfy_cms_pages(:default), "{{ cms:helper:#{method}:Rails.env }}"
       )
       assert_equal "<%= #{method}('Rails.env') %>", tag.content
-      assert_equal nil, tag.render
+      assert_nil  tag.render
     end
   end
   
@@ -80,7 +80,7 @@ class HelperTagTest < ActiveSupport::TestCase
       comfy_cms_pages(:default), "{{ cms:helper:invalid:Rails.env }}"
     )
     assert_equal "<%= invalid('Rails.env') %>", tag.content
-    assert_equal nil, tag.render
+    assert_nil  tag.render
   end
   
 end

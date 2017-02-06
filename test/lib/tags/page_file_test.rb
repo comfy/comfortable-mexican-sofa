@@ -9,7 +9,7 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_equal 'label', tag.identifier
     assert_nil tag.namespace
     assert 'url', tag.type
-    assert_equal nil, tag.dimensions
+    assert_nil  tag.dimensions
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(
       comfy_cms_pages(:default), '{{ cms:page_file:label:partial }}'
@@ -50,7 +50,7 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_equal "<%= render :partial => 'partials/page_file', :locals => {:identifier => nil} %>", tag.render
     
     assert tag = ComfortableMexicanSofa::Tag::PageFile.initialize_tag(page, '{{ cms:page_file:file }}')
-    assert_equal nil, tag.content
+    assert_nil  tag.content
     assert_equal '', tag.render
     
     page.update_attributes!(
