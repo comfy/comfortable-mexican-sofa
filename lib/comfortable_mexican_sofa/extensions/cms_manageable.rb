@@ -36,6 +36,7 @@ module ComfortableMexicanSofa::CmsManageable
         block_attr = {}
         block_attr[:identifier] = block.identifier
         block_attr[:content]    = was ? block.content_was : block.content
+        block_attr[:processed_content] = block.processed_content if block.processed_content.present?
         block_attr
       end
     end
