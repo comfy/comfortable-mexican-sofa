@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails',             '>= 4.0.0', '<= 4.1.16'
   s.add_dependency 'rails-i18n',        '~> 4.0.0'
-  s.add_dependency 'i18n',              '~> 0.6.11'
+  s.add_dependency 'i18n',              '~> 0.7'
   s.add_dependency 'bootstrap_form',    '~> 2.1.1'
   s.add_dependency 'active_link_to',    '>= 1.0.0'
   s.add_dependency 'paperclip',         '>= 4.0.0'
-  s.add_dependency 'kramdown',          '>= 1.0.0'
+  s.add_dependency 'kramdown',          '~> 1.5'
   s.add_dependency 'jquery-rails',      '>= 3.0.0'
   s.add_dependency 'jquery-ui-rails',   '>= 5.0.0'
   s.add_dependency 'haml-rails',        '>= 0.3.0'

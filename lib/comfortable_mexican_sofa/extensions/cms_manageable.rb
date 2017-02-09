@@ -1,11 +1,11 @@
 # ActsAsCms is the module that drives all the logic around blocks and
 # blocks_attributes.
 module ComfortableMexicanSofa::CmsManageable
-  
+
   def self.included(base)
     base.send :extend, ClassMethods
   end
-  
+
   module ClassMethods
 
     def cms_manageable
@@ -20,13 +20,13 @@ module ComfortableMexicanSofa::CmsManageable
         :dependent  => :destroy,
         :as         => :blockable,
         :class_name => 'Comfy::Cms::Block'
-        
+
       # -- Callbacks --------------------------------------------------------
       before_save :clear_content_cache
 
     end
   end
-  
+
   module InstanceMethods
 
     # Transforms existing cms_block information into a hash that can be used
@@ -36,10 +36,11 @@ module ComfortableMexicanSofa::CmsManageable
         block_attr = {}
         block_attr[:identifier] = block.identifier
         block_attr[:content]    = was ? block.content_was : block.content
+        block_attr[:processed_content] = block.processed_content if block.processed_content.present?
         block_attr
       end
     end
-    
+
     # Array of block hashes in the following format:
     #   [
     #     { :identifier => 'block_1', :content => 'block content' },
@@ -49,20 +50,24 @@ module ComfortableMexicanSofa::CmsManageable
       block_hashes = block_hashes.values if block_hashes.is_a?(Hash)
       block_hashes.each do |block_hash|
         block_hash.symbolize_keys! unless block_hash.is_a?(HashWithIndifferentAccess)
-        block = 
-          self.blocks.detect{|b| b.identifier == block_hash[:identifier]} || 
-          self.blocks.build(:identifier => block_hash[:identifier])
+        block = find_or_initialize_block(block_hash)
         block.content = block_hash[:content]
+        block.processed_content = block_hash[:processed_content]
         self.blocks_attributes_changed = self.blocks_attributes_changed || block.content_changed?
       end
     end
 
-    # Processing content will return rendered content and will populate 
+    def find_or_initialize_block(block_hash)
+      self.blocks.detect { |b| b.identifier == block_hash[:identifier] } ||
+      self.blocks.build(identifier: block_hash[:identifier])
+    end
+
+    # Processing content will return rendered content and will populate
     # self.cms_tags with instances of CmsTag
     def render
       @tags = [] # resetting
       return '' unless layout
-      
+
       ComfortableMexicanSofa::Tag.process_content(
         self, ComfortableMexicanSofa::Tag.sanitize_irb(layout.merged_content)
       )
@@ -92,11 +97,11 @@ module ComfortableMexicanSofa::CmsManageable
       end
       @content_cache
     end
-    
+
     def clear_content_cache!
       self.update_column(:content_cache, nil)
     end
-    
+
     def clear_content_cache
       write_attribute(:content_cache, nil) if self.has_attribute?(:content_cache)
     end

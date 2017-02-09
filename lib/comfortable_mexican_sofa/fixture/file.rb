@@ -7,7 +7,7 @@ module ComfortableMexicanSofa::Fixture::File
         
         # setting attributes
         categories = []
-        if File.exists?(attrs_path = File.join(self.path, "_#{filename}.yml"))
+        if File.exist?(attrs_path = File.join(self.path, "_#{filename}.yml"))
           if fresh_fixture?(file, attrs_path)
             attrs = get_attributes(attrs_path)
             
@@ -69,7 +69,7 @@ module ComfortableMexicanSofa::Fixture::File
           file.file.path :
           file.file.url
         
-        unless ::File.exists?(data_path)
+        unless ::File.exist?(data_path)
           ComfortableMexicanSofa.logger.warn("[FIXTURES] No physical File \t #{file.file_file_name}")
           next
         end

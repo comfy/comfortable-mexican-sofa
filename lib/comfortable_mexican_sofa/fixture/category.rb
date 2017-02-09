@@ -6,7 +6,7 @@ module ComfortableMexicanSofa::Fixture::Category
         'pages'     => 'Comfy::Cms::Page',
         'snippets'  => 'Comfy::Cms::Snippet'
       }.each do |file, type|
-        if File.exists?(attrs_path = File.join(path, "#{file}.yml"))
+        if File.exist?(attrs_path = File.join(path, "#{file}.yml"))
           categories = get_attributes(attrs_path)
           [categories].flatten.each do |label|
             self.site.categories.find_or_create_by(:label => label, :categorized_type => type)

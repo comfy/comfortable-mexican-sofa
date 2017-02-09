@@ -50,7 +50,7 @@ class TemplateTagTest < ActiveSupport::TestCase
       comfy_cms_pages(:default), '{{cms:template:unsafe/path}}'
     )
     assert_equal "<%= render :template => 'unsafe/path' %>", tag.content
-    assert_equal nil, tag.render
+    assert_nil  tag.render
   end
 
 end

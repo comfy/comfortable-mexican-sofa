@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::Fixture::Page
 
         # setting attributes
         categories = []
-        if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
+        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(page, attrs_path)
             attrs = get_attributes(attrs_path)
 
