@@ -1,6 +1,6 @@
 class Comfy::Cms::Site < ActiveRecord::Base
   self.table_name = 'comfy_cms_sites'
-  
+
   # -- Relationships --------------------------------------------------------
   with_options :dependent => :destroy do |site|
     site.has_many :layouts
@@ -9,14 +9,14 @@ class Comfy::Cms::Site < ActiveRecord::Base
     site.has_many :files
     site.has_many :categories
   end
-  
+
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
                     :assign_hostname,
                     :assign_label
   before_save :clean_path
   after_save  :sync_mirrors
-  
+
   # -- Validations ----------------------------------------------------------
   validates :identifier,
     :presence   => true,
@@ -53,6 +53,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # Since before_destroy doesn't really work, this does the trick
   def destroy
     self.class.where(:id => self.id).update_all(:is_mirrored => false) if self.is_mirrored?
+    reload
     super
   end
 
@@ -70,31 +71,31 @@ protected
   def assign_identifier
     self.identifier = self.identifier.blank?? self.hostname.try(:slugify) : self.identifier
   end
-  
+
   def assign_hostname
     self.hostname ||= self.identifier
   end
-  
+
   def assign_label
     self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
-  
+
   def clean_path
     self.path ||= ''
     self.path.squeeze!('/')
     self.path.gsub!(/\/$/, '')
   end
-  
+
   # When site is marked as a mirror we need to sync its structure
   # with other mirrors.
   def sync_mirrors
     return unless is_mirrored_changed? && is_mirrored?
-    
+
     [self, Comfy::Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
       (site.layouts(:reload).roots + site.layouts.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       (site.pages(:reload).roots + site.pages.roots.map(&:descendants)).flatten.map(&:sync_mirror)
       site.snippets(:reload).map(&:sync_mirror)
     end
   end
-  
+
 end
