@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap_form',    '~> 2.1.1'
   s.add_dependency 'active_link_to',    '>= 1.0.0'
   s.add_dependency 'paperclip',         '>= 4.0.0'
-  s.add_dependency 'kramdown',          '~> 1.5'
+  s.add_dependency 'kramdown',          '>= 1.13'
   s.add_dependency 'jquery-rails',      '>= 3.0.0'
   s.add_dependency 'jquery-ui-rails',   '>= 5.0.0'
   s.add_dependency 'haml-rails',        '>= 0.3.0'
