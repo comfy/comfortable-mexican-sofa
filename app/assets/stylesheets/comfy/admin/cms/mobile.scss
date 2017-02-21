@@ -1,0 +1,62 @@
+@media screen and (max-width: 768px){
+    body#comfy:not(.in-iframe) .body-wrapper {
+	display: flex;
+	flex-flow: column nowrap;
+	height: unset;
+	min-height: 100%;
+	
+	div.center-column, div.left-column, div.right-column{
+	    display: block;
+	    position: unset;
+	    margin: 0;
+	    width: 100%;
+	    float: none;
+
+	    div.left-column-content {
+		padding: 0.25em 0;
+	    }
+	    
+	    >div,
+	    div.center-column-content,
+	    div.left-column-content,
+	    div.right-column-content {
+		display: block;
+		position: unset;
+		width: 100%;
+	    }
+	}
+	>div.left-column{
+	    margin: 0;
+	    order: 1;
+	}
+	>div.right-column{
+	    margin: 0;
+	    order: 2;
+	    div.right-column-content{
+		padding: 0.1em 0.2em;
+	    }
+	}
+	>div.center-column{
+	    display: flex;
+	    flex-flow: column nowrap;
+	    flex: 1;
+	    margin: 0;
+	    order: 3;
+	    >div.center-column-content{
+		flex:1;
+	    }
+	}
+    }
+
+    .modal .modal-dialog {
+	margin: 0.1em;
+    }
+
+}
+
+@media screen and (max-width:400px){
+    ul.list .item .btn-group {
+	clear: both;
+	margin-top: 0.5em;
+    }
+}
