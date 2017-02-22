@@ -109,9 +109,9 @@ pt-BR:
             revision: &revision
               zero: '%{count} Revisão'
               one: '%{count} Revisão'
-              few: '%{count} Revisão'
-              many: '%{count} Revisão'
-              other: '%{count} Revisão'
+              few: '%{count} Revisões'
+              many: '%{count} Revisões'
+              other: '%{count} Revisões'
           form:
             select_parent_layout: Selecione o Leiaute Pai
             select_app_layout: Selecione o Leiaute da Aplicação
