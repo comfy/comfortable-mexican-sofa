@@ -3,7 +3,7 @@ window.CMS ||= {}
 window.CMS.code_mirror_instances = [ ]
 
 $ -> window.CMS.init()
-$(document).on 'page:load', -> window.CMS.init()
+$(document).on 'page:load turbolinks:load', -> window.CMS.init()
 
 window.CMS.init = ->
   window.CMS.current_path = window.location.pathname
