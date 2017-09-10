@@ -5,7 +5,8 @@ gemspec
 # apps can also use will_paginate so there's no dependency in gemspec
 gem 'kaminari'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', github: 'rails/rails'
+gem 'arel', github: 'rails/arel'
 
 group :development do
   gem 'awesome_print'
@@ -15,10 +16,8 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  
-  gem 'sqlite3',                          :platform => [:ruby, :mswin, :mingw]
-  gem 'jdbc-sqlite3',                     :platform => :jruby
-  gem 'activerecord-jdbcsqlite3-adapter', :platform => :jruby
+
+  gem 'sqlite3'
 
   gem 'mocha',      :require => false
   gem 'coveralls',  :require => false
