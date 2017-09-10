@@ -9,7 +9,6 @@ class CreateCms < ActiveRecord::Migration
       t.string :hostname,     :null => false
       t.string :path
       t.string :locale,       :null => false, :default => 'en'
-      t.boolean :is_mirrored, :null => false, :default => false
     end
     add_index :comfy_cms_sites, :hostname
     add_index :comfy_cms_sites, :is_mirrored

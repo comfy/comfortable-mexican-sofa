@@ -25,7 +25,6 @@ require_relative 'comfortable_mexican_sofa/extensions/rails'
 require_relative 'comfortable_mexican_sofa/extensions/acts_as_tree'
 require_relative 'comfortable_mexican_sofa/extensions/cms_manageable'
 require_relative 'comfortable_mexican_sofa/extensions/has_revisions'
-require_relative 'comfortable_mexican_sofa/extensions/is_mirrored'
 require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
 
 Dir.glob(File.expand_path('comfortable_mexican_sofa/tags/*.rb', File.dirname(__FILE__))).each do |path|

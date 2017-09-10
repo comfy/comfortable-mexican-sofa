@@ -5,7 +5,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
-  cms_is_mirrored
   cms_manageable
   cms_has_revisions_for :blocks_attributes
 

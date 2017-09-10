@@ -18,16 +18,18 @@ namespace :test do
     t.libs << 'test'
     t.pattern = 'test/lib/**/*_test.rb'
     t.verbose = true
+    t.warning = false
   end
 
   Rake::TestTask.new(:generators) do |t|
     t.libs << 'test'
     t.pattern = 'test/generators/**/*_test.rb'
     t.verbose = true
+    t.warning = false
   end
 end
 
 Rake::Task[:test].enhance do
   Rake::Task['test:lib'].invoke
-  Rake::Task['test:generators'].invoke
+  # Rake::Task['test:generators'].invoke
 end
