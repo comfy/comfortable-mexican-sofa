@@ -24,4 +24,6 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+
+  Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
 end

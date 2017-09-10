@@ -46,4 +46,6 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   end
 
   config.action_view.raise_on_missing_translations = true
+
+  Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
 end
