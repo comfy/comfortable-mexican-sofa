@@ -7,7 +7,6 @@ Rake::TestTask.new(:ci) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/**/*_test.rb']
   t.verbose = true
-  t.warning = false
 end
 
 require_relative 'config/application'
@@ -18,14 +17,12 @@ namespace :test do
     t.libs << 'test'
     t.pattern = 'test/lib/**/*_test.rb'
     t.verbose = true
-    t.warning = false
   end
 
   Rake::TestTask.new(:generators) do |t|
     t.libs << 'test'
     t.pattern = 'test/generators/**/*_test.rb'
     t.verbose = true
-    t.warning = false
   end
 end
 

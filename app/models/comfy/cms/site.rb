@@ -50,13 +50,6 @@ class Comfy::Cms::Site < ActiveRecord::Base
     '//' + [self.hostname, public_cms_path, self.path].join('/').squeeze('/')
   end
 
-  # When removing entire site, let's not destroy content from other sites
-  # Since before_destroy doesn't really work, this does the trick
-  def destroy
-    self.update_attributes(:is_mirrored => false) if self.is_mirrored?
-    super
-  end
-
 protected
 
   def self.real_host_from_aliases(host)
