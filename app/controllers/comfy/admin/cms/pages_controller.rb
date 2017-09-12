@@ -1,12 +1,12 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
-  before_action :check_for_layouts, :only => [:new, :edit]
-  before_action :build_cms_page,    :only => [:new, :create]
-  before_action :load_cms_page,     :only => [:edit, :update, :destroy]
+  before_action :check_for_layouts, only: [:new, :edit]
+  before_action :build_cms_page,    only: [:new, :create]
+  before_action :load_cms_page,     only: [:edit, :update, :destroy]
   before_action :authorize
-  before_action :preview_cms_page,  :only => [:create, :update]
+  before_action :preview_cms_page,  only: [:create, :update]
 
   def index
-    return redirect_to :action => :new if site_has_no_pages?
+    return redirect_to action: :new if site_has_no_pages?
 
     return index_for_redactor if params[:source] == 'redactor'
 
@@ -30,25 +30,25 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def create
     @page.save!
     flash[:success] = I18n.t('comfy.admin.cms.pages.created')
-    redirect_to :action => :edit, :id => @page
+    redirect_to action: :edit, id: @page
   rescue ActiveRecord::RecordInvalid
     flash.now[:danger] = I18n.t('comfy.admin.cms.pages.creation_failure')
-    render :action => :new
+    render action: :new
   end
 
   def update
     @page.save!
     flash[:success] = I18n.t('comfy.admin.cms.pages.updated')
-    redirect_to :action => :edit, :id => @page
+    redirect_to action: :edit, id: @page
   rescue ActiveRecord::RecordInvalid
     flash.now[:danger] = I18n.t('comfy.admin.cms.pages.update_failure')
-    render :action => :edit
+    render action: :edit
   end
 
   def destroy
     @page.destroy
     flash[:success] = I18n.t('comfy.admin.cms.pages.deleted')
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
   def form_blocks
@@ -68,7 +68,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   def reorder
     (params[:comfy_cms_page] || []).each_with_index do |id, index|
-      ::Comfy::Cms::Page.where(:id => id).update_all(:position => index)
+      ::Comfy::Cms::Page.where(id: id).update_all(position: index)
     end
     head :ok
   end
@@ -79,7 +79,7 @@ protected
     tree_walker = ->(page, list, offset) do
       return unless page.present?
       label = "#{'. . ' * offset}#{page.label}"
-      list << {:name => label, :url => page.url(:relative)}
+      list << {name: label, url: page.url(:relative)}
       page.children.each do |child_page|
         tree_walker.(child_page, list, offset + 1)
       end
@@ -87,11 +87,11 @@ protected
     end
 
     page_select_options = [{
-      :name => I18n.t('comfy.admin.cms.pages.form.choose_link'),
-      :url  => false
+      name: I18n.t('comfy.admin.cms.pages.form.choose_link'),
+      url: false
     }] + tree_walker.(@site.pages.root, [ ], 0)
 
-    render :json => page_select_options
+    render json: page_select_options
   end
 
   def site_has_no_pages?
@@ -121,7 +121,7 @@ protected
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.pages.not_found')
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
   def preview_cms_page
@@ -138,7 +138,7 @@ protected
       # Chrome chokes on content with iframes. Issue #434
       response.headers['X-XSS-Protection'] = '0'
 
-      render :inline => @page.render, :layout => layout, :content_type => 'text/html'
+      render inline: @page.render, layout: layout, content_type: 'text/html'
     end
   end
 
