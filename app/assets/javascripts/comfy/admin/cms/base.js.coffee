@@ -15,7 +15,6 @@ window.CMS.init = ->
   CMS.timepicker()
   CMS.page_blocks()
   CMS.page_file_popovers()
-  CMS.mirrors()
   CMS.page_update_preview()
   CMS.page_update_publish()
   CMS.categories()
@@ -148,11 +147,6 @@ window.CMS.page_file_popovers = ->
     trigger:    'hover'
     placement:  'top'
     html:       true
-
-
-window.CMS.mirrors = ->
-  $('#mirrors select').change ->
-    window.location = $(this).val()
 
 
 window.CMS.page_update_preview = ->
