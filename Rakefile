@@ -25,8 +25,3 @@ namespace :test do
     t.verbose = true
   end
 end
-
-Rake::Task[:test].enhance do
-  Rake::Task['test:lib'].invoke
-  # Rake::Task['test:generators'].invoke
-end

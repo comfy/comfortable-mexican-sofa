@@ -30,7 +30,7 @@ module Comfy
         route_string  = "  comfy_route :cms_admin, :path => '/admin'\n\n"
         route_string << "  # Make sure this routeset is defined last\n"
         route_string << "  comfy_route :cms, :path => '/', :sitemap => false\n"
-        route route_string[2..-1]
+        route route_string
       end
 
       def generate_cms_seeds
