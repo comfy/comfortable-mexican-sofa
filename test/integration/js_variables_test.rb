@@ -4,7 +4,7 @@ class JsVariablesIntegrationTest < ActionDispatch::IntegrationTest
 
   def test_redactor_js_variables
     site = comfy_cms_sites(:default)
-    http_auth :get, comfy_admin_cms_site_pages_path(site)
+    r :get, comfy_admin_cms_site_pages_path(site)
     assert_response :success
 
     js_vars = <<-HTML.strip_heredoc
@@ -17,5 +17,4 @@ class JsVariablesIntegrationTest < ActionDispatch::IntegrationTest
 
     assert response.body.match(js_vars)
   end
-
 end
