@@ -10,9 +10,9 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   before_action :load_cms_page,
                 :authenticate,
                 :authorize,
-                :only => :show
+                only: :show
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :page_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
 
   def show
     if @cms_page.target_page.present?
@@ -20,13 +20,9 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     else
       respond_to do |format|
         format.html { render_page }
-        format.json { render :json => @cms_page }
+        format.json { render json: @cms_page }
       end
     end
-  end
-
-  def render_sitemap
-    render
   end
 
 protected
@@ -34,12 +30,12 @@ protected
   def render_page(status = 200)
     if @cms_layout = @cms_page.layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render  :inline       => @cms_page.content_cache,
-              :layout       => app_layout,
-              :status       => status,
-              :content_type => mime_type
+      render  inline:       @cms_page.content_cache,
+              layout:       app_layout,
+              status:       status,
+              content_type: mime_type
     else
-      render :plain => I18n.t('comfy.cms.content.layout_not_found'), :status => 404
+      render plain: I18n.t('comfy.cms.content.layout_not_found'), status: 404
     end
   end
 
