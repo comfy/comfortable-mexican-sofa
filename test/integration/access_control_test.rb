@@ -40,10 +40,10 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthentication',
       ComfortableMexicanSofa.config.admin_auth
 
-    get '/admin/sites'
+    get comfy_admin_cms_sites_path
     assert_response :unauthorized
 
-    http_auth :get, '/admin/sites'
+    r :get, comfy_admin_cms_sites_path
     assert_response :success
   end
 
@@ -64,7 +64,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
       ComfortableMexicanSofa.config.admin_authorization
 
     Comfy::Admin::Cms::BaseController.send(:include, ComfortableMexicanSofa::AccessControl::AdminAuthorization)
-    http_auth :get, "/admin/sites/#{comfy_cms_sites(:default).to_param}/edit"
+    r :get, "/admin/sites/#{comfy_cms_sites(:default).to_param}/edit"
     assert_response :success, response.body
   end
 
@@ -83,39 +83,39 @@ class AccessControlTest < ActionDispatch::IntegrationTest
         get "#{s}/:site_id/categories/:id/edit"               => "#{ns}/categories#edit"
       end
 
-      http_auth :get, "/admin/sites/#{site.id}/edit"
+      r :get, "/admin/sites/#{site.id}/edit"
       assert_response :forbidden
       assert_equal 'Test Access Denied', response.body
       assert assigns(:authorization_vars)
       assert assigns(:authorization_vars).member?(:@site)
 
       layout = comfy_cms_layouts(:default)
-      http_auth :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/edit"
+      r :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@layout)
 
       revision = comfy_cms_revisions(:layout)
-      http_auth :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/revisions/#{revision.id}"
+      r :get, "/admin/sites/#{site.id}/layouts/#{layout.id}/revisions/#{revision.id}"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@record)
 
       page = comfy_cms_pages(:default)
-      http_auth :get, "/admin/sites/#{site.id}/pages/#{page.id}/edit"
+      r :get, "/admin/sites/#{site.id}/pages/#{page.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@page)
 
       snippet = comfy_cms_snippets(:default)
-      http_auth :get, "/admin/sites/#{site.id}/snippets/#{snippet.id}/edit"
+      r :get, "/admin/sites/#{site.id}/snippets/#{snippet.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@snippet)
 
       file = comfy_cms_files(:default)
-      http_auth :get, "/admin/sites/#{site.id}/files/#{file.id}/edit"
+      r :get, "/admin/sites/#{site.id}/files/#{file.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@file)
 
       category = comfy_cms_categories(:default)
-      http_auth :get, "/admin/sites/#{site.id}/categories/#{category.id}/edit"
+      r :get, "/admin/sites/#{site.id}/categories/#{category.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@category)
     end
