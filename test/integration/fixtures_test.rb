@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require_relative '../test_helper'
 
 class FixturesIntergrationTest < ActionDispatch::IntegrationTest
@@ -54,7 +52,7 @@ class FixturesIntergrationTest < ActionDispatch::IntegrationTest
     assert_difference 'Comfy::Cms::Page.count', 2 do
       assert_difference 'Comfy::Cms::Layout.count', 2 do
         assert_difference 'Comfy::Cms::Snippet.count', 1 do
-           http_auth :get, "/admin/sites/#{comfy_cms_sites(:default).id}/pages"
+           r :get, "/admin/sites/#{comfy_cms_sites(:default).id}/pages"
            assert_response :success
            assert_equal 'CMS Fixtures are enabled. All changes done here will be discarded.', flash[:danger]
         end
