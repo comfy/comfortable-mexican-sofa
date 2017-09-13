@@ -121,6 +121,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page_2 = comfy_cms_sites(:default).pages.create!(new_params(:parent => page, :slug => 'test-page-2'))
     page_3 = comfy_cms_sites(:default).pages.create!(new_params(:parent => page_2, :slug => 'test-page-3'))
     page_4 = comfy_cms_sites(:default).pages.create!(new_params(:parent => page_1, :slug => 'test-page-4'))
+
     assert_equal '/child-page/test-page-1', page_1.full_path
     assert_equal '/child-page/test-page-2', page_2.full_path
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
