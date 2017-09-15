@@ -1,53 +1,30 @@
-class Fragment < Liquid::Tag
+# Fragment tags need the following:
+# - name - corresponds to record on the database
+# - namespace - basically a tab in the admin area. userful to group fragments
+# - render (true(default) | false) - do we render via tag, or manually access fragment content later
+# - format - controls how content is presented in admin area
+#   - :textarea (default)
+#   - :text
+#   - :wysiwyg
+#   - :markdown
+#   - :datetime
+#   - :date
+#   - :file (this is a special one, can take more params)
+#     - :multiple (true | false(default))
+#     - :partial (path to the partial. partial will have all params from tag forwarded)
+#     - :size (resize/crop string. need to explore what that means with active_storage)
 
-  def initialize(tag_name, arguments, _parse_context)
+class FragmentTag < Liquid::TagWithParams
+
+  # Tag initialization. Need to probably validate params during init
+  def initialize(_, _, _)
     super
-    @tag = [tag_name, arguments]
   end
 
+  # Rendeting out fragment content. This is where we go and grab it from the DB
   def render(_context)
-    "testing #{@tag}"
-  end
-
-  def parse_args(arguments)
-    name, args = arguments.split(/\s+/, 2)
-  end
-
-  def self.tokenize(args_string)
-    tokens = []
-    ss = StringScanner.new(args_string)
-    until ss.eos?
-      ss.skip(/\s*/)
-      break if ss.eos?
-      token = case
-        when t = ss.scan(/'[^\']*'/)      then [:string, t]
-        when t = ss.scan(/"[^\"]*"/)      then [:string, t]
-        when t = ss.scan(/[a-z][\w-]*/i) then [:string, t]
-        when t = ss.scan(/\:/)            then [:column, t]
-        when t = ss.scan(/\,/)            then [:comma, t]
-        else
-          raise SyntaxError, "Unexpected char: #{ss.getch}"
-      end
-      tokens << token
-    end
-    tokens
-  end
-
-  def self.tokens_to_args_hash(tokens)
-    hash = { }
-    tokens.each_slice(4) do |key, column, value, _comma|
-      key_type, key_value   = key
-      col_type, _col_value  = column
-      val_type, val_value   = value
-
-      unless key_type == :string && col_type == :column && val_type == :string
-        raise SyntaxError, "Unexpected args: #{[key, column, value]}"
-      end
-
-      hash[key_value] = val_value
-    end
-    hash
+    "hello"
   end
 end
 
-Liquid::Template.register_tag('cms_fragment', Fragment)
+Liquid::Template.register_tag('cms_fragment', FragmentTag)
