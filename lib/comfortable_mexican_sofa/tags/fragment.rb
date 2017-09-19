@@ -22,12 +22,17 @@
 #     - :partial (path to the partial. partial will have all params from tag forwarded)
 #     - :size (resize/crop string. need to explore what that means with active_storage)
 
+require 'liquid/tag_with_params'
+
 class FragmentTag < Liquid::TagWithParams
+
+  attr_reader :name
 
   # Tag initialization. Need to probably validate params during init
   def initialize(_, _, context)
     super
-    raise self.parse_context.inspect
+    @name = @params[0]
+    # raise self.parse_context.inspect
   end
 
   # Rendeting out fragment content. This is where we go and grab it from the DB

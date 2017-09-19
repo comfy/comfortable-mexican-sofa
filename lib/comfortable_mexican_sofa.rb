@@ -27,7 +27,7 @@ require_relative 'comfortable_mexican_sofa/extensions/cms_manageable'
 require_relative 'comfortable_mexican_sofa/extensions/has_revisions'
 require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
 
-require_relative 'comfortable_mexican_sofa/cms_tag'
+require_relative 'comfortable_mexican_sofa/parser'
 
 
 Dir.glob(File.expand_path('comfortable_mexican_sofa/tags/*.rb', File.dirname(__FILE__))).each do |path|
