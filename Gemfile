@@ -8,8 +8,6 @@ gem 'kaminari'
 gem 'rails', github: 'rails/rails'
 gem 'arel', github: 'rails/arel'
 
-# gem 'liquid_tag_with_params', path: "~/Code/liquid_tag_with_params"
-
 group :development do
   gem 'awesome_print'
   gem 'better_errors'
