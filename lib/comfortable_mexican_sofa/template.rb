@@ -26,7 +26,38 @@
 # text                        text
 # {{ cms:whatever }}          tag   - render
 
-class ComfortableMexicanSofa::Template
+
+# context is our page we're rendering against. might be something else in the future
+class NewTag
+
+  attr_reader :context, :params
+
+  def initialize(context, params_string = "")
+    @context  = context
+    @params   = parse_params_string(params_string)
+  end
+
+  # Normally it's a string. However if tag content has tags, we need to expand
+  # them and that produces potentually more stuff
+  def nodes
+    tokens = ComfortableMexicanSofa::Template.tokenize(content)
+    ComfortableMexicanSofa::Template.nodes(@context, tokens)
+  end
+
+  def content
+    "TODO"
+  end
+
+  def parse_params_string(string)
+    []
+  end
+end
+
+
+
+
+
+module ComfortableMexicanSofa::Template
 
   # tags are in this format: {{ cms:tag_class params,  }}
   TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
@@ -39,38 +70,31 @@ class ComfortableMexicanSofa::Template
     def register_tag(name, klass)
       tags[name.to_s] = klass
     end
-  end
 
-  def initialize(string)
-    @string = string
-    @tokens = []
-  end
-
-  # splitting text with tags into tokens we can process down the line
-  def tokenize
-    ss = StringScanner.new(@string)
-    while string = ss.scan_until(TAG_REGEX)
-      text = string.sub(ss[0], '')
-      @tokens << text if text.present?
-      @tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
+    # splitting text with tags into tokens we can process down the line
+    def tokenize(string)
+      tokens = []
+      ss = StringScanner.new(string)
+      while string = ss.scan_until(TAG_REGEX)
+        text = string.sub(ss[0], '')
+        tokens << text if text.present?
+        tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
+      end
+      text = ss.rest
+      tokens << text if text.present?
+      return tokens
     end
-    text = ss.rest
-    @tokens << text if text.present?
-    @tokens
-  end
 
-  # Iterating through tokens and expanding tags.
-  # TODO: If tag has more tags inside we
-  # we need to expand those too.
-  def expand
-    @tokens.map do |token|
-      case token
-      when Hash
-        tag_class = self.class.tags[token[:tag_class]]
-        tag = tag_class.new(token[:params])
-        tag.render
-      else
-        token
+    # TODO: this should be bolted on directly on the context maybe?
+    def nodes(context, tokens)
+      tokens.map do |token|
+        case token
+        when Hash
+          tag_class = tags[token[:tag_class]] # TODO: will blow up if not registered
+          tag_class.new(context, token[:params])
+        else
+          token
+        end
       end
     end
   end
