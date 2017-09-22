@@ -112,6 +112,9 @@ module ComfortableMexicanSofa::Template
 
           # This handles {{cms:end}} tag. Stopping collecting block nodes.
           when "end"
+            if nodes.count == 1
+              raise "closing unopened block"
+            end
             nodes.pop
           else
             tag = tags[tag_class].new(context, token[:params])
@@ -125,6 +128,11 @@ module ComfortableMexicanSofa::Template
           nodes.last << token
         end
       end
+
+      if nodes.count > 1
+        raise "unclosed block detected"
+      end
+
       nodes.flatten
     end
   end

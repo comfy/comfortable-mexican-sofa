@@ -143,6 +143,22 @@ class TemplateTest < ActiveSupport::TestCase
     assert_equal [" c "], block.nodes
   end
 
+  def test_nodes_with_unclosed_block_tag
+    string = "a {{cms:test_block}} b"
+    tokens = ComfortableMexicanSofa::Template.tokenize(string)
+    assert_exception_raised do
+      ComfortableMexicanSofa::Template.nodes(nil, tokens)
+    end
+  end
+
+  def test_nodes_with_closed_tag
+    string = "a {{cms:end}} b"
+    tokens = ComfortableMexicanSofa::Template.tokenize(string)
+    assert_exception_raised do
+      ComfortableMexicanSofa::Template.nodes(nil, tokens)
+    end
+  end
+
   def test_block_tag_nodes
     block = BlockTag.new(nil)
     assert_equal [], block.nodes
