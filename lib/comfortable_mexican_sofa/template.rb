@@ -54,6 +54,19 @@ class NewTag
 end
 
 
+# wtf does this mean
+# it means that all nodes between this must be moved into here
+# {{cms:block}} some content {{cms:end_block}}
+class BlockTag < NewTag
+
+  attr_accessor :nodes
+
+  def nodes
+    @nodes ||= []
+  end
+end
+
+
 
 
 
@@ -71,7 +84,7 @@ module ComfortableMexicanSofa::Template
       tags[name.to_s] = klass
     end
 
-    # splitting text with tags into tokens we can process down the line
+    # Splitting text with tags into tokens we can process down the line
     def tokenize(string)
       tokens = []
       ss = StringScanner.new(string)
@@ -85,17 +98,34 @@ module ComfortableMexicanSofa::Template
       return tokens
     end
 
-    # TODO: this should be bolted on directly on the context maybe?
+    # Constructing node tree for content. It's a list of strings and tags with
+    # their own `nodes` method that has array of strings and tags with their own
+    # `nodes` method that... you get the idea.
     def nodes(context, tokens)
-      tokens.map do |token|
+      nodes = [[]]
+      tokens.each do |token|
         case token
+
+        # tag signature
         when Hash
-          tag_class = tags[token[:tag_class]] # TODO: will blow up if not registered
-          tag_class.new(context, token[:params])
+          case tag_class = token[:tag_class]
+
+          # This handles {{cms:end}} tag. Stopping collecting block nodes.
+          when "end"
+            nodes.pop
+          else
+            tag = tags[tag_class].new(context, token[:params])
+            nodes.last << tag
+            # If it's a block tag we start collecting nodes into it
+            nodes << tag.nodes if tag.is_a?(BlockTag)
+          end
+
+        # text
         else
-          token
+          nodes.last << token
         end
       end
+      nodes.flatten
     end
   end
 
