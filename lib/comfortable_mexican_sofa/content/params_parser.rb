@@ -1,4 +1,4 @@
-module ComfortableMexicanSofa::TagParamsParser
+module ComfortableMexicanSofa::Content::ParamsParser
 
   class Error < StandardError; end
 
@@ -9,7 +9,7 @@ module ComfortableMexicanSofa::TagParamsParser
   COMMA                 = /\,/
 
   def self.parse(text)
-    parameterize(slice(tokenize(text)))
+    parameterize(slice(tokenize(text.to_s)))
   end
 
   def self.parameterize(token_groups)

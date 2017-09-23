@@ -1,0 +1,11 @@
+# wtf does this mean
+# it means that all nodes between this must be moved into here
+# {{cms:block}} some content {{cms:end_block}}
+class ComfortableMexicanSofa::Content::Block < ComfortableMexicanSofa::Content::Tag
+
+  attr_accessor :nodes
+
+  def nodes
+    @nodes ||= []
+  end
+end
