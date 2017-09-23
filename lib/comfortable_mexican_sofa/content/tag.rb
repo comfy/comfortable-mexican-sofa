@@ -18,6 +18,10 @@ class ComfortableMexicanSofa::Content::Tag
     raise "This is a base class. It holds no content"
   end
 
+  def render
+    content
+  end
+
   def parse_params_string(string)
     ComfortableMexicanSofa::Content::ParamsParser.parse(string)
   end
