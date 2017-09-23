@@ -72,6 +72,8 @@ end
 
 module ComfortableMexicanSofa::Template
 
+  class SyntaxError < StandardError; end
+
   # tags are in this format: {{ cms:tag_class params,  }}
   TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
 
@@ -113,7 +115,7 @@ module ComfortableMexicanSofa::Template
           # This handles {{cms:end}} tag. Stopping collecting block nodes.
           when "end"
             if nodes.count == 1
-              raise "closing unopened block"
+              raise SyntaxError, "closing unopened block"
             end
             nodes.pop
           else
@@ -130,7 +132,7 @@ module ComfortableMexicanSofa::Template
       end
 
       if nodes.count > 1
-        raise "unclosed block detected"
+        raise SyntaxError, "unclosed block detected"
       end
 
       nodes.flatten

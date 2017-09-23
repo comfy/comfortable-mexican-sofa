@@ -146,7 +146,7 @@ class TemplateTest < ActiveSupport::TestCase
   def test_nodes_with_unclosed_block_tag
     string = "a {{cms:test_block}} b"
     tokens = ComfortableMexicanSofa::Template.tokenize(string)
-    assert_exception_raised do
+    assert_exception_raised ComfortableMexicanSofa::Template::SyntaxError, "unclosed block detected" do
       ComfortableMexicanSofa::Template.nodes(nil, tokens)
     end
   end
@@ -154,7 +154,7 @@ class TemplateTest < ActiveSupport::TestCase
   def test_nodes_with_closed_tag
     string = "a {{cms:end}} b"
     tokens = ComfortableMexicanSofa::Template.tokenize(string)
-    assert_exception_raised do
+    assert_exception_raised ComfortableMexicanSofa::Template::SyntaxError, "closing unopened block" do
       ComfortableMexicanSofa::Template.nodes(nil, tokens)
     end
   end
