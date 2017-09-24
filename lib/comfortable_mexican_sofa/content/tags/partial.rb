@@ -19,3 +19,5 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
     end
   end
 end
+
+ComfortableMexicanSofa::Content::Template.register_tag(:test, ComfortableMexicanSofa::Content::Tag::Partial)

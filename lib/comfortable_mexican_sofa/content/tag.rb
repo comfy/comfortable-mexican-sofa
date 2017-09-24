@@ -1,5 +1,7 @@
 class ComfortableMexicanSofa::Content::Tag
 
+  class Error < StandardError; end
+
   attr_reader :context, :params
 
   def initialize(context, params_string = "")
@@ -15,7 +17,7 @@ class ComfortableMexicanSofa::Content::Tag
   end
 
   def content
-    raise "This is a base class. It holds no content"
+    raise Error, "This is a base class. It holds no content"
   end
 
   def render
