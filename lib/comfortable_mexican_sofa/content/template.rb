@@ -1,4 +1,4 @@
-module ComfortableMexicanSofa::Content::Template
+class ComfortableMexicanSofa::Content::Template
 
   class SyntaxError < StandardError; end
 
@@ -14,61 +14,84 @@ module ComfortableMexicanSofa::Content::Template
     def register_tag(name, klass)
       tags[name.to_s] = klass
     end
+  end
 
-    # Splitting text with tags into tokens we can process down the line
-    def tokenize(string)
-      tokens = []
-      ss = StringScanner.new(string)
-      while string = ss.scan_until(TAG_REGEX)
-        text = string.sub(ss[0], '')
-        tokens << text if text.present?
-        tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
+  def initialize(context)
+    @context = context
+  end
+
+  # This is how we render content out. Takes context (cms page) and starting
+  # markup (usually page's layout content)
+  def render(string)
+    tokens  = tokenize(string)
+    nodes   = nodes(tokens)
+    nodes.map do |node|
+      case node
+      when String
+        node
+      else
+        render(node.render)
       end
-      text = ss.rest
+    end.flatten.join
+  end
+
+  # Splitting text with tags into tokens we can process down the line
+  def tokenize(string)
+    tokens = []
+    ss = StringScanner.new(string)
+    while string = ss.scan_until(TAG_REGEX)
+      text = string.sub(ss[0], '')
       tokens << text if text.present?
-      return tokens
+      tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
     end
+    text = ss.rest
+    tokens << text if text.present?
+    return tokens
+  end
 
-    # Constructing node tree for content. It's a list of strings and tags with
-    # their own `nodes` method that has array of strings and tags with their own
-    # `nodes` method that... you get the idea.
-    def nodes(context, tokens)
-      nodes = [[]]
-      tokens.each do |token|
-        case token
+  # Constructing node tree for content. It's a list of strings and tags with
+  # their own `nodes` method that has array of strings and tags with their own
+  # `nodes` method that... you get the idea.
+  def nodes(tokens)
+    nodes = [[]]
+    tokens.each do |token|
+      case token
 
-        # tag signature
-        when Hash
-          case tag_class = token[:tag_class]
+      # tag signature
+      when Hash
+        case tag_class = token[:tag_class]
 
-          # This handles {{cms:end}} tag. Stopping collecting block nodes.
-          when "end"
-            if nodes.count == 1
-              raise SyntaxError, "closing unopened block"
-            end
-            nodes.pop
+        # This handles {{cms:end}} tag. Stopping collecting block nodes.
+        when "end"
+          if nodes.count == 1
+            raise SyntaxError, "closing unopened block"
+          end
+          nodes.pop
 
-          else
-            tag = tags[tag_class].new(context, token[:params])
-            nodes.last << tag
-
-            # If it's a block tag we start collecting nodes into it
-            if tag.is_a?(ComfortableMexicanSofa::Content::Block)
-              nodes << tag.nodes
-            end
+        else
+          unless klass = self.class.tags[tag_class]
+            raise SyntaxError, "Unrecognized tag #{tag_class}"
           end
 
-        # text
-        else
-          nodes.last << token
+          tag = klass.new(@context, token[:tag_params])
+          nodes.last << tag
+
+          # If it's a block tag we start collecting nodes into it
+          if tag.is_a?(ComfortableMexicanSofa::Content::Block)
+            nodes << tag.nodes
+          end
         end
-      end
 
-      if nodes.count > 1
-        raise SyntaxError, "unclosed block detected"
+      # text
+      else
+        nodes.last << token
       end
-
-      nodes.flatten
     end
+
+    if nodes.count > 1
+      raise SyntaxError, "unclosed block detected"
+    end
+
+    nodes.flatten
   end
 end
