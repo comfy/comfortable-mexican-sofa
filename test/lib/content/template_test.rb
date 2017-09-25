@@ -36,6 +36,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
 
   def test_tags
     assert_equal ({
+      "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
       "test"        => ContentTemplateTest::TestTag,
       "test_nested" => ContentTemplateTest::TestNestedTag,
       "test_block"  => ContentTemplateTest::TestBlockTag
@@ -45,6 +46,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
   def test_register_tags
     ComfortableMexicanSofa::Content::Template.register_tag(:other, TestTag)
     assert_equal ({
+      "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
       "test"        => ContentTemplateTest::TestTag,
       "test_nested" => ContentTemplateTest::TestNestedTag,
       "test_block"  => ContentTemplateTest::TestBlockTag,
