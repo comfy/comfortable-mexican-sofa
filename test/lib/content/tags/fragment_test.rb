@@ -28,8 +28,8 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_fragment
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default_page_text")
-    assert_equal comfy_cms_blocks(:default_page_text), tag.fragment
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
+    assert_equal comfy_cms_blocks(:default), tag.fragment
   end
 
   def test_fragment_new_record
@@ -40,13 +40,29 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_content
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default_page_text")
-    assert_equal comfy_cms_blocks(:default_page_text).content, tag.content
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
+    assert_equal "content", tag.content
   end
 
   def test_content_new_record
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "new")
     assert_nil tag.content
+  end
+
+  def test_render
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
+    assert_equal "content", tag.render
+  end
+
+  def test_render_with_markdown
+    comfy_cms_blocks(:default).update_column(:content, "_markdown_")
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default, format: markdown")
+    assert_equal "<p><em>markdown</em></p>\n", tag.render
+  end
+
+  def test_render_when_not_renderable
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default, render: false")
+    assert_equal "", tag.render
   end
 
 end

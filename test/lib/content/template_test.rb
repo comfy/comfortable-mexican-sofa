@@ -164,8 +164,15 @@ class ContentTemplateTest < ActiveSupport::TestCase
   end
 
   def test_render_with_tag
-    comfy_cms_blocks(:default_page_text).update_column(:content, "fragment content")
-    out = @template.render("a {{cms:fragment default_page_text}} z")
-    assert_equal "a fragment content z", out
+    out = @template.render("a {{cms:fragment default}} z")
+    assert_equal "a content z", out
+  end
+
+  def test_render_with_nested_tag
+    flunk "todo"
+  end
+
+  def test_render_stack_overflow
+    flunk "need to detect deeply nested tags"
   end
 end

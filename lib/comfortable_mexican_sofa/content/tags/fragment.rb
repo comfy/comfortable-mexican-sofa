@@ -39,6 +39,19 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     fragment.content
   end
 
+  def render
+    self.renderable ? render_with_format(content, @format) : ""
+  end
+
+  def render_with_format(content, format)
+    case format
+    when "markdown"
+      Kramdown::Document.new(content.to_s).to_html
+    else
+      content
+    end
+  end
+
 end
 
 ComfortableMexicanSofa::Content::Template.register_tag(
