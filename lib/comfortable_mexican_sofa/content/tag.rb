@@ -12,7 +12,7 @@ class ComfortableMexicanSofa::Content::Tag
   # Normally it's a string. However if tag content has tags, we need to expand
   # them and that produces potentually more stuff
   def nodes
-    template = ComfortableMexicanSofa::Content::Template.new(@context)
+    template = ComfortableMexicanSofa::Content::Renderer.new(@context)
     tokens = template.tokenize(content)
     template.nodes(tokens)
   end

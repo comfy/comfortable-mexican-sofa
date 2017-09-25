@@ -19,17 +19,17 @@ class ContentTemplateTest < ActiveSupport::TestCase
   end
 
   setup do
-    @template = ComfortableMexicanSofa::Content::Template.new(comfy_cms_pages(:default))
+    @template = ComfortableMexicanSofa::Content::Renderer.new(comfy_cms_pages(:default))
 
-    ComfortableMexicanSofa::Content::Template.register_tag(:test, TestTag)
-    ComfortableMexicanSofa::Content::Template.register_tag(:test_nested, TestNestedTag)
-    ComfortableMexicanSofa::Content::Template.register_tag(:test_block, TestBlockTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test, TestTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test_nested, TestNestedTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test_block, TestBlockTag)
   end
 
   teardown do
-    ComfortableMexicanSofa::Content::Template.tags.delete("test")
-    ComfortableMexicanSofa::Content::Template.tags.delete("test_nested")
-    ComfortableMexicanSofa::Content::Template.tags.delete("test_block")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test_nested")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test_block")
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -37,23 +37,25 @@ class ContentTemplateTest < ActiveSupport::TestCase
   def test_tags
     assert_equal ({
       "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
+      "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
       "test"        => ContentTemplateTest::TestTag,
       "test_nested" => ContentTemplateTest::TestNestedTag,
       "test_block"  => ContentTemplateTest::TestBlockTag
-    }), ComfortableMexicanSofa::Content::Template.tags
+    }), ComfortableMexicanSofa::Content::Renderer.tags
   end
 
   def test_register_tags
-    ComfortableMexicanSofa::Content::Template.register_tag(:other, TestTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:other, TestTag)
     assert_equal ({
       "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
+      "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
       "test"        => ContentTemplateTest::TestTag,
       "test_nested" => ContentTemplateTest::TestNestedTag,
       "test_block"  => ContentTemplateTest::TestBlockTag,
       "other"       => ContentTemplateTest::TestTag
-    }), ComfortableMexicanSofa::Content::Template.tags
+    }), ComfortableMexicanSofa::Content::Renderer.tags
   ensure
-    ComfortableMexicanSofa::Content::Template.tags.delete("other")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("other")
   end
 
   def test_tokenize
@@ -145,7 +147,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
   def test_nodes_with_unclosed_block_tag
     string = "a {{cms:test_block}} b"
     tokens = @template.tokenize(string)
-    assert_exception_raised ComfortableMexicanSofa::Content::Template::SyntaxError, "unclosed block detected" do
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "unclosed block detected" do
       @template.nodes(tokens)
     end
   end
@@ -153,7 +155,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
   def test_nodes_with_closed_tag
     string = "a {{cms:end}} b"
     tokens = @template.tokenize(string)
-    assert_exception_raised ComfortableMexicanSofa::Content::Template::SyntaxError, "closing unopened block" do
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "closing unopened block" do
       @template.nodes(tokens)
     end
   end

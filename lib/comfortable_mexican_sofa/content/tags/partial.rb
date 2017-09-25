@@ -20,4 +20,6 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
   end
 end
 
-ComfortableMexicanSofa::Content::Template.register_tag(:test, ComfortableMexicanSofa::Content::Tag::Partial)
+ComfortableMexicanSofa::Content::Renderer.register_tag(
+  :partial, ComfortableMexicanSofa::Content::Tag::Partial
+)

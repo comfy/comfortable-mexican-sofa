@@ -54,6 +54,6 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
 
 end
 
-ComfortableMexicanSofa::Content::Template.register_tag(
+ComfortableMexicanSofa::Content::Renderer.register_tag(
   :fragment, ComfortableMexicanSofa::Content::Tag::Fragment
 )

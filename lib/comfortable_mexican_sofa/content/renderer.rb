@@ -1,4 +1,4 @@
-class ComfortableMexicanSofa::Content::Template
+class ComfortableMexicanSofa::Content::Renderer
 
   class SyntaxError < StandardError; end
 
