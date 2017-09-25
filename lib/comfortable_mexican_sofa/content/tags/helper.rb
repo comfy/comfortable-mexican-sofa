@@ -1,0 +1,52 @@
+# Tag for injecting view helpers. Example tag:
+#   {{cms:helper method_name, param_a, param_b, foo: bar}}
+# This expands into something like this:
+#   <%= method_name("param_a", "param_b", "foo" => "bar") %>
+# Whitelist is can be used to control what helpers are available.
+# By default there's a blacklist of methods that should not be called.
+#
+class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Content::Tag
+
+  BLACKLIST = %w(eval class_eval instance_eval render)
+
+  attr_reader :method_name
+
+  def initialize(context, params_string)
+    super
+    @method_name = params.shift
+
+    unless @method_name.present?
+      raise Error, "Missing method name for helper tag"
+    end
+  end
+
+  # we output erb into rest of the content
+  def allow_erb
+    true
+  end
+
+  def content
+    helper_params = params.map do |p|
+      case p
+      when Hash
+        p.to_s
+      else
+        "\"#{p}\""
+      end
+    end.join(",")
+    "<%= #{method_name}(#{helper_params}) %>"
+  end
+
+  def render
+    whitelist = ComfortableMexicanSofa.config.allowed_helpers
+    if whitelist.is_a?(Array)
+      content if whitelist.map!(&:to_s).member?(method_name)
+    else
+      content unless BLACKLIST.member?(method_name)
+    end
+  end
+end
+
+ComfortableMexicanSofa::Content::Renderer.register_tag(
+  :helper, ComfortableMexicanSofa::Content::Tag::Helper
+)
