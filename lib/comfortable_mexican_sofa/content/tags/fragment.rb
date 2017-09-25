@@ -9,7 +9,6 @@
 #     do we want to render this content on the page, or manually access it via
 #     helpers. Good example would be content for meta tags.
 #
-
 class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::Content::Tag
 
   attr_reader :identifier, :format, :renderable

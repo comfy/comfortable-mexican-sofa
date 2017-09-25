@@ -3,6 +3,7 @@
 # This expands into a familiar:
 #   <%= render partial: "path/to/partial", locals: {foo: bar, zip: zoop} %>
 # Whitelist is can be used to control what partials are renderable.
+#
 class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Content::Tag
 
   attr_reader :path, :locals
