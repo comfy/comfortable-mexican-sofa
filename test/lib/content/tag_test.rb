@@ -15,13 +15,13 @@ class ContentTagTest < ActiveSupport::TestCase
   end
 
   setup do
-    ComfortableMexicanSofa::Content::Template.register_tag(:test, TestTag)
-    ComfortableMexicanSofa::Content::Template.register_tag(:test_nested, TestNestedTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test, TestTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test_nested, TestNestedTag)
   end
 
   teardown do
-    ComfortableMexicanSofa::Content::Template.tags.delete("test")
-    ComfortableMexicanSofa::Content::Template.tags.delete("test_nested")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test_nested")
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -32,12 +32,12 @@ class ContentTagTest < ActiveSupport::TestCase
   end
 
   def test_nodes
-    tag = TestTag.new(nil)
+    tag = TestTag.new(nil, "")
     assert_equal ["test tag content"], tag.nodes
   end
 
   def test_tag_nodes_with_nested_tag
-    tag = TestNestedTag.new(nil)
+    tag = TestNestedTag.new(nil, "")
     nodes = tag.nodes
     assert_equal 3, nodes.count
     assert_equal "test ", nodes[0]

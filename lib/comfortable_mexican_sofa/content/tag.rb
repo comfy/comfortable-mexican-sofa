@@ -4,7 +4,7 @@ class ComfortableMexicanSofa::Content::Tag
 
   attr_reader :context, :params
 
-  def initialize(context, params_string = "")
+  def initialize(context, params_string)
     @context  = context
     @params   = parse_params_string(params_string)
   end

@@ -14,7 +14,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
 
   attr_reader :identifier, :format, :renderable
 
-  def initialize(context, params_string = "")
+  def initialize(context, params_string)
     super
 
     options     = params.extract_options!

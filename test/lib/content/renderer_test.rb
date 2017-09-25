@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 
-class ContentTemplateTest < ActiveSupport::TestCase
+class ContentRendererTest < ActiveSupport::TestCase
 
   class TestTag < ComfortableMexicanSofa::Content::Tag
     def content
@@ -38,9 +38,9 @@ class ContentTemplateTest < ActiveSupport::TestCase
     assert_equal ({
       "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
       "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
-      "test"        => ContentTemplateTest::TestTag,
-      "test_nested" => ContentTemplateTest::TestNestedTag,
-      "test_block"  => ContentTemplateTest::TestBlockTag
+      "test"        => ContentRendererTest::TestTag,
+      "test_nested" => ContentRendererTest::TestNestedTag,
+      "test_block"  => ContentRendererTest::TestBlockTag
     }), ComfortableMexicanSofa::Content::Renderer.tags
   end
 
@@ -49,10 +49,10 @@ class ContentTemplateTest < ActiveSupport::TestCase
     assert_equal ({
       "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
       "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
-      "test"        => ContentTemplateTest::TestTag,
-      "test_nested" => ContentTemplateTest::TestNestedTag,
-      "test_block"  => ContentTemplateTest::TestBlockTag,
-      "other"       => ContentTemplateTest::TestTag
+      "test"        => ContentRendererTest::TestTag,
+      "test_nested" => ContentRendererTest::TestNestedTag,
+      "test_block"  => ContentRendererTest::TestBlockTag,
+      "other"       => ContentRendererTest::TestTag
     }), ComfortableMexicanSofa::Content::Renderer.tags
   ensure
     ComfortableMexicanSofa::Content::Renderer.tags.delete("other")
@@ -88,9 +88,9 @@ class ContentTemplateTest < ActiveSupport::TestCase
     nodes = @template.nodes(tokens)
     assert_equal 4, nodes.count
     assert_equal "test ", nodes[0]
-    assert nodes[1].is_a?(ContentTemplateTest::TestTag)
+    assert nodes[1].is_a?(ContentRendererTest::TestTag)
     assert_equal " content ", nodes[2]
-    assert nodes[3].is_a?(ContentTemplateTest::TestTag)
+    assert nodes[3].is_a?(ContentRendererTest::TestTag)
   end
 
   def test_nodes_with_block_tag
@@ -103,7 +103,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
     assert_equal " c", nodes[2]
 
     block = nodes[1]
-    assert block.is_a?(ContentTemplateTest::TestBlockTag)
+    assert block.is_a?(ContentRendererTest::TestBlockTag)
     assert_equal [" b "], block.nodes
   end
 
@@ -116,13 +116,13 @@ class ContentTemplateTest < ActiveSupport::TestCase
     assert_equal " d", nodes[2]
 
     block = nodes[1]
-    assert block.is_a?(ContentTemplateTest::TestBlockTag)
+    assert block.is_a?(ContentRendererTest::TestBlockTag)
     assert_equal 3, block.nodes.count
     assert_equal " b ", block.nodes[0]
     assert_equal " c ", block.nodes[2]
 
     tag = block.nodes[1]
-    assert tag.is_a?(ContentTemplateTest::TestTag)
+    assert tag.is_a?(ContentRendererTest::TestTag)
     assert_equal ["test tag content"], tag.nodes
   end
 
@@ -135,7 +135,7 @@ class ContentTemplateTest < ActiveSupport::TestCase
     assert_equal " e", nodes[2]
 
     block = nodes[1]
-    assert block.is_a?(ContentTemplateTest::TestBlockTag)
+    assert block.is_a?(ContentRendererTest::TestBlockTag)
     assert_equal 3, block.nodes.count
     assert_equal " b ", block.nodes[0]
     assert_equal " d ", block.nodes[2]
