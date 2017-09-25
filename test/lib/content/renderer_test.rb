@@ -160,6 +160,14 @@ class ContentRendererTest < ActiveSupport::TestCase
     end
   end
 
+  def test_sanitize_erb
+    out = @template.sanitize_erb("<% test %>", false)
+    assert_equal "&lt;% test %&gt;", out
+
+    out = @template.sanitize_erb("<% test %>", true)
+    assert_equal "<% test %>", out
+  end
+
   def test_render
     out = @template.render("test")
     assert_equal "test", out
@@ -168,6 +176,22 @@ class ContentRendererTest < ActiveSupport::TestCase
   def test_render_with_tag
     out = @template.render("a {{cms:fragment default}} z")
     assert_equal "a content z", out
+  end
+
+  def test_render_with_erb
+    out = @template.render("<%= 1 + 1 %>")
+    assert_equal "&lt;%= 1 + 1 %&gt;", out
+  end
+
+  def test_render_with_erb_allowed
+    ComfortableMexicanSofa.config.allow_erb = true
+    out = @template.render("<%= 1 + 1 %>")
+    assert_equal "<%= 1 + 1 %>", out
+  end
+
+  def test_render_with_erb_allowed_via_tag
+    out = @template.render("{{cms:partial path}}")
+    assert_equal "<%= render partial: '@path', locals: {} %>", out
   end
 
   def test_render_with_nested_tag

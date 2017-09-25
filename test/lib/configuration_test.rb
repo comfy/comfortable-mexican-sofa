@@ -22,7 +22,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_nil config.admin_locale
     assert_equal ({}), config.upload_file_options
     assert_nil config.admin_cache_sweeper
-    assert_equal false, config.allow_irb
+    assert_equal false, config.allow_erb
     assert_nil config.allowed_helpers
     assert_nil config.allowed_partials
     assert_nil config.allowed_templates

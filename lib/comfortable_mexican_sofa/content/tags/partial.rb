@@ -18,6 +18,11 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
     end
   end
 
+  # we output erb into rest of the content
+  def allow_erb
+    true
+  end
+
   def content
     "<%= render partial: '@path', locals: #{@locals} %>"
   end

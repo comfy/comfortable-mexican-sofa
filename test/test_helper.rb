@@ -46,7 +46,7 @@ class ActiveSupport::TestCase
       config.admin_locale         = nil
       config.upload_file_options  = { }
       config.admin_cache_sweeper  = nil
-      config.allow_irb            = false
+      config.allow_erb            = false
       config.allowed_helpers      = nil
       config.allowed_partials     = nil
       config.allowed_templates    = nil

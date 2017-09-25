@@ -49,8 +49,8 @@ class ComfortableMexicanSofa::Configuration
   # A class that is included as a sweeper to admin base controller if it's set
   attr_accessor :admin_cache_sweeper
 
-  # Not allowing irb code to be run inside page content. False by default.
-  attr_accessor :allow_irb
+  # Not allowing erb code to be run inside page content. False by default.
+  attr_accessor :allow_erb
 
   # Whitelist of all helper methods that can be used via {{cms:helper}} tag. By default
   # all helpers are allowed except `eval`, `send`, `call` and few others. Empty array
@@ -116,7 +116,7 @@ class ComfortableMexicanSofa::Configuration
     }
     @admin_locale         = nil
     @admin_cache_sweeper  = nil
-    @allow_irb            = false
+    @allow_erb            = false
     @allowed_helpers      = nil
     @allowed_partials     = nil
     @hostname_aliases     = nil

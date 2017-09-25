@@ -22,17 +22,25 @@ class ComfortableMexicanSofa::Content::Renderer
 
   # This is how we render content out. Takes context (cms page) and starting
   # markup (usually page's layout content)
-  def render(string)
+  def render(string, allow_erb = ComfortableMexicanSofa.config.allow_erb)
     tokens  = tokenize(string)
     nodes   = nodes(tokens)
     nodes.map do |node|
       case node
       when String
-        node
+        sanitize_erb(node, allow_erb)
       else
-        render(node.render)
+        render(node.render, allow_erb || node.allow_erb)
       end
     end.flatten.join
+  end
+
+  def sanitize_erb(string, allow_erb)
+    if allow_erb
+      string.to_s
+    else
+      string.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
+    end
   end
 
   # Splitting text with tags into tokens we can process down the line
