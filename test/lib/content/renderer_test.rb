@@ -18,6 +18,15 @@ class ContentRendererTest < ActiveSupport::TestCase
     # ...
   end
 
+  DEFAULT_REGISTERED_TAGS = {
+    "fragment"  => ComfortableMexicanSofa::Content::Tag::Fragment,
+    "file"      => ComfortableMexicanSofa::Content::Tag::File,
+    "snippet"   => ComfortableMexicanSofa::Content::Tag::Snippet,
+    "helper"    => ComfortableMexicanSofa::Content::Tag::Helper,
+    "partial"   => ComfortableMexicanSofa::Content::Tag::Partial,
+    "template"  => ComfortableMexicanSofa::Content::Tag::Template
+  }.freeze
+
   setup do
     @template = ComfortableMexicanSofa::Content::Renderer.new(comfy_cms_pages(:default))
 
@@ -35,25 +44,21 @@ class ContentRendererTest < ActiveSupport::TestCase
   # -- Tests -------------------------------------------------------------------
 
   def test_tags
-    assert_equal ({
-      "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
-      "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
+    assert_equal (DEFAULT_REGISTERED_TAGS.merge(
       "test"        => ContentRendererTest::TestTag,
       "test_nested" => ContentRendererTest::TestNestedTag,
       "test_block"  => ContentRendererTest::TestBlockTag
-    }), ComfortableMexicanSofa::Content::Renderer.tags
+    )), ComfortableMexicanSofa::Content::Renderer.tags
   end
 
   def test_register_tags
     ComfortableMexicanSofa::Content::Renderer.register_tag(:other, TestTag)
-    assert_equal ({
-      "fragment"    => ComfortableMexicanSofa::Content::Tag::Fragment,
-      "partial"     => ComfortableMexicanSofa::Content::Tag::Partial,
+    assert_equal (DEFAULT_REGISTERED_TAGS.merge(
       "test"        => ContentRendererTest::TestTag,
       "test_nested" => ContentRendererTest::TestNestedTag,
       "test_block"  => ContentRendererTest::TestBlockTag,
       "other"       => ContentRendererTest::TestTag
-    }), ComfortableMexicanSofa::Content::Renderer.tags
+    )), ComfortableMexicanSofa::Content::Renderer.tags
   ensure
     ComfortableMexicanSofa::Content::Renderer.tags.delete("other")
   end
@@ -195,10 +200,19 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_nested_tag
-    flunk "todo"
+    string = "a {{cms:fragment default}} b"
+    comfy_cms_blocks(:default).update_column(:content, "c {{cms:snippet default}} d")
+    comfy_cms_snippets(:default).update_column(:content, "e {{cms:helper test}} f")
+    out = @template.render(string)
+    assert_equal "a c e <%= test() %> f d b", out
   end
 
   def test_render_stack_overflow
-    flunk "need to detect deeply nested tags"
+    # making self-referencing content loop here
+    comfy_cms_snippets(:default).update_column(:content, "a {{cms:snippet default}} b")
+    message = "Deep tag nesting or recursive nesting detected"
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::Error, message do
+      @template.render("{{cms:snippet default}}")
+    end
   end
 end

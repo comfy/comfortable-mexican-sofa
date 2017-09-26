@@ -1,6 +1,9 @@
 class ComfortableMexicanSofa::Content::Renderer
 
   class SyntaxError < StandardError; end
+  class Error < StandardError; end
+
+  MAX_DEPTH = 100
 
   # tags are in this format: {{ cms:tag_class params,  }}
   TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
@@ -18,11 +21,16 @@ class ComfortableMexicanSofa::Content::Renderer
 
   def initialize(context)
     @context = context
+    @depth   = 0
   end
 
   # This is how we render content out. Takes context (cms page) and starting
   # markup (usually page's layout content)
   def render(string, allow_erb = ComfortableMexicanSofa.config.allow_erb)
+    if (@depth += 1) > MAX_DEPTH
+      raise Error, "Deep tag nesting or recursive nesting detected"
+    end
+
     tokens  = tokenize(string)
     nodes   = nodes(tokens)
     nodes.map do |node|
