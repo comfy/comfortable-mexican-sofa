@@ -5,6 +5,7 @@ tmp/**/*
 .DS_Store
 db/schema.rb
 db/development_structure.sql
+db/test.sqlite3-journal
 pkg
 rdoc
 /tmp

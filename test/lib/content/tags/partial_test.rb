@@ -31,7 +31,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
     assert_equal "<%= render partial: '@path', locals: {\"key\"=>\"val\"} %>", tag.render
   end
 
-  def test_with_whitelist
+  def test_render_with_whitelist
     ComfortableMexicanSofa.config.allowed_partials = ['safe/path']
 
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "path/to/partial")
