@@ -1,6 +1,7 @@
 # Tag that's responsible for rendeting content that comes from the database.
-# Tag looks something like this: `{{cms:fragment identifier, format: text}}`
-# `context` in here means `Comfy::Cms::Page` instance.
+# Tag looks something like this:
+#   {{cms:fragment identifier, format: text}}
+#
 # Tag params are split and first string maps to the `identifier` of the fragment
 # Tag handles following options:
 #   `format`: text (default) | textarea | wysiwyg | markdown | datetime | date
