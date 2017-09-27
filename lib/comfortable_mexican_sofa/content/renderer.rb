@@ -1,3 +1,15 @@
+# Procesing content follows these stages:
+#
+#   string        - Text with tags. like this: "some {{cms:fragment content}} text"
+#   tokenization  - Splits string into a list of strings and hashes that define tags
+#                   Example: ["some ", {tag_class: "fragment", tag_params: ""}, " text"]
+#   nodefying     - Initializes Tag instances from tag hashes and returns list
+#                   like this: ["some ", (FragmentTagInstance), " text"]
+#   rendering     - Recursively iterates through nodes. Tag instances get their
+#                   `render` method called. Result of that is tokenized, nodefied
+#                   and rendered once again until there are no tags to expand.
+#                   Resulting list is flattened and joined into final rendered string.
+#
 class ComfortableMexicanSofa::Content::Renderer
 
   class SyntaxError < StandardError; end
@@ -24,21 +36,21 @@ class ComfortableMexicanSofa::Content::Renderer
     @depth   = 0
   end
 
-  # This is how we render content out. Takes context (cms page) and starting
-  # markup (usually page's layout content)
-  def render(string, allow_erb = ComfortableMexicanSofa.config.allow_erb)
+  # This is how we render content out. Takes context (cms page) and content
+  # nodes
+  def render(nodes, allow_erb = ComfortableMexicanSofa.config.allow_erb)
     if (@depth += 1) > MAX_DEPTH
       raise Error, "Deep tag nesting or recursive nesting detected"
     end
 
-    tokens  = tokenize(string)
-    nodes   = nodes(tokens)
     nodes.map do |node|
       case node
       when String
         sanitize_erb(node, allow_erb)
       else
-        render(node.render, allow_erb || node.allow_erb)
+        tokens  = tokenize(node.render)
+        nodes   = nodes(tokens)
+        render(nodes, allow_erb || node.allow_erb)
       end
     end.flatten.join
   end

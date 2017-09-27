@@ -56,7 +56,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   # -- Instance Methods --------------------------------------------------------
   # Tokenized layout content that also pulls in parent layout (if there's one)
   # and merges on the {{cms:fragment content}} tag (if parent layout has that).
-  # Returns a list of tokens that can be fed into renderer.
+  # Returns a list of tokens that can be fed into the renderer.
   def content_tokens
     renderer = ComfortableMexicanSofa::Content::Renderer.new(nil)
     tokens = renderer.tokenize(self.content)

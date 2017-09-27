@@ -43,6 +43,13 @@ class ContentRendererTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Content::Renderer.tags.delete("test_block")
   end
 
+  # Test helper so we don't have to do this each time
+  def render_string(string, template = @template)
+    tokens = @template.tokenize(string)
+    nodes  = @template.nodes(tokens)
+    @template.render(nodes)
+  end
+
   # -- Tests -------------------------------------------------------------------
 
   def test_tags
@@ -176,28 +183,28 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render
-    out = @template.render("test")
+    out = render_string("test")
     assert_equal "test", out
   end
 
   def test_render_with_tag
-    out = @template.render("a {{cms:fragment default}} z")
+    out = render_string("a {{cms:fragment default}} z")
     assert_equal "a content z", out
   end
 
   def test_render_with_erb
-    out = @template.render("<%= 1 + 1 %>")
+    out = render_string("<%= 1 + 1 %>")
     assert_equal "&lt;%= 1 + 1 %&gt;", out
   end
 
   def test_render_with_erb_allowed
     ComfortableMexicanSofa.config.allow_erb = true
-    out = @template.render("<%= 1 + 1 %>")
+    out = render_string("<%= 1 + 1 %>")
     assert_equal "<%= 1 + 1 %>", out
   end
 
   def test_render_with_erb_allowed_via_tag
-    out = @template.render("{{cms:partial path}}")
+    out = render_string("{{cms:partial path}}")
     assert_equal "<%= render partial: '@path', locals: {} %>", out
   end
 
@@ -205,7 +212,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     string = "a {{cms:fragment default}} b"
     comfy_cms_blocks(:default).update_column(:content, "c {{cms:snippet default}} d")
     comfy_cms_snippets(:default).update_column(:content, "e {{cms:helper test}} f")
-    out = @template.render(string)
+    out = render_string(string)
     assert_equal "a c e <%= test() %> f d b", out
   end
 
@@ -214,7 +221,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     comfy_cms_snippets(:default).update_column(:content, "a {{cms:snippet default}} b")
     message = "Deep tag nesting or recursive nesting detected"
     assert_exception_raised ComfortableMexicanSofa::Content::Renderer::Error, message do
-      @template.render("{{cms:snippet default}}")
+      render_string("{{cms:snippet default}}")
     end
   end
 end
