@@ -28,11 +28,10 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     @renderable = options["render"].to_s.downcase == "false" ? false : true
   end
 
-  # TODO: replace blocks to fragments
   # Grabs existing fragment or spins up a new instance if there's none
   def fragment
-    self.context.blocks.detect{|f| f.identifier == self.identifier} ||
-    self.context.blocks.build(identifier: self.identifier)
+    self.context.fragments.detect{|f| f.identifier == self.identifier} ||
+    self.context.fragments.build(identifier: self.identifier)
   end
 
   def content

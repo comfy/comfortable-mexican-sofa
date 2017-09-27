@@ -10,7 +10,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
   belongs_to :site
   belongs_to :layout
   belongs_to :target_page,
-    :class_name => 'Comfy::Cms::Page'
+    class_name: 'Comfy::Cms::Page'
+
+  has_many :fragments,
+    autosave:  true,
+    dependent: :destroy
 
   # -- Callbacks ------------------------------------------------------------
   before_validation :assigns_label,
@@ -71,6 +75,18 @@ class Comfy::Cms::Page < ActiveRecord::Base
     else
       '//' + [self.site.hostname, public_cms_path, self.site.path, self.full_path].join('/').squeeze('/')
     end
+  end
+
+  # Rendered content of the page
+  def render
+    r = ComfortableMexicanSofa::Content::Renderer.new(self)
+    tokens  = self.layout.content_tokens
+    nodes   = r.nodes(tokens)
+    r.render(nodes)
+  end
+
+  def content_cache
+
   end
 
 protected

@@ -28,19 +28,19 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_fragment
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
-    assert_equal comfy_cms_blocks(:default), tag.fragment
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content")
+    assert_equal comfy_cms_fragments(:default), tag.fragment
   end
 
   def test_fragment_new_record
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "new")
     fragment = tag.fragment
-    assert fragment.is_a?(Comfy::Cms::Block)
+    assert fragment.is_a?(Comfy::Cms::Fragment)
     assert fragment.new_record?
   end
 
   def test_content
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content")
     assert_equal "content", tag.content
   end
 
@@ -50,18 +50,18 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_render
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default")
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content")
     assert_equal "content", tag.render
   end
 
   def test_render_with_markdown
-    comfy_cms_blocks(:default).update_column(:content, "_markdown_")
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default, format: markdown")
+    comfy_cms_fragments(:default).update_column(:content, "_markdown_")
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content, format: markdown")
     assert_equal "<p><em>markdown</em></p>\n", tag.render
   end
 
   def test_render_when_not_renderable
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "default, render: false")
+    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content, render: false")
     assert_equal "", tag.render
   end
 

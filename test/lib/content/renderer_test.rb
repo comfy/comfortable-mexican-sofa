@@ -188,7 +188,7 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_tag
-    out = render_string("a {{cms:fragment default}} z")
+    out = render_string("a {{cms:fragment content}} z")
     assert_equal "a content z", out
   end
 
@@ -209,8 +209,8 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_nested_tag
-    string = "a {{cms:fragment default}} b"
-    comfy_cms_blocks(:default).update_column(:content, "c {{cms:snippet default}} d")
+    string = "a {{cms:fragment content}} b"
+    comfy_cms_fragments(:default).update_column(:content, "c {{cms:snippet default}} d")
     comfy_cms_snippets(:default).update_column(:content, "e {{cms:helper test}} f")
     out = render_string(string)
     assert_equal "a c e <%= test() %> f d b", out

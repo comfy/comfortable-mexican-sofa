@@ -4,6 +4,10 @@ require_relative '../test_helper'
 
 class CmsPageTest < ActiveSupport::TestCase
 
+  setup do
+    @page = comfy_cms_pages(:default)
+  end
+
   def test_fixtures_validity
     Comfy::Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
@@ -193,6 +197,15 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'default_field_text', page.blocks_attributes.first[:identifier]
     assert_equal 'default_field_text_content', page.blocks_attributes.first[:content]
   end
+
+
+
+  def test_render
+    out = @page.render
+    assert_equal "content", out
+  end
+
+
 
   def test_content_caching
     page = comfy_cms_pages(:default)

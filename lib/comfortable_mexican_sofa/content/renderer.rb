@@ -66,7 +66,7 @@ class ComfortableMexicanSofa::Content::Renderer
   # Splitting text with tags into tokens we can process down the line
   def tokenize(string)
     tokens = []
-    ss = StringScanner.new(string)
+    ss = StringScanner.new(string.to_s)
     while string = ss.scan_until(TAG_REGEX)
       text = string.sub(ss[0], '')
       tokens << text if text.present?
