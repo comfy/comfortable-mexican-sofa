@@ -102,21 +102,12 @@ class ActiveSupport::TestCase
   end
 
   def stub_paperclip
-    Comfy::Cms::Block.any_instance.stubs(:save_attached_files).returns(true)
-    Comfy::Cms::Block.any_instance.stubs(:delete_attached_files).returns(true)
+    Comfy::Cms::Fragment.any_instance.stubs(:save_attached_files).returns(true)
+    Comfy::Cms::Fragment.any_instance.stubs(:delete_attached_files).returns(true)
     Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
-
 end
 
-class ActionController::TestCase
-
-  setup :setup_auth
-
-  def setup_auth
-    @request.env['HTTP_AUTHORIZATION'] = "Basic #{Base64.encode64('username:password')}"
-  end
-end
 
 class ActionDispatch::IntegrationTest
 

@@ -1,5 +1,5 @@
-class Comfy::Cms::Block < ActiveRecord::Base
-  self.table_name = 'comfy_cms_blocks'
+class Comfy::Cms::Fragment < ActiveRecord::Base
+  self.table_name = 'comfy_cms_fragments'
 
   FILE_CLASSES = %w(ActionDispatch::Http::UploadedFile Rack::Test::UploadedFile File).freeze
 
@@ -8,8 +8,7 @@ class Comfy::Cms::Block < ActiveRecord::Base
   attr_accessor :temp_files
 
   # -- Relationships --------------------------------------------------------
-  belongs_to :blockable,
-    :polymorphic  => true
+  belongs_to :page
   has_many :files,
     :autosave   => true,
     :dependent  => :destroy

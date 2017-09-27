@@ -1,15 +1,15 @@
 require_relative '../test_helper'
 
-class CmsBlockTest < ActiveSupport::TestCase
+class CmsFragmentTest < ActiveSupport::TestCase
 
   def test_fixtures_validity
-    Comfy::Cms::Block.all.each do |block|
+    Comfy::Cms::Fragment.all.each do |block|
       assert block.valid?, block.errors.full_messages.to_s
     end
   end
 
   def test_tag
-    block = comfy_cms_blocks(:default_page_text)
+    block = comfy_cms_blocks(:default)
     assert block.blockable.tags(true).collect(&:id).member?('page_text_default_page_text')
     assert_equal 'page_text_default_page_text', block.tag.id
   end

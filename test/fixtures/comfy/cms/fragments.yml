@@ -1,4 +1,4 @@
 default:
-  blockable: default (Comfy::Cms::Page)
+  page: default
   identifier: default
   content: content
