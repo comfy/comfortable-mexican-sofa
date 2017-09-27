@@ -5,7 +5,7 @@
 # `multiple`  - true | false (default) - are we uploading one or many files
 # `partial`   - path - use partial to render out files
 # `render`    - true (default) | false - if you want to render out files manually
-# `format`    - link (default) | image - render out link or image tag. Note: partial will clobber this
+# `as`        - link (default) | image - render out link or image tag. Note: partial will clobber this
 # `label`     - attach label attribute to link or image tag
 # `size`      - imagemagic resize string. For example: "100x50>"
 #
