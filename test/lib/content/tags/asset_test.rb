@@ -32,6 +32,11 @@ class ContentTagsAssetTest < ActiveSupport::TestCase
     assert tag.layout.is_a?(Comfy::Cms::Layout)
   end
 
+  def test_content_for_invalid
+    tag = ComfortableMexicanSofa::Content::Tag::Asset.new(@page, "default")
+    assert_nil tag.content
+  end
+
   def test_content_for_css
     tag = ComfortableMexicanSofa::Content::Tag::Asset.new(@page, "default, type: css")
     out = "/cms-css/#{@page.site_id}/#{@page.layout.identifier}/#{@page.layout.cache_buster}.css"
