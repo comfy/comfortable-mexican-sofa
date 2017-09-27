@@ -1,19 +1,56 @@
 require_relative '../test_helper'
 
 class CmsLayoutTest < ActiveSupport::TestCase
-  
+
+  setup do
+    @layout = comfy_cms_layouts(:default)
+  end
+
+
+
   def test_fixtures_validity
     Comfy::Cms::Layout.all.each do |layout|
       assert layout.valid?, layout.errors.full_messages.to_s
     end
   end
-  
+
   def test_validations
     layout = comfy_cms_sites(:default).layouts.create
     assert layout.errors.present?
     assert_has_errors_on layout, [:label, :identifier]
   end
-  
+
+
+
+
+
+  def test_content_tokens
+    layout = Comfy::Cms::Layout.new(content: "a {{cms:fragment content}} b")
+    assert_equal ["a ", {tag_class: "fragment", tag_params: "content"}, " b"],
+      layout.content_tokens
+  end
+
+  def test_content_tokens_nested
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:fragment content}} {{cms:fragment footer}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:fragment content}} d")
+    layout_b.parent = layout_a
+    assert_equal [
+      "a ", "c ", {tag_class: "fragment", tag_params: "content"}, " d",
+      {tag_class: "fragment", tag_params: "footer"}, " b"
+    ], layout_b.content_tokens
+  end
+
+  def test_content_tokens_nested_without_content_tag
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:fragment footer}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:fragment content}} d")
+    layout_b.parent = layout_a
+    assert_equal ["c ", {tag_class: "fragment", tag_params: "content"}, " d"],
+      layout_b.content_tokens
+  end
+
+
+
+
   def test_label_assignment
     layout = comfy_cms_sites(:default).layouts.new(
       :identifier => 'test',
@@ -22,7 +59,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert layout.valid?
     assert_equal 'Test', layout.label
   end
-  
+
   def test_creation
     assert_difference 'Comfy::Cms::Layout.count' do
       layout = comfy_cms_sites(:default).layouts.create(
@@ -40,7 +77,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
       assert_equal 1, layout.position
     end
   end
-  
+
   def test_options_for_select
     assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
       Comfy::Cms::Layout.options_for_select(comfy_cms_sites(:default)).collect{|t| t.first}
@@ -49,7 +86,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal ['Default Layout'],
       Comfy::Cms::Layout.options_for_select(comfy_cms_sites(:default), comfy_cms_layouts(:nested)).collect{|t| t.first}
   end
-  
+
   def test_app_layouts_for_select
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/admin/cms/nested.html.erb', Rails.root))
     FileUtils.touch(File.expand_path('app/views/layouts/comfy/_partial.html.erb', Rails.root))
@@ -72,25 +109,25 @@ class CmsLayoutTest < ActiveSupport::TestCase
   ensure
     FileUtils.rm_r(File.expand_path('app/additional_views', Rails.root))
   end
-  
+
   def test_merged_content_with_same_child_content
     parent_layout = comfy_cms_layouts(:nested)
     assert_equal "{{cms:page:header}}\n{{cms:page:content}}", parent_layout.content
     assert_equal "{{cms:page:header}}\n{{cms:page:content}}", parent_layout.merged_content
-    
+
     child_layout = comfy_cms_layouts(:child)
     assert_equal parent_layout, child_layout.parent
     assert_equal "{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.content
     assert_equal "{{cms:page:header}}\n{{cms:page:left_column}}\n{{cms:page:right_column}}", child_layout.merged_content
-    
+
     child_layout.update_columns(:content => '{{cms:page:content}}')
     assert_equal "{{cms:page:header}}\n{{cms:page:content}}", child_layout.merged_content
-    
+
     parent_layout.update_columns(:content => '{{cms:page:whatever}}')
     child_layout.reload
     assert_equal '{{cms:page:content}}', child_layout.merged_content
   end
-  
+
   def test_update_forces_page_content_reload
     layout_1 = comfy_cms_layouts(:nested)
     layout_2 = comfy_cms_layouts(:child)
@@ -124,11 +161,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
     )
     assert_equal "header_content\ncontent_content", page_1.content_cache
     assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content_cache
-    
+
     layout_1.update_attributes(:content => "Updated {{cms:page:content}}")
     page_1.reload
     page_2.reload
-    
+
     assert_equal "Updated content_content", page_1.content_cache
     assert_equal "Updated left_column_content\nleft_column_content", page_2.content_cache
   end

@@ -19,11 +19,13 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   DEFAULT_REGISTERED_TAGS = {
+    "asset"     => ComfortableMexicanSofa::Content::Tag::Asset,
     "fragment"  => ComfortableMexicanSofa::Content::Tag::Fragment,
     "file"      => ComfortableMexicanSofa::Content::Tag::File,
     "snippet"   => ComfortableMexicanSofa::Content::Tag::Snippet,
     "helper"    => ComfortableMexicanSofa::Content::Tag::Helper,
     "partial"   => ComfortableMexicanSofa::Content::Tag::Partial,
+    "file_link" => ComfortableMexicanSofa::Content::Tag::FileLink,
     "template"  => ComfortableMexicanSofa::Content::Tag::Template
   }.freeze
 

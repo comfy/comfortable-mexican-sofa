@@ -4,37 +4,7 @@ default:
   identifier: default
   parent:
   content: |-
-    {{cms:field:default_field_text:text}}
-    layout_content_a
-    {{cms:page:default_page_text:text}}
-    layout_content_b
-    {{cms:snippet:default}}
-    layout_content_c
+    {{cms:fragment content}}
   css: default_css
   js: default_js
   position: 0
-    
-nested:
-  site: default
-  label: Nested Layout
-  identifier: nested
-  parent:
-  content: |-
-    {{cms:page:header}}
-    {{cms:page:content}}
-  css: nested_css
-  js: nested_js
-  position: 0
-    
-child:
-  site: default
-  label: Child Layout
-  identifier: child
-  parent: nested
-  content: |-
-    {{cms:page:left_column}}
-    {{cms:page:right_column}}
-  css: child_css
-  js: child_js
-  position: 0
-

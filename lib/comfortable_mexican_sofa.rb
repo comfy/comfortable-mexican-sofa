@@ -29,10 +29,6 @@ require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
 
 require_relative  'comfortable_mexican_sofa/content'
 
-Dir.glob(File.expand_path('comfortable_mexican_sofa/tags/*.rb', File.dirname(__FILE__))).each do |path|
-  require_relative path
-end
-
 module ComfortableMexicanSofa
   class << self
 

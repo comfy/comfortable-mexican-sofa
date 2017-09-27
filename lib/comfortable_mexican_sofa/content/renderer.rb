@@ -65,6 +65,7 @@ class ComfortableMexicanSofa::Content::Renderer
     return tokens
   end
 
+
   # Constructing node tree for content. It's a list of strings and tags with
   # their own `nodes` method that has array of strings and tags with their own
   # `nodes` method that... you get the idea.
