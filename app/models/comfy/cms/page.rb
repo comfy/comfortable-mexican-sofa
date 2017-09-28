@@ -23,7 +23,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
                     :assign_full_path
   before_create     :assign_position
   around_save       :sync_child_full_paths!
+  before_save       :clear_content_cache
   after_find        :unescape_slug_and_path
+
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -77,7 +79,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
-  # Rendered content of the page
+  # Rendered content of the page. We grab whatever layout is associated with the
+  # page and feed its content tokens to the renderer while passing this page as
+  # context.
   def render
     r = ComfortableMexicanSofa::Content::Renderer.new(self)
     tokens  = self.layout.content_tokens
@@ -85,8 +89,24 @@ class Comfy::Cms::Page < ActiveRecord::Base
     r.render(nodes)
   end
 
+  # If content_cache column is populated we don't need to call render for this
+  # page.
   def content_cache
+    if (cache = read_attribute(:content_cache)).nil?
+      cache = self.render
+      update_column(:content_cache, cache) unless self.new_record?
+    end
+    cache
+  end
 
+  # Nuking content cache so it can be regenerated.
+  def clear_content_cache!
+    self.update_column(:content_cache, nil)
+  end
+
+  # Blanking cache on page saves so it can be regenerated on access
+  def clear_content_cache
+    write_attribute(:content_cache, nil)
   end
 
 protected

@@ -205,13 +205,11 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "content", out
   end
 
-
-
   def test_content_caching
     page = comfy_cms_pages(:default)
     assert_equal page.content_cache, page.render
 
-    page.update_columns(:content_cache => 'Old Content')
+    page.update_columns(content_cache: 'Old Content')
     refute_equal page.content_cache, page.render
 
     page.clear_content_cache!
@@ -221,11 +219,15 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_content_cache_clear_on_save
     page = comfy_cms_pages(:default)
     old_content = 'Old Content'
-    page.update_columns(:content_cache => old_content)
+    page.update_columns(content_cache: old_content)
 
     page.save!
     refute_equal old_content, page.content_cache
   end
+
+
+
+
 
   def test_scope_published
     assert_equal 2, Comfy::Cms::Page.published.count
