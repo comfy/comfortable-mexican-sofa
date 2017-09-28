@@ -15,13 +15,13 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
-    :presence   => true
+    presence:   true
   validates :label,
-    :presence   => true
+    presence:   true
   validates :identifier,
-    :presence   => true,
-    :uniqueness => { :scope => :site_id },
-    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
+    presence:   true,
+    uniqueness: {scope: :site_id},
+    format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_snippets.position') }
@@ -33,12 +33,11 @@ protected
   end
 
   def clear_page_content_cache
-    Comfy::Cms::Page.where(:id => site.pages.pluck(:id)).update_all(:content_cache => nil)
+    Comfy::Cms::Page.where(id: site.pages.pluck(:id)).update_all(content_cache: nil)
   end
 
   def assign_position
     max = self.site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
-
 end
