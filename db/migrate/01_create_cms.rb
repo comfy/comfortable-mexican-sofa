@@ -75,7 +75,7 @@ class CreateCms < ActiveRecord::Migration[5.0]
     # -- Files -----------------------------------------------------------------
     create_table :comfy_cms_files, force: true do |t|
       t.integer :site_id,           null: false
-      t.integer :block_id
+      t.integer :fragment_id
       t.string  :label,             null: false
       t.string  :file_file_name,    null: false
       t.string  :file_content_type, null: false
@@ -87,7 +87,7 @@ class CreateCms < ActiveRecord::Migration[5.0]
     add_index :comfy_cms_files, [:site_id, :label]
     add_index :comfy_cms_files, [:site_id, :file_file_name]
     add_index :comfy_cms_files, [:site_id, :position]
-    add_index :comfy_cms_files, [:site_id, :block_id]
+    add_index :comfy_cms_files, [:site_id, :fragment_id]
 
     # -- Revisions -----------------------------------------------------------
     create_table :comfy_cms_revisions, force: true do |t|

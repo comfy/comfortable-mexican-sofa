@@ -10,3 +10,15 @@ default:
   position: 0
   is_published: true
   content_cache:
+
+child:
+  site: default
+  parent: default
+  target_page:
+  layout: default
+  label: Child Page
+  slug: 'child-page'
+  full_path: '/child-page'
+  children_count: 0
+  position: 0
+  is_published: true

@@ -3,14 +3,14 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   cms_acts_as_tree :counter_cache => :children_count
   cms_is_categorized
-  # cms_manageable
-  cms_has_revisions_for :blocks_attributes
+  cms_has_revisions_for :fragments_attributes
+
+  attr_accessor :fragments_attributes_changed
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
   belongs_to :layout
-  belongs_to :target_page,
-    class_name: 'Comfy::Cms::Page'
+  belongs_to :target_page, class_name: 'Comfy::Cms::Page'
 
   has_many :fragments,
     autosave:  true,
@@ -29,15 +29,17 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
-    :presence   => true
+    presence:   true
   validates :label,
-    :presence   => true
+    presence:   true
   validates :slug,
-    :presence   => true,
-    :uniqueness => { :scope => :parent_id },
-    :unless     => lambda{ |p| p.site && (p.site.pages.count == 0 || p.site.pages.root == self) }
+    presence:   true,
+    uniqueness: {scope: :parent_id},
+    unless:     -> (p) {
+      p.site && (p.site.pages.count == 0 || p.site.pages.root == self)
+    }
   validates :layout,
-    :presence   => true
+    presence:   true
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
 
@@ -109,6 +111,35 @@ class Comfy::Cms::Page < ActiveRecord::Base
     write_attribute(:content_cache, nil)
   end
 
+  # Transforms existing cms_fragment information into a hash that can be used
+  # during form processing. That's the only way to modify cms_fragments.
+  def fragments_attributes(was = false)
+    self.fragments.collect do |fragment|
+      fragment_attr = {}
+      fragment_attr[:identifier] = fragment.identifier
+      fragment_attr[:content]    = was ? fragment.content_was : fragment.content
+      fragment_attr
+    end
+  end
+
+  # Array of block hashes in the following format:
+  #   [
+  #     {identifier: 'fragment_1', content: 'fragment 2 content'},
+  #     {identifier: 'fragment_2', content: 'fragment 1 content'}
+  #   ]
+  def fragments_attributes=(fragment_hashes = [])
+    fragment_hashes = fragment_hashes.values if fragment_hashes.is_a?(Hash)
+    fragment_hashes.each do |fragment_hash|
+      fragment_hash.symbolize_keys! unless fragment_hash.is_a?(HashWithIndifferentAccess)
+      fragment =
+        self.fragments.detect{|f| f.identifier == fragment_hash[:identifier]} ||
+        self.fragments.build(identifier: fragment_hash[:identifier])
+      fragment.content = fragment_hash[:content]
+      self.fragments_attributes_changed =
+        self.fragments_attributes_changed || fragment.content_changed?
+    end
+  end
+
 protected
 
   def assigns_label
@@ -137,7 +168,9 @@ protected
     return unless self.target_page
     p = self
     while p.target_page do
-      return self.errors.add(:target_page_id, 'Invalid Redirect') if (p = p.target_page) == self
+      if (p = p.target_page) == self
+        return self.errors.add(:target_page_id, 'Invalid Redirect')
+      end
     end
   end
 

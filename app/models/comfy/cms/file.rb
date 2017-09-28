@@ -21,7 +21,7 @@ class Comfy::Cms::File < ActiveRecord::Base
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
-  belongs_to :block
+  belongs_to :fragment
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
@@ -30,7 +30,7 @@ class Comfy::Cms::File < ActiveRecord::Base
   do_not_validate_attachment_file_type :file
 
   validates :file_file_name,
-    :uniqueness => {:scope => [:site_id, :block_id]}
+    :uniqueness => {:scope => [:site_id, :fragment_id]}
 
   # -- Callbacks ------------------------------------------------------------
   before_save   :assign_label
@@ -39,7 +39,7 @@ class Comfy::Cms::File < ActiveRecord::Base
   after_destroy :reload_blockable_cache
 
   # -- Scopes ---------------------------------------------------------------
-  scope :not_page_file, -> { where(:block_id => nil)}
+  scope :not_page_file, -> { where(:fragment_id => nil)}
   scope :images,        -> { where(:file_content_type => IMAGE_MIMETYPES) }
   scope :not_images,    -> { where('file_content_type NOT IN (?)', IMAGE_MIMETYPES) }
 

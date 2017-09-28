@@ -16,7 +16,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :identifier,
     :presence   => true,
-    :uniqueness => { :scope => [:blockable_type, :blockable_id] }
+    :uniqueness => { :scope => :page_id }
 
   # -- Callbacks ------------------------------------------------------------
   before_save :prepare_files

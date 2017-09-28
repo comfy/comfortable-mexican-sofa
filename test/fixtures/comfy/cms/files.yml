@@ -1,6 +1,6 @@
 default:
   site: default
-  block:
+  fragment:
   label: Default File
   file_file_name: default.jpg
   file_content_type: image/jpeg
