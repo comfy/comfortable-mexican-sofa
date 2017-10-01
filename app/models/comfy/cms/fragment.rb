@@ -10,22 +10,18 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   # -- Relationships --------------------------------------------------------
   belongs_to :page
   has_many :files,
-    :autosave   => true,
-    :dependent  => :destroy
+    autosave:   true,
+    dependent:  :destroy
 
   # -- Validations ----------------------------------------------------------
   validates :identifier,
-    :presence   => true,
-    :uniqueness => { :scope => :page_id }
+    presence:   true,
+    uniqueness: {scope: :page_id}
 
   # -- Callbacks ------------------------------------------------------------
   before_save :prepare_files
 
   # -- Instance Methods -----------------------------------------------------
-  # Tag object that is using this block
-  def tag
-    @tag ||= blockable.tags(:reload).detect{|t| t.is_cms_block? && t.identifier == identifier}
-  end
 
   # Intercepting assigns as we can't cram files into content directly anymore
   def content=(value)
@@ -41,6 +37,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
 protected
 
+  # TODO: This needs to be completely replaced
   # If we're passing actual files into content attribute, let's build them.
   def prepare_files
     return if self.temp_files.blank?
