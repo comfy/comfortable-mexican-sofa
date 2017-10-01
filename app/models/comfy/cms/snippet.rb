@@ -32,6 +32,8 @@ protected
     self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
   end
 
+  # When snippet is changed or removed we need to blow away all page caches as
+  # we don't know where it was used.
   def clear_page_content_cache
     Comfy::Cms::Page.where(id: site.pages.pluck(:id)).update_all(content_cache: nil)
   end

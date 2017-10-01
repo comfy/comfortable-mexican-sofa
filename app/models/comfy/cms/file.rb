@@ -60,9 +60,9 @@ protected
   end
 
   def reload_blockable_cache
-    return unless self.block
-    b = self.block.blockable
-    b.class.name.constantize.where(:id => b.id).update_all(:content_cache => nil)
+    return unless self.fragment
+    b = self.fragment.page
+    Comfy::Cms::Page.where(id: b.id).update_all(content_cache: nil)
   end
 
 end

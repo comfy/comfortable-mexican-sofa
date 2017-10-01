@@ -1,4 +1,4 @@
-# Procesing content follows these stages:
+# Processing content follows these stages:
 #
 #   string        - Text with tags. like this: "some {{cms:fragment content}} text"
 #   tokenization  - Splits string into a list of strings and hashes that define tags
@@ -8,7 +8,7 @@
 #   rendering     - Recursively iterates through nodes. Tag instances get their
 #                   `render` method called. Result of that is tokenized, nodefied
 #                   and rendered once again until there are no tags to expand.
-#                   Resulting list is flattened and joined into final rendered string.
+#                   Resulting list is flattened and joined into a final rendered string.
 #
 class ComfortableMexicanSofa::Content::Renderer
 

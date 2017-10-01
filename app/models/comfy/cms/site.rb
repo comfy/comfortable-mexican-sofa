@@ -2,7 +2,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   self.table_name = 'comfy_cms_sites'
 
   # -- Relationships --------------------------------------------------------
-  with_options :dependent => :destroy do |site|
+  with_options dependent: :destroy do |site|
     site.has_many :layouts
     site.has_many :pages
     site.has_many :snippets
@@ -18,22 +18,22 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
   # -- Validations ----------------------------------------------------------
   validates :identifier,
-    :presence   => true,
-    :uniqueness => true,
-    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
+    presence:   true,
+    uniqueness: true,
+    format:     {with: /\A\w[a-z0-9_-]*\z/i}
   validates :label,
-    :presence   => true
+    presence:   true
   validates :hostname,
-    :presence   => true,
-    :uniqueness => { :scope => :path },
-    :format     => { :with => /\A[\w\.\-]+(?:\:\d+)?\z/ }
+    presence:   true,
+    uniqueness: {scope: :path},
+    format:     {with: /\A[\w\.\-]+(?:\:\d+)?\z/}
 
   # -- Class Methods --------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path
   def self.find_site(host, path = nil)
     return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
     cms_site = nil
-    Comfy::Cms::Site.where(:hostname => real_host_from_aliases(host)).each do |site|
+    Comfy::Cms::Site.where(hostname: real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
       elsif "#{path.to_s.split('?')[0]}/".match /^\/#{Regexp.escape(site.path.to_s)}\//
@@ -78,5 +78,4 @@ protected
     self.path.squeeze!('/')
     self.path.gsub!(/\/$/, '')
   end
-
 end
