@@ -69,7 +69,7 @@ class ComfortableMexicanSofa::Content::Renderer
     ss = StringScanner.new(string.to_s)
     while string = ss.scan_until(TAG_REGEX)
       text = string.sub(ss[0], '')
-      tokens << text if text.present?
+      tokens << text if text.length > 0
       tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
     end
     text = ss.rest

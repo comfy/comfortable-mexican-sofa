@@ -8,7 +8,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
-  has_many :pages, :dependent => :nullify
+  has_many :pages, dependent: :nullify
 
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_label
@@ -18,13 +18,13 @@ class Comfy::Cms::Layout < ActiveRecord::Base
 
   # -- Validations ----------------------------------------------------------
   validates :site_id,
-    :presence   => true
+    presence:   true
   validates :label,
-    :presence   => true
+    presence:   true
   validates :identifier,
-    :presence   => true,
-    :uniqueness => { :scope => :site_id },
-    :format     => { :with => /\A\w[a-z0-9_-]*\z/i }
+    presence:   true,
+    uniqueness: {scope: :site_id},
+    format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
   # -- Scopes ---------------------------------------------------------------
   default_scope -> { order('comfy_cms_layouts.position') }
@@ -76,24 +76,6 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     return tokens
   end
 
-
-  # TODO: remove
-  # magical merging tag is {cms:page:content} If parent layout has this tag
-  # defined its content will be merged. If no such tag found, parent content
-  # is ignored.
-  def merged_content
-    if parent
-      regex = /\{\{\s*cms:page:content:?(?:(?::text)|(?::rich_text))?\s*\}\}/
-      if parent.merged_content.match(regex)
-        parent.merged_content.gsub(regex, content.to_s)
-      else
-        content.to_s
-      end
-    else
-      content.to_s
-    end
-  end
-
   def cache_buster
     updated_at.to_i
   end
@@ -106,14 +88,13 @@ protected
 
   def assign_position
     return if self.position.to_i > 0
-    max = self.site.layouts.where(:parent_id => self.parent_id).maximum(:position)
+    max = self.site.layouts.where(parent_id: self.parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
 
   # Forcing page content reload
   def clear_page_content_cache
-    Comfy::Cms::Page.where(:id => self.pages.pluck(:id)).update_all(:content_cache => nil)
+    Comfy::Cms::Page.where(id: self.pages.pluck(:id)).update_all(content_cache: nil)
     self.children.each{ |child_layout| child_layout.clear_page_content_cache }
   end
-
 end

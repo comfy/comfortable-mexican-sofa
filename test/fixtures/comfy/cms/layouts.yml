@@ -8,3 +8,27 @@ default:
   css: default_css
   js: default_js
   position: 0
+
+nested:
+  site: default
+  label: Nested Layout
+  identifier: nested
+  parent:
+  content: |-
+    {{cms:fragment header}}
+    {{cms:fragment content}}
+  css: nested_css
+  js: nested_js
+  position: 0
+
+child:
+  site: default
+  label: Child Layout
+  identifier: child
+  parent: nested
+  content: |-
+    {{cms:fragment left_column}}
+    {{cms:fragment right_column}}
+  css: child_css
+  js: child_js
+  position: 0
