@@ -14,9 +14,6 @@ require 'rails/test_help'
 require 'rails/generators'
 require 'mocha/setup'
 
-# No need to add cache-busters in test environment
-Paperclip::Attachment.default_options[:use_timestamp] = false
-
 class ActiveSupport::TestCase
 
   include ActionDispatch::TestProcess
@@ -102,9 +99,9 @@ class ActiveSupport::TestCase
   end
 
   def stub_paperclip
-    Comfy::Cms::Fragment.any_instance.stubs(:save_attached_files).returns(true)
-    Comfy::Cms::Fragment.any_instance.stubs(:delete_attached_files).returns(true)
-    Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
+    # Comfy::Cms::Fragment.any_instance.stubs(:save_attached_files).returns(true)
+    # Comfy::Cms::Fragment.any_instance.stubs(:delete_attached_files).returns(true)
+    # Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
 end
 
