@@ -2,10 +2,13 @@ source 'http://rubygems.org'
 
 gemspec
 
+# gem 'rails', github: "rails/rails"
+gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"
+
+
 # apps can also use will_paginate so there's no dependency in gemspec
 gem 'kaminari'
 
-gem 'rails', github: 'rails/rails'
 gem 'arel', github: 'rails/arel'
 
 group :development do

@@ -1,6 +1,6 @@
-class CreateCms < ActiveRecord::Migration[5.0]
+class CreateCms < ActiveRecord::Migration[5.2]
 
-  def self.up
+  def change
 
     # -- Sites -----------------------------------------------------------------
     create_table :comfy_cms_sites, force: true do |t|
@@ -118,17 +118,4 @@ class CreateCms < ActiveRecord::Migration[5.0]
       unique: true,
       name:   'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
   end
-
-  def self.down
-    drop_table :comfy_cms_sites
-    drop_table :comfy_cms_layouts
-    drop_table :comfy_cms_pages
-    drop_table :comfy_cms_snippets
-    drop_table :comfy_cms_fragments
-    drop_table :comfy_cms_files
-    drop_table :comfy_cms_revisions
-    drop_table :comfy_cms_categories
-    drop_table :comfy_cms_categorizations
-  end
 end
-

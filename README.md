@@ -25,6 +25,7 @@ gem 'comfortable_mexican_sofa', '~> 1.12.0'
 Then from the Rails project's root run:
 
     bundle install
+    rails active_storage:install
     rails generate comfy:cms
     rake db:migrate
 
