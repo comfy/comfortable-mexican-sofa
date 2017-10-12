@@ -9,9 +9,10 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string :hostname,     null: false
       t.string :path
       t.string :locale,       null: false, default: 'en'
+
+      t.index :hostname
+      t.index :is_mirrored
     end
-    add_index :comfy_cms_sites, :hostname
-    add_index :comfy_cms_sites, :is_mirrored
 
     # -- Layouts ---------------------------------------------------------------
     create_table :comfy_cms_layouts, force: true do |t|
@@ -26,9 +27,10 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer :position,    null: false, default: 0
       t.boolean :is_shared,   null: false, default: false
       t.timestamps
+
+      t.index [:parent_id, :position]
+      t.index [:site_id, :identifier], unique: true
     end
-    add_index :comfy_cms_layouts, [:parent_id, :position]
-    add_index :comfy_cms_layouts, [:site_id, :identifier], unique: true
 
     # -- Pages -----------------------------------------------------------------
     create_table :comfy_cms_pages, force: true do |t|
@@ -45,9 +47,10 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.boolean :is_published,    null: false, default: true
       t.boolean :is_shared,       null: false, default: false
       t.timestamps
+
+      t.index [:site_id, :full_path]
+      t.index [:parent_id, :position]
     end
-    add_index :comfy_cms_pages, [:site_id, :full_path]
-    add_index :comfy_cms_pages, [:parent_id, :position]
 
     # -- Page Fragments --------------------------------------------------------
     create_table :comfy_cms_fragments, force: true do |t|
@@ -55,9 +58,10 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string      :identifier,  null: false
       t.text        :content,     limit: 16777215
       t.timestamps
+
+      t.index [:identifier]
+      t.index [:page_id]
     end
-    add_index :comfy_cms_fragments, [:identifier]
-    add_index :comfy_cms_fragments, [:page_id]
 
     # -- Snippets --------------------------------------------------------------
     create_table :comfy_cms_snippets, force: true do |t|
@@ -68,54 +72,41 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer :position,    null: false, default: 0
       t.boolean :is_shared,   null: false, default: false
       t.timestamps
-    end
-    add_index :comfy_cms_snippets, [:site_id, :identifier], unique: true
-    add_index :comfy_cms_snippets, [:site_id, :position]
 
-    # -- Files -----------------------------------------------------------------
-    create_table :comfy_cms_files, force: true do |t|
-      t.integer :site_id,           null: false
-      t.integer :fragment_id
-      t.string  :label,             null: false
-      t.string  :file_file_name,    null: false
-      t.string  :file_content_type, null: false
-      t.integer :file_file_size,    null: false
-      t.string  :description,       limit: 2048
-      t.integer :position,          null: false, default: 0
-      t.timestamps
+      t.index [:site_id, :identifier], unique: true
+      t.index [:site_id, :position]
     end
-    add_index :comfy_cms_files, [:site_id, :label]
-    add_index :comfy_cms_files, [:site_id, :file_file_name]
-    add_index :comfy_cms_files, [:site_id, :position]
-    add_index :comfy_cms_files, [:site_id, :fragment_id]
 
-    # -- Revisions -----------------------------------------------------------
+    # -- Revisions -------------------------------------------------------------
     create_table :comfy_cms_revisions, force: true do |t|
       t.string    :record_type, null: false
       t.integer   :record_id,   null: false
       t.text      :data,        limit: 16777215
       t.datetime  :created_at
-    end
-    add_index :comfy_cms_revisions, [:record_type, :record_id, :created_at],
-      name: 'index_cms_revisions_on_rtype_and_rid_and_created_at'
 
-    # -- Categories ---------------------------------------------------------
+      t.index [:record_type, :record_id, :created_at],
+      name: 'index_cms_revisions_on_rtype_and_rid_and_created_at'
+    end
+
+    # -- Categories ------------------------------------------------------------
     create_table :comfy_cms_categories, force: true do |t|
       t.integer :site_id,          null: false
       t.string  :label,            null: false
       t.string  :categorized_type, null: false
-    end
-    add_index :comfy_cms_categories, [:site_id, :categorized_type, :label],
+
+      t.index [:site_id, :categorized_type, :label],
       unique: true,
       name:   'index_cms_categories_on_site_id_and_cat_type_and_label'
+    end
 
     create_table :comfy_cms_categorizations, force: true do |t|
       t.integer :category_id,       null: false
       t.string  :categorized_type,  null: false
       t.integer :categorized_id,    null: false
-    end
-    add_index :comfy_cms_categorizations, [:category_id, :categorized_type, :categorized_id],
+
+      t.index [:category_id, :categorized_type, :categorized_id],
       unique: true,
       name:   'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
+    end
   end
 end

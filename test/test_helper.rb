@@ -14,6 +14,9 @@ require 'rails/test_help'
 require 'rails/generators'
 require 'mocha/setup'
 
+Rails.backtrace_cleaner.remove_silencers!
+
+
 class ActiveSupport::TestCase
 
   include ActionDispatch::TestProcess

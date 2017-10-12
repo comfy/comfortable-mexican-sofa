@@ -14,6 +14,13 @@ class CmsFragmentTest < ActiveSupport::TestCase
     end
   end
 
+  def test_me
+    frag = Comfy::Cms::Fragment.new
+    # frag = comfy_cms_fragments(:default)
+    frag.files.attach(fixture_file_upload('files/image.jpg', 'image/jpeg'))
+
+  end
+
   def test_validation
     flunk
   end
@@ -32,7 +39,11 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_content_assignment_with_files
-    flunk
+    fragment = Comfy::Cms::Fragment.new
+
+    fragment.content = fixture_file_upload('files/image.jpg', 'image/jpeg')
+    assert_nil fragment.content
+    assert_equal 1, fragment.temp_files.size
   end
 
   def test_creation_via_page_nested_attributes

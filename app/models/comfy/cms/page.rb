@@ -7,16 +7,18 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   attr_accessor :fragments_attributes_changed
 
-  # -- Relationships --------------------------------------------------------
+  # -- Relationships -----------------------------------------------------------
   belongs_to :site
   belongs_to :layout
-  belongs_to :target_page, class_name: 'Comfy::Cms::Page'
+  belongs_to :target_page,
+    class_name: 'Comfy::Cms::Page',
+    optional:   true
 
   has_many :fragments,
     autosave:  true,
     dependent: :destroy
 
-  # -- Callbacks ------------------------------------------------------------
+  # -- Callbacks ---------------------------------------------------------------
   before_validation :assigns_label,
                     :assign_parent,
                     :escape_slug,
@@ -27,9 +29,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   after_find        :unescape_slug_and_path
 
 
-  # -- Validations ----------------------------------------------------------
-  validates :site_id,
-    presence:   true
+  # -- Validations -------------------------------------------------------------
   validates :label,
     presence:   true
   validates :slug,

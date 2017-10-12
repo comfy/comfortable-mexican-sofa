@@ -19,7 +19,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page = Comfy::Cms::Page.new
     page.save
     assert page.invalid?
-    assert_has_errors_on page, :site_id, :layout, :slug, :label
+    assert_has_errors_on page, :site, :layout, :slug, :label
   end
 
   def test_validation_of_parent_presence
@@ -103,7 +103,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page = Comfy::Cms::Page.new(new_params)
     assert page.invalid?
-    assert_has_errors_on page, :site_id
+    assert_has_errors_on page, :site
 
     page = @site.pages.new(new_params(parent: @page))
     assert page.valid?
