@@ -19,6 +19,10 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   # -- Tests -------------------------------------------------------------------
+  def test_initialization
+    frag = Comfy::Cms::Fragment.new
+    assert_equal "text", frag.format
+  end
 
   def test_fixtures_validity
     Comfy::Cms::Fragment.all.each do |block|
@@ -32,7 +36,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_has_errors_on frag, :identifier, :page
   end
 
-  def test_content_assignment
+  def test_content_serialization
     fragment = Comfy::Cms::Fragment.new
 
     fragment.content = 'test'
@@ -46,12 +50,13 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_content_files
-    frag = Comfy::Cms::Fragment.new
-    assert_equal [], frag.content_files
+    frag = Comfy::Cms::Fragment.new(format: "file")
+    assert_equal [], frag.content
 
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
-    frag.content_files = upload
-    assert_equal [upload], frag.content_files
+
+    frag.content = upload
+    assert_equal [upload], frag.content
   end
 
   def test_creation
@@ -69,7 +74,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_difference [frag_count, attachment_count] do
       frag = @page.fragments.create!(
         identifier:     "test",
-        content_files:  fixture_file_upload('files/image.jpg', 'image/jpeg')
+        format:         "file",
+        content:        fixture_file_upload('files/image.jpg', 'image/jpeg')
       )
       assert frag.files.attached?
     end

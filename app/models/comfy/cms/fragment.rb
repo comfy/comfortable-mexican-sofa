@@ -18,20 +18,36 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   # -- Instance Methods --------------------------------------------------------
 
-  # Temporary storage for files as we can't attach to newly initialized Fragment
-  def content_files=(*files)
-    @content_files = files.flatten
+  # Based on the fragment format we need to properly process incoming content.
+  # Content that is getting returned also needs to be controlled the same way.
+  # So we need to make sure that format gets assigned before content. Meaning
+  # that attributes hash needs to be ordered like so:
+  #   {format: "text", content: "some content"}
+  # If format key comes after content we're in trouble as it will be processed
+  # as text.
+  def content=(content)
+    case self.format
+    when "file"
+      @temp_files = [content].flatten
+    else
+      write_attribute(:content, content)
+    end
   end
 
-  def content_files
-    @content_files || []
+  def content
+    case self.format
+    when "file"
+      @temp_files || []
+    else
+      read_attribute(:content)
+    end
   end
 
 protected
 
   def process_attachments
-    return if content_files.blank?
-    self.files.attach(content_files)
+    return if @temp_files.blank?
+    self.files.attach(@temp_files)
   end
 
 end

@@ -9,7 +9,7 @@
 # `label`     - attach label attribute to link or image tag
 # `size`      - imagemagic resize string. For example: "100x50>"
 #
-class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag
+class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
   def initialize(context, params_string)
     super

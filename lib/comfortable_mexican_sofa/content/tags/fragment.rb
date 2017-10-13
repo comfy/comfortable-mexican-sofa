@@ -4,7 +4,7 @@
 #
 # Tag params are split and first string maps to the `identifier` of the fragment
 # Tag handles following options:
-#   `format`: text (default) | textarea | wysiwyg | markdown | datetime | date
+#   `format`: wysiwyg (default) | text | textarea | markdown | datetime | date
 #     this controls how this gets rendered in admin form
 #   `render`: true (default) | false
 #     do we want to render this content on the page, or manually access it via

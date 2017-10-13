@@ -56,11 +56,16 @@ class CreateCms < ActiveRecord::Migration[5.2]
     create_table :comfy_cms_fragments, force: true do |t|
       t.integer     :page_id,     null: false
       t.string      :identifier,  null: false
+      t.string      :format,      null: false, default: "text"
       t.text        :content,     limit: 16777215
+      t.datetime    :datetime
+      t.boolean     :boolean
       t.timestamps
 
       t.index [:identifier]
       t.index [:page_id]
+      t.index [:datetime]
+      t.index [:boolean]
     end
 
     # -- Snippets --------------------------------------------------------------
@@ -85,7 +90,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.datetime  :created_at
 
       t.index [:record_type, :record_id, :created_at],
-      name: 'index_cms_revisions_on_rtype_and_rid_and_created_at'
+      name: "index_cms_revisions_on_rtype_and_rid_and_created_at"
     end
 
     # -- Categories ------------------------------------------------------------
@@ -96,7 +101,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
 
       t.index [:site_id, :categorized_type, :label],
       unique: true,
-      name:   'index_cms_categories_on_site_id_and_cat_type_and_label'
+      name:   "index_cms_categories_on_site_id_and_cat_type_and_label"
     end
 
     create_table :comfy_cms_categorizations, force: true do |t|
@@ -106,7 +111,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
 
       t.index [:category_id, :categorized_type, :categorized_id],
       unique: true,
-      name:   'index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id'
+      name:   "index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id"
     end
   end
 end

@@ -116,25 +116,32 @@ class Comfy::Cms::Page < ActiveRecord::Base
   def fragments_attributes(was = false)
     self.fragments.collect do |fragment|
       fragment_attr = {}
-      fragment_attr[:identifier] = fragment.identifier
-      fragment_attr[:content]    = was ? fragment.content_was : fragment.content
+      fragment_attr[:identifier]  = fragment.identifier
+      fragment_attr[:format]      = fragment.format
+      fragment_attr[:content]     = was ? fragment.content_was : fragment.content
       fragment_attr
     end
   end
 
-  # Array of block hashes in the following format:
+  # Array of fragment hashes in the following format:
   #   [
-  #     {identifier: 'fragment_1', content: 'fragment 2 content'},
-  #     {identifier: 'fragment_2', content: 'fragment 1 content'}
+  #     {identifier: "frag_a", format: "text", content: "fragment a content"},
+  #     {identifier: "frag_b", format: "file", content: [{file_a}, {file_b}]}
   #   ]
-  def fragments_attributes=(fragment_hashes = [])
-    fragment_hashes = fragment_hashes.values if fragment_hashes.is_a?(Hash)
-    fragment_hashes.each do |fragment_hash|
-      fragment_hash.symbolize_keys! unless fragment_hash.is_a?(HashWithIndifferentAccess)
+  # It also handles when frag hashes come in as a hash:
+  #   {
+  #     "0" => {identifer: "foo", content: "bar"},
+  #     "1" => {identifier: "bar", content: "foo"}
+  #   }
+  def fragments_attributes=(frag_hashes = [])
+    frag_hashes = frag_hashes.values if frag_hashes.is_a?(Hash)
+    frag_hashes.each do |frag_attrs|
+      frag_attrs.symbolize_keys! unless frag_attrs.is_a?(HashWithIndifferentAccess)
       fragment =
-        self.fragments.detect{|f| f.identifier == fragment_hash[:identifier]} ||
-        self.fragments.build(identifier: fragment_hash[:identifier])
-      fragment.content = fragment_hash[:content]
+        self.fragments.detect{|f| f.identifier == frag_attrs[:identifier]} ||
+        self.fragments.build(identifier: frag_attrs[:identifier])
+      fragment.format   = frag_attrs[:format] if frag_attrs[:format].present?
+      fragment.content  = frag_attrs[:content]
       self.fragments_attributes_changed =
         self.fragments_attributes_changed || fragment.content_changed?
     end
