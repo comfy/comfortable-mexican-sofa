@@ -4,18 +4,16 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
   cms_is_categorized
   cms_has_revisions_for :content
 
-  # -- Relationships --------------------------------------------------------
+  # -- Relationships -----------------------------------------------------------
   belongs_to :site
 
-  # -- Callbacks ------------------------------------------------------------
+  # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
   after_save    :clear_page_content_cache
   after_destroy :clear_page_content_cache
 
-  # -- Validations ----------------------------------------------------------
-  validates :site_id,
-    presence:   true
+  # -- Validations -------------------------------------------------------------
   validates :label,
     presence:   true
   validates :identifier,
@@ -23,7 +21,7 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
     uniqueness: {scope: :site_id},
     format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
-  # -- Scopes ---------------------------------------------------------------
+  # -- Scopes ------------------------------------------------------------------
   default_scope -> { order('comfy_cms_snippets.position') }
 
 protected

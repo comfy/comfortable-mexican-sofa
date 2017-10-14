@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CmsSnippetTest < ActiveSupport::TestCase
 
@@ -16,27 +16,27 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = Comfy::Cms::Snippet.new
     snippet.save
     assert snippet.invalid?
-    assert_has_errors_on snippet, :site_id, :label, :identifier
+    assert_has_errors_on snippet, :site, :label, :identifier
   end
 
   def test_label_assignment
     snippet = @site.snippets.new(
-      identifier: 'test'
+      identifier: "test"
     )
     assert snippet.valid?
-    assert_equal 'Test', snippet.label
+    assert_equal "Test", snippet.label
   end
 
   def test_create
-    assert_difference 'Comfy::Cms::Snippet.count' do
+    assert_difference "Comfy::Cms::Snippet.count" do
       snippet = @site.snippets.create(
-        label:      'Test Snippet',
-        identifier: 'test',
-        content:    'Test Content'
+        label:      "Test Snippet",
+        identifier: "test",
+        content:    "Test Content"
       )
-      assert_equal 'Test Snippet', snippet.label
-      assert_equal 'test', snippet.identifier
-      assert_equal 'Test Content', snippet.content
+      assert_equal "Test Snippet", snippet.label
+      assert_equal "test", snippet.identifier
+      assert_equal "Test Content", snippet.content
       assert_equal 1, snippet.position
     end
   end
@@ -48,7 +48,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     page.clear_content_cache!
 
     assert_equal "default_snippet_content", page.content_cache
-    snippet.update_attributes(content: 'new_snippet_content')
+    snippet.update_attributes(content: "new_snippet_content")
     page.reload
     assert_equal "new_snippet_content", page.content_cache
   end
