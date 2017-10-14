@@ -71,13 +71,19 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def test_creation_with_files
     frag_count        = -> {Comfy::Cms::Fragment.count}
     attachment_count  = -> {ActiveStorage::Attachment.count}
-    assert_difference [frag_count, attachment_count] do
-      frag = @page.fragments.create!(
-        identifier:     "test",
-        format:         "file",
-        content:        fixture_file_upload('files/image.jpg', 'image/jpeg')
-      )
-      assert frag.files.attached?
+    attachments = [
+      fixture_file_upload("files/document.pdf", "application/pdf"),
+      fixture_file_upload("files/image.jpg", "image/jpeg")
+    ]
+    assert_difference frag_count do
+      assert_difference attachment_count, 2 do
+        frag = @page.fragments.create!(
+          identifier:     "test",
+          format:         "file",
+          content:        attachments
+        )
+        assert frag.files.attached?
+      end
     end
   end
 
@@ -129,19 +135,17 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_creation_via_nested_attributes_with_file
+    attachment = fixture_file_upload("files/image.jpg", "image/jpeg")
     page = @site.pages.create!(page_params([{
-      identifier:   'test',
-      the_cunt: fixture_file_upload('files/image.jpg', 'image/jpeg')
+      identifier:   "test",
+      format:       "file",
+      content:      attachment
     }]))
+    assert_equal 1, page.fragments.count
+    frag = page.fragments.first
+    assert_equal "test", frag.identifier
+    assert_equal "file", frag.format
+    assert_equal [attachment], frag.content
+    assert_equal 1, frag.files.count
   end
-
-  def test_creation_and_update_via_nested_attributes_with_file
-    flunk
-  end
-
-  def test_creation_and_update_via_nested_attributes_with_files
-    flunk
-  end
-
-
 end
