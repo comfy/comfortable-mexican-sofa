@@ -27,6 +27,10 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   # as text.
   def content=(content)
     case self.format
+    when "datetime", "date"
+      write_attribute(:datetime, content)
+    when "checkbox"
+      write_attribute(:checkbox, content)
     when "file"
       @temp_files = [content].flatten.reject{|f| f.blank?}
     else
@@ -36,6 +40,10 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   def content
     case self.format
+    when "datetime", "date"
+      read_attribute(:datetime)
+    when "checkbox"
+      read_attribute(:checkbox)
     when "file"
       @temp_files || []
     else
@@ -49,5 +57,4 @@ protected
     return if @temp_files.blank?
     self.files.attach(@temp_files)
   end
-
 end

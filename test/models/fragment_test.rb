@@ -59,6 +59,36 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal [upload], frag.content
   end
 
+  def test_content_datetime
+    frag = Comfy::Cms::Fragment.new(format: "datetime")
+    assert_nil frag.content
+    frag.content = DateTime.parse("1981-10-04 01:02:03")
+    assert_equal "1981-10-04 01:02:03 UTC", frag.content.to_s
+  end
+
+  def test_content_date
+    frag = Comfy::Cms::Fragment.new(format: "date")
+    assert_nil frag.content
+    frag.content = DateTime.parse("1981-10-04")
+    assert_equal "1981-10-04 00:00:00 UTC", frag.content.to_s
+  end
+
+  def test_content_checkbox
+    frag = Comfy::Cms::Fragment.new(format: "checkbox")
+    refute frag.content
+    frag.content = "true"
+    assert frag.content
+    frag.content = "false"
+    refute frag.content
+  end
+
+  def test_content_undefined
+    frag = Comfy::Cms::Fragment.new(format: "undefined")
+    assert_nil frag.content
+    frag.content = "content"
+    assert_equal "content", frag.content
+  end
+
   def test_creation
     assert_difference "Comfy::Cms::Fragment.count" do
       @page.fragments.create!(

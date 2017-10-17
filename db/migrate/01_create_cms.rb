@@ -59,13 +59,13 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string      :format,      null: false, default: "text"
       t.text        :content,     limit: 16777215
       t.datetime    :datetime
-      t.boolean     :boolean
+      t.boolean     :checkbox,    null: false, default: false
       t.timestamps
 
       t.index [:identifier]
       t.index [:page_id]
       t.index [:datetime]
-      t.index [:boolean]
+      t.index [:checkbox]
     end
 
     # -- Snippets --------------------------------------------------------------
