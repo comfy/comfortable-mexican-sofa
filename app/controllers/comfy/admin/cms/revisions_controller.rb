@@ -11,8 +11,8 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   def show
     case @record
     when Comfy::Cms::Page
-      @current_content    = @record.blocks.inject({}){|c, b| c[b.identifier] = b.content; c }
-      @versioned_content  = @record.blocks.inject({}){|c, b| c[b.identifier] = @revision.data['blocks_attributes'].detect{|r| r[:identifier] == b.identifier}.try(:[], :content); c }
+      @current_content    = @record.fragments.inject({}){|c, b| c[b.identifier] = b.content; c }
+      @versioned_content  = @record.fragments.inject({}){|c, b| c[b.identifier] = @revision.data['fragments_attributes'].detect{|r| r[:identifier] == b.identifier}.try(:[], :content); c }
     else
       @current_content    = @record.revision_fields.inject({}){|c, f| c[f] = @record.send(f); c }
       @versioned_content  = @record.revision_fields.inject({}){|c, f| c[f] = @revision.data[f]; c }

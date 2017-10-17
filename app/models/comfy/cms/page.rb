@@ -153,6 +153,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
+  # Method to collect prevous state of blocks for revisions
+  def fragments_attributes_was
+    fragments_attributes(:previous_values)
+  end
+
 protected
 
   def assigns_label

@@ -1,20 +1,20 @@
 layout:
   record: default (Comfy::Cms::Layout)
   data: <%= {
-    'content' => 'revision {{cms:page:default_page_text}}',
+    'content' => 'revision {{cms:fragment content}}',
     'css'     => 'revision css',
     'js'      => 'revision js' }.to_yaml.inspect %>
-    
+
 page:
   record: default (Comfy::Cms::Page)
   data: <%= {
-    'blocks_attributes' => [
-      { 'identifier'  => 'default_page_text',
-        'content'     => 'revision page content' },
-      { 'identifier'  => 'default_field_text',
-        'content'     => 'revision field content'}
+    'fragments_attributes' => [
+      { 'identifier'  => 'content',
+        'content'     => 'old content' },
+      { 'identifier'  => 'title',
+        'content'     => 'old title'}
     ]}.to_yaml.inspect %>
-      
+
 snippet:
   record: default (Comfy::Cms::Snippet)
   data: <%= {
