@@ -1,6 +1,8 @@
 class Comfy::Cms::Site < ActiveRecord::Base
   self.table_name = 'comfy_cms_sites'
 
+  has_many_attached :files
+
   # -- Relationships --------------------------------------------------------
   with_options dependent: :destroy do |site|
     site.has_many :layouts

@@ -3,8 +3,8 @@ source 'http://rubygems.org'
 gemspec
 
 # gem 'rails', github: "rails/rails"
-# gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"
-gem "rails", path: "~/Code/rails"
+gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"
+# gem "rails", path: "~/Code/rails"
 
 # apps can also use will_paginate so there's no dependency in gemspec
 gem 'kaminari'

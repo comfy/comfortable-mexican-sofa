@@ -16,7 +16,7 @@ class ActionDispatch::Routing::Mapper
                 patch :revert, on: :member
               end
             end
-            resources :files do
+            resources :files, only: [:index, :create, :destroy] do
               put :reorder, on: :collection
             end
             resources :layouts do

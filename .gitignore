@@ -15,4 +15,5 @@ Gemfile.lock
 .ruby-version
 /.sass-cache
 coverage/
+/storage
 db/cms_fixtures/test-site/
