@@ -1,7 +1,7 @@
 class Comfy::Cms::Page < ActiveRecord::Base
   self.table_name = 'comfy_cms_pages'
 
-  cms_acts_as_tree :counter_cache => :children_count
+  cms_acts_as_tree counter_cache: :children_count
   cms_is_categorized
   cms_has_revisions_for :fragments_attributes
 
