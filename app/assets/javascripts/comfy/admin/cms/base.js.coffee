@@ -13,7 +13,7 @@ window.CMS.init = ->
   CMS.codemirror()
   CMS.sortable_list()
   CMS.timepicker()
-  CMS.page_blocks()
+  CMS.page_fragments()
   CMS.page_file_popovers()
   CMS.page_update_preview()
   CMS.page_update_publish()
@@ -129,7 +129,7 @@ window.CMS.timepicker = ->
     autoclose:  true
 
 
-window.CMS.page_blocks = ->
+window.CMS.page_fragments = ->
   $('select#page_layout_id').bind 'change.cms', ->
     $.ajax
       url: $(this).data('url'),

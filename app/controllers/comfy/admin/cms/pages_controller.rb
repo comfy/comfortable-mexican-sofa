@@ -51,7 +51,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     redirect_to action: :index
   end
 
-  def form_blocks
+  def form_fragments
     @page = @site.pages.find_by_id(params[:id]) || @site.pages.new
     @page.layout = @site.layouts.find_by_id(params[:layout_id])
   end

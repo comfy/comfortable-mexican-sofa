@@ -54,7 +54,7 @@ protected
     @layout = @site.layouts.new(layout_params)
     @layout.parent      ||= ::Comfy::Cms::Layout.find_by_id(params[:parent_id])
     @layout.app_layout  ||= @layout.parent.try(:app_layout)
-    @layout.content     ||= '{{ cms:page:content:rich_text }}'
+    @layout.content     ||= "{{ cms:fragment content, format: wysiwyg }}"
   end
 
   def load_layout

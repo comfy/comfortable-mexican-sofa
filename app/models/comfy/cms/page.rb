@@ -81,14 +81,20 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
+  # Grabbing nodes that we need to render form elements in the admin area
+  # Rejecting duplicates as we'd need to render only one form field. Don't declare
+  # duplicate tags on the layout. That's wierd (but still works).
+  def fragment_nodes
+    nodes
+      .select{|n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment)}
+      .uniq{|n| n.identifier}
+  end
+
   # Rendered content of the page. We grab whatever layout is associated with the
   # page and feed its content tokens to the renderer while passing this page as
   # context.
   def render
-    r = ComfortableMexicanSofa::Content::Renderer.new(self)
-    tokens  = self.layout.content_tokens
-    nodes   = r.nodes(tokens)
-    r.render(nodes)
+    renderer.render(nodes)
   end
 
   # If content_cache column is populated we don't need to call render for this
@@ -210,4 +216,12 @@ protected
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
 
+  def renderer
+    ComfortableMexicanSofa::Content::Renderer.new(self)
+  end
+
+  def nodes
+    tokens  = self.layout.content_tokens
+    renderer.nodes(tokens)
+  end
 end

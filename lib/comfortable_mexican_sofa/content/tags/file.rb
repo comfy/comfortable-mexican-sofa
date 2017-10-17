@@ -11,8 +11,12 @@
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
+  attr_reader :multiple
+
   def initialize(context, params_string)
     super
+    @format = "file"
+    @multiple = @options["multiple"] || false
   end
 
   def content

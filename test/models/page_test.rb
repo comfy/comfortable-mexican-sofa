@@ -202,6 +202,24 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "content", expected
   end
 
+  def test_fragment_nodes
+    content = "a {{cms:fragment a}} b {{cms:snippet b}} c {{cms:fragment c}}"
+    @page.layout.update_column(:content, content)
+    nodes = @page.fragment_nodes
+    assert_equal 2, nodes.count
+    assert_equal "a", nodes[0].identifier
+    assert_equal "c", nodes[1].identifier
+  end
+
+  def test_fragment_nodes_with_duplicates
+    content = "{{cms:fragment test}} {{cms:fragment test, format: markdown}}"
+    @page.layout.update_column(:content, content)
+    nodes = @page.fragment_nodes
+    assert_equal 1, nodes.count
+    assert_equal "test",    nodes[0].identifier
+    assert_equal "wysiwyg", nodes[0].format
+  end
+
   def test_content_caching
     assert_equal @page.content_cache, @page.render
 
