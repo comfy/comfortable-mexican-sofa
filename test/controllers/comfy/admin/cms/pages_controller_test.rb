@@ -270,6 +270,43 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_creation_with_files
+    assert_difference 'Comfy::Cms::Page.count' do
+      assert_difference "Comfy::Cms::Fragment.count", 3 do
+        assert_difference "ActiveStorage::Attachment.count", 3 do
+          r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {
+            page: {
+              label:              'Test Page',
+              slug:               'test-page',
+              parent_id:          @page.id,
+              layout_id:          @layout.id,
+              fragments_attributes: [
+                { identifier: "image",
+                  content:    fixture_file_upload("files/image.jpg", "image/jpeg"),
+                  format:     "file" },
+                { identifier: "files_multiple",
+                  content:    [
+                    fixture_file_upload("files/image.jpg", "image/jpeg"),
+                    fixture_file_upload("files/document.pdf", "application/pdf")
+                  ],
+                  format:     "file" },
+                { identifier: "unpopulated",
+                  content:    nil,
+                  format:     "file" },
+              ]
+            },
+            commit: 'Create Page'
+          }
+          assert_response :redirect
+          page = Comfy::Cms::Page.last
+          assert_equal @site, page.site
+          assert_redirected_to action: :edit, id: page
+          assert_equal 'Page created', flash[:success]
+        end
+      end
+    end
+  end
+
   def test_creation_failure
     assert_no_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Fragment.count'] do
       r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {page: {

@@ -28,7 +28,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   def content=(content)
     case self.format
     when "file"
-      @temp_files = [content].flatten
+      @temp_files = [content].flatten.reject{|f| f.blank?}
     else
       write_attribute(:content, content)
     end
