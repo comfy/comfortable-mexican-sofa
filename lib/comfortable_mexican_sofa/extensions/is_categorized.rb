@@ -1,13 +1,13 @@
 module ComfortableMexicanSofa::IsCategorized
-  
+
   def self.included(base)
     base.send :extend, ClassMethods
   end
-  
+
   module ClassMethods
     def cms_is_categorized
       include ComfortableMexicanSofa::IsCategorized::InstanceMethods
-      
+
       has_many :categorizations,
         :as         => :categorized,
         :class_name => 'Comfy::Cms::Categorization',
@@ -15,11 +15,11 @@ module ComfortableMexicanSofa::IsCategorized
       has_many :categories,
         :through    => :categorizations,
         :class_name => 'Comfy::Cms::Category'
-        
+
       attr_accessor :category_ids
-      
+
       after_save :sync_categories
-      
+
       scope :for_category, lambda { |*categories|
         if (categories = [categories].flatten.compact).present?
           self.distinct.
@@ -29,7 +29,7 @@ module ComfortableMexicanSofa::IsCategorized
       }
     end
   end
-  
+
   module InstanceMethods
     def sync_categories
       (self.category_ids || {}).each do |category_id, flag|

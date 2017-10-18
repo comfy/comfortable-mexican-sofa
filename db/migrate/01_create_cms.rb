@@ -8,7 +8,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string :identifier,   null: false
       t.string :hostname,     null: false
       t.string :path
-      t.string :locale,       null: false, default: 'en'
+      t.string :locale,       null: false, default: "en"
 
       t.index :hostname
       t.index :is_mirrored
@@ -79,6 +79,16 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index [:site_id, :identifier], unique: true
+      t.index [:site_id, :position]
+    end
+
+    # -- Files -----------------------------------------------------------------
+    create_table :comfy_cms_files, force: true do |t|
+      t.integer :site_id,     null: false
+      t.text    :description, limit: 2048
+      t.integer :position,    null: false, default: 0
+      t.timestamps
+
       t.index [:site_id, :position]
     end
 

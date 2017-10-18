@@ -1,7 +1,7 @@
 class Comfy::Cms::Fragment < ActiveRecord::Base
   self.table_name = 'comfy_cms_fragments'
 
-  has_many_attached :files
+  has_many_attached :attachments
 
   serialize :content
 
@@ -55,6 +55,6 @@ protected
 
   def process_attachments
     return if @temp_files.blank?
-    self.files.attach(@temp_files)
+    self.attachments.attach(@temp_files)
   end
 end

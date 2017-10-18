@@ -1,0 +1,4 @@
+default:
+  site: default
+  description: default description
+  position: 0
