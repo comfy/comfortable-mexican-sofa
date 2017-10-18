@@ -1,0 +1,6 @@
+default:
+  key: 123abc
+  filename: default.png
+  content_type: image/png
+  byte_size: 12345
+  checksum: 123abc

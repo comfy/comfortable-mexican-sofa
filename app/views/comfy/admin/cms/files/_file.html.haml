@@ -1,28 +1,22 @@
-%tr{:id => dom_id(file)}
+%tr{id: dom_id(file)}
   %td
     - if file.image?
-      - icon_style = "background: url('#{}') no-repeat center"
-    .icon{:style => icon_style}
-      - if !params[:category].present? && @site.files.count > 1
-        .dragger
-          %span &#8645;
+      = image_tag file.variant(resize: "60x40^", gravity: "center", crop: "60x40+0+0")
+
   %td.main
     .item-title
-      = image_tag file.variant(resize: "100x100")
-      = file.filename
-      = file.content_type
+      = link_to file.service_url, target: "_blank" do
+        = file.filename
 
       //= render :partial => 'comfy/admin/cms/categories/categories', :object => file
     .item-meta
-      //%input.file-path{:type => 'text', :value => file.file.url, :readonly => 'readonly'}
-
-      //= link_to file.file.url, :title => file.file_file_name, :target => '_blank' do
-      //  %span.glyphicon.glyphicon-link
+      - file_tag = "{{cms:file_link #{file.id} }}"
+      %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
   %td
     .content-type
-      //= truncate(file.file_content_type)
+      = truncate(file.content_type)
     .file-size
-      //= number_to_human_size(file.file_file_size)
+      = number_to_human_size(file.byte_size)
   %td
     .btn-group.btn-group-sm
-      = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), :method => :delete, :remote => true, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+      = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'

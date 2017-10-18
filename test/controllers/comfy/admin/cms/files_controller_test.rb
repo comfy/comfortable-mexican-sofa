@@ -4,7 +4,6 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @site = comfy_cms_sites(:default)
-    @file = comfy_cms_files(:default)
   end
 
   def test_get_index

@@ -11,8 +11,8 @@
   = comfy_paginate @files
 
   %table.table.table-hover.table-bordered
-    %tbody.sortable.cms-uploader-filelist
-      = render :partial => 'file', :collection => @files
+    %tbody.cms-uploader-filelist
+      = render partial: "file", collection: @files
 
   = render 'comfy/admin/cms/partials/files_after'
 

@@ -1,0 +1,4 @@
+default:
+  record: default (Comfy::Cms::Site)
+  name: files
+  blob: default
