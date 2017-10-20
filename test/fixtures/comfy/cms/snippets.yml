@@ -2,5 +2,5 @@ default:
   site: default
   label: Default Snippet
   identifier: default
-  content: default_snippet_content
+  content: snippet content
   position: 0

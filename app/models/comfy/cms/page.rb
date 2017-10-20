@@ -93,8 +93,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # Rendered content of the page. We grab whatever layout is associated with the
   # page and feed its content tokens to the renderer while passing this page as
   # context.
-  def render
-    renderer.render(nodes)
+  def render(n = nodes)
+    renderer.render(n)
   end
 
   # If content_cache column is populated we don't need to call render for this

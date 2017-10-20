@@ -112,7 +112,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
           format:         "file",
           content:        attachments
         )
-        assert frag.files.attached?
+        assert frag.attachments.attached?
       end
     end
   end
@@ -176,6 +176,6 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal "test", frag.identifier
     assert_equal "file", frag.format
     assert_equal [attachment], frag.content
-    assert_equal 1, frag.files.count
+    assert_equal 1, frag.attachments.count
   end
 end

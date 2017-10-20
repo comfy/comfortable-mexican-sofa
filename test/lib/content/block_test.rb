@@ -7,17 +7,17 @@ class ContentBlockTest < ActiveSupport::TestCase
   end
 
   setup do
-    ComfortableMexicanSofa::Content::Template.register_tag(:test_block, TestBlockTag)
+    ComfortableMexicanSofa::Content::Renderer.register_tag(:test_block, TestBlockTag)
   end
 
   teardown do
-    ComfortableMexicanSofa::Content::Template.tags.delete("test_block")
+    ComfortableMexicanSofa::Content::Renderer.tags.delete("test_block")
   end
 
   # -- Tests -------------------------------------------------------------------
 
   def test_block_tag_nodes
-    block = TestBlockTag.new(nil)
+    block = TestBlockTag.new(nil, "")
     assert_equal [], block.nodes
     block.nodes << "text"
     assert_equal ["text"], block.nodes
