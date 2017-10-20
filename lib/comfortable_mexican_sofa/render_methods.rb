@@ -21,10 +21,10 @@ module ComfortableMexicanSofa::RenderMethods
     #
     # Or how about not worrying about setting up CMS pages and rendering
     # application view using a CMS layout?
-    #   render :cms_layout => 'layout_slug', :cms_blocks => {
-    #     :block_label_a => 'content text',
-    #     :block_label_b => { :template => 'path/to/template' },
-    #     :block_label_c => { :partial  => 'path/to/partial' }
+    #   render :cms_layout => 'layout_slug', :cms_fragments => {
+    #     :fragment_identifier_a => 'content text',
+    #     :fragment_identifier_b => { :template => 'path/to/template' },
+    #     :fragment_identifier_c => { :partial  => 'path/to/partial' }
     #   }
     #
     # This way you are populating page block content and rendering
@@ -67,12 +67,12 @@ module ComfortableMexicanSofa::RenderMethods
       end
 
       @cms_layout = @cms_page.layout
-      if (cms_blocks = options.delete(:cms_blocks)).present?
-        cms_blocks.each do |identifier, value|
-          content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
-          page_block  = @cms_page.blocks.detect{|b| b.identifier == identifier.to_s} ||
-                        @cms_page.blocks.build(:identifier => identifier.to_s)
-          page_block.content = content
+      if (cms_fragments = options.delete(:cms_fragments)).present?
+        cms_fragments.each do |identifier, value|
+          content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s
+          page_fragment = @cms_page.fragments.detect{|f| f.identifier == identifier.to_s} ||
+                          @cms_page.fragments.build(identifier: identifier.to_s)
+          page_fragment.content = content
         end
       end
       cms_app_layout = @cms_layout.app_layout
@@ -89,18 +89,17 @@ module ComfortableMexicanSofa::RenderMethods
       end
 
       cms_app_layout = @cms_layout.app_layout
-      cms_page = @cms_site.pages.build(:layout => @cms_layout)
-      cms_blocks = options.delete(:cms_blocks) || { :content => render_to_string({ :layout => false }.merge(options)) }
-      cms_blocks.each do |identifier, value|
-        content = value.is_a?(Hash) ? render_to_string(value.merge(:layout => false)) : value.to_s
-        cms_page.blocks.build(:identifier => identifier.to_s, :content => content)
+      cms_page = @cms_site.pages.build(layout: @cms_layout)
+      cms_fragments = options.delete(:cms_fragments) || {content: render_to_string({layout: false }.merge(options)) }
+      cms_fragments.each do |identifier, value|
+        content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s
+        cms_page.fragments.build(identifier: identifier.to_s, content: content)
       end
       options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
       options[:inline] = cms_page.render
 
       render(options, locals, &block)
     end
-
   end
 end
 

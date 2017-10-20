@@ -7,7 +7,6 @@ class RoutingIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_public_prefix
-
     assert_nil ComfortableMexicanSofa.config.public_cms_path
 
     Rails.application.routes.draw do
