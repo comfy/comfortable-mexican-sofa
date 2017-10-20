@@ -17,7 +17,7 @@ class ComfortableMexicanSofa::Content::Renderer
 
   MAX_DEPTH = 100
 
-  # tags are in this format: {{ cms:tag_class params,  }}
+  # tags are in this format: {{ cms:tag_class params }}
   TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
 
   class << self
