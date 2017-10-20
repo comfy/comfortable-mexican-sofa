@@ -1,4 +1,5 @@
 default:
   site: default
+  label: default file
   description: default description
   position: 0

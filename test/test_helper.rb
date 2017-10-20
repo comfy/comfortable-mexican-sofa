@@ -24,8 +24,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   setup :reset_config,
-        :reset_locale,
-        :stub_paperclip
+        :reset_locale
 
   # resetting default configuration
   def reset_config
@@ -96,15 +95,23 @@ class ActiveSupport::TestCase
     assert_select(selector, :text => value, :count => 0)
   end
 
+  def assert_count_difference(models, number = 1, &block)
+    counts = [models].flatten.map{|m| "#{m}.count"}
+    assert_difference counts, number do
+      yield
+    end
+  end
+
+  def assert_count_no_difference(*models, &block)
+    counts = [models].flatten.map{|m| "#{m}.count"}
+    assert_no_difference counts do
+      yield
+    end
+  end
+
   # Small method that allows for better formatting in tests
   def rendered_content_formatter(string)
     string.gsub(/^[ ]+/, '')
-  end
-
-  def stub_paperclip
-    # Comfy::Cms::Fragment.any_instance.stubs(:save_attached_files).returns(true)
-    # Comfy::Cms::Fragment.any_instance.stubs(:delete_attached_files).returns(true)
-    # Paperclip::Attachment.any_instance.stubs(:post_process).returns(true)
   end
 end
 

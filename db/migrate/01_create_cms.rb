@@ -85,6 +85,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
     # -- Files -----------------------------------------------------------------
     create_table :comfy_cms_files, force: true do |t|
       t.integer :site_id,     null: false
+      t.string  :label,       null: false, default: ""
       t.text    :description, limit: 2048
       t.integer :position,    null: false, default: 0
       t.timestamps

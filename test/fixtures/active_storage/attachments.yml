@@ -1,4 +1,4 @@
 default:
   record: default (Comfy::Cms::File)
-  name: files
+  name: attachment
   blob: default

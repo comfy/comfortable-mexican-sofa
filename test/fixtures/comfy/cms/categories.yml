@@ -1,4 +1,4 @@
 default:
   site: default
   label: Default
-  categorized_type: Comfy::Cms::Snippet
+  categorized_type: Comfy::Cms::File

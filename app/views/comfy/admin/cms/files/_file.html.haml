@@ -1,22 +1,27 @@
 %tr{id: dom_id(file)}
   %td
-    - if file.image?
-      = image_tag file.variant(resize: "60x40^", gravity: "center", crop: "60x40+0+0")
+    - if file.attachment.image?
+      - url = url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:icon]))
+      - icon_style = "background: url('#{url}') no-repeat center"
+    .icon{style: icon_style}
+      - if !params[:category].present? && @site.files.count > 1
+        .dragger
+          %span &#8645;
 
   %td.main
     .item-title
-      = link_to file.service_url, target: "_blank" do
-        = file.filename
-
-      //= render :partial => 'comfy/admin/cms/categories/categories', :object => file
+      = link_to file.attachment, target: "_blank" do
+        = file.attachment.filename
+      = render :partial => 'comfy/admin/cms/categories/categories', object: file
     .item-meta
       - file_tag = "{{cms:file_link #{file.id} }}"
       %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
   %td
     .content-type
-      = truncate(file.content_type)
+      = truncate(file.attachment.content_type)
     .file-size
-      = number_to_human_size(file.byte_size)
+      = number_to_human_size(file.attachment.byte_size)
   %td
     .btn-group.btn-group-sm
+      = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), class: 'btn btn-default'
       = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'

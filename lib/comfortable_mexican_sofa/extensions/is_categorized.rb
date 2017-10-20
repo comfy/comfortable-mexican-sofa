@@ -9,12 +9,12 @@ module ComfortableMexicanSofa::IsCategorized
       include ComfortableMexicanSofa::IsCategorized::InstanceMethods
 
       has_many :categorizations,
-        :as         => :categorized,
-        :class_name => 'Comfy::Cms::Categorization',
-        :dependent  => :destroy
+        as:         :categorized,
+        class_name: "Comfy::Cms::Categorization",
+        dependent:  :destroy
       has_many :categories,
-        :through    => :categorizations,
-        :class_name => 'Comfy::Cms::Category'
+        through:    :categorizations,
+        class_name: "Comfy::Cms::Category"
 
       attr_accessor :category_ids
 
@@ -23,8 +23,8 @@ module ComfortableMexicanSofa::IsCategorized
       scope :for_category, lambda { |*categories|
         if (categories = [categories].flatten.compact).present?
           self.distinct.
-            joins(:categorizations => :category).
-            where('comfy_cms_categories.label' => categories)
+            joins(categorizations: :category).
+            where("comfy_cms_categories.label" => categories)
         end
       }
     end
@@ -36,10 +36,10 @@ module ComfortableMexicanSofa::IsCategorized
         case flag.to_i
         when 1
           if category = Comfy::Cms::Category.find_by_id(category_id)
-            category.categorizations.create(:categorized => self)
+            category.categorizations.create(categorized: self)
           end
         when 0
-          self.categorizations.where(:category_id => category_id).destroy_all
+          self.categorizations.where(category_id: category_id).destroy_all
         end
       end
     end
