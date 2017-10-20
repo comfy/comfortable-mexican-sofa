@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::IsCategorized
 
       after_save :sync_categories
 
-      scope :for_category, lambda { |*categories|
+      scope :for_category, -> (*categories) {
         if (categories = [categories].flatten.compact).present?
           self.distinct.
             joins(categorizations: :category).
@@ -32,7 +32,7 @@ module ComfortableMexicanSofa::IsCategorized
 
   module InstanceMethods
     def sync_categories
-      (self.category_ids || {}).each do |category_id, flag|
+      (self.category_ids || {}).uniq.each do |category_id, flag|
         case flag.to_i
         when 1
           if category = Comfy::Cms::Category.find_by_id(category_id)

@@ -12,7 +12,7 @@
     .item-title
       = link_to file.attachment, target: "_blank" do
         = file.attachment.filename
-      = render :partial => 'comfy/admin/cms/categories/categories', object: file
+      = render partial: "comfy/admin/cms/categories/categories", object: file
     .item-meta
       - file_tag = "{{cms:file_link #{file.id} }}"
       %input.file-path{type: "text", value: file_tag, readonly: "readonly"}

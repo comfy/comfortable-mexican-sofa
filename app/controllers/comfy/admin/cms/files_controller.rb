@@ -52,10 +52,17 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         @file.category_ids = ids
     end
 
+    # Automatically tagging upload if it's done through redactor
+    if params[:source] == "redactor"
+      category = @site.categories.of_type("Comfy::Cms::File").find_or_create_by(label: "wysiwyg")
+      @file.category_ids ||= {}
+      @file.category_ids[category.id] = 1
+    end
+
     @file.save!
 
     case params[:source]
-    when 'plupload'
+    when "plupload"
       render body: render_to_string(partial: "file", object: @file)
     when "redactor"
       render json: {

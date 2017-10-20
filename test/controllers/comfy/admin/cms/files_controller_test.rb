@@ -137,7 +137,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_as_redactor
-    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment] do
+    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment, Comfy::Cms::Categorization] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         source: "redactor",
         file:   fixture_file_upload("files/image.jpg", "image/jpeg")
@@ -149,6 +149,10 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
         "filelink" => url_for(file.attachment),
         "filename" => file.attachment.filename
       }), JSON.parse(response.body)
+
+      category = Comfy::Cms::Category.last
+      assert_equal "wysiwyg", category.label
+      assert_equal [category], file.categories
     end
   end
 
