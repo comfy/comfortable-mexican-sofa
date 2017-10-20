@@ -155,7 +155,7 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_no_difference -> {@snippet.revisions.count} do
       @snippet.restore_from_revision(revision)
       @snippet.reload
-      assert_equal 'default_snippet_content', @snippet.content
+      assert_equal "snippet content", @snippet.content
     end
   end
 
@@ -171,7 +171,7 @@ class RevisionsTest < ActiveSupport::TestCase
 
       @snippet.reload
       revision = @snippet.revisions.first
-      assert_equal ({"content" => "default_snippet_content"}), revision.data
+      assert_equal ({"content" => "snippet content"}), revision.data
     end
   end
 end

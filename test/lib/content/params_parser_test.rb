@@ -7,6 +7,11 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     assert_equal [[:string, "param"]], tokens
   end
 
+  def test_tokenizer_with_integer
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("123")
+    assert_equal [[:string, "123"]], tokens
+  end
+
   def test_tokenizer_with_commas
     tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("param_a, param_b")
     assert_equal [[:string, "param_a"], [:comma, ","], [:string, "param_b"]], tokens

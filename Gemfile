@@ -11,6 +11,7 @@ gem 'kaminari'
 
 gem 'arel', github: 'rails/arel'
 
+
 group :development do
   gem "listen"
   gem 'awesome_print'

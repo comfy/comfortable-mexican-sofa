@@ -4,7 +4,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
 
   SINGLE_STRING_LITERAL = /'[^\']*'/
   DOUBLE_STRING_LITERAL = /"[^\"]*"/
-  IDENTIFIER            = /[a-z][\w\-\/.]*/i
+  IDENTIFIER            = /[a-z0-9][\w\-\/.]*/i
   COLUMN                = /\:/
   COMMA                 = /\,/
 

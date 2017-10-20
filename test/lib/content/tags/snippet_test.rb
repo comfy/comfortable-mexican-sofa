@@ -26,7 +26,7 @@ class ContentTagsSnippetTest < ActiveSupport::TestCase
 
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "default")
-    assert_equal "default_snippet_content", tag.content
+    assert_equal "snippet content", tag.content
   end
 
   def test_content_new_record

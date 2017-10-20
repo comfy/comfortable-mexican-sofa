@@ -47,9 +47,9 @@ class CmsSnippetTest < ActiveSupport::TestCase
     comfy_cms_fragments(:default).update_column(:content, "{{cms:snippet default}}")
     page.clear_content_cache!
 
-    assert_equal "default_snippet_content", page.content_cache
-    snippet.update_attributes(content: "new_snippet_content")
+    assert_equal "snippet content", page.content_cache
+    snippet.update_attributes(content: "new snippet content")
     page.reload
-    assert_equal "new_snippet_content", page.content_cache
+    assert_equal "new snippet content", page.content_cache
   end
 end

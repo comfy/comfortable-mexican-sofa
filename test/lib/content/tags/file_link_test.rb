@@ -4,20 +4,28 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
 
   setup do
     @page = comfy_cms_pages(:default)
+    @file = comfy_cms_files(:default)
   end
 
+  def url_for(attachment)
+    ApplicationController.render(
+      inline: "<%= url_for(@attachment) %>",
+      assigns: {attachment: attachment}
+    )
+  end
+
+  # -- Tests -------------------------------------------------------------------
+
   def test_init
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default")
-    assert_equal "default", tag.identifier
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "123")
+    assert_equal "123", tag.identifier
     assert_equal "url", tag.as
-    assert_equal "default", tag.label
   end
 
   def test_init_with_params
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default, as: image, label: test")
-    assert_equal "default", tag.identifier
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "123, as: image")
+    assert_equal "123", tag.identifier
     assert_equal "image", tag.as
-    assert_equal "test", tag.label
   end
 
   def test_init_without_identifier
@@ -28,33 +36,36 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   end
 
   def test_file
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default.jpg")
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, @file.id)
     assert tag.file.is_a?(Comfy::Cms::File)
+
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "invalid")
+    assert_nil tag.file
   end
 
-  def test_content_and_render
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default.jpg")
-    out = tag.file.file.url
+  def test_content
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, @file.id)
+    out = url_for(tag.file.attachment)
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
 
-  def test_content_and_render_as_link
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default.jpg, as: link, label: test")
-    out = "<a href='#{tag.file.file.url}' target='_blank'>test</a>"
+  def test_content_as_link
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "#{@file.id}, as: link")
+    out = "<a href='#{url_for(tag.file.attachment)}' target='_blank'>default file</a>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
 
-  def test_content_and_render_as_image
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "default.jpg, as: image, label: test")
-    out = "<img src='#{tag.file.file.url}' alt='test' />"
+  def test_content_as_image
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "#{@file.id}, as: image")
+    out = "<img src='#{url_for(tag.file.attachment)}' alt='default file'/>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
 
-  def test_content_and_render_not_found
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "invalid.jpg")
+  def test_content_when_not_found
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "invalid")
     assert_equal "", tag.content
     assert_equal "", tag.render
   end

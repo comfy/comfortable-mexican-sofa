@@ -1,9 +1,8 @@
 # This is how you link previously uploaded file to anywhere. Good example may be
 # a header image you want to use on the layout level.
-#   {{cms:file_link identifier as: image}}
+#   {{cms:file_link id, as: image}}
 #
-# `as`    - url (default) | link | image - how file gets rendered out
-# `label` - text for the link or alt text for image
+# `as` - url (default) | link | image - how file gets rendered out
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
@@ -15,7 +14,6 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
     options = params.extract_options!
     @identifier = params[0]
     @as         = options["as"] || "url"
-    @label      = options["label"] || @identifier
 
     unless @identifier.present?
       raise Error, "Missing identifier for file link tag"
@@ -23,7 +21,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
   def file
-    @file ||= context.site.files.detect{|f| f.file_file_name == self.identifier.to_s}
+    @file ||= context.site.files.detect{|f| f.id == self.identifier.to_i}
   end
 
   def content
@@ -31,12 +29,25 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
 
     case @as
     when "link"
-      "<a href='#{file.file.url}' target='_blank'>#{@label}</a>"
+      "<a href='#{url_for(file.attachment)}' target='_blank'>#{label}</a>"
     when "image"
-      "<img src='#{file.file.url}' alt='#{@label}' />"
+      "<img src='#{url_for(file.attachment)}' alt='#{label}'/>"
     else
-      file.file.url
+      url_for(file.attachment)
     end
+  end
+
+protected
+
+  def label
+    @file.label.present?? @file.label : @file.attachment.filename
+  end
+
+  def url_for(attachment)
+    ApplicationController.render(
+      inline: "<%= url_for(@attachment) %>",
+      assigns: {attachment: attachment}
+    )
   end
 end
 
