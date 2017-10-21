@@ -53,7 +53,7 @@ da:
       cms:
         base:
           site_not_found: Webstedet findes ikke
-          fixtures_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
+          seeds_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
 
           sites: Websteder
           layouts: Layouts
@@ -154,7 +154,7 @@ da:
           form_blocks:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>
-              Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:page:content}}</code>
+              Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Snippet oprettet

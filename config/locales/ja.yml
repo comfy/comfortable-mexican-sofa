@@ -53,7 +53,7 @@ ja:
       cms:
         base:
           site_not_found: サイトが見つかりません
-          fixtures_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
+          seeds_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
 
           sites: サイト
           layouts: レイアウト
@@ -154,7 +154,7 @@ ja:
           form_blocks:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
-              コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:page:content}}</code>
+              コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:fragment content}}</code>
 
         snippets:
           created: スニペットが作成されました

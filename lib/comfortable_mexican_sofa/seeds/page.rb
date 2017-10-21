@@ -1,5 +1,5 @@
-module ComfortableMexicanSofa::Fixture::Page
-  class Importer < ComfortableMexicanSofa::Fixture::Importer
+module ComfortableMexicanSofa::Seeds::Page
+  class Importer < ComfortableMexicanSofa::Seeds::Importer
 
     attr_accessor :target_pages
 
@@ -16,7 +16,7 @@ module ComfortableMexicanSofa::Fixture::Page
         # setting attributes
         categories = []
         if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_fixture?(page, attrs_path)
+          if fresh_seed?(page, attrs_path)
             attrs = get_attributes(attrs_path)
 
             page.label        = attrs['label']
@@ -34,14 +34,14 @@ module ComfortableMexicanSofa::Fixture::Page
         end
 
         # setting content
-        blocks_to_clear = page.blocks.collect(&:identifier)
-        blocks_attributes = [ ]
+        frags_to_clear = page.fragments.collect(&:identifier)
+        fragments_attributes = [ ]
         file_extentions = %w(html haml jpg png gif)
         Dir.glob("#{path}/*.{#{file_extentions.join(',')}}").each do |block_path|
           extention = File.extname(block_path)[1..-1]
           identifier = block_path.split('/').last.gsub(/\.(#{file_extentions.join('|')})\z/, '')
-          blocks_to_clear.delete(identifier)
-          if fresh_fixture?(page, block_path)
+          frags_to_clear.delete(identifier)
+          if fresh_seed?(page, block_path)
             content = case extention
             when 'jpg', 'png', 'gif'
               ::File.open(block_path)
@@ -51,20 +51,20 @@ module ComfortableMexicanSofa::Fixture::Page
               ::File.open(block_path).read
             end
 
-            blocks_attributes << {
-              :identifier => identifier,
-              :content    => content
+            fragments_attributes << {
+              identifier: identifier,
+              content:    content
             }
           end
         end
 
-        # deleting removed blocks
-        page.blocks.where(:identifier => blocks_to_clear).destroy_all
+        # deleting removed fragments
+        page.fragments.where(identifier: frags_to_clear).destroy_all
 
-        page.blocks_attributes = blocks_attributes if blocks_attributes.present?
+        page.fragments_attributes = fragments_attributes if fragments_attributes.present?
 
         # saving
-        if page.changed? || page.blocks_attributes_changed || self.force_import
+        if page.changed? || page.fragments_attributes_changed || self.force_import
           if page.save
             save_categorizations!(page, categories)
             ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Page \t #{page.full_path}")
@@ -73,7 +73,7 @@ module ComfortableMexicanSofa::Fixture::Page
           end
         end
 
-        self.fixture_ids << page.id
+        self.seed_ids << page.id
 
         # importing child pages
         import!(path, page)
@@ -91,12 +91,12 @@ module ComfortableMexicanSofa::Fixture::Page
 
       # cleaning up
       unless parent
-        self.site.pages.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
+        self.site.pages.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
       end
     end
   end
 
-  class Exporter < ComfortableMexicanSofa::Fixture::Exporter
+  class Exporter < ComfortableMexicanSofa::Seeds::Exporter
     def export!
       prepare_folder!(self.path)
 
@@ -116,7 +116,7 @@ module ComfortableMexicanSofa::Fixture::Page
             'position'      => page.position
           }.to_yaml)
         end
-        page.blocks_attributes.each do |block|
+        page.fragments_attributes.each do |block|
           open(File.join(page_path, "#{block[:identifier]}.html"), 'w') do |f|
             f.write(block[:content])
           end

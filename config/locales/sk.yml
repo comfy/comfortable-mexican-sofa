@@ -53,7 +53,7 @@ sk:
       cms:
         base:
           site_not_found: Web nenájdený
-          fixtures_enabled: Sú povolené CMS Fixtures. Všetky tu vykonané zmeny budú stratené.
+          seeds_enabled: Sú povolené CMS Fixtures. Všetky tu vykonané zmeny budú stratené.
 
           sites: Weby
           layouts: Rozloženia
@@ -154,7 +154,7 @@ sk:
           form_blocks:
             no_tags: |-
               Rozloženie nemá definované žiadne značky obsahu.<br/>
-              Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:page:content}}</code>
+              Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Fragment vytvorený

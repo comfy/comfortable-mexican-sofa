@@ -1,5 +1,5 @@
-module ComfortableMexicanSofa::Fixture::Layout
-  class Importer < ComfortableMexicanSofa::Fixture::Importer
+module ComfortableMexicanSofa::Seeds::Layout
+  class Importer < ComfortableMexicanSofa::Seeds::Importer
 
     def import!(path = self.path, parent = nil)
       Dir["#{path}*/"].each do |path|
@@ -10,7 +10,7 @@ module ComfortableMexicanSofa::Fixture::Layout
 
         # setting attributes
         if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_fixture?(layout, attrs_path)
+          if fresh_seed?(layout, attrs_path)
             attrs = get_attributes(attrs_path)
             layout.label      = attrs['label']
             layout.app_layout = attrs['app_layout'] || parent.try(:app_layout)
@@ -21,7 +21,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         # setting content
         %w(html haml).each do |extension|
           if File.exist?(content_path = File.join(path, "content.#{extension}"))
-            if fresh_fixture?(layout, content_path)
+            if fresh_seed?(layout, content_path)
               layout.content = extension == "html" ?
                 ::File.open(content_path).read :
                 Haml::Engine.new(::File.open(content_path).read).render.rstrip
@@ -30,12 +30,12 @@ module ComfortableMexicanSofa::Fixture::Layout
         end
 
         if File.exist?(content_path = File.join(path, 'stylesheet.css'))
-          if fresh_fixture?(layout, content_path)
+          if fresh_seed?(layout, content_path)
             layout.css = File.open(content_path).read
           end
         end
         if File.exist?(content_path = File.join(path, 'javascript.js'))
-          if fresh_fixture?(layout, content_path)
+          if fresh_seed?(layout, content_path)
             layout.js = File.open(content_path).read
           end
         end
@@ -43,13 +43,13 @@ module ComfortableMexicanSofa::Fixture::Layout
         # saving
         if layout.changed? || self.force_import
           if layout.save
-            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Layout \t #{layout.identifier}")
+            ComfortableMexicanSofa.logger.info("[CMS SEEDS] Imported Layout \t #{layout.identifier}")
           else
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Layout \n#{layout.errors.inspect}")
+            ComfortableMexicanSofa.logger.warn("[CMS SEEDS] Failed to import Layout \n#{layout.errors.inspect}")
           end
         end
 
-        self.fixture_ids << layout.id
+        self.seed_ids << layout.id
 
         # importing child layouts
         import!(path, layout)
@@ -57,12 +57,12 @@ module ComfortableMexicanSofa::Fixture::Layout
 
       # cleaning up
       unless parent
-        self.site.layouts.where('id NOT IN (?)', self.fixture_ids).each{ |s| s.destroy }
+        self.site.layouts.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
       end
     end
   end
 
-  class Exporter < ComfortableMexicanSofa::Fixture::Exporter
+  class Exporter < ComfortableMexicanSofa::Seeds::Exporter
     def export!
       prepare_folder!(self.path)
 
@@ -88,7 +88,7 @@ module ComfortableMexicanSofa::Fixture::Layout
           f.write(layout.js)
         end
 
-        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Layout \t #{layout.identifier}")
+        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Layout \t #{layout.identifier}")
       end
     end
   end

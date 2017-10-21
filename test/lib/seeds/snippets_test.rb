@@ -1,19 +1,17 @@
-# encoding: utf-8
-
 require_relative '../../test_helper'
 
-class FixtureSnippetsTest < ActiveSupport::TestCase
+class SeedsSnippetsTest < ActiveSupport::TestCase
 
   def test_creation
     Comfy::Cms::Snippet.delete_all
 
     # need to have categories present before linking
     site = comfy_cms_sites(:default)
-    site.categories.create!(:categorized_type => 'Comfy::Cms::Snippet', :label => 'category_a')
-    site.categories.create!(:categorized_type => 'Comfy::Cms::Snippet', :label => 'category_b')
+    site.categories.create!(categorized_type: 'Comfy::Cms::Snippet', label: 'category_a')
+    site.categories.create!(categorized_type: 'Comfy::Cms::Snippet', label: 'category_b')
 
     assert_difference 'Comfy::Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site').import!
       assert snippet = Comfy::Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -28,10 +26,10 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
     snippet.update_column(:updated_at, 10.years.ago)
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
-    assert_equal 'default_snippet_content', snippet.content
+    assert_equal 'snippet content', snippet.content
 
     assert_no_difference 'Comfy::Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site').import!
       snippet.reload
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
@@ -44,53 +42,53 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
     old_snippet.update_column(:identifier, 'old')
 
     assert_no_difference 'Comfy::Cms::Snippet.count' do
-      ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site').import!
       assert snippet = Comfy::Cms::Snippet.last
       assert_equal 'default', snippet.identifier
       assert_equal 'Default Fixture Snippet', snippet.label
       assert_equal 'Fixture Content for Default Snippet', snippet.content
 
-      assert_nil Comfy::Cms::Snippet.where(:id => old_snippet.id).first
+      assert_nil Comfy::Cms::Snippet.where(id: old_snippet.id).first
     end
   end
 
   def test_update_ignoring
     snippet = comfy_cms_snippets(:default)
-    snippet_path      = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'snippets', 'default')
+    snippet_path      = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'snippets', 'default')
     attr_file_path    = File.join(snippet_path, 'attributes.yml')
     content_file_path = File.join(snippet_path, 'content.html')
 
     assert snippet.updated_at >= File.mtime(attr_file_path)
     assert snippet.updated_at >= File.mtime(content_file_path)
 
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site').import!
     snippet.reload
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Snippet', snippet.label
-    assert_equal 'default_snippet_content', snippet.content
+    assert_equal 'snippet content', snippet.content
   end
 
   def test_update_force
     snippet = comfy_cms_snippets(:default)
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site').import!
     snippet.reload
     assert_equal 'Default Snippet', snippet.label
 
-    ComfortableMexicanSofa::Fixture::Snippet::Importer.new('sample-site', 'default-site', :forced).import!
+    ComfortableMexicanSofa::Seeds::Snippet::Importer.new('sample-site', 'default-site', :forced).import!
     snippet.reload
     assert_equal 'Default Fixture Snippet', snippet.label
   end
 
   def test_export
     comfy_cms_categories(:default).categorizations.create!(
-      :categorized => comfy_cms_snippets(:default)
+      categorized: comfy_cms_snippets(:default)
     )
 
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
+    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
     attr_path     = File.join(host_path, 'snippets/default/attributes.yml')
     content_path  = File.join(host_path, 'snippets/default/content.html')
 
-    ComfortableMexicanSofa::Fixture::Snippet::Exporter.new('default-site', 'test-site').export!
+    ComfortableMexicanSofa::Seeds::Snippet::Exporter.new('default-site', 'test-site').export!
 
     assert File.exist?(attr_path)
     assert File.exist?(content_path)

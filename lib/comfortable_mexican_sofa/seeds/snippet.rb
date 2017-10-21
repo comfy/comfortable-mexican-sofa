@@ -1,5 +1,5 @@
-module ComfortableMexicanSofa::Fixture::Snippet
-  class Importer < ComfortableMexicanSofa::Fixture::Importer
+module ComfortableMexicanSofa::Seeds::Snippet
+  class Importer < ComfortableMexicanSofa::Seeds::Importer
 
     def import!
       Dir["#{self.path}*/"].each do |path|
@@ -9,7 +9,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         # setting attributes
         categories = []
         if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_fixture?(snippet, attrs_path)
+          if fresh_seed?(snippet, attrs_path)
             attrs = get_attributes(attrs_path)
 
             snippet.label = attrs['label']
@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         # setting content
         %w(html haml).each do |extension|
           if File.exist?(content_path = File.join(path, "content.#{extension}"))
-            if fresh_fixture?(snippet, content_path)
+            if fresh_seed?(snippet, content_path)
               snippet.content = extension == "html" ?
                 ::File.open(content_path).read :
                 Haml::Engine.new(::File.open(content_path).read).render.rstrip
@@ -32,21 +32,21 @@ module ComfortableMexicanSofa::Fixture::Snippet
         if snippet.changed? || self.force_import
           if snippet.save
             save_categorizations!(snippet, categories)
-            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Snippet \t #{snippet.identifier}")
+            ComfortableMexicanSofa.logger.info("[CMS SEEDS] Imported Snippet \t #{snippet.identifier}")
           else
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Snippet \n#{snippet.errors.inspect}")
+            ComfortableMexicanSofa.logger.warn("[CMS SEEDS] Failed to import Snippet \n#{snippet.errors.inspect}")
           end
         end
 
-        self.fixture_ids << snippet.id
+        self.seed_ids << snippet.id
       end
 
       # cleaning up
-      self.site.snippets.where('id NOT IN (?)', fixture_ids).each{ |s| s.destroy }
+      self.site.snippets.where('id NOT IN (?)', seed_ids).each{ |s| s.destroy }
     end
   end
 
-  class Exporter < ComfortableMexicanSofa::Fixture::Exporter
+  class Exporter < ComfortableMexicanSofa::Seeds::Exporter
 
     def export!
       prepare_folder!(self.path)
@@ -68,7 +68,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
           f.write(snippet.content)
         end
 
-        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Snippet \t #{snippet.identifier}")
+        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Snippet \t #{snippet.identifier}")
       end
     end
   end

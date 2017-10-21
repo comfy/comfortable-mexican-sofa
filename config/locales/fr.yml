@@ -53,7 +53,7 @@ fr:
       cms:
         base:
           site_not_found: Site introuvable
-          fixtures_enabled: Fixtures activés. Toutes les modifications seront supprimées.
+          seeds_enabled: Fixtures activés. Toutes les modifications seront supprimées.
 
           sites: Sites
           layouts: Mises en page
@@ -154,7 +154,7 @@ fr:
           form_blocks:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>
-              Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:page:content}}</code>
+              Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Fragment créé

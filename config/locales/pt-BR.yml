@@ -53,7 +53,7 @@ pt-BR:
       cms:
         base:
           site_not_found: Site não encontrado
-          fixtures_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
+          seeds_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
 
           sites: Sites
           layouts: Leiautes
@@ -154,7 +154,7 @@ pt-BR:
           form_blocks:
             no_tags: |-
               O leiaute não possui tags de conteúdo definidas.<br/>
-              Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:page:content}}</code>
+              Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Fragmento criado com sucesso.

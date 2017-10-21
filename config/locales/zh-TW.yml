@@ -53,7 +53,7 @@ zh-TW:
       cms:
         base:
           site_not_found: 沒有該站點
-          fixtures_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
+          seeds_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
 
           sites: 站點
           layouts: 佈局
@@ -154,7 +154,7 @@ zh-TW:
           form_blocks:
             no_tags: |-
               佈局中沒有定義內容標記。<br/>
-              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:page:content}}</code>
+              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:fragment content}}</code>
 
         snippets:
           created: 片段創建成功

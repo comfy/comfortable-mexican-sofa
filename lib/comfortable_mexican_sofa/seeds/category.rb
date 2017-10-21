@@ -1,29 +1,29 @@
-module ComfortableMexicanSofa::Fixture::Category
-  class Importer < ComfortableMexicanSofa::Fixture::Importer
+module ComfortableMexicanSofa::Seeds::Category
+  class Importer < ComfortableMexicanSofa::Seeds::Importer
     def import!
       {
-        'files'     => 'Comfy::Cms::File',
-        'pages'     => 'Comfy::Cms::Page',
-        'snippets'  => 'Comfy::Cms::Snippet'
+        "files"     => "Comfy::Cms::File",
+        "pages"     => "Comfy::Cms::Page",
+        "snippets"  => "Comfy::Cms::Snippet"
       }.each do |file, type|
         if File.exist?(attrs_path = File.join(path, "#{file}.yml"))
           categories = [get_attributes(attrs_path)].flatten
-          existing_categories = self.site.categories.where(:categorized_type => type).map(&:label)
+          existing_categories = self.site.categories.where(categorized_type: type).map(&:label)
 
           self.site.categories.where(
-            :categorized_type => type,
-            :label            => existing_categories - categories
+            categorized_type: type,
+            label:            existing_categories - categories
           ).destroy_all
 
           (categories - existing_categories).each do |label|
-            self.site.categories.create(:label => label, :categorized_type => type)
+            self.site.categories.create(label: label, categorized_type: type)
           end
         end
       end
     end
   end
 
-  class Exporter < ComfortableMexicanSofa::Fixture::Exporter
+  class Exporter < ComfortableMexicanSofa::Seeds::Exporter
     def export!
       prepare_folder!(self.path)
       {

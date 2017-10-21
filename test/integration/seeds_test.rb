@@ -1,12 +1,12 @@
 require_relative '../test_helper'
 
-class FixturesIntergrationTest < ActionDispatch::IntegrationTest
+class SeedsIntergrationTest < ActionDispatch::IntegrationTest
 
-  def setup
-    comfy_cms_sites(:default).update_columns(:identifier => 'sample-site')
+  setup do
+    comfy_cms_sites(:default).update_columns(identifier: 'sample-site')
   end
 
-  def test_fixtures_disabled
+  def test_seeds_disabled
     assert_no_difference ['Comfy::Cms::Layout.count', 'Comfy::Cms::Page.count', 'Comfy::Cms::Snippet.count'] do
       get '/'
       assert_response :success
@@ -17,8 +17,8 @@ class FixturesIntergrationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_fixtures_enabled
-    ComfortableMexicanSofa.config.enable_fixtures = true
+  def test_seeds_enabled
+    ComfortableMexicanSofa.config.enable_seeds = true
     Comfy::Cms::Layout.destroy_all
     Comfy::Cms::Page.destroy_all
     Comfy::Cms::Snippet.destroy_all
@@ -35,16 +35,18 @@ class FixturesIntergrationTest < ActionDispatch::IntegrationTest
           assert_equal 'Default Fixture Layout', Comfy::Cms::Layout.find_by_identifier('default').label
           assert_equal 'Default Fixture Snippet', Comfy::Cms::Snippet.find_by_identifier('default').label
 
-          file_path = Comfy::Cms::File.find_by(:file_file_name => 'thumbnail.png').file.url
 
-          assert_equal "<html>\n  <body>\n    #{file_path}\n<div class='left'>Child Page Left Fixture Content</div>\n<div class='right'>Child Page Right Fixture Content</div>\n  </body>\n</html>", response.body
+          flunk "todo: we're not handling frag attachments properly"
+          # file_path = ActiveStorage::Blob.find_by(filename: 'thumbnail.png').file.url
+
+          # assert_equal "<html>\n  <body>\n    #{file_path}\n<div class='left'>Child Page Left Fixture Content</div>\n<div class='right'>Child Page Right Fixture Content</div>\n  </body>\n</html>", response.body
         end
       end
     end
   end
 
   def test_fixtures_enabled_in_admin
-    ComfortableMexicanSofa.config.enable_fixtures = true
+    ComfortableMexicanSofa.config.enable_seeds = true
     Comfy::Cms::Layout.destroy_all
     Comfy::Cms::Page.destroy_all
     Comfy::Cms::Snippet.destroy_all

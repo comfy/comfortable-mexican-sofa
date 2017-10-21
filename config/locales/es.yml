@@ -53,7 +53,7 @@ es:
       cms:
         base:
           site_not_found: Sitio no encontrado
-          fixtures_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
+          seeds_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
 
           sites: Sitios
           layouts: Diseños
@@ -154,7 +154,7 @@ es:
           form_blocks:
             no_tags: |-
               La plantilla no tiene etiquetas de contenido definidas.<br/>
-              Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:page:content}}</code>
+              Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Fragmento creado

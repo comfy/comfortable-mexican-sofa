@@ -13,7 +13,7 @@ class CmsGeneratorTest < Rails::Generators::TestCase
 
     assert_file 'config/routes.rb', read_file('cms/routes.rb')
 
-    assert_directory 'db/cms_fixtures'
+    assert_directory 'db/cms_seeds'
 
     assert_file 'app/assets/javascripts/comfy/admin/cms/custom.js.coffee'
 

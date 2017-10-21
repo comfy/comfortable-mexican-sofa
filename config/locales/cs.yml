@@ -53,7 +53,7 @@ cs:
       cms:
         base:
           site_not_found: Web nenalezen
-          fixtures_enabled: Je povolen pevně definovaný obsah CMS. Všechny zde provedené změny budou ztraceny.
+          seeds_enabled: Je povolen pevně definovaný obsah CMS. Všechny zde provedené změny budou ztraceny.
 
           sites: Weby
           layouts: Rozložení
@@ -154,7 +154,7 @@ cs:
           form_blocks:
             no_tags: |-
               Rozložení nedefinuje žádné obsahové značky.<br/>
-              Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:page:content}}</code>
+              Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Úryvek vytvořen

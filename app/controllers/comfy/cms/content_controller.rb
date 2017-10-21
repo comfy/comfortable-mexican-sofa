@@ -6,7 +6,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
   # Authorization module must have `authorize` method
   include ComfortableMexicanSofa.config.public_authorization.to_s.constantize
 
-  before_action :load_fixtures
+  before_action :load_seeds
   before_action :load_cms_page,
                 :authenticate,
                 :authorize,
@@ -45,9 +45,9 @@ protected
     mime_block && mime_block.content || 'text/html'
   end
 
-  def load_fixtures
-    return unless ComfortableMexicanSofa.config.enable_fixtures
-    ComfortableMexicanSofa::Fixture::Importer.new(@cms_site.identifier).import!
+  def load_seeds
+    return unless ComfortableMexicanSofa.config.enable_seeds
+    ComfortableMexicanSofa::Seeds::Importer.new(@cms_site.identifier).import!
   end
 
   def load_cms_page

@@ -53,7 +53,7 @@ zh-CN:
       cms:
         base:
           site_not_found: 没有该站点
-          fixtures_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
+          seeds_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
 
           sites: 站点
           layouts: 布局
@@ -154,7 +154,7 @@ zh-CN:
           form_blocks:
             no_tags: |-
               布局中没有定义内容标签。<br/>
-              编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:page:content}}</code>
+              编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:fragment content}}</code>
 
         snippets:
           created: 片段创建成功

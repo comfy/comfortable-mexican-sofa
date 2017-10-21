@@ -35,8 +35,8 @@ class ActiveSupport::TestCase
       config.public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
       config.public_authorization = 'ComfortableMexicanSofa::AccessControl::PublicAuthorization'
       config.admin_route_redirect = ''
-      config.enable_fixtures      = false
-      config.fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
+      config.enable_seeds         = false
+      config.seeds_path           = File.expand_path('db/cms_seeds', Rails.root)
       config.revisions_limit      = 25
       config.locales              = {
         'en' => 'English',

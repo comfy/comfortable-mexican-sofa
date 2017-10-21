@@ -53,7 +53,7 @@ it:
       cms:
         base:
           site_not_found: Sito non trovato
-          fixtures_enabled: Le Fixtures CMS sono abilitate. Tutti i cambiamenti fatti qui saranno scartati.
+          seeds_enabled: Le Fixtures CMS sono abilitate. Tutti i cambiamenti fatti qui saranno scartati.
 
           sites: Siti
           layouts: Layout
@@ -154,7 +154,7 @@ it:
           form_blocks:
             no_tags: |-
               Il Layout non ha tag di contenuto definiti.<br/>
-              Modifica il contenuto per includere una pagina o un campo. Per esempio: <code>{{cms:page:content}}</code>
+              Modifica il contenuto per includere una pagina o un campo. Per esempio: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Snippet creato

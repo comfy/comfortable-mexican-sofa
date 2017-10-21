@@ -29,11 +29,11 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :upload_file_options
 
   # With each page load, files will be synched with the database. Database entries are
-  # destroyed if there's no corresponding file. Fixtures are disabled by default.
-  attr_accessor :enable_fixtures
+  # destroyed if there's no corresponding file. Seeds are disabled by default.
+  attr_accessor :enable_seeds
 
-  # Path where fixtures can be located.
-  attr_accessor :fixtures_path
+  # Path where seeds can be located.
+  attr_accessor :seeds_path
 
   # Number of revisions kept. Default is 25. If you wish to disable: set this to 0.
   attr_accessor :revisions_limit
@@ -90,8 +90,8 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_redirect = ''
     @enable_sitemap       = true
     @upload_file_options  = { }
-    @enable_fixtures      = false
-    @fixtures_path        = File.expand_path('db/cms_fixtures', Rails.root)
+    @enable_seeds         = false
+    @seeds_path           = File.expand_path('db/cms_seeds', Rails.root)
     @revisions_limit      = 25
     @locales              = {
       'cs'    => 'Česky',

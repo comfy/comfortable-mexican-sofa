@@ -13,7 +13,7 @@ class Comfy::Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_con
   before_action :authenticate,
                 :load_admin_site,
                 :set_locale,
-                :load_fixtures,
+                :load_seeds,
                 except: :jump
 
   layout 'comfy/admin/cms'
@@ -47,13 +47,13 @@ protected
     true
   end
 
-  def load_fixtures
-    return unless ComfortableMexicanSofa.config.enable_fixtures
+  def load_seeds
+    return unless ComfortableMexicanSofa.config.enable_seeds
 
     controllers = %w(layouts pages snippets files).collect{|c| 'comfy/admin/cms/' + c}
     if controllers.member?(params[:controller]) && params[:action] == 'index'
-      ComfortableMexicanSofa::Fixture::Importer.new(@site.identifier).import!
-      flash.now[:danger] = I18n.t('comfy.admin.cms.base.fixtures_enabled')
+      ComfortableMexicanSofa::Seeds::Importer.new(@site.identifier).import!
+      flash.now[:danger] = I18n.t('comfy.admin.cms.base.seeds_enabled')
     end
   end
 end

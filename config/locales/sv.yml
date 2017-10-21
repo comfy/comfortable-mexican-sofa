@@ -53,7 +53,7 @@ sv:
       cms:
         base:
           site_not_found: Site kan inte hittas
-          fixtures_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
+          seeds_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
 
           sites: Sites
           layouts: Layouter
@@ -154,7 +154,7 @@ sv:
           form_blocks:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>
-              Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:page:content}}</code>
+              Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Snippet skapad

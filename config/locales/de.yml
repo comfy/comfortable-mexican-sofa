@@ -53,7 +53,7 @@ de:
       cms:
         base:
           site_not_found: Fehler
-          fixtures_enabled: Fixtures sind aktiviert - alle Änderungen werden verworfen!
+          seeds_enabled: Fixtures sind aktiviert - alle Änderungen werden verworfen!
 
           sites: Webs
           layouts: Layouts

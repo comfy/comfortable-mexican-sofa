@@ -1,31 +1,29 @@
-# encoding: utf-8
-
 require_relative '../../test_helper'
 
-class FixturePagesTest < ActiveSupport::TestCase
+class SeedsPagesTest < ActiveSupport::TestCase
 
   def test_creation
     Comfy::Cms::Page.delete_all
 
     site    = comfy_cms_sites(:default)
     layout  = comfy_cms_layouts(:default)
-    layout.update_column(:content, '<html>{{cms:page:content}}</html>')
+    layout.update_column(:content, '<html>{{cms:fragment content}}</html>')
 
     nested = comfy_cms_layouts(:nested)
-    nested.update_column(:content, '<html>{{cms:page:left}}<br/>{{cms:page:right}}</html>')
+    nested.update_column(:content, '<html>{{cms:fragment left}}<br/>{{cms:fragment right}}</html>')
 
     # need to have categories present before linking
-    site.categories.create!(:categorized_type => 'Comfy::Cms::Page', :label => 'category_a')
-    site.categories.create!(:categorized_type => 'Comfy::Cms::Page', :label => 'category_b')
+    site.categories.create!(categorized_type: 'Comfy::Cms::Page', label: 'category_a')
+    site.categories.create!(categorized_type: 'Comfy::Cms::Page', label: 'category_b')
 
     assert_difference 'Comfy::Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
 
-      assert page = Comfy::Cms::Page.find_by(:full_path => '/')
+      assert page = Comfy::Cms::Page.find_by(full_path: "/")
 
       assert_equal layout, page.layout
       assert_equal 'index', page.slug
-      assert_equal "<html>Home Page Fixture Contént\ndefault_snippet_content</html>", page.content_cache
+      assert_equal "<html>Home Page Fixture Contént\nsnippet content</html>", page.content_cache
       assert_equal 0, page.position
       assert page.is_published?
 
@@ -47,8 +45,8 @@ class FixturePagesTest < ActiveSupport::TestCase
     Comfy::Cms::Page.delete_all
 
     assert_difference 'Comfy::Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
-      assert page = Comfy::Cms::Page.where(:full_path => '/').first
+      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+      assert page = Comfy::Cms::Page.where(full_path: '/').first
       assert_equal 0, page.categories.count
     end
   end
@@ -62,7 +60,7 @@ class FixturePagesTest < ActiveSupport::TestCase
     child.update_column(:slug, 'old')
 
     assert_no_difference 'Comfy::Cms::Page.count' do
-      ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
 
       page.reload
       assert_equal 'Home Fixture Page', page.label
@@ -75,34 +73,36 @@ class FixturePagesTest < ActiveSupport::TestCase
     Comfy::Cms::Page.destroy_all
 
     page = comfy_cms_sites(:default).pages.create!(
-      :label  => 'Test',
-      :layout => comfy_cms_layouts(:default),
-      :blocks_attributes => [ { :identifier => 'content', :content => 'test content' } ]
+      label: 'Test',
+      layout: comfy_cms_layouts(:default),
+      fragments_attributes: [
+        { identifier: "content", content: "test content" }
+      ]
     )
 
-    page_path         = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'pages', 'index')
+    page_path         = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'pages', 'index')
     attr_file_path    = File.join(page_path, 'attributes.yml')
     content_file_path = File.join(page_path, 'content.html')
 
     assert page.updated_at >= File.mtime(attr_file_path)
     assert page.updated_at >= File.mtime(content_file_path)
 
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
 
     assert_nil page.slug
     assert_equal 'Test', page.label
-    block = page.blocks.where(:identifier => 'content').first
-    assert_equal 'test content', block.content
+    frag = page.fragments.where(identifier: "content").first
+    assert_equal 'test content', frag.content
   end
 
   def test_update_force
     page = comfy_cms_pages(:default)
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
     assert_equal 'Default Page', page.label
 
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site', :forced).import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site', :forced).import!
     page.reload
     assert_equal 'Home Fixture Page', page.label
   end
@@ -111,34 +111,35 @@ class FixturePagesTest < ActiveSupport::TestCase
     Comfy::Cms::Page.destroy_all
 
     page = comfy_cms_sites(:default).pages.create!(
-      :label  => 'Test',
-      :layout => comfy_cms_layouts(:default),
-      :blocks_attributes => [ { :identifier => 'to_delete', :content => 'test content' } ]
+      label:  'Test',
+      layout: comfy_cms_layouts(:default),
+      fragments_attributes: [
+        { identifier: 'to_delete', content: 'test content' }
+      ]
     )
     page.update_column(:updated_at, 10.years.ago)
 
-    ComfortableMexicanSofa::Fixture::Page::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
 
-    block = page.blocks.where(:identifier => 'content').first
-    assert_equal "Home Page Fixture Contént\n{{ cms:snippet:default }}", block.content
+    frag = page.fragments.where(identifier: 'content').first
+    assert_equal "Home Page Fixture Contént\n{{ cms:snippet default }}", frag.content
 
-    assert !page.blocks.where(:identifier => 'to_delete').first
+    refute page.fragments.where(identifier: 'to_delete').first
   end
 
   def test_export
     comfy_cms_pages(:default).update_attribute(:target_page, comfy_cms_pages(:child))
     comfy_cms_categories(:default).categorizations.create!(
-      :categorized => comfy_cms_pages(:default)
+      categorized: comfy_cms_pages(:default)
     )
 
-    host_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'test-site')
-    page_1_attr_path    = File.join(host_path, 'pages/index/attributes.yml')
-    page_1_block_a_path = File.join(host_path, 'pages/index/default_field_text.html')
-    page_1_block_b_path = File.join(host_path, 'pages/index/default_page_text.html')
-    page_2_attr_path    = File.join(host_path, 'pages/index/child-page/attributes.yml')
+    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
+    page_1_attr_path = File.join(host_path, 'pages/index/attributes.yml')
+    page_1_frag_path = File.join(host_path, 'pages/index/content.html')
+    page_2_attr_path = File.join(host_path, 'pages/index/child-page/attributes.yml')
 
-    ComfortableMexicanSofa::Fixture::Page::Exporter.new('default-site', 'test-site').export!
+    ComfortableMexicanSofa::Seeds::Page::Exporter.new('default-site', 'test-site').export!
 
     assert_equal ({
       'label'         => 'Default Page',
@@ -149,8 +150,7 @@ class FixturePagesTest < ActiveSupport::TestCase
       'is_published'  => true,
       'position'      => 0
     }), YAML.load_file(page_1_attr_path)
-    assert_equal comfy_cms_blocks(:default_field_text).content, IO.read(page_1_block_a_path)
-    assert_equal comfy_cms_blocks(:default_page_text).content, IO.read(page_1_block_b_path)
+    assert_equal comfy_cms_fragments(:default).content, IO.read(page_1_frag_path)
 
     assert_equal ({
       'label'         => 'Child Page',
@@ -164,5 +164,4 @@ class FixturePagesTest < ActiveSupport::TestCase
 
     FileUtils.rm_rf(host_path)
   end
-
 end

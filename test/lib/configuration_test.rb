@@ -12,8 +12,8 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthorization',   config.admin_authorization
     assert_equal 'ComfortableMexicanSofa::AccessControl::PublicAuthentication', config.public_auth
     assert_equal '', config.admin_route_redirect
-    assert_equal false, config.enable_fixtures
-    assert_equal File.expand_path('db/cms_fixtures', Rails.root), config.fixtures_path
+    assert_equal false, config.enable_seeds
+    assert_equal File.expand_path('db/cms_seeds', Rails.root), config.seeds_path
     assert_equal 25, config.revisions_limit
     assert_equal ({
       'en'    => 'English',

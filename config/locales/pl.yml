@@ -53,7 +53,7 @@ pl:
       cms:
         base:
           site_not_found: Strona nie została znaleziona
-          fixtures_enabled: Fikstury CMS są włączone. Wszystkie zmiany zapisane tutaj nie będą uwzględnione.
+          seeds_enabled: Fikstury CMS są włączone. Wszystkie zmiany zapisane tutaj nie będą uwzględnione.
 
           sites: Witryny
           layouts: Szablony
@@ -154,7 +154,7 @@ pl:
           form_blocks:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
-              Dodaj do jego treści tag strony lub pola, np. <code>{{cms:page:content}}</code>
+              Dodaj do jego treści tag strony lub pola, np. <code>{{cms:fragment content}}</code>
 
         snippets:
           created: Snippet został utworzony

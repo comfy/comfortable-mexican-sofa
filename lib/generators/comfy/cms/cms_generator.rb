@@ -34,7 +34,7 @@ module Comfy
       end
 
       def generate_cms_seeds
-        directory 'db/cms_fixtures', 'db/cms_fixtures'
+        directory 'db/cms_seeds', 'db/cms_seeds'
       end
 
       def generate_assets
