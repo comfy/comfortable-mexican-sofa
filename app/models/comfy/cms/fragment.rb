@@ -29,8 +29,8 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
     case self.format
     when "datetime", "date"
       write_attribute(:datetime, content)
-    when "checkbox"
-      write_attribute(:checkbox, content)
+    when "boolean"
+      write_attribute(:boolean, content)
     when "file"
       @temp_files = [content].flatten.reject{|f| f.blank?}
     else
@@ -42,10 +42,10 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
     case self.format
     when "datetime", "date"
       read_attribute(:datetime)
-    when "checkbox"
-      read_attribute(:checkbox)
+    when "boolean"
+      read_attribute(:boolean)
     when "file"
-      @temp_files || []
+      @temp_files || attachments.to_a
     else
       read_attribute(:content)
     end

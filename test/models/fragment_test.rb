@@ -19,6 +19,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   # -- Tests -------------------------------------------------------------------
+
   def test_initialization
     frag = Comfy::Cms::Fragment.new
     assert_equal "text", frag.format
@@ -51,7 +52,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
 
   def test_content_files
     frag = Comfy::Cms::Fragment.new(format: "file")
-    assert_equal [], frag.content
+    assert_equal [], frag.content.to_a
 
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
 
@@ -73,8 +74,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal "1981-10-04 00:00:00 UTC", frag.content.to_s
   end
 
-  def test_content_checkbox
-    frag = Comfy::Cms::Fragment.new(format: "checkbox")
+  def test_content_boolean
+    frag = Comfy::Cms::Fragment.new(format: "boolean")
     refute frag.content
     frag.content = "true"
     assert frag.content

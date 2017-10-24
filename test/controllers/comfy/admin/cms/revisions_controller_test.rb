@@ -143,10 +143,17 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTe
       assert_equal 'Content Reverted', flash[:success]
 
       @page.reload
+
+      date_content = comfy_cms_fragments(:datetime).datetime
       assert_equal [
-        { identifier: 'content', content: 'old content', format: "text"},
-        { identifier: 'title',  content: 'old title', format: "text"}
+        {identifier: "boolean",   format: "boolean",  content: true},
+        {identifier: "file",      format: "file",     content: []},
+        {identifier: "datetime",  format: "datetime", content: date_content},
+        {identifier: "content",   format: "text",     content: "old content"},
+        {identifier: "title",     format: "text",     content: "old title"}
       ], @page.fragments_attributes
+
+      flunk "not restoring non-text stuff correctly"
     end
   end
 

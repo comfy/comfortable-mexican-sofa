@@ -80,21 +80,52 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 'Test', page.label
   end
 
-  def test_creation
-    assert_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Fragment.count'] do
-      page = @site.pages.create!(
-        label: 'test',
-        slug: 'test',
+  def test_create
+    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      page = @site.pages.create!(new_params(
         parent: @page,
-        layout: @layout,
         fragments_attributes: [
-          { identifier: 'default_page_text',
-            content:    'test' }
+          { identifier: "content",
+            format:     "text",
+            content:    "test" }
         ]
-      )
+      ))
       assert page.is_published?
       assert_equal 1, page.position
     end
+  end
+
+  def test_create_with_file
+    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment, ActiveStorage::Attachment] do
+      page = @site.pages.create!(new_params(
+        parent: @page,
+        fragments_attributes: [
+          { identifier: "file",
+            format:     "file",
+            content:    fixture_file_upload("files/image.jpg", "image/jpeg") }
+        ]
+      ))
+    end
+  end
+
+  def test_update_with_file
+    flunk
+  end
+
+  def test_create_with_date
+    flunk
+  end
+
+  def test_update_with_date
+    flunk
+  end
+
+  def test_create_with_boolean
+    flunk
+  end
+
+  def test_update_with_boolean
+    flunk
   end
 
   def test_initialization_of_full_path
@@ -172,7 +203,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_cascading_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Fragment.count', -1 do
+      assert_difference 'Comfy::Cms::Fragment.count', -4 do
         @page.destroy
       end
     end
@@ -193,8 +224,15 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_comfy_cms_blocks_attributes_accessor
     assert_equal @page.fragments.count, @page.fragments_attributes.size
-    assert_equal 'content', @page.fragments_attributes.first[:identifier]
-    assert_equal 'content', @page.fragments_attributes.first[:content]
+    file_content = comfy_cms_fragments(:file).attachments.to_a
+    date_content = comfy_cms_fragments(:datetime).datetime
+
+    assert_equal [
+      {identifier: "boolean",   format: "boolean",  content: true},
+      {identifier: "file",      format: "file",     content: file_content},
+      {identifier: "datetime",  format: "datetime", content: date_content},
+      {identifier: "content",   format: "text",     content: "content"}
+    ], @page.fragments_attributes
   end
 
   def test_render

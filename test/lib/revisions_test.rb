@@ -70,10 +70,14 @@ class RevisionsTest < ActiveSupport::TestCase
       assert_equal 2, @page.revisions.count
       revision = @page.revisions.first
       assert_equal ({
-        'fragments_attributes' => [
-          {identifier: "content", format: "text", content: "content"}
-        ]
+        "fragments_attributes" => [
+          {identifier: "boolean",   format: "boolean",  content: nil},
+          {identifier: "file",      format: "file",     content: nil},
+          {identifier: "datetime",  format: "datetime", content: nil},
+          {identifier: "content",   format: "text",     content: "content"}]
       }), revision.data
+
+      flunk "those should not be nils"
     end
   end
 
@@ -132,9 +136,15 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference -> {@page.revisions.count} do
       @page.restore_from_revision(revision)
       @page.reload
+
+      date_content = comfy_cms_fragments(:datetime).datetime
+
       assert_equal [
-        {identifier: "content", format: "text", content: "old content"},
-        {identifier: "title",   format: "text", content: "old title"}
+        {identifier: "boolean",   format: "boolean",  content: true},
+        {identifier: "file",      format: "file",     content: []},
+        {identifier: "datetime",  format: "datetime", content: date_content},
+        {identifier: "content",   format: "text",     content: "old content"},
+        {identifier: "title",     format: "text",     content: "old title"}
       ], @page.fragments_attributes
     end
   end

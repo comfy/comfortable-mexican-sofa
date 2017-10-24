@@ -148,8 +148,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
         self.fragments.build(identifier: frag_attrs[:identifier])
       fragment.format   = frag_attrs[:format] if frag_attrs[:format].present?
       fragment.content  = frag_attrs[:content]
-      self.fragments_attributes_changed =
-        self.fragments_attributes_changed || fragment.content_changed?
+
+      # tracking dirty
+      self.fragments_attributes_changed ||= fragment.content_changed?
     end
   end
 

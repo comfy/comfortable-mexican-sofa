@@ -138,14 +138,14 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][format]'][value='number']"
   end
 
-  def test_get_new_with_field_checkbox
-    @layout.update_column(:content, "{{cms:fragment test, format: checkbox}}")
+  def test_get_new_with_field_boolean
+    @layout.update_column(:content, "{{cms:fragment test, format: boolean}}")
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
     assert_response :success
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][content]'][value='']"
     assert_select "input[type='checkbox'][name='page[fragments_attributes][0][content]'][value='1']"
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][format]'][value='checkbox']"
+    assert_select "input[type='hidden'][name='page[fragments_attributes][0][format]'][value='boolean']"
   end
 
   def test_get_new_with_field_file
@@ -359,7 +359,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
       assert_equal 'Page updated', flash[:success]
       assert_equal 'Updated Label', @page.label
       identifiers = @page.fragments.collect {|b| b.identifier}
-      assert_equal ['content', 'header'], identifiers.sort
+      assert_equal ["boolean", "content", "datetime", "file", "header"], identifiers.sort
     end
   end
 
@@ -375,7 +375,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_destroy
     assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Fragment.count', -1 do
+      assert_difference 'Comfy::Cms::Fragment.count', -4 do
         r :delete, comfy_admin_cms_site_page_path(site_id: @site, id: @page)
         assert_response :redirect
         assert_redirected_to action: :index

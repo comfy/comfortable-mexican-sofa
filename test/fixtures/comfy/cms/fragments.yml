@@ -1,4 +1,25 @@
 default:
   page: default
   identifier: content
+  format: text
   content: content
+
+file:
+  page: default
+  identifier: file
+  format: file
+  content:
+
+datetime:
+  page: default
+  identifier: datetime
+  format: datetime
+  content:
+  datetime: <%= DateTime.parse("1981-10-04") %>
+
+boolean:
+  page: default
+  identifier: boolean
+  format: boolean
+  content:
+  boolean: true

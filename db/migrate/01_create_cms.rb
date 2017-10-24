@@ -1,5 +1,7 @@
 class CreateCms < ActiveRecord::Migration[5.2]
 
+  LIMIT = 16777215
+
   def change
 
     # -- Sites -----------------------------------------------------------------
@@ -21,9 +23,9 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string  :app_layout
       t.string  :label,       null: false
       t.string  :identifier,  null: false
-      t.text    :content,     limit: 16777215
-      t.text    :css,         limit: 16777215
-      t.text    :js,          limit: 16777215
+      t.text    :content,     limit: LIMIT
+      t.text    :css,         limit: LIMIT
+      t.text    :js,          limit: LIMIT
       t.integer :position,    null: false, default: 0
       t.boolean :is_shared,   null: false, default: false
       t.timestamps
@@ -41,7 +43,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string  :label,           null: false
       t.string  :slug
       t.string  :full_path,       null: false
-      t.text    :content_cache,   limit: 16777215
+      t.text    :content_cache,   limit: LIMIT
       t.integer :position,        null: false, default: 0
       t.integer :children_count,  null: false, default: 0
       t.boolean :is_published,    null: false, default: true
@@ -57,9 +59,9 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer     :page_id,     null: false
       t.string      :identifier,  null: false
       t.string      :format,      null: false, default: "text"
-      t.text        :content,     limit: 16777215
+      t.text        :content,     limit: LIMIT
+      t.boolean     :boolean,     null: false, default: false
       t.datetime    :datetime
-      t.boolean     :checkbox,    null: false, default: false
       t.timestamps
 
       t.index [:identifier]
@@ -73,7 +75,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer :site_id,     null: false
       t.string  :label,       null: false
       t.string  :identifier,  null: false
-      t.text    :content,     limit: 16777215
+      t.text    :content,     limit: LIMIT
       t.integer :position,    null: false, default: 0
       t.boolean :is_shared,   null: false, default: false
       t.timestamps
@@ -97,7 +99,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
     create_table :comfy_cms_revisions, force: true do |t|
       t.string    :record_type, null: false
       t.integer   :record_id,   null: false
-      t.text      :data,        limit: 16777215
+      t.text      :data,        limit: LIMIT
       t.datetime  :created_at
 
       t.index [:record_type, :record_id, :created_at],

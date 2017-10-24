@@ -18,11 +18,6 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     @format = "file"
     @multiple = @options["multiple"] || false
   end
-
-  def content
-    "TODO"
-  end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
