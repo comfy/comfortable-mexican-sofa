@@ -22,48 +22,15 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   # -- Instance Methods --------------------------------------------------------
 
   # Temporary accessor for uploaded files. We can only attach to persisted
-  # records so we are deffering it to the after_save callback
+  # records so we are deffering it to the after_save callback.
+  # Note: hijacking dirty tracking to force trigger callbacks later.
   def files=(files)
     @files = [files].flatten.compact
+    content_will_change! if @files.present?
   end
 
   def files
     @files || []
-  end
-
-  # Based on the fragment format we need to properly process incoming content.
-  # Content that is getting returned also needs to be controlled the same way.
-  # So we need to make sure that format gets assigned before content. Meaning
-  # that attributes hash needs to be ordered like so:
-  #   {format: "text", content: "some content"}
-  # If format key comes after content we're in trouble as it will be processed
-  # as text.
-  def content=(content)
-    case self.format
-    when "datetime", "date"
-      write_attribute(:datetime, content)
-      content_will_change! if datetime_changed?
-    when "boolean"
-      write_attribute(:boolean, content)
-    when "file", "files"
-      @temp_files = [content].flatten.reject{|f| f.blank?}
-      content_will_change! if @temp_files.present?
-    else
-      write_attribute(:content, content)
-    end
-  end
-
-  def content
-    case self.format
-    when "datetime", "date"
-      read_attribute(:datetime)
-    when "boolean"
-      read_attribute(:boolean)
-    when "file", "files"
-      @temp_files || attachments.to_a
-    else
-      read_attribute(:content)
-    end
   end
 
 protected

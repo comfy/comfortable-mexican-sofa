@@ -9,8 +9,8 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def new_params(options = {})
-    { label:  'Test Page',
-      slug:   'test-page',
+    { label:  "Test Page",
+      slug:   "test-page",
       layout: @layout
     }.merge(options)
   end
@@ -82,8 +82,8 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_label_assignment
     page = comfy_cms_sites(:default).pages.new(
       slug:   'test',
-      parent: comfy_cms_pages(:default),
-      layout: comfy_cms_layouts(:default)
+      parent: @page,
+      layout: @layout
     )
     assert page.valid?
     assert_equal 'Test', page.label
@@ -108,11 +108,11 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment, ActiveStorage::Attachment] do
       page = @site.pages.create!(new_params(
         parent: @page,
-        fragments_attributes: [
-          { identifier: "file",
-            format:     "file",
-            content:    fixture_file_upload("files/image.jpg", "image/jpeg") }
-        ]
+        fragments_attributes: [{
+          identifier: "test",
+          format:     "file",
+          files:      fixture_file_upload("files/image.jpg", "image/jpeg")
+        }]
       ))
     end
   end
@@ -123,7 +123,7 @@ class CmsPageTest < ActiveSupport::TestCase
         fragments_attributes: [{
           identifier: "file",
           format:     "file",
-          content:    fixture_file_upload("files/document.pdf", "application/pdf")
+          files:      fixture_file_upload("files/document.pdf", "application/pdf")
         }]
       )
       assert_equal "document.pdf", comfy_cms_fragments(:file).attachments.first.filename.to_s

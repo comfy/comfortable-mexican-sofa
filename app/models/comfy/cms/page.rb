@@ -117,6 +117,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     write_attribute(:content_cache, nil)
   end
 
+  # TODO: Review... I think this is only for revision tracking
   # Transforms existing cms_fragment information into a hash that can be used
   # during form processing. That's the only way to modify cms_fragments.
   def fragments_attributes(was = false)
@@ -132,7 +133,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # Array of fragment hashes in the following format:
   #   [
   #     {identifier: "frag_a", format: "text", content: "fragment a content"},
-  #     {identifier: "frag_b", format: "file", content: [{file_a}, {file_b}]}
+  #     {identifier: "frag_b", format: "file", files: [{file_a}, {file_b}]}
   #   ]
   # It also handles when frag hashes come in as a hash:
   #   {
@@ -141,16 +142,20 @@ class Comfy::Cms::Page < ActiveRecord::Base
   #   }
   def fragments_attributes=(frag_hashes = [])
     frag_hashes = frag_hashes.values if frag_hashes.is_a?(Hash)
+
     frag_hashes.each do |frag_attrs|
-      frag_attrs.symbolize_keys! unless frag_attrs.is_a?(HashWithIndifferentAccess)
+      frag_attrs.symbolize_keys!
+
+      identifier = frag_attrs.delete(:identifier)
+
       fragment =
-        self.fragments.detect{|f| f.identifier == frag_attrs[:identifier]} ||
-        self.fragments.build(identifier: frag_attrs[:identifier])
-      fragment.format   = frag_attrs[:format] if frag_attrs[:format].present?
-      fragment.content  = frag_attrs[:content]
+        self.fragments.detect{|f| f.identifier == identifier} ||
+        self.fragments.build(identifier: identifier)
+
+      fragment.attributes = frag_attrs
 
       # tracking dirty
-      self.fragments_attributes_changed ||= fragment.content_changed?
+      self.fragments_attributes_changed ||= fragment.changed?
     end
   end
 
