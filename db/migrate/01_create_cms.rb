@@ -1,4 +1,4 @@
-class CreateCms < ActiveRecord::Migration
+class CreateCms < ActiveRecord::Migration[5.0]
 
   def self.up
 
