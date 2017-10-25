@@ -4,3 +4,10 @@ default:
   content_type: image/jpg
   byte_size: 12345
   checksum: 123abc
+
+fragment:
+  key: 456def
+  filename: fragment.jpg
+  content_type: image/jpg
+  byte_size: 12345
+  checksum: 456def

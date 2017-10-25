@@ -29,10 +29,12 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
     case self.format
     when "datetime", "date"
       write_attribute(:datetime, content)
+      content_will_change! if datetime_changed?
     when "boolean"
       write_attribute(:boolean, content)
-    when "file"
+    when "file", "files"
       @temp_files = [content].flatten.reject{|f| f.blank?}
+      content_will_change! if @temp_files.present?
     else
       write_attribute(:content, content)
     end
@@ -44,7 +46,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
       read_attribute(:datetime)
     when "boolean"
       read_attribute(:boolean)
-    when "file"
+    when "file", "files"
       @temp_files || attachments.to_a
     else
       read_attribute(:content)
@@ -55,6 +57,12 @@ protected
 
   def process_attachments
     return if @temp_files.blank?
+
+    # If we're dealing with a single file
+    # if self.attachments && self.format == "file"
+    #   self.attachments.purge_later
+    # end
+
     self.attachments.attach(@temp_files)
   end
 end

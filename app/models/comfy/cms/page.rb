@@ -24,8 +24,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
                     :escape_slug,
                     :assign_full_path
   before_create     :assign_position
-  around_save       :sync_child_full_paths!
   before_save       :clear_content_cache
+  after_save        :sync_child_full_paths!
   after_find        :unescape_slug_and_path
 
 
@@ -201,11 +201,7 @@ protected
 
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
-    old, new = self.full_path_change
-
-    yield
-
-    return unless new.present?
+    return unless self.full_path_previously_changed?
     children.each do |p|
       p.update_attribute(:full_path, p.send(:assign_full_path))
     end

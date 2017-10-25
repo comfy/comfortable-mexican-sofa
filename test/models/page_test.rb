@@ -8,6 +8,15 @@ class CmsPageTest < ActiveSupport::TestCase
     @page   = comfy_cms_pages(:default)
   end
 
+  def new_params(options = {})
+    { label:  'Test Page',
+      slug:   'test-page',
+      layout: @layout
+    }.merge(options)
+  end
+
+  # -- Tests -------------------------------------------------------------------
+
   def test_fixtures_validity
     Comfy::Cms::Page.all.each do |page|
       assert page.valid?, page.errors.full_messages.to_s
@@ -109,7 +118,16 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_update_with_file
-    flunk
+    assert_count_no_difference [ActiveStorage::Attachment] do
+      @page.update_attributes!(
+        fragments_attributes: [{
+          identifier: "file",
+          format:     "file",
+          content:    fixture_file_upload("files/document.pdf", "application/pdf")
+        }]
+      )
+      assert_equal "document.pdf", comfy_cms_fragments(:file).attachments.first.filename.to_s
+    end
   end
 
   def test_create_with_date
@@ -356,14 +374,5 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
     assert_equal 0, page_3.children_count
-  end
-
-protected
-
-  def new_params(options = {})
-    { label:  'Test Page',
-      slug:   'test-page',
-      layout: @layout
-    }.merge(options)
   end
 end
