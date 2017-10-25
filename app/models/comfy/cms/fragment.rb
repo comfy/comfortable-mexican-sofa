@@ -5,8 +5,11 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   serialize :content
 
+  attr_accessor :file_ids_destroy
+
   # -- Callbacks ---------------------------------------------------------------
-  after_save :process_attachments
+  after_save  :remove_attachments,
+              :add_attachments
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :page
@@ -17,6 +20,16 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
     uniqueness: {scope: :page_id}
 
   # -- Instance Methods --------------------------------------------------------
+
+  # Temporary accessor for uploaded files. We can only attach to persisted
+  # records so we are deffering it to the after_save callback
+  def files=(files)
+    @files = [files].flatten.compact
+  end
+
+  def files
+    @files || []
+  end
 
   # Based on the fragment format we need to properly process incoming content.
   # Content that is getting returned also needs to be controlled the same way.
@@ -55,14 +68,19 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
 protected
 
-  def process_attachments
-    return if @temp_files.blank?
+  def remove_attachments
+    self.attachments.where(id: self.file_ids_destroy).destroy_all
+  end
+
+  def add_attachments
+    return if self.files.blank?
 
     # If we're dealing with a single file
-    # if self.attachments && self.format == "file"
-    #   self.attachments.purge_later
-    # end
+    if self.format == "file"
+      self.files = [self.files.first]
+      self.attachments.purge_later if self.attachments
+    end
 
-    self.attachments.attach(@temp_files)
+    self.attachments.attach(self.files)
   end
 end
