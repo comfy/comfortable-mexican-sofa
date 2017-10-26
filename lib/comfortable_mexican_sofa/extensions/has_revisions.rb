@@ -54,7 +54,7 @@ module ComfortableMexicanSofa::HasRevisions
       self.revisions.where('id NOT IN (?)', ids).destroy_all
     end
 
-    # Assigning whatever is found in revision data and attemptint to save the object
+    # Assigning whatever is found in revision data and attempting to save the object
     def restore_from_revision(revision)
       return unless revision.record == self
       self.update_attributes!(revision.data)

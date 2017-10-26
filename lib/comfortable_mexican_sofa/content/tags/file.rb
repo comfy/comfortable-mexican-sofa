@@ -15,8 +15,9 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
   def initialize(context, params_string)
     super
-    @format = "file"
+
     @multiple = @options["multiple"] || false
+    @format   = @multiple? "files" : "file"
   end
 end
 

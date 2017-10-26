@@ -40,12 +40,12 @@ private
 
   def field_datetime(tag, index)
     options = {id: nil, class: "form-control", data: {"cms-datetime" => true}}
-    @template.send(:text_field_tag, "#{INPUT_NAME}[#{index}][content]", tag.content, options)
+    @template.send(:text_field_tag, "#{INPUT_NAME}[#{index}][datetime]", tag.content, options)
   end
 
   def field_date(tag, index)
     options = {id: nil, class: "form-control", data: {"cms-date" => true}}
-    @template.send(:text_field_tag, "#{INPUT_NAME}[#{index}][content]", tag.content, options)
+    @template.send(:text_field_tag, "#{INPUT_NAME}[#{index}][datetime]", tag.content, options)
   end
 
   def field_number(tag, index)
@@ -54,14 +54,14 @@ private
   end
 
   def field_boolean(tag, index)
-    content = @template.hidden_field_tag("#{INPUT_NAME}[#{index}][content]", "", id: nil)
+    content = @template.hidden_field_tag("#{INPUT_NAME}[#{index}][boolean]", "0", id: nil)
     content << @template.check_box_tag(
-      "#{INPUT_NAME}[#{index}][content]", "1", tag.content.present?, id:  nil
+      "#{INPUT_NAME}[#{index}][boolean]", "1", tag.content, id:  nil
     )
   end
 
   def field_file(tag, index)
-    name = "#{INPUT_NAME}[#{index}][content]"
+    name = "#{INPUT_NAME}[#{index}][files]"
     options = {id: nil}
     if tag.multiple
       name << "[]"
@@ -72,5 +72,9 @@ private
       content << @template.render(partial: "comfy/admin/cms/files/fragment_attachments", object: attachments)
     end
     content
+  end
+
+  def field_files(tag, index)
+    field_file(tag, index)
   end
 end

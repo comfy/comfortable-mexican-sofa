@@ -38,7 +38,16 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   end
 
   def content
-    fragment.content
+    case format
+    when "date", "datetime"
+      fragment.datetime
+    when "boolean"
+      fragment.boolean
+    when "file", "files"
+      fragment.attachments
+    else
+      fragment.content
+    end
   end
 
   def render
