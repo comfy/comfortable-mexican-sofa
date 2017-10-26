@@ -117,19 +117,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
     write_attribute(:content_cache, nil)
   end
 
-  # TODO: Review... I think this is only for revision tracking
-  # Transforms existing cms_fragment information into a hash that can be used
-  # during form processing. That's the only way to modify cms_fragments.
-  def fragments_attributes(was = false)
-    self.fragments.collect do |fragment|
-      fragment_attr = {}
-      fragment_attr[:identifier]  = fragment.identifier
-      fragment_attr[:format]      = fragment.format
-      fragment_attr[:content]     = was ? fragment.content_was : fragment.content
-      fragment_attr
-    end
-  end
-
   # Array of fragment hashes in the following format:
   #   [
   #     {identifier: "frag_a", format: "text", content: "fragment a content"},
@@ -158,6 +145,21 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
       # tracking dirty
       self.fragments_attributes_changed ||= fragment.changed?
+    end
+  end
+
+  # Snapshop of page fragments data used primarily for saving revisions
+  def fragments_attributes(was = false)
+    self.fragments.collect do |frag|
+      attrs = {}
+      %i(identifier format content datetime boolean).each do |column|
+        attrs[column] = frag.send(was ? "#{column}_was" : column)
+      end
+      # TODO: save files against revision (not on db though)
+      # attrs[:files] = frag.attachments.collect do |a|
+      #   {io: a.download, filename: a.filename.to_s, content_type: a.content_type}
+      # end
+      attrs
     end
   end
 

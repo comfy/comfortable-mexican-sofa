@@ -329,17 +329,60 @@ class CmsPageTest < ActiveSupport::TestCase
       Comfy::Cms::Page.options_for_select(@site, page).collect{|t| t.first }
   end
 
-  def test_comfy_cms_blocks_attributes_accessor
+  def test_fragments_attributes
     assert_equal @page.fragments.count, @page.fragments_attributes.size
-    file_content = comfy_cms_fragments(:file).attachments.to_a
-    date_content = comfy_cms_fragments(:datetime).datetime
+
+    @page.fragments_attributes = [
+      { identifier: "content",
+        content:    "updated content"
+      }
+    ]
 
     assert_equal [
-      {identifier: "boolean",   format: "boolean",  content: true},
-      {identifier: "file",      format: "file",     content: file_content},
-      {identifier: "datetime",  format: "datetime", content: date_content},
-      {identifier: "content",   format: "text",     content: "content"}
+      { identifier: "boolean",
+        format:     "boolean",
+        content:    nil,
+        datetime:   nil,
+        boolean:    true },
+      { identifier: "file",
+        format:     "file",
+        content:    nil,
+        datetime:   nil,
+        boolean:    false },
+      { identifier: "datetime",
+        format:     "datetime",
+        content:    nil,
+        datetime:   comfy_cms_fragments(:datetime).datetime,
+        boolean:    false },
+      { identifier: "content",
+        format:     "text",
+        content:    "updated content",
+        datetime:   nil,
+        boolean:    false }
     ], @page.fragments_attributes
+
+    assert_equal [
+      { identifier: "boolean",
+        format:     "boolean",
+        content:    nil,
+        datetime:   nil,
+        boolean:    true },
+      { identifier: "file",
+        format:     "file",
+        content:    nil,
+        datetime:   nil,
+        boolean:    false },
+      { identifier: "datetime",
+        format:     "datetime",
+        content:    nil,
+        datetime:   comfy_cms_fragments(:datetime).datetime,
+        boolean:    false },
+      { identifier: "content",
+        format:     "text",
+        content:    "content",
+        datetime:   nil,
+        boolean:    false }
+    ], @page.fragments_attributes_was
   end
 
   def test_render
