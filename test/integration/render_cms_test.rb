@@ -10,7 +10,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       get '/site-path/render-page'  => 'render_test#render_page'
       get '/render-layout'          => 'render_test#render_layout'
     end
-    comfy_cms_layouts(:default).update_columns(content: '{{cms:fragment content}}')
+    comfy_cms_layouts(:default).update_columns(content: '{{cms:text content}}')
     comfy_cms_pages(:child).update_attributes(fragments_attributes: [
       { identifier: 'content', content: 'TestBlockContent' }
     ])
@@ -26,7 +26,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       hostname:   'site-b.test')
     layout  = site.layouts.create!(
       identifier: 'default',
-      content:    'site-b {{cms:fragment content}}')
+      content:    'site-b {{cms:text content}}')
     page    = site.pages.create!(
       label:  'default',
       layout: layout,
@@ -197,7 +197,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_layout
-    content = "{{cms:fragment content}} {{cms:fragment content_b}} {{cms:fragment content_c}}"
+    content = "{{cms:text content}} {{cms:text content_b}} {{cms:text content_c}}"
     comfy_cms_layouts(:default).update_columns(content: content)
     get '/render-layout?type=layout'
     assert_response :success
@@ -217,7 +217,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_layout_with_action
-    content = "{{cms:fragment content}} {{cms:fragment content_b}} {{cms:fragment content_c}}"
+    content = "{{cms:text content}} {{cms:text content_b}} {{cms:text content_c}}"
     comfy_cms_layouts(:default).update_columns(content: content)
     get '/render-layout?type=layout_with_action'
     assert_response :success

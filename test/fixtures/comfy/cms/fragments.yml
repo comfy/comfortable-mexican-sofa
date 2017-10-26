@@ -1,25 +1,25 @@
 default:
   page: default
   identifier: content
-  format: text
+  tag: text
   content: content
 
 file:
   page: default
   identifier: file
-  format: file
+  tag: file
   content:
 
 datetime:
   page: default
   identifier: datetime
-  format: datetime
+  tag: date_time
   content:
   datetime: <%= DateTime.parse("1981-10-04") %>
 
 boolean:
   page: default
   identifier: boolean
-  format: boolean
+  tag: checkbox
   content:
   boolean: true

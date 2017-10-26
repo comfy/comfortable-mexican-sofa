@@ -21,26 +21,44 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
 
   def test_content_tokens
-    layout = Comfy::Cms::Layout.new(content: "a {{cms:fragment content}} b")
-    assert_equal ["a ", {tag_class: "fragment", tag_params: "content"}, " b"],
+    layout = Comfy::Cms::Layout.new(content: "a {{cms:text content}} b")
+    assert_equal ["a ", {tag_class: "text", tag_params: "content"}, " b"],
       layout.content_tokens
   end
 
   def test_content_tokens_nested
-    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:fragment content}} {{cms:fragment footer}} b")
-    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:fragment content}} d")
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:text content}} {{cms:text footer}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
     assert_equal [
-      "a ", "c ", {tag_class: "fragment", tag_params: "content"}, " d", " ",
-      {tag_class: "fragment", tag_params: "footer"}, " b"
+      "a ", "c ", {tag_class: "text", tag_params: "content"}, " d", " ",
+      {tag_class: "text", tag_params: "footer"}, " b"
+    ], layout_b.content_tokens
+  end
+
+  def test_content_tokens_nested_with_fragment_subclass_tag
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:markdown content}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
+    layout_b.parent = layout_a
+    assert_equal [
+      "a ", "c ", {tag_class: "text", tag_params: "content"}, " d", " b"
+    ], layout_b.content_tokens
+  end
+
+  def test_content_tokens_nested_with_non_fragment_subclass_tag
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:snippet content}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
+    layout_b.parent = layout_a
+    assert_equal [
+      "c ", {tag_class: "text", tag_params: "content"}, " d"
     ], layout_b.content_tokens
   end
 
   def test_content_tokens_nested_without_content_tag
-    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:fragment footer}} b")
-    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:fragment content}} d")
+    layout_a = Comfy::Cms::Layout.new(content: "a {{cms:text footer}} b")
+    layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal ["c ", {tag_class: "fragment", tag_params: "content"}, " d"],
+    assert_equal ["c ", {tag_class: "text", tag_params: "content"}, " d"],
       layout_b.content_tokens
   end
 
@@ -58,16 +76,16 @@ class CmsLayoutTest < ActiveSupport::TestCase
       layout = @site.layouts.create(
         label:      'New Layout',
         identifier: 'new-layout',
-        content:    '{{cms:fragment default}}',
+        content:    '{{cms:text default}}',
         css:        'css',
         js:         'js'
       )
-      assert_equal 'New Layout', layout.label
-      assert_equal 'new-layout', layout.identifier
-      assert_equal '{{cms:fragment default}}', layout.content
-      assert_equal 'css', layout.css
-      assert_equal 'js', layout.js
-      assert_equal 1, layout.position
+      assert_equal 'New Layout',            layout.label
+      assert_equal 'new-layout',            layout.identifier
+      assert_equal '{{cms:text default}}',  layout.content
+      assert_equal 'css',                   layout.css
+      assert_equal 'js',                    layout.js
+      assert_equal 1,                       layout.position
     end
   end
 
@@ -137,7 +155,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal "header_content\ncontent_content", page_1.content_cache
     assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content_cache
 
-    layout_1.update_attributes(content: "Updated {{cms:fragment content}}")
+    layout_1.update_attributes(content: "Updated {{cms:text content}}")
     page_1.reload
     page_2.reload
 

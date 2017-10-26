@@ -95,7 +95,7 @@ class CmsPageTest < ActiveSupport::TestCase
         parent: @page,
         fragments_attributes: [
           { identifier: "content",
-            format:     "text",
+            tag:        "text",
             content:    "test" }
         ]
       ))
@@ -110,7 +110,7 @@ class CmsPageTest < ActiveSupport::TestCase
         parent: @page,
         fragments_attributes: [{
           identifier: "test",
-          format:     "file",
+          tag:        "file",
           files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
         }]
       ))
@@ -126,7 +126,7 @@ class CmsPageTest < ActiveSupport::TestCase
           parent: @page,
           fragments_attributes: [{
             identifier: "test",
-            format:     "files",
+            tag:        "files",
             files:      [
               fixture_file_upload("files/image.jpg", "image/jpeg"),
               fixture_file_upload("files/document.pdf", "application/pdf")
@@ -147,7 +147,7 @@ class CmsPageTest < ActiveSupport::TestCase
         parent: @page,
         fragments_attributes: [{
           identifier: "test",
-          format:     "datetime",
+          tag:        "date_time",
           datetime:   string
         }]
       ))
@@ -162,7 +162,7 @@ class CmsPageTest < ActiveSupport::TestCase
         parent: @page,
         fragments_attributes: [{
           identifier: "test",
-          format:     "boolean",
+          tag:        "checkbox",
           boolean:    "1"
         }]
       ))
@@ -188,7 +188,7 @@ class CmsPageTest < ActiveSupport::TestCase
       @page.update_attributes!(
         fragments_attributes: [{
           identifier: "file",
-          format:     "file",
+          tag:        "file",
           files:      fixture_file_upload("files/document.pdf", "application/pdf")
         }]
       )
@@ -340,22 +340,22 @@ class CmsPageTest < ActiveSupport::TestCase
 
     assert_equal [
       { identifier: "boolean",
-        format:     "boolean",
+        tag:        "checkbox",
         content:    nil,
         datetime:   nil,
         boolean:    true },
       { identifier: "file",
-        format:     "file",
+        tag:        "file",
         content:    nil,
         datetime:   nil,
         boolean:    false },
       { identifier: "datetime",
-        format:     "datetime",
+        tag:        "date_time",
         content:    nil,
         datetime:   comfy_cms_fragments(:datetime).datetime,
         boolean:    false },
       { identifier: "content",
-        format:     "text",
+        tag:        "text",
         content:    "updated content",
         datetime:   nil,
         boolean:    false }
@@ -363,22 +363,22 @@ class CmsPageTest < ActiveSupport::TestCase
 
     assert_equal [
       { identifier: "boolean",
-        format:     "boolean",
+        tag:        "checkbox",
         content:    nil,
         datetime:   nil,
         boolean:    true },
       { identifier: "file",
-        format:     "file",
+        tag:        "file",
         content:    nil,
         datetime:   nil,
         boolean:    false },
       { identifier: "datetime",
-        format:     "datetime",
+        tag:        "date_time",
         content:    nil,
         datetime:   comfy_cms_fragments(:datetime).datetime,
         boolean:    false },
       { identifier: "content",
-        format:     "text",
+        tag:        "text",
         content:    "content",
         datetime:   nil,
         boolean:    false }
@@ -391,7 +391,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_fragment_nodes
-    content = "a {{cms:fragment a}} b {{cms:snippet b}} c {{cms:fragment c}}"
+    content = "a {{cms:text a}} b {{cms:snippet b}} c {{cms:text c}}"
     @page.layout.update_column(:content, content)
     nodes = @page.fragment_nodes
     assert_equal 2, nodes.count
@@ -400,12 +400,12 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_fragment_nodes_with_duplicates
-    content = "{{cms:fragment test}} {{cms:fragment test, format: markdown}}"
+    content = "{{cms:wysiwyg test}} {{cms:markdown test}}"
     @page.layout.update_column(:content, content)
     nodes = @page.fragment_nodes
     assert_equal 1, nodes.count
-    assert_equal "test",    nodes[0].identifier
-    assert_equal "wysiwyg", nodes[0].format
+    assert_equal ComfortableMexicanSofa::Content::Tag::Wysiwyg, nodes[0].class
+    assert_equal "test", nodes[0].identifier
   end
 
   def test_content_caching

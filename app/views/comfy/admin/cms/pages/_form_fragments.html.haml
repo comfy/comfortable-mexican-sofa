@@ -1,5 +1,6 @@
 - begin
   - nodes = @page.fragment_nodes
+
   // Grouping nodes by their namespace
   - namespace = nodes.each_with_object({}) do |n, h|
     - h[n.namespace] ||= []

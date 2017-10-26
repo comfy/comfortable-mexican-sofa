@@ -43,7 +43,7 @@ protected
     return if @files.blank?
 
     # If we're dealing with a single file
-    if self.format == "file"
+    if self.tag == "file"
       @files = [@files.first]
       self.attachments.purge_later if self.attachments
     end

@@ -25,7 +25,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
 
   def test_initialization
     frag = Comfy::Cms::Fragment.new
-    assert_equal "text", frag.format
+    assert_equal "text", frag.tag
   end
 
   def test_fixtures_validity
@@ -67,7 +67,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
       assert_count_difference [ActiveStorage::Attachment], 2 do
         frag = @page.fragments.create!(
           identifier: "test",
-          format:     "files",
+          tag:        "files",
           files:      [@upload_doc, @upload_img]
         )
         assert_equal 2, frag.attachments.count
@@ -79,7 +79,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_count_difference [Comfy::Cms::Fragment, ActiveStorage::Attachment] do
       frag = @page.fragments.create!(
         identifier: "test",
-        format:     "file",
+        tag:        "file",
         files:      [@upload_doc, @upload_img]
       )
       assert_equal 1, frag.attachments.count
@@ -92,8 +92,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
     assert_difference -> {frag.attachments.count} do
       frag.update_attributes(
-        format: "files",
-        files: [@upload_doc]
+        tag:    "files",
+        files:  [@upload_doc]
       )
     end
   end
@@ -104,8 +104,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
     assert_no_difference -> {frag.attachments.count} do
       frag.update_attributes(
-        format: "file",
-        files: [@upload_doc]
+        tag:    "file",
+        files:  [@upload_doc]
       )
     end
     frag.reload

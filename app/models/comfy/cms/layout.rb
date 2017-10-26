@@ -58,13 +58,17 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   # and merges on the {{cms:fragment content}} tag (if parent layout has that).
   # Returns a list of tokens that can be fed into the renderer.
   def content_tokens
+
     renderer = ComfortableMexicanSofa::Content::Renderer.new(nil)
     tokens = renderer.tokenize(self.content)
     if parent
+      fragment_tags = ComfortableMexicanSofa::Content::Tag::Fragment.subclasses.map do |c|
+        c.to_s.demodulize.underscore
+      end
       parent_tokens = parent.content_tokens
       replacement_position = parent_tokens.index do |n|
         n.is_a?(Hash) &&
-        n[:tag_class] == "fragment" &&
+        fragment_tags.member?(n[:tag_class]) &&
         n[:tag_params].split(/\s/).first == "content"
       end
       if replacement_position

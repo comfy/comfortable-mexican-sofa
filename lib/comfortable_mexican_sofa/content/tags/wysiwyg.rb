@@ -1,0 +1,18 @@
+# Tag for text content that is going to be rendered using Redactor (default) in
+# the admin area
+#   {{ cms:wysiwyg identifier }}
+#
+#
+class ComfortableMexicanSofa::Content::Tag::Wysiwyg < ComfortableMexicanSofa::Content::Tag::Fragment
+
+  def form_field(view, index, &block)
+    name    = "page[fragments_attributes][#{index}][content]"
+    options = {id: nil, data: {"cms-rich-text" => true}}
+    input   = view.send(:text_area_tag, name, self.content, options)
+    yield input
+  end
+end
+
+ComfortableMexicanSofa::Content::Renderer.register_tag(
+  :wysiwyg, ComfortableMexicanSofa::Content::Tag::Wysiwyg
+)

@@ -19,13 +19,21 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   DEFAULT_REGISTERED_TAGS = {
-    "asset"     => ComfortableMexicanSofa::Content::Tag::Asset,
-    "fragment"  => ComfortableMexicanSofa::Content::Tag::Fragment,
+    "wysiwyg"   => ComfortableMexicanSofa::Content::Tag::Wysiwyg,
+    "text"      => ComfortableMexicanSofa::Content::Tag::Text,
+    "textarea"  => ComfortableMexicanSofa::Content::Tag::TextArea,
+    "markdown"  => ComfortableMexicanSofa::Content::Tag::Markdown,
+    "datetime"  => ComfortableMexicanSofa::Content::Tag::DateTime,
+    "date"      => ComfortableMexicanSofa::Content::Tag::Date,
+    "number"    => ComfortableMexicanSofa::Content::Tag::Number,
+    "checkbox"  => ComfortableMexicanSofa::Content::Tag::Checkbox,
     "file"      => ComfortableMexicanSofa::Content::Tag::File,
+    "files"     => ComfortableMexicanSofa::Content::Tag::Files,
     "snippet"   => ComfortableMexicanSofa::Content::Tag::Snippet,
+    "asset"     => ComfortableMexicanSofa::Content::Tag::Asset,
+    "file_link" => ComfortableMexicanSofa::Content::Tag::FileLink,
     "helper"    => ComfortableMexicanSofa::Content::Tag::Helper,
     "partial"   => ComfortableMexicanSofa::Content::Tag::Partial,
-    "file_link" => ComfortableMexicanSofa::Content::Tag::FileLink,
     "template"  => ComfortableMexicanSofa::Content::Tag::Template
   }.freeze
 
@@ -193,7 +201,7 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_tag
-    out = render_string("a {{cms:fragment content}} z")
+    out = render_string("a {{cms:text content}} z")
     assert_equal "a content z", out
   end
 
@@ -214,7 +222,7 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_nested_tag
-    string = "a {{cms:fragment content}} b"
+    string = "a {{cms:text content}} b"
     comfy_cms_fragments(:default).update_column(:content, "c {{cms:snippet default}} d")
     comfy_cms_snippets(:default).update_column(:content, "e {{cms:helper test}} f")
     out = render_string(string)

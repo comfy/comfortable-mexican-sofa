@@ -152,7 +152,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   def fragments_attributes(was = false)
     self.fragments.collect do |frag|
       attrs = {}
-      %i(identifier format content datetime boolean).each do |column|
+      %i(identifier tag content datetime boolean).each do |column|
         attrs[column] = frag.send(was ? "#{column}_was" : column)
       end
       # TODO: save files against revision (not on db though)

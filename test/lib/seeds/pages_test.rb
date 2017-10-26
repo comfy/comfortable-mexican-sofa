@@ -7,10 +7,10 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     site    = comfy_cms_sites(:default)
     layout  = comfy_cms_layouts(:default)
-    layout.update_column(:content, '<html>{{cms:fragment content}}</html>')
+    layout.update_column(:content, '<html>{{cms:text content}}</html>')
 
     nested = comfy_cms_layouts(:nested)
-    nested.update_column(:content, '<html>{{cms:fragment left}}<br/>{{cms:fragment right}}</html>')
+    nested.update_column(:content, '<html>{{cms:text left}}<br/>{{cms:text right}}</html>')
 
     # need to have categories present before linking
     site.categories.create!(categorized_type: 'Comfy::Cms::Page', label: 'category_a')

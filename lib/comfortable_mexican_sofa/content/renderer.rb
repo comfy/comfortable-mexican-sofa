@@ -98,7 +98,7 @@ class ComfortableMexicanSofa::Content::Renderer
 
         else
           unless klass = self.class.tags[tag_class]
-            raise SyntaxError, "Unrecognized tag #{tag_class}"
+            raise SyntaxError, "Unrecognized tag #{tag_class}: #{token}"
           end
 
           tag = klass.new(@context, token[:tag_params])

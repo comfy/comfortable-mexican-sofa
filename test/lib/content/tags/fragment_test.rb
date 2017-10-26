@@ -10,15 +10,14 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content")
     assert_equal @page,     tag.context
     assert_equal "content", tag.identifier
-    assert_equal "wysiwyg", tag.format
     assert_equal true,      tag.renderable
     assert_equal "default", tag.namespace
   end
 
   def test_init_with_params
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(
-      @page, "content, format: text, render: false, namespace: test")
-    assert_equal "text", tag.format
+      @page, "content, render: false, namespace: test"
+    )
     assert_equal false,  tag.renderable
     assert_equal "test", tag.namespace
   end
@@ -57,15 +56,8 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
     assert_equal "content", tag.render
   end
 
-  def test_render_with_markdown
-    comfy_cms_fragments(:default).update_column(:content, "_markdown_")
-    tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content, format: markdown")
-    assert_equal "<p><em>markdown</em></p>\n", tag.render
-  end
-
   def test_render_when_not_renderable
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content, render: false")
     assert_equal "", tag.render
   end
-
 end

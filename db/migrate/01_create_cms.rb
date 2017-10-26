@@ -58,7 +58,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
     create_table :comfy_cms_fragments, force: true do |t|
       t.integer     :page_id,     null: false
       t.string      :identifier,  null: false
-      t.string      :format,      null: false, default: "text"
+      t.string      :tag,         null: false, default: "text"
       t.text        :content,     limit: LIMIT
       t.boolean     :boolean,     null: false, default: false
       t.datetime    :datetime
@@ -67,7 +67,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.index [:identifier]
       t.index [:page_id]
       t.index [:datetime]
-      t.index [:checkbox]
+      t.index [:boolean]
     end
 
     # -- Snippets --------------------------------------------------------------

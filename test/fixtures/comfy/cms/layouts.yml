@@ -4,7 +4,7 @@ default:
   identifier: default
   parent:
   content: |-
-    {{cms:fragment content}}
+    {{cms:text content}}
   css: default_css
   js: default_js
   position: 0
@@ -15,8 +15,8 @@ nested:
   identifier: nested
   parent:
   content: |-
-    {{cms:fragment header}}
-    {{cms:fragment content}}
+    {{cms:text header}}
+    {{cms:text content}}
   css: nested_css
   js: nested_js
   position: 0
@@ -27,8 +27,8 @@ child:
   identifier: child
   parent: nested
   content: |-
-    {{cms:fragment left_column}}
-    {{cms:fragment right_column}}
+    {{cms:text left_column}}
+    {{cms:text right_column}}
   css: child_css
   js: child_js
   position: 0

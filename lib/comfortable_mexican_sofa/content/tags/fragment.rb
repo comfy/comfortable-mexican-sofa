@@ -1,11 +1,5 @@
-# Tag that's responsible for rendeting content that comes from the database.
-# Tag looks something like this:
-#   {{cms:fragment identifier, format: text}}
-#
-# Tag params are split and first string maps to the `identifier` of the fragment
+# Base Tag class that other fragment tags depend on.
 # Tag handles following options:
-#   `format`: wysiwyg (default) | text | textarea | markdown | datetime | date | boolean | number
-#     this controls how this gets rendered in admin form
 #   `render`: true (default) | false
 #     do we want to render this content on the page, or manually access it via
 #     helpers. Good example would be content for meta tags.
@@ -14,7 +8,7 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :format, :renderable, :namespace, :options
+  attr_reader :identifier, :renderable, :namespace, :options
 
   def initialize(context, params_string)
     super
@@ -27,44 +21,34 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     end
 
     @namespace  = @options["namespace"] || "default"
-    @format     = @options["format"] || "wysiwyg"
     @renderable = @options["render"].to_s.downcase == "false" ? false : true
   end
 
-  # Grabs existing fragment or spins up a new instance if there's none
+  # Grabs existing fragment record or spins up a new instance if there's none
   def fragment
     self.context.fragments.detect{|f| f.identifier == self.identifier} ||
     self.context.fragments.build(identifier: self.identifier)
   end
 
   def content
-    case format
-    when "date", "datetime"
-      fragment.datetime
-    when "boolean"
-      fragment.boolean
-    when "file", "files"
-      fragment.attachments
-    else
-      fragment.content
-    end
+    fragment.content
   end
 
+  # If `render: false` was passed in we won't render anything. Assuming that
+  # that fragment content will be rendered manually
   def render
-    self.renderable ? render_with_format(content, @format) : ""
+    self.renderable ? content : ""
   end
 
-  def render_with_format(content, format)
-    case format
-    when "markdown"
-      Kramdown::Document.new(content.to_s).to_html
-    else
-      content
-    end
+  # Tag renders its own form inputs via `form_field(template, index, &block)`
+  # For example:
+  #   class MyTag < ComfortableMexicanSofa::Content::Tag::Fragment
+  #     def form_field(view, index, &block)
+  #       # omit yield if you don't want default wrapper
+  #       yield view.text_area "input_name", "value"
+  #     end
+  #   end
+  def form_field(view, index, &block)
+    raise "Form field rendering not implemented for this Tag"
   end
-
 end
-
-ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :fragment, ComfortableMexicanSofa::Content::Tag::Fragment
-)
