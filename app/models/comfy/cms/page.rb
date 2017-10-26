@@ -144,7 +144,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
     frag_hashes = frag_hashes.values if frag_hashes.is_a?(Hash)
 
     frag_hashes.each do |frag_attrs|
-      frag_attrs.symbolize_keys!
+      unless frag_attrs.is_a?(HashWithIndifferentAccess)
+        frag_attrs.symbolize_keys!
+      end
 
       identifier = frag_attrs.delete(:identifier)
 

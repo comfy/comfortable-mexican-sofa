@@ -80,7 +80,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_label_assignment
-    page = comfy_cms_sites(:default).pages.new(
+    page = @site.pages.new(
       slug:   'test',
       parent: @page,
       layout: @layout
@@ -111,10 +111,76 @@ class CmsPageTest < ActiveSupport::TestCase
         fragments_attributes: [{
           identifier: "test",
           format:     "file",
-          files:      fixture_file_upload("files/image.jpg", "image/jpeg")
+          files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
         }]
       ))
+      assert_equal 1, page.fragments.count
+      assert page.fragments.first.attachments.attached?
     end
+  end
+
+  def test_create_with_files
+    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      assert_count_difference [ActiveStorage::Attachment], 2 do
+        page = @site.pages.create!(new_params(
+          parent: @page,
+          fragments_attributes: [{
+            identifier: "test",
+            format:     "files",
+            files:      [
+              fixture_file_upload("files/image.jpg", "image/jpeg"),
+              fixture_file_upload("files/document.pdf", "application/pdf")
+            ]
+          }]
+        ))
+        assert_equal 1, page.fragments.count
+        assert page.fragments.first.attachments.attached?
+      end
+    end
+  end
+
+  def test_create_with_date
+    string = "1981-10-04 12:34:56"
+    datetime = DateTime.parse(string)
+    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      page = @site.pages.create!(new_params(
+        parent: @page,
+        fragments_attributes: [{
+          identifier: "test",
+          format:     "datetime",
+          datetime:   string
+        }]
+      ))
+      frag = page.fragments.first
+      assert_equal datetime, frag.datetime
+    end
+  end
+
+  def test_create_with_boolean
+    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      page = @site.pages.create!(new_params(
+        parent: @page,
+        fragments_attributes: [{
+          identifier: "test",
+          format:     "boolean",
+          boolean:    "1"
+        }]
+      ))
+      frag = page.fragments.first
+      assert frag.boolean
+    end
+  end
+
+  def test_update
+    frag = comfy_cms_fragments(:default)
+    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      @page.update_attributes!(fragments_attributes: [{
+        identifier: frag.identifier,
+        content:    "updated content"
+      }])
+    end
+    frag.reload
+    assert_equal "updated content", frag.content
   end
 
   def test_update_with_file
@@ -130,20 +196,43 @@ class CmsPageTest < ActiveSupport::TestCase
     end
   end
 
-  def test_create_with_date
-    flunk
+  def test_update_with_file_removal
+    id = comfy_cms_fragments(:file).attachments.first.id
+    assert_count_difference [ActiveStorage::Attachment], -1 do
+      @page.update_attributes!(
+        fragments_attributes: [{
+          identifier:       "file",
+          file_ids_destroy: [id]
+        }]
+      )
+    end
   end
 
   def test_update_with_date
-    flunk
-  end
-
-  def test_create_with_boolean
-    flunk
+    frag = comfy_cms_fragments(:datetime)
+    string = "2020-01-01"
+    date    = DateTime.parse(string)
+    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      @page.update_attributes!(fragments_attributes: [{
+        identifier: frag.identifier,
+        datetime:   string
+      }])
+    end
+    frag.reload
+    assert_equal date, frag.datetime
   end
 
   def test_update_with_boolean
-    flunk
+    frag = comfy_cms_fragments(:boolean)
+    assert frag.boolean
+    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+      @page.update_attributes!(fragments_attributes: [{
+        identifier: frag.identifier,
+        boolean:    "0"
+      }])
+    end
+    frag.reload
+    refute frag.boolean
   end
 
   def test_initialization_of_full_path
