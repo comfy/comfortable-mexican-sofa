@@ -2,7 +2,7 @@
 # uploaded and then displayed on the page. Example tag:
 #   {{cms:file identifier, as: link, label: "My File"}}
 #
-# `as`      - url (default) | link | image - render out link or image tag. Note: partial will clobber this
+# `as`      - url (default) | link | image - render out link or image tag
 # `label`   - attach label attribute to link or image tag
 # `resize`  - imagemagic option. For example: "100x50>"
 # `gravity` - imagemagic option. For example: "center"
@@ -19,11 +19,10 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     @variant_attrs  = options.slice("resize", "gravity", "crop")
   end
 
-  def content
-    return "" unless attachment
+  def content(file = attachment)
+    return "" unless file
 
-    file = attachment
-    if @variant_attrs.present?
+    if @variant_attrs.present? && attachment.image?
       file = file.variant(@variant_attrs)
     end
 

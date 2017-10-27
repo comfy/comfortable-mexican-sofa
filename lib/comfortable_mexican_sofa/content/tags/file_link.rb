@@ -2,7 +2,11 @@
 # a header image you want to use on the layout level.
 #   {{cms:file_link id, as: image}}
 #
-# `as` - url (default) | link | image - how file gets rendered out
+# `as`      - url (default) | link | image - how file gets rendered out
+# `label`   - attach label attribute to link or image tag
+# `resize`  - imagemagic option. For example: "100x50>"
+# `gravity` - imagemagic option. For example: "center"
+# `crop`    - imagemagic option. For example: "100x50+0+0"
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
@@ -29,7 +33,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
     return "" unless file && file.attachment
 
     attachment = file.attachment
-    if @variant_attrs.present?
+    if @variant_attrs.present? && attachment.image?
       attachment = attachment.variant(@variant_attrs)
     end
 
