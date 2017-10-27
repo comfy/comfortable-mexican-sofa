@@ -5,15 +5,15 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
   DEFAULT_HTML = <<~HTML
     <html>
       <body>
-        {{ cms:fragment content }}
+        {{ cms:markdown content }}
       </body>
     </html>
   HTML
 
   NESTED_HTML = <<~HTML.strip
     {{ cms:file thumbnail }}
-    <div class='left'>{{ cms:fragment left }}</div>
-    <div class='right'>{{ cms:fragment right }}</div>
+    <div class='left'>{{ cms:markdown left }}</div>
+    <div class='right'>{{ cms:markdown right }}</div>
   HTML
 
   def test_creation
@@ -28,7 +28,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       assert_equal 'body{color: red}', layout.css
       assert_equal '// default js', layout.js
 
-      assert nested_layout = Comfy::Cms::Layout.where(:identifier => 'nested').first
+      assert nested_layout = Comfy::Cms::Layout.where(identifier: "nested").first
       assert_equal layout, nested_layout.parent
       assert_equal 'Default Fixture Nested Layout', nested_layout.label
       assert_equal NESTED_HTML, nested_layout.content
@@ -82,11 +82,11 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
     ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
     layout.reload
-    assert_equal 'default',                   layout.identifier
-    assert_equal 'Default Layout',            layout.label
-    assert_equal "{{cms:fragment content}}",  layout.content
-    assert_equal 'default_css',               layout.css
-    assert_equal 'default_js',                layout.js
+    assert_equal 'default',               layout.identifier
+    assert_equal 'Default Layout',        layout.label
+    assert_equal "{{cms:text content}}",  layout.content
+    assert_equal 'default_css',           layout.css
+    assert_equal 'default_js',            layout.js
   end
 
   def test_update_force
