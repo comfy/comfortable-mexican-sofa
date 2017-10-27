@@ -25,7 +25,7 @@ class ViewMethodsTest < ActionView::TestCase
 
   def test_cms_fragment_content_with_datetime
     frag = comfy_cms_fragments(:datetime)
-    assert_equal "date_time", frag.tag
+    assert_equal "datetime", frag.tag
     assert_equal "1981-10-04 12:34:56 UTC", cms_fragment_content(frag.identifier).to_s
 
     frag.update_columns(tag: "date", datetime: "2017-01-01")

@@ -117,7 +117,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "input[type='text'][name='page[fragments_attributes][0][datetime]'][data-cms-datetime]"
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='date_time']"
+    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='datetime']"
   end
 
   def test_get_new_with_field_date

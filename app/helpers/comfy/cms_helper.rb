@@ -32,7 +32,7 @@ module Comfy
       frag = page && page.fragments.find_by_identifier(identifier)
       return "" unless frag
       case frag.tag
-      when "date", "date_time"
+      when "date", "datetime"
         frag.datetime
       when "checkbox"
         frag.boolean

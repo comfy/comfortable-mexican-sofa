@@ -13,7 +13,7 @@ file:
 datetime:
   page: default
   identifier: datetime
-  tag: date_time
+  tag: datetime
   content:
   datetime: <%= DateTime.parse("1981-10-04 12:34:56") %>
 

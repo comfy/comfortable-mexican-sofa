@@ -23,7 +23,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     "text"      => ComfortableMexicanSofa::Content::Tag::Text,
     "textarea"  => ComfortableMexicanSofa::Content::Tag::TextArea,
     "markdown"  => ComfortableMexicanSofa::Content::Tag::Markdown,
-    "datetime"  => ComfortableMexicanSofa::Content::Tag::DateTime,
+    "datetime"  => ComfortableMexicanSofa::Content::Tag::Datetime,
     "date"      => ComfortableMexicanSofa::Content::Tag::Date,
     "number"    => ComfortableMexicanSofa::Content::Tag::Number,
     "checkbox"  => ComfortableMexicanSofa::Content::Tag::Checkbox,

@@ -1,7 +1,7 @@
 # Tag for text content that is going to be rendered using text input with datetime widget
 #   {{ cms:datetime identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::DateTime < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::Tag::Datetime < ComfortableMexicanSofa::Content::Tag::Fragment
 
   def content
     fragment.datetime
@@ -18,5 +18,5 @@ class ComfortableMexicanSofa::Content::Tag::DateTime < ComfortableMexicanSofa::C
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :datetime, ComfortableMexicanSofa::Content::Tag::DateTime
+  :datetime, ComfortableMexicanSofa::Content::Tag::Datetime
 )
