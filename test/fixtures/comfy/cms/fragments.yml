@@ -15,7 +15,7 @@ datetime:
   identifier: datetime
   tag: date_time
   content:
-  datetime: <%= DateTime.parse("1981-10-04") %>
+  datetime: <%= DateTime.parse("1981-10-04 12:34:56") %>
 
 boolean:
   page: default

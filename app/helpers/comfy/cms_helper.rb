@@ -31,7 +31,16 @@ module Comfy
     def cms_fragment_content(identifier, page = @cms_page)
       frag = page && page.fragments.find_by_identifier(identifier)
       return "" unless frag
-      frag.content
+      case frag.tag
+      when "date", "date_time"
+        frag.datetime
+      when "checkbox"
+        frag.boolean
+      when "file", "files"
+        frag.attachments
+      else
+        frag.content
+      end
     end
 
     # Same as cms_fragment_content but with cms tags expanded and rendered. Use

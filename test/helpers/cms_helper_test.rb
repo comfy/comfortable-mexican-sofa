@@ -23,8 +23,23 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal "", cms_fragment_content(:invalid)
   end
 
-  def test_cms_fragment_with_files
-    flunk "todo"
+  def test_cms_fragment_content_with_datetime
+    frag = comfy_cms_fragments(:datetime)
+    assert_equal "date_time", frag.tag
+    assert_equal "1981-10-04 12:34:56 UTC", cms_fragment_content(frag.identifier).to_s
+
+    frag.update_columns(tag: "date", datetime: "2017-01-01")
+    assert_equal "2017-01-01 00:00:00 UTC", cms_fragment_content(frag.identifier).to_s
+  end
+
+  def test_cms_fragment_content_with_boolean
+    frag = comfy_cms_fragments(:boolean)
+    assert_equal true, cms_fragment_content(frag.identifier)
+  end
+
+  def test_cms_fragment_content_with_files
+    frag = comfy_cms_fragments(:file)
+    assert_equal frag.attachments.to_a, cms_fragment_content(frag.identifier).to_a
   end
 
   def test_cms_fragment_render
@@ -42,8 +57,20 @@ class ViewMethodsTest < ActionView::TestCase
     assert_equal "&lt;%= 1 + 1 %&gt;", cms_fragment_render(:content)
   end
 
+  def test_cms_fragment_render_with_datetime
+    comfy_cms_layouts(:default).update_column(:content, "{{cms:datetime datetime}}")
+    assert_equal "1981-10-04 12:34:56 UTC", cms_fragment_render(:datetime)
+  end
+
+  def test_cms_fragment_render_with_boolean
+    comfy_cms_layouts(:default).update_column(:content, "{{cms:checkbox boolean}}")
+    assert_equal "true", cms_fragment_render(:boolean)
+  end
+
   def test_cms_fragment_render_with_files
-    flunk "todo"
+    frag = comfy_cms_fragments(:file)
+    comfy_cms_layouts(:default).update_column(:content, "{{cms:file file}}")
+    assert_equal url_for(frag.attachments.first), cms_fragment_render(:file)
   end
 
   def test_cms_snippet_content

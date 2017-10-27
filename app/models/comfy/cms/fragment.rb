@@ -5,6 +5,8 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   serialize :content
 
+  attr_reader :files
+
   # -- Callbacks ---------------------------------------------------------------
   after_save  :remove_attachments,
               :add_attachments
