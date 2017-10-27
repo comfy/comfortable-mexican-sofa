@@ -16,3 +16,9 @@ gemfile:
 branches:
   only:
     - master
+matrix:
+  fast_finish: true
+  exclude:
+    - rvm: 2.4.2
+      gemfile: test/gemfiles/Gemfile.rails.4.1
+      
