@@ -2,7 +2,7 @@ require_relative '../../../../test_helper'
 
 class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
+  setup do
     @site     = comfy_cms_sites(:default)
     @layout   = comfy_cms_layouts(:default)
     @page     = comfy_cms_pages(:default)
@@ -144,16 +144,33 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTe
 
       @page.reload
 
-      date_content = comfy_cms_fragments(:datetime).datetime
       assert_equal [
-        {identifier: "boolean",   format: "boolean",  content: true},
-        {identifier: "file",      format: "file",     content: []},
-        {identifier: "datetime",  format: "datetime", content: date_content},
-        {identifier: "content",   format: "text",     content: "old content"},
-        {identifier: "title",     format: "text",     content: "old title"}
+        { identifier: "boolean",
+          tag:        "checkbox",
+          content:    nil,
+          datetime:   nil,
+          boolean:    true },
+        { identifier: "file",
+          tag:        "file",
+          content:    nil,
+          datetime:   nil,
+          boolean:    false },
+        { identifier: "datetime",
+          tag:        "datetime",
+          content:    nil,
+          datetime:   comfy_cms_fragments(:datetime).datetime,
+          boolean:    false },
+        { identifier: "content",
+          tag:        "text",
+          content:    "old content",
+          datetime:   nil,
+          boolean:    false },
+        { identifier: "title",
+          tag:        "text",
+          content:    "old title",
+          datetime:   nil,
+          boolean:    false }
       ], @page.fragments_attributes
-
-      flunk "not restoring non-text stuff correctly"
     end
   end
 

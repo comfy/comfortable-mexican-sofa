@@ -69,15 +69,30 @@ class RevisionsTest < ActiveSupport::TestCase
       @page.reload
       assert_equal 2, @page.revisions.count
       revision = @page.revisions.first
+
       assert_equal ({
         "fragments_attributes" => [
-          {identifier: "boolean",   format: "boolean",  content: nil},
-          {identifier: "file",      format: "file",     content: nil},
-          {identifier: "datetime",  format: "datetime", content: nil},
-          {identifier: "content",   format: "text",     content: "content"}]
+          { identifier: "boolean",
+            tag:        "checkbox",
+            content:    nil,
+            datetime:   nil,
+            boolean:    true },
+          { identifier: "file",
+            tag:        "file",
+            content:    nil,
+            datetime:   nil,
+            boolean:    false },
+          { identifier: "datetime",
+            tag:        "datetime",
+            content:    nil,
+            datetime:   comfy_cms_fragments(:datetime).datetime,
+            boolean:    false },
+          { identifier: "content",
+            tag:        "text",
+            content:    "content",
+            datetime:   nil,
+            boolean:    false }]
       }), revision.data
-
-      flunk "those should not be nils"
     end
   end
 
@@ -137,14 +152,32 @@ class RevisionsTest < ActiveSupport::TestCase
       @page.restore_from_revision(revision)
       @page.reload
 
-      date_content = comfy_cms_fragments(:datetime).datetime
-
       assert_equal [
-        {identifier: "boolean",   format: "boolean",  content: true},
-        {identifier: "file",      format: "file",     content: []},
-        {identifier: "datetime",  format: "datetime", content: date_content},
-        {identifier: "content",   format: "text",     content: "old content"},
-        {identifier: "title",     format: "text",     content: "old title"}
+        { identifier: "boolean",
+          tag:        "checkbox",
+          content:    nil,
+          datetime:   nil,
+          boolean:true },
+        { identifier: "file",
+          tag:        "file",
+          content:    nil,
+          datetime:   nil,
+          boolean:    false },
+        { identifier: "datetime",
+          tag:        "datetime",
+          content:    nil,
+          datetime:   comfy_cms_fragments(:datetime).datetime,
+          boolean:    false },
+        { identifier: "content",
+          tag:        "text",
+          content:    "old content",
+          datetime:   nil,
+          boolean:    false },
+        { identifier: "title",
+          tag:        "text",
+          content:    "old title",
+          datetime:   nil,
+          boolean:    false }
       ], @page.fragments_attributes
     end
   end
