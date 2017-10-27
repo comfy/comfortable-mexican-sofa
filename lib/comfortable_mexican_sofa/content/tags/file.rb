@@ -1,17 +1,40 @@
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
-#   {{cms:file identifier, multiple: true, partial: "path/to/partial"}}
+#   {{cms:file identifier, as: link, label: "My File"}}
 #
-# `partial`   - path - use partial to render out files
-# `render`    - true (default) | false - if you want to render out files manually
-# `as`        - link (default) | image - render out link or image tag. Note: partial will clobber this
-# `label`     - attach label attribute to link or image tag
-# `size`      - imagemagic resize string. For example: "100x50>"
+# `as`      - url (default) | link | image - render out link or image tag. Note: partial will clobber this
+# `label`   - attach label attribute to link or image tag
+# `resize`  - imagemagic option. For example: "100x50>"
+# `gravity` - imagemagic option. For example: "center"
+# `crop`    - imagemagic option. For example: "100x50+0+0"
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
+  attr_reader :as, :variant_attrs
+
   def initialize(context, params_string)
     super
+    @as             = options["as"] || "url"
+    @label          = options["label"]
+    @variant_attrs  = options.slice("resize", "gravity", "crop")
+  end
+
+  def content
+    return "" unless attachment
+
+    file = attachment
+    if @variant_attrs.present?
+      file = file.variant(@variant_attrs)
+    end
+
+    case @as
+    when "link"
+      "<a href='#{url_for(file)}' target='_blank'>#{label}</a>"
+    when "image"
+      "<img src='#{url_for(file)}' alt='#{label}'/>"
+    else
+      url_for(file)
+    end
   end
 
   def form_field(view, index, &block)
@@ -26,6 +49,23 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     end
 
     yield [input, attachments_partial].join.html_safe
+  end
+
+protected
+
+  def attachment
+    fragment.attachments.first
+  end
+
+  def label
+    @label || attachment && attachment.filename
+  end
+
+  def url_for(attachment)
+    ApplicationController.render(
+      inline: "<%= url_for(@attachment) %>",
+      assigns: {attachment: attachment}
+    )
   end
 end
 

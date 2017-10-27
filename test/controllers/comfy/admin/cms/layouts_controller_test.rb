@@ -21,7 +21,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
     r :get, new_comfy_admin_cms_site_layout_path(site_id: site)
     assert_response :success
     assert assigns(:layout)
-    assert_equal '{{ cms:fragment content, format: wysiwyg }}', assigns(:layout).content
+    assert_equal '{{ cms:wysiwyg content }}', assigns(:layout).content
     assert_template :new
     assert_select "form[action='/admin/sites/#{site.id}/layouts']"
   end

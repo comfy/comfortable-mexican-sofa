@@ -23,9 +23,15 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   end
 
   def test_init_with_params
-    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "123, as: image")
+    string = "123, as: image, resize: 100x100, gravity: center, crop: '100x100+0+0'"
+    tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, string)
     assert_equal "123", tag.identifier
     assert_equal "image", tag.as
+    assert_equal ({
+      "resize"  => "100x100",
+      "gravity" => "center",
+      "crop"    => "100x100+0+0"
+    }), tag.variant_attrs
   end
 
   def test_init_without_identifier

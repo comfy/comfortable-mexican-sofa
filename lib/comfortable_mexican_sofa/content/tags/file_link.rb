@@ -6,14 +6,15 @@
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :as, :label
+  attr_reader :identifier, :as, :label, :variant_attrs
 
   def initialize(context, params_string)
     super
 
     options = params.extract_options!
-    @identifier = params[0]
-    @as         = options["as"] || "url"
+    @identifier     = params[0]
+    @as             = options["as"] || "url"
+    @variant_attrs  = options.slice("resize", "gravity", "crop")
 
     unless @identifier.present?
       raise Error, "Missing identifier for file link tag"
@@ -25,15 +26,20 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
   def content
-    return "" unless file
+    return "" unless file && file.attachment
+
+    attachment = file.attachment
+    if @variant_attrs.present?
+      attachment = attachment.variant(@variant_attrs)
+    end
 
     case @as
     when "link"
-      "<a href='#{url_for(file.attachment)}' target='_blank'>#{label}</a>"
+      "<a href='#{url_for(attachment)}' target='_blank'>#{label}</a>"
     when "image"
-      "<img src='#{url_for(file.attachment)}' alt='#{label}'/>"
+      "<img src='#{url_for(attachment)}' alt='#{label}'/>"
     else
-      url_for(file.attachment)
+      url_for(attachment)
     end
   end
 

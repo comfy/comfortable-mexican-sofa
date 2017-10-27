@@ -99,7 +99,7 @@ class ContentRendererTest < ActiveSupport::TestCase
       @template.tokenize("test {{abc:tag}} text")
   end
 
-  def test_tokeinize_with_newlines
+  def test_tokenize_with_newlines
     assert_equal [{tag_class: "test", tag_params: ""}, "\n", {tag_class: "test", tag_params: ""}],
       @template.tokenize("{{cms:test}}\n{{cms:test}}")
   end

@@ -23,11 +23,17 @@ class ContentParamsParserTest < ActiveSupport::TestCase
   end
 
   def test_tokenizer_with_quoted_value
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("key: ''")
+    assert_equal [[:string, "key"], [:column, ":"], [:string, ""]], tokens
+
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("key: 'test'")
+    assert_equal [[:string, "key"], [:column, ":"], [:string, "test"]], tokens
+
     tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("key: 'v1, v2: v3'")
-    assert_equal [[:string, "key"], [:column, ":"], [:string, "'v1, v2: v3'"]], tokens
+    assert_equal [[:string, "key"], [:column, ":"], [:string, "v1, v2: v3"]], tokens
 
     tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize('key: "v1, v2: v3"')
-    assert_equal [[:string, "key"], [:column, ":"], [:string, '"v1, v2: v3"']], tokens
+    assert_equal [[:string, "key"], [:column, ":"], [:string, 'v1, v2: v3']], tokens
   end
 
   def test_tokenizer_with_bad_input

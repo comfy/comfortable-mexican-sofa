@@ -65,8 +65,8 @@ module ComfortableMexicanSofa::Content::ParamsParser
       ss.skip(/\s*/)
       break if ss.eos?
       token = case
-        when t = ss.scan(SINGLE_STRING_LITERAL) then [:string, t]
-        when t = ss.scan(DOUBLE_STRING_LITERAL) then [:string, t]
+        when t = ss.scan(SINGLE_STRING_LITERAL) then [:string, t[1...t.size - 1]]
+        when t = ss.scan(DOUBLE_STRING_LITERAL) then [:string, t[1...t.size - 1]]
         when t = ss.scan(IDENTIFIER)            then [:string, t]
         when t = ss.scan(COLUMN)                then [:column, t]
         when t = ss.scan(COMMA)                 then [:comma, t]
