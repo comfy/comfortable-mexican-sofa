@@ -2,7 +2,8 @@ window.CMS ||= {}
 
 window.CMS.code_mirror_instances = [ ]
 
-$ -> window.CMS.init()
+unless Turbolinks?.controller? # Turbolinks 5 verification
+  $ -> window.CMS.init()
 $(document).on 'page:load turbolinks:load', -> window.CMS.init()
 
 window.CMS.init = ->
