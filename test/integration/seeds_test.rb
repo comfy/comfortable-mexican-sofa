@@ -6,6 +6,33 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
     comfy_cms_sites(:default).update_columns(identifier: 'sample-site')
   end
 
+  def test_parse_file_content
+    text = <<~TEXT
+      [attributes]
+      key_a: value
+      key_b: value
+
+      [files header]
+      thumbnail.png
+
+      [textarea content]
+      # Title
+      Test Content
+
+    TEXT
+    out = ComfortableMexicanSofa::Seeds.parse_file_content(text)
+    assert_equal [
+      {header: "attributes",        content: "key_a: value\nkey_b: value\n\n"},
+      {header: "files header",      content: "thumbnail.png\n\n"},
+      {header: "textarea content",  content: "# Title\nTest Content\n\n"}
+    ], out
+  end
+
+
+
+
+
+
   def test_seeds_disabled
     assert_no_difference ['Comfy::Cms::Layout.count', 'Comfy::Cms::Page.count', 'Comfy::Cms::Snippet.count'] do
       get '/'

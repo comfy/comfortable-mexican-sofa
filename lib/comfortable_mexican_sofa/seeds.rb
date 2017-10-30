@@ -1,5 +1,28 @@
 module ComfortableMexicanSofa::Seeds
 
+  # Splitting file content in sections delimited by headers that look like this:
+  #   [header]
+  #   some content
+  #   [header 2]
+  #   some more content
+  def self.parse_file_content(text)
+    tokens = text.split(/^\[(.*?)\]\n/)
+    tokens.shift # first item should be blank
+    tokens.in_groups_of(2).collect do |pair|
+      {header: pair[0], content: pair[1]}
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
   class Importer
     attr_accessor :site,
                   :path,
