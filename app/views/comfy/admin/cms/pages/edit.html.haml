@@ -1,6 +1,6 @@
 .page-header
-  = link_to t('.revision', :count => @page.revisions.count), comfy_admin_cms_site_page_revisions_path(@site, @page), :class => 'btn btn-default pull-right'
+  = link_to t('.revision', count: @page.revisions.count), comfy_admin_cms_site_page_revisions_path(@site, @page), class: 'btn btn-default pull-right'
   %h2= t('.title')
 
-= comfy_form_for @page, :as => :page, :url => {:action => :update}, :html => {:multipart => true} do |form|
+= comfy_form_for @page, as: :page, url: {action: :update}, html: {multipart: true} do |form|
   = render form

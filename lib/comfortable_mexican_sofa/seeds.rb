@@ -1,18 +1,17 @@
 module ComfortableMexicanSofa::Seeds
 
-  # Splitting file content in sections delimited by headers that look like this:
-  #   [header]
-  #   some content
-  #   [header 2]
-  #   some more content
-  def self.parse_file_content(text)
-    tokens = text.split(/^\[(.*?)\]\n/)
-    tokens.shift # first item should be blank
-    tokens.in_groups_of(2).collect do |pair|
-      {header: pair[0], content: pair[1]}
+
+
+  # Writing to the seed file. Takes in file handler and array of hashes with
+  # `header` and `content` keys
+  def self.write_file_content(path, data)
+    open(File.join(path), 'w') do |f|
+      data.each do |item|
+        f.write("[#{item[:header]}]\n")
+        f.write("#{item[:content]}\n")
+      end
     end
   end
-
 
 
 
@@ -31,20 +30,51 @@ module ComfortableMexicanSofa::Seeds
                   :seed_ids,
                   :force_import
 
+    # `from` and `to` indicate site identifier and folder name
     def initialize(from, to = from, force_import = false)
       self.from         = from
       self.to           = to
       self.site         = Comfy::Cms::Site.where(identifier: to).first!
       self.seed_ids     = []
       self.force_import = force_import
+    end
 
-      dir = self.class.name.split('::')[2].downcase.pluralize
-      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, dir, '/')
+    # Splitting file content in sections delimited by headers that look like this:
+    #   [header]
+    #   some content
+    #   [header 2]
+    #   some more content
+    def parse_file_content(file_path)
+      text = ::File.read(file_path)
+      tokens = text.split(/^\[(.*?)\]\n/)
+      tokens.shift # first item should be blank
+      tokens.in_groups_of(2).each_with_object({}) do |pair, h|
+        h[pair[0]] = pair[1]
+      end
     end
 
     def fresh_seed?(object, file_path)
       object.new_record? || self.force_import || ::File.mtime(file_path) > object.updated_at
     end
+
+    def category_names_to_ids(klass, names)
+      [names].flatten.each_with_object({}) do |name, category_ids|
+        category = self.site.categories.find_or_create_by(
+          label:            name,
+          categorized_type: klass.to_s
+        )
+        category_ids[category.id] = 1
+      end
+    end
+
+
+
+
+
+
+
+
+
 
     def get_attributes(file_path)
       YAML.load_file(file_path) || { }

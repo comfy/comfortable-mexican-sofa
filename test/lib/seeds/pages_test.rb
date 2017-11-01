@@ -1,45 +1,77 @@
 require_relative '../../test_helper'
 
+require 'mimemagic'
+
 class SeedsPagesTest < ActiveSupport::TestCase
+
+  setup do
+    @site   = comfy_cms_sites(:default)
+    @layout = comfy_cms_layouts(:default)
+  end
 
   def test_creation
     Comfy::Cms::Page.delete_all
 
-    site    = comfy_cms_sites(:default)
-    layout  = comfy_cms_layouts(:default)
-    layout.update_column(:content, '<html>{{cms:text content}}</html>')
+    site = comfy_cms_sites(:default)
 
-    nested = comfy_cms_layouts(:nested)
-    nested.update_column(:content, '<html>{{cms:text left}}<br/>{{cms:text right}}</html>')
-
-    # need to have categories present before linking
-    site.categories.create!(categorized_type: 'Comfy::Cms::Page', label: 'category_a')
-    site.categories.create!(categorized_type: 'Comfy::Cms::Page', label: 'category_b')
-
-    assert_difference 'Comfy::Cms::Page.count', 2 do
+    assert_count_difference "Comfy::Cms::Page", 3 do
       ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
-
-      assert page = Comfy::Cms::Page.find_by(full_path: "/")
-
-      assert_equal layout, page.layout
-      assert_equal 'index', page.slug
-      assert_equal "<html>Home Page Fixture Contént\nsnippet content</html>", page.content_cache
-      assert_equal 0, page.position
-      assert page.is_published?
-
-      assert_equal 2, page.categories.count
-      assert_equal ['category_a', 'category_b'], page.categories.map{|c| c.label}
-
-      assert child_page = Comfy::Cms::Page.find_by(:full_path => '/child')
-      assert_equal page, child_page.parent
-      assert_equal nested, child_page.layout
-      assert_equal 'child', child_page.slug
-      assert_equal '<html>Child Page Left Fixture Content<br/>Child Page Right Fixture Content</html>', child_page.content_cache
-      assert_equal 42, child_page.position
-
-      assert_equal child_page, page.target_page
     end
+
+    assert page = Comfy::Cms::Page.find_by(full_path: "/")
+
+    assert_equal @layout, page.layout
+    assert_equal 'index', page.slug
+
+    assert_equal "Home Seed Page", page.label
+    assert_equal 69, page.position
+    assert page.is_published?
+
+    assert_equal 5, page.fragments.count
+    assert_equal [
+      { identifier: "header",
+        tag:        "file",
+        content:    nil,
+        datetime:   nil,
+        boolean:    false },
+      { identifier: "published_on",
+        tag:        "date",
+        content:    nil,
+        datetime:   Date.parse("2015-10-31"),
+        boolean:    false },
+      { identifier: "content",
+        tag:        "wysiwyg",
+        content:    "Home Page Seed Contént\n{{ cms:snippet default }}\n\n",
+        datetime:   nil,
+        boolean:    false },
+      { identifier: "published",
+        tag:        "checkbox",
+        content:    nil,
+        datetime:   nil,
+        boolean:    true },
+      { identifier: "attachments",
+        tag:        "files",
+        content:    nil,
+        datetime:   nil,
+        boolean:    false}
+    ], page.fragments_attributes
+
+    assert_equal 2, page.categories.count
+    assert_equal %w(category_a category_b), page.categories.map{|c| c.label}
+
+    assert child_page = Comfy::Cms::Page.find_by(full_path: "/child_a")
+    assert_equal page, child_page.parent
+
+    assert child_page = Comfy::Cms::Page.find_by(full_path: "/child_b")
+    assert_equal page, child_page.parent
   end
+
+
+
+
+
+
+
 
   def test_creation_with_missing_categories
     Comfy::Cms::Page.delete_all

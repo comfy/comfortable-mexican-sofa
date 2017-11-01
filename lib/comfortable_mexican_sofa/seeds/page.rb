@@ -1,100 +1,132 @@
 module ComfortableMexicanSofa::Seeds::Page
   class Importer < ComfortableMexicanSofa::Seeds::Importer
 
+    # tracking target page linking. Since we might be linking to something that
+    # doesn't exist yet, we'll defer linking to the end of import
     attr_accessor :target_pages
 
-    def import!(path = self.path, parent = nil)
-      Dir["#{path}*/"].each do |path|
-        slug = path.split('/').last
+    def initialize(from, to = from, force_import = false)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, "pages/")
+    end
 
-        page = if parent
-          parent.children.where(:slug => slug).first || site.pages.new(:parent => parent, :slug => slug)
-        else
-          site.pages.root || site.pages.new(:slug => slug)
-        end
 
-        # setting attributes
-        categories = []
-        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_seed?(page, attrs_path)
-            attrs = get_attributes(attrs_path)
+    def import!
+      import_page(File.join(self.path, "index/"), nil)
 
-            page.label        = attrs['label']
-            page.layout       = site.layouts.find_by(:identifier => attrs['layout']) || parent.try(:layout)
-            page.is_published = attrs['is_published'].nil?? true : attrs['is_published']
-            page.position     = attrs['position'] if attrs['position']
+      # TODO: link target_pages
 
-            categories        = attrs['categories']
+      # Remove pages not found in seeds
+      self.site.pages.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
+    end
 
-            if attrs['target_page']
-              self.target_pages ||= {}
-              self.target_pages[page] = attrs['target_page']
-            end
-          end
-        end
+  private
 
-        # setting content
-        frags_to_clear = page.fragments.collect(&:identifier)
-        fragments_attributes = [ ]
-        file_extentions = %w(html haml jpg png gif)
-        Dir.glob("#{path}/*.{#{file_extentions.join(',')}}").each do |block_path|
-          extention = File.extname(block_path)[1..-1]
-          identifier = block_path.split('/').last.gsub(/\.(#{file_extentions.join('|')})\z/, '')
-          frags_to_clear.delete(identifier)
-          if fresh_seed?(page, block_path)
-            content = case extention
-            when 'jpg', 'png', 'gif'
-              ::File.open(block_path)
-            when 'haml'
-              Haml::Engine.new(::File.open(block_path).read).render.rstrip
-            else
-              ::File.open(block_path).read
-            end
+    # Recursive function that will be called for each child page (subfolder)
+    def import_page(path, parent)
+      slug = path.split("/").last
 
-            fragments_attributes << {
-              identifier: identifier,
-              content:    content
-            }
-          end
-        end
+      # reading file content in, resulting in a hash
+      content_path    = File.join(path, "content.html")
+      fragments_hash  = parse_file_content(content_path)
 
-        # deleting removed fragments
-        page.fragments.where(identifier: frags_to_clear).destroy_all
+      # parsing attributes section
+      attributes_yaml = fragments_hash.delete("attributes")
+      attrs           = YAML.load(attributes_yaml)
 
-        page.fragments_attributes = fragments_attributes if fragments_attributes.present?
+      # setting page record
+      page = if parent.present?
+        parent.children.find_by(slug: slug) || self.site.pages.new(parent: parent, slug: slug)
+      else
+        self.site.pages.root ||self. site.pages.new(slug: slug)
+      end
 
-        # saving
-        if page.changed? || page.fragments_attributes_changed || self.force_import
-          if page.save
-            save_categorizations!(page, categories)
-            ComfortableMexicanSofa.logger.info("[FIXTURES] Imported Page \t #{page.full_path}")
+      # If file is newer than page record we'll process it
+      if fresh_seed?(page, content_path)
+
+        # applying attributes
+        layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
+        category_ids    = category_names_to_ids(Comfy::Cms::Page, attrs.delete("categories"))
+        target_page     = attrs.delete("target_page")
+
+        page.attributes = attrs.merge(
+          layout: layout,
+          category_ids: category_ids
+        )
+
+        # applying fragments
+        current_fragments     = page.fragments.pluck(:identifier)
+        fragments_attributes  = []
+
+        fragments_hash.each do |frag_header, frag_content|
+          tag, identifier = frag_header.split
+          frag_hash = {
+            identifier: identifier,
+            tag:        tag
+          }
+
+          # based on tag we need to cram content in proper place and proper format
+          case tag
+          when "date", "datetime"
+            frag_hash[:datetime] = frag_content
+          when "checkbox"
+            frag_hash[:boolean] = frag_content
+          when "file", "files"
+            files, file_ids_destroy = files_content(page, identifier, path, frag_content)
+            frag_hash[:files]            = files
+            frag_hash[:file_ids_destroy] = file_ids_destroy
           else
-            ComfortableMexicanSofa.logger.warn("[FIXTURES] Failed to import Page \n#{page.errors.inspect}")
+            frag_hash[:content] = frag_content
           end
+
+          fragments_attributes << frag_hash
         end
 
-        self.seed_ids << page.id
+        page.fragments_attributes = fragments_attributes
 
-        # importing child pages
-        import!(path, page)
-      end
-
-      # linking up target pages
-      if self.target_pages.present?
-        self.target_pages.each do |page, target|
-          if target_page = self.site.pages.where(:full_path => target).first
-            page.target_page = target_page
-            page.save
-          end
+        if page.save
+          message = "[CMS SEEDS] Imported Page \t #{page.full_path}"
+          ComfortableMexicanSofa.logger.info(message)
+        else
+          message = "[FIXTURES] Failed to import Page \n#{page.errors.inspect}"
+          ComfortableMexicanSofa.logger.warn(message)
         end
       end
 
-      # cleaning up
-      unless parent
-        self.site.pages.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
+      # Tracking what page from seeds we're working with. So we can remove pages
+      # that are no longer in seeds
+      self.seed_ids << page.id
+
+      # importing child pages (if there are any)
+      Dir["#{path}*/"].each do |path|
+        import_page(path, page)
       end
     end
+
+    # Preparing fragment attachments. Returns hashes with file data for
+    # ActiveStorage and a list of ids of old attachements to destroy
+    def files_content(page, identifier, path, frag_content)
+
+      # preparing attachments
+      files = frag_content.split.collect do |filename|
+        file_handler = File.open(File.join(path, filename))
+        {
+          io:           file_handler,
+          filename:     filename,
+          content_type: MimeMagic.by_magic(file_handler)
+        }
+      end
+
+      # ensuring that old attachments get removed
+      ids_destroy = []
+      if frag = page.fragments.find_by(identifier: identifier)
+        ids_destroy = frag.attachments.pluck(:id)
+      end
+
+      [files, ids_destroy]
+    end
   end
+
 
   class Exporter < ComfortableMexicanSofa::Seeds::Exporter
     def export!
