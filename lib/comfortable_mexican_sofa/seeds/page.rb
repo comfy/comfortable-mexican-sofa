@@ -14,7 +14,7 @@ module ComfortableMexicanSofa::Seeds::Page
     def import!
       import_page(File.join(self.path, "index/"), nil)
 
-      # TODO: link target_pages
+      link_target_pages
 
       # Remove pages not found in seeds
       self.site.pages.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
@@ -91,11 +91,17 @@ module ComfortableMexicanSofa::Seeds::Page
           message = "[CMS SEEDS] Imported Page \t #{page.full_path}"
           ComfortableMexicanSofa.logger.info(message)
 
+          # defering target page linking
+          if target_page.present?
+            self.target_pages ||= {}
+            self.target_pages[page.id] = target_page
+          end
+
           # cleaning up old fragments
           page.fragments.where(identifier: old_fragments).destroy_all
 
         else
-          message = "[FIXTURES] Failed to import Page \n#{page.errors.inspect}"
+          message = "[CMS SEEDS] Failed to import Page \n#{page.errors.inspect}"
           ComfortableMexicanSofa.logger.warn(message)
         end
       end
@@ -131,36 +137,73 @@ module ComfortableMexicanSofa::Seeds::Page
 
       [files, ids_destroy]
     end
+
+    def link_target_pages
+      return unless self.target_pages.present?
+
+      self.target_pages.each do |page_id, target|
+        if target = self.site.pages.find_by(full_path: target)
+          @site.pages.find(page_id).update_column(:target_page_id, target.id)
+        end
+      end
+    end
   end
 
 
   class Exporter < ComfortableMexicanSofa::Seeds::Exporter
+
+    def initialize(from, to = from)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, to, "pages/")
+    end
+
     def export!
       prepare_folder!(self.path)
 
       self.site.pages.each do |page|
         page.slug = 'index' if page.slug.blank?
-        page_path = File.join(path, page.ancestors.reverse.collect{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
+        page_path = File.join(path, page.ancestors.reverse.map{|p| p.slug.blank?? 'index' : p.slug}, page.slug)
         FileUtils.mkdir_p(page_path)
 
-        open(File.join(page_path, 'attributes.yml'), 'w') do |f|
-          f.write({
-            'label'         => page.label,
-            'layout'        => page.layout.try(:identifier),
-            'parent'        => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
-            'target_page'   => page.target_page.try(:full_path),
-            'categories'    => page.categories.map{|c| c.label},
-            'is_published'  => page.is_published,
-            'position'      => page.position
-          }.to_yaml)
-        end
-        page.fragments_attributes.each do |block|
-          open(File.join(page_path, "#{block[:identifier]}.html"), 'w') do |f|
-            f.write(block[:content])
+        path = ::File.join(page_path, "content.html")
+        data = []
+
+        attrs = {
+          "label"        => page.label,
+          "layout"       => page.layout.try(:identifier),
+          "parent"       => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
+          "target_page"  => page.target_page.try(:full_path),
+          "categories"   => page.categories.map{|c| c.label},
+          "is_published" => page.is_published,
+          "position"     => page.position
+        }.to_yaml
+
+        data << {header: "attributes", content: attrs}
+
+        page.fragments.each do |frag|
+
+          header = "#{frag.tag} #{frag.identifier}"
+          content = case frag.tag
+          when "datetime", "date"
+            frag.datetime
+          when "checkbox"
+            frag.boolean
+          when "file", "files"
+            frag.attachments.map do |attachment|
+              ::File.open(::File.join(page_path, attachment.filename.to_s), "w") do |f|
+                f.write(attachment.download)
+              end
+              attachment.filename
+            end.join("\n")
+          else
+            frag.content
           end
+          data << {header: header, content: content}
         end
 
-        ComfortableMexicanSofa.logger.info("[FIXTURES] Exported Page \t #{page.full_path}")
+        write_file_content(path, data)
+
+        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Page \t #{page.full_path}")
       end
     end
   end

@@ -1,18 +1,15 @@
 require_relative '../../test_helper'
 
-require 'mimemagic'
-
 class SeedsPagesTest < ActiveSupport::TestCase
 
   setup do
     @site   = comfy_cms_sites(:default)
     @layout = comfy_cms_layouts(:default)
+    @page   = comfy_cms_pages(:default)
   end
 
   def test_creation
     Comfy::Cms::Page.delete_all
-
-    site = comfy_cms_sites(:default)
 
     assert_count_difference "Comfy::Cms::Page", 3 do
       ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
@@ -70,13 +67,14 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     assert child_page = Comfy::Cms::Page.find_by(full_path: "/child_b")
     assert_equal page, child_page.parent
+
+    target = @site.pages.find_by(full_path: "/child_a")
+    assert_equal target, page.target_page
   end
 
-
   def test_update
-    page = comfy_cms_pages(:default)
-    page.update_column(:updated_at, 10.years.ago)
-    assert_equal "Default Page", page.label
+    @page.update_column(:updated_at, 10.years.ago)
+    assert_equal "Default Page", @page.label
 
     child = comfy_cms_pages(:child)
     child.update_column(:slug, 'old')
@@ -84,8 +82,8 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_count_difference [Comfy::Cms::Page] do
       ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
 
-      page.reload
-      assert_equal "Home Seed Page", page.label
+      @page.reload
+      assert_equal "Home Seed Page", @page.label
 
       assert_nil Comfy::Cms::Page.where(slug: 'old').first
     end
@@ -137,43 +135,63 @@ class SeedsPagesTest < ActiveSupport::TestCase
     refute page.fragments.where(identifier: 'to_delete').first
   end
 
-
-
-
   def test_export
+    ActiveStorage::Blob.any_instance.stubs(:download).returns(
+      file_fixture("image.jpg").read
+    )
+
     comfy_cms_pages(:default).update_attribute(:target_page, comfy_cms_pages(:child))
     comfy_cms_categories(:default).categorizations.create!(
       categorized: comfy_cms_pages(:default)
     )
 
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
-    page_1_attr_path = File.join(host_path, 'pages/index/attributes.yml')
-    page_1_frag_path = File.join(host_path, 'pages/index/content.html')
-    page_2_attr_path = File.join(host_path, 'pages/index/child-page/attributes.yml')
+    page_1_content_path     = File.join(host_path, 'pages/index/content.html')
+    page_1_attachment_path  = File.join(host_path, 'pages/index/fragment.jpg')
+    page_2_content_path     = File.join(host_path, 'pages/index/child-page/content.html')
 
     ComfortableMexicanSofa::Seeds::Page::Exporter.new('default-site', 'test-site').export!
 
-    assert_equal ({
-      'label'         => 'Default Page',
-      'layout'        => 'default',
-      'parent'        => nil,
-      'target_page'   => '/child-page',
-      'categories'    => ['Default'],
-      'is_published'  => true,
-      'position'      => 0
-    }), YAML.load_file(page_1_attr_path)
-    assert_equal comfy_cms_fragments(:default).content, IO.read(page_1_frag_path)
+    out = <<~TEXT
+      [attributes]
+      ---
+      label: Default Page
+      layout: default
+      parent:\s
+      target_page: "/child-page"
+      categories:
+      - Default
+      is_published: true
+      position: 0
 
-    assert_equal ({
-      'label'         => 'Child Page',
-      'layout'        => 'default',
-      'parent'        => 'index',
-      'target_page'   => nil,
-      'categories'    => [],
-      'is_published'  => true,
-      'position'      => 0
-    }), YAML.load_file(page_2_attr_path)
+      [checkbox boolean]
+      true
+      [file file]
+      fragment.jpg
+      [datetime datetime]
+      1981-10-04 12:34:56 UTC
+      [text content]
+      content
+    TEXT
+    assert_equal out, IO.read(page_1_content_path)
 
+    assert File.exist?(page_1_attachment_path)
+
+    out = <<~TEXT
+      [attributes]
+      ---
+      label: Child Page
+      layout: default
+      parent: index
+      target_page:\s
+      categories: []
+      is_published: true
+      position: 0
+
+    TEXT
+    assert_equal out, IO.read(page_2_content_path)
+
+  ensure
     FileUtils.rm_rf(host_path)
   end
 end

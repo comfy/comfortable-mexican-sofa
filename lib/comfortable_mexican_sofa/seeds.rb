@@ -1,26 +1,6 @@
 module ComfortableMexicanSofa::Seeds
 
-
-
-  # Writing to the seed file. Takes in file handler and array of hashes with
-  # `header` and `content` keys
-  def self.write_file_content(path, data)
-    open(File.join(path), 'w') do |f|
-      data.each do |item|
-        f.write("[#{item[:header]}]\n")
-        f.write("#{item[:content]}\n")
-      end
-    end
-  end
-
-
-
-
-
-
-
-
-
+  require 'mimemagic'
 
   class Importer
     attr_accessor :site,
@@ -36,6 +16,16 @@ module ComfortableMexicanSofa::Seeds
       self.site         = Comfy::Cms::Site.where(identifier: to).first!
       self.seed_ids     = []
     end
+
+    def import!
+      ComfortableMexicanSofa::Seeds::Category::Importer.new(from, to, force_import).import!
+      ComfortableMexicanSofa::Seeds::Layout::Importer.new(  from, to, force_import).import!
+      ComfortableMexicanSofa::Seeds::Page::Importer.new(    from, to, force_import).import!
+      ComfortableMexicanSofa::Seeds::Snippet::Importer.new( from, to, force_import).import!
+      ComfortableMexicanSofa::Seeds::File::Importer.new(    from, to, force_import).import!
+    end
+
+  private
 
     # Splitting file content in sections delimited by headers that look like this:
     #   [header]
@@ -64,43 +54,8 @@ module ComfortableMexicanSofa::Seeds
         category_ids[category.id] = 1
       end
     end
-
-
-
-
-
-
-
-
-
-
-    def get_attributes(file_path)
-      YAML.load_file(file_path) || { }
-    end
-
-    def save_categorizations!(object, categories)
-      object.categorizations.delete_all
-
-      [categories].flatten.compact.each do |label|
-        category = self.site.categories.where(
-          :label            => label,
-          :categorized_type => object.class.to_s
-        ).first
-
-        next unless category
-
-        category.categorizations.create!(:categorized => object)
-      end
-    end
-
-    def import!
-      ComfortableMexicanSofa::Seeds::Category::Importer.new(from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Layout::Importer.new(  from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Page::Importer.new(    from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Snippet::Importer.new( from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::File::Importer.new(    from, to, force_import).import!
-    end
   end
+
 
   class Exporter
     attr_accessor :site,
@@ -112,8 +67,19 @@ module ComfortableMexicanSofa::Seeds
       self.from = from
       self.to   = to
       self.site = Comfy::Cms::Site.where(identifier: from).first!
-      dir = self.class.name.split('::')[2].downcase.pluralize
-      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, to, dir)
+    end
+
+  private
+
+    # Writing to the seed file. Takes in file handler and array of hashes with
+    # `header` and `content` keys
+    def write_file_content(path, data)
+      open(::File.join(path), "w") do |f|
+        data.each do |item|
+          f.write("[#{item[:header]}]\n")
+          f.write("#{item[:content]}\n")
+        end
+      end
     end
 
     def prepare_folder!(path)
