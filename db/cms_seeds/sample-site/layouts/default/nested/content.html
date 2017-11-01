@@ -1,0 +1,14 @@
+[attributes]
+label: Nested Seed Layout
+position: 42
+
+[content]
+{{ cms:file thumbnail }}
+<div class="left">{{ cms:markdown left }}</div>
+<div class="right">{{ cms:markdown right }}</div>
+
+[js]
+// nested js
+
+[css]
+div{float:left}

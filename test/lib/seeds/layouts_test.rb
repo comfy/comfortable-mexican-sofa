@@ -8,12 +8,14 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
         {{ cms:markdown content }}
       </body>
     </html>
+
   HTML
 
-  NESTED_HTML = <<~HTML.strip
+  NESTED_HTML = <<~HTML
     {{ cms:file thumbnail }}
-    <div class='left'>{{ cms:markdown left }}</div>
-    <div class='right'>{{ cms:markdown right }}</div>
+    <div class="left">{{ cms:markdown left }}</div>
+    <div class="right">{{ cms:markdown right }}</div>
+
   HTML
 
   def test_creation
@@ -21,20 +23,20 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
     assert_difference 'Comfy::Cms::Layout.count', 2 do
       ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
-
-      assert layout = Comfy::Cms::Layout.where(identifier: "default").first
-      assert_equal 'Default Fixture Layout', layout.label
-      assert_equal DEFAULT_HTML, layout.content
-      assert_equal 'body{color: red}', layout.css
-      assert_equal '// default js', layout.js
-
-      assert nested_layout = Comfy::Cms::Layout.where(identifier: "nested").first
-      assert_equal layout, nested_layout.parent
-      assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal NESTED_HTML, nested_layout.content
-      assert_equal 'div{float:left}', nested_layout.css
-      assert_equal '// nested js', nested_layout.js
     end
+
+    assert layout = Comfy::Cms::Layout.where(identifier: "default").first
+    assert_equal "Default Seed Layout", layout.label
+    assert_equal DEFAULT_HTML,          layout.content
+    assert_equal "body{color: red}\n",  layout.css
+    assert_equal "// default js\n\n",   layout.js
+
+    assert nested_layout = Comfy::Cms::Layout.where(identifier: "nested").first
+    assert_equal layout, nested_layout.parent
+    assert_equal "Nested Seed Layout",  nested_layout.label
+    assert_equal NESTED_HTML,           nested_layout.content
+    assert_equal "div{float:left}\n",   nested_layout.css
+    assert_equal "// nested js\n\n",    nested_layout.js
   end
 
   def test_update
@@ -45,23 +47,23 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     nested_layout.update_column(:updated_at, 10.years.ago)
     child_layout.update_column(:updated_at, 10.years.ago)
 
-    assert_difference 'Comfy::Cms::Layout.count', -1 do
+    assert_count_difference [Comfy::Cms::Layout], -1 do
       ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
 
       layout.reload
-      assert_equal 'Default Fixture Layout', layout.label
-      assert_equal DEFAULT_HTML, layout.content
-      assert_equal 'body{color: red}', layout.css
-      assert_equal '// default js', layout.js
-      assert_equal 0, layout.position
+      assert_equal 'Default Seed Layout', layout.label
+      assert_equal DEFAULT_HTML,          layout.content
+      assert_equal "body{color: red}\n",  layout.css
+      assert_equal "// default js\n\n",   layout.js
+      assert_equal 0,                     layout.position
 
       nested_layout.reload
-      assert_equal layout, nested_layout.parent
-      assert_equal 'Default Fixture Nested Layout', nested_layout.label
-      assert_equal NESTED_HTML, nested_layout.content
-      assert_equal 'div{float:left}', nested_layout.css
-      assert_equal '// nested js', nested_layout.js
-      assert_equal 42, nested_layout.position
+      assert_equal layout,                nested_layout.parent
+      assert_equal "Nested Seed Layout",  nested_layout.label
+      assert_equal NESTED_HTML,           nested_layout.content
+      assert_equal "div{float:left}\n",   nested_layout.css
+      assert_equal "// nested js\n\n",    nested_layout.js
+      assert_equal 42,                    nested_layout.position
 
       assert_nil Comfy::Cms::Layout.where(identifier: "child").first
     end
@@ -70,15 +72,9 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
   def test_update_ignore
     layout = comfy_cms_layouts(:default)
     layout_path       = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'layouts', 'default')
-    attr_file_path    = File.join(layout_path, 'attributes.yml')
     content_file_path = File.join(layout_path, 'content.html')
-    css_file_path     = File.join(layout_path, 'stylesheet.css')
-    js_file_path      = File.join(layout_path, 'javascript.js')
 
-    assert layout.updated_at >= File.mtime(attr_file_path)
     assert layout.updated_at >= File.mtime(content_file_path)
-    assert layout.updated_at >= File.mtime(css_file_path)
-    assert layout.updated_at >= File.mtime(js_file_path)
 
     ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
     layout.reload
@@ -89,58 +85,70 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     assert_equal 'default_js',            layout.js
   end
 
-  def test_update_force
-    layout = comfy_cms_layouts(:default)
-    ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
-    layout.reload
-    assert_equal 'Default Layout', layout.label
-
-    ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site', :forced).import!
-    layout.reload
-    assert_equal 'Default Fixture Layout', layout.label
-  end
-
   def test_export
-    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
-    layout_1_attr_path    = File.join(host_path, 'layouts/nested/attributes.yml')
-    layout_1_content_path = File.join(host_path, 'layouts/nested/content.html')
-    layout_1_css_path     = File.join(host_path, 'layouts/nested/stylesheet.css')
-    layout_1_js_path      = File.join(host_path, 'layouts/nested/javascript.js')
-    layout_2_attr_path    = File.join(host_path, 'layouts/nested/child/attributes.yml')
-    layout_2_content_path = File.join(host_path, 'layouts/nested/child/content.html')
-    layout_2_css_path     = File.join(host_path, 'layouts/nested/child/stylesheet.css')
-    layout_2_js_path      = File.join(host_path, 'layouts/nested/child/javascript.js')
+    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
 
-    ComfortableMexicanSofa::Seeds::Layout::Exporter.new('default-site', 'test-site').export!
+    layout_1_content_path = File.join(host_path, "layouts/default/content.html")
+    layout_2_content_path = File.join(host_path, "layouts/nested/content.html")
+    layout_3_content_path = File.join(host_path, "layouts/nested/child/content.html")
 
-    assert File.exist?(layout_1_attr_path)
+    ComfortableMexicanSofa::Seeds::Layout::Exporter.new("default-site", "test-site").export!
+
     assert File.exist?(layout_1_content_path)
-    assert File.exist?(layout_1_css_path)
-    assert File.exist?(layout_1_js_path)
-
-    assert File.exist?(layout_2_attr_path)
     assert File.exist?(layout_2_content_path)
-    assert File.exist?(layout_2_css_path)
-    assert File.exist?(layout_2_js_path)
+    assert File.exist?(layout_3_content_path)
 
-    assert_equal ({
-      'label'       => 'Nested Layout',
-      'app_layout'  => nil,
-      'position'    => 0
-    }), YAML.load_file(layout_1_attr_path)
-    assert_equal comfy_cms_layouts(:nested).content, IO.read(layout_1_content_path)
-    assert_equal comfy_cms_layouts(:nested).css, IO.read(layout_1_css_path)
-    assert_equal comfy_cms_layouts(:nested).js, IO.read(layout_1_js_path)
+    out = <<~TEXT
+      [attributes]
+      ---
+      label: Default Layout
+      app_layout:\s
+      position: 0
 
-    assert_equal ({
-      'label'       => 'Child Layout',
-      'app_layout'  => nil,
-      'position'    => 0
-    }), YAML.load_file(layout_2_attr_path)
-    assert_equal comfy_cms_layouts(:child).content, IO.read(layout_2_content_path)
-    assert_equal comfy_cms_layouts(:child).css, IO.read(layout_2_css_path)
-    assert_equal comfy_cms_layouts(:child).js, IO.read(layout_2_js_path)
+      [content]
+      {{cms:text content}}
+      [js]
+      default_js
+      [css]
+      default_css
+    TEXT
+    assert_equal out, IO.read(layout_1_content_path)
 
+    out = <<~TEXT
+      [attributes]
+      ---
+      label: Nested Layout
+      app_layout:\s
+      position: 0
+
+      [content]
+      {{cms:text header}}
+      {{cms:text content}}
+      [js]
+      nested_js
+      [css]
+      nested_css
+    TEXT
+    assert_equal out, IO.read(layout_2_content_path)
+
+    out = <<~TEXT
+      [attributes]
+      ---
+      label: Child Layout
+      app_layout:\s
+      position: 0
+
+      [content]
+      {{cms:text left_column}}
+      {{cms:text right_column}}
+      [js]
+      child_js
+      [css]
+      child_css
+    TEXT
+    assert_equal out, IO.read(layout_3_content_path)
+
+  ensure
     FileUtils.rm_rf(host_path)
   end
 end

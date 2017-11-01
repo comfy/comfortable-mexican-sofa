@@ -18,7 +18,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
 
     assert_equal "default", snippet.identifier
     assert_equal "Default Seed Snippet", snippet.label
-    assert_equal "Default Seed Snippet Content", snippet.content
+    assert_equal "Default Seed Snippet Content\n", snippet.content
 
     assert_equal %w(category_a category_b), snippet.categories.map{|c| c.label}
   end
@@ -36,7 +36,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     @snippet.reload
     assert_equal 'default', @snippet.identifier
     assert_equal "Default Seed Snippet", @snippet.label
-    assert_equal "Default Seed Snippet Content", @snippet.content
+    assert_equal "Default Seed Snippet Content\n", @snippet.content
   end
 
   def test_delete
@@ -50,7 +50,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     assert snippet = Comfy::Cms::Snippet.last
     assert_equal 'default', snippet.identifier
     assert_equal 'Default Seed Snippet', snippet.label
-    assert_equal "Default Seed Snippet Content", snippet.content
+    assert_equal "Default Seed Snippet Content\n", snippet.content
 
     assert_nil Comfy::Cms::Snippet.where(id: old_snippet.id).first
   end
@@ -95,5 +95,4 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
   ensure
     FileUtils.rm_rf(host_path)
   end
-
 end

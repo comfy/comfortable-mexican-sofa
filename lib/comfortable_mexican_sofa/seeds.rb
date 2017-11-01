@@ -18,11 +18,10 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def import!
-      ComfortableMexicanSofa::Seeds::Category::Importer.new(from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Layout::Importer.new(  from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Page::Importer.new(    from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::Snippet::Importer.new( from, to, force_import).import!
-      ComfortableMexicanSofa::Seeds::File::Importer.new(    from, to, force_import).import!
+      %w(Layout Page Snippet File).each do |klass|
+        klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
+        klass.constantize.new(from, to).import!
+      end
     end
 
   private
@@ -88,11 +87,10 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def export!
-      ComfortableMexicanSofa::Seeds::File::Exporter.new(    from, to).export!
-      ComfortableMexicanSofa::Seeds::Category::Exporter.new(from, to).export!
-      ComfortableMexicanSofa::Seeds::Layout::Exporter.new(  from, to).export!
-      ComfortableMexicanSofa::Seeds::Page::Exporter.new(    from, to).export!
-      ComfortableMexicanSofa::Seeds::Snippet::Exporter.new( from, to).export!
+      %w(Layout Page Snippet File).each do |klass|
+        klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
+        klass.constantize.new(from, to).import!
+      end
     end
   end
 end

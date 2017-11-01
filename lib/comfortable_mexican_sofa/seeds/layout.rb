@@ -1,68 +1,72 @@
 module ComfortableMexicanSofa::Seeds::Layout
   class Importer < ComfortableMexicanSofa::Seeds::Importer
 
+    def initialize(from, to = from)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, "layouts/")
+    end
+
     def import!(path = self.path, parent = nil)
       Dir["#{path}*/"].each do |path|
-        identifier = path.split('/').last
-
-        layout = self.site.layouts.find_or_initialize_by(:identifier => identifier)
-        layout.parent = parent
-
-        # setting attributes
-        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_seed?(layout, attrs_path)
-            attrs = get_attributes(attrs_path)
-            layout.label      = attrs['label']
-            layout.app_layout = attrs['app_layout'] || parent.try(:app_layout)
-            layout.position   = attrs['position'] if attrs['position']
-          end
-        end
-
-        # setting content
-        %w(html haml).each do |extension|
-          if File.exist?(content_path = File.join(path, "content.#{extension}"))
-            if fresh_seed?(layout, content_path)
-              layout.content = extension == "html" ?
-                ::File.open(content_path).read :
-                Haml::Engine.new(::File.open(content_path).read).render.rstrip
-            end
-          end
-        end
-
-        if File.exist?(content_path = File.join(path, 'stylesheet.css'))
-          if fresh_seed?(layout, content_path)
-            layout.css = File.open(content_path).read
-          end
-        end
-        if File.exist?(content_path = File.join(path, 'javascript.js'))
-          if fresh_seed?(layout, content_path)
-            layout.js = File.open(content_path).read
-          end
-        end
-
-        # saving
-        if layout.changed? || self.force_import
-          if layout.save
-            ComfortableMexicanSofa.logger.info("[CMS SEEDS] Imported Layout \t #{layout.identifier}")
-          else
-            ComfortableMexicanSofa.logger.warn("[CMS SEEDS] Failed to import Layout \n#{layout.errors.inspect}")
-          end
-        end
-
-        self.seed_ids << layout.id
-
-        # importing child layouts
-        import!(path, layout)
+        import_layout(path, nil)
       end
 
       # cleaning up
-      unless parent
-        self.site.layouts.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
+      self.site.layouts.where("id NOT IN (?)", self.seed_ids).destroy_all
+    end
+
+  private
+
+    def import_layout(path, parent)
+      identifier =  path.split("/").last
+
+      # reading file content in, resulting in a hash
+      content_path = File.join(path, "content.html")
+      content_hash = parse_file_content(content_path)
+
+      # parsing attributes section
+      attributes_yaml = content_hash.delete("attributes")
+      attrs           = YAML.load(attributes_yaml)
+
+      layout = self.site.layouts.where(identifier: identifier).first_or_initialize
+      layout.parent = parent
+
+      if fresh_seed?(layout, content_path)
+        layout.attributes = attrs.merge(
+          app_layout: attrs["app_layout"] || parent.try(:app_layout),
+          content:    content_hash["content"],
+          js:         content_hash["js"],
+          css:        content_hash["css"]
+        )
+
+        if layout.save
+          message = "[CMS SEEDS] Imported Layout \t #{layout.identifier}"
+          ComfortableMexicanSofa.logger.info(message)
+        else
+          message = "[CMS SEEDS] Failed to import Layout \n#{layout.errors.inspect}"
+          ComfortableMexicanSofa.logger.warn(message)
+        end
+      end
+
+      self.seed_ids << layout.id
+
+      # importing child pages (if there are any)
+      Dir["#{path}*/"].each do |path|
+        import_layout(path, layout)
       end
     end
   end
 
+
+
+
   class Exporter < ComfortableMexicanSofa::Seeds::Exporter
+
+    def initialize(from, to = from)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, to, "layouts/")
+    end
+
     def export!
       prepare_folder!(self.path)
 
@@ -70,25 +74,24 @@ module ComfortableMexicanSofa::Seeds::Layout
         layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
         FileUtils.mkdir_p(layout_path)
 
-        # writing attributes
-        open(File.join(layout_path, 'attributes.yml'), 'w') do |f|
-          f.write({
-            'label'       => layout.label,
-            'app_layout'  => layout.app_layout,
-            'position'    => layout.position
-          }.to_yaml)
-        end
-        open(File.join(layout_path, 'content.html'), 'w') do |f|
-          f.write(layout.content)
-        end
-        open(File.join(layout_path, 'stylesheet.css'), 'w') do |f|
-          f.write(layout.css)
-        end
-        open(File.join(layout_path, 'javascript.js'), 'w') do |f|
-          f.write(layout.js)
-        end
+        path = ::File.join(layout_path, "content.html")
+        data = []
 
-        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Layout \t #{layout.identifier}")
+        attrs = {
+          "label"      => layout.label,
+          "app_layout" => layout.app_layout,
+          "position"   => layout.position
+        }.to_yaml
+
+        data << {header: "attributes",  content: attrs}
+        data << {header: "content",     content: layout.content}
+        data << {header: "js",          content: layout.js}
+        data << {header: "css",         content: layout.css}
+
+        write_file_content(path, data)
+
+        message = "[CMS SEEDS] Exported Layout \t #{layout.identifier}"
+        ComfortableMexicanSofa.logger.info(message)
       end
     end
   end

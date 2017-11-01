@@ -42,7 +42,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
       end
 
       # cleaning up
-      self.site.snippets.where("id NOT IN (?)", self.seed_ids).each{|s| s.destroy}
+      self.site.snippets.where("id NOT IN (?)", self.seed_ids).destroy_all
     end
   end
 

@@ -10,14 +10,13 @@ module ComfortableMexicanSofa::Seeds::Page
       self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, "pages/")
     end
 
-
     def import!
       import_page(File.join(self.path, "index/"), nil)
 
       link_target_pages
 
       # Remove pages not found in seeds
-      self.site.pages.where('id NOT IN (?)', self.seed_ids).each{ |s| s.destroy }
+      self.site.pages.where('id NOT IN (?)', self.seed_ids).destroy_all
     end
 
   private
