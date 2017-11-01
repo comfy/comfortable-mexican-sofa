@@ -27,16 +27,14 @@ module ComfortableMexicanSofa::Seeds
                   :path,
                   :from,
                   :to,
-                  :seed_ids,
-                  :force_import
+                  :seed_ids
 
     # `from` and `to` indicate site identifier and folder name
-    def initialize(from, to = from, force_import = false)
+    def initialize(from, to = from)
       self.from         = from
       self.to           = to
       self.site         = Comfy::Cms::Site.where(identifier: to).first!
       self.seed_ids     = []
-      self.force_import = force_import
     end
 
     # Splitting file content in sections delimited by headers that look like this:
@@ -54,7 +52,7 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def fresh_seed?(object, file_path)
-      object.new_record? || self.force_import || ::File.mtime(file_path) > object.updated_at
+      object.new_record? || ::File.mtime(file_path) > object.updated_at
     end
 
     def category_names_to_ids(klass, names)

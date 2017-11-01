@@ -5,7 +5,7 @@ module ComfortableMexicanSofa::Seeds::Page
     # doesn't exist yet, we'll defer linking to the end of import
     attr_accessor :target_pages
 
-    def initialize(from, to = from, force_import = false)
+    def initialize(from, to = from)
       super
       self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, "pages/")
     end
@@ -55,7 +55,7 @@ module ComfortableMexicanSofa::Seeds::Page
         )
 
         # applying fragments
-        current_fragments     = page.fragments.pluck(:identifier)
+        old_fragments         = page.fragments.pluck(:identifier)
         fragments_attributes  = []
 
         fragments_hash.each do |frag_header, frag_content|
@@ -64,6 +64,9 @@ module ComfortableMexicanSofa::Seeds::Page
             identifier: identifier,
             tag:        tag
           }
+
+          # tracking fragments that need removing later
+          old_fragments -= [identifier]
 
           # based on tag we need to cram content in proper place and proper format
           case tag
@@ -87,6 +90,10 @@ module ComfortableMexicanSofa::Seeds::Page
         if page.save
           message = "[CMS SEEDS] Imported Page \t #{page.full_path}"
           ComfortableMexicanSofa.logger.info(message)
+
+          # cleaning up old fragments
+          page.fragments.where(identifier: old_fragments).destroy_all
+
         else
           message = "[FIXTURES] Failed to import Page \n#{page.errors.inspect}"
           ComfortableMexicanSofa.logger.warn(message)
@@ -106,7 +113,6 @@ module ComfortableMexicanSofa::Seeds::Page
     # Preparing fragment attachments. Returns hashes with file data for
     # ActiveStorage and a list of ids of old attachements to destroy
     def files_content(page, identifier, path, frag_content)
-
       # preparing attachments
       files = frag_content.split.collect do |filename|
         file_handler = File.open(File.join(path, filename))

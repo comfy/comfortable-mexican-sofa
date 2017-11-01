@@ -56,6 +56,12 @@ class SeedsPagesTest < ActiveSupport::TestCase
         boolean:    false}
     ], page.fragments_attributes
 
+    frag = page.fragments.find_by(identifier: "header")
+    assert_equal 1, frag.attachments.count
+
+    frag = page.fragments.find_by(identifier: "attachments")
+    assert_equal 2, frag.attachments.count
+
     assert_equal 2, page.categories.count
     assert_equal %w(category_a category_b), page.categories.map{|c| c.label}
 
@@ -67,44 +73,28 @@ class SeedsPagesTest < ActiveSupport::TestCase
   end
 
 
-
-
-
-
-
-
-  def test_creation_with_missing_categories
-    Comfy::Cms::Page.delete_all
-
-    assert_difference 'Comfy::Cms::Page.count', 2 do
-      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
-      assert page = Comfy::Cms::Page.where(full_path: '/').first
-      assert_equal 0, page.categories.count
-    end
-  end
-
   def test_update
     page = comfy_cms_pages(:default)
     page.update_column(:updated_at, 10.years.ago)
-    assert_equal 'Default Page', page.label
+    assert_equal "Default Page", page.label
 
     child = comfy_cms_pages(:child)
     child.update_column(:slug, 'old')
 
-    assert_no_difference 'Comfy::Cms::Page.count' do
+    assert_count_difference [Comfy::Cms::Page] do
       ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
 
       page.reload
-      assert_equal 'Home Fixture Page', page.label
+      assert_equal "Home Seed Page", page.label
 
-      assert_nil Comfy::Cms::Page.where(:slug => 'old').first
+      assert_nil Comfy::Cms::Page.where(slug: 'old').first
     end
   end
 
   def test_update_ignore
     Comfy::Cms::Page.destroy_all
 
-    page = comfy_cms_sites(:default).pages.create!(
+    page = @site.pages.create!(
       label: 'Test',
       layout: comfy_cms_layouts(:default),
       fragments_attributes: [
@@ -113,11 +103,9 @@ class SeedsPagesTest < ActiveSupport::TestCase
     )
 
     page_path         = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'pages', 'index')
-    attr_file_path    = File.join(page_path, 'attributes.yml')
-    content_file_path = File.join(page_path, 'content.html')
+    content_path      = File.join(page_path, "content.html")
 
-    assert page.updated_at >= File.mtime(attr_file_path)
-    assert page.updated_at >= File.mtime(content_file_path)
+    assert page.updated_at >= File.mtime(content_path)
 
     ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
     page.reload
@@ -128,21 +116,10 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_equal 'test content', frag.content
   end
 
-  def test_update_force
-    page = comfy_cms_pages(:default)
-    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
-    page.reload
-    assert_equal 'Default Page', page.label
-
-    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site', :forced).import!
-    page.reload
-    assert_equal 'Home Fixture Page', page.label
-  end
-
   def test_update_removing_deleted_blocks
     Comfy::Cms::Page.destroy_all
 
-    page = comfy_cms_sites(:default).pages.create!(
+    page = @site.pages.create!(
       label:  'Test',
       layout: comfy_cms_layouts(:default),
       fragments_attributes: [
@@ -155,10 +132,13 @@ class SeedsPagesTest < ActiveSupport::TestCase
     page.reload
 
     frag = page.fragments.where(identifier: 'content').first
-    assert_equal "Home Page Fixture Contént\n{{ cms:snippet default }}", frag.content
+    assert_equal "Home Page Seed Contént\n{{ cms:snippet default }}\n\n", frag.content
 
     refute page.fragments.where(identifier: 'to_delete').first
   end
+
+
+
 
   def test_export
     comfy_cms_pages(:default).update_attribute(:target_page, comfy_cms_pages(:child))
