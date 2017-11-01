@@ -1,74 +1,78 @@
 module ComfortableMexicanSofa::Seeds::Snippet
   class Importer < ComfortableMexicanSofa::Seeds::Importer
 
+    def initialize(from, to = from)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from, "snippets/")
+    end
+
     def import!
-      Dir["#{self.path}*/"].each do |path|
-        identifier = path.split('/').last
-        snippet = self.site.snippets.find_or_initialize_by(:identifier => identifier)
+      Dir.glob("#{self.path}/*.html").each do |path|
+        identifier = File.basename(path, ".html")
 
-        # setting attributes
-        categories = []
-        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
-          if fresh_seed?(snippet, attrs_path)
-            attrs = get_attributes(attrs_path)
+        # reading file content in, resulting in a hash
+        content_hash = parse_file_content(path)
 
-            snippet.label = attrs['label']
-            categories    = attrs['categories']
-          end
-        end
+        # parsing attributes section
+        attributes_yaml = content_hash.delete("attributes")
+        attrs           = YAML.load(attributes_yaml)
 
-        # setting content
-        %w(html haml).each do |extension|
-          if File.exist?(content_path = File.join(path, "content.#{extension}"))
-            if fresh_seed?(snippet, content_path)
-              snippet.content = extension == "html" ?
-                ::File.open(content_path).read :
-                Haml::Engine.new(::File.open(content_path).read).render.rstrip
-            end
-          end
-        end
+        snippet = self.site.snippets.where(identifier: identifier).first_or_initialize
 
-        # saving
-        if snippet.changed? || self.force_import
+        if fresh_seed?(snippet, path)
+          category_ids = category_names_to_ids(Comfy::Cms::Snippet, attrs.delete("categories"))
+
+          snippet.attributes = attrs.merge(
+            category_ids: category_ids,
+            content:      content_hash["content"]
+          )
+
           if snippet.save
-            save_categorizations!(snippet, categories)
-            ComfortableMexicanSofa.logger.info("[CMS SEEDS] Imported Snippet \t #{snippet.identifier}")
+            message = "[CMS SEEDS] Imported Snippet \t #{snippet.identifier}"
+            ComfortableMexicanSofa.logger.info(message)
           else
-            ComfortableMexicanSofa.logger.warn("[CMS SEEDS] Failed to import Snippet \n#{snippet.errors.inspect}")
+            message = "[CMS SEEDS] Failed to import Snippet \n#{snippet.errors.inspect}"
+            ComfortableMexicanSofa.logger.warn(message)
           end
         end
 
+        # Tracking what page from seeds we're working with. So we can remove pages
+        # that are no longer in seeds
         self.seed_ids << snippet.id
       end
 
       # cleaning up
-      self.site.snippets.where('id NOT IN (?)', seed_ids).each{ |s| s.destroy }
+      self.site.snippets.where("id NOT IN (?)", self.seed_ids).each{|s| s.destroy}
     end
   end
 
+
   class Exporter < ComfortableMexicanSofa::Seeds::Exporter
+
+    def initialize(from, to = from)
+      super
+      self.path = ::File.join(ComfortableMexicanSofa.config.seeds_path, to, "snippets/")
+    end
 
     def export!
       prepare_folder!(self.path)
 
       self.site.snippets.each do |snippet|
-        snippet_path = File.join(self.path, snippet.identifier)
-        FileUtils.mkdir_p(snippet_path)
+        attrs = {
+          "label"       => snippet.label,
+          "categories"  => snippet.categories.map{|c| c.label},
+          "position"    => snippet.position
+        }.to_yaml
 
-        # writing attributes
-        open(File.join(snippet_path, 'attributes.yml'), 'w') do |f|
-          f.write({
-            'label'       => snippet.label,
-            'categories'  => snippet.categories.map{|c| c.label}
-          }.to_yaml)
-        end
+        data = []
+        data << {header: "attributes", content: attrs}
+        data << {header: "content", content: snippet.content}
 
-        # writing content
-        open(File.join(snippet_path, 'content.html'), 'w') do |f|
-          f.write(snippet.content)
-        end
+        snippet_path = File.join(self.path, "#{snippet.identifier}.html")
+        write_file_content(snippet_path, data)
 
-        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Snippet \t #{snippet.identifier}")
+        message = "[CMS SEEDS] Exported Snippet \t #{snippet.identifier}"
+        ComfortableMexicanSofa.logger.info(message)
       end
     end
   end

@@ -36,9 +36,9 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # setting page record
       page = if parent.present?
-        parent.children.find_by(slug: slug) || self.site.pages.new(parent: parent, slug: slug)
+        self.site.pages.where(parent: parent, slug: slug).first_or_initialize
       else
-        self.site.pages.root ||self. site.pages.new(slug: slug)
+        self.site.pages.root || self.site.pages.new(slug: slug)
       end
 
       # If file is newer than page record we'll process it
@@ -203,7 +203,8 @@ module ComfortableMexicanSofa::Seeds::Page
 
         write_file_content(path, data)
 
-        ComfortableMexicanSofa.logger.info("[CMS SEEDS] Exported Page \t #{page.full_path}")
+        message = "[CMS SEEDS] Exported Page \t #{page.full_path}"
+        ComfortableMexicanSofa.logger.info(message)
       end
     end
   end

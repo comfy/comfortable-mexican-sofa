@@ -95,5 +95,4 @@ module ComfortableMexicanSofa::Seeds
       ComfortableMexicanSofa::Seeds::Snippet::Exporter.new( from, to).export!
     end
   end
-
 end
