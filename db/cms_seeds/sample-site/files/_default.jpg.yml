@@ -1,6 +1,5 @@
-label: Fixture File
-description: Fixture Description
+label: Seed File
+description: Seed File Description
 categories:
   - category_a
   - category_b
-content_type: image/jpeg

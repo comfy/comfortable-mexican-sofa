@@ -189,7 +189,7 @@ module ComfortableMexicanSofa::Seeds::Page
             frag.boolean
           when "file", "files"
             frag.attachments.map do |attachment|
-              ::File.open(::File.join(page_path, attachment.filename.to_s), "w") do |f|
+              ::File.open(::File.join(page_path, attachment.filename.to_s), "wb") do |f|
                 f.write(attachment.download)
               end
               attachment.filename
