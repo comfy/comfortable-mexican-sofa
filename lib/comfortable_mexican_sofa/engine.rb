@@ -11,7 +11,7 @@ require 'haml-rails'
 require 'sass-rails'
 require 'coffee-rails'
 require 'codemirror-rails'
-require 'bootstrap-sass'
+require 'bootstrap'
 require 'plupload-rails'
 
 module ComfortableMexicanSofa

@@ -5,12 +5,11 @@ gemspec
 # gem 'rails', github: "rails/rails"
 gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"
 # gem "rails", path: "~/Code/rails"
+gem "arel", github: "rails/arel"
+gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"
 
 # apps can also use will_paginate so there's no dependency in gemspec
 gem 'kaminari'
-
-gem 'arel', github: 'rails/arel'
-
 
 group :development do
   gem "listen"

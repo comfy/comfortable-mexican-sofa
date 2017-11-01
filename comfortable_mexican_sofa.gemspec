@@ -19,20 +19,26 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.2.2'
 
-  # s.add_dependency 'rails'#,             '>= 5.2.0' # because active storage
+  # s.add_dependency "rails",             ">= 5.2.0"
+  # s.add_dependency "bootstrap_form",    ">= 2.7.0"
+
+  s.add_dependency "bootstrap",         ">= 4.0.0.beta2.1"
+  s.add_dependency "mini_magick",       ">= 4.8.0"
+  s.add_dependency "mimemagic",         ">= 0.3.2"
+  s.add_dependency "jquery-rails",      ">= 4.3.1"
+  s.add_dependency "jquery-ui-rails",   ">= 6.0.1"
+
   s.add_dependency 'rails-i18n',        '>= 4.0.0'
-  s.add_dependency 'bootstrap_form',    '>= 2.2.0'
+
   s.add_dependency 'active_link_to',    '>= 1.0.0'
   s.add_dependency 'kramdown',          '>= 1.0.0'
-  s.add_dependency 'jquery-rails',      '>= 3.0.0'
-  s.add_dependency 'jquery-ui-rails',   '>= 5.0.0'
+
+
   s.add_dependency 'haml-rails',        '>= 0.3.0'
   s.add_dependency 'sass-rails',        '>= 4.0.3'
   s.add_dependency 'coffee-rails',      '>= 3.1.0'
   s.add_dependency 'codemirror-rails',  '>= 3.0.0'
-  s.add_dependency 'bootstrap-sass',    '>= 3.2.0'
   s.add_dependency 'plupload-rails',    '>= 1.2.1'
 
-  s.add_dependency "mini_magick",       ">= 4.8.0"
-  s.add_dependency "mimemagic",         ">= 0.3.2"
+
 end

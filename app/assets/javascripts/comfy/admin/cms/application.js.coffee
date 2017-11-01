@@ -1,4 +1,4 @@
-#= require jquery
+#= require jquery3
 #= require jquery_ujs
 #= require jquery-ui
 #= require codemirror
@@ -8,7 +8,8 @@
 #= require codemirror/modes/markdown
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
-#= require bootstrap-sprockets
+#= require popper
+#= require bootstrap
 #= require comfy/admin/cms/lib/bootstrap-datetimepicker
 #= require comfy/admin/cms/lib/diff
 #= require comfy/admin/cms/lib/redactor
