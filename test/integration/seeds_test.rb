@@ -3,35 +3,9 @@ require_relative '../test_helper'
 class SeedsIntergrationTest < ActionDispatch::IntegrationTest
 
   setup do
-    comfy_cms_sites(:default).update_columns(identifier: 'sample-site')
+    @site = comfy_cms_sites(:default)
+    @site.update_columns(identifier: 'sample-site')
   end
-
-  def test_parse_file_content
-    text = <<~TEXT
-      [attributes]
-      key_a: value
-      key_b: value
-
-      [files header]
-      thumbnail.png
-
-      [textarea content]
-      # Title
-      Test Content
-
-    TEXT
-    out = ComfortableMexicanSofa::Seeds.parse_file_content(text)
-    assert_equal [
-      {header: "attributes",        content: "key_a: value\nkey_b: value\n\n"},
-      {header: "files header",      content: "thumbnail.png\n\n"},
-      {header: "textarea content",  content: "# Title\nTest Content\n\n"}
-    ], out
-  end
-
-
-
-
-
 
   def test_seeds_disabled
     assert_no_difference ['Comfy::Cms::Layout.count', 'Comfy::Cms::Page.count', 'Comfy::Cms::Snippet.count'] do
@@ -50,23 +24,33 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
     Comfy::Cms::Page.destroy_all
     Comfy::Cms::Snippet.destroy_all
 
-    assert_difference 'Comfy::Cms::Page.count', 2 do
+    assert_difference 'Comfy::Cms::Page.count', 3 do
       assert_difference 'Comfy::Cms::Layout.count', 2 do
         assert_difference 'Comfy::Cms::Snippet.count', 1 do
           get '/'
-          assert_response :redirect
-          assert_redirected_to '/child'
-          follow_redirect!
+          assert_response :success
 
-          assert_equal 'Home Fixture Page', Comfy::Cms::Page.root.label
-          assert_equal 'Default Fixture Layout', Comfy::Cms::Layout.find_by_identifier('default').label
-          assert_equal 'Default Fixture Snippet', Comfy::Cms::Snippet.find_by_identifier('default').label
+          assert_equal 'Home Seed Page', Comfy::Cms::Page.root.label
+          assert_equal 'Default Seed Layout', Comfy::Cms::Layout.find_by_identifier('default').label
+          assert_equal 'Default Seed Snippet', Comfy::Cms::Snippet.find_by_identifier('default').label
 
 
-          flunk "todo: we're not handling frag attachments properly"
-          # file_path = ActiveStorage::Blob.find_by(filename: 'thumbnail.png').file.url
+          file_path = url_for(ActiveStorage::Blob.find_by(filename: 'header.png'))
+          file_path = file_path.sub("http://test.host", "")
+          out = <<~HTML
+            <html>
+              <body>
+                <img src='#{file_path}' alt='header.png'/>
+                <p>Home Page Seed Contént
+            Default Seed Snippet Content
+            </p>
 
-          # assert_equal "<html>\n  <body>\n    #{file_path}\n<div class='left'>Child Page Left Fixture Content</div>\n<div class='right'>Child Page Right Fixture Content</div>\n  </body>\n</html>", response.body
+
+              </body>
+            </html>
+
+          HTML
+          assert_equal out, response.body
         end
       end
     end
@@ -78,12 +62,12 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
     Comfy::Cms::Page.destroy_all
     Comfy::Cms::Snippet.destroy_all
 
-    assert_difference 'Comfy::Cms::Page.count', 2 do
+    assert_difference 'Comfy::Cms::Page.count', 3 do
       assert_difference 'Comfy::Cms::Layout.count', 2 do
         assert_difference 'Comfy::Cms::Snippet.count', 1 do
-           r :get, "/admin/sites/#{comfy_cms_sites(:default).id}/pages"
+           r :get, "/admin/sites/#{@site.id}/pages"
            assert_response :success
-           assert_equal 'CMS Fixtures are enabled. All changes done here will be discarded.', flash[:danger]
+           assert_equal 'CMS Seeds are enabled. All changes done here will be discarded.', flash[:danger]
         end
       end
     end

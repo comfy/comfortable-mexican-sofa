@@ -68,6 +68,13 @@ module ComfortableMexicanSofa::Seeds
       self.site = Comfy::Cms::Site.where(identifier: from).first!
     end
 
+    def export!
+      %w(Layout Page Snippet File).each do |klass|
+        klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
+        klass.constantize.new(from, to).export!
+      end
+    end
+
   private
 
     # Writing to the seed file. Takes in file handler and array of hashes with
@@ -84,13 +91,6 @@ module ComfortableMexicanSofa::Seeds
     def prepare_folder!(path)
       FileUtils.rm_rf(path)
       FileUtils.mkdir_p(path)
-    end
-
-    def export!
-      %w(Layout Page Snippet File).each do |klass|
-        klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
-        klass.constantize.new(from, to).import!
-      end
     end
   end
 end

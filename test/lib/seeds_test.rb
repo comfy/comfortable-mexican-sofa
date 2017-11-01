@@ -7,9 +7,9 @@ class SeedsTest < ActiveSupport::TestCase
     Comfy::Cms::Layout.destroy_all
     Comfy::Cms::Snippet.destroy_all
 
-    assert_difference 'Comfy::Cms::Layout.count', 2 do
-      assert_difference 'Comfy::Cms::Page.count', 2 do
-        assert_difference 'Comfy::Cms::Snippet.count', 1 do
+    assert_count_difference [Comfy::Cms::Layout], 2 do
+      assert_count_difference [Comfy::Cms::Page], 3 do
+        assert_count_difference [Comfy::Cms::Snippet], 1 do
           ComfortableMexicanSofa::Seeds::Importer.new('sample-site', 'default-site').import!
         end
       end
@@ -25,6 +25,10 @@ class SeedsTest < ActiveSupport::TestCase
   end
 
   def test_export_all
+    ActiveStorage::Blob.any_instance.stubs(:download).returns(
+      File.read(File.join(Rails.root, 'db/cms_seeds/sample-site/files/default.jpg'))
+    )
+
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
     ComfortableMexicanSofa::Seeds::Exporter.new('default-site', 'test-site').export!
     FileUtils.rm_rf(host_path)
@@ -37,5 +41,4 @@ class SeedsTest < ActiveSupport::TestCase
       ComfortableMexicanSofa::Seeds::Exporter.new('sample-site', 'default-site').export!
     end
   end
-
 end

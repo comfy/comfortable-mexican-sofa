@@ -5,6 +5,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
   DEFAULT_HTML = <<~HTML
     <html>
       <body>
+        {{ cms:file header, as: image }}
         {{ cms:markdown content }}
       </body>
     </html>
