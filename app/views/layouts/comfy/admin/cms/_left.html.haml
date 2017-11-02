@@ -1,21 +1,35 @@
 = render 'comfy/admin/cms/partials/navigation_before'
 
-%ul.navigation
-  %li= active_link_to t('comfy.admin.cms.base.sites'), comfy_admin_cms_sites_path, :active => ['comfy/admin/cms/sites']
+%nav.navbar.navbar-expand-lg
+  %button.navbar-toggler{type: "button", data: {toggle:"collapse", target: "#leftnav"}, aria: {controls: "navbarSupportedContent", expanded: "false", label: "Toggle navigation"}}
+    %span.navbar-toggler-icon
 
-  - if @site && !@site.new_record?
-    %li= active_link_to t('comfy.admin.cms.base.layouts'), comfy_admin_cms_site_layouts_path(@site)
-    %li= active_link_to t('comfy.admin.cms.base.pages'), comfy_admin_cms_site_pages_path(@site)
-    %li= active_link_to t('comfy.admin.cms.base.snippets'), comfy_admin_cms_site_snippets_path(@site)
-    %li
-      - unless is_active_link?(comfy_admin_cms_site_files_path(@site))
-        %a.cms-files-open-modal{:href => '#', :title => 'Open library'}
-          %span.glyphicon.glyphicon-th-list
-      = active_link_to t('comfy.admin.cms.base.files'), comfy_admin_cms_site_files_path(@site)
+  #leftnav.navbar-collapse.collapse
 
+    %ul.nav.flex-column
+      %li.nav-item
+        = active_link_to comfy_admin_cms_sites_path, class: "nav-link", active: ['comfy/admin/cms/sites'] do
+          = t('comfy.admin.cms.base.sites')
 
-  = cms_hook :navigation
+      - if @site && !@site.new_record?
+        %li.nav-item
+          = active_link_to comfy_admin_cms_site_layouts_path(@site), class: "nav-link" do
+            = t('comfy.admin.cms.base.layouts')
+        %li.nav-item
+          = active_link_to comfy_admin_cms_site_pages_path(@site), class: "nav-link" do
+            = t('comfy.admin.cms.base.pages')
+        %li.nav-item
+          = active_link_to comfy_admin_cms_site_snippets_path(@site), class: "nav-link" do
+            = t('comfy.admin.cms.base.snippets')
+        %li.nav-item
+          - unless is_active_link?(comfy_admin_cms_site_files_path(@site))
+            %a.cms-files-open-modal{href: '#', title: "Open library"}
+              = fa_icon "file-o"
+          = active_link_to comfy_admin_cms_site_files_path(@site), class: "nav-link" do
+            = t('comfy.admin.cms.base.files')
 
-  = render 'comfy/admin/cms/partials/navigation_inner'
+      = cms_hook :navigation
+
+      = render 'comfy/admin/cms/partials/navigation_inner'
 
 = render 'comfy/admin/cms/partials/navigation_after'

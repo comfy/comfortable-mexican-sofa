@@ -14,6 +14,8 @@ require 'codemirror-rails'
 require 'bootstrap'
 require 'plupload-rails'
 
+require "font-awesome-rails"
+
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
     config.to_prepare do

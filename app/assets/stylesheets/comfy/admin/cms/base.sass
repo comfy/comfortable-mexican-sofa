@@ -21,7 +21,18 @@ body#comfy.in-iframe
     margin: 0
 
 body#comfy
-  background-color: #252525
+  // background-color: #252525
+
+  #cms-sidebar
+    outline: 1px solid red
+    background-color: #252525
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+
+    @media (max-width: map-get($grid-breakpoints, md))
+      position: relative
 
   // -- Containers ----------------------------------------------------------
   .body-wrapper
