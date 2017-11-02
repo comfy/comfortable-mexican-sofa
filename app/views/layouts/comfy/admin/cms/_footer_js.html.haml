@@ -1,6 +1,6 @@
 = render 'comfy/admin/cms/partials/html_footer'
 
-= javascript_include_tag  'comfy/admin/cms/application', 'data-turbolinks-track' => true
+= javascript_include_tag "comfy/admin/cms/application", "data-turbolinks-track" => true
 
 - if @site && @site.persisted?
   :javascript
@@ -9,5 +9,4 @@
     CMS.locale            = '#{I18n.locale}';
 
 - if content_for(:javascript)
-  :javascript
-    #{yield :javascript}
+  = yield :javascript

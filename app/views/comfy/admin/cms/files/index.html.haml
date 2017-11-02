@@ -18,13 +18,14 @@
 
   = comfy_paginate @files
 
-:javascript
-  $(function(){
-    window.CMS.uploader($("#cms-uploader"), {
-      url: '#{comfy_admin_cms_site_files_path(@site, source: :plupload, category: params[:category])}',
-      multipart_params: {
-        '#{request_forgery_protection_token}': '#{form_authenticity_token}',
-        '#{Rails.application.config.session_options[:key]}': '#{request.session_options[:id]}'
-      }
+- content_for :javascript do
+  :javascript
+    $(function(){
+      window.CMS.uploader($("#cms-uploader"), {
+        url: '#{comfy_admin_cms_site_files_path(@site, source: :plupload, category: params[:category])}',
+        multipart_params: {
+          '#{request_forgery_protection_token}': '#{form_authenticity_token}',
+          '#{Rails.application.config.session_options[:key]}': '#{request.session_options[:id]}'
+        }
+      });
     });
-  });
