@@ -4299,7 +4299,6 @@
 						if (tag == tags[i]) tag = replaced[i];
 					}
 
-
 					if (this.opts.allowedTags)
 					{
 						if ($.inArray(tag, this.opts.allowedTags) == -1) return;
@@ -7729,6 +7728,13 @@
 					{
 						var node2 = this.selection.getMarker(2);
 						this.selection.setMarker(this.range, node2, false);
+
+						// comfy fix
+						if (this.utils.browser('chrome'))
+						{
+							this.caret.set(node1, 0, node2, 0);
+						}
+						// end fix
 					}
 
 					this.savedSel = this.$editor.html();
