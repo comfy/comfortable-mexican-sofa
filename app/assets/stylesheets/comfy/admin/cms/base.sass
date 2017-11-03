@@ -23,7 +23,7 @@ body#comfy
     padding-bottom: 50px
 
     @media (max-width: map-get($grid-breakpoints, md))
-      padding-top: 100px
+      padding-top: 60px
 
     .form-actions
       padding: 10px 0
@@ -34,14 +34,56 @@ body#comfy
       z-index: 1000
 
   #cms-left
-    padding: 0
     position: fixed
     top: 0
     bottom: 0
     left: 0
     z-index: 1001
+    padding: 0
+
+    button.navbar-toggler
+      color: $white
+
+    nav.navbar
+      padding: 1rem
+
+      ul.nav
+        li
+          position: relative
+          width: 100%
+          a
+            color: $gray-500
+          a:hover, a.active
+            color: $white
+          a.cms-files-open-modal
+            height: 26px
+            width: 26px
+            position: absolute
+            text-align: center
+            right: 0
+            top: 7px
+
+    .left-footer
+      padding: 5px
+      position: absolute
+      width: 100%
+      text-align: center
+      bottom: 0
+      font-size: 12px
+      color: $white
+      a
+        color: $gray-500
 
     @media (max-width: map-get($grid-breakpoints, md))
       right: 0
       bottom: auto
+      nav.navbar
+        padding: 0.5rem 1rem
+      .left-footer
+        display: none
+
+
+
+
+
 

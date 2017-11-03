@@ -2,11 +2,11 @@
 
 %nav.navbar.navbar-expand-lg
   %button.navbar-toggler{type: "button", data: {toggle:"collapse", target: "#leftnav"}, aria: {controls: "navbarSupportedContent", expanded: "false", label: "Toggle navigation"}}
-    %span.navbar-toggler-icon
+    = fa_icon "bars"
 
   #leftnav.navbar-collapse.collapse
 
-    %ul.nav.flex-column
+    %ul.nav.nav-pills
       %li.nav-item
         = active_link_to comfy_admin_cms_sites_path, class: "nav-link", active: ['comfy/admin/cms/sites'] do
           = t('comfy.admin.cms.base.sites')
@@ -25,7 +25,7 @@
         %li.nav-item
           - unless is_active_link?(comfy_admin_cms_site_files_path(@site))
             %a.cms-files-open-modal{href: '#', title: "Open library"}
-              = fa_icon "file-o"
+              = fa_icon "bars"
           = active_link_to comfy_admin_cms_site_files_path(@site), class: "nav-link" do
             = t('comfy.admin.cms.base.files')
 
@@ -36,5 +36,5 @@
 = render 'comfy/admin/cms/partials/navigation_after'
 
 .left-footer
-  = link_to 'ComfortableMexicanSofa', 'https://github.com/comfy', :target => '_blank'
+  = link_to 'ComfortableMexicanSofa', 'https://github.com/comfy', target: '_blank'
   %span.version= ComfortableMexicanSofa::VERSION
