@@ -1,5 +1,9 @@
 class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
+  def default_label_col
+    "col-sm-2 text-lg-right"
+  end
+
   def field(tag, index)
     tag.form_field(@template, index) do |tag_input|
 

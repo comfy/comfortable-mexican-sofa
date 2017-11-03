@@ -19,6 +19,10 @@ body#comfy.in-iframe
 
 body#comfy
 
+  .alert
+    border-radius: 0
+    margin: 0 -15px 1rem -15px
+    text-align: center
 
   #cms-left
     position: fixed
@@ -106,17 +110,31 @@ body#comfy
       padding: 10px 10px 5px 10px
       margin-bottom: 1rem
       .categories
-
         .category, .edit_category
           display: inline-block
           margin-bottom: 5px
-
         .toggle-cat-edit
           float: right
           margin-left: 5px
-
         &.editable
           display: none
+
+    ul.list
+      padding: 0
+      li
+        padding: 0.5rem 0
+        margin-bottom: 0.5rem
+      li:hover
+        background-color: $gray-100
+      .item-title
+        font-size: 1.2rem
+        color: $black
+        a
+          color: $black
+      .item-meta
+        font-size: 0.75rem
+
+
 
 
 

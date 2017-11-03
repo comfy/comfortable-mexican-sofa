@@ -2,14 +2,12 @@
   = link_to t('.new_link'), new_comfy_admin_cms_site_path, class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
-= render 'comfy/admin/cms/partials/sites_before'
+= render "comfy/admin/cms/partials/sites_before"
 
-%table.table.table-hover.table-bordered
+%ul.list
   - @sites.each do |site|
-    %tr
-      %td
-        .icon
-      %td.main
+    %li.row
+      .col-lg-8
         .item-title
           = link_to site.label, comfy_admin_cms_site_pages_path(site)
         .item-meta
@@ -17,11 +15,11 @@
             = site.identifier
             = "(#{site.locale})"
           .host
-            = link_to site.url, site.url, :target => '_blank'
-      %td
-        .btn-group.btn-group-sm
-          = link_to t('.select'),  comfy_admin_cms_site_pages_path(site), :class => 'btn btn-default'
-          = link_to t('.edit'), edit_comfy_admin_cms_site_path(site), :class => 'btn btn-default'
-          = link_to t('.delete'), comfy_admin_cms_site_path(site), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+            = link_to site.url, site.url, target: '_blank'
+      .col-lg-4
+        .btn-group.btn-group-sm.float-lg-right
+          = link_to t('.select'),  comfy_admin_cms_site_pages_path(site), class: 'btn btn-secondary'
+          = link_to t('.edit'), edit_comfy_admin_cms_site_path(site), class: 'btn btn-secondary'
+          = link_to t('.delete'), comfy_admin_cms_site_path(site), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
 
 = render 'comfy/admin/cms/partials/sites_after'
