@@ -1,10 +1,10 @@
 .page-header
-  = link_to t('.new_link'), new_comfy_admin_cms_site_snippet_path(@site), class: "btn btn-light pull-right"
+  = link_to t('.new_link'), new_comfy_admin_cms_site_snippet_path(@site), class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
 = render 'comfy/admin/cms/partials/snippets_before'
 
-= render :partial => 'comfy/admin/cms/categories/index', :object => 'Comfy::Cms::Snippet'
+= render "comfy/admin/cms/categories/index", type: "Comfy::Cms::Snippet"
 
 %table.table.table-hover.table-bordered
   %tbody.sortable

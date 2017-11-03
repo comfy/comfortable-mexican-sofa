@@ -1,7 +1,7 @@
 $('.categories-widget .categories.editable form#new_category').before(
-  '<%= escape_javascript(render :partial => "show", :object => @category ) %>'
+  '<%= escape_javascript(render "show", category: @category) %>'
 );
 $('.categories-widget .categories.read').append(
-  '<%= escape_javascript(render :partial => "show", :object => @category, :locals => { :read => true }) %>'
+  '<%= escape_javascript(render "show", category: @category, read: true) %>'
 );
 $('.categories-widget .categories.editable form#new_category input#category_label').val('');

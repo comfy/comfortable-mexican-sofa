@@ -19,24 +19,6 @@ body#comfy.in-iframe
 
 body#comfy
 
-  #cms-main
-    padding-bottom: 3.5rem
-
-    @media (max-width: map-get($grid-breakpoints, md))
-      padding-top: 3rem
-
-    .page-header
-      margin: 1rem 0
-      border-bottom: 1px solid $gray-300
-
-    .form-actions
-      padding: 0.5rem
-      position: fixed
-      bottom: 0
-      left: 0
-      right: 0
-      z-index: 1000
-      border-top: 1px solid $gray-200
 
   #cms-left
     position: fixed
@@ -99,6 +81,44 @@ body#comfy
 
     @media (max-width: map-get($grid-breakpoints, lg))
       position: relative
+
+  #cms-main
+    padding-bottom: 3.5rem
+
+    @media (max-width: map-get($grid-breakpoints, md))
+      padding-top: 3rem
+
+    .page-header
+      margin: 1rem 0
+      border-bottom: 1px solid $gray-300
+
+    .form-actions
+      padding: 0.5rem
+      position: fixed
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 1000
+      border-top: 1px solid $gray-200
+
+    .categories-widget
+      background-color: $gray-300
+      padding: 10px 10px 5px 10px
+      margin-bottom: 1rem
+      .categories
+
+        .category, .edit_category
+          display: inline-block
+          margin-bottom: 5px
+
+        .toggle-cat-edit
+          float: right
+          margin-left: 5px
+
+        &.editable
+          display: none
+
+
 
 
 
