@@ -121,11 +121,17 @@ body#comfy
 
     ul.list
       padding: 0
-      li
+      li.row
         padding: 0.5rem 0
-        margin-bottom: 0.5rem
-      li:hover
+      li.row:hover
         background-color: $gray-100
+      li.row:after
+        content: ""
+        display: block
+        width: 100%
+        border-bottom: 1px solid $gray-200
+        margin: 0 15px -0.5rem 15px
+
       .item-title
         font-size: 1.2rem
         color: $black
