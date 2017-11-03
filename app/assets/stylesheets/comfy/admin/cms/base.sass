@@ -20,18 +20,23 @@ body#comfy.in-iframe
 body#comfy
 
   #cms-main
-    padding-bottom: 50px
+    padding-bottom: 3.5rem
 
     @media (max-width: map-get($grid-breakpoints, md))
-      padding-top: 60px
+      padding-top: 3rem
+
+    .page-header
+      margin: 1rem 0
+      border-bottom: 1px solid $gray-300
 
     .form-actions
-      padding: 10px 0
+      padding: 0.5rem
       position: fixed
       bottom: 0
       left: 0
       right: 0
       z-index: 1000
+      border-top: 1px solid $gray-200
 
   #cms-left
     position: fixed
@@ -48,6 +53,7 @@ body#comfy
       padding: 1rem
 
       ul.nav
+        width: 100%
         li
           position: relative
           width: 100%
@@ -74,14 +80,25 @@ body#comfy
       a
         color: $gray-500
 
-    @media (max-width: map-get($grid-breakpoints, md))
+    @media (max-width: map-get($grid-breakpoints, lg))
       right: 0
       bottom: auto
       nav.navbar
-        padding: 0.5rem 1rem
+        padding: 0.5rem
       .left-footer
         display: none
 
+  #cms-right
+    background-color: $gray-100
+    position: fixed
+    top: 0
+    bottom: 0
+    right: 0
+    z-index: 999
+    padding: 0
+
+    @media (max-width: map-get($grid-breakpoints, lg))
+      position: relative
 
 
 

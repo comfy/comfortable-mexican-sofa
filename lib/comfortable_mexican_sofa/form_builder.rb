@@ -20,11 +20,14 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
   def form_actions(&block)
     <<~HTML.html_safe
       <div class="form-actions bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-              #{capture(&block)}
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-10">
+                #{capture(&block)}
+              </div>
             </div>
           </div>
         </div>
