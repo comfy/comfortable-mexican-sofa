@@ -32,7 +32,12 @@
 
 = render "comfy/admin/cms/partials/page_form_after", form: form
 
-= form.form_group class: "form-actions" do
-  = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-default", data: { disable_with: false }
-  = form.submit t(@page.new_record?? ".create" : ".update"), class: "btn btn-primary"
-  = link_to t(".cancel"), comfy_admin_cms_site_pages_path, class: "btn btn-link"
+
+.form-actions.bg-light
+  .container
+    .row
+      .col-sm-2
+      .col-sm-10
+        = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-default", data: { disable_with: false }
+        = form.submit t(@page.new_record?? ".create" : ".update"), class: "btn btn-primary"
+        = link_to t(".cancel"), comfy_admin_cms_site_pages_path, class: "btn btn-link"

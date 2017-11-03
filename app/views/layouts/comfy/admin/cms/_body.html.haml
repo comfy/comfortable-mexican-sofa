@@ -1,13 +1,14 @@
 %body#comfy{:class => "c-#{params[:controller].slugify} a-#{params[:action].slugify}"}
 
-  .container-fluid
+  .container-fluid.fill-height
     .row
-      %nav#cms-sidebar.col-lg-2
+      #cms-left.col-lg-2.bg-dark
         = render "layouts/comfy/admin/cms/left"
-      %main.col-lg-10.ml-auto
+      #cms-main.col-lg-8.ml-auto
         = render "layouts/comfy/admin/cms/flash"
         = yield
-        = render "layouts/comfy/admin/cms/footer"
+      #cms-right.col-lg-2
+        = render 'layouts/comfy/admin/cms/right'
 
   = render "layouts/comfy/admin/cms/footer_js"
 

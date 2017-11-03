@@ -13,6 +13,7 @@
 
       - if @site && !@site.new_record?
         %li.nav-item
+
           = active_link_to comfy_admin_cms_site_layouts_path(@site), class: "nav-link" do
             = t('comfy.admin.cms.base.layouts')
         %li.nav-item
@@ -33,3 +34,7 @@
       = render 'comfy/admin/cms/partials/navigation_inner'
 
 = render 'comfy/admin/cms/partials/navigation_after'
+
+.left-footer
+  = link_to 'ComfortableMexicanSofa', 'https://github.com/comfy', :target => '_blank'
+  %span.version= ComfortableMexicanSofa::VERSION
