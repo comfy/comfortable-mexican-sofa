@@ -15,4 +15,20 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       end
     end
   end
+
+  # Wrapper for form action that is sticking to the bottom of the viewport
+  def form_actions(&block)
+    <<~HTML.html_safe
+      <div class="form-actions bg-light">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+              #{capture(&block)}
+            </div>
+          </div>
+        </div>
+      </div>
+    HTML
+  end
 end

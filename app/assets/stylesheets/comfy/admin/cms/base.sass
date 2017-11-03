@@ -19,10 +19,11 @@ body#comfy.in-iframe
 
 body#comfy
 
-
-
   #cms-main
     padding-bottom: 50px
+
+    @media (max-width: map-get($grid-breakpoints, md))
+      padding-top: 100px
 
     .form-actions
       padding: 10px 0
@@ -41,5 +42,6 @@ body#comfy
     z-index: 1001
 
     @media (max-width: map-get($grid-breakpoints, md))
-      position: relative
+      right: 0
+      bottom: auto
 

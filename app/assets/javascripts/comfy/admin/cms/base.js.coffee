@@ -16,7 +16,6 @@ window.CMS.init = ->
   CMS.page_fragments()
   CMS.page_file_popovers()
   CMS.page_update_preview()
-  CMS.page_update_publish()
   CMS.categories()
   CMS.files()
 
@@ -154,19 +153,6 @@ window.CMS.page_update_preview = ->
     $(this).parents('form').attr('target', '')
   $('input[name=preview]').click ->
     $(this).parents('form').attr('target', 'comfy-cms-preview')
-
-
-window.CMS.page_update_publish = ->
-  widget = $('#form-save')
-  $('input', widget).prop('checked', $('input#page_is_published').is(':checked'))
-  $('button', widget).html($('input[name=commit]').val())
-
-  $('input', widget).click ->
-    $('input#page_is_published').prop('checked', $(this).is(':checked'))
-  $('input#page_is_published').click ->
-    $('input', widget).prop('checked', $(this).is(':checked'))
-  $('button', widget).click ->
-    $('input[name=commit]').click()
 
 
 window.CMS.categories = ->

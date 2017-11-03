@@ -30,6 +30,6 @@
             %th= t('.current')
             %td.main.diff
 
-= comfy_form_for @revision, :url => {:action => :revert} do |form|
-  = form.form_group :class => 'form-actions' do
+= comfy_form_for @revision, url: {action: :revert} do |form|
+  = form.form_actions do
     = form.submit t('.update'), :class => 'btn btn-primary'
