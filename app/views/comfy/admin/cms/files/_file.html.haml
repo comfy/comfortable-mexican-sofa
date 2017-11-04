@@ -1,32 +1,31 @@
-%li.row{id: dom_id(file)}
+%li{id: dom_id(file)}
+  .row
+    .col-md-7.item
+      .item-controls.d-none.d-lg-block
+        - if !params[:categories].present? && @site.files.count > 1
+          .dragger
+            = fa_icon("bars")
+      .item-content
+        .item-title
+          - if file.attachment.image?
+            - variant = file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
+            - thumb = image_tag variant, size: "200x150"
+          = link_to file.attachment, target: "_blank", data: {toggle: "page-file-popover", content: thumb} do
+            = file.label
 
-  .col-md-7
+          = render partial: "comfy/admin/cms/categories/categories", object: file
 
-    .item-title
-      - if file.attachment.image?
-        - variant = file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
-        - thumb = image_tag variant, size: "200x150"
-      = link_to file.attachment, target: "_blank", data: {toggle: "page-file-popover", content: thumb} do
-        = file.label
+        .item-meta
+          .content-type
+            = truncate(file.attachment.content_type)
+          .file-size
+            = number_to_human_size(file.attachment.byte_size)
 
-      = render partial: "comfy/admin/cms/categories/categories", object: file
+    .col-md-2.d-flex.align-items-center
+      - file_tag = "{{cms:file_link #{file.id} }}"
+      %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
 
-    .item-meta
-      .content-type
-        = truncate(file.attachment.content_type)
-      .file-size
-        = number_to_human_size(file.attachment.byte_size)
-
-  .col-md-2.d-flex.align-items-center
-    - file_tag = "{{cms:file_link #{file.id} }}"
-    %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
-
-  .col-md-3.d-flex.align-items-center.justify-content-md-end
-
-    - if !params[:categories].present? && @site.files.count > 1
-      %span.dragger.d-none.d-lg-inline
-        = fa_icon("bars")
-
-    .btn-group.btn-group-sm
-      = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), class: "btn btn-outline-secondary"
-      = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: "btn btn-danger"
+    .col-md-3.d-flex.align-items-center.justify-content-md-end
+      .btn-group.btn-group-sm
+        = link_to t('.edit'), edit_comfy_admin_cms_site_file_path(@site, file), class: "btn btn-outline-secondary"
+        = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, file), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: "btn btn-danger"

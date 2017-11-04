@@ -6,21 +6,23 @@
 
 %ul.list
   - @sites.each do |site|
-    %li.row
-      .col-md-8
-        .item-title
-          = link_to site.label, comfy_admin_cms_site_pages_path(site)
-        .item-meta
-          .identifier
-            = site.identifier
-            = "(#{site.locale})"
-          .host
-            = link_to site.url, site.url, target: '_blank'
+    %li
+      .row
+        .col-md-8.item
+          .item-content
+            .item-title
+              = link_to site.label, comfy_admin_cms_site_pages_path(site)
+            .item-meta
+              .identifier
+                = site.identifier
+                = "(#{site.locale})"
+              .host
+              = link_to site.url, site.url, target: '_blank'
 
-      .col-md-4.d-flex.align-items-center.justify-content-md-end
-        .btn-group.btn-group-sm
-          = link_to t('.select'),  comfy_admin_cms_site_pages_path(site), class: 'btn btn-outline-secondary'
-          = link_to t('.edit'), edit_comfy_admin_cms_site_path(site), class: 'btn btn-outline-secondary'
-          = link_to t('.delete'), comfy_admin_cms_site_path(site), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
+        .col-md-4.d-flex.align-items-center.justify-content-md-end
+          .btn-group.btn-group-sm
+            = link_to t('.select'),  comfy_admin_cms_site_pages_path(site), class: 'btn btn-outline-secondary'
+            = link_to t('.edit'), edit_comfy_admin_cms_site_path(site), class: 'btn btn-outline-secondary'
+            = link_to t('.delete'), comfy_admin_cms_site_path(site), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
 
 = render 'comfy/admin/cms/partials/sites_after'
