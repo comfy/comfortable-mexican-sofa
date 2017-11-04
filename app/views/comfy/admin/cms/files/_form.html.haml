@@ -3,12 +3,16 @@
 = form.text_field :label
 = form.file_field :file
 
+// TODO replace with form_group when it's fixed: https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/353
 - unless @file.new_record?
-  = form.form_group t('.current_file') do
-    - if @file.attachment.image?
-      .file-image
-        = image_tag @file.attachment
-    = link_to @file.attachment.filename, @file.attachment, target: '_blank'
+  .form-group.row
+    .col-sm-2.text-lg-right
+      = t('.current_file')
+    .col-sm-10
+      - if @file.attachment.image?
+        .file-image
+          = image_tag @file.attachment
+      = link_to @file.attachment.filename, @file.attachment, target: '_blank'
 
 = form.text_area :description
 
@@ -16,7 +20,7 @@
 
 = render 'comfy/admin/cms/partials/file_form_after', form: form
 
-= form.form_group class: 'form-actions' do
+= form.form_actions do
   = form.submit t(@file.new_record?? '.create' : '.update'), class: 'btn btn-primary'
   - unless @file.new_record?
     = link_to t('.delete'), comfy_admin_cms_site_file_path(@site, @file), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'

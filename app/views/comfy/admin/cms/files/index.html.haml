@@ -1,5 +1,6 @@
 #cms-uploader
   #cms-uploader-drag-drop-target
+
   .page-header
     = link_to t('.new_link'), new_comfy_admin_cms_site_file_path(@site), class: "btn btn-secondary pull-right", id: "cms-uploader-browse"
     %h2= t('.title')
@@ -10,9 +11,8 @@
 
   = comfy_paginate @files
 
-  %table.table.table-hover.table-bordered
-    %tbody.sortable.cms-uploader-filelist
-      = render partial: "file", collection: @files
+  %ul.list.sortable.cms-uploader-filelist
+    = render partial: "file", collection: @files
 
   = render 'comfy/admin/cms/partials/files_after'
 

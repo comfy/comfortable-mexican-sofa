@@ -3,6 +3,6 @@
     - if attachment.image?
       - variant = attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
       - thumb = image_tag variant, size: "200x150"
-    .file{id: dom_id(attachment), data: {toggle: "page-file-popover", content: thumb}}
-      = link_to attachment.filename, attachment
+    .file
+      = link_to attachment.filename, attachment, {data: {toggle: "page-file-popover", content: thumb}}
       = check_box_tag "page[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: nil

@@ -13,19 +13,18 @@
       fileList = $(".cms-uploader-filelist", target)
 
       fileList.prepend("
-        <tr id='#{file.id}' class='temp'>
-          <td><div class='icon'></div></td>
-          <td class='main' colspan=2>
+        <li id='#{file.id}' class='row temp'>
+          <div class='col-md-9 d-flex align-items-center'>
             <div class='progress'>
-              <div class='progress-bar progress-bar-striped active'>
+              <div class='progress-bar progress-bar-striped progress-bar-animated'>
                 <span>#{file.name}</span>
               </div>
             </div>
-          </td>
-          <td>
+          </div>
+          <div class='col-md-3 d-flex align-items-center justify-content-md-end'>
             <a class='btn btn-sm btn-danger pull-right cms-uploader-file-delete' href='#'>Delete</a>
-          </td>
-        </tr>
+          </div>
+        </li>
       ")
 
       $("#" + file.id + " a.cms-uploader-file-delete").click (e) ->
@@ -124,7 +123,7 @@
     uploader.bind "FileUploaded", (up, file, info) ->
       # Replace the dummy file entry in the file list with the the entry
       # from the server response.
-      $("tr##{file.id}").replaceWith(info.response)
+      $("li##{file.id}").replaceWith(info.response)
 
     uploader.bind 'FilesRemoved', (up, files) ->
       $.each files, (i, file) ->

@@ -122,7 +122,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       }
       assert_response :success
       assert_no_select "body"
-      assert_select "tr[id=comfy_cms_file_#{Comfy::Cms::File.last.id}]"
+      assert_select "li[id=comfy_cms_file_#{Comfy::Cms::File.last.id}]"
     end
   end
 

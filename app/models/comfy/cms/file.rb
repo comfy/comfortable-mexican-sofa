@@ -31,6 +31,13 @@ class Comfy::Cms::File < ActiveRecord::Base
     where("active_storage_blobs.content_type LIKE 'image/%'").references(:blob)
   }
 
+  # -- Instance Methods --------------------------------------------------------
+  def label
+    l = read_attribute(:label)
+    return l if l.present?
+    attachment.attached?? attachment.filename.to_s : nil
+  end
+
 protected
 
   def assign_position
