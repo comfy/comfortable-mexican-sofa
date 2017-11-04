@@ -12,8 +12,8 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
     @pages_by_parent = pages_grouped_by_parent
 
-    if params[:category].present?
-      @pages = @site.pages.includes(:categories).for_category(params[:category]).order('label')
+    if params[:categories].present?
+      @pages = @site.pages.includes(:categories).for_category(params[:categories]).order('label')
     else
       @pages = [@site.pages.root].compact
     end

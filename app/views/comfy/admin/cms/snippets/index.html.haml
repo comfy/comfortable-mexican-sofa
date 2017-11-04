@@ -6,24 +6,24 @@
 
 = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::Snippet"
 
-%table.table.table-hover.table-bordered
-  %tbody.sortable
-    - @snippets.each do |snippet|
-      %tr{:id => dom_id(snippet)}
-        %td
-          .icon
-            - if !params[:category].present? && @site.snippets.count > 1
-              .dragger
-                %span &#8645;
-        %td.main
-          .item-title
-            = link_to snippet.label, edit_comfy_admin_cms_site_snippet_path(@site, snippet)
-            = render :partial => 'comfy/admin/cms/categories/categories', :object => snippet
-          .item-meta
-            = snippet.identifier
-        %td
-          .btn-group.btn-group-sm
-            = link_to t('.edit'), edit_comfy_admin_cms_site_snippet_path(@site, snippet), :class => 'btn btn-default'
-            = link_to t('.delete'), comfy_admin_cms_site_snippet_path(@site, snippet), :method => :delete, :data => {:confirm => t('.are_you_sure')}, :class => 'btn btn-danger'
+%ul.list.sortable
+  - @snippets.each do |snippet|
+    %li.row{id: dom_id(snippet)}
+      .col-md-8
+        .item-title
+          = link_to snippet.label, edit_comfy_admin_cms_site_snippet_path(@site, snippet)
+          = render "comfy/admin/cms/categories/categories", object: snippet
+        .item-meta
+          = snippet.identifier
+
+
+      .col-md-4.d-flex.align-items-center.justify-content-md-end
+        - if !params[:category].present? && @site.snippets.count > 1
+          %span.dragger.d-none.d-lg-inline
+            = fa_icon("bars")
+
+        .btn-group.btn-group-sm
+          = link_to t('.edit'), edit_comfy_admin_cms_site_snippet_path(@site, snippet), class: 'btn btn-outline-secondary'
+          = link_to t('.delete'), comfy_admin_cms_site_snippet_path(@site, snippet), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
 
 = render 'comfy/admin/cms/partials/snippets_after'

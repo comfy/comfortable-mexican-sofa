@@ -111,7 +111,7 @@ window.CMS.codemirror = ->
 
 window.CMS.sortable_list = ->
   $('.sortable').sortable
-    handle: 'div.dragger'
+    handle: '.dragger'
     axis:   'y'
     update: ->
       $.post("#{CMS.current_path}/reorder", "_method=put&#{$(this).sortable('serialize')}")

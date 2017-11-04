@@ -29,7 +29,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     )
     category.categorizations.create!(categorized: comfy_cms_pages(:child))
 
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {category: category.label}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {categories: category.label}
     assert_response :success
     assert assigns(:pages)
     assert_equal 1, assigns(:pages).count
@@ -37,7 +37,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_index_with_category_invalid
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {category: 'invalid'}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {categories: "invalid"}
     assert_response :success
     assert assigns(:pages)
     assert_equal 0, assigns(:pages).count

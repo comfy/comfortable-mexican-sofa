@@ -28,7 +28,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
     )
     category.categorizations.create!(categorized: @snippet)
 
-    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {category: category.label}
+    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {categories: category.label}
     assert_response :success
     assert assigns(:snippets)
     assert_equal 1, assigns(:snippets).count
@@ -36,7 +36,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_get_index_with_category_invalid
-    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {category: 'invalid'}
+    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {categories: 'invalid'}
     assert_response :success
     assert assigns(:snippets)
     assert_equal 0, assigns(:snippets).count
