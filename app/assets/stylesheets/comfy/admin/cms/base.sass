@@ -1,10 +1,9 @@
 body#comfy.in-iframe
-  background: #fff
-  .left-column, .right-column, .body-footer
+  height: 100%
+  #cms-left, #cms-right
     display: none
-  .body-wrapper .center-column
-    background: #fff
-    margin: 0
+  #cms-main
+    padding-top: 0
 
 body#comfy
 
@@ -154,17 +153,24 @@ body#comfy
         ul.list
           padding-left: 2rem
 
-
-body#comfy.c-comfy-admin-cms-files
-  ul.list
-    input.file-path
-      border: 0
-      color: $gray-500
-      background: inherit
-    .progress
+  // -- Files ------------------------------------------------------------------
+  .cms-files-modal
+    z-index: 99999
+    iframe
       width: 100%
-      height: 25px
-  form
-    .file-image
-      img
+      height: 100%
+      border: 0
+
+  &.c-comfy-admin-cms-files
+    ul.list
+      input.file-path
+        border: 0
+        color: $gray-500
+        background: inherit
+      .progress
         width: 100%
+        height: 25px
+    form
+      .file-image
+        img
+          width: 100%
