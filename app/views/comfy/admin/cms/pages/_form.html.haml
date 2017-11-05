@@ -20,11 +20,12 @@
 
 = render "form_fragments"
 
-= form.form_group :is_published do
-  = form.check_box :is_published, label: t('.is_published')
+.row
+  .col-sm-2
+  .col-sm-10
+    = form.check_box :is_published, label: t('.is_published')
 
 = render "comfy/admin/cms/partials/page_form_after", form: form
-
 
 = form.form_actions do
   = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-default", data: {disable_with: false}
