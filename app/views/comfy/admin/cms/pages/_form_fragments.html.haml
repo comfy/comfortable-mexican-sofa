@@ -30,7 +30,8 @@
             - frag_index = 0
             - namespace.each_with_index do |(name, tags), index|
               .tab-pane{id: "ns-#{name}", class: index == 0 ? "active" : nil}
-                - tags.each_with_index do |tag, index|
-                  = fragments.field(tag, index)
+                - tags.each do |tag|
+                  = fragments.field(tag, frag_index)
+                  - frag_index += 1
 - rescue
   - Rails.env.production?? nil : raise
