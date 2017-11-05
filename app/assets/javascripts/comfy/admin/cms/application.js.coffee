@@ -10,7 +10,8 @@
 #= require codemirror/addons/edit/closetag
 #= require popper
 #= require bootstrap
-#= require comfy/admin/cms/lib/bootstrap-datetimepicker
+#= require comfy/admin/cms/lib/flatpickr.min
+#= require_directory ./lib/flatpickr/i18n/
 #= require comfy/admin/cms/lib/diff/diff_match_patch.min
 #= require comfy/admin/cms/lib/diff/pretty_text_diff
 #= require comfy/admin/cms/lib/redactor

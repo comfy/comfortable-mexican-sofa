@@ -119,14 +119,14 @@ window.CMS.sortable_list = ->
 
 
 window.CMS.timepicker = ->
-  $('input[type=text][data-cms-datetime]').datetimepicker
+  $('input[type=text][data-cms-datetime]').flatpickr
     format:     'yyyy-mm-dd hh:ii'
-    minView:    0
-    autoclose:  true
-  $('input[type=text][data-cms-date]').datetimepicker
-    format:     'yyyy-mm-dd'
-    minView:    2
-    autoclose:  true
+    enableTime: true
+    locale:     CMS.locale
+
+  $('input[type=text][data-cms-date]').flatpickr
+    format: 'yyyy-mm-dd',
+    locale: CMS.locale
 
 
 window.CMS.page_fragments = ->
