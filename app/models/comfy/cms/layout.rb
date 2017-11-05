@@ -50,7 +50,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
         filename.gsub!("#{full_path}/layouts/", '')
         filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
       end.compact.sort
-    end.compact.sort
+    end.compact.uniq.sort
   end
 
   # -- Instance Methods --------------------------------------------------------
