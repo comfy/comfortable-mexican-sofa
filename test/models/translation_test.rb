@@ -19,10 +19,19 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_has_errors_on translation, :page, :layout, :locale, :label
   end
 
-  def test_validation_on_locale
+  def test_validation_on_locale_uniqueness
     translation = @page.translations.new(
       label: "Test",
       locale: comfy_cms_translations(:default).locale
+    )
+    assert translation.invalid?
+    assert_has_errors_on translation, :locale
+  end
+
+  def test_validation_on_locale_uniqueness_against_site
+    translation = @page.translations.new(
+      label: "Test",
+      locale: comfy_cms_sites(:default).locale
     )
     assert translation.invalid?
     assert_has_errors_on translation, :locale

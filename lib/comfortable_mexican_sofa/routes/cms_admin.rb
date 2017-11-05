@@ -1,12 +1,10 @@
 class ActionDispatch::Routing::Mapper
 
-  def comfy_route_cms_admin(options = {})
-    options[:path] ||= 'admin'
-
+  def comfy_route_cms_admin(path: "admin")
     scope module: :comfy, as: :comfy do
       scope module: :admin do
-        namespace :cms, as: :admin_cms, path: options[:path], except: :show do
-          get '/', to: 'base#jump'
+        namespace :cms, as: :admin_cms, path: path, except: :show do
+          get "/", to: "base#jump"
 
           concern :with_revisions do
             resources :revisions, only: [:index, :show, :revert] do
@@ -23,6 +21,8 @@ class ActionDispatch::Routing::Mapper
             resources :pages, concerns: [:with_revisions, :with_reorder] do
               get  :form_fragments, on: :member
               get  :toggle_branch,  on: :member
+
+              resources :translations, except: [:index], concerns: [:with_revisions]
             end
 
             resources :files, concerns: [:with_reorder]

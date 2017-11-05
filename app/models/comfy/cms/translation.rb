@@ -16,7 +16,14 @@ class Comfy::Cms::Translation < ActiveRecord::Base
     presence:   true,
     uniqueness: {scope: :page_id}
 
+  validate :validate_locale
+
 private
+
+  def validate_locale
+    return unless self.page
+    errors.add(:locale) if self.locale == self.page.site.locale
+  end
 
   def assign_layout
     self.layout ||= self.page.layout if self.page.present?
