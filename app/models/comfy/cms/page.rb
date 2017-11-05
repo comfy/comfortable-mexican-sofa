@@ -14,6 +14,9 @@ class Comfy::Cms::Page < ActiveRecord::Base
     class_name: 'Comfy::Cms::Page',
     optional:   true
 
+  has_many :translations,
+    dependent: :destroy
+
   has_many :fragments,
     autosave:  true,
     dependent: :destroy

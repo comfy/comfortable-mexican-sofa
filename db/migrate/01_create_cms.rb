@@ -27,7 +27,6 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.text    :css,         limit: LIMIT
       t.text    :js,          limit: LIMIT
       t.integer :position,    null: false, default: 0
-      t.boolean :is_shared,   null: false, default: false
       t.timestamps
 
       t.index [:parent_id, :position]
@@ -47,14 +46,24 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer :position,        null: false, default: 0
       t.integer :children_count,  null: false, default: 0
       t.boolean :is_published,    null: false, default: true
-      t.boolean :is_shared,       null: false, default: false
       t.timestamps
 
       t.index [:site_id, :full_path]
       t.index [:parent_id, :position]
     end
 
-    # -- Page Fragments --------------------------------------------------------
+    create_table :comfy_cms_translations, force: true do |t|
+      t.string  :locale,    null: false
+      t.integer :page_id,   null: false
+      t.integer :layout_id
+      t.string  :label,           null: false
+      t.text    :content_cache,   limit: LIMIT
+
+      t.index [:page_id]
+      t.index [:locale]
+    end
+
+    # -- Fragments -------------------------------------------------------------
     create_table :comfy_cms_fragments, force: true do |t|
       t.integer     :page_id,     null: false
       t.string      :identifier,  null: false
@@ -77,7 +86,6 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string  :identifier,  null: false
       t.text    :content,     limit: LIMIT
       t.integer :position,    null: false, default: 0
-      t.boolean :is_shared,   null: false, default: false
       t.timestamps
 
       t.index [:site_id, :identifier], unique: true

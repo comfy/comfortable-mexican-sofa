@@ -309,9 +309,11 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_cascading_destroy
-    assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Fragment.count', -4 do
-        @page.destroy
+    assert_count_difference [Comfy::Cms::Page], -2 do
+      assert_count_difference [Comfy::Cms::Fragment], -4 do
+        assert_count_difference [Comfy::Cms::Translation], -1 do
+          @page.destroy
+        end
       end
     end
   end

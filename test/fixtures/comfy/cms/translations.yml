@@ -1,0 +1,5 @@
+default:
+  page: default
+  layout: default
+  locale: fr
+  label: Default Translation
