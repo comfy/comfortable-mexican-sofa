@@ -189,9 +189,8 @@ it:
           show:
             title: Revisioni per
             revision: Revisione
-            full_path: Percorso intero
-            slug: Slug
             update: Aggiorna a questa revisione
+            cancel: Cancellare
             content: Contenuto
             changes: Cambiamenti
             previous: Precedente

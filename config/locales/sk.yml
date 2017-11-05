@@ -189,9 +189,8 @@ sk:
           show:
             title: Revízia pre
             revision: Revízia
-            full_path: Celá cesta
-            slug: Strojový názov
             update: Použiť túto revíziu
+            cancel: Zrušiť
             content: Obsah
             changes: Zmeny
             previous: Predchádzajúca

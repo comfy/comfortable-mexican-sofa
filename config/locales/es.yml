@@ -189,9 +189,8 @@ es:
           show:
             title: Revisiones de
             revision: Revisión
-            full_path: Ruta completa
-            slug: Identificador
             update: Actualizar a esta versión
+            cancel: Cancelar
             content: Content
             changes: Changes
             previous: Previous

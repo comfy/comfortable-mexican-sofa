@@ -18,6 +18,7 @@ window.CMS.init = ->
   CMS.page_update_preview()
   CMS.categories()
   CMS.files()
+  CMS.diff()
 
 window.CMS.slugify = ->
   slugify = (str) ->
@@ -163,6 +164,13 @@ window.CMS.categories = ->
     $('.edit', '.categories-widget').toggle()
     $('.done', '.categories-widget').toggle()
 
+
+window.CMS.diff = ->
+  $(".revision").prettyTextDiff
+    cleanup:            true
+    originalContainer:  '.original'
+    changedContainer:   '.current'
+    diffContainer:      '.diff .content'
 
 # If we are inside an iframe remove the columns and just keep the center column content.
 # This is used for the files widget that opens in a modal window.

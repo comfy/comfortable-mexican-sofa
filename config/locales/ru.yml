@@ -189,9 +189,8 @@ ru:
           show:
             title: Ревизии для
             revision: Ревизия
-            full_path: Полный путь
-            slug: Ссылка
             update: Обновить до этой ревизии
+            cancel: Oтменить
             content: Content
             changes: Changes
             previous: Previous

@@ -189,9 +189,8 @@ nl:
           show:
             title: Revisies van
             revision: Revisie
-            full_path: Volledig Pad
-            slug: Slug
             update: Zet terug naar deze Revisie
+            cancel: Annuleren
             content: Content
             changes: Changes
             previous: Previous

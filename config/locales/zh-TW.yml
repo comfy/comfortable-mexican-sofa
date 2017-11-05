@@ -189,9 +189,8 @@ zh-TW:
           show:
             title: 修訂版本屬於
             revision: 修訂版本
-            full_path: 全路徑
-            slug: 嵌條
             update: 更新到該修訂版本
+            cancel: 取消
             content: 內容
             changes: 變更
             previous: 先前

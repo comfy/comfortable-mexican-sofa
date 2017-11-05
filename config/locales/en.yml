@@ -189,9 +189,8 @@ en:
           show:
             title: Revisions for
             revision: Revision
-            full_path: Full Path
-            slug: Slug
             update: Update to this Revision
+            cancel: Cancel
             content: Content
             changes: Changes
             previous: Previous

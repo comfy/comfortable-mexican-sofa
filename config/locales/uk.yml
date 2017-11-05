@@ -189,9 +189,8 @@ uk:
           show:
             title: Ревізія для
             revision: Ревізія
-            full_path: Повний Шлях
-            slug: Посилання
             update: Оновити до цієї ревізії
+            cancel: Cкасувати
             content: Зміст
             changes: Зміни
             previous: Попередній

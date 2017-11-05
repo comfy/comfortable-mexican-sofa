@@ -189,9 +189,8 @@ de:
           show:
             title: Versionen von
             revision: Version
-            full_path: Vollständiger Pfad
-            slug: URL
             update: Zurücksetzen auf gewählte Version
+            cancel: Abbrechen
             content: Inhalt
             changes: Änderungen
             previous: Vorherige Version

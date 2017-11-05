@@ -189,9 +189,8 @@ ja:
           show:
             title: リビジョン
             revision: リビジョン
-            full_path: フルパス
-            slug: スラッグ
             update: このリビジョンに更新
+            cancel: キャンセル
             content: Content
             changes: Changes
             previous: Previous

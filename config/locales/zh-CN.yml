@@ -189,9 +189,8 @@ zh-CN:
           show:
             title: 修订版本属于
             revision: 修订版本
-            full_path: 全路径
-            slug: 嵌条
             update: 更新到该修订版本
+            cancel: 取消
             content: Content
             changes: Changes
             previous: Previous

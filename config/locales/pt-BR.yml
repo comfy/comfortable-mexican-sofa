@@ -189,9 +189,8 @@ pt-BR:
           show:
             title: Revisões de
             revision: Revisão
-            full_path: Caminho completo
-            slug: Identificador
             update: Atualizar para esta revisão
+            cancel: Cancelar
             content: Content
             changes: Changes
             previous: Previous

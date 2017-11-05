@@ -189,9 +189,8 @@ cs:
           show:
             title: Revize pro
             revision: Revize
-            full_path: Celá cesta
-            slug: Slug
             update: Použít tuto revizi
+            cancel: Zrušit
             content: Obsah
             changes: Změny
             previous: Předchozí

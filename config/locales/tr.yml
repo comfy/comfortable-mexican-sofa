@@ -189,9 +189,8 @@ tr:
           show:
             title: Revizeler
             revision: Revizyon
-            full_path: Tam Yol
-            slug: Slug
             update: Bu revizyona Güncelle
+            cancel: İptal
             content: İçerik
             changes: Değişiklikler
             previous: Önceki

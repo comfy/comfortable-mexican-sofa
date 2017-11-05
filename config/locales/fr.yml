@@ -189,9 +189,8 @@ fr:
           show:
             title: "Révisions :"
             revision: révision
-            full_path: Chemin complet
-            slug: Identifiant
             update: Restaurer cette révision
+            cancel: Annuler
             content: Content
             changes: Changes
             previous: Previous

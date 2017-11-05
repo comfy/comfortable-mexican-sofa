@@ -189,9 +189,8 @@ pl:
           show:
             title: Wersje dla
             revision: Wersja
-            full_path: Pełna ścieżka
-            slug: Ścieżka
             update: Uaktualnij do tej wersji
+            cancel: Anuluj
             content: Pole
             changes: Wersje
             previous: Historyczna

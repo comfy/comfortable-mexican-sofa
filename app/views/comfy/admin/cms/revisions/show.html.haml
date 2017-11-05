@@ -2,34 +2,38 @@
   %h2
     = t('.title')
     = @record.class.to_s.demodulize
-  %h4
-    = @record.is_a?(::Comfy::Cms::Page) ? "#{t('.full_path')}: #{@record.full_path}" : "#{t('.slug')}: #{@record.identifier}"
+    - name = @record.is_a?(::Comfy::Cms::Page) ? @record.full_path : @record.identifier
+    = "(#{name})"
 
 - content_for :right_column do
   .box.revisions
     - @record.revisions.each do |revision|
-      = active_link_to l(revision.created_at), :id => revision.id
+      = active_link_to l(revision.created_at, format: :short), {id: revision.id}, class: "btn btn-sm btn-outline-secondary"
 
-%table.table
-  %tr
-    %th= t('.content')
-    %th= t('.changes')
+.row.d-none.d-lg-flex
+  .col-lg-2
+  .col-lg-10
+    .row
+      .col-lg-6
+        .label= t('.previous')
+      .col-lg-6
+        .label= t('.current')
 
-  - @current_content.each do |label, content|
-    %tr
-      %th= label
-      %td.main.with-table
-        %table.table.diff
-          %tr
-            %th= t('.previous')
-            %td.main.original= @versioned_content[label]
-          %tr.hide
-            %th= t('.current')
-            %td.main.changed= content
-          %tr
-            %th= t('.current')
-            %td.main.diff
+- @current_content.each do |label, content|
+  .row.revision
+    .col-lg-2.text-lg-right.bg-light
+      .label= label
+    .col-lg-10
+      .row
+        .col-lg-6
+          .content
+            = safe_join @versioned_content[label].to_s.split("\n"), raw("<br/>")
+        .col-lg-6.diff
+          .original.d-none= @versioned_content[label]
+          .current.d-none= content
+          .content
 
 = comfy_form_for @revision, url: {action: :revert} do |form|
   = form.form_actions do
     = form.submit t('.update'), class: "btn btn-primary"
+    = link_to t(".cancel"), record_path(@record), class: "btn btn-link"

@@ -189,9 +189,8 @@ sv:
           show:
             title: Revisioner för
             revision: Revision
-            full_path: Fullständig sökväg
-            slug: Slug
             update: Ändra till denna revisionen
+            cancel: Avbryt
             content: Content
             changes: Changes
             previous: Previous

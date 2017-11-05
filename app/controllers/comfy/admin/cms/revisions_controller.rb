@@ -4,6 +4,8 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   before_action :load_revision, except: :index
   before_action :authorize
 
+  helper_method :record_path
+
   def index
     redirect_to action: :show, id: @record.revisions.first.try(:id) || 0
   end
@@ -22,7 +24,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   def revert
     @record.restore_from_revision(@revision)
     flash[:success] = I18n.t('comfy.admin.cms.revisions.reverted')
-    redirect_to_record
+    redirect_to record_path
   end
 
 protected
@@ -44,11 +46,11 @@ protected
     @revision = @record.revisions.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.revisions.not_found')
-    redirect_to_record
+    redirect_to record_path
   end
 
-  def redirect_to_record
-    redirect_to case @record
+  def record_path(record = @record)
+    case record
       when ::Comfy::Cms::Layout  then edit_comfy_admin_cms_site_layout_path(@site, @record)
       when ::Comfy::Cms::Page    then edit_comfy_admin_cms_site_page_path(@site, @record)
       when ::Comfy::Cms::Snippet then edit_comfy_admin_cms_site_snippet_path(@site, @record)

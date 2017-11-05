@@ -189,9 +189,8 @@ nb:
           show:
             title: Revisjon for
             revision: Revisjon
-            full_path: Fullstendig sti
-            slug: Sti
             update: Oppdatert til denne revisjonen
+            cancel: Cancel
             content: Innhold
             changes: Endringer
             previous: Forrige

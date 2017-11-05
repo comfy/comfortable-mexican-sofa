@@ -189,9 +189,8 @@ da:
           show:
             title: Revisioner for
             revision: Revision
-            full_path: Fuld sti
-            slug: Slug
             update: Opdater til denne revision
+            cancel: Annuller
             content: Indhold
             changes: Ændringer
             previous: Forrige
