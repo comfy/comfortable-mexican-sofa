@@ -1,6 +1,8 @@
 class Comfy::Cms::Translation < ActiveRecord::Base
   self.table_name = "comfy_cms_translations"
 
+  cms_has_revisions_for :fragments_attributes
+
   # -- Relationships -----------------------------------------------------------
   belongs_to :page
   belongs_to :layout

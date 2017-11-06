@@ -1,4 +1,5 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
+
   before_action :check_for_layouts, only: [:new, :edit]
   before_action :build_cms_page,    only: [:new, :create]
   before_action :load_cms_page,     only: [:edit, :update, :destroy]

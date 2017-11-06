@@ -1,0 +1,11 @@
+//= render 'comfy/admin/cms/partials/translation_form_before', form: form
+
+= form.select :locale, translation_select_options
+
+= form.text_field :label
+
+//= render 'comfy/admin/cms/partials/translation_form_after', form: form
+
+= form.form_actions do
+  = form.submit t(@translation.new_record?? ".create" : ".update"), class: "btn btn-primary"
+  = link_to t(".cancel"), edit_comfy_admin_cms_site_page_path(@site, @page), class: "btn btn-link"

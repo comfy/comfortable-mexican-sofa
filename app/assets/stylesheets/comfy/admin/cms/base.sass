@@ -73,12 +73,18 @@ body#comfy
 
     @media (max-width: map-get($grid-breakpoints, lg))
       position: relative
+      padding-bottom: 3.5rem
+
+    .box
+      padding: 1rem
+      background-color: $white
 
   #cms-main
     padding-bottom: 3.5rem
 
     @media (max-width: map-get($grid-breakpoints, lg))
       padding-top: 3rem
+      padding-bottom: 0
 
     .page-header
       margin: 1rem 0
@@ -211,7 +217,6 @@ body#comfy
           background-color: #ffc6c6
 
     .box.revisions
-      padding: 1rem
       a
         display: block
         margin-bottom: 5px
