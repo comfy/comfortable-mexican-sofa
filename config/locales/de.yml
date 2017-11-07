@@ -44,6 +44,7 @@ de:
       comfy/cms/translation:
         locale: Language
         label: Label
+        layout_id: Layout
 
   comfy:
     cms:
