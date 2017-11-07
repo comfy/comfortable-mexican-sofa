@@ -65,7 +65,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
 
     # -- Fragments -------------------------------------------------------------
     create_table :comfy_cms_fragments, force: true do |t|
-      t.integer     :page_id,     null: false
+      t.references  :record,      polymorphic: true
       t.string      :identifier,  null: false
       t.string      :tag,         null: false, default: "text"
       t.text        :content,     limit: LIMIT

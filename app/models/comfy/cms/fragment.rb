@@ -12,12 +12,12 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
               :add_attachments
 
   # -- Relationships -----------------------------------------------------------
-  belongs_to :page
+  belongs_to :record, polymorphic: true
 
   # -- Validations -------------------------------------------------------------
   validates :identifier,
     presence:   true,
-    uniqueness: {scope: :page_id}
+    uniqueness: {scope: :record}
 
   # -- Instance Methods --------------------------------------------------------
 

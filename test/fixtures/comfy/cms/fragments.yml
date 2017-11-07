@@ -1,24 +1,24 @@
 default:
-  page: default
+  record: default (Comfy::Cms::Page)
   identifier: content
   tag: text
   content: content
 
 file:
-  page: default
+  record: default (Comfy::Cms::Page)
   identifier: file
   tag: file
   content:
 
 datetime:
-  page: default
+  record: default (Comfy::Cms::Page)
   identifier: datetime
   tag: datetime
   content:
   datetime: <%= DateTime.parse("1981-10-04 12:34:56") %>
 
 boolean:
-  page: default
+  record: default (Comfy::Cms::Page)
   identifier: boolean
   tag: checkbox
   content:

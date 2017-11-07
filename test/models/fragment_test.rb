@@ -37,7 +37,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def test_validation
     frag = Comfy::Cms::Fragment.new
     refute frag.valid?
-    assert_has_errors_on frag, :identifier, :page
+    assert_has_errors_on frag, :identifier, :record
   end
 
   def test_content_serialization

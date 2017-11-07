@@ -7,6 +7,8 @@
 - if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {}, 'data-url' => form_fragments_comfy_admin_cms_site_page_path(@site, @translation.id.to_i)
 
+= render "comfy/admin/cms/pages/form_fragments", record: @translation
+
 //= render 'comfy/admin/cms/partials/translation_form_after', form: form
 
 = form.form_actions do

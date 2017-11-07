@@ -1,6 +1,8 @@
 class Comfy::Cms::Translation < ActiveRecord::Base
   self.table_name = "comfy_cms_translations"
 
+  include Comfy::Cms::WithFragments
+
   cms_has_revisions_for :fragments_attributes
 
   # -- Relationships -----------------------------------------------------------

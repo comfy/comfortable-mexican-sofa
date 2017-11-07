@@ -1,5 +1,5 @@
 - begin
-  - nodes = @page.fragment_nodes
+  - nodes = record.fragment_nodes
 
   // Grouping nodes by their namespace
   - namespace = nodes.each_with_object({}) do |n, h|
@@ -9,7 +9,7 @@
   #form-fragments
     - if nodes.empty?
       .no-tags
-        = link_to @page.layout.label, edit_comfy_admin_cms_site_layout_path(@site, @page.layout)
+        = link_to record.layout.label, edit_comfy_admin_cms_site_layout_path(@site, record.layout)
         = t(".no_tags").html_safe
 
     - else
@@ -33,5 +33,6 @@
                 - tags.each do |tag|
                   = fragments.field(tag, frag_index)
                   - frag_index += 1
+
 - rescue
   - Rails.env.production?? nil : raise

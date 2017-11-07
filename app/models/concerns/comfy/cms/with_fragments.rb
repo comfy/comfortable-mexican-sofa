@@ -5,10 +5,11 @@ module Comfy::Cms::WithFragments
     attr_accessor :fragments_attributes_changed
 
     has_many :fragments,
-      autosave:  true,
-      dependent: :destroy
+      as:         :record,
+      autosave:   true,
+      dependent:  :destroy
 
-    before_save       :clear_content_cache
+    before_save :clear_content_cache
   end
 
   # Array of fragment hashes in the following format:
