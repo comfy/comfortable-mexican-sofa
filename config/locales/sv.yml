@@ -40,6 +40,9 @@ sv:
         identifier: Identifierare
         label: Label
         content: Innehåll
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

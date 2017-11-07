@@ -7,6 +7,7 @@ en:
       comfy/cms/page: Page
       comfy/cms/snippet: Snippet
       comfy/cms/file: File
+      comfy/cms/file: Translation
 
     attributes:
       comfy/cms/site:
@@ -40,6 +41,9 @@ en:
         label: Label
         identifier: Identifier
         content: Content
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

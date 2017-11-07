@@ -40,6 +40,9 @@ uk:
         identifier: Ідентифікатор
         label: Назва
         content: Зміст
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

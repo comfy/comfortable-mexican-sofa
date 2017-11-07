@@ -40,6 +40,9 @@ tr:
         label: Etiket
         identifier: Tanımlayıcı
         content: İçerik
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

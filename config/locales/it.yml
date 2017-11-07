@@ -40,6 +40,9 @@ it:
         label: Etichetta
         identifier: Identificatore
         content: Contenuto
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

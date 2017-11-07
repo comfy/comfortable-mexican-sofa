@@ -40,6 +40,9 @@ zh-CN:
         identifier: 标识符
         label: 标签
         content: 内容
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

@@ -40,6 +40,9 @@ es:
         label: Nombre
         identifier: Identifier
         content: Contenido
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

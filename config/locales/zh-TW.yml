@@ -40,6 +40,9 @@ zh-TW:
         identifier: 標識符
         label: 標籤
         content: 內容
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

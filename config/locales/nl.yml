@@ -40,6 +40,9 @@ nl:
         identifier: Identifier
         label: Label
         content: Inhoud
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

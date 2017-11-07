@@ -40,6 +40,9 @@ de:
         identifier: Eindeutiger Name
         label: Bezeichnung
         content: Inhalt
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

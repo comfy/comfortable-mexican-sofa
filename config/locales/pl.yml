@@ -40,6 +40,9 @@ pl:
         identifier: Identyfikator
         label: Tytuł
         content: Zawartość
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

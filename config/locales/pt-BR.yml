@@ -40,6 +40,9 @@ pt-BR:
         identifier: Identificador
         label: Nome
         content: Conteúdo
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

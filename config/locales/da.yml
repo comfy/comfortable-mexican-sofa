@@ -40,6 +40,9 @@ da:
         identifier: Nøgleord
         label: Etiket
         content: Indhold
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

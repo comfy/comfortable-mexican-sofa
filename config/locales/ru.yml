@@ -40,6 +40,9 @@ ru:
         identifier: Идентификатор
         label: Название
         content: Контент
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

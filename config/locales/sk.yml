@@ -40,6 +40,9 @@ sk:
         identifier: Identifikátor
         label: Popis
         content: Obsah
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:

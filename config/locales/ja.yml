@@ -40,6 +40,9 @@ ja:
         identifier: Identifier
         label: ラベル
         content: コンテンツ
+      comfy/cms/translation:
+        locale: Language
+        label: Label
 
   comfy:
     cms:
