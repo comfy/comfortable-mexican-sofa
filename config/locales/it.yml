@@ -15,7 +15,6 @@ it:
         hostname: Indirizzo Host
         path: Percorso
         locale: Lingua
-        is_mirrored: Mirrored
       comfy/cms/layout:
         identifier: Identificatore
         label: Nome Layout
@@ -84,7 +83,6 @@ it:
             create: Crea sito
             cancel: Cancellare
             update: Modifica sito
-            is_mirrored: Mirrored
 
         layouts:
           created: Layout creato

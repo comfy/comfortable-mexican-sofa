@@ -15,7 +15,6 @@ sv:
         hostname: Hostnamn
         path: Sökväg
         locale: Språk
-        is_mirrored: Speglad
       comfy/cms/layout:
         identifier: Identifierare
         label: Layout Namn
@@ -84,7 +83,6 @@ sv:
             create: Skapa Site
             cancel: Avbryt
             update: Uppdatera Site
-            is_mirrored: Speglad
 
         layouts:
           created: Layout skapad

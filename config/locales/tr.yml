@@ -15,7 +15,6 @@ tr:
         hostname: Sunucu Adı
         path: Yol
         locale: Dil
-        is_mirrored: Mirrored
       comfy/cms/layout:
         identifier: Tanımlayıcı
         label: Şablon Adı
@@ -84,7 +83,6 @@ tr:
             create: Siteyi Oluştur
             cancel: İptal
             update: Siteyi Güncelle
-            is_mirrored: Mirrored
 
         layouts:
           created: Şablon oluşturuldu

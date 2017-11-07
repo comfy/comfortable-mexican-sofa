@@ -15,7 +15,6 @@ pt-BR:
         hostname: Nome do Host
         path: Caminho
         locale: Idioma
-        is_mirrored: Espelhado
       comfy/cms/layout:
         identifier: Identificador
         label: Nome do Leiaute
@@ -84,7 +83,6 @@ pt-BR:
             create: Criar Site
             cancel: Cancelar
             update: Atualizar Site
-            is_mirrored: Espelhado
 
         layouts:
           created: Leiaute criado com sucesso.

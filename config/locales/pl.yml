@@ -15,7 +15,6 @@ pl:
         hostname: Nazwa hosta
         path: Ścieżka
         locale: Język
-        is_mirrored: Lustrzana
       comfy/cms/layout:
         identifier: Identyfikator
         label: Szablon
@@ -84,7 +83,6 @@ pl:
             create: Utwórz witrynę
             cancel: Anuluj
             update: Uaktualnij witrynę
-            is_mirrored: Lustrzana
 
         layouts:
           created: Szablon został utworzony

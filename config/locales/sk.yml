@@ -15,7 +15,6 @@ sk:
         hostname: Doména
         path: Cesta
         locale: Jazyk
-        is_mirrored: Zrkadlené
       comfy/cms/layout:
         identifier: Identifikátor
         label: Názov rozloženia
@@ -84,7 +83,6 @@ sk:
             create: Vytvoriť web
             cancel: Zrušiť
             update: Upraviť web
-            is_mirrored: Zrkadlené
 
         layouts:
           created: Rozloženie vytvorené

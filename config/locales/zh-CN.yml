@@ -15,7 +15,6 @@ zh-CN:
         hostname: 主机名
         path: 路径
         locale: 语言
-        is_mirrored: 镜像
       comfy/cms/layout:
         identifier: 标识符
         label: 布局名称
@@ -84,7 +83,6 @@ zh-CN:
             create: 创建站点
             cancel: 取消
             update: 更新站点
-            is_mirrored: 镜像
 
         layouts:
           created: 布局创建成功

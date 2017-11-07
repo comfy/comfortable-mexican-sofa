@@ -15,7 +15,6 @@ fr:
         hostname: Nom d'hôte
         path: Chemin
         locale: Langue
-        is_mirrored: En miroir
       comfy/cms/layout:
         identifier: Identifiant
         label: Nom de la mise en page
@@ -84,7 +83,6 @@ fr:
             create: Créer le site
             cancel: Annuler
             update: Modifier le site
-            is_mirrored: En miroir
 
         layouts:
           created: Mise en page créée

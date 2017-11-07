@@ -15,7 +15,6 @@ cs:
         hostname: Doména
         path: Cesta
         locale: Jazyk
-        is_mirrored: Zrcadlený
       comfy/cms/layout:
         identifier: Identifikátor
         label: Název rozložení
@@ -84,7 +83,6 @@ cs:
             create: Vytvořit web
             cancel: Zrušit
             update: Upravit web
-            is_mirrored: Zrcadlený
 
         layouts:
           created: Rozložení vytvořeno

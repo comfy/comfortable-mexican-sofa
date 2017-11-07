@@ -12,7 +12,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
 
   def show
     case @record
-    when Comfy::Cms::Page
+    when Comfy::Cms::Page, Comfy::Cms::Translation
       @current_content    = @record.fragments.inject({}){|c, b| c[b.identifier] = b.content; c }
       @versioned_content  = @record.fragments.inject({}){|c, b| c[b.identifier] = @revision.data['fragments_attributes'].detect{|r| r[:identifier] == b.identifier}.try(:[], :content); c }
     else

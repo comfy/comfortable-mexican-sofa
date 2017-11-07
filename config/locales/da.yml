@@ -15,7 +15,6 @@ da:
         hostname: Værtsnavn
         path: Sti
         locale: Sprog
-        is_mirrored: Kopieret
       comfy/cms/layout:
         identifier: Nøgleord
         label: Layout Navn
@@ -84,7 +83,6 @@ da:
             create: Opret websted
             cancel: Annuller
             update: Opdater websted
-            is_mirrored: Kopieret websted
 
         layouts:
           created: Layout oprettet

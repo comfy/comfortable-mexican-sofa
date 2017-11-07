@@ -15,7 +15,6 @@ ja:
         hostname: ホスト名
         path: パス
         locale: 言語
-        is_mirrored: ミラーリング済み
       comfy/cms/layout:
         identifier: Identifier
         label: レイアウト名
@@ -84,7 +83,6 @@ ja:
             create: サイトを作成
             cancel: キャンセル
             update: サイトを更新
-            is_mirrored: ミラーリング済み
 
         layouts:
           created: レイアウトが作成されました

@@ -15,7 +15,6 @@ nb:
         hostname: Tjenestenavn
         path: Sti
         locale: Språk
-        is_mirrored: Speilet
       comfy/cms/layout:
         identifier: Identifikator
         label: Layoutnavn
@@ -84,7 +83,6 @@ nb:
             create: Opprett nettside
             cancel: Cancel
             update: Oppdater nettside
-            is_mirrored: Speilet
 
         layouts:
           created: Layout opprettet

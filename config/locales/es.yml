@@ -15,7 +15,6 @@ es:
         hostname: Dirección
         path: Ruta
         locale: Lengua
-        is_mirrored: Espejo
       comfy/cms/layout:
         identifier: Identifier
         label: Nombre de Plantilla
@@ -84,7 +83,6 @@ es:
             create: Crear Sitio
             cancel: Cancelar
             update: Actualizar Sitio
-            is_mirrored: Espejo
 
         layouts:
           created: Diseño Creado

@@ -15,7 +15,6 @@ uk:
         hostname: Ім'я хоста
         path: Шлях
         locale: Мова
-        is_mirrored: Синхронізований з іншими сайтами
       comfy/cms/layout:
         identifier: Ідентифікатор
         label: Назва шаблону
@@ -84,7 +83,6 @@ uk:
             create: Створити сайт
             cancel: Cкасувати
             update: Оновити сайт
-            is_mirrored: Синхронізований
 
         layouts:
           created: Шаблон створено

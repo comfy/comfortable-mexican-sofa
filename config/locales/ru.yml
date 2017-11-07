@@ -15,7 +15,6 @@ ru:
         hostname: Имя хоста
         path: Путь
         locale: Язык
-        is_mirrored: Синхронизирован с другими сайтами
       comfy/cms/layout:
         identifier: Идентификатор
         label: Название шаблона
@@ -84,7 +83,6 @@ ru:
             create: Создать сайт
             cancel: Oтменить
             update: Обновить сайт
-            is_mirrored: Синхронизирован с другими сайтами
 
         layouts:
           created: Шаблон создан

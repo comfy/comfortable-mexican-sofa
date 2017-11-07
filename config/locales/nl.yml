@@ -15,7 +15,6 @@ nl:
         hostname: Hostname
         path: Pad
         locale: Taal
-        is_mirrored: Gespiegeld
       comfy/cms/layout:
         identifier: Identifier
         label: Lay-out Naam
@@ -84,7 +83,6 @@ nl:
             create: Site Aanmaken
             cancel: Annuleren
             update: Site Bijwerken
-            is_mirrored: Gespiegeld
 
         layouts:
           created: Lay-out aangemaakt

@@ -15,7 +15,6 @@ zh-TW:
         hostname: 主機名
         path: 路徑
         locale: 語言
-        is_mirrored: 鏡像
       comfy/cms/layout:
         identifier: 標識符
         label: 佈局名稱
@@ -84,7 +83,6 @@ zh-TW:
             create: 創建站點
             cancel: 取消
             update: 更新站點
-            is_mirrored: 鏡像
 
         layouts:
           created: 佈局創建成功
