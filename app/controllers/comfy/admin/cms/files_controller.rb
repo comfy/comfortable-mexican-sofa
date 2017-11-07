@@ -36,7 +36,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         .includes(:categories)
         .for_category(params[:categories])
         .order("comfy_cms_files.position")
-      @files = comfy_paginate(files_scope, 50)
+      @files = comfy_paginate(files_scope, per_page: 50)
     end
   end
 

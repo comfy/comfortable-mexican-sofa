@@ -19,7 +19,7 @@ module Comfy
       if defined?(WillPaginate)
         will_paginate collection
       elsif defined?(Kaminari)
-        paginate collection, :theme => 'comfy'
+        paginate collection, theme: "comfy"
       end
     end
 
