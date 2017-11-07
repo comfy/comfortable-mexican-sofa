@@ -48,7 +48,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   #       yield view.text_area "input_name", "value"
   #     end
   #   end
-  def form_field(view, index, &block)
+  def form_field(object_name, view, index, &block)
     raise "Form field rendering not implemented for this Tag"
   end
 end

@@ -31,7 +31,7 @@
             - namespace.each_with_index do |(name, tags), index|
               .tab-pane{id: "ns-#{name}", class: index == 0 ? "active" : nil}
                 - tags.each do |tag|
-                  = fragments.field(tag, frag_index)
+                  = fragments.field(record, tag, frag_index)
                   - frag_index += 1
 
 - rescue

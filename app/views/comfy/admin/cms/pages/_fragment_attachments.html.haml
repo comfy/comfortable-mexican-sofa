@@ -6,5 +6,5 @@
     .btn.btn-outline-light
       = link_to attachment.filename, attachment, {data: {toggle: "page-file-popover", content: thumb}}
       %label.custom-control.custom-checkbox
-        = check_box_tag "page[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: nil, class: "custom-control-input"
+        = check_box_tag "#{object_name}[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: nil, class: "custom-control-input"
         %span.custom-control-indicator

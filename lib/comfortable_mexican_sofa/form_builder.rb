@@ -4,13 +4,15 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
     "col-sm-2 text-lg-right"
   end
 
-  def field(tag, index)
-    tag.form_field(@template, index) do |tag_input|
+  def field(record, tag, index)
+    object_name = record.class.to_s.demodulize.underscore
 
-      name = "page[fragments_attributes][#{index}][identifier]"
+    tag.form_field(object_name, @template, index) do |tag_input|
+
+      name = "#{object_name}[fragments_attributes][#{index}][identifier]"
       identifer_input = @template.hidden_field_tag(name, tag.identifier, id: nil)
 
-      name  = "page[fragments_attributes][#{index}][tag]"
+      name  = "#{object_name}[fragments_attributes][#{index}][tag]"
       value = tag.class.to_s.demodulize.underscore
       tag_name_input = @template.hidden_field_tag(name, value, id: nil)
 

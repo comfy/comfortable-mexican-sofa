@@ -7,8 +7,8 @@ class ComfortableMexicanSofa::Content::Tag::Checkbox < ComfortableMexicanSofa::C
     fragment.boolean
   end
 
-  def form_field(view, index, &block)
-    name = "page[fragments_attributes][#{index}][boolean]"
+  def form_field(object_name, view, index, &block)
+    name = "#{object_name}[fragments_attributes][#{index}][boolean]"
     checkbox_hidden = view.hidden_field_tag(name, "0", id: nil)
     checkbox_input  = view.check_box_tag(name, "1", self.content.present?, id: nil)
 
