@@ -35,7 +35,7 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
   def destroy
     @translation.destroy
     flash[:success] = I18n.t('comfy.admin.cms.translations.deleted')
-    redirect_to comfy_admin_cms_site_page_path(@site, @page)
+    redirect_to edit_comfy_admin_cms_site_page_path(@site, @page)
   end
 
 private

@@ -7,6 +7,7 @@ ja:
       comfy/cms/page: ページ
       comfy/cms/snippet: スニペット
       comfy/cms/file: File
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ ja:
             title: 新規ページ
           edit:
             title: ページを編集
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ ja:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
               コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: スニペットが作成されました

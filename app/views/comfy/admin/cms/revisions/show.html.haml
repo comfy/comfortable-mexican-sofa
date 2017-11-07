@@ -8,11 +8,10 @@
 - content_for :right_column do
   .box.revisions
     - @record.revisions.each do |revision|
-      = active_link_to l(revision.created_at, format: :short), {id: revision.id}, class: "btn btn-sm btn-outline-secondary"
+      = active_link_to l(revision.created_at, format: :short), {id: revision.id}, class: "btn btn-sm btn-outline-light d-block text-primary mb-1"
 
 .row.d-none.d-lg-flex
-  .col-lg-2
-  .col-lg-10
+  .col-lg-10.ml-auto
     .row
       .col-lg-6
         .label= t('.previous')

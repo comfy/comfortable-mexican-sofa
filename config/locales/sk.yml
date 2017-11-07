@@ -7,6 +7,7 @@ sk:
       comfy/cms/page: Stránka
       comfy/cms/snippet: Fragment
       comfy/cms/file: Súbor
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ sk:
             title: Nová stránka
           edit:
             title: Úprava stránky
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ sk:
             no_tags: |-
               Rozloženie nemá definované žiadne značky obsahu.<br/>
               Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Fragment vytvorený

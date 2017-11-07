@@ -7,6 +7,7 @@ es:
       comfy/cms/page: Página
       comfy/cms/snippet: Fragmento
       comfy/cms/file: File
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ es:
             title: Nueva Página
           edit:
             title: Editando Página
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ es:
             no_tags: |-
               La plantilla no tiene etiquetas de contenido definidas.<br/>
               Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Fragmento creado

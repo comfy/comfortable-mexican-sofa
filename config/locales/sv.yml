@@ -7,6 +7,7 @@ sv:
       comfy/cms/page: Sida
       comfy/cms/snippet: Snippet
       comfy/cms/file: Fil
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ sv:
             title: Ny sida
           edit:
             title: Ändra sida
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ sv:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>
               Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Snippet skapad

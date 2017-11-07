@@ -7,6 +7,7 @@ pl:
       comfy/cms/page: Strona
       comfy/cms/snippet: Snippet
       comfy/cms/file: Plik
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ pl:
             title: Nowa strona
           edit:
             title: Edytuj stronę
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ pl:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
               Dodaj do jego treści tag strony lub pola, np. <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Snippet został utworzony

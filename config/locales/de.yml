@@ -7,6 +7,7 @@ de:
       comfy/cms/page: Seite
       comfy/cms/snippet: Schnipsel
       comfy/cms/file: Datei
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ de:
             title: Seite erstellen
           edit:
             title: Seite bearbeiten
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ de:
             no_tags: |-
               Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
               Beispiel: <code>{{ cms:page:content }}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Schnipsel erstellt

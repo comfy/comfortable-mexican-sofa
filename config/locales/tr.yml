@@ -7,6 +7,7 @@ tr:
       comfy/cms/page: Sayfa
       comfy/cms/snippet: Pasaj
       comfy/cms/file: Dosya
+      comfy/cms/translation: Translation
 
     attributes:
       comfy/cms/site:
@@ -142,6 +143,10 @@ tr:
             title: Yeni Sayfa
           edit:
             title: Sayfa Düzenleniyor
+            translation:
+              create: Create Translation
+              delete: Delete
+              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -156,6 +161,25 @@ tr:
             no_tags: |-
               Şablon etiket içermiyor.<br/>
               Lütfen bir etiket ekleyin. Örnek: <code>{{cms:fragment content}}</code>
+
+        translations:
+          created: Translation created
+          creation_failure: Failed to create translation
+          updated: Translation updated
+          update_failure: Failed to update translation
+          deleted: Translation deleted
+          not_found: Translation not found
+
+          new:
+            title: New Translation
+          edit:
+            title: Editing Translation
+            revision:
+              <<: *revision
+          form:
+            create: Create Translation
+            update: Update Translation
+            cancel: Return to Page
 
         snippets:
           created: Pasaj oluşturuldu

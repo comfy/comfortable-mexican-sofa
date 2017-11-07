@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   setup do
     @site         = comfy_cms_sites(:default)
     @page         = comfy_cms_pages(:default)
-    @translation  = comfy_cms_snippets(:default)
+    @translation  = comfy_cms_translations(:default)
   end
 
   def test_get_new
@@ -65,7 +65,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_redirected_to action: :edit, site_id: @site, page_id: @page, id: @translation
     assert_equal "Translation updated", flash[:success]
     @translation.reload
-    assert_equal "Updated translation", @translation.label
+    assert_equal "Updated Translation", @translation.label
   end
 
   def test_update_failure
@@ -76,15 +76,15 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert_template :edit
     @translation.reload
-    assert_not_equal "", @translation.identifier
-    assert_equal 'Failed to update translation', flash[:danger]
+    assert_not_equal "", @translation.locale
+    assert_equal "Failed to update translation", flash[:danger]
   end
 
   def test_destroy
-    assert_count_difference [Comfy::Cms::Snippet], -1 do
+    assert_count_difference [Comfy::Cms::Translation], -1 do
       r :delete, comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
       assert_response :redirect
-      assert_redirected_to comfy_admin_cms_site_page_path(@site, @page)
+      assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)
       assert_equal "Translation deleted", flash[:success]
     end
   end

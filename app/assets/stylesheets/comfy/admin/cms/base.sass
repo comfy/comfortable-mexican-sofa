@@ -176,6 +176,10 @@ body#comfy
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z' /%3E%3C/svg%3E")
           .custom-control-input:checked ~ .custom-control-indicator
             background-color: $red
+    .box.translations
+      a.translation
+        text-align: left
+        overflow: hidden
 
   // -- Files ------------------------------------------------------------------
   .cms-files-modal
@@ -215,8 +219,3 @@ body#comfy
           text-decoration: none
         del
           background-color: #ffc6c6
-
-    .box.revisions
-      a
-        display: block
-        margin-bottom: 5px

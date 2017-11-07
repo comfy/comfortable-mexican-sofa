@@ -28,6 +28,6 @@
 = render "comfy/admin/cms/partials/page_form_after", form: form
 
 = form.form_actions do
-  = form.submit t(".preview"), name: "preview", id: nil, class: "btn", data: {disable_with: false}
+  = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-secondary", data: {disable_with: false}
   = form.submit t(@page.new_record?? ".create" : ".update"), class: "btn btn-primary", data: {disable_with: false}
   = link_to t(".cancel"), comfy_admin_cms_site_pages_path, class: "btn btn-link"
