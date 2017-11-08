@@ -5,7 +5,7 @@
 = form.text_field :label
 
 - if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
-  = form.select :layout_id, options, {}, 'data-url' => form_fragments_comfy_admin_cms_site_page_path(@site, @translation.id.to_i)
+  = form.select :layout_id, options, {}, {data: {url: form_fragments_comfy_admin_cms_site_page_translation_path(@site, @page, @translation.id.to_i)}, id: "fragments-toggle"}
 
 = render "comfy/admin/cms/pages/form_fragments", record: @translation
 

@@ -415,7 +415,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_template :form_fragments
   end
 
-  def test_get_form_blocks_for_new_page
+  def test_get_form_fragments_for_new_page
     r :get, form_fragments_comfy_admin_cms_site_page_path(site_id: @site, id: 0), xhr: true, params: {
       layout_id: @layout.id
     }

@@ -38,6 +38,11 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
     redirect_to edit_comfy_admin_cms_site_page_path(@site, @page)
   end
 
+  def form_fragments
+    @translation = @page.translations.find_by(id: params[:id]) || @page.translations.new
+    @translation.layout = @site.layouts.find_by(id: params[:layout_id])
+  end
+
 private
 
   def translation_select_options

@@ -53,8 +53,8 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def form_fragments
-    @page = @site.pages.find_by_id(params[:id]) || @site.pages.new
-    @page.layout = @site.layouts.find_by_id(params[:layout_id])
+    @page = @site.pages.find_by(id: params[:id]) || @site.pages.new
+    @page.layout = @site.layouts.find_by(id: params[:layout_id])
   end
 
   def toggle_branch

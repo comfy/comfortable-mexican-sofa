@@ -130,7 +130,7 @@ window.CMS.timepicker = ->
 
 
 window.CMS.page_fragments = ->
-  $('select#page_layout_id').bind 'change.cms', ->
+  $('select#fragments-toggle').bind 'change.cms', ->
     $.ajax
       url: $(this).data('url'),
       data:
