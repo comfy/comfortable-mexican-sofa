@@ -2,7 +2,7 @@
   = link_to t('.new_link'), new_comfy_admin_cms_site_snippet_path(@site), class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
-= render 'comfy/admin/cms/partials/snippets_before'
+= comfy_admin_partial "comfy/admin/cms/partials/snippets_before"
 
 = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::Snippet"
 
@@ -27,4 +27,4 @@
             = link_to t('.edit'), edit_comfy_admin_cms_site_snippet_path(@site, snippet), class: 'btn btn-outline-secondary'
             = link_to t('.delete'), comfy_admin_cms_site_snippet_path(@site, snippet), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
 
-= render 'comfy/admin/cms/partials/snippets_after'
+= comfy_admin_partial "comfy/admin/cms/partials/snippets_after"

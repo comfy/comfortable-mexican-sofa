@@ -2,7 +2,7 @@
   = link_to t('.new_link'), new_comfy_admin_cms_site_path, class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
-= render "comfy/admin/cms/partials/sites_before"
+= comfy_admin_partial "comfy/admin/cms/partials/sites_before"
 
 %ul.list
   - @sites.each do |site|
@@ -25,4 +25,4 @@
             = link_to t('.edit'), edit_comfy_admin_cms_site_path(site), class: 'btn btn-outline-secondary'
             = link_to t('.delete'), comfy_admin_cms_site_path(site), method: :delete, data: {confirm: t('.are_you_sure')}, class: 'btn btn-danger'
 
-= render 'comfy/admin/cms/partials/sites_after'
+= comfy_admin_partial "comfy/admin/cms/partials/sites_after"

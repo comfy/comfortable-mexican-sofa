@@ -2,9 +2,9 @@
   = link_to t('.new_link'), new_comfy_admin_cms_site_layout_path(@site), class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
-= render 'comfy/admin/cms/partials/layouts_before'
+= comfy_admin_partial "comfy/admin/cms/partials/layouts_before"
 
 %ul.list.sortable
   = render partial: "index_branch", collection: @layouts
 
-= render 'comfy/admin/cms/partials/layouts_after'
+= comfy_admin_partial "comfy/admin/cms/partials/layouts_after"

@@ -1,4 +1,4 @@
-= render 'comfy/admin/cms/partials/snippet_form_before', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/snippet_form_before", form: form
 
 = form.text_field :label, data: {slugify: @snippet.new_record?}
 = form.text_field :identifier, data: {slug: true}
@@ -6,7 +6,7 @@
 
 = render 'comfy/admin/cms/categories/form', form: form
 
-= render 'comfy/admin/cms/partials/snippet_form_after', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/snippet_form_after", form: form
 
 = form.form_actions do
   = form.submit t(@snippet.new_record?? '.create' : '.update'), class: "btn btn-primary"

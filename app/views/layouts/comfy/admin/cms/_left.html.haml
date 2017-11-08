@@ -1,4 +1,4 @@
-= render 'comfy/admin/cms/partials/navigation_before'
+= comfy_admin_partial "comfy/admin/cms/partials/navigation_before"
 
 %nav.navbar.navbar-expand-lg
   %button.navbar-toggler{type: "button", data: {toggle:"collapse", target: "#leftnav"}, aria: {controls: "navbarSupportedContent", expanded: "false", label: "Toggle navigation"}}
@@ -30,9 +30,9 @@
 
       = cms_hook :navigation
 
-      = render 'comfy/admin/cms/partials/navigation_inner'
+      = comfy_admin_partial "comfy/admin/cms/partials/navigation_inner"
 
-= render 'comfy/admin/cms/partials/navigation_after'
+= comfy_admin_partial "comfy/admin/cms/partials/navigation_after"
 
 .left-footer
   = link_to 'ComfortableMexicanSofa', 'https://github.com/comfy', target: '_blank'

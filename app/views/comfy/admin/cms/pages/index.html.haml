@@ -2,11 +2,11 @@
   = link_to t('.new_link'), new_comfy_admin_cms_site_page_path(@site), class: "btn btn-secondary pull-right"
   %h2= t('.title')
 
-= render 'comfy/admin/cms/partials/pages_before'
+= comfy_admin_partial "comfy/admin/cms/partials/pages_beforea"
 
 = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::Page"
 
 %ul.list.sortable
   = render partial: "index_branch", collection: @pages
 
-= render 'comfy/admin/cms/partials/pages_after'
+= comfy_admin_partial "comfy/admin/cms/partials/pages_after"
