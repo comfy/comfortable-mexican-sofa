@@ -12,8 +12,6 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
                 :authorize,
                 only: :show
 
-  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
-
   def show
     if @cms_page.target_page.present?
       redirect_to @cms_page.target_page.url(:relative)
@@ -27,22 +25,22 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 
 protected
 
-  def render_page(status = 200)
-    if @cms_layout
-      app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render  inline:       @cms_content_cache,
-              layout:       app_layout,
-              status:       status,
-              content_type: mime_type
-    else
-      render plain: I18n.t('comfy.cms.content.layout_not_found'), status: 404
-    end
+  def render_page(status = :ok)
+    render  inline:       @cms_page.content_cache,
+            layout:       app_layout,
+            status:       status,
+            content_type: mime_type
   end
 
   # it's possible to control mimetype of a page by creating a `mime_type` field
   def mime_type
-    mime_block = @cms_page.fragments.find_by(identifier: :mime_type)
-    mime_block && mime_block.content || 'text/html'
+    mime_block = @cms_page.fragments.detect{|f| f.identifier == "mime_type"}
+    mime_block && mime_block.content || "text/html"
+  end
+
+  def app_layout
+    return false if request.xhr? || !@cms_layout
+    @cms_layout.app_layout.present?? @cms_layout.app_layout : false
   end
 
   def load_seeds
@@ -50,31 +48,41 @@ protected
     ComfortableMexicanSofa::Seeds::Importer.new(@cms_site.identifier).import!
   end
 
+  # Attempting to populate @cms_page and @cms_layout instance variables so they
+  # can be used in view helpers/partials
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by!(full_path: "/#{params[:cms_path]}")
+    find_cms_page_by_full_path!("/#{params[:cms_path]}")
 
-    if @cms_page.translations.any? && @cms_site.locale != I18n.locale.to_s
-      translation = @cms_page.translations.published.find_by!(locale: I18n.locale)
-      @cms_content_cache  = translation.content_cache
-      @cms_layout         = translation.layout
-      I18n.locale = @locale = I18n.locale.to_sym
+  # Trying to get custom 404 page
+  rescue ActiveRecord::RecordNotFound
+    begin
+      find_cms_page_by_full_path!("/404")
+      render_page(:not_found)
 
-    else
-      @cms_content_cache  = @cms_page.content_cache
-      @cms_layout         = @cms_page.layout
-      I18n.locale = @locale = @cms_site.locale.to_sym
+    # There's no 404 page, throwing error
+    rescue ActiveRecord::RecordNotFound
+      message = "Page Not Found at: \"#{params[:cms_path]}\""
+      raise ActionController::RoutingError.new(message)
     end
   end
 
-  def page_not_found
-    @cms_page   = @cms_site.pages.published.find_by!(full_path: "/404")
-    @cms_layout         = @cms_page.layout
-    @cms_content_cache  = @cms_page.content_cache
+  # Getting page and setting content_cache and fragments data if we need to
+  # serve translation data
+  def find_cms_page_by_full_path!(full_path)
+    @cms_page   = @cms_site.pages.published.find_by!(full_path: full_path)
+    @cms_layout = @cms_page.layout
 
-    respond_to do |format|
-      format.html { render_page(404) }
+    # There are translations for this page and locale is not the default site
+    # locale, so we need to grab translation data.
+    if @cms_page.translations.any? && @cms_site.locale != I18n.locale.to_s
+      translation = @cms_page.translations.published.find_by!(locale: I18n.locale)
+      @cms_layout = translation.layout
+
+      # populating page object with translation data
+      @cms_page.layout        = translation.layout
+      @cms_page.fragments     = translation.fragments
+      @cms_page.label         = translation.label
+      @cms_page.content_cache = translation.content_cache
     end
-  rescue ActiveRecord::RecordNotFound
-    raise ActionController::RoutingError.new("Page Not Found at: \"#{params[:cms_path]}\"")
   end
 end

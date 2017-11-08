@@ -76,21 +76,6 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal site_b, assigns(:cms_site)
   end
 
-  def test_get_public_with_locale
-    Comfy::Cms::Translation.delete_all
-
-    get '/'
-    assert_response :success
-    assert assigns(:cms_site)
-    assert_equal :en, I18n.locale
-
-    comfy_cms_sites(:default).update_columns(locale: 'fr')
-    get '/'
-    assert_response :success
-    assert assigns(:cms_site)
-    assert_equal :fr, I18n.locale
-  end
-
   def test_get_admin_with_locale
     r :get, comfy_admin_cms_site_pages_path(comfy_cms_sites(:default))
     assert_response :success

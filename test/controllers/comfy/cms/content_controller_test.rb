@@ -11,27 +11,15 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
   def test_show
     get comfy_cms_render_page_path(cms_path: "")
-    assert_equal @site, assigns(:cms_site)
+    assert_equal @site,   assigns(:cms_site)
     assert_equal @layout, assigns(:cms_layout)
-    assert_equal @page, assigns(:cms_page)
+    assert_equal @page,   assigns(:cms_page)
 
     assert_response :success
     assert_equal "content", response.body
     assert_equal "text/html", response.content_type
 
-    assert_equal :en, assigns(:locale)
     assert_equal :en, I18n.locale
-  end
-
-  def test_show_with_locale
-    @site.update_column(:locale, "fr")
-    @translation.delete
-
-    get comfy_cms_render_page_path(cms_path: "")
-    assert_response :success
-
-    assert_equal :fr, assigns(:locale)
-    assert_equal :fr, I18n.locale
   end
 
   def test_show_default_html
@@ -139,8 +127,8 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     Comfy::Cms::Layout.destroy_all
 
     get comfy_cms_render_page_path(cms_path: "")
-    assert_response :not_found
-    assert_equal 'Layout Not Found', response.body
+    assert_response :ok
+    assert_equal "", response.body
   end
 
   def test_show_with_redirect
