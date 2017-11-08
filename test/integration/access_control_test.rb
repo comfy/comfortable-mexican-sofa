@@ -5,7 +5,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   module TestAuthentication
     module Authenticate
       def authenticate
-        render :plain => 'Test Login Denied', :status => :unauthorized
+        render plain: "Test Login Denied", status: :unauthorized
       end
     end
 
@@ -19,23 +19,24 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     module Authorize
       def authorize
         @authorization_vars = self.instance_variables
-        render :plain => 'Test Access Denied', :status => :forbidden
+        render plain: "Test Access Denied", status: :forbidden
       end
     end
 
     # faking ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
     # faking ComfortableMexicanSofa.config.public_authorization = 'AccessControlTest::TestAuthorization'
-    class SitesController       < Comfy::Admin::Cms::SitesController;       include Authorize; end
-    class LayoutsController     < Comfy::Admin::Cms::LayoutsController;     include Authorize; end
-    class PagesController       < Comfy::Admin::Cms::PagesController;       include Authorize; end
-    class SnippetsController    < Comfy::Admin::Cms::SnippetsController;    include Authorize; end
-    class FilesController       < Comfy::Admin::Cms::FilesController;       include Authorize; end
-    class CategoriesController  < Comfy::Admin::Cms::CategoriesController;  include Authorize; end
-    class RevisionsController   < Comfy::Admin::Cms::RevisionsController;   include Authorize; end
-    class ContentController     < Comfy::Cms::ContentController;            include Authorize; end
+    class SitesController         < Comfy::Admin::Cms::SitesController;         include Authorize; end
+    class LayoutsController       < Comfy::Admin::Cms::LayoutsController;       include Authorize; end
+    class PagesController         < Comfy::Admin::Cms::PagesController;         include Authorize; end
+    class SnippetsController      < Comfy::Admin::Cms::SnippetsController;      include Authorize; end
+    class FilesController         < Comfy::Admin::Cms::FilesController;         include Authorize; end
+    class CategoriesController    < Comfy::Admin::Cms::CategoriesController;    include Authorize; end
+    class RevisionsController     < Comfy::Admin::Cms::RevisionsController;     include Authorize; end
+    class TranslationsController  < Comfy::Admin::Cms::TranslationsController;  include Authorize; end
+    class ContentController       < Comfy::Cms::ContentController;              include Authorize; end
   end
 
-
+  # -- Tests -------------------------------------------------------------------
   def test_admin_authentication_default
     assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthentication',
       ComfortableMexicanSofa.config.admin_auth
@@ -74,13 +75,14 @@ class AccessControlTest < ActionDispatch::IntegrationTest
       routes.draw do
         s   = '/admin/sites'
         ns  = 'access_control_test/test_authorization'
-        get "#{s}/:id/edit"                                   => "#{ns}/sites#edit"
-        get "#{s}/:site_id/layouts/:id/edit"                  => "#{ns}/layouts#edit"
-        get "#{s}/:site_id/layouts/:layout_id/revisions/:id"  => "#{ns}/revisions#show"
-        get "#{s}/:site_id/pages/:id/edit"                    => "#{ns}/pages#edit"
-        get "#{s}/:site_id/snippets/:id/edit"                 => "#{ns}/snippets#edit"
-        get "#{s}/:site_id/files/:id/edit"                    => "#{ns}/files#edit"
-        get "#{s}/:site_id/categories/:id/edit"               => "#{ns}/categories#edit"
+        get "#{s}/:id/edit"                                       => "#{ns}/sites#edit"
+        get "#{s}/:site_id/layouts/:id/edit"                      => "#{ns}/layouts#edit"
+        get "#{s}/:site_id/layouts/:layout_id/revisions/:id"      => "#{ns}/revisions#show"
+        get "#{s}/:site_id/pages/:id/edit"                        => "#{ns}/pages#edit"
+        get "#{s}/:site_id/pages/:page_id/translations/:id/edit"  => "#{ns}/pages#edit"
+        get "#{s}/:site_id/snippets/:id/edit"                     => "#{ns}/snippets#edit"
+        get "#{s}/:site_id/files/:id/edit"                        => "#{ns}/files#edit"
+        get "#{s}/:site_id/categories/:id/edit"                   => "#{ns}/categories#edit"
       end
 
       r :get, "/admin/sites/#{site.id}/edit"
@@ -101,6 +103,11 @@ class AccessControlTest < ActionDispatch::IntegrationTest
 
       page = comfy_cms_pages(:default)
       r :get, "/admin/sites/#{site.id}/pages/#{page.id}/edit"
+      assert assigns(:authorization_vars).member?(:@site)
+      assert assigns(:authorization_vars).member?(:@page)
+
+      translation = comfy_cms_translations(:default)
+      r :get, "/admin/sites/#{site.id}/pages/#{page.id}/translations/#{translation.id}/edit"
       assert assigns(:authorization_vars).member?(:@site)
       assert assigns(:authorization_vars).member?(:@page)
 
