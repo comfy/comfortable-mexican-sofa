@@ -45,6 +45,7 @@ fr:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ fr:
             create: Créer la page
             cancel: Annuler
             update: Modifier la page
-            is_published: Publié
             choose_link: Select page...
           form_blocks:
             no_tags: |-

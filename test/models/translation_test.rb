@@ -51,4 +51,10 @@ class CmsPageTest < ActiveSupport::TestCase
       assert_equal @page.layout, translation.layout
     end
   end
+
+  def test_scope_published
+    assert_equal 1, Comfy::Cms::Translation.published.count
+    comfy_cms_translations(:default).update_columns(is_published: false)
+    assert_equal 0, Comfy::Cms::Translation.published.count
+  end
 end

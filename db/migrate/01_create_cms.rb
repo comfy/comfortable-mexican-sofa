@@ -50,17 +50,21 @@ class CreateCms < ActiveRecord::Migration[5.2]
 
       t.index [:site_id, :full_path]
       t.index [:parent_id, :position]
+      t.index [:is_published]
     end
 
+    # -- Translations ----------------------------------------------------------
     create_table :comfy_cms_translations, force: true do |t|
       t.string  :locale,    null: false
       t.integer :page_id,   null: false
       t.integer :layout_id
       t.string  :label,           null: false
       t.text    :content_cache,   limit: LIMIT
+      t.boolean :is_published,    null: false, default: true
 
       t.index [:page_id]
       t.index [:locale]
+      t.index [:is_published]
     end
 
     # -- Fragments -------------------------------------------------------------

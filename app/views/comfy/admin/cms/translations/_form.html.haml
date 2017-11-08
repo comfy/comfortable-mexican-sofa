@@ -9,6 +9,10 @@
 
 = render "comfy/admin/cms/pages/form_fragments", record: @translation
 
+.row
+  .col-sm-10.ml-auto
+    = form.check_box :is_published
+
 //= render 'comfy/admin/cms/partials/translation_form_after', form: form
 
 = form.form_actions do

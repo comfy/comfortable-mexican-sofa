@@ -45,6 +45,7 @@ ru:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ ru:
             create: Создать страницу
             cancel: Oтменить
             update: Обновить страницу
-            is_published: Опубликована
             choose_link: Select page...
           form_blocks:
             no_tags: |-

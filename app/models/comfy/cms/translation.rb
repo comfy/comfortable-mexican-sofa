@@ -12,6 +12,9 @@ class Comfy::Cms::Translation < ActiveRecord::Base
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_layout
 
+  # -- Scopes ------------------------------------------------------------------
+  scope :published, -> { where(is_published: true) }
+
   # -- Validations -------------------------------------------------------------
   validates :label,
     presence:   true

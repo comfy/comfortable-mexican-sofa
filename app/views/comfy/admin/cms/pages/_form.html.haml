@@ -21,9 +21,8 @@
 = render "form_fragments", form: form, record: @page
 
 .row
-  .col-sm-2
-  .col-sm-10
-    = form.check_box :is_published, label: t('.is_published')
+  .col-sm-10.ml-auto
+    = form.check_box :is_published
 
 = render "comfy/admin/cms/partials/page_form_after", form: form
 

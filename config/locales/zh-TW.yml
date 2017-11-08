@@ -45,6 +45,7 @@ zh-TW:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ zh-TW:
             create: 創建頁面
             cancel: 取消
             update: 更新頁面
-            is_published: 發佈
             choose_link: 選擇頁面...
           form_blocks:
             no_tags: |-

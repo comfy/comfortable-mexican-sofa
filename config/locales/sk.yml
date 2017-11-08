@@ -45,6 +45,7 @@ sk:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ sk:
             create: Vytvoriť stránku
             cancel: Zrušiť
             update: Upraviť stránku
-            is_published: Zverejnené
             choose_link: Zvoľte stránku...
           form_blocks:
             no_tags: |-

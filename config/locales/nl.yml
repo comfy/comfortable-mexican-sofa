@@ -45,6 +45,7 @@ nl:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ nl:
             create: Pagina Aanmaken
             cancel: Annuleren
             update: Pagina Bijwerken
-            is_published: Gepubliceerd
             choose_link: Select page...
           form_blocks:
             no_tags: |-

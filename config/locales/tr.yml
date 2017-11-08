@@ -45,6 +45,7 @@ tr:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ tr:
             create: Sayfa Oluştur
             cancel: İptal
             update: Sayfayı Güncelle
-            is_published: Yayınlandı
             choose_link: Sayfa Seç...
           form_blocks:
             no_tags: |-

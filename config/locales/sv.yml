@@ -45,6 +45,7 @@ sv:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ sv:
             create: Skapa sida
             cancel: Avbryt
             update: Uppdatera sida
-            is_published: Publicerad
             choose_link: Välj sida...
           form_blocks:
             no_tags: |-

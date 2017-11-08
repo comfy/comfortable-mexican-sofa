@@ -45,6 +45,7 @@ zh-CN:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ zh-CN:
             create: 创建页面
             cancel: 取消
             update: 更新页面
-            is_published: 发布
             choose_link: Select page...
           form_blocks:
             no_tags: |-

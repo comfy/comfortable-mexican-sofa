@@ -3,3 +3,4 @@ default:
   layout: default
   locale: fr
   label: Default Translation
+  is_published: true

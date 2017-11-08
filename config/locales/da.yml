@@ -45,6 +45,7 @@ da:
         locale: Language
         label: Label
         layout_id: Layout
+        is_published: Published
 
   comfy:
     cms:
@@ -156,7 +157,6 @@ da:
             create: Opret side
             cancel: Annuller
             update: Opdater side
-            is_published: Udgivet
             choose_link: Select page...
           form_blocks:
             no_tags: |-
