@@ -1,14 +1,14 @@
+- content_for :right_column do
+  .box.revisions
+    - @record.revisions.each do |revision|
+      = active_link_to l(revision.created_at, format: :short), {id: revision.id}, class: "btn btn-sm btn-outline-light d-block text-primary mb-1"
+
 .page-header
   %h2
     = t('.title')
     = @record.class.to_s.demodulize
     - name = @record.is_a?(::Comfy::Cms::Page) ? @record.full_path : @record.identifier
     = "(#{name})"
-
-- content_for :right_column do
-  .box.revisions
-    - @record.revisions.each do |revision|
-      = active_link_to l(revision.created_at, format: :short), {id: revision.id}, class: "btn btn-sm btn-outline-light d-block text-primary mb-1"
 
 .row.d-none.d-lg-flex
   .col-lg-10.ml-auto

@@ -1,6 +1,9 @@
 - content_for :right_column do
+  .box.revisions
+    = link_to t('.revision', count: @page.revisions.count), comfy_admin_cms_site_page_revisions_path(@site, @page), class: 'btn btn-info d-block'
+
   .box.translations
-    = link_to t(".translation.create"), new_comfy_admin_cms_site_page_translation_path(@site, @page), class: "btn btn-secondary btn-block mb-1"
+    = link_to t(".translation.create"), new_comfy_admin_cms_site_page_translation_path(@site, @page), class: "btn btn-secondary d-block mb-1"
 
     - @page.translations.each do |translation|
       .btn-group.btn-group-sm.d-flex.mb-1
@@ -13,7 +16,6 @@
         = link_to t(".translation.delete"), url, method: :delete, data: {confirm: t(".translation.confirm")}, class: "btn btn-danger"
 
 .page-header
-  = link_to t('.revision', count: @page.revisions.count), comfy_admin_cms_site_page_revisions_path(@site, @page), class: 'btn btn-info pull-right'
   %h2= t('.title')
 
 = comfy_form_for @page, as: :page, url: {action: :update}, html: {multipart: true} do |form|
