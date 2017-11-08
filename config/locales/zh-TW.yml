@@ -178,8 +178,9 @@ zh-TW:
             revision:
               <<: *revision
           form:
-            create: Create Translation
-            update: Update Translation
+            preview: Preview
+            create: Create
+            update: Update
             cancel: Return to Page
 
         snippets:

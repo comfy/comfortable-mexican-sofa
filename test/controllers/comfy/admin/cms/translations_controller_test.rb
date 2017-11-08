@@ -128,4 +128,54 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_equal 1, assigns(:translation).fragment_nodes.size
     assert_template :form_fragments
   end
+
+  def test_creation_preview
+    assert_count_no_difference [Comfy::Cms::Translation] do
+      r :post, comfy_admin_cms_site_page_translations_path(@site, @page), params: {
+        preview: 'Preview',
+        translation: {
+          label:      "Test Page",
+          layout_id:  @layout.id,
+          locale:     "fr",
+          fragments_attributes: [
+            { identifier: 'content',
+              content:    'preview content' }
+          ]
+        }
+      }
+      assert_response :success
+      assert_match /preview content/, response.body
+      assert_equal 'text/html', response.content_type
+
+      assert_equal @site, assigns(:cms_site)
+      assert_equal @layout, assigns(:cms_layout)
+      assert assigns(:cms_page)
+      assert assigns(:translation).new_record?
+
+      assert_equal :fr, I18n.locale
+    end
+  end
+
+  def test_update_preview
+    assert_count_no_difference [Comfy::Cms::Page] do
+      r :put, comfy_admin_cms_site_page_translation_path(@site, @page, @translation), params: {
+        preview: 'Preview',
+        translation: {
+        label: 'Updated Label',
+        fragments_attributes: [
+          { identifier: 'content',
+            content:    'preview content' }
+          ]
+        }
+      }
+      assert_response :success
+      assert_match /preview content/, response.body
+      @translation.reload
+      assert_not_equal 'Updated Label', @page.label
+
+      assert_equal @page.site,    assigns(:cms_site)
+      assert_equal @page.layout,  assigns(:cms_layout)
+      assert_equal @page,         assigns(:cms_page)
+    end
+  end
 end

@@ -1,10 +1,10 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   before_action :check_for_layouts, only: [:new, :edit]
-  before_action :build_cms_page,    only: [:new, :create]
-  before_action :load_cms_page,     only: [:edit, :update, :destroy]
+  before_action :build_page,        only: [:new, :create]
+  before_action :load_page,         only: [:edit, :update, :destroy]
   before_action :authorize
-  before_action :preview_cms_page,  only: [:create, :update]
+  before_action :preview_page,      only: [:create, :update]
 
   def index
     return redirect_to action: :new if site_has_no_pages?
@@ -110,13 +110,13 @@ protected
     end
   end
 
-  def build_cms_page
+  def build_page
     @page = @site.pages.new(page_params)
     @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
   end
 
-  def load_cms_page
+  def load_page
     @page = @site.pages.find(params[:id])
     @page.attributes = page_params
     @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
@@ -125,7 +125,7 @@ protected
     redirect_to action: :index
   end
 
-  def preview_cms_page
+  def preview_page
     if params[:preview]
       layout = @page.layout.app_layout.blank?? false : @page.layout.app_layout
       @cms_site   = @page.site

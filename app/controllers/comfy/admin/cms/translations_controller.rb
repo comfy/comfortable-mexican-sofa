@@ -3,8 +3,10 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
   helper_method :translation_select_options
 
   before_action :load_page
-  before_action :build_translation, only: [:new, :create]
-  before_action :load_translation,  only: [:edit, :update, :destroy]
+  before_action :build_translation,   only: [:new, :create]
+  before_action :load_translation,    only: [:edit, :update, :destroy]
+  before_action :authorize
+  before_action :preview_translation, only: [:create, :update]
 
   def new
     render
@@ -65,6 +67,7 @@ private
 
   def load_translation
     @translation = @page.translations.find(params[:id])
+    @translation.attributes = translation_params
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.translations.not_found')
     redirect_to edit_comfy_admin_cms_site_page_path(@site, @page)
@@ -72,5 +75,24 @@ private
 
   def translation_params
     params.fetch(:translation, {}).permit!
+  end
+
+  def preview_translation
+    if params[:preview]
+      layout = @translation.layout.app_layout.blank?? false : @translation.layout.app_layout
+      @cms_site   = @page.site
+      @cms_layout = @translation.layout
+      @cms_page   = @page
+
+      # Make sure to use the site locale to render the preview becaue it might
+      # be different from the admin locale.
+      I18n.locale = @translation.locale
+
+      # Chrome chokes on content with iframes. Issue #434
+      response.headers['X-XSS-Protection'] = '0'
+
+      # raise
+      render inline: @translation.render, layout: layout, content_type: 'text/html'
+    end
   end
 end
