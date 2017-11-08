@@ -77,6 +77,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_public_with_locale
+    Comfy::Cms::Translation.delete_all
+
     get '/'
     assert_response :success
     assert assigns(:cms_site)

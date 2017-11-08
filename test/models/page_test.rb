@@ -410,6 +410,11 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "test", nodes[0].identifier
   end
 
+  def test_fragment_nodes_with_no_layout
+    @page.update_column(:layout_id, nil)
+    assert_equal [], @page.fragment_nodes
+  end
+
   def test_content_caching
     assert_equal @page.content_cache, @page.render
 

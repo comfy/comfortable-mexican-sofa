@@ -106,7 +106,9 @@ protected
   end
 
   def nodes
-    tokens  = self.layout.content_tokens
+    return [] unless self.layout.present?
+
+    tokens = self.layout.content_tokens
     renderer.nodes(tokens)
   end
 end

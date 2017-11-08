@@ -28,9 +28,9 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 protected
 
   def render_page(status = 200)
-    if @cms_layout = @cms_page.layout
+    if @cms_layout
       app_layout = (@cms_layout.app_layout.blank? || request.xhr?) ? false : @cms_layout.app_layout
-      render  inline:       @cms_page.content_cache,
+      render  inline:       @cms_content_cache,
               layout:       app_layout,
               status:       status,
               content_type: mime_type
@@ -41,7 +41,7 @@ protected
 
   # it's possible to control mimetype of a page by creating a `mime_type` field
   def mime_type
-    mime_block = @cms_page.fragments.find_by_identifier(:mime_type)
+    mime_block = @cms_page.fragments.find_by(identifier: :mime_type)
     mime_block && mime_block.content || 'text/html'
   end
 
@@ -51,11 +51,25 @@ protected
   end
 
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.published.find_by!(full_path: "/#{params[:cms_path]}")
+
+    if @cms_page.translations.any? && @cms_site.locale != I18n.locale.to_s
+      translation = @cms_page.translations.published.find_by!(locale: I18n.locale)
+      @cms_content_cache  = translation.content_cache
+      @cms_layout         = translation.layout
+      I18n.locale = @locale = I18n.locale.to_sym
+
+    else
+      @cms_content_cache  = @cms_page.content_cache
+      @cms_layout         = @cms_page.layout
+      I18n.locale = @locale = @cms_site.locale.to_sym
+    end
   end
 
   def page_not_found
-    @cms_page = @cms_site.pages.published.find_by_full_path!('/404')
+    @cms_page   = @cms_site.pages.published.find_by!(full_path: "/404")
+    @cms_layout         = @cms_page.layout
+    @cms_content_cache  = @cms_page.content_cache
 
     respond_to do |format|
       format.html { render_page(404) }

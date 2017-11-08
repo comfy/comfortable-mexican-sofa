@@ -2,10 +2,11 @@ require_relative "../../../test_helper"
 
 class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
-    @site   = comfy_cms_sites(:default)
-    @layout = comfy_cms_layouts(:default)
-    @page   = comfy_cms_pages(:default)
+  setup do
+    @site         = comfy_cms_sites(:default)
+    @layout       = comfy_cms_layouts(:default)
+    @page         = comfy_cms_pages(:default)
+    @translation  = comfy_cms_translations(:default)
   end
 
   def test_show
@@ -24,6 +25,8 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_with_locale
     @site.update_column(:locale, "fr")
+    @translation.delete
+
     get comfy_cms_render_page_path(cms_path: "")
     assert_response :success
 
@@ -201,5 +204,28 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     get comfy_cms_render_page_path(cms_path: 'erb')
     assert_response :success
     assert_match "text 4 text", response.body
+  end
+
+  def test_show_with_translation
+    @translation.update_column(:content_cache, "translation content")
+    I18n.locale = @translation.locale
+    get comfy_cms_render_page_path(cms_path: "")
+    assert_equal "translation content", response.body
+  end
+
+  def test_show_with_translation_not_found
+    I18n.locale = :ja
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
+      get comfy_cms_render_page_path(cms_path: "")
+    end
+  end
+
+  def test_show_with_translation_unpublished
+    @translation.update_column(:is_published, false)
+    I18n.locale = @translation.locale
+
+    assert_exception_raised ActionController::RoutingError, 'Page Not Found at: ""' do
+      get comfy_cms_render_page_path(cms_path: "")
+    end
   end
 end

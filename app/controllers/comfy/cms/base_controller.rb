@@ -20,9 +20,7 @@ protected
           raise ActionController::RoutingError.new('Site Not Found')
         end
       end
-      I18n.locale = @locale = @cms_site.locale.to_sym
     else
-      I18n.locale = @locale = I18n.default_locale
       raise ActionController::RoutingError.new('Site Not Found')
     end
   end
