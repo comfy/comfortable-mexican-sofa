@@ -16,6 +16,7 @@ group :development do
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem "rubocop", "~> 0.51.0", require: false
 end
 
 group :test do
