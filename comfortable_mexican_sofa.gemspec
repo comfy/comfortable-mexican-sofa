@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
   s.require_paths = ['lib']
 
-  s.required_ruby_version = '>= 2.2.2'
+  s.required_ruby_version = ">= 2.3"
 
   # s.add_dependency "rails",             ">= 5.2.0"
   # s.add_dependency "bootstrap_form",    ">= 2.7.0"
@@ -41,6 +41,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails',      '>= 3.1.0'
 
   s.add_dependency 'plupload-rails',    '>= 1.2.1'
-
 
 end
