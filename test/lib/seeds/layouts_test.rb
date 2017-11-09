@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 class SeedsLayoutsTest < ActiveSupport::TestCase
 
-  DEFAULT_HTML = <<~HTML
+  DEFAULT_HTML = <<-HTML.strip_heredoc
     <html>
       <body>
         {{ cms:file header, as: image }}
@@ -12,7 +12,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
   HTML
 
-  NESTED_HTML = <<~HTML
+  NESTED_HTML = <<-HTML.strip_heredoc
     {{ cms:file thumbnail }}
     <div class="left">{{ cms:markdown left }}</div>
     <div class="right">{{ cms:markdown right }}</div>
@@ -99,7 +99,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     assert File.exist?(layout_2_content_path)
     assert File.exist?(layout_3_content_path)
 
-    out = <<~TEXT
+    out = <<-TEXT.strip_heredoc
       [attributes]
       ---
       label: Default Layout
@@ -115,7 +115,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     TEXT
     assert_equal out, IO.read(layout_1_content_path)
 
-    out = <<~TEXT
+    out = <<-TEXT.strip_heredoc
       [attributes]
       ---
       label: Nested Layout
@@ -132,7 +132,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     TEXT
     assert_equal out, IO.read(layout_2_content_path)
 
-    out = <<~TEXT
+    out = <<-TEXT.strip_heredoc
       [attributes]
       ---
       label: Child Layout

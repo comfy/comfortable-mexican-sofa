@@ -24,7 +24,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
   # Wrapper for form action that is sticking to the bottom of the viewport
   def form_actions(&block)
-    <<~HTML.html_safe
+    <<-HTML.strip_heredoc.html_safe
       <div class="form-actions bg-light">
         <div class="row">
           <div class="col-lg-2"></div>

@@ -79,7 +79,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     ComfortableMexicanSofa::Seeds::Snippet::Exporter.new('default-site', 'test-site').export!
 
     assert File.exist?(content_path)
-    out = <<~TEXT
+    out = <<-TEXT.strip_heredoc
       [attributes]
       ---
       label: Default Snippet

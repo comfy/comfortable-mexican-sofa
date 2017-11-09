@@ -13,7 +13,6 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string :locale,       null: false, default: "en"
 
       t.index :hostname
-      t.index :is_mirrored
     end
 
     # -- Layouts ---------------------------------------------------------------

@@ -37,7 +37,7 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
 
           file_path = url_for(ActiveStorage::Blob.find_by(filename: 'header.png'))
           file_path = file_path.sub("http://test.host", "")
-          out = <<~HTML
+          out = <<-HTML.strip_heredoc
             <html>
               <body>
                 <img src='#{file_path}' alt='header.png'/>
