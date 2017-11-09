@@ -6,6 +6,7 @@
 [![Dependency Status](https://img.shields.io/gemnasium/comfy/comfortable-mexican-sofa.svg?style=flat)](https://gemnasium.com/comfy/comfortable-mexican-sofa)
 [![Code Climate](https://img.shields.io/codeclimate/github/comfy/comfortable-mexican-sofa.svg?style=flat)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa)
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
+[![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
 
 ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine
 
@@ -89,9 +90,9 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 #### Help and Contact
 
-GoogleGroups: http://groups.google.com/group/comfortable-mexican-sofa
+Gitter: https://gitter.im/comfy/comfortable-mexican-sofa
 
-Twitter: [@GroceryBagHead](http://twitter.com/#!/GroceryBagHead)
+Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
 
 #### Acknowledgements
 
