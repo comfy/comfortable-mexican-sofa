@@ -4,7 +4,7 @@ before_install:
 before_script:
   - rake db:migrate
 script:
-  - rake ci
+  - rake test
 rvm:
   - 2.2.7
   - 2.3.5
