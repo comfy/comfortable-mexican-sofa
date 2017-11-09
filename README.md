@@ -11,6 +11,7 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 [![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
 
 ## !!! NOTE !!!
+
 This is master branch that's not production ready just yet (Rails 5.2 is not out).
 For currently released gem please reference [Branch 1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
 
@@ -19,7 +20,6 @@ If you want to use it with bleeding-edge Rails:
 * add `gem "comfortable_mexican_sofa", github: "comfy/comfortable-mexican-sofa"`
 * add `gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"`
 * add `gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"`
-
 
 ## Features
 
@@ -37,7 +37,6 @@ If you want to use it with bleeding-edge Rails:
 * File attachments are handled by [ActiveStorage](https://github.com/rails/rails/tree/master/activestorage). Make sure that you can run appropriate migrations by running: `rails active_storage:install`
 * Image resizing is done with with [ImageMagick](http://www.imagemagick.org/script/download.php), so make sure it's installed.
 * Pagination is handled by [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate). Please add one of those to your Gemfile.
-
 
 ## Installation
 
