@@ -21,9 +21,7 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-
   gem 'sqlite3'
-
-  gem 'mocha',      :require => false
-  gem 'coveralls',  :require => false
+  gem 'mocha',      require: false
+  gem 'coveralls',  require: false
 end
