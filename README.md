@@ -1,5 +1,7 @@
 # ComfortableMexicanSofa
 
+ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management System) Engine
+
 [![Gem Version](https://img.shields.io/gem/v/comfortable_mexican_sofa.svg?style=flat)](http://rubygems.org/gems/comfortable_mexican_sofa)
 [![Gem Downloads](https://img.shields.io/gem/dt/comfortable_mexican_sofa.svg?style=flat)](http://rubygems.org/gems/comfortable_mexican_sofa)
 [![Build Status](https://img.shields.io/travis/comfy/comfortable-mexican-sofa.svg?branch=master&style=flat)](https://travis-ci.org/comfy/comfortable-mexican-sofa)
@@ -8,52 +10,54 @@
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
 [![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
 
-ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine
-
-**!!!NOTE!!!** This is master branch that's not production ready just yet (Rails 5.2 is not out).
+## !!! NOTE !!!
+This is master branch that's not production ready just yet (Rails 5.2 is not out).
 For currently released gem please reference [Branch 1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
+
+If you want to use it with bleeding-edge Rails:
+
+* add `gem "comfortable_mexican_sofa", github: "comfy/comfortable-mexican-sofa"`
+* add `gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"`
+* add `gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"`
+
 
 ## Features
 
-* Simple integration with Rails 5.2+ apps
-* Build your application in Rails, not in CMS
+* Simple drop-in integration with Rails 5.2+ apps with minimal configuration
+* CMS stays away from the rest of your application
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
-* Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW)
-* [Fixtures](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
-* [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions)
-* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap](http://getbootstrap.com), [CodeMirror](http://codemirror.net/) and [Redactor](http://imperavi.com/redactor)
+* Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
+* [CMS Seeds](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
+* [Page Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions) to revert changes
+* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap 4](http://getbootstrap.com). Using [CodeMirror](http://codemirror.net/) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as a WYSIWYG editor.
+
+## Dependencies
+
+* File attachments are handled by [ActiveStorage](https://github.com/rails/rails/tree/master/activestorage). Make sure that you can run appropriate migrations by running: `rails active_storage:install`
+* Image resizing is done with with [ImageMagick](http://www.imagemagick.org/script/download.php), so make sure it's installed.
+* Pagination is handled by [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate). Please add one of those to your Gemfile.
+
 
 ## Installation
 
 Add gem definition to your Gemfile:
 
 ```ruby
-gem 'comfortable_mexican_sofa', '~> 1.12.0'
+gem 'comfortable_mexican_sofa', '~> 2.0.0'
 ```
 
 Then from the Rails project's root run:
 
     bundle install
-    rails active_storage:install
     rails generate comfy:cms
     rake db:migrate
 
-Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item.
+Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item or it will make all other routes to be inaccessible.
 
 ```ruby
-comfy_route :cms_admin, :path => '/admin'
-comfy_route :cms, :path => '/', :sitemap => false
-```
-
-When upgrading from the older version please take a look at [Upgrading ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa/wiki/Upgrading-ComfortableMexicanSofa)
-
-### Installation for Rails 3
-
-For Rails 3 apps feel free to use [1.8 release](https://github.com/comfy/comfortable-mexican-sofa/tree/1.8)
-
-```ruby
-gem 'comfortable_mexican_sofa', '~> 1.8.0'
+comfy_route :cms_admin, path: "/admin"
+comfy_route :cms, path: "/"
 ```
 
 ## Quick Start Guide
@@ -69,8 +73,8 @@ After creating a Site, you need to make a Layout. Layout is the template of your
 ```html
 <html>
   <body>
-    <h1>{{ cms:page:header:string }}</h1>
-    {{ cms:page:content:rich_text }}
+    <h1>{{ cms:text title }}</h1>
+    {{ cms:wysiwyg content }}
   </body>
 </html>
 ```
@@ -82,11 +86,6 @@ Once you have a layout, you may start creating pages and populating content. It'
 For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.png)
-
-#### Dependencies
-
-* Install [ImageMagick](http://www.imagemagick.org/) for [paperclip](https://github.com/thoughtbot/paperclip)'s image processing
-* Make sure that Gemfile has either [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate)
 
 #### Help and Contact
 
