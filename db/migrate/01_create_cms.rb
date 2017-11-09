@@ -77,7 +77,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index [:identifier]
-      t.index [:page_id]
+      t.index [:record_type, :record_id]
       t.index [:datetime]
       t.index [:boolean]
     end
