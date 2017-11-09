@@ -32,6 +32,8 @@ protected
   def load_record
     @record = if params[:layout_id]
       ::Comfy::Cms::Layout.find(params[:layout_id])
+    elsif params[:translation_id]
+      ::Comfy::Cms::Translation.find(params[:translation_id])
     elsif params[:page_id]
       ::Comfy::Cms::Page.find(params[:page_id])
     elsif params[:snippet_id]
@@ -53,6 +55,7 @@ protected
     case record
       when ::Comfy::Cms::Layout  then edit_comfy_admin_cms_site_layout_path(@site, @record)
       when ::Comfy::Cms::Page    then edit_comfy_admin_cms_site_page_path(@site, @record)
+      when ::Comfy::Cms::Translation then edit_comfy_admin_cms_site_page_translation_path(@site, @record.page, @record)
       when ::Comfy::Cms::Snippet then edit_comfy_admin_cms_site_snippet_path(@site, @record)
     end
   end

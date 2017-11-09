@@ -7,8 +7,7 @@
   %h2
     = t('.title')
     = @record.class.to_s.demodulize
-    - name = @record.is_a?(::Comfy::Cms::Page) ? @record.full_path : @record.identifier
-    = "(#{name})"
+
 
 .row.d-none.d-lg-flex
   .col-lg-10.ml-auto
