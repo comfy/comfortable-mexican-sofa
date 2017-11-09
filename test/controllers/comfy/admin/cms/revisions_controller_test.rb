@@ -3,33 +3,40 @@ require_relative '../../../../test_helper'
 class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @site     = comfy_cms_sites(:default)
-    @layout   = comfy_cms_layouts(:default)
-    @page     = comfy_cms_pages(:default)
-    @snippet  = comfy_cms_snippets(:default)
+    @site         = comfy_cms_sites(:default)
+    @layout       = comfy_cms_layouts(:default)
+    @page         = comfy_cms_pages(:default)
+    @translation  = comfy_cms_translations(:default)
+    @snippet      = comfy_cms_snippets(:default)
   end
 
   def test_get_index_for_layouts
-    r :get, comfy_admin_cms_site_layout_revisions_path(site_id: @site, layout_id: @layout)
+    r :get, comfy_admin_cms_site_layout_revisions_path(@site, @layout)
     assert_response :redirect
     assert_redirected_to action: :show, id: comfy_cms_revisions(:layout)
   end
 
   def test_get_index_for_pages
-    r :get, comfy_admin_cms_site_page_revisions_path(site_id: @site, page_id: @page)
+    r :get, comfy_admin_cms_site_page_revisions_path(@site, @page)
     assert_response :redirect
     assert_redirected_to action: :show, id: comfy_cms_revisions(:page)
   end
 
   def test_get_index_for_snippets
-    r :get, comfy_admin_cms_site_snippet_revisions_path(site_id: @site, snippet_id: @snippet)
+    r :get, comfy_admin_cms_site_snippet_revisions_path(@site, @snippet)
     assert_response :redirect
     assert_redirected_to action: :show, id: comfy_cms_revisions(:snippet)
   end
 
+  def test_get_index_for_translations
+    r :get, comfy_admin_cms_site_page_translation_revisions_path(@site, @page, @translation)
+    assert_response :redirect
+    assert_redirected_to action: :show, id: comfy_cms_revisions(:translation)
+  end
+
   def test_get_index_for_snippets_with_no_revisions
     Comfy::Cms::Revision.delete_all
-    r :get, comfy_admin_cms_site_snippet_revisions_path(site_id: @site, snippet_id: @snippet)
+    r :get, comfy_admin_cms_site_snippet_revisions_path(@site, @snippet)
     assert_response :redirect
     assert_redirected_to action: :show, id: 0
   end
@@ -55,6 +62,19 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTe
     assert assigns(:record)
     assert assigns(:revision)
     assert assigns(:record).is_a?(Comfy::Cms::Page)
+    assert_template :show
+  end
+
+  def test_get_show_for_translation
+    r :get, comfy_admin_cms_site_page_translation_revision_path(
+      site_id:        @site,
+      page_id:        @page,
+      translation_id: @translation,
+      id:             comfy_cms_revisions(:translation))
+    assert_response :success
+    assert assigns(:record)
+    assert assigns(:revision)
+    assert assigns(:record).is_a?(Comfy::Cms::Translation)
     assert_template :show
   end
 
@@ -99,6 +119,18 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTe
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, assigns(:record))
+    assert_equal 'Revision Not Found', flash[:danger]
+  end
+
+  def test_get_show_for_translation_failure
+    r :get, comfy_admin_cms_site_page_translation_revision_path(
+      site_id:        @site,
+      page_id:        @page,
+      translation_id: @translation,
+      id:             'invalid')
+    assert_response :redirect
+    assert assigns(:record)
+    assert_redirected_to edit_comfy_admin_cms_site_page_translation_path(@site, @page, assigns(:record))
     assert_equal 'Revision Not Found', flash[:danger]
   end
 
@@ -171,6 +203,30 @@ class Comfy::Admin::Cms::RevisionsControllerTest < ActionDispatch::IntegrationTe
           datetime:   nil,
           boolean:    false }
       ], @page.fragments_attributes
+    end
+  end
+
+  def test_revert_for_page
+    assert_difference -> {@translation.revisions.count} do
+      r :patch, revert_comfy_admin_cms_site_page_translation_revision_path(
+        site_id:        @site,
+        page_id:        @page,
+        translation_id: @translation,
+        id:             comfy_cms_revisions(:translation)
+      )
+      assert_response :redirect
+      assert_redirected_to edit_comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
+      assert_equal 'Content Reverted', flash[:success]
+
+      @translation.reload
+
+      assert_equal [
+        { identifier: "content",
+          tag:        "text",
+          content:    "old content",
+          datetime:   nil,
+          boolean:    false }
+      ], @translation.fragments_attributes
     end
   end
 

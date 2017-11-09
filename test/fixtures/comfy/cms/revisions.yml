@@ -15,6 +15,14 @@ page:
         'content'     => 'old title'}
     ]}.to_yaml.inspect %>
 
+translation:
+  record: default (Comfy::Cms::Translation)
+  data: <%= {
+    "fragments_attributes" => [
+      { "identifier" => "content",
+        "content"    => "old content" }
+    ]}.to_yaml.inspect %>
+
 snippet:
   record: default (Comfy::Cms::Snippet)
   data: <%= {
