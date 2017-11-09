@@ -22,7 +22,6 @@ require_relative 'comfortable_mexican_sofa/seeds/file'
 require_relative 'comfortable_mexican_sofa/extensions/rails'
 require_relative 'comfortable_mexican_sofa/extensions/acts_as_tree'
 require_relative 'comfortable_mexican_sofa/extensions/has_revisions'
-require_relative 'comfortable_mexican_sofa/extensions/is_categorized'
 
 require_relative  'comfortable_mexican_sofa/content'
 

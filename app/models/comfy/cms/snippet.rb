@@ -1,7 +1,8 @@
 class Comfy::Cms::Snippet < ActiveRecord::Base
   self.table_name = 'comfy_cms_snippets'
 
-  cms_is_categorized
+  include Comfy::Cms::WithCategories
+
   cms_has_revisions_for :content
 
   # -- Relationships -----------------------------------------------------------

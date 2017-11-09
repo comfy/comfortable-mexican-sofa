@@ -1,6 +1,8 @@
 class Comfy::Cms::File < ActiveRecord::Base
   self.table_name = 'comfy_cms_files'
 
+  include Comfy::Cms::WithCategories
+
   VARIANT_SIZE = {
     redactor: {resize: "100x75^",   gravity: "center", crop: "100x75+0+0"},
     thumb:    {resize: "200x150^",  gravity: "center", crop: "200x150+0+0"},
@@ -9,8 +11,6 @@ class Comfy::Cms::File < ActiveRecord::Base
 
   # temporary place to store attachment
   attr_accessor :file
-
-  cms_is_categorized
 
   has_one_attached :attachment
 
