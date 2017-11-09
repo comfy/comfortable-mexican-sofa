@@ -39,6 +39,7 @@ protected
     elsif params[:snippet_id]
       ::Comfy::Cms::Snippet.find(params[:snippet_id])
     end
+
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = I18n.t('comfy.admin.cms.revisions.record_not_found')
     redirect_to comfy_admin_cms_path
@@ -53,10 +54,14 @@ protected
 
   def record_path(record = @record)
     case record
-      when ::Comfy::Cms::Layout  then edit_comfy_admin_cms_site_layout_path(@site, @record)
-      when ::Comfy::Cms::Page    then edit_comfy_admin_cms_site_page_path(@site, @record)
-      when ::Comfy::Cms::Translation then edit_comfy_admin_cms_site_page_translation_path(@site, @record.page, @record)
-      when ::Comfy::Cms::Snippet then edit_comfy_admin_cms_site_snippet_path(@site, @record)
+      when ::Comfy::Cms::Layout
+        edit_comfy_admin_cms_site_layout_path(@site, @record)
+      when ::Comfy::Cms::Page
+        edit_comfy_admin_cms_site_page_path(@site, @record)
+      when ::Comfy::Cms::Translation
+        edit_comfy_admin_cms_site_page_translation_path(@site, @record.page, @record)
+      when ::Comfy::Cms::Snippet
+        edit_comfy_admin_cms_site_snippet_path(@site, @record)
     end
   end
 end
