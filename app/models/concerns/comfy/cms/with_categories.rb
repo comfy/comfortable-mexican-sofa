@@ -35,5 +35,4 @@ module Comfy::Cms::WithCategories
       end
     end
   end
-
 end

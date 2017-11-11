@@ -203,10 +203,32 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     @layout.update_column(:content, "{{cms:text a, namespace: a}}{{cms:text b, namespace: b}}")
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
     assert_response :success
+    assert_select "a[data-toggle='tab'][href='#ns-a']", "A"
+    assert_select "a[data-toggle='tab'][href='#ns-b']", "B"
     assert_select "input[name='page[fragments_attributes][0][content]']"
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='a']"
     assert_select "input[name='page[fragments_attributes][1][content]']"
     assert_select "input[type='hidden'][name='page[fragments_attributes][1][identifier]'][value='b']"
+  end
+
+  def test_get_new_with_localized_names
+    I18n.backend.store_translations(:en, {comfy: {cms: {content: {
+      tag:        {localized_a: "Localized Fragment"},
+      namespace:  {localized_a: "Localized Namespace"}
+    }}}})
+    @layout.update_column(:content,
+      "{{cms:text localized_a, namespace: localized_a}}{{cms:text b, namespace: b}}"
+    )
+    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
+    assert_response :success
+
+    assert_select "a[data-toggle='tab'][href='#ns-localized_a']", "Localized Namespace"
+    assert_select "label", "Localized Fragment"
+
+  ensure
+    I18n.backend.store_translations(:en, {comfy: {cms: {content: {
+      tag: nil, namespace:  nil
+    }}}})
   end
 
   def test_get_new_as_child_page

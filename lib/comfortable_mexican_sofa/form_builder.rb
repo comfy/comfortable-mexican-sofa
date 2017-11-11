@@ -16,7 +16,8 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       value = tag.class.to_s.demodulize.underscore
       tag_name_input = @template.hidden_field_tag(name, value, id: nil)
 
-      form_group label: {text: tag.identifier.titleize} do
+      label = I18n.t("comfy.cms.content.tag.#{tag.identifier}", default: tag.identifier.titleize)
+      form_group label: {text: label} do
         [identifer_input, tag_name_input, tag_input].join.html_safe
       end
     end

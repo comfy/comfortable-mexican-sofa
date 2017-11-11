@@ -24,7 +24,8 @@
                   - namespace.each_with_index do |(name, tags), index|
                     %li.nav-item
                       - active = index == 0 ? "active" : nil
-                      = link_to name.humanize, "#ns-#{name}", class: "nav-link #{active}", data: {toggle: "tab"}
+                      - label = t("comfy.cms.content.namespace.#{name}", default: name.humanize)
+                      = link_to label, "#ns-#{name}", class: "nav-link #{active}", data: {toggle: "tab"}
 
           .tab-content
             - frag_index = 0
