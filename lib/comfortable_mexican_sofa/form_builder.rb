@@ -1,7 +1,7 @@
 class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
   def default_label_col
-    "col-sm-2 text-lg-right"
+    "col-sm-2 text-md-right"
   end
 
   def field(record, tag, index)
@@ -17,7 +17,8 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       tag_name_input = @template.hidden_field_tag(name, value, id: nil)
 
       label = I18n.t("comfy.cms.content.tag.#{tag.identifier}", default: tag.identifier.titleize)
-      form_group label: {text: label} do
+      renderable = tag.respond_to?(:renderable) ? tag.renderable : true
+      form_group label: {text: label, class: "renderable-#{renderable}"} do
         [identifer_input, tag_name_input, tag_input].join.html_safe
       end
     end

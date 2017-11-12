@@ -178,6 +178,14 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type='hidden'][name='page[fragments_attributes][1][tag]'][value='markdown']"
   end
 
+  def test_get_new_with_non_renderable_fragment
+    @layout.update_column(:content, "{{cms:text a}}{{cms:text b, render: false}}")
+    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
+    assert_response :success
+    assert_select "label.renderable-true", "A"
+    assert_select "label.renderable-false", "B"
+  end
+
   def test_get_new_with_crashy_tag
     @layout.update_column(:content, "{{cms:invalid}}")
     assert_exception_raised do
