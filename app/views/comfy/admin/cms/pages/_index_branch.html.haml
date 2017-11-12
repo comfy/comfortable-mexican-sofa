@@ -24,10 +24,13 @@
 
       .item-content
         .item-title
-          = link_to page.label, edit_comfy_admin_cms_site_page_path(@site, page)
-          = render "comfy/admin/cms/categories/categories", object: page
+          - published_css_class = page.is_published? ? "published" : "draft"
+          = link_to page.label, edit_comfy_admin_cms_site_page_path(@site, page), class: published_css_class
         .item-meta
           = link_to page.url, page.url, target: "_blank"
+
+      .item-categories.ml-auto.d-flex.align-items-center
+        = render "comfy/admin/cms/categories/categories", object: page
 
     .col-md-4.d-flex.align-items-center.justify-content-md-end
       .btn-group.btn-group-sm

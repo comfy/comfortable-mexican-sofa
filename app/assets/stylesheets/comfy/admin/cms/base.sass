@@ -162,10 +162,11 @@ body#comfy
 
             .item-content
               .item-title
-                font-size: 1.2rem
-                color: $black
                 a
+                  font-size: 1.2rem
                   color: $black
+                a.draft
+                  color: $gray-600
               .item-meta
                 font-size: 0.75rem
           .btn-group
@@ -198,6 +199,9 @@ body#comfy
       a.translation
         text-align: left
         overflow: hidden
+        color: $black
+      a.draft
+        color: $gray-600
 
   // -- Files ------------------------------------------------------------------
   .cms-files-modal

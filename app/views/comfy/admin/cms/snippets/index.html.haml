@@ -18,9 +18,11 @@
           .item-content
             .item-title
               = link_to snippet.label, edit_comfy_admin_cms_site_snippet_path(@site, snippet)
-              = render "comfy/admin/cms/categories/categories", object: snippet
             .item-meta
               = snippet.identifier
+
+          .item-categories.ml-auto.d-flex.align-items-center
+            = render "comfy/admin/cms/categories/categories", object: snippet
 
         .col-md-4.d-flex.align-items-center.justify-content-md-end
           .btn-group.btn-group-sm

@@ -10,7 +10,8 @@
 
         - url = edit_comfy_admin_cms_site_page_translation_path(@site, @page, translation)
         - name = "(#{translation.locale}) #{translation.label}"
-        = link_to name, url, class: "translation btn btn-outline-light w-100 text-primary"
+        - published_css_class = translation.is_published? ? "published" : "draft"
+        = link_to name, url, class: "#{published_css_class} translation btn btn-outline-light w-100"
 
         - url = comfy_admin_cms_site_page_translation_path(@site, @page, translation)
         = link_to t(".translation.delete"), url, method: :delete, data: {confirm: t(".translation.confirm")}, class: "btn btn-danger"
