@@ -30,13 +30,6 @@ ComfortableMexicanSofa.configure do |config|
   # for example '/cms-admin/users'
   #   config.admin_route_redirect = ''
 
-  # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
-  # the upload method and appropriate settings based on Paperclip.  For S3 see:
-  # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for
-  # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/Filesystem
-  # If you are using S3 and HTTPS, pass :s3_protocol => '' to have URLs that use the protocol of the page
-  #   config.upload_file_options = {:url => '/system/:class/:id/:attachment/:style/:filename'}
-
   # Sofa allows you to setup entire site from files. Database is updated with each
   # request (if necessary). Please note that database entries are destroyed if there's
   # no corresponding file. Seeds are disabled by default.
@@ -76,7 +69,7 @@ ComfortableMexicanSofa.configure do |config|
   # By default you cannot have irb code inside your layouts/pages/snippets.
   # Generally this is to prevent putting something like this:
   # <% User.delete_all %> but if you really want to allow it...
-  #   config.allow_irb = false
+  #   config.allow_erb = false
 
   # Whitelist of all helper methods that can be used via {{cms:helper}} tag. By default
   # all helpers are allowed except `eval`, `send`, `call` and few others. Empty array

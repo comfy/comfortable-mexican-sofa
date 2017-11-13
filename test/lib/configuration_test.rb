@@ -20,7 +20,6 @@ class ConfigurationTest < ActiveSupport::TestCase
       'es'    => 'Español'
     }), config.locales
     assert_nil config.admin_locale
-    assert_equal ({}), config.upload_file_options
     assert_nil config.admin_cache_sweeper
     assert_equal false, config.allow_erb
     assert_nil config.allowed_helpers

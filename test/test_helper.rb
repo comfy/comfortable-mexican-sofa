@@ -43,7 +43,6 @@ class ActiveSupport::TestCase
         'es' => 'Español'
       }
       config.admin_locale         = nil
-      config.upload_file_options  = { }
       config.admin_cache_sweeper  = nil
       config.allow_erb            = false
       config.allowed_helpers      = nil

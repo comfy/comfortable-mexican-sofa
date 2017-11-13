@@ -25,9 +25,6 @@ class ComfortableMexicanSofa::Configuration
   # for example '/cms-admin/users'
   attr_accessor :admin_route_redirect
 
-  # Upload settings
-  attr_accessor :upload_file_options
-
   # With each page load, files will be synched with the database. Database entries are
   # destroyed if there's no corresponding file. Seeds are disabled by default.
   attr_accessor :enable_seeds
@@ -89,7 +86,6 @@ class ComfortableMexicanSofa::Configuration
     @seed_data_path       = nil
     @admin_route_redirect = ''
     @enable_sitemap       = true
-    @upload_file_options  = { }
     @enable_seeds         = false
     @seeds_path           = File.expand_path('db/cms_seeds', Rails.root)
     @revisions_limit      = 25
