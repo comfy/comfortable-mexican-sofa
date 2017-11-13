@@ -19,6 +19,7 @@ If you want to use it with bleeding-edge Rails:
 
 * add `gem "comfortable_mexican_sofa", github: "comfy/comfortable-mexican-sofa"`
 * add `gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"`
+* add `gem "arel", github: "rails/arel"`
 * add `gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"`
 
 ## Features
