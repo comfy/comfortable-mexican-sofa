@@ -8,6 +8,8 @@ class Comfy::Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_con
   # Authorization module must have `authorize` method
   include ComfortableMexicanSofa.config.admin_authorization.to_s.constantize
 
+  helper Comfy::Admin::CmsHelper
+
   protect_from_forgery
 
   before_action :authenticate,
