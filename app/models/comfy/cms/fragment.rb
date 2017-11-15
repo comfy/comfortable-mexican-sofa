@@ -12,7 +12,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
               :add_attachments
 
   # -- Relationships -----------------------------------------------------------
-  belongs_to :record, polymorphic: true
+  belongs_to :record, polymorphic: true, touch: true
 
   # -- Validations -------------------------------------------------------------
   validates :identifier,

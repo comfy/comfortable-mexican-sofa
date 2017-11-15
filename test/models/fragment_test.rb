@@ -120,4 +120,12 @@ class CmsFragmentTest < ActiveSupport::TestCase
       )
     end
   end
+
+  def test_touch
+    timestamp = 2.days.ago
+    @page.update_column(:updated_at, timestamp)
+    comfy_cms_fragments(:default).update_attributes(content: "updated")
+    @page.reload
+    refute_equal timestamp, @page.updated_at
+  end
 end
