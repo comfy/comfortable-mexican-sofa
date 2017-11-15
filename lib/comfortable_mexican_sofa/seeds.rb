@@ -1,5 +1,7 @@
 module ComfortableMexicanSofa::Seeds
 
+  class Error < StandardError; end
+
   require 'mimemagic'
 
   class Importer
@@ -15,6 +17,10 @@ module ComfortableMexicanSofa::Seeds
       self.to           = to
       self.site         = Comfy::Cms::Site.where(identifier: to).first!
       self.seed_ids     = []
+
+      unless ::File.exist?(path = ::File.join(ComfortableMexicanSofa.config.seeds_path, from))
+        raise Error, "Folder for import: '#{path}' is not found"
+      end
     end
 
     def import!

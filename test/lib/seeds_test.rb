@@ -24,6 +24,12 @@ class SeedsTest < ActiveSupport::TestCase
     end
   end
 
+  def test_import_all_with_no_folder
+    assert_exception_raised ComfortableMexicanSofa::Seeds::Error do
+      ComfortableMexicanSofa::Seeds::Importer.new('invalid', 'default-site').import!
+    end
+  end
+
   def test_export_all
     ActiveStorage::Blob.any_instance.stubs(:download).returns(
       File.read(File.join(Rails.root, 'db/cms_seeds/sample-site/files/default.jpg'))
