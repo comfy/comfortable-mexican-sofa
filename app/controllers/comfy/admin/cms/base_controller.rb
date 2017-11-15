@@ -55,7 +55,7 @@ protected
     controllers = %w(layouts pages snippets files).collect{|c| 'comfy/admin/cms/' + c}
     if controllers.member?(params[:controller]) && params[:action] == 'index'
       ComfortableMexicanSofa::Seeds::Importer.new(@site.identifier).import!
-      flash.now[:danger] = I18n.t('comfy.admin.cms.base.seeds_enabled')
+      flash.now[:warning] = I18n.t('comfy.admin.cms.base.seeds_enabled')
     end
   end
 end

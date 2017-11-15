@@ -67,7 +67,7 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
         assert_difference 'Comfy::Cms::Snippet.count', 1 do
            r :get, "/admin/sites/#{@site.id}/pages"
            assert_response :success
-           assert_equal 'CMS Seeds are enabled. All changes done here will be discarded.', flash[:danger]
+           assert_equal 'CMS Seeds are enabled. All changes done here will be discarded.', flash[:warning]
         end
       end
     end
