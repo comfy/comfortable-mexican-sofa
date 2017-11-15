@@ -108,10 +108,16 @@ class ActiveSupport::TestCase
     end
   end
 
-  # Small method that allows for better formatting in tests
-  def rendered_content_formatter(string)
-    string.gsub(/^[ ]+/, '')
+  # Capturing STDOUT into a string
+  def with_captured_stout
+    old = $stdout
+    $stdout = StringIO.new
+    yield
+    $stdout.string
+  ensure
+    $stdout = old
   end
+
 end
 
 
