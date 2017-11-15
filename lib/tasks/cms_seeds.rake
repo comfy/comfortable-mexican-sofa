@@ -1,4 +1,4 @@
-namespace :comfortable_mexican_sofa do
+namespace :comfy do
   namespace :cms_seeds do
 
     desc 'Import CMS Seed data into database (from: folder name, to: site identifier)'

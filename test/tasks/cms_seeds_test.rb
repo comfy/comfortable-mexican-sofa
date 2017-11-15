@@ -7,7 +7,7 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
     @rake = Rake::Application.new
     Rake.application = @rake
     # We force rake file reload by passing empty array as the last parameter
-    Rake.application.rake_require("tasks/comfortable_mexican_sofa", $LOAD_PATH, [])
+    Rake.application.rake_require("tasks/cms_seeds", $LOAD_PATH, [])
     Rake::Task.define_task(:environment)
   end
 
@@ -17,7 +17,7 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
     importer.expects(:import!)
 
     with_captured_stout do
-      @rake["comfortable_mexican_sofa:cms_seeds:import"].invoke("from_folder", "to_site")
+      @rake["comfy:cms_seeds:import"].invoke("from_folder", "to_site")
     end
   end
 
@@ -27,7 +27,7 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
     exporter.expects(:export!)
 
     with_captured_stout do
-      @rake["comfortable_mexican_sofa:cms_seeds:export"].invoke("from_site", "to_folder")
+      @rake["comfy:cms_seeds:export"].invoke("from_site", "to_folder")
     end
   end
 end

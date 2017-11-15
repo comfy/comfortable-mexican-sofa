@@ -91,7 +91,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_no_select(selector, value = nil)
-    assert_select(selector, :text => value, :count => 0)
+    assert_select(selector, text: value, count: 0)
   end
 
   def assert_count_difference(models, number = 1, &block)
@@ -117,7 +117,6 @@ class ActiveSupport::TestCase
   ensure
     $stdout = old
   end
-
 end
 
 
@@ -171,5 +170,4 @@ class Rails::Generators::TestCase
       )
     )
   end
-
 end
