@@ -170,7 +170,6 @@ module ComfortableMexicanSofa::Seeds::Page
         attrs = {
           "label"        => page.label,
           "layout"       => page.layout.try(:identifier),
-          "parent"       => page.parent && (page.parent.slug.present?? page.parent.slug : 'index'),
           "target_page"  => page.target_page.try(:full_path),
           "categories"   => page.categories.map{|c| c.label},
           "is_published" => page.is_published,

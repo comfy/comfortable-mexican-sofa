@@ -156,7 +156,6 @@ class SeedsPagesTest < ActiveSupport::TestCase
       ---
       label: Default Page
       layout: default
-      parent:\s
       target_page: "/child-page"
       categories:
       - Default
@@ -181,7 +180,6 @@ class SeedsPagesTest < ActiveSupport::TestCase
       ---
       label: Child Page
       layout: default
-      parent: index
       target_page:\s
       categories: []
       is_published: true
