@@ -15,8 +15,13 @@ module ComfortableMexicanSofa::Seeds::File
           .where("active_storage_blobs.filename" => filename).references(:blob).first ||
           self.site.files.new
 
+        # We need to track actual file and its attributes
+        fresh_file = false
+
         if File.exist?(attrs_path = File.join(self.path, "_#{filename}.yml"))
           if fresh_seed?(file, attrs_path)
+            fresh_file = true
+
             attrs = YAML.load(File.read(attrs_path))
             category_ids = category_names_to_ids(Comfy::Cms::File, attrs.delete("categories"))
             file.attributes = attrs.merge(
@@ -26,6 +31,8 @@ module ComfortableMexicanSofa::Seeds::File
         end
 
         if fresh_seed?(file, file_path)
+          fresh_file = true
+
           file_handler = File.open(file_path)
           file.file = {
             io:           file_handler,
@@ -34,12 +41,14 @@ module ComfortableMexicanSofa::Seeds::File
           }
         end
 
-        if file.save
-          message = "[CMS SEEDS] Imported File \t #{file_path}"
-          ComfortableMexicanSofa.logger.info(message)
-        else
-          message = "[CMS SEEDS] Failed to import File \n#{file.errors.inspect}"
-          ComfortableMexicanSofa.logger.warn(message)
+        if fresh_file
+          if file.save
+            message = "[CMS SEEDS] Imported File \t #{file_path}"
+            ComfortableMexicanSofa.logger.info(message)
+          else
+            message = "[CMS SEEDS] Failed to import File \n#{file.errors.inspect}"
+            ComfortableMexicanSofa.logger.warn(message)
+          end
         end
 
         self.seed_ids << file.id
