@@ -13,14 +13,26 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 ## !!! NOTE !!!
 
 This is master branch that's not production ready just yet (Rails 5.2 is not out).
-For currently released gem please reference [Branch 1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
+For currently released gem please reference branch [1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
 
-If you want to use it with bleeding-edge Rails:
+If you want to use it with bleeding-edge Rails. Add this your Gemfile:
 
-* add `gem "comfortable_mexican_sofa", github: "comfy/comfortable-mexican-sofa"`
-* add `gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"`
-* add `gem "arel", github: "rails/arel"`
-* add `gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"`
+```ruby
+  gem "comfortable_mexican_sofa",
+    github: "comfy/comfortable-mexican-sofa"
+
+  # until [PR#30783](https://github.com/rails/rails/pull/30783) gets resolved
+  gem "rails",
+    github: "GBH/rails",
+    branch: "active-storage-routes-prepend"
+  gem "arel",
+    github: "rails/arel"
+
+  # There's no gem published for Bootstrap4 just yet
+  gem "bootstrap_form",
+    github: "bootstrap-ruby/rails-bootstrap-forms",
+    branch: "bootstrap-v4"
+```
 
 ## Features
 
