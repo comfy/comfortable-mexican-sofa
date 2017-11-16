@@ -65,7 +65,7 @@ module Comfy
         append_file partial_path do
           <<-HAML.strip_heredoc
             %li.nav-item
-              = active_link_to '#{class_name.pluralize}', admin_#{file_name.pluralize}_path
+              = active_link_to '#{class_name.pluralize}', admin_#{file_name.pluralize}_path, class: 'nav-link'
           HAML
         end
       end
