@@ -17,7 +17,7 @@ class FooTest < ActiveSupport::TestCase
   def test_creation
     assert_difference 'Foo.count' do
       Foo.create(
-        :bar => 'test bar',
+        bar: 'test bar',
       )
     end
   end

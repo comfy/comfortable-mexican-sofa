@@ -1,0 +1,7 @@
+<%- model_attrs.each do |attr| -%>
+= form.text_field :<%= attr.name %>
+<%- end -%>
+
+= form.form_actions do
+  = form.submit class: "btn btn-primary"
+  = link_to 'Cancel', admin_<%= file_name.pluralize %>_path, class: "btn btn-link"

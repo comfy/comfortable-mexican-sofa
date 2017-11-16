@@ -24,7 +24,7 @@ class ScaffoldGeneratorTest < Rails::Generators::TestCase
     assert_file 'config/routes.rb', read_file('scaffold/routes.rb')
 
     assert_file 'app/views/comfy/admin/cms/partials/_navigation_inner.html.haml' do |file|
-      assert_match "%li= active_link_to 'Foos', admin_foos_path", file
+      assert_match "%li.nav-item\n  = active_link_to 'Foos', admin_foos_path", file
     end
   end
 end

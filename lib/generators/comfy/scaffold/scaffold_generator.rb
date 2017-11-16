@@ -13,7 +13,7 @@ module Comfy
 
       source_root File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
 
-      argument :model_args, :type => :array, :default => [], :banner => 'attribute:type'
+      argument :model_args, type: :array, default: [], banner: 'attribute:type'
 
       def initialize(*args, &block)
         super
@@ -49,9 +49,11 @@ module Comfy
       end
 
       def generate_route
-        route_string  = "  namespace :admin do\n"
-        route_string << "    resources :#{file_name.pluralize}\n"
-        route_string << "  end\n"
+        route_string = <<-TEXT.strip_heredoc
+          namespace :admin do
+            resources :#{file_name.pluralize}
+          end
+        TEXT
         route route_string
       end
 
@@ -61,7 +63,10 @@ module Comfy
           create_file partial_path
         end
         append_file partial_path do
-          "\n%li= active_link_to '#{class_name.pluralize}', admin_#{file_name.pluralize}_path\n"
+          <<-HAML.strip_heredoc
+            %li.nav-item
+              = active_link_to '#{class_name.pluralize}', admin_#{file_name.pluralize}_path
+          HAML
         end
       end
     end

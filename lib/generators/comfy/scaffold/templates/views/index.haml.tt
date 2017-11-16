@@ -1,0 +1,21 @@
+.page-header
+  = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, class: 'btn btn-secondary pull-right'
+  %h2= '<%= class_name.pluralize.titleize %>'
+
+= paginate @<%= file_name.pluralize %>, theme: 'comfy'
+
+%ul.list
+  - @<%= file_name.pluralize %>.each do |<%= file_name %>|
+    %li
+      .row
+        .col-md-8.item
+          .item-content
+            .item-title
+              = <%= file_name%>.<%= model_attrs.first.name %>
+
+        .col-md-4.d-flex.align-items-center.justify-content-md-end
+          .btn-group.btn-group-sm
+            = link_to 'Edit', edit_admin_<%= file_name %>_path(<%= file_name %>), class: 'btn btn-outline-secondary'
+            = link_to 'Delete', admin_<%= file_name %>_path(<%= file_name %>), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger'
+
+= paginate @<%= file_name.pluralize %>, theme: 'comfy'

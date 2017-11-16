@@ -1,4 +1,4 @@
-class Foo < ActiveRecord::Base
+class <%= class_name %> < ActiveRecord::Base
 
   # -- Relationships -----------------------------------------------------------
 

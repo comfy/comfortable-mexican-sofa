@@ -1,4 +1,5 @@
 = form.text_field :bar
 
-= form.form_group :class => 'form-actions' do
-  = form.submit :class => 'btn btn-primary'
+= form.form_actions do
+  = form.submit class: "btn btn-primary"
+  = link_to 'Cancel', admin_foos_path, class: "btn btn-link"

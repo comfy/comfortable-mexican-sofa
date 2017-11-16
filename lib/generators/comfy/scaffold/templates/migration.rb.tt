@@ -1,4 +1,4 @@
-class Create<%= class_name.pluralize %> < ActiveRecord::Migration
+class Create<%= class_name.pluralize %> < ActiveRecord::Migration[5.2]
 
   def change
     create_table :<%= file_name.pluralize %> do |t|

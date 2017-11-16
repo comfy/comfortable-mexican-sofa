@@ -1,7 +1,7 @@
 class Admin::FoosController < Comfy::Admin::Cms::BaseController
 
-  before_action :build_foo,  :only => [:new, :create]
-  before_action :load_foo,   :only => [:show, :edit, :update, :destroy]
+  before_action :build_foo,  only: [:new, :create]
+  before_action :load_foo,   only: [:show, :edit, :update, :destroy]
 
   def index
     @foos = Foo.page(params[:page])
@@ -22,25 +22,25 @@ class Admin::FoosController < Comfy::Admin::Cms::BaseController
   def create
     @foo.save!
     flash[:success] = 'Foo created'
-    redirect_to :action => :show, :id => @foo
+    redirect_to action: :show, id: @foo
   rescue ActiveRecord::RecordInvalid
     flash.now[:danger] = 'Failed to create Foo'
-    render :action => :new
+    render action: :new
   end
 
   def update
     @foo.update_attributes!(foo_params)
     flash[:success] = 'Foo updated'
-    redirect_to :action => :show, :id => @foo
+    redirect_to action: :show, id: @foo
   rescue ActiveRecord::RecordInvalid
     flash.now[:danger] = 'Failed to update Foo'
-    render :action => :edit
+    render action: :edit
   end
 
   def destroy
     @foo.destroy
     flash[:success] = 'Foo deleted'
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
 protected
@@ -53,7 +53,7 @@ protected
     @foo = Foo.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:danger] = 'Foo not found'
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
   def foo_params
