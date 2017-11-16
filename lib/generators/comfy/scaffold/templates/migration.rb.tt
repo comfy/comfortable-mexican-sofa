@@ -8,5 +8,4 @@ class Create<%= class_name.pluralize %> < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
-
 end

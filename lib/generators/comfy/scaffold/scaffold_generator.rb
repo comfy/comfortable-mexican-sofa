@@ -53,6 +53,7 @@ module Comfy
           namespace :admin do
             resources :#{file_name.pluralize}
           end
+
         TEXT
         route route_string
       end
