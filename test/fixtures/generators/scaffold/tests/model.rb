@@ -11,7 +11,7 @@ class FooTest < ActiveSupport::TestCase
   def test_validation
     foo = Foo.new
     assert foo.invalid?
-    assert_errors_on foo, :bar
+    assert_equal [:bar], foo.errors.keys
   end
 
   def test_creation

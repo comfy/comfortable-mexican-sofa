@@ -11,7 +11,7 @@ class <%= class_name %>Test < ActiveSupport::TestCase
   def test_validation
     <%= file_name %> = <%= class_name %>.new
     assert <%= file_name %>.invalid?
-    assert_errors_on <%= file_name %>, <%= model_attrs.collect{|attr| ":#{attr.name}"}.join(', ') %>
+    assert_equal [<%= model_attrs.collect{|attr| ":#{attr.name}"}.join(', ')%>], <%= file_name %>.errors.keys
   end
 
   def test_creation
