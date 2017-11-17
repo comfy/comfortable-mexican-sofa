@@ -121,7 +121,7 @@ module ComfortableMexicanSofa::Seeds::Page
           old_frag_identifiers = translation.fragments.pluck(:identifier)
 
           new_frag_identifiers, fragments_attributes =
-            construct_fragments_attributes(fragments_hash, page, path)
+            construct_fragments_attributes(fragments_hash, translation, path)
           translation.fragments_attributes = fragments_attributes
 
           if translation.save
