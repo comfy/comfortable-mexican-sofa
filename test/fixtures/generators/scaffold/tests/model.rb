@@ -21,5 +21,4 @@ class FooTest < ActiveSupport::TestCase
       )
     end
   end
-
 end
