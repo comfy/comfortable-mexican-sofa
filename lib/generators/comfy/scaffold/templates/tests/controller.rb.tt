@@ -3,33 +3,46 @@ require_relative '../../test_helper'
 class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    # TODO: login as admin user
     @<%= file_name %> = <%= file_name.pluralize %>(:default)
   end
 
+  # Vanilla CMS has BasicAuth, so we need to send that with each request.
+  # Change this to fit your app's authentication strategy.
+  # Move this to test_helper.rb
+  def r(verb, path, options = {})
+    headers = options[:headers] || {}
+    headers['HTTP_AUTHORIZATION'] =
+      ActionController::HttpAuthentication::Basic.encode_credentials(
+        ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
+        ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
+      )
+    options.merge!(headers: headers)
+    send(verb, path, options)
+  end
+
   def test_get_index
-    get admin_<%= file_name.pluralize %>_path
+    r :get, admin_<%= file_name.pluralize %>_path
     assert_response :success
     assert assigns(:<%= file_name.pluralize %>)
     assert_template :index
   end
 
   def test_get_show
-    get admin_<%= file_name %>_path(@<%= file_name %>)
+    r :get, admin_<%= file_name %>_path(@<%= file_name %>)
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :show
   end
 
   def test_get_show_failure
-    get admin_<%= file_name %>_path('invalid')
+    r :get, admin_<%= file_name %>_path('invalid')
     assert_response :redirect
     assert_redirected_to action: :index
     assert_equal '<%= class_name.titleize %> not found', flash[:danger]
   end
 
   def test_get_new
-    get new_admin_<%= file_name %>_path
+    r :get, new_admin_<%= file_name %>_path
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :new
@@ -37,7 +50,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
   end
 
   def test_get_edit
-    get edit_admin_<%= file_name %>_path(@<%= file_name %>)
+    r :get, edit_admin_<%= file_name %>_path(@<%= file_name %>)
     assert_response :success
     assert assigns(:<%= file_name %>)
     assert_template :edit
@@ -46,7 +59,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
 
   def test_creation
     assert_difference '<%= class_name %>.count' do
-      post admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: {
+      r :post, admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: {
       <%- model_attrs.each do |attr| -%>
         <%= attr.name %>: 'test <%= attr.name %>',
       <%- end -%>
@@ -60,7 +73,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
 
   def test_creation_failure
     assert_no_difference '<%= class_name %>.count' do
-      post admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: { }}
+      r :post, admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: { }}
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create <%= class_name.titleize %>', flash[:danger]
@@ -68,7 +81,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
   end
 
   def test_update
-    put admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
+    r :put, admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
     <%- if attr = model_attrs.first -%>
       <%= attr.name %>: 'Updated'
     <%- end -%>
@@ -81,7 +94,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
   end
 
   def test_update_failure
-    put admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
+    r :put, admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
       <%= attr.try(:name) || 'attribute' %>: ''
     }}
     assert_response :success
@@ -93,7 +106,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
 
   def test_destroy
     assert_difference '<%= class_name %>.count', -1 do
-      delete admin_<%= file_name %>_path(@<%= file_name %>)
+      r :delete, admin_<%= file_name %>_path(@<%= file_name %>)
       assert_response :redirect
       assert_redirected_to action: :index
       assert_equal '<%= class_name.titleize %> deleted', flash[:success]

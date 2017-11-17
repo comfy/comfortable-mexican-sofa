@@ -3,33 +3,46 @@ require_relative '../../test_helper'
 class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    # TODO: login as admin user
     @foo = foos(:default)
   end
 
+  # Vanilla CMS has BasicAuth, so we need to send that with each request.
+  # Change this to fit your app's authentication strategy.
+  # Move this to test_helper.rb
+  def r(verb, path, options = {})
+    headers = options[:headers] || {}
+    headers['HTTP_AUTHORIZATION'] =
+      ActionController::HttpAuthentication::Basic.encode_credentials(
+        ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
+        ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
+      )
+    options.merge!(headers: headers)
+    send(verb, path, options)
+  end
+
   def test_get_index
-    get admin_foos_path
+    r :get, admin_foos_path
     assert_response :success
     assert assigns(:foos)
     assert_template :index
   end
 
   def test_get_show
-    get admin_foo_path(@foo)
+    r :get, admin_foo_path(@foo)
     assert_response :success
     assert assigns(:foo)
     assert_template :show
   end
 
   def test_get_show_failure
-    get admin_foo_path('invalid')
+    r :get, admin_foo_path('invalid')
     assert_response :redirect
     assert_redirected_to action: :index
     assert_equal 'Foo not found', flash[:danger]
   end
 
   def test_get_new
-    get new_admin_foo_path
+    r :get, new_admin_foo_path
     assert_response :success
     assert assigns(:foo)
     assert_template :new
@@ -37,7 +50,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_edit
-    get edit_admin_foo_path(@foo)
+    r :get, edit_admin_foo_path(@foo)
     assert_response :success
     assert assigns(:foo)
     assert_template :edit
@@ -46,7 +59,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation
     assert_difference 'Foo.count' do
-      post admin_foos_path, params: {foo: {
+      r :post, admin_foos_path, params: {foo: {
         bar: 'test bar',
       }}
       foo = Foo.last
@@ -58,7 +71,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation_failure
     assert_no_difference 'Foo.count' do
-      post admin_foos_path, params: {foo: { }}
+      r :post, admin_foos_path, params: {foo: { }}
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create Foo', flash[:danger]
@@ -66,7 +79,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update
-    put admin_foo_path(@foo), params: {foo: {
+    r :put, admin_foo_path(@foo), params: {foo: {
       bar: 'Updated'
     }}
     assert_response :redirect
@@ -77,7 +90,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update_failure
-    put admin_foo_path(@foo), params: {foo: {
+    r :put, admin_foo_path(@foo), params: {foo: {
       bar: ''
     }}
     assert_response :success
@@ -89,7 +102,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   def test_destroy
     assert_difference 'Foo.count', -1 do
-      delete admin_foo_path(@foo)
+      r :delete, admin_foo_path(@foo)
       assert_response :redirect
       assert_redirected_to action: :index
       assert_equal 'Foo deleted', flash[:success]
