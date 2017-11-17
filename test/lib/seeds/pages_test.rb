@@ -75,7 +75,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_equal 2, page.translations.count
     translation = page.translations.where(locale: "fr").first
 
-    assert_equal "French Home", translation.label
+    assert_equal "Bienvenue", translation.label
     assert_equal [
       { identifier: "content",
         tag:        "wysiwyg",
@@ -158,10 +158,17 @@ class SeedsPagesTest < ActiveSupport::TestCase
       categorized: comfy_cms_pages(:default)
     )
 
+    comfy_cms_translations(:default).update_attributes!(fragments_attributes: [{
+      identifier: "content",
+      content:    "translation content",
+      tag:        "markdown"
+    }])
+
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
     page_1_content_path     = File.join(host_path, 'pages/index/content.html')
     page_1_attachment_path  = File.join(host_path, 'pages/index/fragment.jpg')
     page_2_content_path     = File.join(host_path, 'pages/index/child-page/content.html')
+    translation_path        = File.join(host_path, 'pages/index/content.fr.html')
 
     ComfortableMexicanSofa::Seeds::Page::Exporter.new('default-site', 'test-site').export!
 
@@ -201,6 +208,18 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     TEXT
     assert_equal out, IO.read(page_2_content_path)
+
+    out = <<-TEXT.strip_heredoc
+      [attributes]
+      ---
+      label: Default Translation
+      layout: default
+      is_published: true
+
+      [markdown content]
+      translation content
+    TEXT
+    assert_equal out, IO.read(translation_path)
 
   ensure
     FileUtils.rm_rf(host_path)

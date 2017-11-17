@@ -27,33 +27,62 @@ module ComfortableMexicanSofa::Seeds::Page
         }.to_yaml
 
         data << {header: "attributes", content: attrs}
-
-        page.fragments.each do |frag|
-
-          header = "#{frag.tag} #{frag.identifier}"
-          content = case frag.tag
-          when "datetime", "date"
-            frag.datetime
-          when "checkbox"
-            frag.boolean
-          when "file", "files"
-            frag.attachments.map do |attachment|
-              ::File.open(::File.join(page_path, attachment.filename.to_s), "wb") do |f|
-                f.write(attachment.download)
-              end
-              attachment.filename
-            end.join("\n")
-          else
-            frag.content
-          end
-          data << {header: header, content: content}
-        end
+        data += fragments_data(page, page_path)
 
         write_file_content(path, data)
 
         message = "[CMS SEEDS] Exported Page \t #{page.full_path}"
         ComfortableMexicanSofa.logger.info(message)
+
+        export_translations(page, page_path)
       end
     end
+
+  private
+
+    def export_translations(page, page_path)
+      page.translations.each do |translation|
+        path = ::File.join(page_path, "content.#{translation.locale}.html")
+        data = []
+
+        attrs = {
+          "label"        => translation.label,
+          "layout"       => translation.layout.try(:identifier),
+          "is_published" => page.is_published
+        }.to_yaml
+
+        data << {header: "attributes", content: attrs}
+        data += fragments_data(translation, page_path)
+
+        write_file_content(path, data)
+
+        message = "[CMS SEEDS] Exported Translation \t #{translation.locale}"
+        ComfortableMexicanSofa.logger.info(message)
+      end
+    end
+
+    # Collecting fragment data and writing attachment files to disk
+    def fragments_data(record, page_path)
+      record.fragments.collect do |frag|
+        header = "#{frag.tag} #{frag.identifier}"
+        content = case frag.tag
+        when "datetime", "date"
+          frag.datetime
+        when "checkbox"
+          frag.boolean
+        when "file", "files"
+          frag.attachments.map do |attachment|
+            ::File.open(::File.join(page_path, attachment.filename.to_s), "wb") do |f|
+              f.write(attachment.download)
+            end
+            attachment.filename
+          end.join("\n")
+        else
+          frag.content
+        end
+        {header: header, content: content}
+      end
+    end
+
   end
 end
