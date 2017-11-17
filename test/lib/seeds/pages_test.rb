@@ -12,7 +12,9 @@ class SeedsPagesTest < ActiveSupport::TestCase
     Comfy::Cms::Page.delete_all
 
     assert_count_difference "Comfy::Cms::Page", 3 do
-      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+      assert_count_difference "Comfy::Cms::Translation", 2 do
+        ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+      end
     end
 
     assert page = Comfy::Cms::Page.find_by(full_path: "/")
@@ -69,6 +71,18 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_equal page, child_page_b.parent
 
     assert_equal child_page_b, child_page_a.target_page
+
+    assert_equal 2, page.translations.count
+    translation = page.translations.where(locale: "fr").first
+
+    assert_equal "French Home", translation.label
+    assert_equal [
+      { identifier: "content",
+        tag:        "wysiwyg",
+        content:    "French Home Page Seed Content\n",
+        datetime:   nil,
+        boolean:    false }
+    ], translation.fragments_attributes
   end
 
   def test_update

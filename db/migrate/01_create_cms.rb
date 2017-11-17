@@ -60,6 +60,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string  :label,           null: false
       t.text    :content_cache,   limit: LIMIT
       t.boolean :is_published,    null: false, default: true
+      t.timestamps
 
       t.index [:page_id]
       t.index [:locale]

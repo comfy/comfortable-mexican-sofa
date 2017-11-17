@@ -25,14 +25,6 @@ module ComfortableMexicanSofa::Seeds::Page
     def import_page(path, parent)
       slug = path.split("/").last
 
-      # reading file content in, resulting in a hash
-      content_path    = File.join(path, "content.html")
-      fragments_hash  = parse_file_content(content_path)
-
-      # parsing attributes section
-      attributes_yaml = fragments_hash.delete("attributes")
-      attrs           = YAML.load(attributes_yaml)
-
       # setting page record
       page = if parent.present?
         self.site.pages.where(parent: parent, slug: slug).first_or_initialize
@@ -40,8 +32,17 @@ module ComfortableMexicanSofa::Seeds::Page
         self.site.pages.root || self.site.pages.new(slug: slug)
       end
 
+      content_path = File.join(path, "content.html")
+
       # If file is newer than page record we'll process it
       if fresh_seed?(page, content_path)
+
+        # reading file content in, resulting in a hash
+        fragments_hash  = parse_file_content(content_path)
+
+        # parsing attributes section
+        attributes_yaml = fragments_hash.delete("attributes")
+        attrs           = YAML.load(attributes_yaml)
 
         # applying attributes
         layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
@@ -54,36 +55,10 @@ module ComfortableMexicanSofa::Seeds::Page
         )
 
         # applying fragments
-        old_fragments         = page.fragments.pluck(:identifier)
-        fragments_attributes  = []
+        old_frag_identifiers = page.fragments.pluck(:identifier)
 
-        fragments_hash.each do |frag_header, frag_content|
-          tag, identifier = frag_header.split
-          frag_hash = {
-            identifier: identifier,
-            tag:        tag
-          }
-
-          # tracking fragments that need removing later
-          old_fragments -= [identifier]
-
-          # based on tag we need to cram content in proper place and proper format
-          case tag
-          when "date", "datetime"
-            frag_hash[:datetime] = frag_content
-          when "checkbox"
-            frag_hash[:boolean] = frag_content
-          when "file", "files"
-            files, file_ids_destroy = files_content(page, identifier, path, frag_content)
-            frag_hash[:files]            = files
-            frag_hash[:file_ids_destroy] = file_ids_destroy
-          else
-            frag_hash[:content] = frag_content
-          end
-
-          fragments_attributes << frag_hash
-        end
-
+        new_frag_identifiers, fragments_attributes =
+          construct_fragments_attributes(fragments_hash, page, path)
         page.fragments_attributes = fragments_attributes
 
         if page.save
@@ -97,13 +72,15 @@ module ComfortableMexicanSofa::Seeds::Page
           end
 
           # cleaning up old fragments
-          page.fragments.where(identifier: old_fragments).destroy_all
+          page.fragments.where(identifier: old_frag_identifiers - new_frag_identifiers).destroy_all
 
         else
           message = "[CMS SEEDS] Failed to import Page \n#{page.errors.inspect}"
           ComfortableMexicanSofa.logger.warn(message)
         end
       end
+
+      import_translations(path, page)
 
       # Tracking what page from seeds we're working with. So we can remove pages
       # that are no longer in seeds
@@ -115,9 +92,95 @@ module ComfortableMexicanSofa::Seeds::Page
       end
     end
 
+    # Importing translations for given page. They look like `content.locale.html`
+    def import_translations(path, page)
+      old_translations = page.translations.pluck(:locale)
+      new_translations = []
+
+      Dir["#{path}content.*.html"].each do |file_path|
+        locale = File.basename(file_path).match(/content\.(\w+)\.html/)[1]
+        new_translations << locale
+
+        translation = page.translations.where(locale: locale).first_or_initialize
+
+        if fresh_seed?(translation, file_path)
+          # reading file content in, resulting in a hash
+          fragments_hash  = parse_file_content(file_path)
+
+          # parsing attributes section
+          attributes_yaml = fragments_hash.delete("attributes")
+          attrs           = YAML.load(attributes_yaml)
+
+          # applying attributes
+          layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)
+          translation.attributes = attrs.merge(
+            layout: layout
+          )
+
+          # applying fragments
+          old_frag_identifiers = translation.fragments.pluck(:identifier)
+
+          new_frag_identifiers, fragments_attributes =
+            construct_fragments_attributes(fragments_hash, page, path)
+          translation.fragments_attributes = fragments_attributes
+
+          if translation.save
+            message = "[CMS SEEDS] Imported Translation \t #{locale}"
+            ComfortableMexicanSofa.logger.info(message)
+
+            # cleaning up old fragments
+            frags_to_remove = old_frag_identifiers - new_frag_identifiers
+            translation.fragments.where(identifier: frags_to_remove).destroy_all
+
+          else
+            message = "[CMS SEEDS] Failed to import Translation \n#{locale}"
+            ComfortableMexicanSofa.logger.warn(message)
+          end
+        end
+      end
+
+      # Cleaning up removed translations
+      translations_to_remove = old_translations - new_translations
+      page.translations.where(locale: translations_to_remove).destroy_all
+    end
+
+    # Constructing frag attributes hash that can be assigned to page or translation
+    # also returning list of frag identifiers so we can destroy old ones
+    def construct_fragments_attributes(hash, record, path)
+      frag_identifiers = []
+      frag_attributes = hash.collect do |frag_header, frag_content|
+        tag, identifier = frag_header.split
+        frag_hash = {
+          identifier: identifier,
+          tag:        tag
+        }
+
+        # tracking fragments that need removing later
+        frag_identifiers << identifier
+
+        # based on tag we need to cram content in proper place and proper format
+        case tag
+        when "date", "datetime"
+          frag_hash[:datetime] = frag_content
+        when "checkbox"
+          frag_hash[:boolean] = frag_content
+        when "file", "files"
+          files, file_ids_destroy = files_content(record, identifier, path, frag_content)
+          frag_hash[:files]            = files
+          frag_hash[:file_ids_destroy] = file_ids_destroy
+        else
+          frag_hash[:content] = frag_content
+        end
+
+        frag_hash
+      end
+
+      return [frag_identifiers, frag_attributes]
+    end
+
     # Preparing fragment attachments. Returns hashes with file data for
     # ActiveStorage and a list of ids of old attachements to destroy
-    def files_content(page, identifier, path, frag_content)
+    def files_content(record, identifier, path, frag_content)
       # preparing attachments
       files = frag_content.split.collect do |filename|
         file_handler = File.open(File.join(path, filename))
@@ -130,7 +193,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # ensuring that old attachments get removed
       ids_destroy = []
-      if frag = page.fragments.find_by(identifier: identifier)
+      if frag = record.fragments.find_by(identifier: identifier)
         ids_destroy = frag.attachments.pluck(:id)
       end
 
