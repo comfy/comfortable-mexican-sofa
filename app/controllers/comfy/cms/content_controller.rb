@@ -51,24 +51,19 @@ protected
   # Attempting to populate @cms_page and @cms_layout instance variables so they
   # can be used in view helpers/partials
   def load_cms_page
-    find_cms_page_by_full_path!("/#{params[:cms_path]}")
-
-  # Trying to get custom 404 page
-  rescue ActiveRecord::RecordNotFound
-    begin
-      find_cms_page_by_full_path!("/404")
-      render_page(:not_found)
-
-    # There's no 404 page, throwing error
-    rescue ActiveRecord::RecordNotFound
-      message = "Page Not Found at: \"#{params[:cms_path]}\""
-      raise ActionController::RoutingError.new(message)
+    unless find_cms_page_by_full_path("/#{params[:cms_path]}")
+      if find_cms_page_by_full_path("/404")
+        render_page(:not_found)
+      else
+        message = "Page Not Found at: \"#{params[:cms_path]}\""
+        raise ActionController::RoutingError.new(message)
+      end
     end
   end
 
   # Getting page and setting content_cache and fragments data if we need to
   # serve translation data
-  def find_cms_page_by_full_path!(full_path)
+  def find_cms_page_by_full_path(full_path)
     @cms_page   = @cms_site.pages.published.find_by!(full_path: full_path)
     @cms_layout = @cms_page.layout
 
@@ -84,5 +79,10 @@ protected
       @cms_page.label         = translation.label
       @cms_page.content_cache = translation.content_cache
     end
+
+    return @cms_page
+
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 end
