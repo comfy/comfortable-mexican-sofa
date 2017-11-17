@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
+  setup do
     # TODO: login as admin user
     @<%= file_name %> = <%= file_name.pluralize %>(:default)
   end
@@ -46,11 +46,11 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
 
   def test_creation
     assert_difference '<%= class_name %>.count' do
-      post admin_<%= file_name.pluralize %>_path, <%= file_name %>: {
+      post admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: {
       <%- model_attrs.each do |attr| -%>
         <%= attr.name %>: 'test <%= attr.name %>',
       <%- end -%>
-      }
+      }}
       <%= file_name %> = <%= class_name %>.last
       assert_response :redirect
       assert_redirected_to action: :show, id: <%= file_name %>
@@ -60,7 +60,7 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
 
   def test_creation_failure
     assert_no_difference '<%= class_name %>.count' do
-      post admin_<%= file_name.pluralize %>_path, <%= file_name %>: { }
+      post admin_<%= file_name.pluralize %>_path, params: {<%= file_name %>: { }}
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create <%= class_name.titleize %>', flash[:danger]
@@ -68,11 +68,11 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
   end
 
   def test_update
-    put admin_<%= file_name %>_path(@<%= file_name %>), <%= file_name %>: {
+    put admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
     <%- if attr = model_attrs.first -%>
       <%= attr.name %>: 'Updated'
     <%- end -%>
-    }
+    }}
     assert_response :redirect
     assert_redirected_to action: :show, id: @<%= file_name %>
     assert_equal '<%= class_name.titleize %> updated', flash[:success]
@@ -81,9 +81,9 @@ class Admin::<%= class_name.pluralize %>ControllerTest < ActionDispatch::Integra
   end
 
   def test_update_failure
-    put admin_<%= file_name %>_path(@<%= file_name %>), <%= file_name %>: {
+    put admin_<%= file_name %>_path(@<%= file_name %>), params: {<%= file_name %>: {
       <%= attr.try(:name) || 'attribute' %>: ''
-    }
+    }}
     assert_response :success
     assert_template :edit
     assert_equal 'Failed to update <%= class_name.titleize %>', flash[:danger]

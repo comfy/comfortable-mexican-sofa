@@ -1,24 +1,9 @@
-class Comfy::Admin::Cms::BaseController < ComfortableMexicanSofa.config.base_controller.to_s.constantize
+class Comfy::Admin::Cms::BaseController < Comfy::Admin::BaseController
 
-  include Comfy::Paginate
-
-  # Authentication module must have `authenticate` method
-  include ComfortableMexicanSofa.config.admin_auth.to_s.constantize
-
-  # Authorization module must have `authorize` method
-  include ComfortableMexicanSofa.config.admin_authorization.to_s.constantize
-
-  helper Comfy::Admin::CmsHelper
-
-  protect_from_forgery
-
-  before_action :authenticate,
-                :load_admin_site,
+  before_action :load_admin_site,
                 :set_locale,
                 :load_seeds,
                 except: :jump
-
-  layout 'comfy/admin/cms'
 
   if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
     cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper

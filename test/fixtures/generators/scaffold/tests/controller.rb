@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
-  def setup
+  setup do
     # TODO: login as admin user
     @foo = foos(:default)
   end
@@ -46,9 +46,9 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation
     assert_difference 'Foo.count' do
-      post admin_foos_path, foo: {
+      post admin_foos_path, params: {foo: {
         bar: 'test bar',
-      }
+      }}
       foo = Foo.last
       assert_response :redirect
       assert_redirected_to action: :show, id: foo
@@ -58,7 +58,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation_failure
     assert_no_difference 'Foo.count' do
-      post admin_foos_path, foo: { }
+      post admin_foos_path, params: {foo: { }}
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create Foo', flash[:danger]
@@ -66,9 +66,9 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update
-    put admin_foo_path(@foo), foo: {
+    put admin_foo_path(@foo), params: {foo: {
       bar: 'Updated'
-    }
+    }}
     assert_response :redirect
     assert_redirected_to action: :show, id: @foo
     assert_equal 'Foo updated', flash[:success]
@@ -77,9 +77,9 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update_failure
-    put admin_foo_path(@foo), foo: {
+    put admin_foo_path(@foo), params: {foo: {
       bar: ''
-    }
+    }}
     assert_response :success
     assert_template :edit
     assert_equal 'Failed to update Foo', flash[:danger]

@@ -1,4 +1,4 @@
-class Admin::FoosController < Comfy::Admin::Cms::BaseController
+class Admin::FoosController < Comfy::Admin::BaseController
 
   before_action :build_foo,  only: [:new, :create]
   before_action :load_foo,   only: [:show, :edit, :update, :destroy]
