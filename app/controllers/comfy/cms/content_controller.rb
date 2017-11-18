@@ -70,16 +70,8 @@ protected
     # There are translations for this page and locale is not the default site
     # locale, so we need to grab translation data.
     if @cms_page.translations.any? && @cms_site.locale != I18n.locale.to_s
-      translation = @cms_page.translations.published.find_by!(locale: I18n.locale)
-      @cms_layout = translation.layout
-
-      # populating page object with translation data
-      @cms_page.layout        = translation.layout
-      @cms_page.label         = translation.label
-      @cms_page.content_cache = translation.content_cache
-
-      # We can't just assign fragments as it's a relation and will write to DB
-      @cms_page.fragments_attributes = translation.fragments_attributes
+      @cms_page.translate!(I18n.locale)
+      @cms_layout = @cms_page.layout
     end
 
     return @cms_page

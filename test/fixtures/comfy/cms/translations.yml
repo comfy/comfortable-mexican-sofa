@@ -4,3 +4,4 @@ default:
   locale: fr
   label: Default Translation
   is_published: true
+  content_cache: Translation Content

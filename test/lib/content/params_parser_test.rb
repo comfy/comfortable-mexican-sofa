@@ -13,8 +13,10 @@ class ContentParamsParserTest < ActiveSupport::TestCase
   end
 
   def test_tokenizer_with_commas
-    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("param_a, param_b")
-    assert_equal [[:string, "param_a"], [:comma, ","], [:string, "param_b"]], tokens
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("param_a, param_b, param_c")
+    assert_equal [
+      [:string, "param_a"], [:comma, ","], [:string, "param_b"], [:comma, ","], [:string, "param_c"]
+    ], tokens
   end
 
   def test_tokenizer_with_columns

@@ -78,6 +78,23 @@ class Comfy::Cms::Page < ActiveRecord::Base
     end
   end
 
+  # This method will mutate page object by transfering attributes from translation
+  # for a given locale.
+  def translate!(locale)
+    translation = self.translations.published.find_by!(locale: locale)
+    self.layout        = translation.layout
+    self.label         = translation.label
+    self.content_cache = translation.content_cache
+
+    # We can't just assign fragments as it's a relation and will write to DB
+    # This has odd side-effect of preserving page's fragments and just replacing
+    # them from the translation. Not an issue if all fragments match.
+    self.fragments_attributes = translation.fragments_attributes
+    self.readonly!
+
+    return self
+  end
+
 protected
 
   def assigns_label

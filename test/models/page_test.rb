@@ -514,4 +514,29 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 0, page_2.children_count
     assert_equal 0, page_3.children_count
   end
+
+  def test_translate
+    translation = comfy_cms_translations(:default)
+    translation.update_columns(layout_id: comfy_cms_layouts(:nested).id)
+
+    @page.translate!(:fr)
+    assert @page.readonly?
+
+    assert_equal comfy_cms_layouts(:nested), @page.layout
+    assert_equal 'Default Translation', @page.label
+    assert_equal 'Translation Content', @page.content_cache
+  end
+
+  def test_translate_with_unpublished
+    comfy_cms_translations(:default).update_column(:is_published, false)
+    assert_exception_raised ActiveRecord::RecordNotFound do
+      @page.translate!(:fr)
+    end
+  end
+
+  def test_translate_with_invalid_locale
+    assert_exception_raised ActiveRecord::RecordNotFound do
+      @page.translate!(:es)
+    end
+  end
 end
