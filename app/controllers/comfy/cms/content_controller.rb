@@ -75,9 +75,11 @@ protected
 
       # populating page object with translation data
       @cms_page.layout        = translation.layout
-      @cms_page.fragments     = translation.fragments
       @cms_page.label         = translation.label
       @cms_page.content_cache = translation.content_cache
+
+      # We can't just assign fragments as it's a relation and will write to DB
+      @cms_page.fragments_attributes = translation.fragments_attributes
     end
 
     return @cms_page
