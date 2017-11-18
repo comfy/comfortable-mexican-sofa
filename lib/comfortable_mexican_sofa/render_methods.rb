@@ -4,27 +4,27 @@ module ComfortableMexicanSofa::RenderMethods
 
     # If application controller doesn't have template associated with it
     # CMS will attempt to find one. This is so you don't have to explicitly
-    # call render :cms_page => '/something'
+    # call render cms_page: '/something'
     base.rescue_from 'ActionView::MissingTemplate' do |e|
       begin
-        render :cms_page => request.path
+        render cms_page: request.path
       rescue ComfortableMexicanSofa::MissingPage, ComfortableMexicanSofa::MissingSite
         raise e
       end
     end
 
     # Now you can render cms_page simply by calling:
-    #   render :cms_page => '/path/to/page'
+    #   render cms_page: '/path/to/page'
     # This way application controllers can use CMS content while populating
     # instance variables that can be used in partials (that are included by
     # by the cms page and/or layout)
     #
     # Or how about not worrying about setting up CMS pages and rendering
     # application view using a CMS layout?
-    #   render :cms_layout => 'layout_slug', :cms_fragments => {
-    #     :fragment_identifier_a => 'content text',
-    #     :fragment_identifier_b => { :template => 'path/to/template' },
-    #     :fragment_identifier_c => { :partial  => 'path/to/partial' }
+    #   render cms_layout: 'layout_slug', cms_fragments: {
+    #     fragment_identifier_a: 'content text',
+    #     fragment_identifier_b: {template: 'path/to/template' },
+    #     fragment_identifier_c: {partial:  'path/to/partial' }
     #   }
     #
     # This way you are populating page block content and rendering
@@ -32,7 +32,7 @@ module ComfortableMexicanSofa::RenderMethods
     #
     # Site is loaded automatically based on the request. However you can force
     # it by passing :cms_site parameter with site's slug. For example:
-    #   render :cms_page => '/path/to/page', :cms_site => 'default'
+    #   render cms_page: '/path/to/page', cms_site: 'default'
     #
     def render(options = {}, locals = {}, &block)
 
@@ -90,7 +90,9 @@ module ComfortableMexicanSofa::RenderMethods
 
       cms_app_layout = @cms_layout.app_layout
       cms_page = @cms_site.pages.build(layout: @cms_layout)
-      cms_fragments = options.delete(:cms_fragments) || {content: render_to_string({layout: false }.merge(options)) }
+      cms_fragments = options.delete(:cms_fragments) ||
+        {content: render_to_string({layout: false}.merge(options))}
+
       cms_fragments.each do |identifier, value|
         content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s
         cms_page.fragments.build(identifier: identifier.to_s, content: content)
