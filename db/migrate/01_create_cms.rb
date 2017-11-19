@@ -11,6 +11,7 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.string :hostname,     null: false
       t.string :path
       t.string :locale,       null: false, default: "en"
+      t.timestamps
 
       t.index :hostname
     end
