@@ -574,4 +574,24 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, page_one.position
     assert_equal 0, page_two.position
   end
+
+  def test_counter_cache_update
+    page_a = comfy_cms_pages(:default)
+    page_b = comfy_cms_pages(:child)
+    page_c = @site.pages.create!(
+      label:  'Test Page',
+      slug:   'test-page',
+      layout: @layout,
+      parent: page_a
+    )
+
+    put comfy_admin_cms_site_page_path(page_c.site, page_c), params: {page: {
+      label: 'Updated Label', parent_id: page_b
+    }}
+
+    page_a.reload; page_b.reload; page_c.reload
+    assert_equal 1, page_a.children_count
+    assert_equal 1, page_b.children_count
+    assert_equal 0, page_c.children_count
+  end
 end

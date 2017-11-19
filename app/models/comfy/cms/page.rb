@@ -65,7 +65,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    self.parent_id.blank?? 'index' : self.full_path[1..-1].slugify
+    self.parent_id.blank?? 'index' : self.full_path[1..-1].parameterize
   end
 
   # Full url for a page

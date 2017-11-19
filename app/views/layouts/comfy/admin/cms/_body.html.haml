@@ -1,4 +1,4 @@
-%body#comfy{:class => "c-#{params[:controller].slugify} a-#{params[:action].slugify}"}
+%body#comfy{:class => "c-#{params[:controller].parameterize} a-#{params[:action].parameterize}"}
 
   .container-fluid
     .row
