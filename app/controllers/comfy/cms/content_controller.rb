@@ -18,7 +18,14 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
     else
       respond_to do |format|
         format.html { render_page }
-        format.json { render json: @cms_page }
+        format.json {
+          json_page = @cms_page.as_json(except: [:content_cache])
+          json_page.merge!(content: render_to_string(
+            inline: @cms_page.content_cache,
+            layout: false
+          ))
+          render json: json_page
+        }
       end
     end
   end

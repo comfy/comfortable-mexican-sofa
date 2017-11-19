@@ -33,20 +33,30 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "application/json", response.content_type
 
-    page = comfy_cms_pages(:default)
     json_response = JSON.parse(response.body)
-    assert_equal page.id,         json_response['id']
-    assert_equal page.site.id,    json_response['site_id']
-    assert_equal page.layout.id,  json_response['layout_id']
+    assert_equal @page.id,        json_response['id']
+    assert_equal @page.site.id,   json_response['site_id']
+    assert_equal @page.layout.id, json_response['layout_id']
     assert_nil                    json_response['parent_id']
     assert_nil                    json_response['target_page_id']
     assert_equal 'Default Page',  json_response['label']
     assert_nil                    json_response['slug']
     assert_equal '/',             json_response['full_path']
-    assert_equal "content",       json_response['content_cache']
+    assert_equal "content",       json_response['content']
     assert_equal 0,               json_response['position']
     assert_equal 1,               json_response['children_count']
     assert_equal true,            json_response['is_published']
+  end
+
+  def test_show_as_json_with_erb
+    @page.update_attributes(fragments_attributes: [
+      {identifier: 'content', content: '{{ cms:helper pluralize, 2, monkey }}'}
+    ])
+    get comfy_cms_render_page_path(cms_path: ""), as: :json
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal "2 monkeys",  json_response['content']
   end
 
   def test_show_with_custom_mimetype
