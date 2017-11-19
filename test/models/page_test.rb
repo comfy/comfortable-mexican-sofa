@@ -235,6 +235,28 @@ class CmsPageTest < ActiveSupport::TestCase
     refute frag.boolean
   end
 
+  def test_update_with_parent_id_change
+    page_a = @page
+    page_b = comfy_cms_pages(:child)
+    page_c = @site.pages.create!(
+      label:  'Test Page',
+      slug:   'test-page',
+      layout: @layout,
+      parent: page_a
+    )
+
+    assert_equal 2, page_a.children_count
+    assert_equal 0, page_b.children_count
+    assert_equal 0, page_c.children_count
+
+    page_c.update_attributes!(parent_id: page_b)
+
+    page_a.reload; page_b.reload; page_c.reload
+    assert_equal 1, page_a.children_count
+    assert_equal 1, page_b.children_count
+    assert_equal 0, page_c.children_count
+  end
+
   def test_initialization_of_full_path
     page = Comfy::Cms::Page.new
     assert_equal '/', page.full_path
