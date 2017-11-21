@@ -20,8 +20,6 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
   end
 
   def content(file = attachment)
-    Rails.logger.info fragment.files.inspect
-
     return "" unless file
 
     if @variant_attrs.present? && attachment.image?
