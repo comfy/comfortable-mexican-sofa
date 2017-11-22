@@ -2,4 +2,4 @@ exclude_paths:
   - app/assets/javascripts/comfy/admin/cms/lib/*
   - app/assets/stylesheets/comfy/admin/cms/lib/*
   - test/*
-  
+  - db/*
