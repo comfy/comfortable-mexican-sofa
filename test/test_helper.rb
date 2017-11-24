@@ -136,13 +136,6 @@ class ActionDispatch::IntegrationTest
     options.merge!(headers: headers)
     send(method, path, options)
   end
-
-  # Overriding helper method as it doesn't really work for integration tests by default
-  def with_routing(&block)
-    yield ComfortableMexicanSofa::Application.routes
-  ensure
-    load File.expand_path('../config/cms_routes.rb', File.dirname(__FILE__))
-  end
 end
 
 class Rails::Generators::TestCase
