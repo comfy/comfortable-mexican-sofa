@@ -136,6 +136,12 @@ class ActionDispatch::IntegrationTest
     options.merge!(headers: headers)
     send(method, path, options)
   end
+
+  def with_routing(&block)
+    yield ComfortableMexicanSofa::Application.routes
+  ensure
+    ComfortableMexicanSofa::Application.routes_reloader.reload!
+  end
 end
 
 class Rails::Generators::TestCase
