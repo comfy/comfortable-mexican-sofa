@@ -25,6 +25,10 @@ module ComfortableMexicanSofa
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # Ensuring that all engines and their routes get loaded before this app.
+    # This is to prevent Comfy globbing route from killing appended routes.
+    config.railties_order = [:all, :main_app]
+
     # Making sure we don't load our dev routes as part of the engine
     config.paths['config/routes.rb'] << 'config/cms_routes.rb'
 

@@ -155,10 +155,22 @@ class Rails::Generators::TestCase
   def prepare_files
     config_path = File.join(self.destination_root, 'config')
     routes_path = File.join(config_path, 'routes.rb')
+    app_path    = File.join(config_path, 'application.rb')
     FileUtils.mkdir_p(config_path)
     FileUtils.touch(routes_path)
     File.open(routes_path, 'w') do |f|
-      f.write("Test::Application.routes.draw do\n\nend")
+      f.write <<-RUBY.strip_heredoc
+        Test::Application.routes.draw do
+        end
+      RUBY
+    end
+    File.open(app_path, 'w') do |f|
+      f.write <<-RUBY.strip_heredoc
+        module TestApp
+          class Application < Rails::Application
+          end
+        end
+      RUBY
     end
   end
 

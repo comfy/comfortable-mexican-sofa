@@ -20,11 +20,8 @@ If you want to use it with bleeding-edge Rails. Add this your Gemfile:
 ```ruby
   gem "comfortable_mexican_sofa",
     github: "comfy/comfortable-mexican-sofa"
-
-  # until [PR#30783](https://github.com/rails/rails/pull/30783) gets resolved
   gem "rails",
-    github: "GBH/rails",
-    branch: "active-storage-routes-prepend"
+    github: "rails/rails"
   gem "arel",
     github: "rails/arel"
 
@@ -39,11 +36,11 @@ If you want to use it with bleeding-edge Rails. Add this your Gemfile:
 * Simple drop-in integration with Rails 5.2+ apps with minimal configuration
 * CMS stays away from the rest of your application
 * Powerful page templating capability using [Content Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags)
-* [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
+* [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Sites) from a single installation
 * Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
-* [CMS Seeds](https://github.com/comfy/comfortable-mexican-sofa/wiki/Working-with-CMS-fixtures) for initial content population
-* [Page Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Revisions) to revert changes
-* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/Reusing-sofa%27s-admin-area) built with [Bootstrap 4](http://getbootstrap.com). Using [CodeMirror](http://codemirror.net/) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as a WYSIWYG editor.
+* [CMS Seeds](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-CMS-Seeds) for initial content population
+* [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Revisions) to revert changes
+* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/HowTo:-Reusing-Admin-Area) built with [Bootstrap 4](http://getbootstrap.com). Using [CodeMirror](http://codemirror.net/) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as a WYSIWYG editor.
 
 ## Dependencies
 
@@ -91,7 +88,7 @@ After creating a Site, you need to make a Layout. Layout is the template of your
 </html>
 ```
 
-[See Wiki entry on available Tags you can use](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
+[See Wiki entry on available Tags you can use](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags)
 
 Once you have a layout, you may start creating pages and populating content. It's that easy.
 

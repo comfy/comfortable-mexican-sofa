@@ -2,9 +2,7 @@ source 'http://rubygems.org'
 
 gemspec
 
-# gem 'rails', github: "rails/rails"
-gem "rails", github: "GBH/rails", branch: "active-storage-routes-prepend"
-# gem "rails", path: "~/Code/rails"
+gem 'rails', github: "rails/rails"
 gem "arel", github: "rails/arel"
 gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"
 

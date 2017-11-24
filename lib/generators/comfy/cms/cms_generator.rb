@@ -26,6 +26,14 @@ module Comfy
           'config/initializers/comfortable_mexican_sofa.rb'
       end
 
+      def generate_railties_order
+        application <<-RUBY.strip_heredoc
+          # Ensuring that all engines and their routes get loaded before this app.
+          # This is to prevent Comfy globbing route from killing appended routes.
+          config.railties_order = [:all, :main_app]
+        RUBY
+      end
+
       def generate_routing
         route_string = <<-RUBY.strip_heredoc
           comfy_route :cms_admin, path: "/admin"
