@@ -1,6 +1,6 @@
-  require_relative '../test_helper'
+require_relative '../test_helper'
 
-  class AccessControlTest < ActionDispatch::IntegrationTest
+class AccessControlTest < ActionDispatch::IntegrationTest
 
   module TestAuthentication
     module Authenticate
@@ -51,10 +51,10 @@
   def test_admin_authentication_custom
     with_routing do |routes|
       routes.draw do
-        get '/test' => 'access_control_test/test_authentication/sites#index'
+        get '/admin/sites' => 'access_control_test/test_authentication/sites#index'
       end
 
-      get '/test'
+      get '/admin/sites'
       assert_response :unauthorized
       assert_equal 'Test Login Denied', response.body
     end
