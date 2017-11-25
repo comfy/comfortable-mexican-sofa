@@ -130,9 +130,12 @@ class ActionDispatch::IntegrationTest
 
   # Attaching http_auth stuff with request. Example use:
   #   r :get, '/cms-admin/pages'
-  def r(method, path, options = {}, username = 'username', password = 'password')
+  def r(method, path, options = {})
     headers = options[:headers] || {}
-    headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(username, password)
+    headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(
+      ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
+      ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
+    )
     options.merge!(headers: headers)
     send(method, path, options)
   end
