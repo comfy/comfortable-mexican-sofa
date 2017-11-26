@@ -82,6 +82,6 @@ protected
     self.path ||= ''
     self.path.squeeze!('/')
     self.path.gsub!(/\/$/, '')
-    self.path = self.path.blank? ? nil : self.path
+    self.path = nil if self.path.blank?
   end
 end
