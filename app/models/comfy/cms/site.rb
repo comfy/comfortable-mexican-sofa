@@ -13,8 +13,8 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # -- Callbacks ------------------------------------------------------------
   before_validation :assign_identifier,
                     :assign_hostname,
-                    :assign_label
-  before_save :clean_path
+                    :assign_label,
+                    :clean_path
 
   # -- Validations ----------------------------------------------------------
   validates :identifier,
