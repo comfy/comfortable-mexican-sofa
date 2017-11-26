@@ -81,7 +81,7 @@ class CmsSiteTest < ActiveSupport::TestCase
       hostname:   "my-site.host",
       path:       "/"
     )
-    assert_equal "", site.path
+    assert_nil site.path
   end
 
   def test_creation
