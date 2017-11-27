@@ -4,12 +4,19 @@ module Comfy::Cms::WithFragments
   included do
     attr_accessor :fragments_attributes_changed
 
+    belongs_to :layout,
+      class_name: 'Comfy::Cms::Layout'
+
     has_many :fragments,
+      class_name: 'Comfy::Cms::Fragment',
       as:         :record,
       autosave:   true,
       dependent:  :destroy
 
     before_save :clear_content_cache
+
+    validates :layout,
+      presence: true
   end
 
   # Array of fragment hashes in the following format:

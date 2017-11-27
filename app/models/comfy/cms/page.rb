@@ -9,7 +9,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
-  belongs_to :layout
   belongs_to :target_page,
     class_name: 'Comfy::Cms::Page',
     optional:   true
@@ -35,8 +34,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
     unless:     -> (p) {
       p.site && (p.site.pages.count == 0 || p.site.pages.root == self)
     }
-  validates :layout,
-    presence:   true
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
 
@@ -153,5 +150,4 @@ protected
     self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
     self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
   end
-
 end

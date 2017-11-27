@@ -7,7 +7,6 @@ class Comfy::Cms::Translation < ActiveRecord::Base
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :page
-  belongs_to :layout
 
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_layout
