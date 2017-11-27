@@ -19,8 +19,10 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.2.2"
 
+
+  s.add_dependency "rails",             ">= 5.2.0.beta1"
+
   # TODO: add these back when gems are released
-  # s.add_dependency "rails",             ">= 5.2.0"
   # s.add_dependency "bootstrap_form",    ">= 2.7.0"
 
   s.add_dependency "bootstrap",           ">= 4.0.0.beta2.1"
