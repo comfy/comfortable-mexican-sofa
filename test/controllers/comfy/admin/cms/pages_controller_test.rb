@@ -264,11 +264,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_edit_with_blank_layout
-    @page.update_columns(layout_id: nil)
+    @page.update_column(:layout_id, nil)
     r :get, edit_comfy_admin_cms_site_page_path(site_id: @site, id: @page)
     assert_response :success
     assert assigns(:page)
-    assert assigns(:page).layout
   end
 
   def test_get_edit_with_non_english_locale

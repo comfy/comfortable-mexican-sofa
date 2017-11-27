@@ -9,7 +9,8 @@
   #form-fragments
     - if nodes.empty?
       .no-tags
-        = link_to record.layout.label, edit_comfy_admin_cms_site_layout_path(@site, record.layout)
+        - if record.layout
+          = link_to record.layout.label, edit_comfy_admin_cms_site_layout_path(@site, record.layout)
         = t(".no_tags").html_safe
 
     - else
