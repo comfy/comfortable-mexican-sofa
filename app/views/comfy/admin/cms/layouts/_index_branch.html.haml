@@ -23,4 +23,4 @@
 
   - if layout.children.present?
     %ul.list.children.sortable
-      = render partial: "index_branch", collection: layout.children
+      = render partial: "index_branch", collection: layout.children.order(:position)

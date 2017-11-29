@@ -100,7 +100,7 @@ protected
   end
 
   def pages_grouped_by_parent
-    @site.pages.includes(:categories).group_by(&:parent_id)
+    @site.pages.order(:position).includes(:categories).group_by(&:parent_id)
   end
 
   def check_for_layouts

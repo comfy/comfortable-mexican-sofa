@@ -10,13 +10,13 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   belongs_to :site
   has_many :pages, dependent: :nullify
 
-  # -- Callbacks ------------------------------------------------------------
+  # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
   after_save    :clear_page_content_cache
   after_destroy :clear_page_content_cache
 
-  # -- Validations ----------------------------------------------------------
+  # -- Validations -------------------------------------------------------------
   validates :site_id,
     presence:   true
   validates :label,
@@ -26,7 +26,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     uniqueness: {scope: :site_id},
     format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
-  # -- Class Methods --------------------------------------------------------
+  # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
     out = []
