@@ -14,7 +14,7 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 
   def show
     if @cms_page.target_page.present?
-      redirect_to @cms_page.target_page.url(:relative)
+      redirect_to @cms_page.target_page.url(relative: true)
     else
       respond_to do |format|
         format.html { render_page }

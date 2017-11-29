@@ -175,6 +175,14 @@ class CmsSiteTest < ActiveSupport::TestCase
   end
 
   def test_url
-    assert_equal "//test.host/", comfy_cms_sites(:default).url
+    assert_equal "//test.host", @site.url
+
+    @site.update_column(:path, "/site-path")
+    assert_equal "//test.host/site-path", @site.url
+
+    ComfortableMexicanSofa.config.public_cms_path = "cms"
+    assert_equal "//test.host/cms/site-path", @site.url
+
+    assert_equal "/cms/site-path", @site.url(relative: true)
   end
 end

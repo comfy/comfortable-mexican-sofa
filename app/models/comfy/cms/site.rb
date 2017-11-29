@@ -1,7 +1,7 @@
 class Comfy::Cms::Site < ActiveRecord::Base
   self.table_name = 'comfy_cms_sites'
 
-  # -- Relationships --------------------------------------------------------
+  # -- Relationships -----------------------------------------------------------
   with_options dependent: :destroy do |site|
     site.has_many :layouts
     site.has_many :pages
@@ -10,13 +10,13 @@ class Comfy::Cms::Site < ActiveRecord::Base
     site.has_many :categories
   end
 
-  # -- Callbacks ------------------------------------------------------------
+  # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_identifier,
                     :assign_hostname,
                     :assign_label,
                     :clean_path
 
-  # -- Validations ----------------------------------------------------------
+  # -- Validations -------------------------------------------------------------
   validates :identifier,
     presence:   true,
     uniqueness: true,
@@ -28,7 +28,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
     uniqueness: {scope: :path},
     format:     {with: /\A[\w\.\-]+(?:\:\d+)?\z/}
 
-  # -- Class Methods --------------------------------------------------------
+  # -- Class Methods -----------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path
   def self.find_site(host, path = nil)
     return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
@@ -49,10 +49,12 @@ class Comfy::Cms::Site < ActiveRecord::Base
     return cms_site
   end
 
-  # -- Instance Methods -----------------------------------------------------
-  def url
+  # -- Instance Methods --------------------------------------------------------
+  def url(relative: false)
     public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
-    '//' + [self.hostname, public_cms_path, self.path].compact.join('/').squeeze('/')
+    host = "//#{self.hostname}"
+    path = ['/', public_cms_path, self.path].compact.join('/').squeeze('/').chomp('/')
+    relative ? path : [host, path].join
   end
 
 protected

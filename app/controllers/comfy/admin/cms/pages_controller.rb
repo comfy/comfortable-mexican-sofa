@@ -80,7 +80,7 @@ protected
     tree_walker = ->(page, list, offset) do
       return unless page.present?
       label = "#{'. . ' * offset}#{page.label}"
-      list << {name: label, url: page.url(:relative)}
+      list << {name: label, url: page.url(relative: true)}
       page.children.each do |child_page|
         tree_walker.(child_page, list, offset + 1)
       end

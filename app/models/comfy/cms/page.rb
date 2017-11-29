@@ -65,13 +65,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   end
 
   # Full url for a page
-  def url(relative = false)
-    public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
-    if relative
-      [public_cms_path, self.site.path, self.full_path].join('/').squeeze('/')
-    else
-      '//' + [self.site.hostname, public_cms_path, self.site.path, self.full_path].join('/').squeeze('/')
-    end
+  def url(relative: false)
+    self.site.url(relative: relative) + self.full_path
   end
 
   # This method will mutate page object by transfering attributes from translation

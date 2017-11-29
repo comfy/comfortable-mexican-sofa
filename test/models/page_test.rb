@@ -470,8 +470,8 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '//test.host/', @page.url
     assert_equal '//test.host/child-page', comfy_cms_pages(:child).url
 
-    assert_equal '/', @page.url(:relative)
-    assert_equal '/child-page', comfy_cms_pages(:child).url(:relative)
+    assert_equal '/', @page.url(relative: true)
+    assert_equal '/child-page', comfy_cms_pages(:child).url(relative: true)
 
     @site.update_columns(path: '/en/site')
     @page.reload
@@ -480,8 +480,8 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '//test.host/en/site/', @page.url
     assert_equal '//test.host/en/site/child-page', comfy_cms_pages(:child).url
 
-    assert_equal '/en/site/', @page.url(:relative)
-    assert_equal '/en/site/child-page', comfy_cms_pages(:child).url(:relative)
+    assert_equal '/en/site/', @page.url(relative: true)
+    assert_equal '/en/site/child-page', comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_url_with_public_cms_path
@@ -489,8 +489,8 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '//test.host/custom/', @page.url
     assert_equal '//test.host/custom/child-page', comfy_cms_pages(:child).url
 
-    assert_equal '/custom/', @page.url(:relative)
-    assert_equal '/custom/child-page', comfy_cms_pages(:child).url(:relative)
+    assert_equal '/custom/', @page.url(relative: true)
+    assert_equal '/custom/child-page', comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_unicode_slug_escaping
