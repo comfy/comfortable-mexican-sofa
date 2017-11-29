@@ -141,7 +141,7 @@ class CmsSiteTest < ActiveSupport::TestCase
 
   def test_find_site_with_public_cms_path
     ComfortableMexicanSofa.config.public_cms_path = '/custom'
-    assert_equal '//test.host/custom/', comfy_cms_sites(:default).url
+    assert_equal '//test.host/custom', comfy_cms_sites(:default).url
 
     site_a = Comfy::Cms::Site.create!(identifier: 'test_a', hostname: 'test2.host', path: 'en')
     site_b = Comfy::Cms::Site.create!(identifier: 'test_b', hostname: 'test2.host', path: 'fr')

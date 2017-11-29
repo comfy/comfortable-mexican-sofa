@@ -52,7 +52,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # -- Instance Methods -----------------------------------------------------
   def url
     public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
-    '//' + [self.hostname, public_cms_path, self.path].join('/').squeeze('/')
+    '//' + [self.hostname, public_cms_path, self.path].compact.join('/').squeeze('/')
   end
 
 protected
