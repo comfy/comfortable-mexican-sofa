@@ -7,7 +7,7 @@ class Comfy::Admin::Cms::RevisionsController < Comfy::Admin::Cms::BaseController
   helper_method :record_path
 
   def index
-    redirect_to action: :show, id: @record.revisions.first.try(:id) || 0
+    redirect_to action: :show, id: @record.revisions.order(created_at: :desc).first.try(:id) || 0
   end
 
   def show

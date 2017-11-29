@@ -44,13 +44,15 @@ module ComfortableMexicanSofa::HasRevisions
     def create_revision
       return unless self.revision_data
 
+      limit = ComfortableMexicanSofa.config.revisions_limit.to_i
+
       # creating revision
-      if ComfortableMexicanSofa.config.revisions_limit.to_i != 0
+      if limit != 0
         self.revisions.create!(data: self.revision_data)
       end
 
       # blowing away old revisions
-      ids = [0] + self.revisions.limit(ComfortableMexicanSofa.config.revisions_limit.to_i).collect(&:id)
+      ids = [0] + self.revisions.order(created_at: :desc).limit(limit).pluck(:id)
       self.revisions.where('id NOT IN (?)', ids).destroy_all
     end
 

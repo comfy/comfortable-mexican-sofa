@@ -6,7 +6,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
 
   def index
     return redirect_to action: :new if @site.layouts.count == 0
-    @layouts = @site.layouts.roots
+    @layouts = @site.layouts.roots.order(:position)
   end
 
   def new

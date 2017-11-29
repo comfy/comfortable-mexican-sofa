@@ -22,9 +22,6 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
     uniqueness: {scope: :site_id},
     format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
-  # -- Scopes ------------------------------------------------------------------
-  default_scope -> { order('comfy_cms_snippets.position') }
-
 protected
 
   def assign_label

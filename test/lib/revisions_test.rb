@@ -47,7 +47,7 @@ class RevisionsTest < ActiveSupport::TestCase
       )
       @layout.reload
       assert_equal 2, @layout.revisions.count
-      revision = @layout.revisions.first
+      revision = @layout.revisions.last
       assert_equal old_attributes, revision.data
     end
   end
@@ -68,7 +68,7 @@ class RevisionsTest < ActiveSupport::TestCase
       )
       @page.reload
       assert_equal 2, @page.revisions.count
-      revision = @page.revisions.first
+      revision = @page.revisions.last
 
       assert_equal ({
         "fragments_attributes" => [
@@ -109,7 +109,7 @@ class RevisionsTest < ActiveSupport::TestCase
       @snippet.update_attributes(content: "new content")
       @snippet.reload
       assert_equal 2, @snippet.revisions.count
-      revision = @snippet.revisions.first
+      revision = @snippet.revisions.last
       assert_equal old_attributes, revision.data
     end
   end
@@ -213,7 +213,7 @@ class RevisionsTest < ActiveSupport::TestCase
       assert_nil Comfy::Cms::Revision.find_by_id(revision.id)
 
       @snippet.reload
-      revision = @snippet.revisions.first
+      revision = @snippet.revisions.last
       assert_equal ({"content" => "snippet content"}), revision.data
     end
   end
