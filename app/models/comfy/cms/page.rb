@@ -37,11 +37,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
 
-  # -- Scopes ---------------------------------------------------------------
-  default_scope -> { order('comfy_cms_pages.position') }
+  # -- Scopes ------------------------------------------------------------------
   scope :published, -> { where(is_published: true) }
 
-  # -- Class Methods --------------------------------------------------------
+  # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for pages
   def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
     return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
@@ -53,7 +52,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     return out.compact
   end
 
-  # -- Instance Methods -----------------------------------------------------
+  # -- Instance Methods --------------------------------------------------------
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path

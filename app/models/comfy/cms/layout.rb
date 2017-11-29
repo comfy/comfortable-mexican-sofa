@@ -26,9 +26,6 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     uniqueness: {scope: :site_id},
     format:     {with: /\A\w[a-z0-9_-]*\z/i}
 
-  # -- Scopes ---------------------------------------------------------------
-  default_scope -> { order('comfy_cms_layouts.position') }
-
   # -- Class Methods --------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
