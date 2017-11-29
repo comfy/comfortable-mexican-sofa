@@ -16,9 +16,9 @@
 
 = comfy_admin_partial "comfy/admin/cms/partials/page_form_inner", form: form
 
-= render "comfy/admin/cms/categories/form", form: form
-
 = render "form_fragments", form: form, record: @page
+
+= render "comfy/admin/cms/categories/form", form: form
 
 .row
   .col-sm-10.ml-auto
