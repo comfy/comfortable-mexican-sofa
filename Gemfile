@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 gemspec
 
-gem "bootstrap_form", github: "bootstrap-ruby/rails-bootstrap-forms", branch: "bootstrap-v4"
-
 # apps can also use will_paginate so there's no dependency in gemspec
 gem 'kaminari'
 

@@ -15,17 +15,17 @@ module ComfortableMexicanSofa::ActsAsTree
       configuration.update(options) if options.is_a?(Hash)
 
       belongs_to :parent,
-        optional: true,
-        :class_name     => name,
-        :foreign_key    => configuration[:foreign_key],
-        :counter_cache  => configuration[:counter_cache],
-        :touch          => configuration[:touch]
+        optional:       true,
+        class_name:     name,
+        foreign_key:    configuration[:foreign_key],
+        counter_cache:  configuration[:counter_cache],
+        touch:          configuration[:touch]
 
       has_many :children,
         -> { order(configuration[:order])},
-        :class_name     => name,
-        :foreign_key    => configuration[:foreign_key],
-        :dependent      => configuration[:dependent]
+        class_name:   name,
+        foreign_key:  configuration[:foreign_key],
+        dependent:    configuration[:dependent]
 
       class_eval <<-EOV
         include ComfortableMexicanSofa::ActsAsTree::InstanceMethods
@@ -107,4 +107,6 @@ module ComfortableMexicanSofa::ActsAsTree
   end
 end
 
-ActiveRecord::Base.send :include, ComfortableMexicanSofa::ActsAsTree
+ActiveSupport.on_load :active_record do
+  include ComfortableMexicanSofa::ActsAsTree
+end

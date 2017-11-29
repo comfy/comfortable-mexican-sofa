@@ -105,4 +105,6 @@ module ComfortableMexicanSofa::RenderMethods
   end
 end
 
-ActionController::Base.send :include, ComfortableMexicanSofa::RenderMethods
+ActiveSupport.on_load :action_controller_base do
+  include ComfortableMexicanSofa::RenderMethods
+end

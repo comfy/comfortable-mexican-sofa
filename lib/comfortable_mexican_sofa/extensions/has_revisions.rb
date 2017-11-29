@@ -62,4 +62,6 @@ module ComfortableMexicanSofa::HasRevisions
   end
 end
 
-ActiveRecord::Base.send :include, ComfortableMexicanSofa::HasRevisions
+ActiveSupport.on_load :active_record do
+  include ComfortableMexicanSofa::HasRevisions
+end
