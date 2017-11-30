@@ -10,28 +10,6 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
 [![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
 
-## !!! NOTE !!!
-
-This is master branch that's not production ready just yet (Rails 5.2 is not out).
-For currently released gem please reference branch [1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
-
-If you want to use it with bleeding-edge Rails, add this your Gemfile:
-
-```ruby
-gem "rails",
-  github: "rails/rails"
-gem "arel",
-  github: "rails/arel"
-
-# There's no gem published for Bootstrap4 just yet
-gem "bootstrap_form",
-  github: "bootstrap-ruby/rails-bootstrap-forms",
-  branch: "bootstrap-v4"
-
-gem "comfortable_mexican_sofa",
-  github: "comfy/comfortable-mexican-sofa"
-```
-
 ## Features
 
 * Simple drop-in integration with Rails 5.2+ apps with minimal configuration
@@ -41,7 +19,7 @@ gem "comfortable_mexican_sofa",
 * Multi-Language Support (i18n) (cs, da, de, en, es, fr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
 * [CMS Seeds](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-CMS-Seeds) for initial content population
 * [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Revisions) to revert changes
-* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/HowTo:-Reusing-Admin-Area) built with [Bootstrap 4](http://getbootstrap.com). Using [CodeMirror](http://codemirror.net/) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as a WYSIWYG editor.
+* [Great extendable admin interface](https://github.com/comfy/comfortable-mexican-sofa/wiki/HowTo:-Reusing-Admin-Area) built with [Bootstrap 4](http://getbootstrap.com) (responsive design). Using [CodeMirror](http://codemirror.net) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as the WYSIWYG editor.
 
 ## Dependencies
 
@@ -96,6 +74,14 @@ Once you have a layout, you may start creating pages and populating content. It'
 For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
 ![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.jpg)
+
+#### Old Versions
+
+CMS for Rails 5.1 doesn't have published gem, but you may use [rails5.1 branch](https://github.com/comfy/comfortable-mexican-sofa/tree/rails5.1) directly.
+
+With Rails 4.2, 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.12.10)
+
+With Rails 3.0 use gem version [1.8.5](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.8.5)
 
 #### Help and Contact
 

@@ -9,6 +9,5 @@ module Comfy::Paginate
     else
       scope
     end
-
   end
 end
