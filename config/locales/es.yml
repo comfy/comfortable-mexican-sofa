@@ -161,7 +161,7 @@ es:
           form_fragments:
             no_tags: |-
               La plantilla no tiene etiquetas de contenido definidas.<br/>
-              Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:fragment content}}</code>
+              Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

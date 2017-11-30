@@ -161,7 +161,7 @@ it:
           form_fragments:
             no_tags: |-
               Il Layout non ha tag di contenuto definiti.<br/>
-              Modifica il contenuto per includere una pagina o un campo. Per esempio: <code>{{cms:fragment content}}</code>
+              Modifica il contenuto per includere una pagina o un campo. Per esempio: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

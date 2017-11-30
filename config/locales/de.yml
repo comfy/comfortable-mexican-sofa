@@ -161,7 +161,7 @@ de:
           form_fragments:
             no_tags: |-
               Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>
-              Beispiel: <code>{{ cms:page:content }}</code>
+              Beispiel: <code>{{ cms:wysiwyg content }}</code>
 
         translations:
           created: Translation created

@@ -161,7 +161,7 @@ nb:
           form_fragments:
             no_tags: |-
               layout har ingen innholdsknagger definert.<br/>
-              Endre innholdet til å inkludere innhold- eller feltknagg. For eksempel: <code>{{cms:fragment content}}</code>
+              Endre innholdet til å inkludere innhold- eller feltknagg. For eksempel: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

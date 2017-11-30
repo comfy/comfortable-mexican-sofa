@@ -161,7 +161,7 @@ tr:
           form_fragments:
             no_tags: |-
               Şablon etiket içermiyor.<br/>
-              Lütfen bir etiket ekleyin. Örnek: <code>{{cms:fragment content}}</code>
+              Lütfen bir etiket ekleyin. Örnek: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

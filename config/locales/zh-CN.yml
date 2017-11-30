@@ -161,7 +161,7 @@ zh-CN:
           form_fragments:
             no_tags: |-
               布局中没有定义内容标签。<br/>
-              编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:fragment content}}</code>
+              编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

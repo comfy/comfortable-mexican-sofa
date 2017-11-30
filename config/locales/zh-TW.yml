@@ -161,7 +161,7 @@ zh-TW:
           form_fragments:
             no_tags: |-
               佈局中沒有定義內容標記。<br/>
-              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:fragment content}}</code>
+              編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

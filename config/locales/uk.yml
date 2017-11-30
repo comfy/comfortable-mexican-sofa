@@ -161,7 +161,7 @@ uk:
           form_fragments:
             no_tags: |-
               Шаблон не містить жодного контент-тега. <br/>
-              Відредагуйте контент, вставивши тег сторінки або поля. Наприклад: <code>{{cms:fragment content}}</code>
+              Відредагуйте контент, вставивши тег сторінки або поля. Наприклад: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

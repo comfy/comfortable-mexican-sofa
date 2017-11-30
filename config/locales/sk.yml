@@ -161,7 +161,7 @@ sk:
           form_fragments:
             no_tags: |-
               Rozloženie nemá definované žiadne značky obsahu.<br/>
-              Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:fragment content}}</code>
+              Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

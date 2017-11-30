@@ -161,7 +161,7 @@ ja:
           form_fragments:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
-              コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:fragment content}}</code>
+              コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

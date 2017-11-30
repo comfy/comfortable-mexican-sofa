@@ -161,7 +161,7 @@ da:
           form_fragments:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>
-              Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:fragment content}}</code>
+              Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

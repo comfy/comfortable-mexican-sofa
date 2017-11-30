@@ -161,7 +161,7 @@ cs:
           form_fragments:
             no_tags: |-
               Rozložení nedefinuje žádné obsahové značky.<br/>
-              Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:fragment content}}</code>
+              Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

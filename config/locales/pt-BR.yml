@@ -161,7 +161,7 @@ pt-BR:
           form_fragments:
             no_tags: |-
               O leiaute não possui tags de conteúdo definidas.<br/>
-              Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:fragment content}}</code>
+              Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

@@ -161,7 +161,7 @@ sv:
           form_fragments:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>
-              Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:fragment content}}</code>
+              Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

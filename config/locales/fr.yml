@@ -161,7 +161,7 @@ fr:
           form_fragments:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>
-              Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:fragment content}}</code>
+              Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created

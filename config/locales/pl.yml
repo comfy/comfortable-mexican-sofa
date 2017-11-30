@@ -161,7 +161,7 @@ pl:
           form_fragments:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
-              Dodaj do jego treści tag strony lub pola, np. <code>{{cms:fragment content}}</code>
+              Dodaj do jego treści tag strony lub pola, np. <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created
