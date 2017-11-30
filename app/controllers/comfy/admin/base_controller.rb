@@ -9,6 +9,7 @@ class Comfy::Admin::BaseController < ComfortableMexicanSofa.config.base_controll
   include ComfortableMexicanSofa.config.admin_authorization.to_s.constantize
 
   helper Comfy::Admin::CmsHelper
+  helper Comfy::CmsHelper
 
   protect_from_forgery
 

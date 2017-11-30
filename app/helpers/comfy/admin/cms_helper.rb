@@ -24,16 +24,6 @@ module Comfy
         ComfortableMexicanSofa::ViewHooks.render(name, self, options)
       end
 
-      # Wrapper to deal with Kaminari vs WillPaginate
-      def comfy_paginate(collection)
-        return unless collection
-        if defined?(WillPaginate)
-          will_paginate collection
-        elsif defined?(Kaminari)
-          paginate collection, theme: "comfy"
-        end
-      end
-
     end
   end
 end
