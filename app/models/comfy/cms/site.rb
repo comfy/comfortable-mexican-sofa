@@ -54,7 +54,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
     public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
     host = "//#{self.hostname}"
     path = ['/', public_cms_path, self.path].compact.join('/').squeeze('/').chomp('/')
-    relative ? path : [host, path].join
+    relative ? path.presence : [host, path].join
   end
 
 protected

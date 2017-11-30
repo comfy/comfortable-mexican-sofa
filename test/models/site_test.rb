@@ -176,6 +176,7 @@ class CmsSiteTest < ActiveSupport::TestCase
 
   def test_url
     assert_equal "//test.host", @site.url
+    assert_nil                  @site.url(relative: true)
 
     @site.update_column(:path, "/site-path")
     assert_equal "//test.host/site-path", @site.url

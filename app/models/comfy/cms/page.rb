@@ -66,7 +66,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # Full url for a page
   def url(relative: false)
-    self.site.url(relative: relative) + self.full_path
+    [self.site.url(relative: relative), self.full_path].compact.join
   end
 
   # This method will mutate page object by transfering attributes from translation
