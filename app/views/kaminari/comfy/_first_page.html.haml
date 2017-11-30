@@ -1,2 +1,3 @@
-%li
-  = link_to_unless current_page.first?, raw(t 'views.pagination.first'), url, :remote => remote
+- unless current_page.first?
+  %li.page-item
+  = link_to_unless current_page.first?, raw(t 'views.pagination.first'), url, class: 'page-link', remote: remote

@@ -1,2 +1,2 @@
-%li{class: "#{'active' if page.current?}"}
-  = link_to page, page.current? ? '#' : url, {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil}
+%li{class: "page-item#{' active' if page.current?}"}
+  = link_to page, url, opts = {remote: remote, class: 'page-link', rel: page.next? ? 'next' : page.prev? ? 'prev' : nil}
