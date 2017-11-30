@@ -158,7 +158,7 @@ uk:
             cancel: Cкасувати
             update: Оновити сторінку
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Шаблон не містить жодного контент-тега. <br/>
               Відредагуйте контент, вставивши тег сторінки або поля. Наприклад: <code>{{cms:fragment content}}</code>

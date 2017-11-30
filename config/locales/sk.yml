@@ -158,7 +158,7 @@ sk:
             cancel: Zrušiť
             update: Upraviť stránku
             choose_link: Zvoľte stránku...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Rozloženie nemá definované žiadne značky obsahu.<br/>
               Upravte obsah tak, aby obsahoval značky stránok alebo polí. Napríklad: <code>{{cms:fragment content}}</code>

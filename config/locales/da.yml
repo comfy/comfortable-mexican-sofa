@@ -158,7 +158,7 @@ da:
             cancel: Annuller
             update: Opdater side
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>
               Rediger indholdet for at inkluderere et side- eller felttag. Eksempelvis: <code>{{cms:fragment content}}</code>

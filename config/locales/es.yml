@@ -158,7 +158,7 @@ es:
             cancel: Cancelar
             update: Actualizar Página
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               La plantilla no tiene etiquetas de contenido definidas.<br/>
               Edite el contenido para incluir alguna etiqueta de página o campo, por ejemplo: <code>{{cms:fragment content}}</code>

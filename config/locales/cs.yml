@@ -158,7 +158,7 @@ cs:
             cancel: Zrušit
             update: Upravit stránku
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Rozložení nedefinuje žádné obsahové značky.<br/>
               Upravte jeho obsah tak, aby zahrnovalo obsahové značky. Například: <code>{{cms:fragment content}}</code>

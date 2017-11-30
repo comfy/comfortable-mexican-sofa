@@ -158,7 +158,7 @@ nl:
             cancel: Annuleren
             update: Pagina Bijwerken
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Lay-out heeft geen inhoud-tags gedefinieerd.<br/>
               Bewerk de inhoud van de lay-out om een inhoud-tag toe te voegen. Bijvoorbeeld: <code>{{cms:fragment content}}</code>

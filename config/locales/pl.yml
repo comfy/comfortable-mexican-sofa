@@ -158,7 +158,7 @@ pl:
             cancel: Anuluj
             update: Uaktualnij stronę
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>
               Dodaj do jego treści tag strony lub pola, np. <code>{{cms:fragment content}}</code>

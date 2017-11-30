@@ -158,7 +158,7 @@ tr:
             cancel: İptal
             update: Sayfayı Güncelle
             choose_link: Sayfa Seç...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Şablon etiket içermiyor.<br/>
               Lütfen bir etiket ekleyin. Örnek: <code>{{cms:fragment content}}</code>

@@ -158,7 +158,7 @@ nb:
             cancel: Cancel
             update: Endre side
             choose_link: Velg side...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               layout har ingen innholdsknagger definert.<br/>
               Endre innholdet til å inkludere innhold- eller feltknagg. For eksempel: <code>{{cms:fragment content}}</code>

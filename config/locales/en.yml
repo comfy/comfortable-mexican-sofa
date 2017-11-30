@@ -158,10 +158,10 @@ en:
             cancel: Cancel
             update: Update Page
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Layout has no content tags defined.<br/>
-              Edit the content to include a page or field tag. For example: <code>{{cms:fragment content}}</code>
+              Edit the content to include a page or field tag. For example: <code>{{cms:markdown content}}</code>
 
         translations:
           created: Translation created

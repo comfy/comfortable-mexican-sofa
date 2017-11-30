@@ -158,7 +158,7 @@ fr:
             cancel: Annuler
             update: Modifier la page
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>
               Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:fragment content}}</code>

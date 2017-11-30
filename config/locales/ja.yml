@@ -158,7 +158,7 @@ ja:
             cancel: キャンセル
             update: ページを更新
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>
               コンテンツを編集してページまたはフィールドタグを含めてください。 例:  <code>{{cms:fragment content}}</code>

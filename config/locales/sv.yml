@@ -158,7 +158,7 @@ sv:
             cancel: Avbryt
             update: Uppdatera sida
             choose_link: Välj sida...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>
               Ändra innehållet så att det innehåller en sid eller fält tagg. Exempelvis: <code>{{cms:fragment content}}</code>

@@ -158,7 +158,7 @@ ru:
             cancel: Oтменить
             update: Обновить страницу
             choose_link: Select page...
-          form_blocks:
+          form_fragments:
             no_tags: |-
               Шаблон не содержит ни одного контент-тега.<br/>
               Отредактируйте контент, вставив тег страницы или поля. Например: <code>{{cms:fragment content}}</code>
