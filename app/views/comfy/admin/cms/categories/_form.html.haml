@@ -4,7 +4,8 @@
     - categories.each do |category|
       - name = "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]"
       = hidden_field_tag name, 0, id: nil
-      %label.checkbox-inline
-        - name = "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]"
-        = check_box_tag name, 1, object.categories.member?(category), id: nil
-        = category.label
+      .form-check.form-check-inline
+        %label.form-check-label
+          - name = "#{object.class.to_s.demodulize.underscore.downcase}[category_ids][#{category.id}]"
+          = check_box_tag name, 1, object.categories.member?(category), id: nil, class: 'form-check-input'
+          = category.label
