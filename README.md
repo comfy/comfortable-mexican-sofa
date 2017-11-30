@@ -77,9 +77,9 @@ For more information please refer to [Wiki](https://github.com/comfy/comfortable
 
 #### Old Versions
 
-CMS for Rails 5.1 doesn't have published gem, but you may use [rails5.1 branch](https://github.com/comfy/comfortable-mexican-sofa/tree/rails5.1) directly.
+CMS for Rails 5.1 doesn't have published gem, but you may use [rails 5.1 branch](https://github.com/comfy/comfortable-mexican-sofa/tree/rails5.1) directly.
 
-With Rails 4.2, 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.12.10)
+With Rails 4.2 and 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.12.10)
 
 With Rails 3.0 use gem version [1.8.5](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.8.5)
 
@@ -97,4 +97,4 @@ Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
 
 ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE)
 
-Copyright 2009-2017 Oleg Khabarov
+Copyright 20010-2017 Oleg Khabarov
