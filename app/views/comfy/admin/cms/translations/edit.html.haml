@@ -2,6 +2,8 @@
   .box.revisions
     = link_to t('.revision', count: @translation.revisions.count), comfy_admin_cms_site_page_translation_revisions_path(@site, @page, @translation), class: "btn btn-info d-block"
 
+  = render partial: "comfy/admin/cms/translations/sidebar"
+
 .page-header
   %h2= t('.title')
 

@@ -1,0 +1,13 @@
+.box.translations
+  - @page.translations.each do |translation|
+    .btn-group.btn-group-sm.d-flex.mb-1
+      - url = edit_comfy_admin_cms_site_page_translation_path(@site, @page, translation)
+      - badge = content_tag(:span, translation.locale, class: "badge badge-light")
+      - name = "#{badge} #{translation.label}".html_safe
+      - published_css_class = translation.is_published? ? "published" : "draft"
+      = link_to name, url, class: "#{published_css_class} translation btn btn-outline-light w-100"
+
+      - url = comfy_admin_cms_site_page_translation_path(@site, @page, translation)
+      = link_to t(".delete"), url, method: :delete, data: {confirm: t(".confirm")}, class: "btn btn-danger"
+
+  = link_to t(".new"), new_comfy_admin_cms_site_page_translation_path(@site, @page), class: "btn btn-secondary d-block mb-1"

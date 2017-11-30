@@ -145,10 +145,6 @@ da:
             title: Ny side
           edit:
             title: Rediger side
-            translation:
-              create: Create Translation
-              delete: Delete
-              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -182,6 +178,10 @@ da:
             create: Create
             update: Update
             cancel: Return to Page
+          sidebar:
+            new: New Translation
+            delete: Delete
+            confirm: Are you sure?
 
         snippets:
           created: Snippet oprettet

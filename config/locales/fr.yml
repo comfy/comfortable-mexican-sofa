@@ -145,10 +145,6 @@ fr:
             title: Nouvelle page
           edit:
             title: Modification de la page
-            translation:
-              create: Create Translation
-              delete: Delete
-              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -182,6 +178,10 @@ fr:
             create: Create
             update: Update
             cancel: Return to Page
+          sidebar:
+            new: New Translation
+            delete: Delete
+            confirm: Are you sure?
 
         snippets:
           created: Fragment créé

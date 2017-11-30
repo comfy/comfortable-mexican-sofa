@@ -145,10 +145,6 @@ de:
             title: Seite erstellen
           edit:
             title: Seite bearbeiten
-            translation:
-              create: Create Translation
-              delete: Delete
-              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -182,6 +178,10 @@ de:
             create: Create
             update: Update
             cancel: Return to Page
+          sidebar:
+            new: New Translation
+            delete: Delete
+            confirm: Are you sure?
 
         snippets:
           created: Schnipsel erstellt

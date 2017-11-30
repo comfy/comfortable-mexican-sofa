@@ -145,10 +145,6 @@ en:
             title: New Page
           edit:
             title: Editing Page
-            translation:
-              create: Create Translation
-              delete: Delete
-              confirm: Are you sure?
             revision:
               <<: *revision
           form:
@@ -161,7 +157,7 @@ en:
           form_fragments:
             no_tags: |-
               Layout has no content tags defined.<br/>
-              Edit the content to include a page or field tag. For example: <code>{{cms:markdown content}}</code>
+              Edit the content to include a page or field tag. For example: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created
@@ -182,6 +178,10 @@ en:
             create: Create
             update: Update
             cancel: Return to Page
+          sidebar:
+            new: New Translation
+            delete: Delete
+            confirm: Are you sure?
 
         snippets:
           created: Snippet created
