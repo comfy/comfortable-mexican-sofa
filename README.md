@@ -12,8 +12,21 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 
 ## !!! NOTE !!!
 
-This is master branch that's not production ready just yet (Rails 5.2 is not out).
-For currently released gem please reference branch [1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
+This is master branch that's not production ready just yet (**Rails 5.2** is not out).
+
+For **Rails 5.1** see branch [rails5.1](https://github.com/comfy/comfortable-mexican-sofa/tree/rails5.1)
+
+For currently released gem (**Rails 4.0 ~ 5.0**) please see reference branch [1.12](https://github.com/comfy/comfortable-mexican-sofa/tree/1.12)
+
+For [legacy wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki/Home/9c0f79fcec13cf7f62a7bf3be0c45fa6451f96d8) it's best to do this: 
+```
+git clone https://github.com/comfy/comfortable-mexican-sofa.wiki.git
+cd comfortable-mexican-sofa.wiki
+git checkout 9c0f79fcec13cf7f62a7bf3be0c45fa6451f96d8
+```
+And browse locally.
+
+---
 
 If you want to use it with bleeding-edge Rails, add this your Gemfile:
 
