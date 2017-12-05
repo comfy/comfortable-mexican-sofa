@@ -25,15 +25,15 @@ class AccessControlTest < ActionDispatch::IntegrationTest
 
     # faking ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
     # faking ComfortableMexicanSofa.config.public_authorization = 'AccessControlTest::TestAuthorization'
-    class SitesController         < Comfy::Admin::Cms::SitesController;         include Authorize; end
-    class LayoutsController       < Comfy::Admin::Cms::LayoutsController;       include Authorize; end
-    class PagesController         < Comfy::Admin::Cms::PagesController;         include Authorize; end
-    class SnippetsController      < Comfy::Admin::Cms::SnippetsController;      include Authorize; end
-    class FilesController         < Comfy::Admin::Cms::FilesController;         include Authorize; end
-    class CategoriesController    < Comfy::Admin::Cms::CategoriesController;    include Authorize; end
-    class RevisionsController     < Comfy::Admin::Cms::RevisionsController;     include Authorize; end
-    class TranslationsController  < Comfy::Admin::Cms::TranslationsController;  include Authorize; end
-    class ContentController       < Comfy::Cms::ContentController;              include Authorize; end
+    class SitesController         < Comfy::Admin::Cms::SitesController;             include Authorize; end
+    class LayoutsController       < Comfy::Admin::Cms::LayoutsController;           include Authorize; end
+    class PagesController         < Comfy::Admin::Cms::PagesController;             include Authorize; end
+    class SnippetsController      < Comfy::Admin::Cms::SnippetsController;          include Authorize; end
+    class FilesController         < Comfy::Admin::Cms::FilesController;             include Authorize; end
+    class CategoriesController    < Comfy::Admin::Cms::CategoriesController;        include Authorize; end
+    class RevisionsController     < Comfy::Admin::Cms::Revisions::LayoutController; include Authorize; end
+    class TranslationsController  < Comfy::Admin::Cms::TranslationsController;      include Authorize; end
+    class ContentController       < Comfy::Cms::ContentController;                  include Authorize; end
   end
 
   # -- Tests -------------------------------------------------------------------

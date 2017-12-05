@@ -6,8 +6,8 @@ class ActionDispatch::Routing::Mapper
         namespace :cms, as: :admin_cms, path: path, except: :show do
           get "/", to: "base#jump"
 
-          concern :with_revisions do
-            resources :revisions, only: [:index, :show, :revert] do
+          concern :with_revisions do |options|
+            resources :revisions, options.merge(only: [:index, :show]) do
               patch :revert, on: :member
             end
           end
@@ -21,25 +21,30 @@ class ActionDispatch::Routing::Mapper
           end
 
           resources :sites do
-
-            concerns = [:with_revisions, :with_reorder, :with_form_fragments]
-            resources :pages, concerns: concerns do
+            resources :pages do
+              concerns :with_reorder
+              concerns :with_form_fragments
+              concerns :with_revisions, controller: "revisions/page"
 
               get :toggle_branch,  on: :member
 
-              resources :translations,
-                except:   [:index],
-                concerns: [:with_revisions, :with_form_fragments]
+              resources :translations, except: [:index] do
+                concerns :with_form_fragments
+                concerns :with_revisions, controller: "revisions/translation"
+              end
             end
 
-            resources :files,
-              concerns: [:with_reorder]
+            resources :files, concerns: [:with_reorder]
 
-            resources :layouts,
-              concerns: [:with_revisions, :with_reorder]
+            resources :layouts do
+              concerns :with_reorder
+              concerns :with_revisions, controller: "revisions/layout"
+            end
 
-            resources :snippets,
-              concerns: [:with_revisions, :with_reorder]
+            resources :snippets do
+              concerns :with_reorder
+              concerns :with_revisions, controller: "revisions/snippet"
+            end
 
             resources :categories
           end
