@@ -110,12 +110,6 @@ nl:
             title: Nieuwe Lay-out
           edit:
             title: Lay-out Bewerken
-            revision: &revision
-              zero: '%{count} Revisies'
-              one: '%{count} Revisie'
-              few: '%{count} Revisies'
-              many: '%{count} Revisies'
-              other: '%{count} Revisies'
           form:
             select_parent_layout: Selecteer Ouder Lay-out
             select_app_layout: Selecteer Applicatie Lay-out
@@ -145,8 +139,6 @@ nl:
             title: Nieuwe Pagina
           edit:
             title: Pagina Bewerken
-            revision:
-              <<: *revision
           form:
             select_target_page: Geen Omleiding
             preview: Preview
@@ -171,8 +163,6 @@ nl:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ nl:
             title: Nieuw Snippet
           edit:
             title: Snippet Bewerken
-            revision:
-              <<: *revision
           form:
             create: Snippet Aanmaken
             cancel: Annuleren
@@ -222,6 +210,13 @@ nl:
             changes: Changes
             previous: Previous
             current: Huidig
+          sidebar:
+            revision:
+              zero: '%{count} Revisies'
+              one: '%{count} Revisie'
+              few: '%{count} Revisies'
+              many: '%{count} Revisies'
+              other: '%{count} Revisies'
 
         files:
           created: Bestanden geüpload

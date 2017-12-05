@@ -110,12 +110,6 @@ it:
             title: Nuovo Layout
           edit:
             title: Modifica Layout
-            revision: &revision
-              zero: '%{count} Revisioni'
-              one: '%{count} Revisione'
-              few: '%{count} Revisioni'
-              many: '%{count} Revisioni'
-              other: '%{count} Revisioni'
           form:
             select_parent_layout: Seleziona Layout padre
             select_app_layout: Seleziona Layout applicazione
@@ -145,8 +139,6 @@ it:
             title: Nuova Pagina
           edit:
             title: Modifica Pagina
-            revision:
-              <<: *revision
           form:
             select_target_page: Nessun reindirizzamento
             preview: Anteprima
@@ -171,8 +163,6 @@ it:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ it:
             title: Nuovo Snippet
           edit:
             title: Modifica Snippet
-            revision:
-              <<: *revision
           form:
             create: Crea Snippet
             cancel: Cancellare
@@ -222,6 +210,13 @@ it:
             changes: Cambiamenti
             previous: Precedente
             current: Attuale
+          sidebar:
+            revision:
+              zero: '%{count} Revisioni'
+              one: '%{count} Revisione'
+              few: '%{count} Revisioni'
+              many: '%{count} Revisioni'
+              other: '%{count} Revisioni'
 
         files:
           created: File caricati

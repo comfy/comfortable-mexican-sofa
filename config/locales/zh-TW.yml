@@ -110,12 +110,6 @@ zh-TW:
             title: 新佈局
           edit:
             title: 編輯佈局
-            revision: &revision
-              zero: '%{count} 修訂版本'
-              one: '%{count} 修訂版本'
-              few: '%{count} 修訂版本'
-              many: '%{count} 修訂版本'
-              other: '%{count} 修訂版本'
           form:
             select_parent_layout: 選擇上級佈局
             select_app_layout: 選擇應用佈局
@@ -145,8 +139,6 @@ zh-TW:
             title: 新頁面
           edit:
             title: 編輯頁面
-            revision:
-              <<: *revision
           form:
             select_target_page: 沒有跳轉
             preview: 預覽
@@ -171,8 +163,6 @@ zh-TW:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ zh-TW:
             title: 新片段
           edit:
             title: 編輯片段
-            revision:
-              <<: *revision
           form:
             create: 創建片段
             cancel: 取消
@@ -222,6 +210,13 @@ zh-TW:
             changes: 變更
             previous: 先前
             current: 現在
+          sidebar:
+            revision:
+              zero: '%{count} 修訂版本'
+              one: '%{count} 修訂版本'
+              few: '%{count} 修訂版本'
+              many: '%{count} 修訂版本'
+              other: '%{count} 修訂版本'
 
         files:
           created: 文件上傳成功

@@ -110,12 +110,6 @@ fr:
             title: Nouvelle mise en page
           edit:
             title: Modification de la mise en page
-            revision: &revision
-              zero: No Revisions
-              one: '%{count} Revision'
-              few: '%{count} Revisions'
-              many: '%{count} Revisions'
-              other: '%{count} Revisions'
           form:
             select_parent_layout: Sélectionner une mise en page parent
             select_app_layout: Sélectionner une mise en page de l'application
@@ -145,8 +139,6 @@ fr:
             title: Nouvelle page
           edit:
             title: Modification de la page
-            revision:
-              <<: *revision
           form:
             select_target_page: Pas de redirection
             preview: Prévisualiser
@@ -171,8 +163,6 @@ fr:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ fr:
             title: Nouveau fragment
           edit:
             title: Modification du fragment
-            revision:
-              <<: *revision
           form:
             create: Créer le fragment
             cancel: Annuler
@@ -222,6 +210,13 @@ fr:
             changes: Changes
             previous: Previous
             current: Actuel
+          sidebar:
+            revision:
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
 
         files:
           created: Fichier téléchargé

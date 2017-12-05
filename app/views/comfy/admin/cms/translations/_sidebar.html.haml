@@ -2,7 +2,7 @@
   - @page.translations.each do |translation|
     .btn-group.btn-group-sm.d-flex.mb-1
       - url = edit_comfy_admin_cms_site_page_translation_path(@site, @page, translation)
-      - badge = content_tag(:span, translation.locale, class: "badge badge-light")
+      - badge = content_tag(:span, translation.locale, class: "badge badge-primary")
       - name = "#{badge} #{translation.label}".html_safe
       - published_css_class = translation.is_published? ? "published" : "draft"
       = link_to name, url, class: "#{published_css_class} translation btn btn-outline-light w-100"

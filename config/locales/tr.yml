@@ -110,12 +110,6 @@ tr:
             title: Yeni Şablon
           edit:
             title: Şablon Düzenleniyor
-            revision: &revision
-              zero: Revize Yok
-              one: '%{count} Revizyon'
-              few: '%{count} Revizyon'
-              many: '%{count} Revizyon'
-              other: '%{count} Revizyon'
           form:
             select_parent_layout: Üst Şablon Seç
             select_app_layout: Uygulama Şablonu Seç
@@ -145,8 +139,6 @@ tr:
             title: Yeni Sayfa
           edit:
             title: Sayfa Düzenleniyor
-            revision:
-              <<: *revision
           form:
             select_target_page: Yönlendirme Yok
             preview: Önizle
@@ -171,8 +163,6 @@ tr:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ tr:
             title: Yeni Pasaj
           edit:
             title: Pasaj Düzenleniyor
-            revision:
-              <<: *revision
           form:
             create: Pasaj Oluştur
             cancel: İptal
@@ -222,6 +210,13 @@ tr:
             changes: Değişiklikler
             previous: Önceki
             current: Şimdiki
+          sidebar:
+            revision:
+              zero: Revize Yok
+              one: '%{count} Revizyon'
+              few: '%{count} Revizyon'
+              many: '%{count} Revizyon'
+              other: '%{count} Revizyon'
 
         files:
           created: Dosyalar yüklendi

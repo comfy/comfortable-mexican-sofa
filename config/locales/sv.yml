@@ -110,12 +110,6 @@ sv:
             title: Ny layout
           edit:
             title: Ändra layout
-            revision: &revision
-              zero: No Revisions
-              one: '%{count} Revision'
-              few: '%{count} Revisions'
-              many: '%{count} Revisions'
-              other: '%{count} Revisions'
           form:
             select_parent_layout: Välj överordnad layout
             select_app_layout: Väl Applikationslayout
@@ -145,8 +139,6 @@ sv:
             title: Ny sida
           edit:
             title: Ändra sida
-            revision:
-              <<: *revision
           form:
             select_target_page: Ingen vidarebefodring
             preview: Förhandsgranska
@@ -171,8 +163,6 @@ sv:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ sv:
             title: Ny Snippet
           edit:
             title: Ändra Snippet
-            revision:
-              <<: *revision
           form:
             create: Skapa Snippet
             cancel: Avbryt
@@ -222,6 +210,13 @@ sv:
             changes: Changes
             previous: Previous
             current: Nuvarande
+          sidebar:
+            revision:
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
 
         files:
           created: Filer uppladdade

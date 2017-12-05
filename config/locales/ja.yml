@@ -110,12 +110,6 @@ ja:
             title: 新規レイアウト
           edit:
             title: レイアウトを編集
-            revision: &revision
-              zero: リビジョン
-              one: '%{count} リビジョン'
-              few: '%{count} リビジョン'
-              many: '%{count} リビジョン'
-              other: '%{count} リビジョン'
           form:
             select_parent_layout: 親レイアウトを選択
             select_app_layout: アプリケーションレイアウトを選択
@@ -145,8 +139,6 @@ ja:
             title: 新規ページ
           edit:
             title: ページを編集
-            revision:
-              <<: *revision
           form:
             select_target_page: リダイレクトなし
             preview: プレビュー
@@ -171,8 +163,6 @@ ja:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ ja:
             title: 新規スニペット
           edit:
             title: スニペットを編集
-            revision:
-              <<: *revision
           form:
             create: スニペットを作成
             cancel: キャンセル
@@ -222,6 +210,13 @@ ja:
             changes: Changes
             previous: Previous
             current: Current
+          sidebar:
+            revision: &revision
+              zero: リビジョン
+              one: '%{count} リビジョン'
+              few: '%{count} リビジョン'
+              many: '%{count} リビジョン'
+              other: '%{count} リビジョン'
 
         files:
           created: ファイルがアップロードされました

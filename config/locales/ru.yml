@@ -110,12 +110,6 @@ ru:
             title: Новый шаблон
           edit:
             title: Редактирование шаблона
-            revision: &revision
-              zero: 'Нет Ревизий'
-              one: '%{count} Ревизия'
-              few: '%{count} Ревизии'
-              many: '%{count} Ревизий'
-              other: '%{count} Ревизии'
           form:
             select_parent_layout: Выбрать родительский шаблон
             select_app_layout: Выбрать шаблон приложения
@@ -145,8 +139,6 @@ ru:
             title: Новая страница
           edit:
             title: Редактирование страницы
-            revision:
-              <<: *revision
           form:
             select_target_page: Без редиректа
             preview: Предпросмотр
@@ -171,8 +163,6 @@ ru:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ ru:
             title: Новый сниппет
           edit:
             title: Редактирование сниппета
-            revision:
-              <<: *revision
           form:
             create: Создать сниппет
             cancel: Oтменить
@@ -222,6 +210,13 @@ ru:
             changes: Changes
             previous: Previous
             current: Текущая
+          sidebar:
+            revision:
+              zero: 'Нет Ревизий'
+              one: '%{count} Ревизия'
+              few: '%{count} Ревизии'
+              many: '%{count} Ревизий'
+              other: '%{count} Ревизии'
 
         files:
           created: Файлы загружены

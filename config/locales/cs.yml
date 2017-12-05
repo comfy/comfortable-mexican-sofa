@@ -110,12 +110,6 @@ cs:
             title: Nové rozložení
           edit:
             title: Úprava rozložení
-            revision: &revision
-              zero: Žádné revize
-              one: '%{count} revize'
-              few: '%{count} revize'
-              many: '%{count} revizí'
-              other: '%{count} revizí'
           form:
             select_parent_layout: Zvolte rodičovské rozložení
             select_app_layout: Zvolte rozložení aplikace
@@ -145,8 +139,6 @@ cs:
             title: Nová stránka
           edit:
             title: Úprava stránky
-            revision:
-              <<: *revision
           form:
             select_target_page: Bez přesměrování
             preview: Náhled
@@ -171,8 +163,6 @@ cs:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ cs:
             title: Nový úryvek
           edit:
             title: Upravit úryvek
-            revision:
-              <<: *revision
           form:
             create: Vytvořit úryvek
             cancel: Zrušit
@@ -222,6 +210,13 @@ cs:
             changes: Změny
             previous: Předchozí
             current: Aktuální
+          sidebar:
+            revision:
+              zero: Žádné revize
+              one: '%{count} revize'
+              few: '%{count} revize'
+              many: '%{count} revizí'
+              other: '%{count} revizí'
 
         files:
           created: Soubory nahrány

@@ -110,12 +110,6 @@ es:
             title: Nuevo Diseño
           edit:
             title: Editando Diseño
-            revision: &revision
-              zero: No Revisions
-              one: '%{count} Revision'
-              few: '%{count} Revisions'
-              many: '%{count} Revisions'
-              other: '%{count} Revisions'
           form:
             select_parent_layout: Seleccionar diseño padre
             select_app_layout: Seleccionar diseño (App)
@@ -145,8 +139,6 @@ es:
             title: Nueva Página
           edit:
             title: Editando Página
-            revision:
-              <<: *revision
           form:
             select_target_page: No Redirigir
             preview: Vista Previa
@@ -171,8 +163,6 @@ es:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ es:
             title: Nuevo Fragmento
           edit:
             title: Editando Fragmento
-            revision:
-              <<: *revision
           form:
             create: Crear Fragmento
             cancel: Cancelar
@@ -222,6 +210,13 @@ es:
             changes: Changes
             previous: Previous
             current: Corriente
+          sidebar:
+            revision:
+              zero: No Revisions
+              one: '%{count} Revision'
+              few: '%{count} Revisions'
+              many: '%{count} Revisions'
+              other: '%{count} Revisions'
 
         files:
           created: Archivos subidos

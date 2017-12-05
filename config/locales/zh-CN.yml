@@ -110,12 +110,6 @@ zh-CN:
             title: 新布局
           edit:
             title: 编辑布局
-            revision: &revision
-              zero: '%{count} 修订版本'
-              one: '%{count} 修订版本'
-              few: '%{count} 修订版本'
-              many: '%{count} 修订版本'
-              other: '%{count} 修订版本'
           form:
             select_parent_layout: 选择上级布局
             select_app_layout: 选择应用布局
@@ -145,8 +139,6 @@ zh-CN:
             title: 新页面
           edit:
             title: 编辑页面
-            revision:
-              <<: *revision
           form:
             select_target_page: 没有跳转
             preview: 预览
@@ -171,8 +163,6 @@ zh-CN:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ zh-CN:
             title: 新片段
           edit:
             title: 编辑片段
-            revision:
-              <<: *revision
           form:
             create: 创建片段
             cancel: 取消
@@ -222,6 +210,13 @@ zh-CN:
             changes: Changes
             previous: Previous
             current: Current
+          sidebar:
+            revision:
+              zero: '%{count} 修订版本'
+              one: '%{count} 修订版本'
+              few: '%{count} 修订版本'
+              many: '%{count} 修订版本'
+              other: '%{count} 修订版本'
 
         files:
           created: 文件上传成功

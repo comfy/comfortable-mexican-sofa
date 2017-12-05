@@ -1,6 +1,6 @@
 - content_for :right_column do
-  .box.revisions
-    = link_to t('.revision', count: @layout.revisions.count), comfy_admin_cms_site_layout_revisions_path(@site, @layout), class: "btn btn-info d-block"
+  - link = comfy_admin_cms_site_layout_revisions_path(@site, @layout)
+  = render "comfy/admin/cms/revisions/sidebar", record: @layout, link: link
 
 .page-header
   %h2= t('.title')

@@ -110,12 +110,6 @@ pt-BR:
             title: Novo Leiaute
           edit:
             title: Editando Leiaute
-            revision: &revision
-              zero: '%{count} Revisão'
-              one: '%{count} Revisão'
-              few: '%{count} Revisões'
-              many: '%{count} Revisões'
-              other: '%{count} Revisões'
           form:
             select_parent_layout: Selecione o Leiaute Pai
             select_app_layout: Selecione o Leiaute da Aplicação
@@ -145,8 +139,6 @@ pt-BR:
             title: Nova Página
           edit:
             title: Editando Página
-            revision:
-              <<: *revision
           form:
             select_target_page: Não Redirecionar
             preview: Pré-visualização
@@ -171,8 +163,6 @@ pt-BR:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ pt-BR:
             title: Novo Fragmento
           edit:
             title: Editando Fragmento
-            revision:
-              <<: *revision
           form:
             create: Criar Fragmento
             cancel: Cancelar
@@ -222,6 +210,13 @@ pt-BR:
             changes: Changes
             previous: Previous
             current: Atual
+          sidebar:
+            revision:
+              zero: '%{count} Revisão'
+              one: '%{count} Revisão'
+              few: '%{count} Revisões'
+              many: '%{count} Revisões'
+              other: '%{count} Revisões'
 
         files:
           created: Arquivo enviado com sucesso.

@@ -110,12 +110,6 @@ da:
             title: Nyt layout
           edit:
             title: Rdiger layout
-            revision: &revision
-              zero: Ingen revisioner
-              one: '%{count} revision'
-              few: '%{count} revisioner'
-              many: '%{count} revisioner'
-              other: '%{count} revisioner'
           form:
             select_parent_layout: Vælg overordnet layout
             select_app_layout: Vælg applikationens layout
@@ -145,8 +139,6 @@ da:
             title: Ny side
           edit:
             title: Rediger side
-            revision:
-              <<: *revision
           form:
             select_target_page: Ingen viderestilling
             preview: Preview
@@ -171,8 +163,6 @@ da:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ da:
             title: Ny snippet
           edit:
             title: Rediger snippet
-            revision:
-              <<: *revision
           form:
             create: Opret snippet
             cancel: Annuller
@@ -222,6 +210,13 @@ da:
             changes: Ændringer
             previous: Forrige
             current: Nuværende
+          sidebar:
+            revision:
+              zero: Ingen revisioner
+              one: '%{count} revision'
+              few: '%{count} revisioner'
+              many: '%{count} revisioner'
+              other: '%{count} revisioner'
 
         files:
           created: Filer sendt

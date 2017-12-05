@@ -110,12 +110,6 @@ pl:
             title: Nowy szablon
           edit:
             title: Edytuj szablon
-            revision: &revision
-              zero: '%{count} Wersji'
-              one: '%{count} Wersja'
-              few: '%{count} Wersje'
-              many: '%{count} Wersji'
-              other: '%{count} Wersje'
           form:
             select_parent_layout: Wybierz szablon rodzica
             select_app_layout: Wybierz szablon aplikacji
@@ -145,8 +139,6 @@ pl:
             title: Nowa strona
           edit:
             title: Edytuj stronę
-            revision:
-              <<: *revision
           form:
             select_target_page: Bez przekierowania
             preview: Podgląd
@@ -171,8 +163,6 @@ pl:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ pl:
             title: Nowy snippet
           edit:
             title: Edytuj snippet
-            revision:
-              <<: *revision
           form:
             create: Utwórz snippet
             cancel: Anuluj
@@ -222,6 +210,13 @@ pl:
             changes: Wersje
             previous: Historyczna
             current: Aktualna
+          sidebar:
+            revision:
+              zero: '%{count} Wersji'
+              one: '%{count} Wersja'
+              few: '%{count} Wersje'
+              many: '%{count} Wersji'
+              other: '%{count} Wersje'
 
         files:
           created: Plik wrzucony na serwer

@@ -110,12 +110,6 @@ de:
             title: Neues Layout
           edit:
             title: Layout bearbeiten
-            revision: &revision
-              zero: Keine Versionen
-              one: '%{count} Version'
-              few: '%{count} Versionen'
-              many: '%{count} Versionen'
-              other: '%{count} Versionen'
           form:
             select_parent_layout: Übergeordnetes Layout auswählen
             select_app_layout: Grundlegendes Layout auswählen
@@ -145,8 +139,6 @@ de:
             title: Seite erstellen
           edit:
             title: Seite bearbeiten
-            revision:
-              <<: *revision
           form:
             select_target_page: Keine Weiterleitung
             preview: Vorschau
@@ -171,8 +163,6 @@ de:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ de:
             title: Schnipsel erstellen
           edit:
             title: Schnipsel bearbeiten
-            revision:
-              <<: *revision
           form:
             create: Schnipsel erstellen
             cancel: Abbrechen
@@ -222,6 +210,13 @@ de:
             changes: Änderungen
             previous: Vorherige Version
             current: Aktuell
+          sidebar:
+            revision:
+              zero: Keine Versionen
+              one: '%{count} Version'
+              few: '%{count} Versionen'
+              many: '%{count} Versionen'
+              other: '%{count} Versionen'
 
         files:
           created: Datei hochgeladen

@@ -1,7 +1,6 @@
 - content_for :right_column do
-  .box.revisions
-    = link_to comfy_admin_cms_site_snippet_revisions_path(@site, @snippet), class: "btn btn-info d-block" do
-      = t('.revision', count: @snippet.revisions.count)
+  - link = comfy_admin_cms_site_snippet_revisions_path(@site, @snippet)
+  = render "comfy/admin/cms/revisions/sidebar", record: @snippet, link: link
 
 .page-header
   %h2= t('.title')

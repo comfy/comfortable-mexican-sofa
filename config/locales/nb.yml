@@ -110,12 +110,6 @@ nb:
             title: Ny layout
           edit:
             title: Endrer layout
-            revision: &revision
-              zero: Ingen revisjoner
-              one: '%{count} revisjon'
-              few: '%{count} revisjoner'
-              many: '%{count} revisjoner'
-              other: '%{count} revisjoner'
           form:
             select_parent_layout: Velg hovedlayout
             select_app_layout: Velg applikasjonslayout
@@ -145,8 +139,6 @@ nb:
             title: Ny side
           edit:
             title: Endrer side
-            revision:
-              <<: *revision
           form:
             select_target_page: Ingen videresending
             preview: Forhåndsvisning
@@ -171,8 +163,6 @@ nb:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ nb:
             title: Ny snutt
           edit:
             title: Endrer snutt
-            revision:
-              <<: *revision
           form:
             create: Oprett snutt
             cancel: Cancel
@@ -222,6 +210,13 @@ nb:
             changes: Endringer
             previous: Forrige
             current: Nåværende
+          sidebar:
+            revision:
+              zero: Ingen revisjoner
+              one: '%{count} revisjon'
+              few: '%{count} revisjoner'
+              many: '%{count} revisjoner'
+              other: '%{count} revisjoner'
 
         files:
           created: Opplastede filer

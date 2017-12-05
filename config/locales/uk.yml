@@ -110,12 +110,6 @@ uk:
             title: Новий шаблон
           edit:
             title: Редагувати шаблон
-            revision: &revision
-              zero: Нeмa Ревізій
-              one: '%{count} Ревізія'
-              few: '%{count} Ревізій'
-              many: '%{count} Ревізій'
-              other: '%{count} Ревізій'
           form:
             select_parent_layout: Вибрати батьківский шаблон
             select_app_layout: Вибрати шаблон додатку
@@ -145,8 +139,6 @@ uk:
             title: Нова сторінка
           edit:
             title: Редагування сторінки
-            revision:
-              <<: *revision
           form:
             select_target_page: Без редіректу
             preview: Передперегляд
@@ -171,8 +163,6 @@ uk:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ uk:
             title: Новий сніппет
           edit:
             title: Редагувати сніппет
-            revision:
-              <<: *revision
           form:
             create: Створити сніппет
             cancel: Cкасувати
@@ -222,6 +210,13 @@ uk:
             changes: Зміни
             previous: Попередній
             current: Поточний
+          sidebar:
+            revision:
+              zero: Нeмa Ревізій
+              one: '%{count} Ревізія'
+              few: '%{count} Ревізій'
+              many: '%{count} Ревізій'
+              other: '%{count} Ревізій'
 
         files:
           created: Файли завантажені

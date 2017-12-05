@@ -110,12 +110,6 @@ sk:
             title: Nové rozloženie
           edit:
             title: Úprava rozloženia
-            revision: &revision
-              zero: Žiadne revízie
-              one: '%{count} revízia'
-              few: '%{count} revízie'
-              many: '%{count} revízií'
-              other: '%{count} revízií'
           form:
             select_parent_layout: Zvoľte nadradené rozloženie
             select_app_layout: Zvoľte rozloženie aplikácie
@@ -145,8 +139,6 @@ sk:
             title: Nová stránka
           edit:
             title: Úprava stránky
-            revision:
-              <<: *revision
           form:
             select_target_page: Bez presmerovania
             preview: Náhľad
@@ -171,8 +163,6 @@ sk:
             title: New Translation
           edit:
             title: Editing Translation
-            revision:
-              <<: *revision
           form:
             preview: Preview
             create: Create
@@ -201,8 +191,6 @@ sk:
             title: Nový fragment
           edit:
             title: Upraviť fragment
-            revision:
-              <<: *revision
           form:
             create: Vytvoriť fragment
             cancel: Zrušiť
@@ -222,6 +210,13 @@ sk:
             changes: Zmeny
             previous: Predchádzajúca
             current: Súčasná
+          sidebar:
+            revision:
+              zero: Žiadne revízie
+              one: '%{count} revízia'
+              few: '%{count} revízie'
+              many: '%{count} revízií'
+              other: '%{count} revízií'
 
         files:
           created: Súbory nahrané
