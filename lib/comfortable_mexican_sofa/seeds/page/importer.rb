@@ -27,7 +27,9 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # setting page record
       page = if parent.present?
-        self.site.pages.where(parent: parent, slug: slug).first_or_initialize
+        child = self.site.pages.where(slug: slug).first_or_initialize
+        child.parent = parent
+        child
       else
         self.site.pages.root || self.site.pages.new(slug: slug)
       end

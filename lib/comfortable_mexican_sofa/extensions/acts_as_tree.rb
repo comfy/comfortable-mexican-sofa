@@ -100,8 +100,9 @@ module ComfortableMexicanSofa::ActsAsTree
     end
 
     # BUG: https://github.com/rails/rails/issues/14369
+    # It's still a bug. Remove it to see failing test
     def parent_id=(id)
-      self.parent = self.class.find_by(:id => id)
+      self.parent = self.class.find_by(id: id)
     end
 
   end
