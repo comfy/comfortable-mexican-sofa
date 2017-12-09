@@ -40,8 +40,8 @@ module Comfy::Cms::WithFragments
       identifier = frag_attrs.delete(:identifier)
 
       fragment =
-        self.fragments.detect{|f| f.identifier == identifier} ||
-        self.fragments.build(identifier: identifier)
+        fragments.detect{|f| f.identifier == identifier} ||
+        fragments.build(identifier: identifier)
 
       fragment.attributes = frag_attrs
 
@@ -52,7 +52,7 @@ module Comfy::Cms::WithFragments
 
   # Snapshop of page fragments data used primarily for saving revisions
   def fragments_attributes(was = false)
-    self.fragments.collect do |frag|
+    fragments.collect do |frag|
       attrs = {}
       %i(identifier tag content datetime boolean).each do |column|
         attrs[column] = frag.send(was ? "#{column}_was" : column)
@@ -90,15 +90,15 @@ module Comfy::Cms::WithFragments
   # page.
   def content_cache
     if (cache = read_attribute(:content_cache)).nil?
-      cache = self.render
-      update_column(:content_cache, cache) unless self.new_record?
+      cache = render
+      update_column(:content_cache, cache) unless new_record?
     end
     cache
   end
 
   # Nuking content cache so it can be regenerated.
   def clear_content_cache!
-    self.update_column(:content_cache, nil)
+    update_column(:content_cache, nil)
   end
 
   # Blanking cache on page saves so it can be regenerated on access
@@ -113,9 +113,9 @@ protected
   end
 
   def nodes
-    return [] unless self.layout.present?
+    return [] unless layout.present?
 
-    tokens = self.layout.content_tokens
+    tokens = layout.content_tokens
     renderer.nodes(tokens)
   end
 end

@@ -12,7 +12,7 @@ module ComfortableMexicanSofa::Seeds::Layout
       end
 
       # cleaning up
-      self.site.layouts.where("id NOT IN (?)", self.seed_ids).destroy_all
+      site.layouts.where("id NOT IN (?)", seed_ids).destroy_all
     end
 
   private
@@ -28,7 +28,7 @@ module ComfortableMexicanSofa::Seeds::Layout
       attributes_yaml = content_hash.delete("attributes")
       attrs           = YAML.load(attributes_yaml)
 
-      layout = self.site.layouts.where(identifier: identifier).first_or_initialize
+      layout = site.layouts.where(identifier: identifier).first_or_initialize
       layout.parent = parent
 
       if fresh_seed?(layout, content_path)
@@ -48,7 +48,7 @@ module ComfortableMexicanSofa::Seeds::Layout
         end
       end
 
-      self.seed_ids << layout.id
+      seed_ids << layout.id
 
       # importing child pages (if there are any)
       Dir["#{path}*/"].each do |path|

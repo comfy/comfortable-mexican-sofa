@@ -11,12 +11,12 @@ module ComfortableMexicanSofa::Seeds::Page
     end
 
     def import!
-      import_page(File.join(self.path, "index/"), nil)
+      import_page(File.join(path, "index/"), nil)
 
       link_target_pages
 
       # Remove pages not found in seeds
-      self.site.pages.where("id NOT IN (?)", self.seed_ids).destroy_all
+      site.pages.where("id NOT IN (?)", seed_ids).destroy_all
     end
 
   private
@@ -27,11 +27,11 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # setting page record
       page = if parent.present?
-        child = self.site.pages.where(slug: slug).first_or_initialize
+        child = site.pages.where(slug: slug).first_or_initialize
         child.parent = parent
         child
       else
-        self.site.pages.root || self.site.pages.new(slug: slug)
+        site.pages.root || site.pages.new(slug: slug)
       end
 
       content_path = File.join(path, "content.html")
@@ -47,7 +47,7 @@ module ComfortableMexicanSofa::Seeds::Page
         attrs           = YAML.load(attributes_yaml)
 
         # applying attributes
-        layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
+        layout = site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
         category_ids    = category_names_to_ids(page, attrs.delete("categories"))
         target_page     = attrs.delete("target_page")
 
@@ -86,7 +86,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # Tracking what page from seeds we're working with. So we can remove pages
       # that are no longer in seeds
-      self.seed_ids << page.id
+      seed_ids << page.id
 
       # importing child pages (if there are any)
       Dir["#{path}*/"].each do |path|
@@ -114,7 +114,7 @@ module ComfortableMexicanSofa::Seeds::Page
           attrs           = YAML.load(attributes_yaml)
 
           # applying attributes
-          layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)
+          layout = site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)
           translation.attributes = attrs.merge(
             layout: layout
           )
@@ -206,7 +206,7 @@ module ComfortableMexicanSofa::Seeds::Page
       return unless self.target_pages.present?
 
       self.target_pages.each do |page_id, target|
-        if target = self.site.pages.find_by(full_path: target)
+        if target = site.pages.find_by(full_path: target)
           @site.pages.find(page_id).update_column(:target_page_id, target.id)
         end
       end

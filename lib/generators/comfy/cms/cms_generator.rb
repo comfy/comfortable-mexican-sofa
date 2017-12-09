@@ -10,7 +10,7 @@ module Comfy
       source_root File.expand_path("../../../../..", __FILE__)
 
       def generate_migration
-        destination   = File.expand_path("db/migrate/01_create_cms.rb", self.destination_root)
+        destination   = File.expand_path("db/migrate/01_create_cms.rb", destination_root)
         migration_dir = File.dirname(destination)
         destination   = self.class.migration_exists?(migration_dir, "create_cms")
 

@@ -55,7 +55,7 @@ module ComfortableMexicanSofa::Seeds
         category_ids[id] = 0
       end
       [names].flatten.each_with_object(existing_category_ids) do |name, category_ids|
-        category = self.site.categories.find_or_create_by(
+        category = site.categories.find_or_create_by(
           label:            name,
           categorized_type: record.class.to_s
         )

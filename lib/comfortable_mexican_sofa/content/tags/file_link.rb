@@ -26,7 +26,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
   def file
-    @file ||= context.site.files.detect{|f| f.id == self.identifier.to_i}
+    @file ||= context.site.files.detect{|f| f.id == identifier.to_i}
   end
 
   def content

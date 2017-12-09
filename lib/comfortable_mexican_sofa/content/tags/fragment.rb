@@ -26,8 +26,8 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
 
   # Grabs existing fragment record or spins up a new instance if there's none
   def fragment
-    self.context.fragments.detect{|f| f.identifier == self.identifier} ||
-    self.context.fragments.build(identifier: self.identifier)
+    context.fragments.detect{|f| f.identifier == identifier} ||
+    context.fragments.build(identifier: identifier)
   end
 
   def content
@@ -37,7 +37,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   # If `render: false` was passed in we won't render anything. Assuming that
   # that fragment content will be rendered manually
   def render
-    self.renderable ? content : ""
+    renderable ? content : ""
   end
 
   # Tag renders its own form inputs via `form_field(template, index, &block)`

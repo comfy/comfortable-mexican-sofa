@@ -38,18 +38,18 @@ protected
 
   def remove_attachments
     return unless @file_ids_destroy.present?
-    self.attachments.where(id: @file_ids_destroy).destroy_all
+    attachments.where(id: @file_ids_destroy).destroy_all
   end
 
   def add_attachments
     return if @files.blank?
 
     # If we're dealing with a single file
-    if self.tag == "file"
+    if tag == "file"
       @files = [@files.first]
-      self.attachments.purge_later if self.attachments
+      attachments.purge_later if attachments
     end
 
-    self.attachments.attach(@files)
+    attachments.attach(@files)
   end
 end

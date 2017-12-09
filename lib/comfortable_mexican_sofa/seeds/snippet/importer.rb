@@ -7,7 +7,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
     end
 
     def import!
-      Dir.glob("#{self.path}/*.html").each do |path|
+      Dir.glob("#{path}/*.html").each do |path|
         identifier = File.basename(path, ".html")
 
         # reading file content in, resulting in a hash
@@ -17,7 +17,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
         attributes_yaml = content_hash.delete("attributes")
         attrs           = YAML.load(attributes_yaml)
 
-        snippet = self.site.snippets.where(identifier: identifier).first_or_initialize
+        snippet = site.snippets.where(identifier: identifier).first_or_initialize
 
         if fresh_seed?(snippet, path)
           category_ids = category_names_to_ids(snippet, attrs.delete("categories"))
@@ -38,11 +38,11 @@ module ComfortableMexicanSofa::Seeds::Snippet
 
         # Tracking what page from seeds we're working with. So we can remove pages
         # that are no longer in seeds
-        self.seed_ids << snippet.id
+        seed_ids << snippet.id
       end
 
       # cleaning up
-      self.site.snippets.where("id NOT IN (?)", self.seed_ids).destroy_all
+      site.snippets.where("id NOT IN (?)", seed_ids).destroy_all
     end
   end
 end

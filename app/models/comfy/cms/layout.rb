@@ -57,7 +57,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   def content_tokens
 
     renderer = ComfortableMexicanSofa::Content::Renderer.new(nil)
-    tokens = renderer.tokenize(self.content)
+    tokens = renderer.tokenize(content)
     if parent
       fragment_tags = ComfortableMexicanSofa::Content::Tag::Fragment.subclasses.map do |c|
         c.to_s.demodulize.underscore
@@ -83,19 +83,19 @@ class Comfy::Cms::Layout < ActiveRecord::Base
 
   # Forcing page content reload
   def clear_page_content_cache
-    Comfy::Cms::Page.where(id: self.pages.pluck(:id)).update_all(content_cache: nil)
-    self.children.each(&:clear_page_content_cache)
+    Comfy::Cms::Page.where(id: pages.pluck(:id)).update_all(content_cache: nil)
+    children.each(&:clear_page_content_cache)
   end
 
 protected
 
   def assign_label
-    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
+    self.label = label.blank?? identifier.try(:titleize) : label
   end
 
   def assign_position
-    return if self.position.to_i > 0
-    max = self.site.layouts.where(parent_id: self.parent_id).maximum(:position)
+    return if position.to_i > 0
+    max = site.layouts.where(parent_id: parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
 end

@@ -154,7 +154,7 @@ class Rails::Generators::TestCase
   destination File.expand_path("../tmp", File.dirname(__FILE__))
 
   def prepare_files
-    config_path = File.join(self.destination_root, "config")
+    config_path = File.join(destination_root, "config")
     routes_path = File.join(config_path, "routes.rb")
     app_path    = File.join(config_path, "application.rb")
     FileUtils.mkdir_p(config_path)

@@ -25,7 +25,7 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
 protected
 
   def assign_label
-    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
+    self.label = label.blank?? identifier.try(:titleize) : label
   end
 
   # When snippet is changed or removed we need to blow away all page caches as
@@ -35,7 +35,7 @@ protected
   end
 
   def assign_position
-    max = self.site.snippets.maximum(:position)
+    max = site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
 end

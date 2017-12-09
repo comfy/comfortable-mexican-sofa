@@ -18,7 +18,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   module TestAuthorization
     module Authorize
       def authorize
-        @authorization_vars = self.instance_variables
+        @authorization_vars = instance_variables
         render plain: "Test Access Denied", status: :forbidden
       end
     end

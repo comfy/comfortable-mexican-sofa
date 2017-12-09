@@ -52,7 +52,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # -- Instance Methods --------------------------------------------------------
   def url(relative: false)
     public_cms_path = ComfortableMexicanSofa.config.public_cms_path || "/"
-    host = "//#{self.hostname}"
+    host = "//#{hostname}"
     path = ["/", public_cms_path, self.path].compact.join("/").squeeze("/").chomp("/")
     relative ? path.presence : [host, path].join
   end
@@ -69,15 +69,15 @@ protected
   end
 
   def assign_identifier
-    self.identifier = self.identifier.blank?? self.hostname.try(:parameterize) : self.identifier
+    self.identifier = identifier.blank?? hostname.try(:parameterize) : identifier
   end
 
   def assign_hostname
-    self.hostname ||= self.identifier
+    self.hostname ||= identifier
   end
 
   def assign_label
-    self.label = self.label.blank?? self.identifier.try(:titleize) : self.label
+    self.label = label.blank?? identifier.try(:titleize) : label
   end
 
   def clean_path

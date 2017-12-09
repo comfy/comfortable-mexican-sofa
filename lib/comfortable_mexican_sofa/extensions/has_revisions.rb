@@ -30,11 +30,11 @@ module ComfortableMexicanSofa::HasRevisions
 
     # Preparing revision data. A bit of a special thing to grab page blocks
     def prepare_revision
-      return if self.new_record?
-      if (self.respond_to?(:fragments_attributes_changed) && self.fragments_attributes_changed) ||
-        !(self.changed & revision_fields).empty?
+      return if new_record?
+      if (respond_to?(:fragments_attributes_changed) && fragments_attributes_changed) ||
+        !(changed & revision_fields).empty?
         self.revision_data = revision_fields.inject({}) do |c, field|
-          c[field] = self.send("#{field}_was")
+          c[field] = send("#{field}_was")
           c
         end
       end
@@ -42,24 +42,24 @@ module ComfortableMexicanSofa::HasRevisions
 
     # Revision is created only if relevant data changed
     def create_revision
-      return unless self.revision_data
+      return unless revision_data
 
       limit = ComfortableMexicanSofa.config.revisions_limit.to_i
 
       # creating revision
       if limit != 0
-        self.revisions.create!(data: self.revision_data)
+        revisions.create!(data: revision_data)
       end
 
       # blowing away old revisions
-      ids = [0] + self.revisions.order(created_at: :desc).limit(limit).pluck(:id)
-      self.revisions.where("id NOT IN (?)", ids).destroy_all
+      ids = [0] + revisions.order(created_at: :desc).limit(limit).pluck(:id)
+      revisions.where("id NOT IN (?)", ids).destroy_all
     end
 
     # Assigning whatever is found in revision data and attempting to save the object
     def restore_from_revision(revision)
       return unless revision.record == self
-      self.update_attributes!(revision.data)
+      update_attributes!(revision.data)
     end
   end
 end

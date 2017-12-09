@@ -47,6 +47,6 @@ protected
 
   def process_attachment
     return if @file.blank?
-    self.attachment.attach(@file)
+    attachment.attach(@file)
   end
 end

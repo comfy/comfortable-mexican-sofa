@@ -16,7 +16,7 @@ module Comfy::Cms::WithCategories
 
     scope :for_category, -> (*categories) {
       if (categories = [categories].flatten.compact).present?
-        self.distinct.
+        distinct.
           joins(categorizations: :category).
           where("comfy_cms_categories.label" => categories)
       end
@@ -24,14 +24,14 @@ module Comfy::Cms::WithCategories
   end
 
   def sync_categories
-    (self.category_ids || {}).each do |category_id, flag|
+    (category_ids || {}).each do |category_id, flag|
       case flag.to_i
       when 1
         if category = Comfy::Cms::Category.find_by_id(category_id)
           category.categorizations.create(categorized: self)
         end
       when 0
-        self.categorizations.where(category_id: category_id).destroy_all
+        categorizations.where(category_id: category_id).destroy_all
       end
     end
   end

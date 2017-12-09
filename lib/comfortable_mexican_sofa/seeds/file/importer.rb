@@ -7,18 +7,18 @@ module ComfortableMexicanSofa::Seeds::File
     end
 
     def import!
-      Dir["#{self.path}[^_]*"].each do |file_path|
+      Dir["#{path}[^_]*"].each do |file_path|
 
         filename = ::File.basename(file_path)
 
-        file = self.site.files.with_attached_attachment
+        file = site.files.with_attached_attachment
           .where("active_storage_blobs.filename" => filename).references(:blob).first ||
-          self.site.files.new
+          site.files.new
 
         # We need to track actual file and its attributes
         fresh_file = false
 
-        if File.exist?(attrs_path = File.join(self.path, "_#{filename}.yml"))
+        if File.exist?(attrs_path = File.join(path, "_#{filename}.yml"))
           if fresh_seed?(file, attrs_path)
             fresh_file = true
 
@@ -51,11 +51,11 @@ module ComfortableMexicanSofa::Seeds::File
           end
         end
 
-        self.seed_ids << file.id
+        seed_ids << file.id
       end
 
       # cleaning up
-      self.site.files.where("id NOT IN (?)", seed_ids).destroy_all
+      site.files.where("id NOT IN (?)", seed_ids).destroy_all
     end
   end
 end

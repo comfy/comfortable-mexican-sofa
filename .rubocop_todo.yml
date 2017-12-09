@@ -832,6 +832,6 @@ Style/RedundantReturn:
 
 # Offense count: 147
 # Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false
+# Style/RedundantSelf:
+#   Enabled: false
 

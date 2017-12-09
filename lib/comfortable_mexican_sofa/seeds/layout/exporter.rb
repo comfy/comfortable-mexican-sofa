@@ -7,9 +7,9 @@ module ComfortableMexicanSofa::Seeds::Layout
     end
 
     def export!
-      prepare_folder!(self.path)
+      prepare_folder!(path)
 
-      self.site.layouts.each do |layout|
+      site.layouts.each do |layout|
         layout_path = File.join(path, layout.ancestors.reverse.collect(&:identifier), layout.identifier)
         FileUtils.mkdir_p(layout_path)
 

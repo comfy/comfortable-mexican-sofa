@@ -56,23 +56,23 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path
-    self.read_attribute(:full_path) || self.assign_full_path
+    read_attribute(:full_path) || assign_full_path
   end
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    self.parent_id.blank?? "index" : self.full_path[1..-1].parameterize
+    parent_id.blank?? "index" : full_path[1..-1].parameterize
   end
 
   # Full url for a page
   def url(relative: false)
-    [self.site.url(relative: relative), self.full_path].compact.join
+    [site.url(relative: relative), full_path].compact.join
   end
 
   # This method will mutate page object by transfering attributes from translation
   # for a given locale.
   def translate!(locale)
-    translation = self.translations.published.find_by!(locale: locale)
+    translation = translations.published.find_by!(locale: locale)
     self.layout        = translation.layout
     self.label         = translation.label
     self.content_cache = translation.content_cache
@@ -81,7 +81,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     # This has odd side-effect of preserving page's fragments and just replacing
     # them from the translation. Not an issue if all fragments match.
     self.fragments_attributes = translation.fragments_attributes
-    self.readonly!
+    readonly!
 
     return self
   end
@@ -89,7 +89,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 protected
 
   def assigns_label
-    self.label = self.label.blank?? self.slug.try(:titleize) : self.label
+    self.label = label.blank?? slug.try(:titleize) : label
   end
 
   def assign_parent
@@ -99,36 +99,36 @@ protected
 
   def assign_full_path
     self.full_path = self.parent ?
-      [CGI::escape(self.parent.full_path).gsub("%2F", "/"), self.slug].join("/").squeeze("/") :
+      [CGI::escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/") :
       "/"
   end
 
   def assign_position
     return unless self.parent
-    return if self.position.to_i > 0
+    return if position.to_i > 0
     max = self.parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end
 
   def validate_target_page
-    return unless self.target_page
+    return unless target_page
     p = self
     while p.target_page
       if (p = p.target_page) == self
-        return self.errors.add(:target_page_id, "Invalid Redirect")
+        return errors.add(:target_page_id, "Invalid Redirect")
       end
     end
   end
 
   def validate_format_of_unescaped_slug
     return unless slug.present?
-    unescaped_slug = CGI::unescape(self.slug)
+    unescaped_slug = CGI::unescape(slug)
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
-    return unless self.full_path_previously_changed?
+    return unless full_path_previously_changed?
     children.each do |p|
       p.update_attribute(:full_path, p.send(:assign_full_path))
     end
@@ -136,12 +136,12 @@ protected
 
   # Escape slug unless it's nonexistent (root)
   def escape_slug
-    self.slug = CGI::escape(self.slug) unless self.slug.nil?
+    self.slug = CGI::escape(slug) unless slug.nil?
   end
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent
   def unescape_slug_and_path
-    self.slug       = CGI::unescape(self.slug)      unless self.slug.nil?
-    self.full_path  = CGI::unescape(self.full_path) unless self.full_path.nil?
+    self.slug       = CGI::unescape(slug)      unless slug.nil?
+    self.full_path  = CGI::unescape(full_path) unless full_path.nil?
   end
 end

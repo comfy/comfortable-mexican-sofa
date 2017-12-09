@@ -7,9 +7,9 @@ module ComfortableMexicanSofa::Seeds::Snippet
     end
 
     def export!
-      prepare_folder!(self.path)
+      prepare_folder!(path)
 
-      self.site.snippets.each do |snippet|
+      site.snippets.each do |snippet|
         attrs = {
           "label"       => snippet.label,
           "categories"  => snippet.categories.map(&:label),
@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
         data << {header: "attributes", content: attrs}
         data << {header: "content", content: snippet.content}
 
-        snippet_path = File.join(self.path, "#{snippet.identifier}.html")
+        snippet_path = File.join(path, "#{snippet.identifier}.html")
         write_file_content(snippet_path, data)
 
         message = "[CMS SEEDS] Exported Snippet \t #{snippet.identifier}"

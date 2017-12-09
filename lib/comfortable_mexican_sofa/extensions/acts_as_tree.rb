@@ -66,7 +66,7 @@ module ComfortableMexicanSofa::ActsAsTree
     # Returns all children and children of children
     def descendants
       nodes = []
-      self.children.each do |c|
+      children.each do |c|
         nodes << c
         nodes << c.descendants
       end
@@ -82,7 +82,7 @@ module ComfortableMexicanSofa::ActsAsTree
 
     # Checks if this node is a root
     def root?
-      !self.parent_id
+      !parent_id
     end
 
     # Returns all siblings of the current node.

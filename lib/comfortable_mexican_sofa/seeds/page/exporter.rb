@@ -7,9 +7,9 @@ module ComfortableMexicanSofa::Seeds::Page
     end
 
     def export!
-      prepare_folder!(self.path)
+      prepare_folder!(path)
 
-      self.site.pages.each do |page|
+      site.pages.each do |page|
         page.slug = "index" if page.slug.blank?
         page_path = File.join(path, page.ancestors.reverse.map{|p| p.slug.blank?? "index" : p.slug}, page.slug)
         FileUtils.mkdir_p(page_path)
