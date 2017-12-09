@@ -63,7 +63,7 @@ protected
         render_page(:not_found)
       else
         message = "Page Not Found at: \"#{params[:cms_path]}\""
-        raise ActionController::RoutingError.new(message)
+        raise ActionController::RoutingError, message
       end
     end
   end

@@ -40,13 +40,13 @@ module ComfortableMexicanSofa::RenderMethods
 
       if site_identifier = options.delete(:cms_site)
         unless @cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier)
-          raise ComfortableMexicanSofa::MissingSite.new(site_identifier)
+          raise ComfortableMexicanSofa::MissingSite, site_identifier
         end
       end
 
       if (page_path = options.delete(:cms_page)) || (layout_identifier = options.delete(:cms_layout))
         unless @cms_site ||= Comfy::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
-          raise ComfortableMexicanSofa::MissingSite.new("#{request.host.downcase}/#{request.fullpath}")
+          raise ComfortableMexicanSofa::MissingSite, "#{request.host.downcase}/#{request.fullpath}"
         end
       end
 
@@ -63,7 +63,7 @@ module ComfortableMexicanSofa::RenderMethods
       path.gsub!(/^\/#{@cms_site.path}/, "") if @cms_site.path.present?
 
       unless @cms_page = @cms_site.pages.find_by_full_path(path)
-        raise ComfortableMexicanSofa::MissingPage.new(path)
+        raise ComfortableMexicanSofa::MissingPage, path
       end
 
       @cms_layout = @cms_page.layout
@@ -85,7 +85,7 @@ module ComfortableMexicanSofa::RenderMethods
     def render_cms_layout(identifier, options = {}, locals = {}, &block)
 
       unless @cms_layout = @cms_site.layouts.find_by_identifier(identifier)
-        raise ComfortableMexicanSofa::MissingLayout.new(identifier)
+        raise ComfortableMexicanSofa::MissingLayout, identifier
       end
 
       cms_app_layout = @cms_layout.app_layout
