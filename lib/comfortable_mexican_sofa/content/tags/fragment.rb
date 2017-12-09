@@ -21,7 +21,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     end
 
     @namespace  = @options["namespace"] || "default"
-    @renderable = @options["render"].to_s.downcase == "false" ? false : true
+    @renderable = @options["render"].to_s.downcase != "false"
   end
 
   # Grabs existing fragment record or spins up a new instance if there's none

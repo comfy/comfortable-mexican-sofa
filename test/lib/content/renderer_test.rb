@@ -61,21 +61,21 @@ class ContentRendererTest < ActiveSupport::TestCase
   # -- Tests -------------------------------------------------------------------
 
   def test_tags
-    assert_equal (DEFAULT_REGISTERED_TAGS.merge(
+    assert_equal DEFAULT_REGISTERED_TAGS.merge(
       "test"        => ContentRendererTest::TestTag,
       "test_nested" => ContentRendererTest::TestNestedTag,
       "test_block"  => ContentRendererTest::TestBlockTag
-    )), ComfortableMexicanSofa::Content::Renderer.tags
+    ), ComfortableMexicanSofa::Content::Renderer.tags
   end
 
   def test_register_tags
     ComfortableMexicanSofa::Content::Renderer.register_tag(:other, TestTag)
-    assert_equal (DEFAULT_REGISTERED_TAGS.merge(
+    assert_equal DEFAULT_REGISTERED_TAGS.merge(
       "test"        => ContentRendererTest::TestTag,
       "test_nested" => ContentRendererTest::TestNestedTag,
       "test_block"  => ContentRendererTest::TestBlockTag,
       "other"       => ContentRendererTest::TestTag
-    )), ComfortableMexicanSofa::Content::Renderer.tags
+    ), ComfortableMexicanSofa::Content::Renderer.tags
   ensure
     ComfortableMexicanSofa::Content::Renderer.tags.delete("other")
   end

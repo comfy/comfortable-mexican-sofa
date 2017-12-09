@@ -802,18 +802,6 @@ Style/PercentLiteralDelimiters:
 # SupportedStyles: compact, exploded
 Style/RaiseArgs:
   Exclude:
-    - 'app/controllers/comfy/cms/base_controller.rb'
-    - 'app/controllers/comfy/cms/content_controller.rb'
-    - 'lib/comfortable_mexican_sofa/render_methods.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantConditional:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/content/tags/fragment.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'test/lib/content/renderer_test.rb'
+    # - 'app/controllers/comfy/cms/base_controller.rb'
+    # - 'app/controllers/comfy/cms/content_controller.rb'
+    # - 'lib/comfortable_mexican_sofa/render_methods.rb'
