@@ -11,3 +11,7 @@ AllCops:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  AllowInnerSlashes: true

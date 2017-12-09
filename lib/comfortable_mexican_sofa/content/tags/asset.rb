@@ -31,7 +31,7 @@ class ComfortableMexicanSofa::Content::Tag::Asset < ComfortableMexicanSofa::Cont
 
     base = ComfortableMexicanSofa.config.public_cms_path || ""
     unless base.ends_with?("/")
-      base = base + "/"
+      base += "/"
     end
 
     case @type

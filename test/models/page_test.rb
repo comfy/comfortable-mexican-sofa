@@ -251,7 +251,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page_c.update_attributes!(parent_id: page_b)
 
-    page_a.reload; page_b.reload; page_c.reload
+    [page_a, page_b, page_c].each(&:reload)
     assert_equal 1, page_a.children_count
     assert_equal 1, page_b.children_count
     assert_equal 0, page_c.children_count
@@ -293,14 +293,14 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page.update_attributes!(slug: "updated-page")
     assert_equal "/updated-page", page.full_path
-    page_1.reload; page_2.reload; page_3.reload; page_4.reload
+    [page_1, page_2, page_3, page_4].each(&:reload)
     assert_equal "/updated-page/test-page-1", page_1.full_path
     assert_equal "/updated-page/test-page-2", page_2.full_path
     assert_equal "/updated-page/test-page-2/test-page-3", page_3.full_path
     assert_equal "/updated-page/test-page-1/test-page-4", page_4.full_path
 
     page_2.update_attributes!(parent: page_1)
-    page_1.reload; page_2.reload; page_3.reload; page_4.reload
+    [page_1, page_2, page_3, page_4].each(&:reload)
     assert_equal "/updated-page/test-page-1", page_1.full_path
     assert_equal "/updated-page/test-page-1/test-page-2", page_2.full_path
     assert_equal "/updated-page/test-page-1/test-page-2/test-page-3", page_3.full_path
@@ -314,18 +314,18 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 0, page_2.children_count
 
     page_3 = @site.pages.create!(new_params(parent: page_2))
-    page_1.reload; page_2.reload
+    [page_1, page_2].each(&:reload)
     assert_equal 1, page_1.children_count
     assert_equal 1, page_2.children_count
     assert_equal 0, page_3.children_count
 
     page_3.update_attributes!(:parent => page_1)
-    page_1.reload; page_2.reload
+    [page_1, page_2].each(&:reload)
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
 
     page_3.destroy
-    page_1.reload; page_2.reload
+    [page_1, page_2].each(&:reload)
     assert_equal 1, page_1.children_count
     assert_equal 0, page_2.children_count
   end
@@ -530,7 +530,7 @@ class CmsPageTest < ActiveSupport::TestCase
     page_3.parent_id = page_1.id
     page_3.save!
 
-    page_1.reload; page_2.reload; page_3.reload
+    [page_1, page_2, page_3].each(&:reload)
 
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
