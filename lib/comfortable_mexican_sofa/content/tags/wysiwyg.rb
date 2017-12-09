@@ -5,7 +5,7 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Wysiwyg < ComfortableMexicanSofa::Content::Tag::Fragment
 
-  def form_field(object_name, view, index, &block)
+  def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
     options = {id: nil, data: {"cms-rich-text" => true}}
     input   = view.send(:text_area_tag, name, content, options)

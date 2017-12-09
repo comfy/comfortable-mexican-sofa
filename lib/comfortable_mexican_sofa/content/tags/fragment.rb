@@ -40,7 +40,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     renderable ? content : ""
   end
 
-  # Tag renders its own form inputs via `form_field(template, index, &block)`
+  # Tag renders its own form inputs via `form_field(template, index)`
   # For example:
   #   class MyTag < ComfortableMexicanSofa::Content::Tag::Fragment
   #     def form_field(view, index, &block)
@@ -48,7 +48,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   #       yield view.text_area "input_name", "value"
   #     end
   #   end
-  def form_field(object_name, view, index, &block)
+  def form_field
     raise "Form field rendering not implemented for this Tag"
   end
 end

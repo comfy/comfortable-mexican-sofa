@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Content::Tag::Markdown < ComfortableMexicanSofa::C
     renderable ? Kramdown::Document.new(content.to_s).to_html : ""
   end
 
-  def form_field(object_name, view, index, &block)
+  def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
     options = {id: nil, data: {"cms-cm-mode" => "text/x-markdown"}}
     input   = view.send(:text_area_tag, name, content, options)

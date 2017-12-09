@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::Seeds::Layout
 
     def import!(path = self.path, parent = nil)
       Dir["#{path}*/"].each do |path|
-        import_layout(path, nil)
+        import_layout(path, parent)
       end
 
       # cleaning up

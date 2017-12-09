@@ -72,7 +72,7 @@ class ActiveSupport::TestCase
   #   assert_exception_raised                                 do ... end
   #   assert_exception_raised ActiveRecord::RecordInvalid     do ... end
   #   assert_exception_raised Plugin::Error, 'error_message'  do ... end
-  def assert_exception_raised(exception_class = nil, error_message = nil, &block)
+  def assert_exception_raised(exception_class = nil, error_message = nil)
     exception_raised = nil
     yield
   rescue => exception_raised
@@ -93,14 +93,14 @@ class ActiveSupport::TestCase
     assert_select(selector, text: value, count: 0)
   end
 
-  def assert_count_difference(models, number = 1, &block)
+  def assert_count_difference(models, number = 1)
     counts = [models].flatten.map{|m| "#{m}.count"}
     assert_difference counts, number do
       yield
     end
   end
 
-  def assert_count_no_difference(*models, &block)
+  def assert_count_no_difference(*models)
     counts = [models].flatten.map{|m| "#{m}.count"}
     assert_no_difference counts do
       yield
@@ -139,7 +139,7 @@ class ActionDispatch::IntegrationTest
     send(method, path, options)
   end
 
-  def with_routing(&block)
+  def with_routing
     yield ComfortableMexicanSofa::Application.routes
   ensure
     ComfortableMexicanSofa::Application.routes_reloader.reload!

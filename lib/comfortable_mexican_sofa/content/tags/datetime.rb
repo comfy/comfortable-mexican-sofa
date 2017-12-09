@@ -7,7 +7,7 @@ class ComfortableMexicanSofa::Content::Tag::Datetime < ComfortableMexicanSofa::C
     fragment.datetime
   end
 
-  def form_field(object_name, view, index, &block)
+  def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][datetime]"
     options = {id: nil, class: "form-control", data: {"cms-datetime" => true}}
     value   = content.present?? content.to_s(:db) : ""

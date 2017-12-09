@@ -36,7 +36,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     end
   end
 
-  def form_field(object_name, view, index, &block)
+  def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][files]"
     input   = view.send(:file_field_tag, name, id: nil)
 

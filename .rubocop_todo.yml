@@ -439,24 +439,3 @@ Lint/ShadowingOuterLocalVariable:
 Lint/UnusedBlockArgument:
   Exclude:
     - 'lib/tasks/cms_seeds.rake'
-
-# Offense count: 20
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/content/tags/checkbox.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/date.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/datetime.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/file.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/files.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/fragment.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/markdown.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/number.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/text.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/textarea.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/wysiwyg.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/layout/importer.rb'
-    - 'test/lib/content/renderer_test.rb'
-    - 'test/test_helper.rb'
-

@@ -53,9 +53,9 @@ class ContentRendererTest < ActiveSupport::TestCase
 
   # Test helper so we don't have to do this each time
   def render_string(string, template = @template)
-    tokens = @template.tokenize(string)
-    nodes  = @template.nodes(tokens)
-    @template.render(nodes)
+    tokens = template.tokenize(string)
+    nodes  = template.nodes(tokens)
+    template.render(nodes)
   end
 
   # -- Tests -------------------------------------------------------------------
