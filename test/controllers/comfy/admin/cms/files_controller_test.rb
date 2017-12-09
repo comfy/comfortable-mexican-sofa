@@ -224,7 +224,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, file_two.position
 
     r :put, reorder_comfy_admin_cms_site_files_path(site_id: @site), params: {
-      :comfy_cms_file => [file_two.id, file_one.id]
+      comfy_cms_file: [file_two.id, file_one.id]
     }
     assert_response :success
     file_one.reload

@@ -319,7 +319,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, page_2.children_count
     assert_equal 0, page_3.children_count
 
-    page_3.update_attributes!(:parent => page_1)
+    page_3.update_attributes!(parent: page_1)
     [page_1, page_2].each(&:reload)
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count

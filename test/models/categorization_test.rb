@@ -42,14 +42,14 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     page = comfy_cms_pages(:default)
     assert_equal 0, page.categories.count
 
-    page.update_attributes(:category_ids => {
+    page.update_attributes(category_ids: {
       comfy_cms_categories(:default).id => 1,
       "invalid"                         => 1
     })
     page.reload
     assert_equal 1, page.categories.count
 
-    page.update_attributes(:category_ids => {
+    page.update_attributes(category_ids: {
       comfy_cms_categories(:default).id => 0,
       "invalid"                         => 0
     })
