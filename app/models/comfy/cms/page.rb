@@ -49,7 +49,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     current_page.children.each do |child|
       out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
     end if current_page.children_count.nonzero?
-    return out.compact
+    out.compact
   end
 
   # -- Instance Methods --------------------------------------------------------
@@ -83,7 +83,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     self.fragments_attributes = translation.fragments_attributes
     readonly!
 
-    return self
+    self
   end
 
 protected

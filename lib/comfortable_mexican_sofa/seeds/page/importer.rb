@@ -177,7 +177,7 @@ module ComfortableMexicanSofa::Seeds::Page
         frag_hash
       end
 
-      return [frag_identifiers, frag_attributes]
+      [frag_identifiers, frag_attributes]
     end
 
     # Preparing fragment attachments. Returns hashes with file data for

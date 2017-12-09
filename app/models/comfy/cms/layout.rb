@@ -37,7 +37,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
         out += options_for_select(site, layout, child, depth + 1, spacer)
       end
     end
-    return out.compact
+    out.compact
   end
 
   # List of available application layouts
@@ -74,7 +74,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
       end
     end
 
-    return tokens
+    tokens
   end
 
   def cache_buster

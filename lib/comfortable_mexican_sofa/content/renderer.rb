@@ -74,7 +74,7 @@ class ComfortableMexicanSofa::Content::Renderer
     end
     text = ss.rest
     tokens << text if text.present?
-    return tokens
+    tokens
   end
 
   # Constructing node tree for content. It's a list of strings and tags with

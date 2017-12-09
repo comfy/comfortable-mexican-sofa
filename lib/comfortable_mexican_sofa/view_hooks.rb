@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::ViewHooks
     (hooks[name.to_sym] || []).each do |path|
       out += template.render({:partial => path.first}.merge(options))
     end
-    return out.html_safe
+    out.html_safe
   end
 
   # Will declare a partial that will be rendered for this hook

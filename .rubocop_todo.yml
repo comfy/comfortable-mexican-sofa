@@ -817,21 +817,3 @@ Style/RedundantConditional:
 Style/RedundantParentheses:
   Exclude:
     - 'test/lib/content/renderer_test.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'app/models/comfy/cms/layout.rb'
-    - 'app/models/comfy/cms/page.rb'
-    - 'app/models/comfy/cms/site.rb'
-    - 'lib/comfortable_mexican_sofa/content/renderer.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/page/importer.rb'
-    - 'lib/comfortable_mexican_sofa/view_hooks.rb'
-
-# Offense count: 147
-# Cop supports --auto-correct.
-# Style/RedundantSelf:
-#   Enabled: false
-

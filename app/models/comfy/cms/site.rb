@@ -46,7 +46,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
         break
       end
     end
-    return cms_site
+    cms_site
   end
 
   # -- Instance Methods --------------------------------------------------------
