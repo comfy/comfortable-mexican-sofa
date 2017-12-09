@@ -23,6 +23,9 @@ Metrics/MethodLength:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/ParameterLists:
+  Enabled: false
+
 # -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
