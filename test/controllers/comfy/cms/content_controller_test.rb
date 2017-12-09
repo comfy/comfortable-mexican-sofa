@@ -65,7 +65,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
       identifier: "rss-layout",
       content:    "{{cms:text mime_type, render: false}}{{cms:textarea content}}"
     )
-    page = @site.pages.create!(
+    @site.pages.create!(
       label:          "rss",
       slug:           "rss",
       parent_id:      comfy_cms_pages(:default).id,
@@ -169,7 +169,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
   def test_show_with_erb_disabled
     assert_equal false, ComfortableMexicanSofa.config.allow_erb
 
-    irb_page = @site.pages.create!(
+    @site.pages.create!(
       label:          "erb",
       slug:           "erb",
       parent_id:      @page.id,
@@ -188,7 +188,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
   def test_show_with_irb_enabled
     ComfortableMexicanSofa.config.allow_erb = true
 
-    irb_page = @site.pages.create!(
+    @site.pages.create!(
       label:          "erb",
       slug:           "erb",
       parent_id:      @page.id,

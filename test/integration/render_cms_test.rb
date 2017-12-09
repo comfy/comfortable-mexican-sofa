@@ -21,16 +21,19 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def create_site_b
-    site    = Comfy::Cms::Site.create!(
+    site = Comfy::Cms::Site.create!(
       identifier: "site-b",
-      hostname:   "site-b.test")
-    layout  = site.layouts.create!(
+      hostname:   "site-b.test"
+    )
+    layout = site.layouts.create!(
       identifier: "default",
-      content:    "site-b {{cms:text content}}")
-    page    = site.pages.create!(
+      content:    "site-b {{cms:text content}}"
+    )
+    site.pages.create!(
       label:  "default",
       layout: layout,
-      fragments_attributes: [{identifier: "content", content: "SiteBContent"}])
+      fragments_attributes: [{identifier: "content", content: "SiteBContent"}]
+    )
   end
 
   class ::RenderTestController < ApplicationController

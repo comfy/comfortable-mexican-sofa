@@ -70,6 +70,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     )
     new_category.categorizations.create!(categorized: comfy_cms_pages(:default))
     assert_equal 1, Comfy::Cms::File.for_category(category.label, new_category.label).to_a.size
-    assert_equal 1, Comfy::Cms::File.for_category(category.label, new_category.label).distinct.count("comfy_cms_files.id")
+    assert_equal 1,
+      Comfy::Cms::File.for_category(category.label, new_category.label).distinct.count("comfy_cms_files.id")
   end
 end

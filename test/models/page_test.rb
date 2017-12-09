@@ -502,7 +502,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_unicode_slug_unescaping
     page = comfy_cms_pages(:child)
-    page_a = @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
+    @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
     found_page = @site.pages.where(slug: CGI.escape("tést-ünicode-slug")).first
     assert_equal "tést-ünicode-slug", found_page.slug
     assert_equal "/child-page/tést-ünicode-slug", found_page.full_path
