@@ -18,3 +18,6 @@ Style/RegexpLiteral:
 
 Style/Lambda:
   EnforcedStyle: literal
+
+Style/IfUnlessModifier:
+  Enabled: false

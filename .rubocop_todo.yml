@@ -684,13 +684,3 @@ Style/HashSyntax:
     - 'test/models/categorization_test.rb'
     - 'test/models/page_test.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/content/renderer.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/asset.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/partial.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/template.rb'
-    - 'lib/comfortable_mexican_sofa/extensions/has_revisions.rb'
