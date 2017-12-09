@@ -24,7 +24,7 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def import!
-      %w(Layout Page Snippet File).each do |klass|
+      %w[Layout Page Snippet File].each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
         klass.constantize.new(from, to).import!
       end
@@ -78,7 +78,7 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def export!
-      %w(Layout Page Snippet File).each do |klass|
+      %w[Layout Page Snippet File].each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
         klass.constantize.new(from, to).export!
       end

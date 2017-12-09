@@ -20,7 +20,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     assert_equal "Default Seed Snippet", snippet.label
     assert_equal "Default Seed Snippet Content\n", snippet.content
 
-    assert_equal %w(category_a category_b), snippet.categories.map(&:label)
+    assert_equal %w[category_a category_b], snippet.categories.map(&:label)
   end
 
   def test_update

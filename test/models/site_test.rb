@@ -166,7 +166,7 @@ class CmsSiteTest < ActiveSupport::TestCase
 
     ComfortableMexicanSofa.config.hostname_aliases = {
       "test.host"   => "alias_a.host",
-      "test2.host"  => %w(alias_b.host alias_c.host)
+      "test2.host"  => %w[alias_b.host alias_c.host]
     }
 
     assert_equal site_a, Comfy::Cms::Site.find_site("alias_a.host")

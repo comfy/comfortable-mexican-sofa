@@ -38,21 +38,21 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
       site.pages.create!(label: "404", slug: "404", layout: layout)
     end
 
-    %w(/ /path-a /path-a/child /path-c).each do |path|
+    %w[/ /path-a /path-a/child /path-c].each do |path|
       get path
       assert assigns(:cms_site), path
       assert_equal site_a, assigns(:cms_site)
       assert_equal path.gsub(/^\//, ""), @controller.params[:cms_path].to_s
     end
 
-    %w(/path-b /path-b/child).each do |path|
+    %w[/path-b /path-b/child].each do |path|
       get path
       assert assigns(:cms_site), path
       assert_equal site_b, assigns(:cms_site)
       assert_equal path.gsub(/^\/path-b/, "").gsub(/^\//, ""), @controller.params[:cms_path].to_s
     end
 
-    %w(/path-c/child /path-c/child/child).each do |path|
+    %w[/path-c/child /path-c/child/child].each do |path|
       get path
       assert assigns(:cms_site), path
       assert_equal site_c, assigns(:cms_site)

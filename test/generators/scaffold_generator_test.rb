@@ -5,7 +5,7 @@ class ScaffoldGeneratorTest < Rails::Generators::TestCase
   tests Comfy::Generators::ScaffoldGenerator
 
   def test_generator
-    run_generator %w(Foo bar:string)
+    run_generator %w[Foo bar:string]
 
     assert_migration "db/migrate/create_foos.rb", read_file("scaffold/migration.rb")
     assert_file "app/models/foo.rb",              read_file("scaffold/model.rb")
