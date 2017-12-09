@@ -23,7 +23,7 @@ module ComfortableMexicanSofa::Seeds::File
             fresh_file = true
 
             attrs = YAML.load(File.read(attrs_path))
-            category_ids = category_names_to_ids(Comfy::Cms::File, attrs.delete("categories"))
+            category_ids = category_names_to_ids(file, attrs.delete("categories"))
             file.attributes = attrs.merge(
               category_ids: category_ids
             )

@@ -4,23 +4,24 @@
 - has_children  = children.present?
 - has_siblings  = siblings.size > 1
 - branch_open   = (session[:cms_page_tree] || []).member?(page.id.to_s) || page.root?
-- category_view = params[:category].present?
+- category_view = params[:categories].present?
 
 %li{id: dom_id(page)}
   .row
 
     .col-md-8.item
-      .item-controls
-        - if !category_view && has_siblings
-          .dragger.d-none.d-lg-block
-            = fa_icon("bars")
+      - unless category_view
+        .item-controls
+          - if has_siblings
+            .dragger.d-none.d-lg-block
+              = fa_icon("bars")
 
-        - if !category_view && has_children && !page.root?
-          - status = branch_open ? "open" : ""
-          - url = toggle_branch_comfy_admin_cms_site_page_path(@site, page)
-          = link_to url, remote: true, title: t(".toggle"), class: "toggle #{status}" do
-            = fa_icon("plus-square", class: "expand")
-            = fa_icon("minus-square", class: "collapse")
+          - if has_children && !page.root?
+            - status = branch_open ? "open" : ""
+            - url = toggle_branch_comfy_admin_cms_site_page_path(@site, page)
+            = link_to url, remote: true, title: t(".toggle"), class: "toggle #{status}" do
+              = fa_icon("plus-square", class: "expand")
+              = fa_icon("minus-square", class: "collapse")
 
       .item-content
         .item-title

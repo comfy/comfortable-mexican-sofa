@@ -50,11 +50,14 @@ module ComfortableMexicanSofa::Seeds
       object.new_record? || ::File.mtime(file_path) > object.updated_at
     end
 
-    def category_names_to_ids(klass, names)
-      [names].flatten.each_with_object({}) do |name, category_ids|
+    def category_names_to_ids(record, names)
+      existing_category_ids = record.categories.each_with_object({}) do |id, category_ids|
+        category_ids[id] = 0
+      end
+      [names].flatten.each_with_object(existing_category_ids) do |name, category_ids|
         category = self.site.categories.find_or_create_by(
           label:            name,
-          categorized_type: klass.to_s
+          categorized_type: record.class.to_s
         )
         category_ids[category.id] = 1
       end

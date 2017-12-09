@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
         snippet = self.site.snippets.where(identifier: identifier).first_or_initialize
 
         if fresh_seed?(snippet, path)
-          category_ids = category_names_to_ids(Comfy::Cms::Snippet, attrs.delete("categories"))
+          category_ids = category_names_to_ids(snippet, attrs.delete("categories"))
 
           snippet.attributes = attrs.merge(
             category_ids: category_ids,

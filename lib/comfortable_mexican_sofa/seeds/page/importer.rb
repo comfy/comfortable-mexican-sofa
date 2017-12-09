@@ -48,7 +48,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
         # applying attributes
         layout = self.site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
-        category_ids    = category_names_to_ids(Comfy::Cms::Page, attrs.delete("categories"))
+        category_ids    = category_names_to_ids(page, attrs.delete("categories"))
         target_page     = attrs.delete("target_page")
 
         page.attributes = attrs.merge(
