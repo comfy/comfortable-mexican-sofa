@@ -21,3 +21,6 @@ Style/Lambda:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+Style/GuardClause:
+  Enabled: false

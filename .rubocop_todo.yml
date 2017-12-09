@@ -654,21 +654,3 @@ Style/Encoding:
 # SupportedStyles: when_needed, always, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 15
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/base_controller.rb'
-    - 'app/controllers/comfy/admin/cms/pages_controller.rb'
-    - 'app/controllers/comfy/admin/cms/translations_controller.rb'
-    - 'app/controllers/comfy/cms/assets_controller.rb'
-    - 'app/controllers/comfy/cms/base_controller.rb'
-    - 'app/controllers/comfy/cms/content_controller.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/asset.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/file_link.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/helper.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/partial.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/snippet.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/template.rb'
-    - 'lib/comfortable_mexican_sofa/seeds.rb'
