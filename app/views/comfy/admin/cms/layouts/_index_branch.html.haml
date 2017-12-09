@@ -22,5 +22,5 @@
         = link_to t('.delete'), comfy_admin_cms_site_layout_path(@site, layout), method: :delete, data: {confirm: t('.are_you_sure')}, class: "btn btn-danger"
 
   - if layout.children.present?
-    %ul.list.children.sortable
+    %ul.list.children.sortable.pl-md-3
       = render partial: "index_branch", collection: layout.children.order(:position)

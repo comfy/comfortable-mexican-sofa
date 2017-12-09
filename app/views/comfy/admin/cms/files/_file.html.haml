@@ -1,6 +1,6 @@
 %li{id: dom_id(file)}
   .row
-    .col-md-7.item
+    .col-md-5.item
       .item-controls.d-none.d-lg-block
         - if !params[:categories].present? && @site.files.count > 1
           .dragger
@@ -19,8 +19,8 @@
           .file-size
             = number_to_human_size(file.attachment.byte_size)
 
-      .item-categories.d-flex.align-items-center.ml-auto
-        = render partial: "comfy/admin/cms/categories/categories", object: file
+    .col-md-2.item-categories.d-flex.align-items-center
+      = render partial: "comfy/admin/cms/categories/categories", object: file
 
     .col-md-2.d-flex.align-items-center
       - file_tag = "{{cms:file_link #{file.id} }}"

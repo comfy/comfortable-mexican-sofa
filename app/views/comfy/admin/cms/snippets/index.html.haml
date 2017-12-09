@@ -10,7 +10,7 @@
   - @snippets.each do |snippet|
     %li{id: dom_id(snippet)}
       .row
-        .col-md-8.item
+        .col-md-6.item
           .item-controls.d-none.d-lg-block
             - if !params[:categories].present? && @site.snippets.count > 1
               .dragger
@@ -21,8 +21,8 @@
             .item-meta
               = snippet.identifier
 
-          .item-categories.ml-auto.d-flex.align-items-center
-            = render "comfy/admin/cms/categories/categories", object: snippet
+        .col-md-2.item-categories.d-flex.align-items-center
+          = render "comfy/admin/cms/categories/categories", object: snippet
 
         .col-md-4.d-flex.align-items-center.justify-content-md-end
           .btn-group.btn-group-sm

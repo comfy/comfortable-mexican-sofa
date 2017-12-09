@@ -9,7 +9,7 @@
 %li{id: dom_id(page)}
   .row
 
-    .col-md-8.item
+    .col-md-6.item
       - unless category_view
         .item-controls
           - if has_siblings
@@ -30,8 +30,8 @@
         .item-meta
           = link_to page.url, page.url, target: "_blank"
 
-      .item-categories.ml-auto.d-flex.align-items-center
-        = render "comfy/admin/cms/categories/categories", object: page
+    .col-md-2.item-categories.d-flex.align-items-center
+      = render "comfy/admin/cms/categories/categories", object: page
 
     .col-md-4.d-flex.align-items-center.justify-content-md-end
       .btn-group.btn-group-sm
@@ -40,5 +40,5 @@
         = link_to t(".delete"), comfy_admin_cms_site_page_path(@site, page), method: :delete, data: {confirm: t('.are_you_sure')}, class: "btn btn-danger"
 
   - if !category_view && has_children && branch_open
-    %ul.list.children.sortable
+    %ul.list.children.sortable.pl-md-3
       = render partial: "index_branch", collection: children

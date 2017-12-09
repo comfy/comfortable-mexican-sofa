@@ -1,4 +1,4 @@
-%body#comfy{:class => "c-#{params[:controller].parameterize} a-#{params[:action].parameterize}"}
+%body#comfy{class: "c-#{params[:controller].parameterize} a-#{params[:action].parameterize}"}
 
   .container-fluid
     .row
@@ -11,6 +11,3 @@
         = render 'layouts/comfy/admin/cms/right'
 
   = render "layouts/comfy/admin/cms/footer_js"
-
-  / = render 'comfy/admin/cms/partials/body_before'
-
