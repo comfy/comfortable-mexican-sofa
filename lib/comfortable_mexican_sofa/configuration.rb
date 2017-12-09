@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class ComfortableMexicanSofa::Configuration
 
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(

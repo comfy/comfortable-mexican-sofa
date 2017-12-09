@@ -638,19 +638,3 @@ Style/EmptyCaseCondition:
 Style/EmptyMethod:
   Exclude:
     - 'test/integration/render_cms_test.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'app/models/comfy/cms/layout.rb'
-    - 'config/initializers/comfortable_mexican_sofa.rb'
-    - 'lib/comfortable_mexican_sofa/configuration.rb'
-    - 'test/lib/configuration_test.rb'
-
-# Offense count: 186
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: when_needed, always, never
-Style/FrozenStringLiteralComment:
-  Enabled: false

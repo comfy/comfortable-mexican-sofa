@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
   #   config.cms_title = 'ComfortableMexicanSofa CMS Engine'
