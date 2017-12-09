@@ -7,7 +7,7 @@ class Comfy::Cms::File < ActiveRecord::Base
     redactor: {resize: "100x75^",   gravity: "center", crop: "100x75+0+0"},
     thumb:    {resize: "200x150^",  gravity: "center", crop: "200x150+0+0"},
     icon:     {resize: "28x28^",    gravity: "center", crop: "28x28+0+0"}
-  }
+  }.freeze
 
   # temporary place to store attachment
   attr_accessor :file

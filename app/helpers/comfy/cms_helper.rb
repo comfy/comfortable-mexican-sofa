@@ -35,7 +35,10 @@ module Comfy
     #   cms_snippet_content(:my_snippet)
     def cms_snippet_content(identifier, cms_site = @cms_site)
       unless cms_site
-        host, path = request.host_with_port.downcase, request.fullpath if respond_to?(:request) && request
+        if respond_to?(:request) && request
+          host = request.host_with_port.downcase
+          path = request.fullpath
+        end
         cms_site = Comfy::Cms::Site.find_site(host, path)
       end
       snippet = cms_site && cms_site.snippets.find_by_identifier(identifier)

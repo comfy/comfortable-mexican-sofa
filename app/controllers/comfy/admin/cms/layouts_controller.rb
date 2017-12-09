@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
   before_action :authorize
 
   def index
-    return redirect_to action: :new if @site.layouts.count == 0
+    return redirect_to action: :new if @site.layouts.count.zero?
     @layouts = @site.layouts.roots.order(:position)
   end
 

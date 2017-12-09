@@ -82,7 +82,7 @@ protected
       label = "#{'. . ' * offset}#{page.label}"
       list << {name: label, url: page.url(relative: true)}
       page.children.each do |child_page|
-        tree_walker.(child_page, list, offset + 1)
+        tree_walker.call(child_page, list, offset + 1)
       end
       list
     end
@@ -90,13 +90,13 @@ protected
     page_select_options = [{
       name: I18n.t("comfy.admin.cms.pages.form.choose_link"),
       url: false
-    }] + tree_walker.(@site.pages.root, [ ], 0)
+    }] + tree_walker.call(@site.pages.root, [ ], 0)
 
     render json: page_select_options
   end
 
   def site_has_no_pages?
-    @site.pages.count == 0
+    @site.pages.count.zero?
   end
 
   def pages_grouped_by_parent
@@ -104,7 +104,7 @@ protected
   end
 
   def check_for_layouts
-    if @site.layouts.count == 0
+    if @site.layouts.count.zero?
       flash[:danger] = I18n.t("comfy.admin.cms.pages.layout_not_found")
       redirect_to new_comfy_admin_cms_site_layout_path(@site)
     end

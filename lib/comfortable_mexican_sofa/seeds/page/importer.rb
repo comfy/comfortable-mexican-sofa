@@ -105,39 +105,39 @@ module ComfortableMexicanSofa::Seeds::Page
 
         translation = page.translations.where(locale: locale).first_or_initialize
 
-        if fresh_seed?(translation, file_path)
-          # reading file content in, resulting in a hash
-          fragments_hash  = parse_file_content(file_path)
+        next unless fresh_seed?(translation, file_path)
 
-          # parsing attributes section
-          attributes_yaml = fragments_hash.delete("attributes")
-          attrs           = YAML.load(attributes_yaml)
+        # reading file content in, resulting in a hash
+        fragments_hash  = parse_file_content(file_path)
 
-          # applying attributes
-          layout = site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)
-          translation.attributes = attrs.merge(
-            layout: layout
-          )
+        # parsing attributes section
+        attributes_yaml = fragments_hash.delete("attributes")
+        attrs           = YAML.load(attributes_yaml)
 
-          # applying fragments
-          old_frag_identifiers = translation.fragments.pluck(:identifier)
+        # applying attributes
+        layout = site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)
+        translation.attributes = attrs.merge(
+          layout: layout
+        )
 
-          new_frag_identifiers, fragments_attributes =
-            construct_fragments_attributes(fragments_hash, translation, path)
-          translation.fragments_attributes = fragments_attributes
+        # applying fragments
+        old_frag_identifiers = translation.fragments.pluck(:identifier)
 
-          if translation.save
-            message = "[CMS SEEDS] Imported Translation \t #{locale}"
-            ComfortableMexicanSofa.logger.info(message)
+        new_frag_identifiers, fragments_attributes =
+          construct_fragments_attributes(fragments_hash, translation, path)
+        translation.fragments_attributes = fragments_attributes
 
-            # cleaning up old fragments
-            frags_to_remove = old_frag_identifiers - new_frag_identifiers
-            translation.fragments.where(identifier: frags_to_remove).destroy_all
+        if translation.save
+          message = "[CMS SEEDS] Imported Translation \t #{locale}"
+          ComfortableMexicanSofa.logger.info(message)
 
-          else
-            message = "[CMS SEEDS] Failed to import Translation \n#{locale}"
-            ComfortableMexicanSofa.logger.warn(message)
-          end
+          # cleaning up old fragments
+          frags_to_remove = old_frag_identifiers - new_frag_identifiers
+          translation.fragments.where(identifier: frags_to_remove).destroy_all
+
+        else
+          message = "[CMS SEEDS] Failed to import Translation \n#{locale}"
+          ComfortableMexicanSofa.logger.warn(message)
         end
       end
 

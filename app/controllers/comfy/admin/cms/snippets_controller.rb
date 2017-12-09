@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
   before_action :authorize
 
   def index
-    return redirect_to action: :new if @site.snippets.count == 0
+    return redirect_to action: :new if @site.snippets.count.zero?
     @snippets = @site.snippets.includes(:categories).for_category(params[:categories]).order(:position)
   end
 

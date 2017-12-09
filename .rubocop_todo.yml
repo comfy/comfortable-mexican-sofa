@@ -708,73 +708,7 @@ Style/Lambda:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-# SupportedStyles: call, braces
-Style/LambdaCall:
-  EnforcedStyle: braces
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'test/tasks/cms_seeds_test.rb'
-
-# Offense count: 1
-Style/MultilineBlockChain:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/content/params_parser.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/MultilineIfModifier:
-  Exclude:
-    - 'app/models/comfy/cms/page.rb'
-
-# Offense count: 1
-Style/MultilineTernaryOperator:
-  Exclude:
-    - 'app/models/comfy/cms/page.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'app/models/comfy/cms/file.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/helper.rb'
-    - 'lib/comfortable_mexican_sofa/version.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/seeds/page/importer.rb'
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: Strict.
-Style/NumericLiterals:
-  MinDigits: 9
-
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, SupportedStyles.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'app/controllers/comfy/admin/cms/layouts_controller.rb'
-    - 'app/controllers/comfy/admin/cms/pages_controller.rb'
-    - 'app/controllers/comfy/admin/cms/sites_controller.rb'
-    - 'app/controllers/comfy/admin/cms/snippets_controller.rb'
-    - 'app/models/comfy/cms/layout.rb'
-    - 'app/models/comfy/cms/page.rb'
-    - 'lib/comfortable_mexican_sofa/content/renderer.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'app/helpers/comfy/cms_helper.rb'
-    - 'lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb'
+# # Configuration parameters: SupportedStyles.
+# # SupportedStyles: call, braces
+# Style/LambdaCall:
+#   EnforcedStyle: braces

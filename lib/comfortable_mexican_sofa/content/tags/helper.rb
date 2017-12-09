@@ -7,7 +7,7 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Content::Tag
 
-  BLACKLIST = %w[eval class_eval instance_eval render]
+  BLACKLIST = %w[eval class_eval instance_eval render].freeze
 
   attr_reader :method_name
 

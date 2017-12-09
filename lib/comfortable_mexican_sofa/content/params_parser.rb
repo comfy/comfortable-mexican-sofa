@@ -50,9 +50,10 @@ module ComfortableMexicanSofa::Content::ParamsParser
 
   # grouping tokens based on the comma and also removing comma tokens
   def self.slice(tokens)
-    tokens.slice_after do |token|
+    slices = tokens.slice_after do |token|
       token[0] == :comma
-    end.map do |expression|
+    end
+    slices.map do |expression|
       expression.reject{|t| t[0] == :comma}
     end
   end

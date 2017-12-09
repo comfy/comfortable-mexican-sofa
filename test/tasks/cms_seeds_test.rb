@@ -12,7 +12,7 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
   end
 
   def test_import
-    importer = mock()
+    importer = mock
     ComfortableMexicanSofa::Seeds::Importer.expects(:new).with("from_folder", "to_site").returns(importer)
     importer.expects(:import!)
 
@@ -22,7 +22,7 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
   end
 
   def test_export
-    exporter = mock()
+    exporter = mock
     ComfortableMexicanSofa::Seeds::Exporter.expects(:new).with("from_site", "to_folder").returns(exporter)
     exporter.expects(:export!)
 

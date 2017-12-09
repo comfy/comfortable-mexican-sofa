@@ -32,7 +32,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     presence:   true,
     uniqueness: {scope: :parent_id},
     unless:     -> (p) {
-      p.site && (p.site.pages.count == 0 || p.site.pages.root == self)
+      p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
     }
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
@@ -46,9 +46,13 @@ class Comfy::Cms::Page < ActiveRecord::Base
     return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
     out = []
     out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == page
-    current_page.children.each do |child|
-      out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
-    end if current_page.children_count.nonzero?
+
+    if current_page.children_count.nonzero?
+      current_page.children.each do |child|
+        out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
+      end
+    end
+
     out.compact
   end
 
@@ -94,13 +98,16 @@ protected
 
   def assign_parent
     return unless site
-    self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count == 0
+    self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count.zero?
   end
 
   def assign_full_path
-    self.full_path = self.parent ?
-      [CGI::escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/") :
-      "/"
+    self.full_path =
+      if self.parent
+        [CGI::escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
+      else
+        "/"
+      end
   end
 
   def assign_position

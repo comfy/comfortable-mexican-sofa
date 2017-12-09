@@ -46,8 +46,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     fragment.content = "test"
     assert_equal "test", fragment.content
 
-    fragment.content = 12345
-    assert_equal 12345, fragment.content
+    fragment.content = 123
+    assert_equal 123, fragment.content
 
     fragment.content = [1, 2, 3]
     assert_equal [1, 2, 3], fragment.content
