@@ -599,42 +599,7 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 # Offense count: 1
-Style/ClassVars:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/view_hooks.rb'
+# Style/ClassVars:
+#   Exclude:
+#     - 'lib/comfortable_mexican_sofa/view_hooks.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'app/models/comfy/cms/page.rb'
-    - 'test/models/page_test.rb'
-
-# Offense count: 2
-Style/DateTime:
-  Exclude:
-    - 'test/models/page_test.rb'
-
-# Offense count: 80
-Style/Documentation:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EachWithObject:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/extensions/has_revisions.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EmptyCaseCondition:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/content/params_parser.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'test/integration/render_cms_test.rb'

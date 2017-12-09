@@ -24,3 +24,9 @@ Style/IfUnlessModifier:
 
 Style/GuardClause:
   Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false

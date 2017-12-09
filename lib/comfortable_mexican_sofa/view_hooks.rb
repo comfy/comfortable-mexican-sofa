@@ -4,7 +4,7 @@ module ComfortableMexicanSofa::ViewHooks
 
   # Array of declared hooks
   def self.hooks
-    @@hooks ||= { }
+    @hooks ||= { }
   end
 
   # Renders hook content

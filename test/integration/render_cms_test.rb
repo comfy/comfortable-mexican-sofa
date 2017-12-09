@@ -92,8 +92,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    def new
-    end
+    def new; end
   end
 
   # -- Basic Render Tests ------------------------------------------------------

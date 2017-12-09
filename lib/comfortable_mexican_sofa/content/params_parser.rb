@@ -15,10 +15,9 @@ module ComfortableMexicanSofa::Content::ParamsParser
   def self.parameterize(token_groups)
     params = [ ]
     token_groups.each do |tokens|
-      case
-      when tokens.count == 1
+      if tokens.count == 1
         collect_param_for_string!(params, tokens[0])
-      when tokens.count == 3
+      elsif tokens.count == 3
         collect_param_for_hash!(params, tokens)
       else
         raise Error, "Unexpected tokens found: #{tokens}"
@@ -65,15 +64,15 @@ module ComfortableMexicanSofa::Content::ParamsParser
     until ss.eos?
       ss.skip(/\s*/)
       break if ss.eos?
-      token = case
-        when t = ss.scan(SINGLE_STRING_LITERAL) then [:string, t[1...t.size - 1]]
-        when t = ss.scan(DOUBLE_STRING_LITERAL) then [:string, t[1...t.size - 1]]
-        when t = ss.scan(IDENTIFIER)            then [:string, t]
-        when t = ss.scan(COLUMN)                then [:column, t]
-        when t = ss.scan(COMMA)                 then [:comma, t]
+      token =
+        if    (t = ss.scan(SINGLE_STRING_LITERAL)) then [:string, t[1...t.size - 1]]
+        elsif (t = ss.scan(DOUBLE_STRING_LITERAL)) then [:string, t[1...t.size - 1]]
+        elsif (t = ss.scan(IDENTIFIER))            then [:string, t]
+        elsif (t = ss.scan(COLUMN))                then [:column, t]
+        elsif (t = ss.scan(COMMA))                 then [:comma, t]
         else
           raise Error, "Unexpected char: #{ss.getch}"
-      end
+        end
       tokens << token
     end
     tokens

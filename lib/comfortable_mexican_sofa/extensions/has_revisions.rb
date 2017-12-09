@@ -33,9 +33,8 @@ module ComfortableMexicanSofa::HasRevisions
       return if new_record?
       if (respond_to?(:fragments_attributes_changed) && fragments_attributes_changed) ||
         !(changed & revision_fields).empty?
-        self.revision_data = revision_fields.inject({}) do |c, field|
+        self.revision_data = revision_fields.each_with_object({}) do |field, c|
           c[field] = send("#{field}_was")
-          c
         end
       end
     end

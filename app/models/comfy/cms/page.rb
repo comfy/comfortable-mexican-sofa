@@ -104,7 +104,7 @@ protected
   def assign_full_path
     self.full_path =
       if self.parent
-        [CGI::escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
+        [CGI.escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
       else
         "/"
       end
@@ -129,7 +129,7 @@ protected
 
   def validate_format_of_unescaped_slug
     return unless slug.present?
-    unescaped_slug = CGI::unescape(slug)
+    unescaped_slug = CGI.unescape(slug)
     errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
   end
 
@@ -143,12 +143,12 @@ protected
 
   # Escape slug unless it's nonexistent (root)
   def escape_slug
-    self.slug = CGI::escape(slug) unless slug.nil?
+    self.slug = CGI.escape(slug) unless slug.nil?
   end
 
   # Unescape the slug and full path back into their original forms unless they're nonexistent
   def unescape_slug_and_path
-    self.slug       = CGI::unescape(slug)      unless slug.nil?
-    self.full_path  = CGI::unescape(full_path) unless full_path.nil?
+    self.slug       = CGI.unescape(slug)      unless slug.nil?
+    self.full_path  = CGI.unescape(full_path) unless full_path.nil?
   end
 end
