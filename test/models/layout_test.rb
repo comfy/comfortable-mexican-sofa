@@ -124,13 +124,13 @@ class CmsLayoutTest < ActiveSupport::TestCase
   end
 
   def test_update_forces_page_content_reload
-    layout_1 = comfy_cms_layouts(:nested)
-    layout_2 = comfy_cms_layouts(:child)
-    page_1 = @site.pages.create!(
+    layout_a = comfy_cms_layouts(:nested)
+    layout_b = comfy_cms_layouts(:child)
+    page_a = @site.pages.create!(
       label:        "page_1",
       slug:         "page-1",
       parent_id:    @page.id,
-      layout_id:    layout_1.id,
+      layout_id:    layout_a.id,
       is_published: "1",
       fragments_attributes: [
         { identifier: "header",
@@ -139,11 +139,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
           content:    "content_content" }
       ]
     )
-    page_2 = @site.pages.create!(
+    page_b = @site.pages.create!(
       label:          "page_2",
       slug:           "page-2",
       parent_id:      @page.id,
-      layout_id:      layout_2.id,
+      layout_id:      layout_b.id,
       is_published:   "1",
       fragments_attributes: [
         { identifier: "header",
@@ -154,15 +154,15 @@ class CmsLayoutTest < ActiveSupport::TestCase
           content:    "left_column_content" }
       ]
     )
-    assert_equal "header_content\ncontent_content", page_1.content_cache
-    assert_equal "header_content\nleft_column_content\nleft_column_content", page_2.content_cache
+    assert_equal "header_content\ncontent_content", page_a.content_cache
+    assert_equal "header_content\nleft_column_content\nleft_column_content", page_b.content_cache
 
-    layout_1.update_attributes(content: "Updated {{cms:text content}}")
-    page_1.reload
-    page_2.reload
+    layout_a.update_attributes(content: "Updated {{cms:text content}}")
+    page_a.reload
+    page_b.reload
 
-    assert_equal "Updated content_content", page_1.content_cache
-    assert_equal "Updated left_column_content\nleft_column_content", page_2.content_cache
+    assert_equal "Updated content_content", page_a.content_cache
+    assert_equal "Updated left_column_content\nleft_column_content", page_b.content_cache
   end
 
   def test_cache_buster

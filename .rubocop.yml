@@ -9,6 +9,12 @@ AllCops:
     - test/fixtures/**/*
     - tmp/**/*
 
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Performance/Casecmp:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
@@ -29,4 +35,10 @@ Style/Documentation:
   Enabled: false
 
 Style/DateTime:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/AsciiComments:
   Enabled: false

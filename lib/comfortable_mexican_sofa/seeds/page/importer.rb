@@ -44,7 +44,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
         # parsing attributes section
         attributes_yaml = fragments_hash.delete("attributes")
-        attrs           = YAML.load(attributes_yaml)
+        attrs           = YAML.safe_load(attributes_yaml)
 
         # applying attributes
         layout = site.layouts.find_by(identifier: attrs.delete("layout")) || parent.try(:layout)
@@ -112,7 +112,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
         # parsing attributes section
         attributes_yaml = fragments_hash.delete("attributes")
-        attrs           = YAML.load(attributes_yaml)
+        attrs           = YAML.safe_load(attributes_yaml)
 
         # applying attributes
         layout = site.layouts.find_by(identifier: attrs.delete("layout")) || page.try(:layout)

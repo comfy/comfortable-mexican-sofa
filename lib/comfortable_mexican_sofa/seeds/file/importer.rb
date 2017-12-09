@@ -22,7 +22,7 @@ module ComfortableMexicanSofa::Seeds::File
           if fresh_seed?(file, attrs_path)
             fresh_file = true
 
-            attrs = YAML.load(File.read(attrs_path))
+            attrs = YAML.safe_load(File.read(attrs_path))
             category_ids = category_names_to_ids(file, attrs.delete("categories"))
             file.attributes = attrs.merge(
               category_ids: category_ids

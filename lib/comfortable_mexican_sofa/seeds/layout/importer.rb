@@ -26,7 +26,7 @@ module ComfortableMexicanSofa::Seeds::Layout
 
       # parsing attributes section
       attributes_yaml = content_hash.delete("attributes")
-      attrs           = YAML.load(attributes_yaml)
+      attrs           = YAML.safe_load(attributes_yaml)
 
       layout = site.layouts.where(identifier: identifier).first_or_initialize
       layout.parent = parent

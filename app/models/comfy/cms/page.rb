@@ -42,14 +42,24 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for pages
-  def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = ". . ")
+  def self.options_for_select(site:, page: nil, current_page: nil, depth: 0, exclude_self: true, spacer: ". . ")
     return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
     out = []
-    out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == page
+
+    unless current_page == page
+      out << [ "#{spacer*depth}#{current_page.label}", current_page.id ]
+    end
 
     if current_page.children_count.nonzero?
       current_page.children.each do |child|
-        out += options_for_select(site, page, child, depth + 1, exclude_self, spacer)
+        out += options_for_select(
+          site:         site,
+          page:         page,
+          current_page: child,
+          depth:        depth + 1,
+          exclude_self: exclude_self,
+          spacer:       spacer
+        )
       end
     end
 

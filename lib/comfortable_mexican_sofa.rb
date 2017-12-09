@@ -46,7 +46,7 @@ module ComfortableMexicanSofa
     def configuration
       @configuration ||= Configuration.new
     end
-    alias :config :configuration
+    alias config configuration
 
     def logger
       @logger ||= Rails.logger

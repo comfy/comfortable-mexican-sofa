@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
 
         # parsing attributes section
         attributes_yaml = content_hash.delete("attributes")
-        attrs           = YAML.load(attributes_yaml)
+        attrs           = YAML.safe_load(attributes_yaml)
 
         snippet = site.snippets.where(identifier: identifier).first_or_initialize
 

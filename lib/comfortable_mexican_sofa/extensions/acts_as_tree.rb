@@ -27,12 +27,12 @@ module ComfortableMexicanSofa::ActsAsTree
         foreign_key:  configuration[:foreign_key],
         dependent:    configuration[:dependent]
 
-      class_eval <<-EOV
+      class_eval <<-RUBY
         include ComfortableMexicanSofa::ActsAsTree::InstanceMethods
 
         scope :roots, -> {
           where("#{configuration[:foreign_key]} IS NULL").
-          order(#{configuration[:order].nil? ? 'nil' : %Q("#{configuration[:order]}")})
+          order(#{configuration[:order].nil? ? 'nil' : %("#{configuration[:order]}")})
         }
 
         def self.root
@@ -48,8 +48,7 @@ module ComfortableMexicanSofa::ActsAsTree
             end
           end
         end
-      EOV
-
+      RUBY
     end
   end
 

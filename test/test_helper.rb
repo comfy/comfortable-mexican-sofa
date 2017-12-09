@@ -135,7 +135,7 @@ class ActionDispatch::IntegrationTest
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     )
-    options.merge!(headers: headers)
+    options[:headers] = headers
     send(method, path, options)
   end
 
