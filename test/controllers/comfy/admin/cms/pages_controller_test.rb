@@ -220,11 +220,12 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_new_with_localized_names
-    I18n.backend.store_translations(:en, {comfy: {cms: {content: {
+    I18n.backend.store_translations(:en, comfy: {cms: {content: {
       tag:        {localized_a: "Localized Fragment"},
       namespace:  {localized_a: "Localized Namespace"}
-    }}}})
-    @layout.update_column(:content,
+    }}})
+    @layout.update_column(
+      :content,
       "{{cms:text localized_a, namespace: localized_a}}{{cms:text b, namespace: b}}"
     )
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
@@ -232,11 +233,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "a[data-toggle='tab'][href='#ns-localized_a']", "Localized Namespace"
     assert_select "label", "Localized Fragment"
-
   ensure
-    I18n.backend.store_translations(:en, {comfy: {cms: {content: {
+    I18n.backend.store_translations(:en, comfy: {cms: {content: {
       tag: nil, namespace:  nil
-    }}}})
+    }}})
   end
 
   def test_get_new_as_child_page
@@ -485,10 +485,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
       r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {
         preview: 'Preview',
         page: {
-        label: 'Updated Label',
-        fragments_attributes: [
-          { identifier: 'content',
-            content:    'preview content' }
+          label: 'Updated Label',
+          fragments_attributes: [
+            { identifier: 'content',
+              content:    'preview content' }
           ]
         }
       }

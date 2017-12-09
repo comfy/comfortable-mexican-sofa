@@ -161,10 +161,10 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
       r :put, comfy_admin_cms_site_page_translation_path(@site, @page, @translation), params: {
         preview: 'Preview',
         translation: {
-        label: 'Updated Label',
-        fragments_attributes: [
-          { identifier: 'content',
-            content:    'preview content' }
+          label: 'Updated Label',
+          fragments_attributes: [
+            { identifier: 'content',
+              content:    'preview content' }
           ]
         }
       }

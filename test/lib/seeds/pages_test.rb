@@ -158,11 +158,13 @@ class SeedsPagesTest < ActiveSupport::TestCase
       categorized: comfy_cms_pages(:default)
     )
 
-    comfy_cms_translations(:default).update_attributes!(fragments_attributes: [{
-      identifier: "content",
-      content:    "translation content",
-      tag:        "markdown"
-    }])
+    comfy_cms_translations(:default).update_attributes!(fragments_attributes: [
+      {
+        identifier: "content",
+        content:    "translation content",
+        tag:        "markdown"
+      }
+    ])
 
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
     page_1_content_path     = File.join(host_path, 'pages/index/content.html')
