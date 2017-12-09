@@ -9,12 +9,21 @@ AllCops:
     - test/fixtures/**/*
     - tmp/**/*
 
-Metrics/PerceivedComplexity:
-  Enabled: false
-
+# -- Performance ---------------------------------------------------------------
 Performance/Casecmp:
   Enabled: false
 
+# -- Metrics -------------------------------------------------------------------
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+# -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
