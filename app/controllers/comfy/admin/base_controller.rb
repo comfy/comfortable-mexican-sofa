@@ -15,6 +15,6 @@ class Comfy::Admin::BaseController < ComfortableMexicanSofa.config.base_controll
 
   before_action :authenticate
 
-  layout 'comfy/admin/cms'
+  layout "comfy/admin/cms"
 
 end

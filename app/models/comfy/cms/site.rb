@@ -1,5 +1,5 @@
 class Comfy::Cms::Site < ActiveRecord::Base
-  self.table_name = 'comfy_cms_sites'
+  self.table_name = "comfy_cms_sites"
 
   # -- Relationships -----------------------------------------------------------
   with_options dependent: :destroy do |site|
@@ -36,7 +36,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
 
     public_cms_path = ComfortableMexicanSofa.configuration.public_cms_path
-    path.gsub!(/\A#{public_cms_path}/, '') unless path.nil? || public_cms_path == '/'
+    path.gsub!(/\A#{public_cms_path}/, "") unless path.nil? || public_cms_path == "/"
 
     Comfy::Cms::Site.where(hostname: real_host_from_aliases(host)).each do |site|
       if site.path.blank?
@@ -51,9 +51,9 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
   # -- Instance Methods --------------------------------------------------------
   def url(relative: false)
-    public_cms_path = ComfortableMexicanSofa.config.public_cms_path || '/'
+    public_cms_path = ComfortableMexicanSofa.config.public_cms_path || "/"
     host = "//#{self.hostname}"
-    path = ['/', public_cms_path, self.path].compact.join('/').squeeze('/').chomp('/')
+    path = ["/", public_cms_path, self.path].compact.join("/").squeeze("/").chomp("/")
     relative ? path.presence : [host, path].join
   end
 
@@ -81,9 +81,9 @@ protected
   end
 
   def clean_path
-    self.path ||= ''
-    self.path.squeeze!('/')
-    self.path.gsub!(/\/$/, '')
+    self.path ||= ""
+    self.path.squeeze!("/")
+    self.path.gsub!(/\/$/, "")
     self.path = nil if self.path.blank?
   end
 end

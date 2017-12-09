@@ -12,10 +12,10 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     case params[:source]
 
     # Integration with Redactor 1.0 Wysiwyg
-    when 'redactor'
+    when "redactor"
       file_scope  = files_scope.limit(100).order(:position)
       file_hashes = case params[:type]
-      when 'image'
+      when "image"
         file_scope.with_images.collect do |file|
           { thumb: url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:redactor])),
             image: url_for(file.attachment),
@@ -46,7 +46,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   def create
     if params[:category]
-      ids = @site.categories.of_type('Comfy::Cms::File')
+      ids = @site.categories.of_type("Comfy::Cms::File")
         .where(label: params[:category])
         .each_with_object({}){|c, h| h[c.id] = 1}
         @file.category_ids = ids
@@ -70,18 +70,18 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         filename: @file.attachment.filename
       }
     else
-      flash[:success] = I18n.t('comfy.admin.cms.files.created')
+      flash[:success] = I18n.t("comfy.admin.cms.files.created")
       redirect_to action: :edit, id: @file
     end
 
   rescue ActiveRecord::RecordInvalid
     case params[:source]
-    when 'plupload'
+    when "plupload"
       render body: @file.errors.full_messages.to_sentence, status: :unprocessable_entity
-    when 'redactor'
+    when "redactor"
       render body: nil, status: :unprocessable_entity
     else
-      flash.now[:danger] = I18n.t('comfy.admin.cms.files.creation_failure')
+      flash.now[:danger] = I18n.t("comfy.admin.cms.files.creation_failure")
       render action: :new
     end
   end
@@ -92,10 +92,10 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   def update
     if @file.update(file_params)
-      flash[:success] = I18n.t('comfy.admin.cms.files.updated')
+      flash[:success] = I18n.t("comfy.admin.cms.files.updated")
       redirect_to action: :edit, id: @file
     else
-      flash.now[:danger] = I18n.t('comfy.admin.cms.files.update_failure')
+      flash.now[:danger] = I18n.t("comfy.admin.cms.files.update_failure")
       render action: :edit
     end
   end
@@ -105,7 +105,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     respond_to do |format|
       format.js
       format.html do
-        flash[:success] = I18n.t('comfy.admin.cms.files.deleted')
+        flash[:success] = I18n.t("comfy.admin.cms.files.deleted")
         redirect_to action: :index
       end
     end
@@ -129,7 +129,7 @@ protected
   def load_file
     @file = @site.files.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t('comfy.admin.cms.files.not_found')
+    flash[:danger] = I18n.t("comfy.admin.cms.files.not_found")
     redirect_to action: :index
   end
 

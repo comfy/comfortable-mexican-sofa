@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative "../../test_helper"
 
 class SeedsPagesTest < ActiveSupport::TestCase
 
@@ -13,14 +13,14 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     assert_count_difference "Comfy::Cms::Page", 3 do
       assert_count_difference "Comfy::Cms::Translation", 2 do
-        ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+        ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
       end
     end
 
     assert page = Comfy::Cms::Page.find_by(full_path: "/")
 
     assert_equal @layout, page.layout
-    assert_equal 'index', page.slug
+    assert_equal "index", page.slug
 
     assert_equal "Home Seed Page", page.label
     assert_equal 69, page.position
@@ -90,15 +90,15 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_equal "Default Page", @page.label
 
     child = comfy_cms_pages(:child)
-    child.update_column(:slug, 'old')
+    child.update_column(:slug, "old")
 
     assert_count_difference [Comfy::Cms::Page] do
-      ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
 
       @page.reload
       assert_equal "Home Seed Page", @page.label
 
-      assert_nil Comfy::Cms::Page.where(slug: 'old').first
+      assert_nil Comfy::Cms::Page.where(slug: "old").first
     end
   end
 
@@ -106,46 +106,46 @@ class SeedsPagesTest < ActiveSupport::TestCase
     Comfy::Cms::Page.destroy_all
 
     page = @site.pages.create!(
-      label: 'Test',
+      label: "Test",
       layout: comfy_cms_layouts(:default),
       fragments_attributes: [
         { identifier: "content", content: "test content" }
       ]
     )
 
-    page_path         = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'pages', 'index')
+    page_path         = File.join(ComfortableMexicanSofa.config.seeds_path, "sample-site", "pages", "index")
     content_path      = File.join(page_path, "content.html")
 
     assert page.updated_at >= File.mtime(content_path)
 
-    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
     page.reload
 
     assert_nil page.slug
-    assert_equal 'Test', page.label
+    assert_equal "Test", page.label
     frag = page.fragments.where(identifier: "content").first
-    assert_equal 'test content', frag.content
+    assert_equal "test content", frag.content
   end
 
   def test_update_removing_deleted_blocks
     Comfy::Cms::Page.destroy_all
 
     page = @site.pages.create!(
-      label:  'Test',
+      label:  "Test",
       layout: comfy_cms_layouts(:default),
       fragments_attributes: [
-        { identifier: 'to_delete', content: 'test content' }
+        { identifier: "to_delete", content: "test content" }
       ]
     )
     page.update_column(:updated_at, 10.years.ago)
 
-    ComfortableMexicanSofa::Seeds::Page::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
     page.reload
 
-    frag = page.fragments.where(identifier: 'content').first
+    frag = page.fragments.where(identifier: "content").first
     assert_equal "Home Page Seed Contént\n{{ cms:snippet default }}\n\n", frag.content
 
-    refute page.fragments.where(identifier: 'to_delete').first
+    refute page.fragments.where(identifier: "to_delete").first
   end
 
   def test_export
@@ -166,13 +166,13 @@ class SeedsPagesTest < ActiveSupport::TestCase
       }
     ])
 
-    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
-    page_1_content_path     = File.join(host_path, 'pages/index/content.html')
-    page_1_attachment_path  = File.join(host_path, 'pages/index/fragment.jpg')
-    page_2_content_path     = File.join(host_path, 'pages/index/child-page/content.html')
-    translation_path        = File.join(host_path, 'pages/index/content.fr.html')
+    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
+    page_1_content_path     = File.join(host_path, "pages/index/content.html")
+    page_1_attachment_path  = File.join(host_path, "pages/index/fragment.jpg")
+    page_2_content_path     = File.join(host_path, "pages/index/child-page/content.html")
+    translation_path        = File.join(host_path, "pages/index/content.fr.html")
 
-    ComfortableMexicanSofa::Seeds::Page::Exporter.new('default-site', 'test-site').export!
+    ComfortableMexicanSofa::Seeds::Page::Exporter.new("default-site", "test-site").export!
 
     out = <<-TEXT.strip_heredoc
       [attributes]

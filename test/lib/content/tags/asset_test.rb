@@ -1,4 +1,4 @@
-require_relative '../../../test_helper'
+require_relative "../../../test_helper"
 
 class ContentTagsAssetTest < ActiveSupport::TestCase
 
@@ -51,7 +51,7 @@ class ContentTagsAssetTest < ActiveSupport::TestCase
   end
 
   def test_content_for_css_with_public_cms_path
-    ComfortableMexicanSofa.config.public_cms_path = '/custom'
+    ComfortableMexicanSofa.config.public_cms_path = "/custom"
     tag = ComfortableMexicanSofa::Content::Tag::Asset.new(@page, "default, type: css")
     out = "/custom/cms-css/#{@page.site_id}/#{@page.layout.identifier}/#{@page.layout.cache_buster}.css"
     assert_equal out, tag.content
@@ -71,7 +71,7 @@ class ContentTagsAssetTest < ActiveSupport::TestCase
   end
 
   def test_content_for_js_with_public_cms_path
-    ComfortableMexicanSofa.config.public_cms_path = '/custom'
+    ComfortableMexicanSofa.config.public_cms_path = "/custom"
     tag = ComfortableMexicanSofa::Content::Tag::Asset.new(@page, "default, type: js")
     out = "/custom/cms-js/#{@page.site_id}/#{@page.layout.identifier}/#{@page.layout.cache_buster}.js"
     assert_equal out, tag.content

@@ -18,25 +18,25 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
 
   def create
     @translation.save!
-    flash[:success] = I18n.t('comfy.admin.cms.translations.created')
+    flash[:success] = I18n.t("comfy.admin.cms.translations.created")
     redirect_to action: :edit, id: @translation
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.translations.creation_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.translations.creation_failure")
     render action: :new
   end
 
   def update
     @translation.update_attributes!(translation_params)
-    flash[:success] = I18n.t('comfy.admin.cms.translations.updated')
+    flash[:success] = I18n.t("comfy.admin.cms.translations.updated")
     redirect_to action: :edit, id: @translation
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.translations.update_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.translations.update_failure")
     render action: :edit
   end
 
   def destroy
     @translation.destroy
-    flash[:success] = I18n.t('comfy.admin.cms.translations.deleted')
+    flash[:success] = I18n.t("comfy.admin.cms.translations.deleted")
     redirect_to edit_comfy_admin_cms_site_page_path(@site, @page)
   end
 
@@ -56,7 +56,7 @@ private
   def load_page
     @page = @site.pages.find(params[:page_id])
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t('comfy.admin.cms.pages.not_found')
+    flash[:danger] = I18n.t("comfy.admin.cms.pages.not_found")
     redirect_to comfy_admin_cms_site_pages_path(@site)
   end
 
@@ -69,7 +69,7 @@ private
     @translation = @page.translations.find(params[:id])
     @translation.attributes = translation_params
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t('comfy.admin.cms.translations.not_found')
+    flash[:danger] = I18n.t("comfy.admin.cms.translations.not_found")
     redirect_to edit_comfy_admin_cms_site_page_path(@site, @page)
   end
 
@@ -89,10 +89,10 @@ private
       I18n.locale = @translation.locale
 
       # Chrome chokes on content with iframes. Issue #434
-      response.headers['X-XSS-Protection'] = '0'
+      response.headers["X-XSS-Protection"] = "0"
 
       # raise
-      render inline: @translation.render, layout: layout, content_type: 'text/html'
+      render inline: @translation.render, layout: layout, content_type: "text/html"
     end
   end
 end

@@ -1,4 +1,4 @@
-require_relative '../../../../../test_helper'
+require_relative "../../../../../test_helper"
 
 class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::IntegrationTest
 
@@ -34,7 +34,7 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
     r :get, comfy_admin_cms_site_page_revision_path(@site, "invalid", @revision)
     assert_response :redirect
     assert_redirected_to comfy_admin_cms_site_pages_path(@site)
-    assert_equal 'Record Not Found', flash[:danger]
+    assert_equal "Record Not Found", flash[:danger]
   end
 
 
@@ -43,7 +43,7 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, assigns(:record))
-    assert_equal 'Revision Not Found', flash[:danger]
+    assert_equal "Revision Not Found", flash[:danger]
   end
 
   def test_revert
@@ -51,7 +51,7 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
       r :patch, revert_comfy_admin_cms_site_page_revision_path(@site, @page, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)
-      assert_equal 'Content Reverted', flash[:success]
+      assert_equal "Content Reverted", flash[:success]
 
       @page.reload
 

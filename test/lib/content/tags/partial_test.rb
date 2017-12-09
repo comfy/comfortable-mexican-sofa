@@ -1,4 +1,4 @@
-require_relative '../../../test_helper'
+require_relative "../../../test_helper"
 
 class ContentTagsPartialTest < ActiveSupport::TestCase
 
@@ -32,7 +32,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
   end
 
   def test_render_with_whitelist
-    ComfortableMexicanSofa.config.allowed_partials = ['safe/path']
+    ComfortableMexicanSofa.config.allowed_partials = ["safe/path"]
 
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "path/to/partial")
     assert_equal "", tag.render

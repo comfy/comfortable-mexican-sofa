@@ -59,7 +59,7 @@ class ComfortableMexicanSofa::Content::Renderer
     if allow_erb
       string.to_s
     else
-      string.to_s.gsub('<%', '&lt;%').gsub('%>', '%&gt;')
+      string.to_s.gsub("<%", "&lt;%").gsub("%>", "%&gt;")
     end
   end
 
@@ -68,7 +68,7 @@ class ComfortableMexicanSofa::Content::Renderer
     tokens = []
     ss = StringScanner.new(string.to_s)
     while string = ss.scan_until(TAG_REGEX)
-      text = string.sub(ss[0], '')
+      text = string.sub(ss[0], "")
       tokens << text unless text.empty?
       tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
     end

@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class RoutingIntergrationTest < ActionDispatch::IntegrationTest
 
@@ -10,9 +10,9 @@ class RoutingIntergrationTest < ActionDispatch::IntegrationTest
     assert_nil ComfortableMexicanSofa.config.public_cms_path
 
     Rails.application.routes.draw do
-      comfy_route :cms, path: '/custom'
+      comfy_route :cms, path: "/custom"
     end
 
-    assert_equal '/custom', ComfortableMexicanSofa.config.public_cms_path
+    assert_equal "/custom", ComfortableMexicanSofa.config.public_cms_path
   end
 end

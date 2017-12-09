@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative "../../test_helper"
 
 class SeedsLayoutsTest < ActiveSupport::TestCase
 
@@ -22,8 +22,8 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Layout.delete_all
 
-    assert_difference 'Comfy::Cms::Layout.count', 2 do
-      ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
+    assert_difference "Comfy::Cms::Layout.count", 2 do
+      ComfortableMexicanSofa::Seeds::Layout::Importer.new("sample-site", "default-site").import!
     end
 
     assert layout = Comfy::Cms::Layout.where(identifier: "default").first
@@ -49,10 +49,10 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     child_layout.update_column(:updated_at, 10.years.ago)
 
     assert_count_difference [Comfy::Cms::Layout], -1 do
-      ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Layout::Importer.new("sample-site", "default-site").import!
 
       layout.reload
-      assert_equal 'Default Seed Layout', layout.label
+      assert_equal "Default Seed Layout", layout.label
       assert_equal DEFAULT_HTML,          layout.content
       assert_equal "body{color: red}\n",  layout.css
       assert_equal "// default js\n\n",   layout.js
@@ -72,18 +72,18 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
   def test_update_ignore
     layout = comfy_cms_layouts(:default)
-    layout_path       = File.join(ComfortableMexicanSofa.config.seeds_path, 'sample-site', 'layouts', 'default')
-    content_file_path = File.join(layout_path, 'content.html')
+    layout_path       = File.join(ComfortableMexicanSofa.config.seeds_path, "sample-site", "layouts", "default")
+    content_file_path = File.join(layout_path, "content.html")
 
     assert layout.updated_at >= File.mtime(content_file_path)
 
-    ComfortableMexicanSofa::Seeds::Layout::Importer.new('sample-site', 'default-site').import!
+    ComfortableMexicanSofa::Seeds::Layout::Importer.new("sample-site", "default-site").import!
     layout.reload
-    assert_equal 'default',               layout.identifier
-    assert_equal 'Default Layout',        layout.label
+    assert_equal "default",               layout.identifier
+    assert_equal "Default Layout",        layout.label
     assert_equal "{{cms:text content}}",  layout.content
-    assert_equal 'default_css',           layout.css
-    assert_equal 'default_js',            layout.js
+    assert_equal "default_css",           layout.css
+    assert_equal "default_js",            layout.js
   end
 
   def test_export

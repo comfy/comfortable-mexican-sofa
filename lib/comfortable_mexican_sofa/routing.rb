@@ -1,5 +1,5 @@
-require_relative 'routes/cms_admin'
-require_relative 'routes/cms'
+require_relative "routes/cms_admin"
+require_relative "routes/cms"
 
 class ActionDispatch::Routing::Mapper
   def comfy_route(identifier, options = {})

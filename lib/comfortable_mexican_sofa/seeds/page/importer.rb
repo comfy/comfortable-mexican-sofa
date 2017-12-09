@@ -16,7 +16,7 @@ module ComfortableMexicanSofa::Seeds::Page
       link_target_pages
 
       # Remove pages not found in seeds
-      self.site.pages.where('id NOT IN (?)', self.seed_ids).destroy_all
+      self.site.pages.where("id NOT IN (?)", self.seed_ids).destroy_all
     end
 
   private

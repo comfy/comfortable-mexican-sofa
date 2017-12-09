@@ -1,5 +1,5 @@
 class Comfy::Cms::Snippet < ActiveRecord::Base
-  self.table_name = 'comfy_cms_snippets'
+  self.table_name = "comfy_cms_snippets"
 
   include Comfy::Cms::WithCategories
 

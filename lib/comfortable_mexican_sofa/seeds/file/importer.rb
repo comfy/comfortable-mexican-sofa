@@ -55,7 +55,7 @@ module ComfortableMexicanSofa::Seeds::File
       end
 
       # cleaning up
-      self.site.files.where('id NOT IN (?)', seed_ids).destroy_all
+      self.site.files.where("id NOT IN (?)", seed_ids).destroy_all
     end
   end
 end

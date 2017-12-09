@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CmsFragmentTest < ActiveSupport::TestCase
 
@@ -14,8 +14,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def page_params(frag_params = [])
     {
       layout:               @layout,
-      label:                'test page',
-      slug:                 'test_page',
+      label:                "test page",
+      slug:                 "test_page",
       parent_id:            @page.id,
       fragments_attributes: frag_params
     }
@@ -43,8 +43,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def test_content_serialization
     fragment = Comfy::Cms::Fragment.new
 
-    fragment.content = 'test'
-    assert_equal 'test', fragment.content
+    fragment.content = "test"
+    assert_equal "test", fragment.content
 
     fragment.content = 12345
     assert_equal 12345, fragment.content

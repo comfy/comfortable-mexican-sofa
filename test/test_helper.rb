@@ -1,17 +1,17 @@
-ENV['RAILS_ENV'] = 'test'
+ENV["RAILS_ENV"] = "test"
 
-require 'simplecov'
-require 'coveralls'
+require "simplecov"
+require "coveralls"
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
-  add_filter 'lib/generators'
-  add_filter 'lib/comfortable_mexican_sofa/engine.rb '
+  add_filter "lib/generators"
+  add_filter "lib/comfortable_mexican_sofa/engine.rb "
 end
-require_relative '../config/environment'
+require_relative "../config/environment"
 
-require 'rails/test_help'
-require 'rails/generators'
-require 'mocha/setup'
+require "rails/test_help"
+require "rails/generators"
+require "mocha/setup"
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -28,18 +28,18 @@ class ActiveSupport::TestCase
   # resetting default configuration
   def reset_config
     ComfortableMexicanSofa.configure do |config|
-      config.cms_title            = 'ComfortableMexicanSofa CMS Engine'
-      config.admin_auth           = 'ComfortableMexicanSofa::AccessControl::AdminAuthentication'
-      config.admin_authorization  = 'ComfortableMexicanSofa::AccessControl::AdminAuthorization'
-      config.public_auth          = 'ComfortableMexicanSofa::AccessControl::PublicAuthentication'
-      config.public_authorization = 'ComfortableMexicanSofa::AccessControl::PublicAuthorization'
-      config.admin_route_redirect = ''
+      config.cms_title            = "ComfortableMexicanSofa CMS Engine"
+      config.admin_auth           = "ComfortableMexicanSofa::AccessControl::AdminAuthentication"
+      config.admin_authorization  = "ComfortableMexicanSofa::AccessControl::AdminAuthorization"
+      config.public_auth          = "ComfortableMexicanSofa::AccessControl::PublicAuthentication"
+      config.public_authorization = "ComfortableMexicanSofa::AccessControl::PublicAuthorization"
+      config.admin_route_redirect = ""
       config.enable_seeds         = false
-      config.seeds_path           = File.expand_path('db/cms_seeds', Rails.root)
+      config.seeds_path           = File.expand_path("db/cms_seeds", Rails.root)
       config.revisions_limit      = 25
       config.locales              = {
-        'en' => 'English',
-        'es' => 'Español'
+        "en" => "English",
+        "es" => "Español"
       }
       config.admin_locale         = nil
       config.admin_cache_sweeper  = nil
@@ -50,8 +50,8 @@ class ActiveSupport::TestCase
       config.hostname_aliases     = nil
       config.public_cms_path      = nil
     end
-    ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'username'
-    ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'password'
+    ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = "username"
+    ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = "password"
   end
 
   def reset_locale
@@ -85,7 +85,7 @@ class ActiveSupport::TestCase
       end
       assert_equal error_message, exception_raised.to_s if error_message
     else
-      flunk 'Exception was not raised'
+      flunk "Exception was not raised"
     end
   end
 
@@ -124,14 +124,14 @@ class ActionDispatch::IntegrationTest
   setup :setup_host
 
   def setup_host
-    host! 'test.host'
+    host! "test.host"
   end
 
   # Attaching http_auth stuff with request. Example use:
   #   r :get, '/cms-admin/pages'
   def r(method, path, options = {})
     headers = options[:headers] || {}
-    headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(
+    headers["HTTP_AUTHORIZATION"] = ActionController::HttpAuthentication::Basic.encode_credentials(
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     )
@@ -151,21 +151,21 @@ class Rails::Generators::TestCase
   setup :prepare_destination,
         :prepare_files
 
-  destination File.expand_path('../tmp', File.dirname(__FILE__))
+  destination File.expand_path("../tmp", File.dirname(__FILE__))
 
   def prepare_files
-    config_path = File.join(self.destination_root, 'config')
-    routes_path = File.join(config_path, 'routes.rb')
-    app_path    = File.join(config_path, 'application.rb')
+    config_path = File.join(self.destination_root, "config")
+    routes_path = File.join(config_path, "routes.rb")
+    app_path    = File.join(config_path, "application.rb")
     FileUtils.mkdir_p(config_path)
     FileUtils.touch(routes_path)
-    File.open(routes_path, 'w') do |f|
+    File.open(routes_path, "w") do |f|
       f.write <<-RUBY.strip_heredoc
         Test::Application.routes.draw do
         end
       RUBY
     end
-    File.open(app_path, 'w') do |f|
+    File.open(app_path, "w") do |f|
       f.write <<-RUBY.strip_heredoc
         module TestApp
           class Application < Rails::Application
@@ -178,7 +178,7 @@ class Rails::Generators::TestCase
   def read_file(filename)
     File.read(
       File.join(
-        File.expand_path('fixtures/generators', File.dirname(__FILE__)),
+        File.expand_path("fixtures/generators", File.dirname(__FILE__)),
         filename
       )
     )

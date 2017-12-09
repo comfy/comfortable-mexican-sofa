@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Comfy::Cms::Layout < ActiveRecord::Base
-  self.table_name = 'comfy_cms_layouts'
+  self.table_name = "comfy_cms_layouts"
 
   cms_acts_as_tree
   cms_has_revisions_for :content, :css, :js
@@ -28,7 +28,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts
-  def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
+  def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = ". . ")
     out = []
     [current_layout || site.layouts.roots.order(:position)].flatten.each do |l|
       next if layout == l
@@ -44,8 +44,8 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   def self.app_layouts_for_select(view_paths)
     view_paths.map(&:to_s).select { |path| path.start_with?(Rails.root.to_s) }.flat_map do |full_path|
       Dir.glob("#{full_path}/layouts/**/*.html.*").collect do |filename|
-        filename.gsub!("#{full_path}/layouts/", '')
-        filename.split('/').last[0...1] == '_' ? nil : filename.split('.').first
+        filename.gsub!("#{full_path}/layouts/", "")
+        filename.split("/").last[0...1] == "_" ? nil : filename.split(".").first
       end.compact.sort
     end.compact.uniq.sort
   end

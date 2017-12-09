@@ -882,9 +882,3 @@ Style/SpecialGlobalVars:
   Exclude:
     - 'comfortable_mexican_sofa.gemspec'
 
-# Offense count: 1290
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  EnforcedStyle: double_quotes

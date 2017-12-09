@@ -1,5 +1,5 @@
-$:.unshift File.expand_path('../lib', __FILE__)
-require 'comfortable_mexican_sofa/version'
+$:.unshift File.expand_path("../lib", __FILE__)
+require "comfortable_mexican_sofa/version"
 
 Gem::Specification.new do |s|
   s.name          = "comfortable_mexican_sofa"
@@ -9,11 +9,11 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
   s.summary       = "Rails 5.2+ CMS Engine"
   s.description   = "ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine"
-  s.license       = 'MIT'
+  s.license       = "MIT"
 
   s.files         = `git ls-files`.split("\n")
   s.platform      = Gem::Platform::RUBY
-  s.require_paths = ['lib']
+  s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.2.2"
 

@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ViewMethodsTest < ActionView::TestCase
 
@@ -6,7 +6,7 @@ class ViewMethodsTest < ActionView::TestCase
 
   module TestViewHelpers
     def hello
-      'hello'
+      "hello"
     end
   end
   ActionView::Base.send :include, TestViewHelpers

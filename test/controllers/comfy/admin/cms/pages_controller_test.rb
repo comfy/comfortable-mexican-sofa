@@ -1,4 +1,4 @@
-require_relative '../../../../test_helper'
+require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
@@ -24,8 +24,8 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_get_index_with_category
     category = @site.categories.create!(
-      label:            'Test Category',
-      categorized_type: 'Comfy::Cms::Page'
+      label:            "Test Category",
+      categorized_type: "Comfy::Cms::Page"
     )
     category.categorizations.create!(categorized: comfy_cms_pages(:child))
 
@@ -45,8 +45,8 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_get_index_with_toggle
     @site.pages.create!(
-      label:  'test',
-      slug:   'test',
+      label:  "test",
+      slug:   "test",
       parent: comfy_cms_pages(:child),
       layout: comfy_cms_layouts(:default)
     )
@@ -55,13 +55,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_links_with_redactor
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {source: 'redactor'}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {source: "redactor"}
     assert_response :success
 
     assert_equal [
-      {'name' => 'Select page...',  'url' => false},
-      {'name' => 'Default Page',    'url' => '/'},
-      {'name' => '. . Child Page',  'url' => '/child-page'}
+      {"name" => "Select page...",  "url" => false},
+      {"name" => "Default Page",    "url" => "/"},
+      {"name" => ". . Child Page",  "url" => "/child-page"}
     ], JSON.parse(response.body)
   end
 
@@ -257,10 +257,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_edit_failure
-    r :get, edit_comfy_admin_cms_site_page_path(site_id: @site, id: 'not_found')
+    r :get, edit_comfy_admin_cms_site_page_path(site_id: @site, id: "not_found")
     assert_response :redirect
     assert_redirected_to action: :index
-    assert_equal 'Page not found', flash[:danger]
+    assert_equal "Page not found", flash[:danger]
   end
 
   def test_get_edit_with_blank_layout
@@ -283,34 +283,34 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_creation
-    assert_difference 'Comfy::Cms::Page.count' do
-      assert_difference 'Comfy::Cms::Fragment.count', 2 do
+    assert_difference "Comfy::Cms::Page.count" do
+      assert_difference "Comfy::Cms::Fragment.count", 2 do
         r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {
           page: {
-            label:              'Test Page',
-            slug:               'test-page',
+            label:              "Test Page",
+            slug:               "test-page",
             parent_id:          @page.id,
             layout_id:          @layout.id,
             fragments_attributes: [
-              { identifier: 'default_page_text',
-                content:    'content content' },
-              { identifier: 'default_field_text',
-                content:    'title content' }
+              { identifier: "default_page_text",
+                content:    "content content" },
+              { identifier: "default_field_text",
+                content:    "title content" }
             ]
           },
-          commit: 'Create Page'
+          commit: "Create Page"
         }
         assert_response :redirect
         page = Comfy::Cms::Page.last
         assert_equal @site, page.site
         assert_redirected_to action: :edit, id: page
-        assert_equal 'Page created', flash[:success]
+        assert_equal "Page created", flash[:success]
       end
     end
   end
 
   def test_creation_with_files
-    assert_difference 'Comfy::Cms::Page.count' do
+    assert_difference "Comfy::Cms::Page.count" do
       assert_difference "Comfy::Cms::Fragment.count", 3 do
         assert_difference "ActiveStorage::Attachment.count", 3 do
           r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {
@@ -337,69 +337,69 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
                 }
               ]
             },
-            commit: 'Create Page'
+            commit: "Create Page"
           }
           assert_response :redirect
           page = Comfy::Cms::Page.last
           assert_equal @site, page.site
           assert_redirected_to action: :edit, id: page
-          assert_equal 'Page created', flash[:success]
+          assert_equal "Page created", flash[:success]
         end
       end
     end
   end
 
   def test_creation_failure
-    assert_no_difference ['Comfy::Cms::Page.count', 'Comfy::Cms::Fragment.count'] do
+    assert_no_difference ["Comfy::Cms::Page.count", "Comfy::Cms::Fragment.count"] do
       r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {page: {
         layout_id: @layout.id,
         fragments_attributes: [
-          { identifier: 'content',
-            content:    'content content' },
-          { identifier: 'title',
-            content:    'title content' }
+          { identifier: "content",
+            content:    "content content" },
+          { identifier: "title",
+            content:    "title content" }
         ]
       }}
       assert_response :success
       page = assigns(:page)
 
       assert_equal 2, page.fragments.size
-      assert_equal ['content content', 'title content'], page.fragments.collect(&:content)
+      assert_equal ["content content", "title content"], page.fragments.collect(&:content)
       assert_template :new
-      assert_equal 'Failed to create page', flash[:danger]
+      assert_equal "Failed to create page", flash[:danger]
     end
   end
 
   def test_update
-    assert_no_difference 'Comfy::Cms::Fragment.count' do
+    assert_no_difference "Comfy::Cms::Fragment.count" do
       r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {page: {
-        label: 'Updated Label'
+        label: "Updated Label"
       }}
       @page.reload
       assert_response :redirect
       assert_redirected_to action: :edit, id: @page
-      assert_equal 'Page updated', flash[:success]
-      assert_equal 'Updated Label', @page.label
+      assert_equal "Page updated", flash[:success]
+      assert_equal "Updated Label", @page.label
     end
   end
 
   def test_update_with_layout_change
-    assert_difference 'Comfy::Cms::Fragment.count' do
+    assert_difference "Comfy::Cms::Fragment.count" do
       r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {page: {
-        label:      'Updated Label',
+        label:      "Updated Label",
         layout_id:  comfy_cms_layouts(:nested).id,
         fragments_attributes: [
-          { identifier: 'content',
-            content:    'new_page_text_content' },
-          { identifier: 'header',
-            content:    'new_page_string_content' }
+          { identifier: "content",
+            content:    "new_page_text_content" },
+          { identifier: "header",
+            content:    "new_page_string_content" }
         ]
       }}
       @page.reload
       assert_response :redirect
       assert_redirected_to action: :edit, id: @page
-      assert_equal 'Page updated', flash[:success]
-      assert_equal 'Updated Label', @page.label
+      assert_equal "Page updated", flash[:success]
+      assert_equal "Updated Label", @page.label
       identifiers = @page.fragments.collect(&:identifier)
       assert_equal %w[boolean content datetime file header], identifiers.sort
     end
@@ -412,16 +412,16 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template :edit
     assert assigns(:page)
-    assert_equal 'Failed to update page', flash[:danger]
+    assert_equal "Failed to update page", flash[:danger]
   end
 
   def test_destroy
-    assert_difference 'Comfy::Cms::Page.count', -2 do
-      assert_difference 'Comfy::Cms::Fragment.count', -4 do
+    assert_difference "Comfy::Cms::Page.count", -2 do
+      assert_difference "Comfy::Cms::Fragment.count", -4 do
         r :delete, comfy_admin_cms_site_page_path(site_id: @site, id: @page)
         assert_response :redirect
         assert_redirected_to action: :index
-        assert_equal 'Page deleted', flash[:success]
+        assert_equal "Page deleted", flash[:success]
       end
     end
   end
@@ -455,23 +455,23 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_creation_preview
-    assert_no_difference 'Comfy::Cms::Page.count' do
+    assert_no_difference "Comfy::Cms::Page.count" do
       r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {
-        preview: 'Preview',
+        preview: "Preview",
         page: {
-          label:     'Test Page',
-          slug:      'test-page',
+          label:     "Test Page",
+          slug:      "test-page",
           parent_id: @page.id,
           layout_id: @layout.id,
           fragments_attributes: [
-            { identifier: 'content',
-              content:    'preview content' }
+            { identifier: "content",
+              content:    "preview content" }
           ]
         }
       }
       assert_response :success
       assert_match /preview content/, response.body
-      assert_equal 'text/html', response.content_type
+      assert_equal "text/html", response.content_type
 
       assert_equal @site, assigns(:cms_site)
       assert_equal @layout, assigns(:cms_layout)
@@ -481,21 +481,21 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update_preview
-    assert_no_difference 'Comfy::Cms::Page.count' do
+    assert_no_difference "Comfy::Cms::Page.count" do
       r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {
-        preview: 'Preview',
+        preview: "Preview",
         page: {
-          label: 'Updated Label',
+          label: "Updated Label",
           fragments_attributes: [
-            { identifier: 'content',
-              content:    'preview content' }
+            { identifier: "content",
+              content:    "preview content" }
           ]
         }
       }
       assert_response :success
       assert_match /preview content/, response.body
       @page.reload
-      assert_not_equal 'Updated Label', @page.label
+      assert_not_equal "Updated Label", @page.label
 
       assert_equal @page.site,   assigns(:cms_site)
       assert_equal @page.layout, assigns(:cms_layout)
@@ -504,20 +504,20 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_preview_language
-    @site.update_column(:locale, 'de')
+    @site.update_column(:locale, "de")
 
     assert_equal :en, I18n.locale
 
     r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {
-      preview: 'Preview',
+      preview: "Preview",
       page: {
-        label:     'Test Page',
-        slug:      'test-page',
+        label:     "Test Page",
+        slug:      "test-page",
         parent_id: @page.id,
         layout_id: @layout.id,
         fragments_attributes: [
-          { identifier: 'content',
-            content:    'preview content' }
+          { identifier: "content",
+            content:    "preview content" }
         ]
       }
     }
@@ -531,7 +531,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(@site)
-    assert_equal 'No Layouts found. Please create one.', flash[:danger]
+    assert_equal "No Layouts found. Please create one.", flash[:danger]
   end
 
   def test_get_edit_with_no_layout
@@ -539,7 +539,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     r :get, edit_comfy_admin_cms_site_page_path(site_id: @site, id: @page)
     assert_response :redirect
     assert_redirected_to new_comfy_admin_cms_site_layout_path(@site)
-    assert_equal 'No Layouts found. Please create one.', flash[:danger]
+    assert_equal "No Layouts found. Please create one.", flash[:danger]
   end
 
   def test_get_toggle_branch
@@ -557,8 +557,8 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     page_two = @site.pages.create!(
       parent: @page,
       layout: @layout,
-      label:  'test',
-      slug:   'test'
+      label:  "test",
+      slug:   "test"
     )
     assert_equal 0, page_one.position
     assert_equal 1, page_two.position

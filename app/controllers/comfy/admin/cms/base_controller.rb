@@ -24,7 +24,7 @@ protected
       session[:site_id] = @site.id
     else
       I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
-      flash[:danger] = I18n.t('comfy.admin.cms.base.site_not_found')
+      flash[:danger] = I18n.t("comfy.admin.cms.base.site_not_found")
       return redirect_to(new_comfy_admin_cms_site_path)
     end
   end
@@ -37,10 +37,10 @@ protected
   def load_seeds
     return unless ComfortableMexicanSofa.config.enable_seeds
 
-    controllers = %w(layouts pages snippets files).collect{|c| 'comfy/admin/cms/' + c}
-    if controllers.member?(params[:controller]) && params[:action] == 'index'
+    controllers = %w(layouts pages snippets files).collect{|c| "comfy/admin/cms/" + c}
+    if controllers.member?(params[:controller]) && params[:action] == "index"
       ComfortableMexicanSofa::Seeds::Importer.new(@site.identifier).import!
-      flash.now[:warning] = I18n.t('comfy.admin.cms.base.seeds_enabled')
+      flash.now[:warning] = I18n.t("comfy.admin.cms.base.seeds_enabled")
     end
   end
 end

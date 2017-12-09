@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::Seeds::File
         file_path = File.join(self.path, file.attachment.filename.to_s)
 
         # writing attributes
-        open(::File.join(self.path, "_#{file.attachment.filename}.yml"), 'w') do |f|
+        open(::File.join(self.path, "_#{file.attachment.filename}.yml"), "w") do |f|
           f.write({
             "label"       => file.label,
             "description" => file.description,
@@ -23,7 +23,7 @@ module ComfortableMexicanSofa::Seeds::File
 
         # writing content
         begin
-          open(::File.join(self.path, ::File.basename(file_path)), 'wb') do |f|
+          open(::File.join(self.path, ::File.basename(file_path)), "wb") do |f|
             f.write(file.attachment.download)
           end
         rescue Errno::ENOENT, OpenURI::HTTPError

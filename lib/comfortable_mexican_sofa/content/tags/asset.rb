@@ -29,7 +29,7 @@ class ComfortableMexicanSofa::Content::Tag::Asset < ComfortableMexicanSofa::Cont
   def content
     return "" unless layout
 
-    base = ComfortableMexicanSofa.config.public_cms_path || ''
+    base = ComfortableMexicanSofa.config.public_cms_path || ""
     unless base.ends_with?("/")
       base = base + "/"
     end
@@ -37,7 +37,7 @@ class ComfortableMexicanSofa::Content::Tag::Asset < ComfortableMexicanSofa::Cont
     case @type
     when "css"
       out = "#{base}cms-css/#{context.site.id}/#{@identifier}/#{layout.cache_buster}.css"
-      if @as == 'tag'
+      if @as == "tag"
         out = "<link href='#{out}' media='screen' rel='stylesheet' type='text/css' />"
       end
       out

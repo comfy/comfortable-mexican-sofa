@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative "../../test_helper"
 
 class ContentParamsParserTest < ActiveSupport::TestCase
 
@@ -35,7 +35,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     assert_equal [[:string, "key"], [:column, ":"], [:string, "v1, v2: v3"]], tokens
 
     tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize('key: "v1, v2: v3"')
-    assert_equal [[:string, "key"], [:column, ":"], [:string, 'v1, v2: v3']], tokens
+    assert_equal [[:string, "key"], [:column, ":"], [:string, "v1, v2: v3"]], tokens
   end
 
   def test_tokenizer_with_bad_input

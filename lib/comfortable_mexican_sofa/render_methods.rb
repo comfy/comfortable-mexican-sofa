@@ -5,7 +5,7 @@ module ComfortableMexicanSofa::RenderMethods
     # If application controller doesn't have template associated with it
     # CMS will attempt to find one. This is so you don't have to explicitly
     # call render cms_page: '/something'
-    base.rescue_from 'ActionView::MissingTemplate' do |e|
+    base.rescue_from "ActionView::MissingTemplate" do |e|
       begin
         render cms_page: request.path
       rescue ComfortableMexicanSofa::MissingPage, ComfortableMexicanSofa::MissingSite
@@ -60,7 +60,7 @@ module ComfortableMexicanSofa::RenderMethods
     end
 
     def render_cms_page(path, options = {}, locals = {}, &block)
-      path.gsub!(/^\/#{@cms_site.path}/, '') if @cms_site.path.present?
+      path.gsub!(/^\/#{@cms_site.path}/, "") if @cms_site.path.present?
 
       unless @cms_page = @cms_site.pages.find_by_full_path(path)
         raise ComfortableMexicanSofa::MissingPage.new(path)

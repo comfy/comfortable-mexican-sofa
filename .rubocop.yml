@@ -8,3 +8,6 @@ AllCops:
     - db/migrate/**/*
     - test/fixtures/**/*
     - tmp/**/*
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

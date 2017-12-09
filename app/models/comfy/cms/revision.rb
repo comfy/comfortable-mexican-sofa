@@ -1,5 +1,5 @@
 class Comfy::Cms::Revision < ActiveRecord::Base
-  self.table_name = 'comfy_cms_revisions'
+  self.table_name = "comfy_cms_revisions"
 
   serialize :data
 

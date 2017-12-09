@@ -140,24 +140,24 @@ class CmsSiteTest < ActiveSupport::TestCase
   end
 
   def test_find_site_with_public_cms_path
-    ComfortableMexicanSofa.config.public_cms_path = '/custom'
-    assert_equal '//test.host/custom', comfy_cms_sites(:default).url
+    ComfortableMexicanSofa.config.public_cms_path = "/custom"
+    assert_equal "//test.host/custom", comfy_cms_sites(:default).url
 
-    site_a = Comfy::Cms::Site.create!(identifier: 'test_a', hostname: 'test2.host', path: 'en')
-    site_b = Comfy::Cms::Site.create!(identifier: 'test_b', hostname: 'test2.host', path: 'fr')
+    site_a = Comfy::Cms::Site.create!(identifier: "test_a", hostname: "test2.host", path: "en")
+    site_b = Comfy::Cms::Site.create!(identifier: "test_b", hostname: "test2.host", path: "fr")
 
-    assert_nil            Comfy::Cms::Site.find_site('test2.host')
-    assert_nil            Comfy::Cms::Site.find_site('test2.host', '/custom/some/path')
-    assert_equal site_a,  Comfy::Cms::Site.find_site('test2.host', '/custom/en')
-    assert_equal site_a,  Comfy::Cms::Site.find_site('test2.host', '/custom/en?a=b')
-    assert_equal site_a,  Comfy::Cms::Site.find_site('test2.host', '/custom/en/some/path?a=b')
+    assert_nil            Comfy::Cms::Site.find_site("test2.host")
+    assert_nil            Comfy::Cms::Site.find_site("test2.host", "/custom/some/path")
+    assert_equal site_a,  Comfy::Cms::Site.find_site("test2.host", "/custom/en")
+    assert_equal site_a,  Comfy::Cms::Site.find_site("test2.host", "/custom/en?a=b")
+    assert_equal site_a,  Comfy::Cms::Site.find_site("test2.host", "/custom/en/some/path?a=b")
 
-    assert_nil            Comfy::Cms::Site.find_site('test2.host', '/custom/english/some/path')
+    assert_nil            Comfy::Cms::Site.find_site("test2.host", "/custom/english/some/path")
 
-    assert_equal site_b,  Comfy::Cms::Site.find_site('test2.host', '/custom/fr')
-    assert_equal site_b,  Comfy::Cms::Site.find_site('test2.host', '/custom/fr?a=b')
-    assert_equal site_b,  Comfy::Cms::Site.find_site('test2.host', '/custom/fr/some/path')
-    assert_equal site_b,  Comfy::Cms::Site.find_site('test2.host', '/custom/fr/some/path?a=b')
+    assert_equal site_b,  Comfy::Cms::Site.find_site("test2.host", "/custom/fr")
+    assert_equal site_b,  Comfy::Cms::Site.find_site("test2.host", "/custom/fr?a=b")
+    assert_equal site_b,  Comfy::Cms::Site.find_site("test2.host", "/custom/fr/some/path")
+    assert_equal site_b,  Comfy::Cms::Site.find_site("test2.host", "/custom/fr/some/path?a=b")
   end
 
   def test_find_site_with_site_alias

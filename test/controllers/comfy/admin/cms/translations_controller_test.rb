@@ -1,4 +1,4 @@
-require_relative '../../../../test_helper'
+require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::IntegrationTest
 
@@ -132,20 +132,20 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   def test_creation_preview
     assert_count_no_difference [Comfy::Cms::Translation] do
       r :post, comfy_admin_cms_site_page_translations_path(@site, @page), params: {
-        preview: 'Preview',
+        preview: "Preview",
         translation: {
           label:      "Test Page",
           layout_id:  @layout.id,
           locale:     "fr",
           fragments_attributes: [
-            { identifier: 'content',
-              content:    'preview content' }
+            { identifier: "content",
+              content:    "preview content" }
           ]
         }
       }
       assert_response :success
       assert_match /preview content/, response.body
-      assert_equal 'text/html', response.content_type
+      assert_equal "text/html", response.content_type
 
       assert_equal @site, assigns(:cms_site)
       assert_equal @layout, assigns(:cms_layout)
@@ -159,19 +159,19 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   def test_update_preview
     assert_count_no_difference [Comfy::Cms::Page] do
       r :put, comfy_admin_cms_site_page_translation_path(@site, @page, @translation), params: {
-        preview: 'Preview',
+        preview: "Preview",
         translation: {
-          label: 'Updated Label',
+          label: "Updated Label",
           fragments_attributes: [
-            { identifier: 'content',
-              content:    'preview content' }
+            { identifier: "content",
+              content:    "preview content" }
           ]
         }
       }
       assert_response :success
       assert_match /preview content/, response.body
       @translation.reload
-      assert_not_equal 'Updated Label', @page.label
+      assert_not_equal "Updated Label", @page.label
 
       assert_equal @page.site,    assigns(:cms_site)
       assert_equal @page.layout,  assigns(:cms_layout)

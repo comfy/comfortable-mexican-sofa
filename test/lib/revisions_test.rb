@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class RevisionsTest < ActiveSupport::TestCase
 
@@ -11,17 +11,17 @@ class RevisionsTest < ActiveSupport::TestCase
 
   def test_fixtures_validity
     assert_equal ({
-      'content' => 'revision {{cms:fragment content}}',
-      'css'     => 'revision css',
-      'js'      => 'revision js' }), comfy_cms_revisions(:layout).data
+      "content" => "revision {{cms:fragment content}}",
+      "css"     => "revision css",
+      "js"      => "revision js" }), comfy_cms_revisions(:layout).data
 
-    assert_equal ({'fragments_attributes' => [
-      {'identifier' => 'content', 'content' => 'old content'},
-      {'identifier' => 'title',   'content' => 'old title'}
+    assert_equal ({"fragments_attributes" => [
+      {"identifier" => "content", "content" => "old content"},
+      {"identifier" => "title",   "content" => "old title"}
     ]}), comfy_cms_revisions(:page).data
 
     assert_equal ({
-      'content' => 'revision content'
+      "content" => "revision content"
     }), comfy_cms_revisions(:snippet).data
   end
 
@@ -30,20 +30,20 @@ class RevisionsTest < ActiveSupport::TestCase
   end
 
   def test_init_for_pages
-    assert_equal ['fragments_attributes'], @page.revision_fields
+    assert_equal ["fragments_attributes"], @page.revision_fields
   end
 
   def test_init_for_snippets
-    assert_equal ['content'], @snippet.revision_fields
+    assert_equal ["content"], @snippet.revision_fields
   end
 
   def test_creation_for_layout
-    old_attributes = @layout.attributes.slice('content', 'css', 'js')
+    old_attributes = @layout.attributes.slice("content", "css", "js")
 
     assert_difference -> {@layout.revisions.count} do
       @layout.update_attributes!(
-        content:  'new {{cms:fragment content}}',
-        js:       'new js'
+        content:  "new {{cms:fragment content}}",
+        js:       "new js"
       )
       @layout.reload
       assert_equal 2, @layout.revisions.count
@@ -62,8 +62,8 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference -> {@page.revisions.count} do
       @page.update_attributes!(
         fragments_attributes:  [
-          { identifier: 'content',
-            content:    'new content' }
+          { identifier: "content",
+            content:    "new content" }
         ]
       )
       @page.reload
@@ -103,7 +103,7 @@ class RevisionsTest < ActiveSupport::TestCase
   end
 
   def test_creation_for_snippet
-    old_attributes  = @snippet.attributes.slice('content')
+    old_attributes  = @snippet.attributes.slice("content")
 
     assert_difference -> {@snippet.revisions.count} do
       @snippet.update_attributes(content: "new content")
@@ -121,12 +121,12 @@ class RevisionsTest < ActiveSupport::TestCase
   end
 
   def test_creation_for_new_record
-    assert_difference 'Comfy::Cms::Snippet.count' do
-      assert_no_difference 'Comfy::Cms::Revision.count' do
+    assert_difference "Comfy::Cms::Snippet.count" do
+      assert_no_difference "Comfy::Cms::Revision.count" do
         snippet = @site.snippets.create!(
-          label:      'test snippet',
-          identifier: 'test_snippet',
-          content:    'test content'
+          label:      "test snippet",
+          identifier: "test_snippet",
+          content:    "test content"
         )
         assert_equal 0, snippet.revisions.count
       end
@@ -139,9 +139,9 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference -> {@layout.revisions.count} do
       @layout.restore_from_revision(revision)
       @layout.reload
-      assert_equal 'revision {{cms:fragment content}}', @layout.content
-      assert_equal 'revision css', @layout.css
-      assert_equal 'revision js', @layout.js
+      assert_equal "revision {{cms:fragment content}}", @layout.content
+      assert_equal "revision css", @layout.css
+      assert_equal "revision js", @layout.js
     end
   end
 
@@ -188,7 +188,7 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_difference -> {@snippet.revisions.count} do
       @snippet.restore_from_revision(revision)
       @snippet.reload
-      assert_equal 'revision content', @snippet.content
+      assert_equal "revision content", @snippet.content
     end
   end
 
@@ -209,7 +209,7 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal 1, @snippet.revisions.count
 
     assert_no_difference -> {@snippet.revisions.count} do
-      @snippet.update_attributes(content: 'new content')
+      @snippet.update_attributes(content: "new content")
       assert_nil Comfy::Cms::Revision.find_by_id(revision.id)
 
       @snippet.reload

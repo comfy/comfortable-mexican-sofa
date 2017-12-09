@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class SeedsTest < ActiveSupport::TestCase
 
@@ -10,7 +10,7 @@ class SeedsTest < ActiveSupport::TestCase
     assert_count_difference [Comfy::Cms::Layout], 2 do
       assert_count_difference [Comfy::Cms::Page], 3 do
         assert_count_difference [Comfy::Cms::Snippet], 1 do
-          ComfortableMexicanSofa::Seeds::Importer.new('sample-site', 'default-site').import!
+          ComfortableMexicanSofa::Seeds::Importer.new("sample-site", "default-site").import!
         end
       end
     end
@@ -20,23 +20,23 @@ class SeedsTest < ActiveSupport::TestCase
     comfy_cms_sites(:default).destroy
 
     assert_exception_raised ActiveRecord::RecordNotFound do
-      ComfortableMexicanSofa::Seeds::Importer.new('sample-site', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Importer.new("sample-site", "default-site").import!
     end
   end
 
   def test_import_all_with_no_folder
     assert_exception_raised ComfortableMexicanSofa::Seeds::Error do
-      ComfortableMexicanSofa::Seeds::Importer.new('invalid', 'default-site').import!
+      ComfortableMexicanSofa::Seeds::Importer.new("invalid", "default-site").import!
     end
   end
 
   def test_export_all
     ActiveStorage::Blob.any_instance.stubs(:download).returns(
-      File.read(File.join(Rails.root, 'db/cms_seeds/sample-site/files/default.jpg'))
+      File.read(File.join(Rails.root, "db/cms_seeds/sample-site/files/default.jpg"))
     )
 
-    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, 'test-site')
-    ComfortableMexicanSofa::Seeds::Exporter.new('default-site', 'test-site').export!
+    host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
+    ComfortableMexicanSofa::Seeds::Exporter.new("default-site", "test-site").export!
     FileUtils.rm_rf(host_path)
   end
 
@@ -44,7 +44,7 @@ class SeedsTest < ActiveSupport::TestCase
     comfy_cms_sites(:default).destroy
 
     assert_exception_raised ActiveRecord::RecordNotFound do
-      ComfortableMexicanSofa::Seeds::Exporter.new('sample-site', 'default-site').export!
+      ComfortableMexicanSofa::Seeds::Exporter.new("sample-site", "default-site").export!
     end
   end
 end

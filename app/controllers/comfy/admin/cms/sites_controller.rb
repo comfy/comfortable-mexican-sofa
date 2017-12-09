@@ -23,25 +23,25 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
 
   def create
     @site.save!
-    flash[:success] = I18n.t('comfy.admin.cms.sites.created')
+    flash[:success] = I18n.t("comfy.admin.cms.sites.created")
     redirect_to comfy_admin_cms_site_layouts_path(@site)
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.sites.creation_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.sites.creation_failure")
     render action: :new
   end
 
   def update
     @site.update_attributes!(site_params)
-    flash[:success] = I18n.t('comfy.admin.cms.sites.updated')
+    flash[:success] = I18n.t("comfy.admin.cms.sites.updated")
     redirect_to action: :edit, id: @site
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.sites.update_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.sites.update_failure")
     render action: :edit
   end
 
   def destroy
     @site.destroy
-    flash[:success] = I18n.t('comfy.admin.cms.sites.deleted')
+    flash[:success] = I18n.t("comfy.admin.cms.sites.deleted")
     redirect_to action: :index
   end
 
@@ -56,7 +56,7 @@ protected
     @site = ::Comfy::Cms::Site.find(params[:id])
     I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t('comfy.admin.cms.sites.not_found')
+    flash[:danger] = I18n.t("comfy.admin.cms.sites.not_found")
     redirect_to action: :index
   end
 

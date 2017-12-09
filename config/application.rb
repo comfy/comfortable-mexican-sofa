@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,7 +29,7 @@ module ComfortableMexicanSofa
     config.railties_order = [ActiveStorage::Engine, :main_app, :all]
 
     # Making sure we don't load our dev routes as part of the engine
-    config.paths['config/routes.rb'] << 'config/cms_routes.rb'
+    config.paths["config/routes.rb"] << "config/cms_routes.rb"
 
     config.i18n.enforce_available_locales = true
   end

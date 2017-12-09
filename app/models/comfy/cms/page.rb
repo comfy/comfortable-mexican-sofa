@@ -1,5 +1,5 @@
 class Comfy::Cms::Page < ActiveRecord::Base
-  self.table_name = 'comfy_cms_pages'
+  self.table_name = "comfy_cms_pages"
 
   include Comfy::Cms::WithFragments
   include Comfy::Cms::WithCategories
@@ -10,7 +10,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
   belongs_to :target_page,
-    class_name: 'Comfy::Cms::Page',
+    class_name: "Comfy::Cms::Page",
     optional:   true
 
   has_many :translations,
@@ -42,7 +42,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for pages
-  def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = '. . ')
+  def self.options_for_select(site, page = nil, current_page = nil, depth = 0, exclude_self = true, spacer = ". . ")
     return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
     out = []
     out << [ "#{spacer*depth}#{current_page.label}", current_page.id ] unless current_page == page
@@ -61,7 +61,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    self.parent_id.blank?? 'index' : self.full_path[1..-1].parameterize
+    self.parent_id.blank?? "index" : self.full_path[1..-1].parameterize
   end
 
   # Full url for a page
@@ -99,8 +99,8 @@ protected
 
   def assign_full_path
     self.full_path = self.parent ?
-      [CGI::escape(self.parent.full_path).gsub('%2F', '/'), self.slug].join('/').squeeze('/') :
-      '/'
+      [CGI::escape(self.parent.full_path).gsub("%2F", "/"), self.slug].join("/").squeeze("/") :
+      "/"
   end
 
   def assign_position
@@ -115,7 +115,7 @@ protected
     p = self
     while p.target_page
       if (p = p.target_page) == self
-        return self.errors.add(:target_page_id, 'Invalid Redirect')
+        return self.errors.add(:target_page_id, "Invalid Redirect")
       end
     end
   end

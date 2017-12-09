@@ -5,10 +5,10 @@ module Comfy::Cms::WithFragments
     attr_accessor :fragments_attributes_changed
 
     belongs_to :layout,
-      class_name: 'Comfy::Cms::Layout'
+      class_name: "Comfy::Cms::Layout"
 
     has_many :fragments,
-      class_name: 'Comfy::Cms::Fragment',
+      class_name: "Comfy::Cms::Fragment",
       as:         :record,
       autosave:   true,
       dependent:  :destroy

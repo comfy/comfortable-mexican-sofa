@@ -9,7 +9,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to action: :new if site_has_no_pages?
 
-    return index_for_redactor if params[:source] == 'redactor'
+    return index_for_redactor if params[:source] == "redactor"
 
     @pages_by_parent = pages_grouped_by_parent
 
@@ -30,25 +30,25 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   def create
     @page.save!
-    flash[:success] = I18n.t('comfy.admin.cms.pages.created')
+    flash[:success] = I18n.t("comfy.admin.cms.pages.created")
     redirect_to action: :edit, id: @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.pages.creation_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.pages.creation_failure")
     render action: :new
   end
 
   def update
     @page.save!
-    flash[:success] = I18n.t('comfy.admin.cms.pages.updated')
+    flash[:success] = I18n.t("comfy.admin.cms.pages.updated")
     redirect_to action: :edit, id: @page
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t('comfy.admin.cms.pages.update_failure')
+    flash.now[:danger] = I18n.t("comfy.admin.cms.pages.update_failure")
     render action: :edit
   end
 
   def destroy
     @page.destroy
-    flash[:success] = I18n.t('comfy.admin.cms.pages.deleted')
+    flash[:success] = I18n.t("comfy.admin.cms.pages.deleted")
     redirect_to action: :index
   end
 
@@ -88,7 +88,7 @@ protected
     end
 
     page_select_options = [{
-      name: I18n.t('comfy.admin.cms.pages.form.choose_link'),
+      name: I18n.t("comfy.admin.cms.pages.form.choose_link"),
       url: false
     }] + tree_walker.(@site.pages.root, [ ], 0)
 
@@ -105,7 +105,7 @@ protected
 
   def check_for_layouts
     if @site.layouts.count == 0
-      flash[:danger] = I18n.t('comfy.admin.cms.pages.layout_not_found')
+      flash[:danger] = I18n.t("comfy.admin.cms.pages.layout_not_found")
       redirect_to new_comfy_admin_cms_site_layout_path(@site)
     end
   end
@@ -120,7 +120,7 @@ protected
     @page = @site.pages.find(params[:id])
     @page.attributes = page_params
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t('comfy.admin.cms.pages.not_found')
+    flash[:danger] = I18n.t("comfy.admin.cms.pages.not_found")
     redirect_to action: :index
   end
 
@@ -136,9 +136,9 @@ protected
       I18n.locale = @cms_site.locale
 
       # Chrome chokes on content with iframes. Issue #434
-      response.headers['X-XSS-Protection'] = '0'
+      response.headers["X-XSS-Protection"] = "0"
 
-      render inline: @page.render, layout: layout, content_type: 'text/html'
+      render inline: @page.render, layout: layout, content_type: "text/html"
     end
   end
 

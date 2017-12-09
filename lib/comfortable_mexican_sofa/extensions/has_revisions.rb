@@ -15,7 +15,7 @@ module ComfortableMexicanSofa::HasRevisions
       has_many :revisions,
         as:         :record,
         dependent:  :destroy,
-        class_name: 'Comfy::Cms::Revision'
+        class_name: "Comfy::Cms::Revision"
 
       before_save :prepare_revision
       after_save  :create_revision
@@ -53,7 +53,7 @@ module ComfortableMexicanSofa::HasRevisions
 
       # blowing away old revisions
       ids = [0] + self.revisions.order(created_at: :desc).limit(limit).pluck(:id)
-      self.revisions.where('id NOT IN (?)', ids).destroy_all
+      self.revisions.where("id NOT IN (?)", ids).destroy_all
     end
 
     # Assigning whatever is found in revision data and attempting to save the object

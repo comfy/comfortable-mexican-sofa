@@ -1,5 +1,5 @@
-require 'rails/generators/generated_attribute'
-require 'rails/generators/active_record'
+require "rails/generators/generated_attribute"
+require "rails/generators/active_record"
 
 module Comfy
   module Generators
@@ -11,16 +11,16 @@ module Comfy
         attr_accessor :model_attrs
       end
 
-      source_root File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+      source_root File.expand_path(File.join(File.dirname(__FILE__), "templates"))
 
-      argument :model_args, type: :array, default: [], banner: 'attribute:type'
+      argument :model_args, type: :array, default: [], banner: "attribute:type"
 
       def initialize(*args, &block)
         super
         @model_attrs = []
         model_args.each do |arg|
-          next unless arg.include?(':')
-          @model_attrs << Rails::Generators::GeneratedAttribute.new(*arg.split(':'))
+          next unless arg.include?(":")
+          @model_attrs << Rails::Generators::GeneratedAttribute.new(*arg.split(":"))
         end
       end
 
@@ -29,23 +29,23 @@ module Comfy
       end
 
       def generate_model
-        migration_template 'migration.rb', "db/migrate/create_#{file_name.pluralize}.rb"
-        template 'model.rb', "app/models/#{file_name}.rb"
-        template 'tests/model.rb', "test/models/#{file_name}_test.rb"
-        template 'tests/fixture.yml', "test/fixtures/#{file_name.pluralize}.yml"
+        migration_template "migration.rb", "db/migrate/create_#{file_name.pluralize}.rb"
+        template "model.rb", "app/models/#{file_name}.rb"
+        template "tests/model.rb", "test/models/#{file_name}_test.rb"
+        template "tests/fixture.yml", "test/fixtures/#{file_name.pluralize}.yml"
       end
 
       def generate_controller
-        template 'controller.rb', "app/controllers/admin/#{file_name.pluralize}_controller.rb"
-        template 'tests/controller.rb', "test/controllers/admin/#{file_name.pluralize}_controller_test.rb"
+        template "controller.rb", "app/controllers/admin/#{file_name.pluralize}_controller.rb"
+        template "tests/controller.rb", "test/controllers/admin/#{file_name.pluralize}_controller_test.rb"
       end
 
       def generate_views
-        template 'views/index.haml', "app/views/admin/#{file_name.pluralize}/index.html.haml"
-        template 'views/show.haml', "app/views/admin/#{file_name.pluralize}/show.html.haml"
-        template 'views/new.haml', "app/views/admin/#{file_name.pluralize}/new.html.haml"
-        template 'views/edit.haml', "app/views/admin/#{file_name.pluralize}/edit.html.haml"
-        template 'views/_form.haml', "app/views/admin/#{file_name.pluralize}/_form.html.haml"
+        template "views/index.haml", "app/views/admin/#{file_name.pluralize}/index.html.haml"
+        template "views/show.haml", "app/views/admin/#{file_name.pluralize}/show.html.haml"
+        template "views/new.haml", "app/views/admin/#{file_name.pluralize}/new.html.haml"
+        template "views/edit.haml", "app/views/admin/#{file_name.pluralize}/edit.html.haml"
+        template "views/_form.haml", "app/views/admin/#{file_name.pluralize}/_form.html.haml"
       end
 
       def generate_route
@@ -59,7 +59,7 @@ module Comfy
       end
 
       def generate_navigation_link
-        partial_path = 'app/views/comfy/admin/cms/partials/_navigation_inner.html.haml'
+        partial_path = "app/views/comfy/admin/cms/partials/_navigation_inner.html.haml"
         unless File.exist?(File.join(destination_root, partial_path))
           create_file partial_path
         end

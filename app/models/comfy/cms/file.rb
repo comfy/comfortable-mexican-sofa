@@ -1,5 +1,5 @@
 class Comfy::Cms::File < ActiveRecord::Base
-  self.table_name = 'comfy_cms_files'
+  self.table_name = "comfy_cms_files"
 
   include Comfy::Cms::WithCategories
 

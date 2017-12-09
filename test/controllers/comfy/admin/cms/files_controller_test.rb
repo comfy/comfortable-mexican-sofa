@@ -1,4 +1,4 @@
-require_relative '../../../../test_helper'
+require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
@@ -78,28 +78,28 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_edit_failure
-    r :get, edit_comfy_admin_cms_site_file_path(site_id: @site, id: 'invalid')
+    r :get, edit_comfy_admin_cms_site_file_path(site_id: @site, id: "invalid")
     assert_response :redirect
     assert_redirected_to action: :index
-    assert_equal 'File not found', flash[:danger]
+    assert_equal "File not found", flash[:danger]
   end
 
   def test_create
     models = [Comfy::Cms::File, Comfy::Cms::Categorization, ActiveStorage::Attachment]
     assert_count_difference models do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params:{file: {
-        label:        'Test File',
-        description:  'Test Description',
-        file:         fixture_file_upload('files/image.jpg', 'image/jpeg'),
-        category_ids: {comfy_cms_categories(:default).id => '1'}
+        label:        "Test File",
+        description:  "Test Description",
+        file:         fixture_file_upload("files/image.jpg", "image/jpeg"),
+        category_ids: {comfy_cms_categories(:default).id => "1"}
       }}
       assert_response :redirect
       file = Comfy::Cms::File.last
       assert_equal comfy_cms_sites(:default), file.site
-      assert_equal 'Test File', file.label
-      assert_equal 'Test Description', file.description
+      assert_equal "Test File", file.label
+      assert_equal "Test Description", file.description
       assert_redirected_to action: :edit, id: file
-      assert_equal 'Files uploaded', flash[:success]
+      assert_equal "Files uploaded", flash[:success]
     end
   end
 
@@ -108,7 +108,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {file: {}}
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to upload files', flash[:danger]
+      assert_equal "Failed to upload files", flash[:danger]
     end
   end
 
@@ -218,7 +218,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   def test_reorder
     file_one = @file
     file_two = @site.files.create(
-      file: fixture_file_upload('files/image.jpg', 'image/jpeg')
+      file: fixture_file_upload("files/image.jpg", "image/jpeg")
     )
     assert_equal 0, file_one.position
     assert_equal 1, file_two.position

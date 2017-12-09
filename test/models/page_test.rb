@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CmsPageTest < ActiveSupport::TestCase
 
@@ -61,13 +61,13 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_validation_of_slug
     page = comfy_cms_pages(:child)
-    page.slug = 'slug.with.d0ts-and_things'
+    page.slug = "slug.with.d0ts-and_things"
     assert page.valid?
 
-    page.slug = 'inva lid'
+    page.slug = "inva lid"
     assert page.invalid?
 
-    page.slug = 'acción'
+    page.slug = "acción"
     assert page.valid?
   end
 
@@ -81,12 +81,12 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_label_assignment
     page = @site.pages.new(
-      slug:   'test',
+      slug:   "test",
       parent: @page,
       layout: @layout
     )
     assert page.valid?
-    assert_equal 'Test', page.label
+    assert_equal "Test", page.label
   end
 
   def test_create
@@ -239,8 +239,8 @@ class CmsPageTest < ActiveSupport::TestCase
     page_a = @page
     page_b = comfy_cms_pages(:child)
     page_c = @site.pages.create!(
-      label:  'Test Page',
-      slug:   'test-page',
+      label:  "Test Page",
+      slug:   "test-page",
       layout: @layout,
       parent: page_a
     )
@@ -259,7 +259,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_initialization_of_full_path
     page = Comfy::Cms::Page.new
-    assert_equal '/', page.full_path
+    assert_equal "/", page.full_path
 
     page = Comfy::Cms::Page.new(new_params)
     assert page.invalid?
@@ -267,44 +267,44 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page = @site.pages.new(new_params(parent: @page))
     assert page.valid?
-    assert_equal '/test-page', page.full_path
+    assert_equal "/test-page", page.full_path
 
     page = @site.pages.new(new_params(parent: comfy_cms_pages(:child)))
     assert page.valid?
-    assert_equal '/child-page/test-page', page.full_path
+    assert_equal "/child-page/test-page", page.full_path
 
     Comfy::Cms::Page.destroy_all
     page = @site.pages.new(new_params)
     assert page.valid?
-    assert_equal '/', page.full_path
+    assert_equal "/", page.full_path
   end
 
   def test_sync_child_pages
     page = comfy_cms_pages(:child)
-    page_1 = @site.pages.create!(new_params(parent: page, slug: 'test-page-1'))
-    page_2 = @site.pages.create!(new_params(parent: page, slug: 'test-page-2'))
-    page_3 = @site.pages.create!(new_params(parent: page_2, slug: 'test-page-3'))
-    page_4 = @site.pages.create!(new_params(parent: page_1, slug: 'test-page-4'))
+    page_1 = @site.pages.create!(new_params(parent: page, slug: "test-page-1"))
+    page_2 = @site.pages.create!(new_params(parent: page, slug: "test-page-2"))
+    page_3 = @site.pages.create!(new_params(parent: page_2, slug: "test-page-3"))
+    page_4 = @site.pages.create!(new_params(parent: page_1, slug: "test-page-4"))
 
-    assert_equal '/child-page/test-page-1', page_1.full_path
-    assert_equal '/child-page/test-page-2', page_2.full_path
-    assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal "/child-page/test-page-1", page_1.full_path
+    assert_equal "/child-page/test-page-2", page_2.full_path
+    assert_equal "/child-page/test-page-2/test-page-3", page_3.full_path
+    assert_equal "/child-page/test-page-1/test-page-4", page_4.full_path
 
-    page.update_attributes!(slug: 'updated-page')
-    assert_equal '/updated-page', page.full_path
+    page.update_attributes!(slug: "updated-page")
+    assert_equal "/updated-page", page.full_path
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal "/updated-page/test-page-1", page_1.full_path
+    assert_equal "/updated-page/test-page-2", page_2.full_path
+    assert_equal "/updated-page/test-page-2/test-page-3", page_3.full_path
+    assert_equal "/updated-page/test-page-1/test-page-4", page_4.full_path
 
     page_2.update_attributes!(parent: page_1)
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
-    assert_equal '/updated-page/test-page-1', page_1.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2', page_2.full_path
-    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_3.full_path
-    assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
+    assert_equal "/updated-page/test-page-1", page_1.full_path
+    assert_equal "/updated-page/test-page-1/test-page-2", page_2.full_path
+    assert_equal "/updated-page/test-page-1/test-page-2/test-page-3", page_3.full_path
+    assert_equal "/updated-page/test-page-1/test-page-4", page_4.full_path
   end
 
   def test_children_count_updating
@@ -341,15 +341,15 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_options_for_select
-    assert_equal ['Default Page', '. . Child Page'],
+    assert_equal ["Default Page", ". . Child Page"],
       Comfy::Cms::Page.options_for_select(@site).collect(&:first)
-    assert_equal ['Default Page'],
+    assert_equal ["Default Page"],
       Comfy::Cms::Page.options_for_select(@site, comfy_cms_pages(:child)).collect(&:first)
     assert_equal [],
       Comfy::Cms::Page.options_for_select(@site, @page)
 
     page = Comfy::Cms::Page.new(new_params(parent: @page))
-    assert_equal ['Default Page', '. . Child Page'],
+    assert_equal ["Default Page", ". . Child Page"],
       Comfy::Cms::Page.options_for_select(@site, page).collect(&:first)
   end
 
@@ -440,7 +440,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_content_caching
     assert_equal @page.content_cache, @page.render
 
-    @page.update_columns(content_cache: 'Old Content')
+    @page.update_columns(content_cache: "Old Content")
     refute_equal @page.content_cache, @page.render
 
     @page.clear_content_cache!
@@ -448,7 +448,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_content_cache_clear_on_save
-    old_content = 'Old Content'
+    old_content = "Old Content"
     @page.update_columns(content_cache: old_content)
 
     @page.save!
@@ -467,53 +467,53 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_url
-    assert_equal '//test.host/', @page.url
-    assert_equal '//test.host/child-page', comfy_cms_pages(:child).url
+    assert_equal "//test.host/", @page.url
+    assert_equal "//test.host/child-page", comfy_cms_pages(:child).url
 
-    assert_equal '/', @page.url(relative: true)
-    assert_equal '/child-page', comfy_cms_pages(:child).url(relative: true)
+    assert_equal "/", @page.url(relative: true)
+    assert_equal "/child-page", comfy_cms_pages(:child).url(relative: true)
 
-    @site.update_columns(path: '/en/site')
+    @site.update_columns(path: "/en/site")
     @page.reload
     comfy_cms_pages(:child).reload
 
-    assert_equal '//test.host/en/site/', @page.url
-    assert_equal '//test.host/en/site/child-page', comfy_cms_pages(:child).url
+    assert_equal "//test.host/en/site/", @page.url
+    assert_equal "//test.host/en/site/child-page", comfy_cms_pages(:child).url
 
-    assert_equal '/en/site/', @page.url(relative: true)
-    assert_equal '/en/site/child-page', comfy_cms_pages(:child).url(relative: true)
+    assert_equal "/en/site/", @page.url(relative: true)
+    assert_equal "/en/site/child-page", comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_url_with_public_cms_path
-    ComfortableMexicanSofa.config.public_cms_path = '/custom'
-    assert_equal '//test.host/custom/', @page.url
-    assert_equal '//test.host/custom/child-page', comfy_cms_pages(:child).url
+    ComfortableMexicanSofa.config.public_cms_path = "/custom"
+    assert_equal "//test.host/custom/", @page.url
+    assert_equal "//test.host/custom/child-page", comfy_cms_pages(:child).url
 
-    assert_equal '/custom/', @page.url(relative: true)
-    assert_equal '/custom/child-page', comfy_cms_pages(:child).url(relative: true)
+    assert_equal "/custom/", @page.url(relative: true)
+    assert_equal "/custom/child-page", comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_unicode_slug_escaping
     page = comfy_cms_pages(:child)
-    page_1 = @site.pages.create!(new_params(parent: page, slug: 'tést-ünicode-slug'))
-    assert_equal CGI::escape('tést-ünicode-slug'), page_1.slug
-    assert_equal CGI::escape('/child-page/tést-ünicode-slug').gsub('%2F', '/'), page_1.full_path
+    page_1 = @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
+    assert_equal CGI::escape("tést-ünicode-slug"), page_1.slug
+    assert_equal CGI::escape("/child-page/tést-ünicode-slug").gsub("%2F", "/"), page_1.full_path
   end
 
   def test_unicode_slug_unescaping
     page = comfy_cms_pages(:child)
-    page_1 = @site.pages.create!(new_params(parent: page, slug: 'tést-ünicode-slug'))
-    found_page = @site.pages.where(slug: CGI::escape('tést-ünicode-slug')).first
-    assert_equal 'tést-ünicode-slug', found_page.slug
-    assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
+    page_1 = @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
+    found_page = @site.pages.where(slug: CGI::escape("tést-ünicode-slug")).first
+    assert_equal "tést-ünicode-slug", found_page.slug
+    assert_equal "/child-page/tést-ünicode-slug", found_page.full_path
   end
 
   def test_identifier
-    assert_equal 'index',       @page.identifier
-    assert_equal 'child-page',  comfy_cms_pages(:child).identifier
+    assert_equal "index",       @page.identifier
+    assert_equal "child-page",  comfy_cms_pages(:child).identifier
 
-    @page.update_column(:slug, 'index')
-    assert_equal 'index', comfy_cms_pages(:default).identifier
+    @page.update_column(:slug, "index")
+    assert_equal "index", comfy_cms_pages(:default).identifier
   end
 
   def test_children_count_updating_on_move
@@ -545,8 +545,8 @@ class CmsPageTest < ActiveSupport::TestCase
     assert @page.readonly?
 
     assert_equal comfy_cms_layouts(:nested), @page.layout
-    assert_equal 'Default Translation', @page.label
-    assert_equal 'Translation Content', @page.content_cache
+    assert_equal "Default Translation", @page.label
+    assert_equal "Translation Content", @page.content_cache
   end
 
   def test_translate_with_unpublished

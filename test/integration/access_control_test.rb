@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class AccessControlTest < ActionDispatch::IntegrationTest
 
@@ -38,7 +38,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
 
   # -- Tests -------------------------------------------------------------------
   def test_admin_authentication_default
-    assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthentication',
+    assert_equal "ComfortableMexicanSofa::AccessControl::AdminAuthentication",
       ComfortableMexicanSofa.config.admin_auth
 
     get comfy_admin_cms_sites_path
@@ -51,17 +51,17 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   def test_admin_authentication_custom
     with_routing do |routes|
       routes.draw do
-        get '/admin/sites' => 'access_control_test/test_authentication/sites#index'
+        get "/admin/sites" => "access_control_test/test_authentication/sites#index"
       end
 
-      get '/admin/sites'
+      get "/admin/sites"
       assert_response :unauthorized
-      assert_equal 'Test Login Denied', response.body
+      assert_equal "Test Login Denied", response.body
     end
   end
 
   def test_admin_authorization_default
-    assert_equal 'ComfortableMexicanSofa::AccessControl::AdminAuthorization',
+    assert_equal "ComfortableMexicanSofa::AccessControl::AdminAuthorization",
       ComfortableMexicanSofa.config.admin_authorization
 
     Comfy::Admin::Cms::BaseController.send(:include, ComfortableMexicanSofa::AccessControl::AdminAuthorization)
@@ -73,8 +73,8 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     site = comfy_cms_sites(:default)
     with_routing do |routes|
       routes.draw do
-        s   = '/admin/sites'
-        ns  = 'access_control_test/test_authorization'
+        s   = "/admin/sites"
+        ns  = "access_control_test/test_authorization"
         get "#{s}/:id/edit"                                       => "#{ns}/sites#edit"
         get "#{s}/:site_id/layouts/:id/edit"                      => "#{ns}/layouts#edit"
         get "#{s}/:site_id/layouts/:layout_id/revisions/:id"      => "#{ns}/revisions#show"
@@ -87,7 +87,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
 
       r :get, "/admin/sites/#{site.id}/edit"
       assert_response :forbidden
-      assert_equal 'Test Access Denied', response.body
+      assert_equal "Test Access Denied", response.body
       assert assigns(:authorization_vars)
       assert assigns(:authorization_vars).member?(:@site)
 
@@ -129,42 +129,42 @@ class AccessControlTest < ActionDispatch::IntegrationTest
   end
 
   def test_public_authentication_default
-    assert_equal 'ComfortableMexicanSofa::AccessControl::PublicAuthentication',
+    assert_equal "ComfortableMexicanSofa::AccessControl::PublicAuthentication",
       ComfortableMexicanSofa.config.public_auth
 
-    get '/'
+    get "/"
     assert_response :success, response.body
   end
 
   def test_public_authorization_default
-    assert_equal 'ComfortableMexicanSofa::AccessControl::PublicAuthorization',
+    assert_equal "ComfortableMexicanSofa::AccessControl::PublicAuthorization",
       ComfortableMexicanSofa.config.public_authorization
 
-    get '/'
+    get "/"
     assert_response :success, response.body
   end
 
   def test_public_authentication_custom
     with_routing do |routes|
       routes.draw do
-        get "(*cms_path)" => 'access_control_test/test_authentication/content#show'
+        get "(*cms_path)" => "access_control_test/test_authentication/content#show"
       end
 
-      get '/'
+      get "/"
       assert_response :unauthorized
-      assert_equal 'Test Login Denied', response.body
+      assert_equal "Test Login Denied", response.body
     end
   end
 
   def test_public_authorization_custom
     with_routing do |routes|
       routes.draw do
-        get "(*cms_path)" => 'access_control_test/test_authorization/content#show'
+        get "(*cms_path)" => "access_control_test/test_authorization/content#show"
       end
 
-      get '/'
+      get "/"
       assert_response :forbidden
-      assert_equal 'Test Access Denied', response.body
+      assert_equal "Test Access Denied", response.body
     end
   end
 end

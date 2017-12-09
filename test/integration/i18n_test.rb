@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class I18nIntegrationTest < ActionDispatch::IntegrationTest
 
@@ -11,9 +11,9 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_translations
-    locales_path = File.expand_path('../../../config/locales', __FILE__)
+    locales_path = File.expand_path("../../../config/locales", __FILE__)
     locales = Dir.glob("#{locales_path}/*.yml").collect do |file_path|
-      File.basename(file_path, '.yml')
+      File.basename(file_path, ".yml")
     end
 
     # collecting all locales
@@ -24,7 +24,7 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     # Using en as reference
-    reference = locale_keys[locales.delete('en')]
+    reference = locale_keys[locales.delete("en")]
     assert reference.present?
 
     locale_keys.each do |locale, keys|
