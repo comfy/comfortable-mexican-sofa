@@ -15,3 +15,6 @@ Style/StringLiterals:
 Style/RegexpLiteral:
   EnforcedStyle: slashes
   AllowInnerSlashes: true
+
+Style/Lambda:
+  EnforcedStyle: literal

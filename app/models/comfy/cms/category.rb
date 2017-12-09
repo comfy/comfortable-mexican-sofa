@@ -14,7 +14,7 @@ class Comfy::Cms::Category < ActiveRecord::Base
     presence:   true
 
   # -- Scopes ---------------------------------------------------------------
-  scope :of_type, lambda { |type|
+  scope :of_type, ->(type) {
     where(categorized_type: type)
   }
 
