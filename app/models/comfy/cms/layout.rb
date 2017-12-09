@@ -81,6 +81,12 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     updated_at.to_i
   end
 
+  # Forcing page content reload
+  def clear_page_content_cache
+    Comfy::Cms::Page.where(id: self.pages.pluck(:id)).update_all(content_cache: nil)
+    self.children.each(&:clear_page_content_cache)
+  end
+
 protected
 
   def assign_label
@@ -91,11 +97,5 @@ protected
     return if self.position.to_i > 0
     max = self.site.layouts.where(parent_id: self.parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
-  end
-
-  # Forcing page content reload
-  def clear_page_content_cache
-    Comfy::Cms::Page.where(id: self.pages.pluck(:id)).update_all(content_cache: nil)
-    self.children.each{ |child_layout| child_layout.clear_page_content_cache }
   end
 end

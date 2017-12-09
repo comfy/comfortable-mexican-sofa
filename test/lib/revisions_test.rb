@@ -26,7 +26,7 @@ class RevisionsTest < ActiveSupport::TestCase
   end
 
   def test_init_for_layouts
-    assert_equal ['content', 'css', 'js'], @layout.revision_fields
+    assert_equal %w[content css js], @layout.revision_fields
   end
 
   def test_init_for_pages

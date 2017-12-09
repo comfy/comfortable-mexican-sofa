@@ -31,6 +31,8 @@ require_relative  'comfortable_mexican_sofa/content'
 module ComfortableMexicanSofa
   class << self
 
+    attr_writer :logger
+
     # Modify CMS configuration
     # Example:
     #   ComfortableMexicanSofa.configure do |config|
@@ -45,10 +47,6 @@ module ComfortableMexicanSofa
       @configuration ||= Configuration.new
     end
     alias :config :configuration
-
-    def logger=(new_logger)
-      @logger = new_logger
-    end
 
     def logger
       @logger ||= Rails.logger

@@ -22,7 +22,7 @@ module ComfortableMexicanSofa::ViewHooks
   def self.add(name, partial_path, position = 0)
     self.hooks[name.to_sym] ||= []
     self.hooks[name.to_sym] << [partial_path, position]
-    self.hooks[name.to_sym].sort_by! { |hook| hook.last }
+    self.hooks[name.to_sym].sort_by!(&:last)
   end
 
   # Removing previously declared hook

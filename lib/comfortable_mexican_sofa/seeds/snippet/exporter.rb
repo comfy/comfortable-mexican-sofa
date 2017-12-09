@@ -12,7 +12,7 @@ module ComfortableMexicanSofa::Seeds::Snippet
       self.site.snippets.each do |snippet|
         attrs = {
           "label"       => snippet.label,
-          "categories"  => snippet.categories.map{|c| c.label},
+          "categories"  => snippet.categories.map(&:label),
           "position"    => snippet.position
         }.to_yaml
 

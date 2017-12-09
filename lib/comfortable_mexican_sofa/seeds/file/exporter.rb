@@ -17,7 +17,7 @@ module ComfortableMexicanSofa::Seeds::File
           f.write({
             "label"       => file.label,
             "description" => file.description,
-            "categories"  => file.categories.map{|c| c.label}
+            "categories"  => file.categories.map(&:label)
           }.to_yaml)
         end
 

@@ -334,7 +334,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
                 { identifier: "unpopulated",
                   tag:        "file",
                   content:    nil
-                },
+                }
               ]
             },
             commit: 'Create Page'
@@ -364,7 +364,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
       page = assigns(:page)
 
       assert_equal 2, page.fragments.size
-      assert_equal ['content content', 'title content'], page.fragments.collect{|b| b.content}
+      assert_equal ['content content', 'title content'], page.fragments.collect(&:content)
       assert_template :new
       assert_equal 'Failed to create page', flash[:danger]
     end
@@ -400,8 +400,8 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to action: :edit, id: @page
       assert_equal 'Page updated', flash[:success]
       assert_equal 'Updated Label', @page.label
-      identifiers = @page.fragments.collect {|b| b.identifier}
-      assert_equal ["boolean", "content", "datetime", "file", "header"], identifiers.sort
+      identifiers = @page.fragments.collect(&:identifier)
+      assert_equal %w[boolean content datetime file header], identifiers.sort
     end
   end
 

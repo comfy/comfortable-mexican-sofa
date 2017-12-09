@@ -113,7 +113,7 @@ protected
   def validate_target_page
     return unless self.target_page
     p = self
-    while p.target_page do
+    while p.target_page
       if (p = p.target_page) == self
         return self.errors.add(:target_page_id, 'Invalid Redirect')
       end

@@ -10,7 +10,7 @@ module ComfortableMexicanSofa::Seeds::Layout
       prepare_folder!(self.path)
 
       self.site.layouts.each do |layout|
-        layout_path = File.join(path, layout.ancestors.reverse.collect{|l| l.identifier}, layout.identifier)
+        layout_path = File.join(path, layout.ancestors.reverse.collect(&:identifier), layout.identifier)
         FileUtils.mkdir_p(layout_path)
 
         path = ::File.join(layout_path, "content.html")

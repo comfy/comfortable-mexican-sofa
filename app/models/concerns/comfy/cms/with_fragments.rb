@@ -76,7 +76,7 @@ module Comfy::Cms::WithFragments
   def fragment_nodes
     nodes
       .select{|n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment)}
-      .uniq{|n| n.identifier}
+      .uniq(&:identifier)
   end
 
   # Rendered content of the page. We grab whatever layout is associated with the

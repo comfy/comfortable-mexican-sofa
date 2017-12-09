@@ -21,7 +21,7 @@ module ComfortableMexicanSofa::Seeds::Page
           "label"        => page.label,
           "layout"       => page.layout.try(:identifier),
           "target_page"  => page.target_page.try(:full_path),
-          "categories"   => page.categories.map{|c| c.label},
+          "categories"   => page.categories.map(&:label),
           "is_published" => page.is_published,
           "position"     => page.position
         }.to_yaml

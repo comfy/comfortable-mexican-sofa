@@ -63,7 +63,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     layout = @site.layouts.create!(
       label:      'RSS Layout',
       identifier: 'rss-layout',
-      content:    '{{cms:text mime_type, render: false}}{{cms:textarea content}}',
+      content:    '{{cms:text mime_type, render: false}}{{cms:textarea content}}'
     )
     page = @site.pages.create!(
       label:          'rss',

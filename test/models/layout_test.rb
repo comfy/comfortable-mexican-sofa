@@ -91,11 +91,11 @@ class CmsLayoutTest < ActiveSupport::TestCase
 
   def test_options_for_select
     assert_equal ['Default Layout', 'Nested Layout', '. . Child Layout'],
-      Comfy::Cms::Layout.options_for_select(@site).collect{|t| t.first}
+      Comfy::Cms::Layout.options_for_select(@site).collect(&:first)
     assert_equal ['Default Layout', 'Nested Layout'],
-      Comfy::Cms::Layout.options_for_select(@site, comfy_cms_layouts(:child)).collect{|t| t.first}
+      Comfy::Cms::Layout.options_for_select(@site, comfy_cms_layouts(:child)).collect(&:first)
     assert_equal ['Default Layout'],
-      Comfy::Cms::Layout.options_for_select(@site, comfy_cms_layouts(:nested)).collect{|t| t.first}
+      Comfy::Cms::Layout.options_for_select(@site, comfy_cms_layouts(:nested)).collect(&:first)
   end
 
   def test_app_layouts_for_select

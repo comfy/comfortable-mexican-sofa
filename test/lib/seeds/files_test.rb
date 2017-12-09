@@ -21,7 +21,7 @@ class SeedsFilesTest < ActiveSupport::TestCase
     assert_equal "Seed File Description", file.description
 
     assert_equal 2, file.categories.count
-    assert_equal %w(category_a category_b), file.categories.map{|c| c.label}
+    assert_equal %w(category_a category_b), file.categories.map(&:label)
   end
 
   def test_update

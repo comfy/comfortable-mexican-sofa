@@ -175,8 +175,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
         source:   "plupload",
         file: {
           file: fixture_file_upload("files/image.jpg", "image/jpeg")
-        },
-
+        }
       }
       assert_response :success
 

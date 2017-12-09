@@ -36,7 +36,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
   def self.collect_param_for_hash!(params, tokens)
     key, col, val = tokens
     key_type, key_value = key
-    col_type, _         = col
+    col_type,           = col
     val_type, val_value = val
 
     unless key_type == :string && col_type == :column && val_type == :string

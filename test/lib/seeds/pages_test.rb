@@ -62,7 +62,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert_equal 2, frag.attachments.count
 
     assert_equal 2, page.categories.count
-    assert_equal %w(category_a category_b), page.categories.map{|c| c.label}
+    assert_equal %w(category_a category_b), page.categories.map(&:label)
 
     assert child_page_a = Comfy::Cms::Page.find_by(full_path: "/child_a")
     assert_equal page, child_page_a.parent
