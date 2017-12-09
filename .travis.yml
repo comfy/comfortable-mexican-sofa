@@ -4,7 +4,8 @@ before_install:
 before_script:
   - rake db:migrate
 script:
-  - rake test
+  - bundle exec rake test
+  - bundle exec rubocop
 rvm:
   - 2.2.7
   - 2.3.5
