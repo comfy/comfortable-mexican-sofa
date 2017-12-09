@@ -32,7 +32,7 @@ module ComfortableMexicanSofa::ActsAsTree
 
         scope :roots, -> {
           where("#{configuration[:foreign_key]} IS NULL").
-          order(#{configuration[:order].nil? ? "nil" : %Q{"#{configuration[:order]}"}})
+          order(#{configuration[:order].nil? ? 'nil' : %Q{"#{configuration[:order]}"}})
         }
 
         def self.root

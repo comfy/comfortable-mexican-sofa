@@ -9,7 +9,7 @@ class Comfy::Cms::Category < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :label,
     presence:   true,
-    uniqueness: { scope: [:categorized_type, :site_id] }
+    uniqueness: { scope: %i[categorized_type site_id] }
   validates :categorized_type,
     presence:   true
 

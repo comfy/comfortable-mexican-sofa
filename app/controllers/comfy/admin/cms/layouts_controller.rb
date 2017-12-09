@@ -1,7 +1,7 @@
 class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
 
-  before_action :build_layout,  only: [:new, :create]
-  before_action :load_layout,   only: [:edit, :update, :destroy]
+  before_action :build_layout,  only: %i[new create]
+  before_action :load_layout,   only: %i[edit update destroy]
   before_action :authorize
 
   def index

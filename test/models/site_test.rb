@@ -15,7 +15,7 @@ class CmsSiteTest < ActiveSupport::TestCase
   def test_validation
     site = Comfy::Cms::Site.new
     assert site.invalid?
-    assert_has_errors_on site, [:identifier, :label, :hostname]
+    assert_has_errors_on site, :identifier, :label, :hostname
 
     site = Comfy::Cms::Site.new(identifier: "test", hostname: "http://site.host")
     assert site.invalid?

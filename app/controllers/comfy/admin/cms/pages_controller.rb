@@ -1,10 +1,10 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
-  before_action :check_for_layouts, only: [:new, :edit]
-  before_action :build_page,        only: [:new, :create]
-  before_action :load_page,         only: [:edit, :update, :destroy]
+  before_action :check_for_layouts, only: %i[new edit]
+  before_action :build_page,        only: %i[new create]
+  before_action :load_page,         only: %i[edit update destroy]
   before_action :authorize
-  before_action :preview_page,      only: [:create, :update]
+  before_action :preview_page,      only: %i[create update]
 
   def index
     return redirect_to action: :new if site_has_no_pages?

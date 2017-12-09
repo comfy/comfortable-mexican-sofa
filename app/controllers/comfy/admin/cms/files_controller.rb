@@ -2,8 +2,8 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
   include ActionView::Helpers::NumberHelper
 
-  before_action :build_file,  only: [:new, :create]
-  before_action :load_file,   only: [:edit, :update, :destroy]
+  before_action :build_file,  only: %i[new create]
+  before_action :load_file,   only: %i[edit update destroy]
   before_action :authorize
 
   def index

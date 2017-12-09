@@ -32,7 +32,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
   end
 
   def test_render_with_whitelist
-    ComfortableMexicanSofa.config.allowed_helpers = [:tester, :eval]
+    ComfortableMexicanSofa.config.allowed_helpers = %i[tester eval]
     tag = ComfortableMexicanSofa::Content::Tag::Helper.new(@page, "tester")
     assert_equal "<%= tester() %>", tag.render
 

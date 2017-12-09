@@ -1,7 +1,7 @@
 class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
 
-  before_action :build_snippet, only: [:new, :create]
-  before_action :load_snippet,  only: [:edit, :update, :destroy]
+  before_action :build_snippet, only: %i[new create]
+  before_action :load_snippet,  only: %i[edit update destroy]
   before_action :authorize
 
   def index

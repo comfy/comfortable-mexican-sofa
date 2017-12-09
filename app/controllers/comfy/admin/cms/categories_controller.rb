@@ -1,6 +1,6 @@
 class Comfy::Admin::Cms::CategoriesController < Comfy::Admin::Cms::BaseController
 
-  before_action :load_category, only: [:edit, :update, :destroy]
+  before_action :load_category, only: %i[edit update destroy]
   before_action :authorize
 
   def edit

@@ -3,10 +3,10 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
   helper_method :translation_select_options
 
   before_action :load_page
-  before_action :build_translation,   only: [:new, :create]
-  before_action :load_translation,    only: [:edit, :update, :destroy]
+  before_action :build_translation,   only: %i[new create]
+  before_action :load_translation,    only: %i[edit update destroy]
   before_action :authorize
-  before_action :preview_translation, only: [:create, :update]
+  before_action :preview_translation, only: %i[create update]
 
   def new
     render

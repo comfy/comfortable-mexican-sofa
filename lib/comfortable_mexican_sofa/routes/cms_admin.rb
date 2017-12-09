@@ -7,7 +7,7 @@ class ActionDispatch::Routing::Mapper
           get "/", to: "base#jump"
 
           concern :with_revisions do |options|
-            resources :revisions, options.merge(only: [:index, :show]) do
+            resources :revisions, options.merge(only: %i[index show]) do
               patch :revert, on: :member
             end
           end

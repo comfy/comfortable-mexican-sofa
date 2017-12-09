@@ -17,7 +17,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
   def test_validations
     layout = @site.layouts.create
     assert layout.errors.present?
-    assert_has_errors_on layout, [:label, :identifier]
+    assert_has_errors_on layout, :label, :identifier
   end
 
   def test_content_tokens
