@@ -30,10 +30,10 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   # Tree-like structure for layouts
   def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = '. . ')
     out = []
-    [current_layout || site.layouts.roots].flatten.each do |l|
+    [current_layout || site.layouts.roots.order(:position)].flatten.each do |l|
       next if layout == l
       out << [ "#{spacer*depth}#{l.label}", l.id ]
-      l.children.each do |child|
+      l.children.order(:position).each do |child|
         out += options_for_select(site, layout, child, depth + 1, spacer)
       end
     end
