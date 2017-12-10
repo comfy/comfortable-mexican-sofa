@@ -11,7 +11,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
   def test_init_with_locals
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "path/to/partial, key: val")
     assert_equal "path/to/partial", tag.path
-    assert_equal ({"key" => "val"}), tag.locals
+    assert_equal ({ "key" => "val" }), tag.locals
   end
 
   def test_init_without_path

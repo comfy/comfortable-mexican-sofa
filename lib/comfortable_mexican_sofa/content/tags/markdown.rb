@@ -9,7 +9,7 @@ class ComfortableMexicanSofa::Content::Tag::Markdown < ComfortableMexicanSofa::C
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
-    options = {id: nil, data: {"cms-cm-mode" => "text/x-markdown"}}
+    options = { id: nil, data: { "cms-cm-mode" => "text/x-markdown" } }
     input   = view.send(:text_area_tag, name, content, options)
 
     yield input

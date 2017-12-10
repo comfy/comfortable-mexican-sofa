@@ -52,7 +52,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
         tag:        "files",
         content:    nil,
         datetime:   nil,
-        boolean:    false}
+        boolean:    false }
     ], page.fragments_attributes
 
     frag = page.fragments.find_by(identifier: "header")

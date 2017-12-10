@@ -70,7 +70,7 @@ class ComfortableMexicanSofa::Content::Renderer
     while (string = ss.scan_until(TAG_REGEX))
       text = string.sub(ss[0], "")
       tokens << text unless text.empty?
-      tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
+      tokens << { tag_class: ss[:class], tag_params: ss[:params].strip }
     end
     text = ss.rest
     tokens << text if text.present?

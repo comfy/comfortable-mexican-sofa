@@ -28,7 +28,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
     )
     category.categorizations.create!(categorized: @snippet)
 
-    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {categories: category.label}
+    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: { categories: category.label }
     assert_response :success
     assert assigns(:snippets)
     assert_equal 1, assigns(:snippets).count
@@ -36,7 +36,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_get_index_with_category_invalid
-    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: {categories: "invalid"}
+    r :get, comfy_admin_cms_site_snippets_path(site_id: @site), params: { categories: "invalid" }
     assert_response :success
     assert assigns(:snippets)
     assert_equal 0, assigns(:snippets).count
@@ -59,9 +59,9 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_get_edit_with_params
-    r :get, edit_comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: {snippet: {
+    r :get, edit_comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: { snippet: {
       label: "New Label"
-    }}
+    } }
     assert_response :success
     assert assigns(:snippet)
     assert_equal "New Label", assigns(:snippet).label
@@ -76,11 +76,11 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
 
   def test_create
     assert_difference "Comfy::Cms::Snippet.count" do
-      r :post, comfy_admin_cms_site_snippets_path(site_id: @site), params: {snippet: {
+      r :post, comfy_admin_cms_site_snippets_path(site_id: @site), params: { snippet: {
         label:      "Test Snippet",
         identifier: "test-snippet",
         content:    "Test Content"
-      }}
+      } }
       assert_response :redirect
       snippet = Comfy::Cms::Snippet.last
       assert_equal @site, snippet.site
@@ -91,7 +91,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
 
   def test_creation_failure
     assert_no_difference "Comfy::Cms::Snippet.count" do
-      r :post, comfy_admin_cms_site_snippets_path(site_id: @site), params: {snippet: { }}
+      r :post, comfy_admin_cms_site_snippets_path(site_id: @site), params: { snippet: {} }
       assert_response :success
       assert_template :new
       assert_equal "Failed to create snippet", flash[:danger]
@@ -99,10 +99,10 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_update
-    r :put, comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: {snippet: {
+    r :put, comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: { snippet: {
       label:   "New-Snippet",
       content: "New Content"
-    }}
+    } }
     assert_response :redirect
     assert_redirected_to action: :edit, site_id: @site, id: @snippet
     assert_equal "Snippet updated", flash[:success]
@@ -112,9 +112,9 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_update_failure
-    r :put, comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: {snippet: {
+    r :put, comfy_admin_cms_site_snippet_path(site_id: @site, id: @snippet), params: { snippet: {
       identifier: ""
-    }}
+    } }
     assert_response :success
     assert_template :edit
     @snippet.reload

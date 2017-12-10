@@ -44,10 +44,10 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   def test_create
     assert_count_difference [Comfy::Cms::Translation] do
       path = comfy_admin_cms_site_page_translations_path(@site, @page)
-      r :post, path, params: {translation: {
+      r :post, path, params: { translation: {
         locale: "es",
         label:  "Test Translation"
-      }}
+      } }
       assert_response :redirect
       translation = Comfy::Cms::Translation.last
       assert_equal @page, translation.page
@@ -59,7 +59,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   def test_creation_failure
     assert_count_no_difference [Comfy::Cms::Translation] do
       path = comfy_admin_cms_site_page_translations_path(@site, @page)
-      r :post, path, params: {translation: { }}
+      r :post, path, params: { translation: {} }
       assert_response :success
       assert_template :new
       assert_equal "Failed to create translation", flash[:danger]
@@ -68,9 +68,9 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
 
   def test_update
     path = comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
-    r :put, path, params: {translation: {
+    r :put, path, params: { translation: {
       label: "Updated Translation"
-    }}
+    } }
     assert_response :redirect
     assert_redirected_to action: :edit, site_id: @site, page_id: @page, id: @translation
     assert_equal "Translation updated", flash[:success]
@@ -80,9 +80,9 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
 
   def test_update_failure
     path = comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
-    r :put, path, params: {translation: {
+    r :put, path, params: { translation: {
       locale: ""
-    }}
+    } }
     assert_response :success
     assert_template :edit
     @translation.reload

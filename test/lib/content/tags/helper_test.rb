@@ -11,7 +11,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
   def test_init_with_params
     tag = ComfortableMexicanSofa::Content::Tag::Helper.new(@page, "helper_method, param, key: val")
     assert_equal "helper_method", tag.method_name
-    assert_equal ["param", {"key" => "val"}], tag.params
+    assert_equal ["param", { "key" => "val" }], tag.params
   end
 
   def test_init_without_method_name

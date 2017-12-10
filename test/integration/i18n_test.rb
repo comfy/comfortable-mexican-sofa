@@ -17,7 +17,7 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     # collecting all locales
-    locale_keys = { }
+    locale_keys = {}
     locales.each do |locale|
       translations = YAML.load_file("#{locales_path}/#{locale}.yml")
       locale_keys[locale] = collect_combined_keys(translations[locale])

@@ -32,7 +32,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     site.pages.create!(
       label:  "default",
       layout: layout,
-      fragments_attributes: [{identifier: "content", content: "SiteBContent"}]
+      fragments_attributes: [{ identifier: "content", content: "SiteBContent" }]
     )
   end
 
@@ -79,8 +79,8 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       when "layout"
         render cms_layout: "default", cms_fragments: {
           content:    "TestText",
-          content_b:  {partial: "render_test/test" },
-          content_c:  {template: "render_test/render_layout" }
+          content_b:  { partial: "render_test/test" },
+          content_c:  { template: "render_test/render_layout" }
         }
       when "layout_with_status"
         render cms_layout: "default", status: 404

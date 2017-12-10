@@ -29,7 +29,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     )
     category.categorizations.create!(categorized: comfy_cms_pages(:child))
 
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {categories: category.label}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: { categories: category.label }
     assert_response :success
     assert assigns(:pages)
     assert_equal 1, assigns(:pages).count
@@ -37,7 +37,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_index_with_category_invalid
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {categories: "invalid"}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: { categories: "invalid" }
     assert_response :success
     assert assigns(:pages)
     assert_equal 0, assigns(:pages).count
@@ -55,13 +55,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_links_with_redactor
-    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: {source: "redactor"}
+    r :get, comfy_admin_cms_site_pages_path(site_id: @site), params: { source: "redactor" }
     assert_response :success
 
     assert_equal [
-      {"name" => "Select page...",  "url" => false},
-      {"name" => "Default Page",    "url" => "/"},
-      {"name" => ". . Child Page",  "url" => "/child-page"}
+      { "name" => "Select page...",  "url" => false },
+      { "name" => "Default Page",    "url" => "/" },
+      { "name" => ". . Child Page",  "url" => "/child-page" }
     ], JSON.parse(response.body)
   end
 
@@ -220,10 +220,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_new_with_localized_names
-    I18n.backend.store_translations(:en, comfy: {cms: {content: {
-      tag:        {localized_a: "Localized Fragment"},
-      namespace:  {localized_a: "Localized Namespace"}
-    }}})
+    I18n.backend.store_translations(:en, comfy: { cms: { content: {
+      tag:        { localized_a: "Localized Fragment" },
+      namespace:  { localized_a: "Localized Namespace" }
+    } } })
     @layout.update_column(
       :content,
       "{{cms:text localized_a, namespace: localized_a}}{{cms:text b, namespace: b}}"
@@ -234,13 +234,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[data-toggle='tab'][href='#ns-localized_a']", "Localized Namespace"
     assert_select "label", "Localized Fragment"
   ensure
-    I18n.backend.store_translations(:en, comfy: {cms: {content: {
+    I18n.backend.store_translations(:en, comfy: { cms: { content: {
       tag: nil, namespace:  nil
-    }}})
+    } } })
   end
 
   def test_get_new_as_child_page
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site), params: {parent_id: @page}
+    r :get, new_comfy_admin_cms_site_page_path(site_id: @site), params: { parent_id: @page }
     assert_response :success
     assert assigns(:page)
     assert_equal comfy_cms_pages(:default), assigns(:page).parent
@@ -351,7 +351,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation_failure
     assert_no_difference ["Comfy::Cms::Page.count", "Comfy::Cms::Fragment.count"] do
-      r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: {page: {
+      r :post, comfy_admin_cms_site_pages_path(site_id: @site), params: { page: {
         layout_id: @layout.id,
         fragments_attributes: [
           { identifier: "content",
@@ -359,7 +359,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
           { identifier: "title",
             content:    "title content" }
         ]
-      }}
+      } }
       assert_response :success
       page = assigns(:page)
 
@@ -372,9 +372,9 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_update
     assert_no_difference "Comfy::Cms::Fragment.count" do
-      r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {page: {
+      r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: { page: {
         label: "Updated Label"
-      }}
+      } }
       @page.reload
       assert_response :redirect
       assert_redirected_to action: :edit, id: @page
@@ -385,7 +385,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_update_with_layout_change
     assert_difference "Comfy::Cms::Fragment.count" do
-      r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {page: {
+      r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: { page: {
         label:      "Updated Label",
         layout_id:  comfy_cms_layouts(:nested).id,
         fragments_attributes: [
@@ -394,7 +394,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
           { identifier: "header",
             content:    "new_page_string_content" }
         ]
-      }}
+      } }
       @page.reload
       assert_response :redirect
       assert_redirected_to action: :edit, id: @page
@@ -406,9 +406,9 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update_failure
-    r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: {page: {
+    r :put, comfy_admin_cms_site_page_path(site_id: @site, id: @page), params: { page: {
       label: ""
-    }}
+    } }
     assert_response :success
     assert_template :edit
     assert assigns(:page)
@@ -543,11 +543,11 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_toggle_branch
-    r :get, toggle_branch_comfy_admin_cms_site_page_path(site_id: @site, id: @page), xhr: true, params: {format: :js}
+    r :get, toggle_branch_comfy_admin_cms_site_page_path(site_id: @site, id: @page), xhr: true, params: { format: :js }
     assert_response :success
     assert_equal [@page.id.to_s], session[:cms_page_tree]
 
-    r :get, toggle_branch_comfy_admin_cms_site_page_path(site_id: @site, id: @page), xhr: true, params: {format: :js}
+    r :get, toggle_branch_comfy_admin_cms_site_page_path(site_id: @site, id: @page), xhr: true, params: { format: :js }
     assert_response :success
     assert_equal [], session[:cms_page_tree]
   end

@@ -85,12 +85,12 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_tokenize_with_tag
-    assert_equal ["test ", {tag_class: "tag", tag_params: ""}, " text"],
+    assert_equal ["test ", { tag_class: "tag", tag_params: "" }, " text"],
       @template.tokenize("test {{cms:tag}} text")
   end
 
   def test_tokenize_with_tag_and_params
-    assert_equal ["test ", {tag_class: "tag", tag_params: "name, key:val"}, " text"],
+    assert_equal ["test ", { tag_class: "tag", tag_params: "name, key:val" }, " text"],
       @template.tokenize("test {{cms:tag name, key:val}} text")
   end
 
@@ -100,7 +100,7 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_tokenize_with_newlines
-    assert_equal [{tag_class: "test", tag_params: ""}, "\n", {tag_class: "test", tag_params: ""}],
+    assert_equal [{ tag_class: "test", tag_params: "" }, "\n", { tag_class: "test", tag_params: "" }],
       @template.tokenize("{{cms:test}}\n{{cms:test}}")
   end
 

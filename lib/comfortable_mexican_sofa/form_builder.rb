@@ -18,7 +18,7 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
       label = I18n.t("comfy.cms.content.tag.#{tag.identifier}", default: tag.identifier.titleize)
       renderable = tag.respond_to?(:renderable) ? tag.renderable : true
-      form_group label: {text: label, class: "renderable-#{renderable}"} do
+      form_group label: { text: label, class: "renderable-#{renderable}" } do
         [identifer_input, tag_name_input, tag_input].join.html_safe
       end
     end

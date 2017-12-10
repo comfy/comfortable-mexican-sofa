@@ -26,7 +26,7 @@ module ComfortableMexicanSofa::Seeds::Page
           "position"     => page.position
         }.to_yaml
 
-        data << {header: "attributes", content: attrs}
+        data << { header: "attributes", content: attrs }
         data += fragments_data(page, page_path)
 
         write_file_content(path, data)
@@ -51,7 +51,7 @@ module ComfortableMexicanSofa::Seeds::Page
           "is_published" => page.is_published
         }.to_yaml
 
-        data << {header: "attributes", content: attrs}
+        data << { header: "attributes", content: attrs }
         data += fragments_data(translation, page_path)
 
         write_file_content(path, data)
@@ -82,7 +82,7 @@ module ComfortableMexicanSofa::Seeds::Page
             frag.content
           end
 
-        {header: header, content: content}
+        { header: header, content: content }
       end
     end
 

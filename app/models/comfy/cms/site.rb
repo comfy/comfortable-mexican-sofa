@@ -20,13 +20,13 @@ class Comfy::Cms::Site < ActiveRecord::Base
   validates :identifier,
     presence:   true,
     uniqueness: true,
-    format:     {with: %r{\A\w[a-z0-9_-]*\z}i}
+    format:     { with: %r{\A\w[a-z0-9_-]*\z}i }
   validates :label,
     presence:   true
   validates :hostname,
     presence:   true,
-    uniqueness: {scope: :path},
-    format:     {with: %r{\A[\w.-]+(?:\:\d+)?\z}}
+    uniqueness: { scope: :path },
+    format:     { with: %r{\A[\w.-]+(?:\:\d+)?\z} }
 
   # -- Class Methods -----------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path

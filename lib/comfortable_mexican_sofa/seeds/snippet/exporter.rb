@@ -17,8 +17,8 @@ module ComfortableMexicanSofa::Seeds::Snippet
         }.to_yaml
 
         data = []
-        data << {header: "attributes", content: attrs}
-        data << {header: "content", content: snippet.content}
+        data << { header: "attributes", content: attrs }
+        data << { header: "content", content: snippet.content }
 
         snippet_path = File.join(path, "#{snippet.identifier}.html")
         write_file_content(snippet_path, data)

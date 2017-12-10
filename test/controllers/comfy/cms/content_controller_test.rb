@@ -23,7 +23,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_default_html
-    get comfy_cms_render_page_path(cms_path: ""), headers: {"Accept" => "*/*"}
+    get comfy_cms_render_page_path(cms_path: ""), headers: { "Accept" => "*/*" }
     assert_response :success
     assert_equal "text/html", response.content_type
   end
@@ -50,7 +50,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_as_json_with_erb
     @page.update_attributes(fragments_attributes: [
-      {identifier: "content", content: "{{ cms:helper pluralize, 2, monkey }}"}
+      { identifier: "content", content: "{{ cms:helper pluralize, 2, monkey }}" }
     ])
     get comfy_cms_render_page_path(cms_path: ""), as: :json
     assert_response :success

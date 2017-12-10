@@ -43,11 +43,11 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create
     assert_difference "Comfy::Cms::Site.count" do
-      r :post, comfy_admin_cms_sites_path, params: {site: {
+      r :post, comfy_admin_cms_sites_path, params: { site: {
         label:      "Test Site",
         identifier: "test-site",
         hostname:   "test.site.local"
-      }}
+      } }
       assert_response :redirect
       site = Comfy::Cms::Site.last
       assert_redirected_to comfy_admin_cms_site_layouts_path(site_id: site)
@@ -57,7 +57,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation_failure
     assert_no_difference "Comfy::Cms::Site.count" do
-      r :post, comfy_admin_cms_sites_path, params: {site: {}}
+      r :post, comfy_admin_cms_sites_path, params: { site: {} }
       assert_response :success
       assert_template :new
       assert_equal "Failed to create site", flash[:danger]
@@ -66,11 +66,11 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_update
     site = comfy_cms_sites(:default)
-    r :put, comfy_admin_cms_site_path(id: site), params: {site: {
+    r :put, comfy_admin_cms_site_path(id: site), params: { site: {
       label:    "New Site",
       hostname: "new.site.local",
       locale:   "es"
-    }}
+    } }
     assert_response :redirect
     assert_redirected_to action: :edit, id: site
     assert_equal "Site updated", flash[:success]
@@ -82,9 +82,9 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_update_failure
     site = comfy_cms_sites(:default)
-    r :put, comfy_admin_cms_site_path(id: site), params: {site: {
+    r :put, comfy_admin_cms_site_path(id: site), params: { site: {
       hostname: ""
-    }}
+    } }
     assert_response :success
     assert_template :edit
     site.reload

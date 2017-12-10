@@ -22,7 +22,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
 
   def test_content_tokens
     layout = Comfy::Cms::Layout.new(content: "a {{cms:text content}} b")
-    assert_equal ["a ", {tag_class: "text", tag_params: "content"}, " b"],
+    assert_equal ["a ", { tag_class: "text", tag_params: "content" }, " b"],
       layout.content_tokens
   end
 
@@ -31,8 +31,8 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
     assert_equal [
-      "a ", "c ", {tag_class: "text", tag_params: "content"}, " d", " ",
-      {tag_class: "text", tag_params: "footer"}, " b"
+      "a ", "c ", { tag_class: "text", tag_params: "content" }, " d", " ",
+      { tag_class: "text", tag_params: "footer" }, " b"
     ], layout_b.content_tokens
   end
 
@@ -41,7 +41,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
     assert_equal [
-      "a ", "c ", {tag_class: "text", tag_params: "content"}, " d", " b"
+      "a ", "c ", { tag_class: "text", tag_params: "content" }, " d", " b"
     ], layout_b.content_tokens
   end
 
@@ -50,7 +50,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
     assert_equal [
-      "c ", {tag_class: "text", tag_params: "content"}, " d"
+      "c ", { tag_class: "text", tag_params: "content" }, " d"
     ], layout_b.content_tokens
   end
 
@@ -58,7 +58,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout_a = Comfy::Cms::Layout.new(content: "a {{cms:text footer}} b")
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal ["c ", {tag_class: "text", tag_params: "content"}, " d"],
+    assert_equal ["c ", { tag_class: "text", tag_params: "content" }, " d"],
       layout_b.content_tokens
   end
 

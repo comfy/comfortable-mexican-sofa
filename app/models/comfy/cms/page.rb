@@ -30,7 +30,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     presence:   true
   validates :slug,
     presence:   true,
-    uniqueness: {scope: :parent_id},
+    uniqueness: { scope: :parent_id },
     unless:     -> (p) {
       p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
     }

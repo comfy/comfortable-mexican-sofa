@@ -22,10 +22,10 @@ module ComfortableMexicanSofa::Seeds::Layout
           "position"   => layout.position
         }.to_yaml
 
-        data << {header: "attributes",  content: attrs}
-        data << {header: "content",     content: layout.content}
-        data << {header: "js",          content: layout.js}
-        data << {header: "css",         content: layout.css}
+        data << { header: "attributes",  content: attrs }
+        data << { header: "content",     content: layout.content }
+        data << { header: "js",          content: layout.js }
+        data << { header: "css",         content: layout.css }
 
         write_file_content(path, data)
 

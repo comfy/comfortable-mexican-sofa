@@ -323,6 +323,6 @@ Layout/SpaceInsideBrackets:
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces.
 # SupportedStyles: space, no_space, compact
 # SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
+# Layout/SpaceInsideHashLiteralBraces:
+#   Enabled: false
 

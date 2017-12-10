@@ -92,7 +92,7 @@ module ComfortableMexicanSofa::RenderMethods
     cms_app_layout = @cms_layout.app_layout
     cms_page = @cms_site.pages.build(layout: @cms_layout)
     cms_fragments = options.delete(:cms_fragments) ||
-      {content: render_to_string({layout: false}.merge(options))}
+      { content: render_to_string({ layout: false }.merge(options)) }
 
     cms_fragments.each do |frag_identifier, value|
       content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s

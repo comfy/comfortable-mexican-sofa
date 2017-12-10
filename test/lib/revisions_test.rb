@@ -15,10 +15,10 @@ class RevisionsTest < ActiveSupport::TestCase
       "css"     => "revision css",
       "js"      => "revision js" }), comfy_cms_revisions(:layout).data
 
-    assert_equal ({"fragments_attributes" => [
-      {"identifier" => "content", "content" => "old content"},
-      {"identifier" => "title",   "content" => "old title"}
-    ]}), comfy_cms_revisions(:page).data
+    assert_equal ({ "fragments_attributes" => [
+      { "identifier" => "content", "content" => "old content" },
+      { "identifier" => "title",   "content" => "old title" }
+    ] }), comfy_cms_revisions(:page).data
 
     assert_equal ({
       "content" => "revision content"
@@ -214,7 +214,7 @@ class RevisionsTest < ActiveSupport::TestCase
 
       @snippet.reload
       revision = @snippet.revisions.last
-      assert_equal ({"content" => "snippet content"}), revision.data
+      assert_equal ({ "content" => "snippet content" }), revision.data
     end
   end
 end

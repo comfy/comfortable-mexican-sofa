@@ -17,7 +17,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   # -- Validations -------------------------------------------------------------
   validates :identifier,
     presence:   true,
-    uniqueness: {scope: :record}
+    uniqueness: { scope: :record }
 
   # -- Instance Methods --------------------------------------------------------
 

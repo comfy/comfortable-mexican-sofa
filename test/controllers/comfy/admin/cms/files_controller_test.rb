@@ -87,12 +87,12 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   def test_create
     models = [Comfy::Cms::File, Comfy::Cms::Categorization, ActiveStorage::Attachment]
     assert_count_difference models do
-      r :post, comfy_admin_cms_site_files_path(site_id: @site), params:{file: {
+      r :post, comfy_admin_cms_site_files_path(site_id: @site), params:{ file: {
         label:        "Test File",
         description:  "Test Description",
         file:         fixture_file_upload("files/image.jpg", "image/jpeg"),
-        category_ids: {comfy_cms_categories(:default).id => "1"}
-      }}
+        category_ids: { comfy_cms_categories(:default).id => "1" }
+      } }
       assert_response :redirect
       file = Comfy::Cms::File.last
       assert_equal comfy_cms_sites(:default), file.site
@@ -105,7 +105,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create_failure
     assert_count_no_difference Comfy::Cms::File do
-      r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {file: {}}
+      r :post, comfy_admin_cms_site_files_path(site_id: @site), params: { file: {} }
       assert_response :success
       assert_template :new
       assert_equal "Failed to upload files", flash[:danger]
@@ -189,7 +189,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       label:       "Updated File",
       description: "Updated Description",
       file:        fixture_file_upload("files/image.jpg", "image/jpeg")
-    }}
+    } }
     assert_response :redirect
     assert_redirected_to action: :edit, site_id: @site, id: @file
     assert_equal "File updated", flash[:success]

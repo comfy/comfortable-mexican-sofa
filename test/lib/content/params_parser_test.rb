@@ -58,7 +58,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
     token_groups = [[[:string, "a"], [:column, ":"], [:string, "b"]]]
     params = ComfortableMexicanSofa::Content::ParamsParser.parameterize(token_groups)
-    assert_equal [{"a" => "b"}], params
+    assert_equal [{ "a" => "b" }], params
   end
 
   def test_parameterize_with_bad_input
@@ -86,21 +86,21 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     params = []
     tokens = [[:string, "a"], [:column, ":"], [:string, "b"]]
     ComfortableMexicanSofa::Content::ParamsParser.collect_param_for_hash!(params, tokens)
-    assert_equal [{"a" => "b"}], params
+    assert_equal [{ "a" => "b" }], params
   end
 
   def test_collect_param_for_hash_with_trailing_hash
-    params = ["x", {"y" => "z"}]
+    params = ["x", { "y" => "z" }]
     tokens = [[:string, "a"], [:column, ":"], [:string, "b"]]
     ComfortableMexicanSofa::Content::ParamsParser.collect_param_for_hash!(params, tokens)
-    assert_equal ["x", {"y" => "z", "a" => "b"}], params
+    assert_equal ["x", { "y" => "z", "a" => "b" }], params
   end
 
   def test_collect_param_for_hash_with_trailing_param
-    params = ["x", {"y" => "z"}, "k"]
+    params = ["x", { "y" => "z" }, "k"]
     tokens = [[:string, "a"], [:column, ":"], [:string, "b"]]
     ComfortableMexicanSofa::Content::ParamsParser.collect_param_for_hash!(params, tokens)
-    assert_equal ["x", {"y" => "z"}, "k", {"a" => "b"}], params
+    assert_equal ["x", { "y" => "z" }, "k", { "a" => "b" }], params
   end
 
   def test_collect_param_for_hash_with_bad_input
@@ -117,9 +117,9 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     assert_equal [
       "param_a",
       "param_b",
-      {"key_a" => "val_a", "key_b" => "val_b"},
+      { "key_a" => "val_a", "key_b" => "val_b" },
       "param_c",
-      {"key_c" => "val_c"}
+      { "key_c" => "val_c" }
     ], params
   end
 end

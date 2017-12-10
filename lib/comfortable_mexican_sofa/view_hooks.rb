@@ -4,14 +4,14 @@ module ComfortableMexicanSofa::ViewHooks
 
   # Array of declared hooks
   def self.hooks
-    @hooks ||= { }
+    @hooks ||= {}
   end
 
   # Renders hook content
   def self.render(name, template, options = {})
     out = ""
     (hooks[name.to_sym] || []).each do |path|
-      out += template.render({partial: path.first}.merge(options))
+      out += template.render({ partial: path.first }.merge(options))
     end
     out.html_safe
   end

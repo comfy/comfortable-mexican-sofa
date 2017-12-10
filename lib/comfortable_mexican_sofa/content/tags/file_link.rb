@@ -56,7 +56,7 @@ protected
   def url_for(attachment)
     ApplicationController.render(
       inline: "<%= url_for(@attachment) %>",
-      assigns: {attachment: attachment}
+      assigns: { attachment: attachment }
     )
   end
 end
