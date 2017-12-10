@@ -89,8 +89,8 @@ module ComfortableMexicanSofa::Seeds::Page
       seed_ids << page.id
 
       # importing child pages (if there are any)
-      Dir["#{path}*/"].each do |path|
-        import_page(path, page)
+      Dir["#{path}*/"].each do |page_path|
+        import_page(page_path, page)
       end
     end
 

@@ -416,26 +416,6 @@ Lint/IneffectiveAccessModifier:
     - 'app/models/comfy/cms/site.rb'
 
 # Offense count: 3
-Lint/NestedMethodDefinition:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/render_methods.rb'
-
-# Offense count: 1
-Lint/RescueWithoutErrorClass:
-  Exclude:
-    - 'test/test_helper.rb'
-
-# Offense count: 5
-Lint/ShadowingOuterLocalVariable:
-  Exclude:
-    - 'app/models/comfy/cms/site.rb'
-    - 'lib/comfortable_mexican_sofa/render_methods.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/layout/importer.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/page/importer.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'lib/tasks/cms_seeds.rake'
+# Lint/NestedMethodDefinition:
+#   Exclude:
+#     - 'lib/comfortable_mexican_sofa/render_methods.rb'

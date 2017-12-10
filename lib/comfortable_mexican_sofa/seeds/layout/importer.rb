@@ -7,8 +7,8 @@ module ComfortableMexicanSofa::Seeds::Layout
     end
 
     def import!(path = self.path, parent = nil)
-      Dir["#{path}*/"].each do |path|
-        import_layout(path, parent)
+      Dir["#{path}*/"].each do |layout_path|
+        import_layout(layout_path, parent)
       end
 
       # cleaning up
@@ -50,9 +50,9 @@ module ComfortableMexicanSofa::Seeds::Layout
 
       seed_ids << layout.id
 
-      # importing child pages (if there are any)
-      Dir["#{path}*/"].each do |path|
-        import_layout(path, layout)
+      # importing child layouts (if there are any)
+      Dir["#{path}*/"].each do |layout_path|
+        import_layout(layout_path, layout)
       end
     end
   end

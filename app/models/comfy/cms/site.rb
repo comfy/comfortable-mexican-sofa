@@ -61,8 +61,8 @@ protected
 
   def self.real_host_from_aliases(host)
     if aliases = ComfortableMexicanSofa.config.hostname_aliases
-      aliases.each do |alias_host, aliases|
-        return alias_host if aliases.include?(host)
+      aliases.each do |alias_host, hosts|
+        return alias_host if hosts.include?(host)
       end
     end
     host

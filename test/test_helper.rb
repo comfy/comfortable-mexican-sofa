@@ -75,7 +75,7 @@ class ActiveSupport::TestCase
   def assert_exception_raised(exception_class = nil, error_message = nil)
     exception_raised = nil
     yield
-  rescue => exception_raised
+  rescue StandardError => exception_raised
   ensure
     if exception_raised
       if exception_class

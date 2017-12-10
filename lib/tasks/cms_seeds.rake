@@ -3,7 +3,7 @@ namespace :comfy do
 
     desc "Import CMS Seed data into database (from: folder name, to: site identifier)"
 
-    task :import, %i[from to] => [:environment] do |t, args|
+    task :import, %i[from to] => [:environment] do |_t, args|
       from  = args[:from]
       to    = args[:to] || from
 
@@ -19,7 +19,7 @@ namespace :comfy do
     end
 
     desc "Export database data into CMS Seed files (from: site identifier, to: folder name)"
-    task :export, %i[from to] => [:environment] do |t, args|
+    task :export, %i[from to] => [:environment] do |_t, args|
       from  = args[:from]
       to    = args[:to] || from
 
