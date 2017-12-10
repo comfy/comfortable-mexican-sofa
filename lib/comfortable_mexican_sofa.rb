@@ -26,7 +26,7 @@ require_relative "comfortable_mexican_sofa/seeds/file/exporter"
 require_relative "comfortable_mexican_sofa/extensions/acts_as_tree"
 require_relative "comfortable_mexican_sofa/extensions/has_revisions"
 
-require_relative  "comfortable_mexican_sofa/content"
+require_relative "comfortable_mexican_sofa/content"
 
 module ComfortableMexicanSofa
   class << self

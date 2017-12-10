@@ -38,7 +38,7 @@ class ContentTagsFilesTest < ActiveSupport::TestCase
     frag.update_attribute(:tag, "files")
     frag.update_attribute(:files, fixture_file_upload("files/image.jpg", "image/jpeg"))
     tag = ComfortableMexicanSofa::Content::Tag::Files.new(@page, frag.identifier)
-    out = frag.attachments.map{ |a| url_for(a) }.join(" ")
+    out = frag.attachments.map { |a| url_for(a) }.join(" ")
     assert_equal out, tag.content
   end
 

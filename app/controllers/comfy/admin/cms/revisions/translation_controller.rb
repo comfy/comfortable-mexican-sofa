@@ -5,7 +5,7 @@ class Comfy::Admin::Cms::Revisions::TranslationController < Comfy::Admin::Cms::R
       c[b.identifier] = b.content
     end
     @versioned_content = @record.fragments.each_with_object({}) do |b, c|
-      d = @revision.data["fragments_attributes"].detect{ |r| r[:identifier] == b.identifier }
+      d = @revision.data["fragments_attributes"].detect { |r| r[:identifier] == b.identifier }
       c[b.identifier] = d.try(:[], :content)
     end
 

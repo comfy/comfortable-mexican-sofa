@@ -280,29 +280,5 @@ Layout/SpaceAroundOperators:
 # Configuration parameters: EnforcedStyle, SupportedStyles, SupportedStylesForEmptyBraces.
 # SupportedStyles: space, no_space
 # SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceBeforeBlockBraces:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceBeforeFirstArg:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: require_no_space, require_space
-Layout/SpaceInLambdaLiteral:
-  Exclude:
-    - 'app/models/comfy/cms/page.rb'
-    - 'app/models/concerns/comfy/cms/with_categories.rb'
-
-# Offense count: 110
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-# Layout/SpaceInsideBlockBraces:
+# Layout/SpaceBeforeBlockBraces:
 #   Enabled: false

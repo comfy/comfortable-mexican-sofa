@@ -95,14 +95,14 @@ class ActiveSupport::TestCase
   end
 
   def assert_count_difference(models, number = 1)
-    counts = [models].flatten.map{ |m| "#{m}.count" }
+    counts = [models].flatten.map { |m| "#{m}.count" }
     assert_difference counts, number do
       yield
     end
   end
 
   def assert_count_no_difference(*models)
-    counts = [models].flatten.map{ |m| "#{m}.count" }
+    counts = [models].flatten.map { |m| "#{m}.count" }
     assert_no_difference counts do
       yield
     end

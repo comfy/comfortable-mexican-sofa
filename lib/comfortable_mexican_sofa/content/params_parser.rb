@@ -53,7 +53,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
       token[0] == :comma
     end
     slices.map do |expression|
-      expression.reject{ |t| t[0] == :comma }
+      expression.reject { |t| t[0] == :comma }
     end
   end
 

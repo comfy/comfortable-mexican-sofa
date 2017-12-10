@@ -14,7 +14,7 @@ module Comfy::Cms::WithCategories
 
     after_save :sync_categories
 
-    scope :for_category, -> (*categories) {
+    scope :for_category, ->(*categories) {
       if (categories = [categories].flatten.compact).present?
         distinct.
           joins(categorizations: :category).

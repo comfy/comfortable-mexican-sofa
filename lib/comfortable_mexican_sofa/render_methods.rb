@@ -71,7 +71,7 @@ module ComfortableMexicanSofa::RenderMethods
     if (cms_fragments = options.delete(:cms_fragments)).present?
       cms_fragments.each do |identifier, value|
         content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s
-        page_fragment = @cms_page.fragments.detect{ |f| f.identifier == identifier.to_s } ||
+        page_fragment = @cms_page.fragments.detect { |f| f.identifier == identifier.to_s } ||
                         @cms_page.fragments.build(identifier: identifier.to_s)
         page_fragment.content = content
       end

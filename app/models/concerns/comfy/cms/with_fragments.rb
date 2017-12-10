@@ -40,7 +40,7 @@ module Comfy::Cms::WithFragments
       identifier = frag_attrs.delete(:identifier)
 
       fragment =
-        fragments.detect{ |f| f.identifier == identifier } ||
+        fragments.detect { |f| f.identifier == identifier } ||
         fragments.build(identifier: identifier)
 
       fragment.attributes = frag_attrs
@@ -75,7 +75,7 @@ module Comfy::Cms::WithFragments
   # duplicate tags on the layout. That's wierd (but still works).
   def fragment_nodes
     nodes
-      .select{ |n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment) }
+      .select { |n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment) }
       .uniq(&:identifier)
   end
 

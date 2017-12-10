@@ -7,7 +7,7 @@ module Comfy
     #   cms_fragment_content(:left_column, CmsPage.first)
     #   cms_fragment_content(:left_column) # if @cms_page is present
     def cms_fragment_content(identifier, page = @cms_page)
-      frag = page && page.fragments.detect{ |f| f.identifier == identifier.to_s }
+      frag = page && page.fragments.detect { |f| f.identifier == identifier.to_s }
       return "" unless frag
       case frag.tag
       when "date", "datetime"
@@ -25,7 +25,7 @@ module Comfy
     # it only if you know you got more stuff in the fragment content other than
     # text because this is a potentially expensive call.
     def cms_fragment_render(identifier, page = @cms_page)
-      node = page.fragment_nodes.detect{ |n| n.identifier == identifier.to_s }
+      node = page.fragment_nodes.detect { |n| n.identifier == identifier.to_s }
       return "" unless node
       render inline: page.render([node])
     end
