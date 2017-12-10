@@ -35,7 +35,7 @@ class Comfy::Cms::File < ActiveRecord::Base
   def label
     l = read_attribute(:label)
     return l if l.present?
-    attachment.attached?? attachment.filename.to_s : nil
+    attachment.attached? ? attachment.filename.to_s : nil
   end
 
 protected

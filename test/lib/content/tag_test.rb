@@ -28,7 +28,7 @@ class ContentTagTest < ActiveSupport::TestCase
 
   def test_init_with_params
     tag = TestTag.new(nil, "param_a, key: value")
-    assert_equal ["param_a", { "key"=>"value" }], tag.params
+    assert_equal ["param_a", { "key" => "value" }], tag.params
   end
 
   def test_nodes

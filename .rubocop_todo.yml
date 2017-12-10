@@ -272,13 +272,6 @@ Layout/SpaceAfterColon:
 # Offense count: 24
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
-Layout/SpaceAroundOperators:
-  Enabled: false
-
-# Offense count: 37
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, SupportedStylesForEmptyBraces.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-# Layout/SpaceBeforeBlockBraces:
+# Layout/SpaceAroundOperators:
 #   Enabled: false
+

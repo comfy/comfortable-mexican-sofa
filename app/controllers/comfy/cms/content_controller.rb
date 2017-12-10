@@ -47,7 +47,7 @@ protected
 
   def app_layout
     return false if request.xhr? || !@cms_layout
-    @cms_layout.app_layout.present?? @cms_layout.app_layout : false
+    @cms_layout.app_layout.present? ? @cms_layout.app_layout : false
   end
 
   def load_seeds

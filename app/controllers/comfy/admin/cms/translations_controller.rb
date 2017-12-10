@@ -79,7 +79,7 @@ private
 
   def preview_translation
     if params[:preview]
-      layout = @translation.layout.app_layout.blank?? false : @translation.layout.app_layout
+      layout = @translation.layout.app_layout.blank? ? false : @translation.layout.app_layout
       @cms_site   = @page.site
       @cms_layout = @translation.layout
       @cms_page   = @page

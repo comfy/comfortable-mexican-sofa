@@ -69,7 +69,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
 protected
 
   def assign_identifier
-    self.identifier = identifier.blank?? hostname.try(:parameterize) : identifier
+    self.identifier = identifier.blank? ? hostname.try(:parameterize) : identifier
   end
 
   def assign_hostname
@@ -77,7 +77,7 @@ protected
   end
 
   def assign_label
-    self.label = label.blank?? identifier.try(:titleize) : label
+    self.label = label.blank? ? identifier.try(:titleize) : label
   end
 
   def clean_path

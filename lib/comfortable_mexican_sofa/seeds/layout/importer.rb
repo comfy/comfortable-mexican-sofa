@@ -18,7 +18,7 @@ module ComfortableMexicanSofa::Seeds::Layout
   private
 
     def import_layout(path, parent)
-      identifier =  path.split("/").last
+      identifier = path.split("/").last
 
       # reading file content in, resulting in a hash
       content_path = File.join(path, "content.html")

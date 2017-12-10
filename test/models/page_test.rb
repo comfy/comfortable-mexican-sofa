@@ -211,7 +211,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_update_with_date
     frag = comfy_cms_fragments(:datetime)
     string = "2020-01-01"
-    date    = DateTime.parse(string)
+    date = DateTime.parse(string)
     assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
       @page.update_attributes!(fragments_attributes: [{
         identifier: frag.identifier,

@@ -103,7 +103,7 @@ class RevisionsTest < ActiveSupport::TestCase
   end
 
   def test_creation_for_snippet
-    old_attributes  = @snippet.attributes.slice("content")
+    old_attributes = @snippet.attributes.slice("content")
 
     assert_difference -> { @snippet.revisions.count } do
       @snippet.update_attributes(content: "new content")

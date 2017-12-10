@@ -25,7 +25,7 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
 protected
 
   def assign_label
-    self.label = label.blank?? identifier.try(:titleize) : label
+    self.label = label.blank? ? identifier.try(:titleize) : label
   end
 
   # When snippet is changed or removed we need to blow away all page caches as

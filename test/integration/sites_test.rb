@@ -33,7 +33,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     site_c = Comfy::Cms::Site.create!(identifier: "site-c", hostname: "test.host", path: "path-c/child")
 
     [site_a, site_b, site_c].each do |site|
-      layout  = site.layouts.create!(identifier: "test")
+      layout = site.layouts.create!(identifier: "test")
       site.pages.create!(label: "index", layout: layout)
       site.pages.create!(label: "404", slug: "404", layout: layout)
     end
@@ -66,7 +66,7 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     site_b = Comfy::Cms::Site.create!(identifier: "site-b", hostname: "test.host")
 
     [site_a, site_b].each do |site|
-      layout  = site.layouts.create!(identifier: "test")
+      layout = site.layouts.create!(identifier: "test")
       site.pages.create!(label: "index", layout: layout)
       site.pages.create!(label: "404", slug: "404", layout: layout)
     end

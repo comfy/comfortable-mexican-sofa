@@ -30,7 +30,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
   def label
-    @file.label.present?? @file.label : @file.attachment.filename
+    @file.label.present? ? @file.label : @file.attachment.filename
   end
 
   def content

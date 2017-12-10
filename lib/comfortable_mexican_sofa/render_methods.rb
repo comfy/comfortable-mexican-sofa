@@ -77,7 +77,7 @@ module ComfortableMexicanSofa::RenderMethods
       end
     end
     cms_app_layout = @cms_layout.app_layout
-    options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+    options[:layout] ||= cms_app_layout.blank? ? nil : cms_app_layout
     options[:inline] = @cms_page.render
 
     render(options, locals, &block)
@@ -98,7 +98,7 @@ module ComfortableMexicanSofa::RenderMethods
       content = value.is_a?(Hash) ? render_to_string(value.merge(layout: false)) : value.to_s
       cms_page.fragments.build(identifier: frag_identifier.to_s, content: content)
     end
-    options[:layout] ||= cms_app_layout.blank?? nil : cms_app_layout
+    options[:layout] ||= cms_app_layout.blank? ? nil : cms_app_layout
     options[:inline] = cms_page.render
 
     render(options, locals, &block)

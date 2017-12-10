@@ -47,7 +47,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     out = []
 
     unless current_page == page
-      out << ["#{spacer*depth}#{current_page.label}", current_page.id]
+      out << ["#{spacer * depth}#{current_page.label}", current_page.id]
     end
 
     if current_page.children_count.nonzero?
@@ -75,7 +75,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    parent_id.blank?? "index" : full_path[1..-1].parameterize
+    parent_id.blank? ? "index" : full_path[1..-1].parameterize
   end
 
   # Full url for a page
@@ -103,7 +103,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 protected
 
   def assigns_label
-    self.label = label.blank?? slug.try(:titleize) : label
+    self.label = label.blank? ? slug.try(:titleize) : label
   end
 
   def assign_parent

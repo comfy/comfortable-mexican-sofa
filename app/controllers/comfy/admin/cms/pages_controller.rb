@@ -127,7 +127,7 @@ protected
 
   def preview_page
     if params[:preview]
-      layout = @page.layout.app_layout.blank?? false : @page.layout.app_layout
+      layout = @page.layout.app_layout.blank? ? false : @page.layout.app_layout
       @cms_site   = @page.site
       @cms_layout = @page.layout
       @cms_page   = @page
