@@ -44,5 +44,4 @@ class ContentTagTest < ActiveSupport::TestCase
     assert nodes[1].is_a?(ContentTagTest::TestTag)
     assert_equal " content", nodes[2]
   end
-
 end

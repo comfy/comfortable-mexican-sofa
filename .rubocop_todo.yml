@@ -326,33 +326,3 @@ Layout/SpaceInsideBrackets:
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'lib/comfortable_mexican_sofa/error.rb'
-
-# Offense count: 10
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - 'test/controllers/comfy/admin/cms/pages_controller_test.rb'
-    - 'test/lib/seeds/files_test.rb'
-    - 'test/lib/seeds/pages_test.rb'
-    - 'test/lib/seeds/snippets_test.rb'
-    - 'test/models/layout_test.rb'
-    - 'test/models/page_test.rb'
-
-# Offense count: 1
-Lint/AmbiguousOperator:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/base_controller.rb'
-
-

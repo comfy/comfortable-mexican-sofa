@@ -35,5 +35,4 @@ class CmsCategoryTest < ActiveSupport::TestCase
     assert_equal 1, Comfy::Cms::Category.of_type("Comfy::Cms::File").count
     assert_equal 0, Comfy::Cms::Category.of_type("Invalid").count
   end
-
 end

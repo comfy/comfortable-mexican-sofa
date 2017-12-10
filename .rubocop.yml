@@ -47,7 +47,6 @@ Style/StringLiterals:
 
 Style/RegexpLiteral:
   EnforcedStyle: percent_r
-#   AllowInnerSlashes: true
 
 Style/Lambda:
   EnforcedStyle: literal

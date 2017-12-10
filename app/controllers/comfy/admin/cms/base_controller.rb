@@ -6,7 +6,7 @@ class Comfy::Admin::Cms::BaseController < Comfy::Admin::BaseController
                 except: :jump
 
   if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
-    cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper
+    cache_sweeper(*ComfortableMexicanSofa.config.admin_cache_sweeper)
   end
 
   def jump
