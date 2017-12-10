@@ -91,14 +91,16 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_create
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      page = @site.pages.create!(new_params(
-        parent: @page,
-        fragments_attributes: [
-          { identifier: "content",
-            tag:        "text",
-            content:    "test" }
-        ]
-      ))
+      page = @site.pages.create!(
+        new_params(
+          parent: @page,
+          fragments_attributes: [
+            { identifier: "content",
+              tag:        "text",
+              content:    "test" }
+          ]
+        )
+      )
       assert page.is_published?
       assert_equal 1, page.position
     end
@@ -106,14 +108,16 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_create_with_file
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment, ActiveStorage::Attachment] do
-      page = @site.pages.create!(new_params(
-        parent: @page,
-        fragments_attributes: [{
-          identifier: "test",
-          tag:        "file",
-          files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
-        }]
-      ))
+      page = @site.pages.create!(
+        new_params(
+          parent: @page,
+          fragments_attributes: [{
+            identifier: "test",
+            tag:        "file",
+            files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
+          }]
+        )
+      )
       assert_equal 1, page.fragments.count
       assert page.fragments.first.attachments.attached?
     end
@@ -122,17 +126,19 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_create_with_files
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
       assert_count_difference [ActiveStorage::Attachment], 2 do
-        page = @site.pages.create!(new_params(
-          parent: @page,
-          fragments_attributes: [{
-            identifier: "test",
-            tag:        "files",
-            files:      [
-              fixture_file_upload("files/image.jpg", "image/jpeg"),
-              fixture_file_upload("files/document.pdf", "application/pdf")
-            ]
-          }]
-        ))
+        page = @site.pages.create!(
+          new_params(
+            parent: @page,
+            fragments_attributes: [{
+              identifier: "test",
+              tag:        "files",
+              files:      [
+                fixture_file_upload("files/image.jpg", "image/jpeg"),
+                fixture_file_upload("files/document.pdf", "application/pdf")
+              ]
+            }]
+          )
+        )
         assert_equal 1, page.fragments.count
         assert page.fragments.first.attachments.attached?
       end
@@ -143,14 +149,16 @@ class CmsPageTest < ActiveSupport::TestCase
     string = "1981-10-04 12:34:56"
     datetime = DateTime.parse(string)
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      page = @site.pages.create!(new_params(
-        parent: @page,
-        fragments_attributes: [{
-          identifier: "test",
-          tag:        "date_time",
-          datetime:   string
-        }]
-      ))
+      page = @site.pages.create!(
+        new_params(
+          parent: @page,
+          fragments_attributes: [{
+            identifier: "test",
+            tag:        "date_time",
+            datetime:   string
+          }]
+        )
+      )
       frag = page.fragments.first
       assert_equal datetime, frag.datetime
     end
@@ -158,14 +166,16 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_create_with_boolean
     assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      page = @site.pages.create!(new_params(
-        parent: @page,
-        fragments_attributes: [{
-          identifier: "test",
-          tag:        "checkbox",
-          boolean:    "1"
-        }]
-      ))
+      page = @site.pages.create!(
+        new_params(
+          parent: @page,
+          fragments_attributes: [{
+            identifier: "test",
+            tag:        "checkbox",
+            boolean:    "1"
+          }]
+        )
+      )
       frag = page.fragments.first
       assert frag.boolean
     end

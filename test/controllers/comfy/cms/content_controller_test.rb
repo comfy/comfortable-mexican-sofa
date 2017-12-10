@@ -56,7 +56,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     json_response = JSON.parse(response.body)
-    assert_equal "2 monkeys",  json_response["content"]
+    assert_equal "2 monkeys", json_response["content"]
   end
 
   def test_show_with_custom_mimetype

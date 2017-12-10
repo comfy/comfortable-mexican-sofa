@@ -10,4 +10,5 @@ module Comfy::Paginate
       scope
     end
   end
+
 end

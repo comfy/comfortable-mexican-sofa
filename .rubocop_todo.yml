@@ -135,58 +135,15 @@ Layout/EmptyLinesAroundMethodBody:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'app/controllers/concerns/comfy/paginate.rb'
-    - 'app/helpers/comfy/admin/cms_helper.rb'
-    - 'app/helpers/comfy/cms_helper.rb'
-    - 'lib/comfortable_mexican_sofa/content/params_parser.rb'
-    - 'lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb'
-    - 'lib/comfortable_mexican_sofa/extensions/has_revisions.rb'
-    - 'lib/comfortable_mexican_sofa/render_methods.rb'
-    - 'lib/comfortable_mexican_sofa/seeds.rb'
-    - 'lib/comfortable_mexican_sofa/view_hooks.rb'
-
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/pages_controller.rb'
-    - 'config.ru'
-    - 'db/migrate/01_create_cms.rb'
-    - 'lib/comfortable_mexican_sofa.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/layout/importer.rb'
-    - 'script/rails'
-    - 'test/controllers/comfy/cms/content_controller_test.rb'
-    - 'test/integration/sites_test.rb'
-    - 'test/lib/revisions_test.rb'
-    - 'test/lib/seeds/files_test.rb'
-    - 'test/models/page_test.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: consistent, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstParameterIndentation:
-  Exclude:
-    - 'test/models/page_test.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentArray:
-  EnforcedStyle: consistent
-
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-# Layout/IndentHash:
+# Layout/EmptyLinesAroundModuleBody:
 #   Exclude:
-#     - 'test/controllers/comfy/admin/cms/pages_controller_test.rb'
-#     - 'test/controllers/comfy/admin/cms/translations_controller_test.rb'
-#     - 'test/models/categorization_test.rb'
-#     - 'test/models/page_test.rb'
+#     - 'app/controllers/concerns/comfy/paginate.rb'
+#     - 'app/helpers/comfy/admin/cms_helper.rb'
+#     - 'app/helpers/comfy/cms_helper.rb'
+#     - 'lib/comfortable_mexican_sofa/content/params_parser.rb'
+#     - 'lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb'
+#     - 'lib/comfortable_mexican_sofa/extensions/has_revisions.rb'
+#     - 'lib/comfortable_mexican_sofa/render_methods.rb'
+#     - 'lib/comfortable_mexican_sofa/seeds.rb'
+#     - 'lib/comfortable_mexican_sofa/view_hooks.rb'
 

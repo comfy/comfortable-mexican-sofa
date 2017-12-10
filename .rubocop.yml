@@ -51,6 +51,12 @@ Layout/MultilineMethodCallIndentation:
 Layout/MultilineHashBraceLayout:
   Enabled: false
 
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines_except_namespace
+
 # -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
