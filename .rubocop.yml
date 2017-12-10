@@ -45,6 +45,12 @@ Metrics/AbcSize:
 Layout/MultilineOperationIndentation:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineHashBraceLayout:
+  Enabled: false
+
 # -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes

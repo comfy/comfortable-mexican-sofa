@@ -11,7 +11,8 @@ module ComfortableMexicanSofa::ActsAsTree
         order:          nil,
         counter_cache:  nil,
         dependent:      :destroy,
-        touch:          false }
+        touch:          false
+      }
       configuration.update(options) if options.is_a?(Hash)
 
       belongs_to :parent,

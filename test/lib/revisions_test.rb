@@ -91,7 +91,8 @@ class RevisionsTest < ActiveSupport::TestCase
             tag:        "text",
             content:    "content",
             datetime:   nil,
-            boolean:    false }]
+            boolean:    false }
+        ]
       }), revision.data
     end
   end

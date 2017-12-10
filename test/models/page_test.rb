@@ -174,10 +174,10 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_update
     frag = comfy_cms_fragments(:default)
     assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      @page.update_attributes!(fragments_attributes: [{
-        identifier: frag.identifier,
-        content:    "updated content"
-      }])
+      @page.update_attributes!(fragments_attributes: [
+        { identifier: frag.identifier,
+          content:    "updated content" }
+      ])
     end
     frag.reload
     assert_equal "updated content", frag.content
@@ -213,10 +213,10 @@ class CmsPageTest < ActiveSupport::TestCase
     string = "2020-01-01"
     date = DateTime.parse(string)
     assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      @page.update_attributes!(fragments_attributes: [{
-        identifier: frag.identifier,
-        datetime:   string
-      }])
+      @page.update_attributes!(fragments_attributes: [
+        { identifier: frag.identifier,
+          datetime:   string }
+      ])
     end
     frag.reload
     assert_equal date, frag.datetime
@@ -226,10 +226,10 @@ class CmsPageTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:boolean)
     assert frag.boolean
     assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      @page.update_attributes!(fragments_attributes: [{
-        identifier: frag.identifier,
-        boolean:    "0"
-      }])
+      @page.update_attributes!(fragments_attributes: [
+        { identifier: frag.identifier,
+          boolean:    "0" }
+      ])
     end
     frag.reload
     refute frag.boolean

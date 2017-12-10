@@ -183,70 +183,10 @@ Layout/IndentArray:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
-  Exclude:
-    - 'test/controllers/comfy/admin/cms/pages_controller_test.rb'
-    - 'test/controllers/comfy/admin/cms/translations_controller_test.rb'
-    - 'test/models/categorization_test.rb'
-    - 'test/models/page_test.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: normal, rails
-Layout/IndentationConsistency:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/files_controller.rb'
-    - 'test/controllers/comfy/admin/cms/revisions/snippet_controller_test.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/pages_controller.rb'
-    - 'app/controllers/comfy/cms/base_controller.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/file.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/files.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/page/importer.rb'
-    - 'test/controllers/comfy/admin/cms/revisions/snippet_controller_test.rb'
-    - 'test/integration/seeds_test.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineArrayBraceLayout:
-  Exclude:
-    - 'test/lib/revisions_test.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'lib/comfortable_mexican_sofa/extensions/acts_as_tree.rb'
-    - 'test/controllers/comfy/admin/cms/pages_controller_test.rb'
-    - 'test/lib/revisions_test.rb'
-    - 'test/models/page_test.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'test/integration/render_cms_test.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented, indented_relative_to_receiver
-Layout/MultilineMethodCallIndentation:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/files_controller.rb'
-    - 'app/controllers/comfy/cms/assets_controller.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/file/importer.rb'
-
+# Layout/IndentHash:
+#   Exclude:
+#     - 'test/controllers/comfy/admin/cms/pages_controller_test.rb'
+#     - 'test/controllers/comfy/admin/cms/translations_controller_test.rb'
+#     - 'test/models/categorization_test.rb'
+#     - 'test/models/page_test.rb'
 

@@ -51,7 +51,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       ids = @site.categories.of_type("Comfy::Cms::File")
         .where(label: params[:category])
         .each_with_object({}) { |c, h| h[c.id] = 1 }
-        @file.category_ids = ids
+      @file.category_ids = ids
     end
 
     # Automatically tagging upload if it's done through redactor
