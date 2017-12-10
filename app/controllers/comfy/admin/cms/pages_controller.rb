@@ -13,11 +13,12 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
     @pages_by_parent = pages_grouped_by_parent
 
-    @pages = if params[:categories].present?
-      @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
-    else
-      [@site.pages.root].compact
-    end
+    @pages =
+      if params[:categories].present?
+        @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
+      else
+        [@site.pages.root].compact
+      end
   end
 
   def new
@@ -64,7 +65,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     id  = @page.id.to_s
     s.member?(id) ? s.delete(id) : s << id
   rescue ActiveRecord::RecordNotFound
-    # do nothing
+    render nothing: true
   end
 
   def reorder

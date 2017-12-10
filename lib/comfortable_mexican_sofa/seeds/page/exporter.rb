@@ -65,21 +65,23 @@ module ComfortableMexicanSofa::Seeds::Page
     def fragments_data(record, page_path)
       record.fragments.collect do |frag|
         header = "#{frag.tag} #{frag.identifier}"
-        content = case frag.tag
-        when "datetime", "date"
-          frag.datetime
-        when "checkbox"
-          frag.boolean
-        when "file", "files"
-          frag.attachments.map do |attachment|
-            ::File.open(::File.join(page_path, attachment.filename.to_s), "wb") do |f|
-              f.write(attachment.download)
-            end
-            attachment.filename
-          end.join("\n")
-        else
-          frag.content
-        end
+        content =
+          case frag.tag
+          when "datetime", "date"
+            frag.datetime
+          when "checkbox"
+            frag.boolean
+          when "file", "files"
+            frag.attachments.map do |attachment|
+              ::File.open(::File.join(page_path, attachment.filename.to_s), "wb") do |f|
+                f.write(attachment.download)
+              end
+              attachment.filename
+            end.join("\n")
+          else
+            frag.content
+          end
+
         {header: header, content: content}
       end
     end

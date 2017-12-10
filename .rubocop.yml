@@ -46,8 +46,8 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/RegexpLiteral:
-  EnforcedStyle: slashes
-  AllowInnerSlashes: true
+  EnforcedStyle: percent_r
+#   AllowInnerSlashes: true
 
 Style/Lambda:
   EnforcedStyle: literal

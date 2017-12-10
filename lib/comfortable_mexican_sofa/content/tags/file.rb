@@ -40,16 +40,17 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     name    = "#{object_name}[fragments_attributes][#{index}][files]"
     input   = view.send(:file_field_tag, name, id: nil)
 
-    attachments_partial = if fragment.attachments
-      view.render(
-        partial: "comfy/admin/cms/pages/fragment_attachments",
-        locals: {
-          object_name:  object_name,
-          index:        index,
-          attachments:  fragment.attachments
-        }
-      )
-    end
+    attachments_partial =
+      if fragment.attachments
+        view.render(
+          partial: "comfy/admin/cms/pages/fragment_attachments",
+          locals: {
+            object_name:  object_name,
+            index:        index,
+            attachments:  fragment.attachments
+          }
+        )
+      end
 
     yield [input, attachments_partial].join.html_safe
   end

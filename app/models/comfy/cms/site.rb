@@ -20,13 +20,13 @@ class Comfy::Cms::Site < ActiveRecord::Base
   validates :identifier,
     presence:   true,
     uniqueness: true,
-    format:     {with: /\A\w[a-z0-9_-]*\z/i}
+    format:     {with: %r{\A\w[a-z0-9_-]*\z}i}
   validates :label,
     presence:   true
   validates :hostname,
     presence:   true,
     uniqueness: {scope: :path},
-    format:     {with: /\A[\w\.\-]+(?:\:\d+)?\z/}
+    format:     {with: %r{\A[\w.-]+(?:\:\d+)?\z}}
 
   # -- Class Methods -----------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path
@@ -36,17 +36,26 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
 
     public_cms_path = ComfortableMexicanSofa.configuration.public_cms_path
-    path.gsub!(/\A#{public_cms_path}/, "") unless path.nil? || public_cms_path == "/"
+    path.gsub!(%r{\A#{public_cms_path}}, "") unless path.nil? || public_cms_path == "/"
 
     Comfy::Cms::Site.where(hostname: real_host_from_aliases(host)).each do |site|
       if site.path.blank?
         cms_site = site
-      elsif "#{path.to_s.split('?')[0]}/" =~ /^\/#{Regexp.escape(site.path.to_s)}\//
+      elsif "#{path.to_s.split('?')[0]}/" =~ %r{^/#{Regexp.escape(site.path.to_s)}/}
         cms_site = site
         break
       end
     end
     cms_site
+  end
+
+  def self.real_host_from_aliases(host)
+    if (aliases = ComfortableMexicanSofa.config.hostname_aliases)
+      aliases.each do |alias_host, hosts|
+        return alias_host if hosts.include?(host)
+      end
+    end
+    host
   end
 
   # -- Instance Methods --------------------------------------------------------
@@ -58,15 +67,6 @@ class Comfy::Cms::Site < ActiveRecord::Base
   end
 
 protected
-
-  def self.real_host_from_aliases(host)
-    if aliases = ComfortableMexicanSofa.config.hostname_aliases
-      aliases.each do |alias_host, hosts|
-        return alias_host if hosts.include?(host)
-      end
-    end
-    host
-  end
 
   def assign_identifier
     self.identifier = identifier.blank?? hostname.try(:parameterize) : identifier
@@ -83,7 +83,7 @@ protected
   def clean_path
     self.path ||= ""
     self.path.squeeze!("/")
-    self.path.gsub!(/\/$/, "")
+    self.path.gsub!(%r{/$}, "")
     self.path = nil if self.path.blank?
   end
 end

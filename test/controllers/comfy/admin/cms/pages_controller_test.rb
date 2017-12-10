@@ -470,7 +470,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
         }
       }
       assert_response :success
-      assert_match /preview content/, response.body
+      assert_match %r{preview content}, response.body
       assert_equal "text/html", response.content_type
 
       assert_equal @site, assigns(:cms_site)
@@ -493,7 +493,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
         }
       }
       assert_response :success
-      assert_match /preview content/, response.body
+      assert_match %r{preview content}, response.body
       @page.reload
       assert_not_equal "Updated Label", @page.label
 

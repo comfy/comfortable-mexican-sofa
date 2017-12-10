@@ -18,7 +18,7 @@ class ComfortableMexicanSofa::Content::Renderer
   MAX_DEPTH = 100
 
   # tags are in this format: {{ cms:tag_class params }}
-  TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
+  TAG_REGEX = %r{\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}}
 
   class << self
 
@@ -67,7 +67,7 @@ class ComfortableMexicanSofa::Content::Renderer
   def tokenize(string)
     tokens = []
     ss = StringScanner.new(string.to_s)
-    while string = ss.scan_until(TAG_REGEX)
+    while (string = ss.scan_until(TAG_REGEX))
       text = string.sub(ss[0], "")
       tokens << text unless text.empty?
       tokens << {tag_class: ss[:class], tag_params: ss[:params].strip}
@@ -97,7 +97,7 @@ class ComfortableMexicanSofa::Content::Renderer
           nodes.pop
 
         else
-          unless klass = self.class.tags[tag_class]
+          unless (klass = self.class.tags[tag_class])
             raise SyntaxError, "Unrecognized tag #{tag_class}: #{token}"
           end
 

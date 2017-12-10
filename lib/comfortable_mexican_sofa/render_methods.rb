@@ -39,8 +39,8 @@ module ComfortableMexicanSofa::RenderMethods
 
     return super unless options.is_a?(Hash)
 
-    if site_identifier = options.delete(:cms_site)
-      unless @cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier)
+    if (site_identifier = options.delete(:cms_site))
+      unless (@cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier))
         raise ComfortableMexicanSofa::MissingSite, site_identifier
       end
     end
@@ -61,9 +61,9 @@ module ComfortableMexicanSofa::RenderMethods
   end
 
   def render_cms_page(path, options = {}, locals = {}, &block)
-    path.gsub!(/^\/#{@cms_site.path}/, "") if @cms_site.path.present?
+    path.gsub!(%r{^/#{@cms_site.path}}, "") if @cms_site.path.present?
 
-    unless @cms_page = @cms_site.pages.find_by_full_path(path)
+    unless (@cms_page = @cms_site.pages.find_by_full_path(path))
       raise ComfortableMexicanSofa::MissingPage, path
     end
 
@@ -85,7 +85,7 @@ module ComfortableMexicanSofa::RenderMethods
 
   def render_cms_layout(identifier, options = {}, locals = {}, &block)
 
-    unless @cms_layout = @cms_site.layouts.find_by_identifier(identifier)
+    unless (@cms_layout = @cms_site.layouts.find_by_identifier(identifier))
       raise ComfortableMexicanSofa::MissingLayout, identifier
     end
 

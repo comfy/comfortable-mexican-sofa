@@ -3,7 +3,7 @@
 # {{cms:block}} some content {{cms:end_block}}
 class ComfortableMexicanSofa::Content::Block < ComfortableMexicanSofa::Content::Tag
 
-  attr_accessor :nodes
+  attr_writer :nodes
 
   def nodes
     @nodes ||= []

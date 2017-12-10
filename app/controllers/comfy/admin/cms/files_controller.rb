@@ -14,21 +14,23 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     # Integration with Redactor 1.0 Wysiwyg
     when "redactor"
       file_scope  = files_scope.limit(100).order(:position)
-      file_hashes = case params[:type]
-      when "image"
-        file_scope.with_images.collect do |file|
-          { thumb: url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:redactor])),
-            image: url_for(file.attachment),
-            title: file.label }
+      file_hashes =
+        case params[:type]
+        when "image"
+          file_scope.with_images.collect do |file|
+            { thumb: url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:redactor])),
+              image: url_for(file.attachment),
+              title: file.label }
+          end
+        else
+          file_scope.collect do |file|
+            { title:  file.label,
+              name:   file.attachment.filename,
+              link:   url_for(file.attachment),
+              size:   number_to_human_size(file.attachment.byte_size) }
+          end
         end
-      else
-        file_scope.collect do |file|
-          { title:  file.label,
-            name:   file.attachment.filename,
-            link:   url_for(file.attachment),
-            size:   number_to_human_size(file.attachment.byte_size) }
-        end
-      end
+
       render json: file_hashes
 
     else

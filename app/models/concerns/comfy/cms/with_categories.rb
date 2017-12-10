@@ -27,7 +27,7 @@ module Comfy::Cms::WithCategories
     (category_ids || {}).each do |category_id, flag|
       case flag.to_i
       when 1
-        if category = Comfy::Cms::Category.find_by_id(category_id)
+        if (category = Comfy::Cms::Category.find_by_id(category_id))
           category.categorizations.create(categorized: self)
         end
       when 0

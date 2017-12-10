@@ -10,7 +10,7 @@
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :as, :label, :variant_attrs
+  attr_reader :identifier, :as, :variant_attrs
 
   def initialize(context, params_string)
     super
@@ -27,6 +27,10 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
 
   def file
     @file ||= context.site.files.detect{|f| f.id == identifier.to_i}
+  end
+
+  def label
+    @file.label.present?? @file.label : @file.attachment.filename
   end
 
   def content
@@ -48,10 +52,6 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
 protected
-
-  def label
-    @file.label.present?? @file.label : @file.attachment.filename
-  end
 
   def url_for(attachment)
     ApplicationController.render(

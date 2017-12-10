@@ -122,7 +122,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     get comfy_cms_render_page_path(cms_path: "doesnotexist")
     assert_response :not_found
     assert assigns(:cms_page)
-    assert_match /custom 404 page content/, response.body
+    assert_match %r{custom 404 page content}, response.body
   end
 
   def test_show_with_no_site

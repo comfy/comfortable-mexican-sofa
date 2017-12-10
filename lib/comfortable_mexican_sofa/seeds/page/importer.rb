@@ -26,13 +26,14 @@ module ComfortableMexicanSofa::Seeds::Page
       slug = path.split("/").last
 
       # setting page record
-      page = if parent.present?
-        child = site.pages.where(slug: slug).first_or_initialize
-        child.parent = parent
-        child
-      else
-        site.pages.root || site.pages.new(slug: slug)
-      end
+      page =
+        if parent.present?
+          child = site.pages.where(slug: slug).first_or_initialize
+          child.parent = parent
+          child
+        else
+          site.pages.root || site.pages.new(slug: slug)
+        end
 
       content_path = File.join(path, "content.html")
 
@@ -100,7 +101,7 @@ module ComfortableMexicanSofa::Seeds::Page
       new_translations = []
 
       Dir["#{path}content.*.html"].each do |file_path|
-        locale = File.basename(file_path).match(/content\.(\w+)\.html/)[1]
+        locale = File.basename(file_path).match(%r{content\.(\w+)\.html})[1]
         new_translations << locale
 
         translation = page.translations.where(locale: locale).first_or_initialize
@@ -195,7 +196,7 @@ module ComfortableMexicanSofa::Seeds::Page
 
       # ensuring that old attachments get removed
       ids_destroy = []
-      if frag = record.fragments.find_by(identifier: identifier)
+      if (frag = record.fragments.find_by(identifier: identifier))
         ids_destroy = frag.attachments.pluck(:id)
       end
 
@@ -206,7 +207,7 @@ module ComfortableMexicanSofa::Seeds::Page
       return unless self.target_pages.present?
 
       self.target_pages.each do |page_id, target|
-        if target = site.pages.find_by(full_path: target)
+        if (target = site.pages.find_by(full_path: target))
           @site.pages.find(page_id).update_column(:target_page_id, target.id)
         end
       end

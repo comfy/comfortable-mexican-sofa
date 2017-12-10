@@ -20,7 +20,7 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
   validates :identifier,
     presence:   true,
     uniqueness: {scope: :site_id},
-    format:     {with: /\A\w[a-z0-9_-]*\z/i}
+    format:     {with: %r{\A\w[a-z0-9_-]*\z}i}
 
 protected
 

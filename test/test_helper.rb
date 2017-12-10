@@ -76,6 +76,7 @@ class ActiveSupport::TestCase
     exception_raised = nil
     yield
   rescue StandardError => exception_raised
+    exception_raised
   ensure
     if exception_raised
       if exception_class

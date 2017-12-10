@@ -22,7 +22,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   validates :identifier,
     presence:   true,
     uniqueness: {scope: :site_id},
-    format:     {with: /\A\w[a-z0-9_-]*\z/i}
+    format:     {with: %r{\A\w[a-z0-9_-]*\z}i}
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts
@@ -64,7 +64,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
       replacement_position = parent_tokens.index do |n|
         n.is_a?(Hash) &&
         fragment_tags.member?(n[:tag_class]) &&
-        n[:tag_params].split(/\s/).first == "content"
+        n[:tag_params].split(%r{\s}).first == "content"
       end
       if replacement_position
         parent_tokens[replacement_position] = tokens

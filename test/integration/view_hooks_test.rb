@@ -12,7 +12,7 @@ class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
 
     r :get, comfy_admin_cms_sites_path
     assert_response :success
-    assert_match /hook_content/, response.body
+    assert_match %r{hook_content}, response.body
   end
 
   def test_hooks_rendering_with_multiples
@@ -22,8 +22,8 @@ class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
 
     r :get, comfy_admin_cms_sites_path
     assert_response :success
-    assert_match /hook_content/, response.body
-    assert_match /<hook_content_2>/, response.body
+    assert_match %r{hook_content}, response.body
+    assert_match %r{<hook_content_2>}, response.body
   end
 
   def test_hooks_rendering_with_proper_order
@@ -33,7 +33,7 @@ class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
 
     r :get, comfy_admin_cms_sites_path
     assert_response :success
-    assert_match /<hook_content_2>hook_content/, response.body
+    assert_match %r{<hook_content_2>hook_content}, response.body
   end
 
   def test_hooks_rendering_with_no_hook
@@ -41,6 +41,6 @@ class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
 
     r :get, comfy_admin_cms_sites_path
     assert_response :success
-    assert_no_match /hook_content/, response.body
+    assert_no_match %r{hook_content}, response.body
   end
 end

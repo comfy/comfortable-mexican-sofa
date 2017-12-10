@@ -42,21 +42,21 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
       get path
       assert assigns(:cms_site), path
       assert_equal site_a, assigns(:cms_site)
-      assert_equal path.gsub(/^\//, ""), @controller.params[:cms_path].to_s
+      assert_equal path.gsub(%r{^/}, ""), @controller.params[:cms_path].to_s
     end
 
     %w[/path-b /path-b/child].each do |path|
       get path
       assert assigns(:cms_site), path
       assert_equal site_b, assigns(:cms_site)
-      assert_equal path.gsub(/^\/path-b/, "").gsub(/^\//, ""), @controller.params[:cms_path].to_s
+      assert_equal path.gsub(%r{^/path-b}, "").gsub(%r{^/}, ""), @controller.params[:cms_path].to_s
     end
 
     %w[/path-c/child /path-c/child/child].each do |path|
       get path
       assert assigns(:cms_site), path
       assert_equal site_c, assigns(:cms_site)
-      assert_equal path.gsub(/^\/path-c\/child/, "").gsub(/^\//, ""), @controller.params[:cms_path].to_s
+      assert_equal path.gsub(%r{^/path-c/child}, "").gsub(%r{^/}, ""), @controller.params[:cms_path].to_s
     end
   end
 

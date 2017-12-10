@@ -2,11 +2,11 @@ module ComfortableMexicanSofa::Content::ParamsParser
 
   class Error < StandardError; end
 
-  SINGLE_STRING_LITERAL = /'[^\']*'/
-  DOUBLE_STRING_LITERAL = /"[^\"]*"/
-  IDENTIFIER            = /[a-z0-9][\w\-\/.]*/i
-  COLUMN                = /\:/
-  COMMA                 = /\,/
+  SINGLE_STRING_LITERAL = %r{'[^']*'}
+  DOUBLE_STRING_LITERAL = %r{"[^"]*"}
+  IDENTIFIER            = %r{[a-z0-9][\w\-/.]*}i
+  COLUMN                = %r{:}
+  COMMA                 = %r{,}
 
   def self.parse(text)
     parameterize(slice(tokenize(text.to_s)))
@@ -62,7 +62,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
     tokens = []
     ss = StringScanner.new(args_string)
     until ss.eos?
-      ss.skip(/\s*/)
+      ss.skip(%r{\s*})
       break if ss.eos?
       token =
         if    (t = ss.scan(SINGLE_STRING_LITERAL)) then [:string, t[1...t.size - 1]]

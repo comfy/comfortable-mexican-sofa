@@ -45,7 +45,7 @@ class Comfy::Admin::Cms::Revisions::SnippetControllerTest < ActionDispatch::Inte
     assert_equal "Revision Not Found", flash[:danger]
   end
 
-   def test_revert
+  def test_revert
     assert_difference -> {@snippet.revisions.count} do
       r :patch, revert_comfy_admin_cms_site_snippet_revision_path(@site, @snippet, @revision)
       assert_response :redirect

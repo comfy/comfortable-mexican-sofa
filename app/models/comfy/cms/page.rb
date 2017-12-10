@@ -140,7 +140,7 @@ protected
   def validate_format_of_unescaped_slug
     return unless slug.present?
     unescaped_slug = CGI.unescape(slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ /^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$/i
+    errors.add(:slug, :invalid) unless unescaped_slug =~ %r{^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$}i
   end
 
   # Forcing re-saves for child pages so they can update full_paths
