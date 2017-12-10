@@ -27,7 +27,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   # Grabs existing fragment record or spins up a new instance if there's none
   def fragment
     context.fragments.detect { |f| f.identifier == identifier } ||
-    context.fragments.build(identifier: identifier)
+      context.fragments.build(identifier: identifier)
   end
 
   def content

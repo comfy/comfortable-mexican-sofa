@@ -157,7 +157,7 @@ class RevisionsTest < ActiveSupport::TestCase
           tag:        "checkbox",
           content:    nil,
           datetime:   nil,
-          boolean:true },
+          boolean: true },
         { identifier: "file",
           tag:        "file",
           content:    nil,

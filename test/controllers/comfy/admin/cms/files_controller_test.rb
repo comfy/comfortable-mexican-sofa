@@ -87,7 +87,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   def test_create
     models = [Comfy::Cms::File, Comfy::Cms::Categorization, ActiveStorage::Attachment]
     assert_count_difference models do
-      r :post, comfy_admin_cms_site_files_path(site_id: @site), params:{ file: {
+      r :post, comfy_admin_cms_site_files_path(site_id: @site), params: { file: {
         label:        "Test File",
         description:  "Test Description",
         file:         fixture_file_upload("files/image.jpg", "image/jpeg"),

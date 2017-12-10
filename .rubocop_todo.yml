@@ -249,29 +249,4 @@ Layout/MultilineMethodCallIndentation:
     - 'app/controllers/comfy/cms/assets_controller.rb'
     - 'lib/comfortable_mexican_sofa/seeds/file/importer.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'app/models/comfy/cms/layout.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/fragment.rb'
-    - 'lib/comfortable_mexican_sofa/content/tags/snippet.rb'
-    - 'lib/comfortable_mexican_sofa/extensions/has_revisions.rb'
-    - 'lib/comfortable_mexican_sofa/render_methods.rb'
-    - 'lib/comfortable_mexican_sofa/seeds/file/importer.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/SpaceAfterColon:
-  Exclude:
-    - 'test/controllers/comfy/admin/cms/files_controller_test.rb'
-    - 'test/lib/revisions_test.rb'
-
-# Offense count: 24
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-# Layout/SpaceAroundOperators:
-#   Enabled: false
 

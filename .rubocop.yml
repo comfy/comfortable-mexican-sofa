@@ -41,6 +41,10 @@ Metrics/BlockLength:
 Metrics/AbcSize:
   Enabled: false
 
+# -- Layout --------------------------------------------------------------------
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
 # -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
