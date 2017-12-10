@@ -1,4 +1,5 @@
 module Comfy::Cms::WithFragments
+
   extend ActiveSupport::Concern
 
   included do
@@ -118,4 +119,5 @@ protected
     tokens = layout.content_tokens
     renderer.nodes(tokens)
   end
+
 end

@@ -5,6 +5,7 @@ module ComfortableMexicanSofa::ActsAsTree
   end
 
   module ClassMethods
+
     def cms_acts_as_tree(options = {})
       configuration = {
         foreign_key:    "parent_id",
@@ -51,9 +52,11 @@ module ComfortableMexicanSofa::ActsAsTree
         end
       RUBY
     end
+
   end
 
   module InstanceMethods
+
     # Returns list of ancestors, starting from parent until root.
     #
     #   subchild1.ancestors # => [child1, root]
@@ -107,6 +110,7 @@ module ComfortableMexicanSofa::ActsAsTree
     end
 
   end
+
 end
 
 ActiveSupport.on_load :active_record do

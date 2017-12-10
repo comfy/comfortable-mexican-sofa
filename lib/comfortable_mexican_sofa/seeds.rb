@@ -102,4 +102,5 @@ module ComfortableMexicanSofa::Seeds
       FileUtils.mkdir_p(path)
     end
   end
+
 end

@@ -29,6 +29,7 @@ require_relative "comfortable_mexican_sofa/extensions/has_revisions"
 require_relative "comfortable_mexican_sofa/content"
 
 module ComfortableMexicanSofa
+
   class << self
 
     attr_writer :logger
@@ -53,4 +54,5 @@ module ComfortableMexicanSofa
     end
 
   end
+
 end

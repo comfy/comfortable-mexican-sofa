@@ -29,4 +29,5 @@ module ComfortableMexicanSofa::ViewHooks
   def self.remove(name)
     hooks.delete(name)
   end
+
 end

@@ -1,4 +1,5 @@
 module Comfy::Cms::WithCategories
+
   extend ActiveSupport::Concern
 
   included do
@@ -35,4 +36,5 @@ module Comfy::Cms::WithCategories
       end
     end
   end
+
 end

@@ -24,6 +24,7 @@ module ComfortableMexicanSofa::HasRevisions
         fields.collect(&:to_s)
       end
     end
+
   end
 
   module InstanceMethods
@@ -60,7 +61,9 @@ module ComfortableMexicanSofa::HasRevisions
       return unless revision.record == self
       update_attributes!(revision.data)
     end
+
   end
+
 end
 
 ActiveSupport.on_load :active_record do

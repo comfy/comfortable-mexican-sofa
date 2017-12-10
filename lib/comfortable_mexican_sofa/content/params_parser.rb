@@ -77,4 +77,5 @@ module ComfortableMexicanSofa::Content::ParamsParser
     end
     tokens
   end
+
 end

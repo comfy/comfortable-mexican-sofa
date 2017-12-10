@@ -3,24 +3,31 @@ require_relative "../test_helper"
 class AccessControlTest < ActionDispatch::IntegrationTest
 
   module TestAuthentication
+
     module Authenticate
+
       def authenticate
         render plain: "Test Login Denied", status: :unauthorized
       end
+
     end
 
     # faking ComfortableMexicanSofa.config.admin_auth = 'AccessControlTest::TestAuthentication'
     # faking ComfortableMexicanSofa.config.public_auth = 'AccessControlTest::TestAuthentication'
     class SitesController   < Comfy::Admin::Cms::SitesController; include Authenticate; end
     class ContentController < Comfy::Cms::ContentController;      include Authenticate; end
+
   end
 
   module TestAuthorization
+
     module Authorize
+
       def authorize
         @authorization_vars = instance_variables
         render plain: "Test Access Denied", status: :forbidden
       end
+
     end
 
     # faking ComfortableMexicanSofa.config.admin_authorization = 'AccessControlTest::TestAuthorization'
@@ -34,6 +41,7 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     class RevisionsController     < Comfy::Admin::Cms::Revisions::LayoutController; include Authorize; end
     class TranslationsController  < Comfy::Admin::Cms::TranslationsController;      include Authorize; end
     class ContentController       < Comfy::Cms::ContentController;                  include Authorize; end
+
   end
 
   # -- Tests -------------------------------------------------------------------

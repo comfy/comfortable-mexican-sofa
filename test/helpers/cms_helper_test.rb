@@ -5,9 +5,11 @@ class ViewMethodsTest < ActionView::TestCase
   include Comfy::CmsHelper
 
   module TestViewHelpers
+
     def hello
       "hello"
     end
+
   end
   ActionView::Base.send :include, TestViewHelpers
 
