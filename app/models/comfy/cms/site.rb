@@ -1,4 +1,5 @@
 class Comfy::Cms::Site < ActiveRecord::Base
+
   self.table_name = "comfy_cms_sites"
 
   # -- Relationships -----------------------------------------------------------
@@ -86,4 +87,5 @@ protected
     self.path.gsub!(%r{/$}, "")
     self.path = nil if self.path.blank?
   end
+
 end

@@ -33,6 +33,7 @@ class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Cont
 
     yield [input, attachments_partial].join.html_safe
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

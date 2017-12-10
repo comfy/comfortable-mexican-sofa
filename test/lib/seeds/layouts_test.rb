@@ -152,4 +152,5 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
   ensure
     FileUtils.rm_rf(host_path)
   end
+
 end

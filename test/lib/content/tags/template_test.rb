@@ -32,4 +32,5 @@ class ContentTagsTemplateTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Template.new(@page, "not_allowed/path")
     assert_equal "", tag.render
   end
+
 end

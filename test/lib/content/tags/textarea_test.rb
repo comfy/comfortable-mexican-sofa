@@ -10,4 +10,5 @@ class ContentTagsTextAreaTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::TextArea.new(@page, "test")
     assert_equal "test", tag.identifier
   end
+
 end

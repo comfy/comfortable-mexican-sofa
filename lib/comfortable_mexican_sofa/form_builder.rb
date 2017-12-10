@@ -42,4 +42,5 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
       </div>
     HTML
   end
+
 end

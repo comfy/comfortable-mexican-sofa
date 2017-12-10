@@ -10,4 +10,5 @@ class ContentTagsNumberTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Number.new(@page, "test")
     assert_equal "test", tag.identifier
   end
+
 end

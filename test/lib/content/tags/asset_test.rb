@@ -76,4 +76,5 @@ class ContentTagsAssetTest < ActiveSupport::TestCase
     out = "/custom/cms-js/#{@page.site_id}/#{@page.layout.identifier}/#{@page.layout.cache_buster}.js"
     assert_equal out, tag.content
   end
+
 end

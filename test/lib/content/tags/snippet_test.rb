@@ -33,4 +33,5 @@ class ContentTagsSnippetTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "new")
     assert_nil tag.content
   end
+
 end

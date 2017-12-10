@@ -102,4 +102,5 @@ class ViewMethodsTest < ActionView::TestCase
     comfy_cms_snippets(:default).update_column(:content, "a {{cms:helper hello}} b")
     assert_equal "a hello b", cms_snippet_render(:default)
   end
+
 end

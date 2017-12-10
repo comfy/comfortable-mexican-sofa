@@ -122,4 +122,5 @@ class ContentParamsParserTest < ActiveSupport::TestCase
       { "key_c" => "val_c" }
     ], params
   end
+
 end

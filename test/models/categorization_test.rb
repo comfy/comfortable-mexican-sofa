@@ -72,4 +72,5 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     assert_equal 1,
       Comfy::Cms::File.for_category(category.label, new_category.label).distinct.count("comfy_cms_files.id")
   end
+
 end

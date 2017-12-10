@@ -10,6 +10,7 @@ class ComfortableMexicanSofa::Content::Tag::Text < ComfortableMexicanSofa::Conte
 
     yield input
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

@@ -46,4 +46,5 @@ class ContentTagsFilesTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Files.new(@page, "test")
     assert_equal "", tag.content
   end
+
 end

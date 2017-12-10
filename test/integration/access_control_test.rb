@@ -175,4 +175,5 @@ class AccessControlTest < ActionDispatch::IntegrationTest
       assert_equal "Test Access Denied", response.body
     end
   end
+
 end

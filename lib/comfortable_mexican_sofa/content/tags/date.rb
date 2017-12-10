@@ -15,6 +15,7 @@ class ComfortableMexicanSofa::Content::Tag::Date < ComfortableMexicanSofa::Conte
 
     yield input
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

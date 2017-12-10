@@ -59,4 +59,5 @@ class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::Integ
       assert_equal "revision js", @layout.js
     end
   end
+
 end

@@ -12,4 +12,5 @@ private
   def record_path
     edit_comfy_admin_cms_site_snippet_path(@site, @record)
   end
+
 end

@@ -55,5 +55,6 @@ module ComfortableMexicanSofa::Seeds::Layout
         import_layout(layout_path, layout)
       end
     end
+
   end
 end

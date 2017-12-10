@@ -17,4 +17,5 @@ class ContentTagsDateTest < ActiveSupport::TestCase
     assert_equal frag,          tag.fragment
     assert_equal frag.datetime, tag.content
   end
+
 end

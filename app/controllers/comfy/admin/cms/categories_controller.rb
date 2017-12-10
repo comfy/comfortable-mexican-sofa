@@ -34,4 +34,5 @@ protected
   def category_params
     params.fetch(:category, {}).permit!
   end
+
 end

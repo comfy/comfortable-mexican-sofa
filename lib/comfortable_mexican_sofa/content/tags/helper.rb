@@ -45,6 +45,7 @@ class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Con
       content unless BLACKLIST.member?(method_name)
     end
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

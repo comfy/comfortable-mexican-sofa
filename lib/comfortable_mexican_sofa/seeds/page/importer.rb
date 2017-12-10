@@ -212,5 +212,6 @@ module ComfortableMexicanSofa::Seeds::Page
         end
       end
     end
+
   end
 end

@@ -34,4 +34,5 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
       assert extra.blank?, "#{locale} locale has extra: #{extra.join(', ')}"
     end
   end
+
 end

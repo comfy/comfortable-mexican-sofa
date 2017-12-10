@@ -37,6 +37,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   class ::RenderTestController < ApplicationController
+
     append_view_path(File.expand_path("../fixtures/views", File.dirname(__FILE__)))
 
     def render_basic
@@ -96,6 +97,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     end
 
     def new; end
+
   end
 
   # -- Basic Render Tests ------------------------------------------------------
@@ -249,4 +251,5 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       get "/render-layout?type=layout_defaults_with_site"
     end
   end
+
 end

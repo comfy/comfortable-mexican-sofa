@@ -25,4 +25,5 @@ private
   def record_path
     edit_comfy_admin_cms_site_page_translation_path(@site, @page, @record)
   end
+
 end

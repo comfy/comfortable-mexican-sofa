@@ -105,18 +105,5 @@ Layout/EmptyLinesAroundBlockBody:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Layout/EmptyLinesAroundExceptionHandlingKeywords:
-#   Exclude:
-#     - 'app/controllers/comfy/admin/cms/files_controller.rb'
-#     - 'app/controllers/comfy/cms/content_controller.rb'
-#     - 'test/lib/seeds/files_test.rb'
-#     - 'test/lib/seeds/layouts_test.rb'
-#     - 'test/lib/seeds/pages_test.rb'
-#     - 'test/lib/seeds/snippets_test.rb'
-#     - 'test/models/layout_test.rb'
-
+# Layout/EmptyLinesAroundClassBody:
+#   Enabled: false

@@ -2,6 +2,7 @@ require_relative "../test_helper"
 require_relative "../../lib/generators/comfy/cms/cms_generator"
 
 class CmsGeneratorTest < Rails::Generators::TestCase
+
   tests Comfy::Generators::CmsGenerator
 
   def test_generator
@@ -21,4 +22,5 @@ class CmsGeneratorTest < Rails::Generators::TestCase
 
     assert_file "app/assets/stylesheets/comfy/admin/cms/custom.sass"
   end
+
 end

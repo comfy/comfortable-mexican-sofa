@@ -218,4 +218,5 @@ class RevisionsTest < ActiveSupport::TestCase
       assert_equal ({ "content" => "snippet content" }), revision.data
     end
   end
+
 end

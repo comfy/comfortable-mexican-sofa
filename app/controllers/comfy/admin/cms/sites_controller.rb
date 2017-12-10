@@ -63,4 +63,5 @@ protected
   def site_params
     params.fetch(:site, {}).permit!
   end
+
 end

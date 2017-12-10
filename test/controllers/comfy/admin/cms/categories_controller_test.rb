@@ -70,4 +70,5 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionDispatch::IntegrationT
       assert_template :destroy
     end
   end
+
 end

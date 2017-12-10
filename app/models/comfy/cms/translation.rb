@@ -1,4 +1,5 @@
 class Comfy::Cms::Translation < ActiveRecord::Base
+
   self.table_name = "comfy_cms_translations"
 
   include Comfy::Cms::WithFragments
@@ -34,4 +35,5 @@ private
   def assign_layout
     self.layout ||= page.layout if page.present?
   end
+
 end

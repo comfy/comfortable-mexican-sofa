@@ -56,4 +56,5 @@ class Comfy::Admin::Cms::Revisions::SnippetControllerTest < ActionDispatch::Inte
       assert_equal "revision content", @snippet.content
     end
   end
+
 end

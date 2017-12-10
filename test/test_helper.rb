@@ -117,6 +117,7 @@ class ActiveSupport::TestCase
   ensure
     $stdout = old
   end
+
 end
 
 
@@ -145,6 +146,7 @@ class ActionDispatch::IntegrationTest
   ensure
     ComfortableMexicanSofa::Application.routes_reloader.reload!
   end
+
 end
 
 class Rails::Generators::TestCase
@@ -184,4 +186,5 @@ class Rails::Generators::TestCase
       )
     )
   end
+
 end

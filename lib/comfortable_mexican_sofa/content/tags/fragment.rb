@@ -51,4 +51,5 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   def form_field
     raise "Form field rendering not implemented for this Tag"
   end
+
 end

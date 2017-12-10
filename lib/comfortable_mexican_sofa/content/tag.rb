@@ -34,4 +34,5 @@ class ComfortableMexicanSofa::Content::Tag
   def parse_params_string(string)
     ComfortableMexicanSofa::Content::ParamsParser.parse(string)
   end
+
 end

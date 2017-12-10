@@ -150,4 +150,5 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
     assert_equal 1, snippet_one.position
     assert_equal 0, snippet_two.position
   end
+
 end

@@ -43,4 +43,5 @@ protected
       flash.now[:warning] = I18n.t("comfy.admin.cms.base.seeds_enabled")
     end
   end
+
 end

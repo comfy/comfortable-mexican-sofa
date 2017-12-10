@@ -129,4 +129,5 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, layout_one.position
     assert_equal 0, layout_two.position
   end
+
 end

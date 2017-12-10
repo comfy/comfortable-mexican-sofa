@@ -178,4 +178,5 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
       assert_equal @page,         assigns(:cms_page)
     end
   end
+
 end

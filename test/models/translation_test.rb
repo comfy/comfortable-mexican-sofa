@@ -57,4 +57,5 @@ class CmsPageTest < ActiveSupport::TestCase
     comfy_cms_translations(:default).update_columns(is_published: false)
     assert_equal 0, Comfy::Cms::Translation.published.count
   end
+
 end

@@ -1,4 +1,5 @@
 class Comfy::Cms::Page < ActiveRecord::Base
+
   self.table_name = "comfy_cms_pages"
 
   include Comfy::Cms::WithFragments
@@ -161,4 +162,5 @@ protected
     self.slug       = CGI.unescape(slug)      unless slug.nil?
     self.full_path  = CGI.unescape(full_path) unless full_path.nil?
   end
+
 end

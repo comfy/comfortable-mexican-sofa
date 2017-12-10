@@ -57,4 +57,5 @@ class Comfy::Cms::AssetsControllerTest < ActionDispatch::IntegrationTest
     get comfy_cms_render_js_path(site_id: @site, identifier: "bogus")
     assert_response 404
   end
+
 end

@@ -49,4 +49,5 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
       assert_nil tag.render
     end
   end
+
 end

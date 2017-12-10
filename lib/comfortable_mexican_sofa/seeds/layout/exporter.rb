@@ -33,5 +33,6 @@ module ComfortableMexicanSofa::Seeds::Layout
         ComfortableMexicanSofa.logger.info(message)
       end
     end
+
   end
 end

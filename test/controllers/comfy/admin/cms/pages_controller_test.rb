@@ -573,4 +573,5 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, page_one.position
     assert_equal 0, page_two.position
   end
+
 end

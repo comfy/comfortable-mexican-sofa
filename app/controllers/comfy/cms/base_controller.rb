@@ -25,4 +25,5 @@ protected
       raise ActionController::RoutingError, "Site Not Found"
     end
   end
+
 end

@@ -15,4 +15,5 @@ class RoutingIntergrationTest < ActionDispatch::IntegrationTest
 
     assert_equal "/custom", ComfortableMexicanSofa.config.public_cms_path
   end
+
 end

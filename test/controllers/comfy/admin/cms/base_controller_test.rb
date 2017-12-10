@@ -14,4 +14,5 @@ class Comfy::Admin::Cms::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to "/cms-admin/sites"
   end
+
 end

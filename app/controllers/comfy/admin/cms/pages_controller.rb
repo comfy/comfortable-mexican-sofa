@@ -148,4 +148,5 @@ protected
   def page_params
     params.fetch(:page, {}).permit!
   end
+
 end

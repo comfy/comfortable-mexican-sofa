@@ -30,4 +30,5 @@ class ContentTagsMarkdownTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Markdown.new(@page, "#{frag.identifier}, render: false")
     assert_equal "", tag.render
   end
+
 end

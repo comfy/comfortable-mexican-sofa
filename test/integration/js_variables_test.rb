@@ -17,4 +17,5 @@ class JsVariablesIntegrationTest < ActionDispatch::IntegrationTest
 
     assert response.body.match(js_vars)
   end
+
 end

@@ -43,4 +43,5 @@ class ViewHooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_no_match %r{hook_content}, response.body
   end
+
 end

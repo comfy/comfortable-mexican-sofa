@@ -84,4 +84,5 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
       ], @page.fragments_attributes
     end
   end
+
 end

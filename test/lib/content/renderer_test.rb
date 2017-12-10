@@ -3,15 +3,19 @@ require_relative "../../test_helper"
 class ContentRendererTest < ActiveSupport::TestCase
 
   class TestTag < ComfortableMexicanSofa::Content::Tag
+
     def content
       "test tag content"
     end
+
   end
 
   class TestNestedTag < ComfortableMexicanSofa::Content::Tag
+
     def content
       "test {{cms:test}} content"
     end
+
   end
 
   class TestBlockTag < ComfortableMexicanSofa::Content::Block
@@ -237,4 +241,5 @@ class ContentRendererTest < ActiveSupport::TestCase
       render_string("{{cms:snippet default}}")
     end
   end
+
 end

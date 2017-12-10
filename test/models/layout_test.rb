@@ -170,4 +170,5 @@ class CmsLayoutTest < ActiveSupport::TestCase
     layout = @site.layouts.create(updated_at: timestamp)
     assert_equal timestamp.to_i, layout.cache_buster
   end
+
 end

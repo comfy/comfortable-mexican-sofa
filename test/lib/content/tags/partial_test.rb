@@ -40,4 +40,5 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "safe/path")
     assert_equal "<%= render partial: '@path', locals: {} %>", tag.render
   end
+
 end

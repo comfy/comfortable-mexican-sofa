@@ -233,4 +233,5 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, file_one.position
     assert_equal 0, file_two.position
   end
+
 end

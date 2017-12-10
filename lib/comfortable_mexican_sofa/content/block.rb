@@ -8,4 +8,5 @@ class ComfortableMexicanSofa::Content::Block < ComfortableMexicanSofa::Content::
   def nodes
     @nodes ||= []
   end
+
 end

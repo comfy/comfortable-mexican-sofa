@@ -17,4 +17,5 @@ class ContentTagsCheckboxTest < ActiveSupport::TestCase
     assert_equal frag,          tag.fragment
     assert_equal frag.boolean,  tag.content
   end
+
 end

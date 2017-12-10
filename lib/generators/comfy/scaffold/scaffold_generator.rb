@@ -70,6 +70,7 @@ module Comfy
           HAML
         end
       end
+
     end
   end
 end

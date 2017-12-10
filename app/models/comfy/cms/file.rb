@@ -1,4 +1,5 @@
 class Comfy::Cms::File < ActiveRecord::Base
+
   self.table_name = "comfy_cms_files"
 
   include Comfy::Cms::WithCategories
@@ -49,4 +50,5 @@ protected
     return if @file.blank?
     attachment.attach(@file)
   end
+
 end

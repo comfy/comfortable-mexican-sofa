@@ -86,4 +86,5 @@ protected
   rescue ActiveRecord::RecordNotFound
     nil
   end
+
 end

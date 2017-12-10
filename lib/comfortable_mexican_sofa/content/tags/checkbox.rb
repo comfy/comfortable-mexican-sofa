@@ -14,6 +14,7 @@ class ComfortableMexicanSofa::Content::Tag::Checkbox < ComfortableMexicanSofa::C
 
     yield [checkbox_hidden, checkbox_input].join.html_safe
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

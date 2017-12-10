@@ -30,4 +30,5 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
       @rake["comfy:cms_seeds:export"].invoke("from_site", "to_folder")
     end
   end
+
 end

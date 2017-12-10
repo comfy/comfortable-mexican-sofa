@@ -34,4 +34,5 @@ class ConfigurationTest < ActiveSupport::TestCase
   def test_version
     assert ComfortableMexicanSofa::VERSION
   end
+
 end

@@ -11,6 +11,7 @@ class ComfortableMexicanSofa::Content::Tag::Wysiwyg < ComfortableMexicanSofa::Co
     input   = view.send(:text_area_tag, name, content, options)
     yield input
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

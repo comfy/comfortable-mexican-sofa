@@ -47,4 +47,5 @@ class SeedsTest < ActiveSupport::TestCase
       ComfortableMexicanSofa::Seeds::Exporter.new("sample-site", "default-site").export!
     end
   end
+
 end

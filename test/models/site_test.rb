@@ -186,4 +186,5 @@ class CmsSiteTest < ActiveSupport::TestCase
 
     assert_equal "/cms/site-path", @site.url(relative: true)
   end
+
 end

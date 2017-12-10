@@ -34,6 +34,7 @@ class ComfortableMexicanSofa::Content::Tag::Template < ComfortableMexicanSofa::C
       content
     end
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

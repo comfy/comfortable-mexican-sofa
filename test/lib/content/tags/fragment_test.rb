@@ -60,4 +60,5 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(@page, "content, render: false")
     assert_equal "", tag.render
   end
+
 end

@@ -52,4 +52,5 @@ class CmsSnippetTest < ActiveSupport::TestCase
     page.reload
     assert_equal "new snippet content", page.content_cache
   end
+
 end

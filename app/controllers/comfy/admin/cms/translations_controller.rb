@@ -95,4 +95,5 @@ private
       render inline: @translation.render, layout: layout, content_type: "text/html"
     end
   end
+
 end

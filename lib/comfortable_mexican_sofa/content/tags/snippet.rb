@@ -24,6 +24,7 @@ class ComfortableMexicanSofa::Content::Tag::Snippet < ComfortableMexicanSofa::Co
     context.site.snippets.detect { |s| s.identifier == identifier } ||
       context.site.snippets.build(identifier: identifier)
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

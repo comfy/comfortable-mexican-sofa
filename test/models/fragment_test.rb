@@ -128,4 +128,5 @@ class CmsFragmentTest < ActiveSupport::TestCase
     @page.reload
     refute_equal timestamp, @page.updated_at
   end
+
 end

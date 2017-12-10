@@ -1,4 +1,5 @@
 class Comfy::Cms::Category < ActiveRecord::Base
+
   self.table_name = "comfy_cms_categories"
 
   # -- Relationships --------------------------------------------------------

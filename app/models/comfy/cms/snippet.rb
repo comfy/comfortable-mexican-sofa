@@ -1,4 +1,5 @@
 class Comfy::Cms::Snippet < ActiveRecord::Base
+
   self.table_name = "comfy_cms_snippets"
 
   include Comfy::Cms::WithCategories
@@ -38,4 +39,5 @@ protected
     max = site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
+
 end

@@ -40,4 +40,5 @@ class CmsFileTest < ActiveSupport::TestCase
     file.update_column(:label, "")
     assert_equal "default.jpg", file.label
   end
+
 end

@@ -229,4 +229,5 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
       get comfy_cms_render_page_path(cms_path: "")
     end
   end
+
 end

@@ -34,4 +34,5 @@ protected
       response.headers["Cache-Control"] = "public, max-age=#{1.year.to_i}"
     end
   end
+
 end

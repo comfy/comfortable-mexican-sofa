@@ -49,6 +49,7 @@ class ComfortableMexicanSofa::Content::Tag::Asset < ComfortableMexicanSofa::Cont
       out
     end
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

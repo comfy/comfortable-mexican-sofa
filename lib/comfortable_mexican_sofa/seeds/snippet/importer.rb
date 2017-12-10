@@ -44,5 +44,6 @@ module ComfortableMexicanSofa::Seeds::Snippet
       # cleaning up
       site.snippets.where("id NOT IN (?)", seed_ids).destroy_all
     end
+
   end
 end

@@ -571,4 +571,5 @@ class CmsPageTest < ActiveSupport::TestCase
       @page.translate!(:es)
     end
   end
+
 end

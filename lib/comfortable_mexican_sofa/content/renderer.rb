@@ -29,6 +29,7 @@ class ComfortableMexicanSofa::Content::Renderer
     def register_tag(name, klass)
       tags[name.to_s] = klass
     end
+
   end
 
   def initialize(context)
@@ -122,4 +123,5 @@ class ComfortableMexicanSofa::Content::Renderer
 
     nodes.flatten
   end
+
 end

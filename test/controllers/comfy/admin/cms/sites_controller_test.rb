@@ -100,4 +100,5 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
       assert_equal "Site deleted", flash[:success]
     end
   end
+
 end

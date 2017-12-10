@@ -35,6 +35,7 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
       content
     end
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

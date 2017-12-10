@@ -64,4 +64,5 @@ protected
   def snippet_params
     params.fetch(:snippet, {}).permit!
   end
+
 end

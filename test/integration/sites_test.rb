@@ -103,4 +103,5 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
 
     I18n.default_locale = :en
   end
+
 end

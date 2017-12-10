@@ -14,6 +14,7 @@ class ComfortableMexicanSofa::Content::Tag::Markdown < ComfortableMexicanSofa::C
 
     yield input
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

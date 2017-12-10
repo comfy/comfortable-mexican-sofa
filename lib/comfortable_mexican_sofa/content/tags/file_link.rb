@@ -59,6 +59,7 @@ protected
       assigns: { attachment: attachment }
     )
   end
+
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

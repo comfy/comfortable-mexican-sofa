@@ -75,4 +75,5 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
     assert_equal "", tag.content
     assert_equal "", tag.render
   end
+
 end

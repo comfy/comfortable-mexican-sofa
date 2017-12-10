@@ -5,6 +5,7 @@ module ComfortableMexicanSofa::Seeds
   require "mimemagic"
 
   class Importer
+
     attr_accessor :site,
                   :path,
                   :from,
@@ -62,10 +63,12 @@ module ComfortableMexicanSofa::Seeds
         category_ids[category.id] = 1
       end
     end
+
   end
 
 
   class Exporter
+
     attr_accessor :site,
                   :path,
                   :from,
@@ -101,6 +104,7 @@ module ComfortableMexicanSofa::Seeds
       FileUtils.rm_rf(path)
       FileUtils.mkdir_p(path)
     end
+
   end
 
 end
