@@ -37,7 +37,6 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
     assert_equal "Record Not Found", flash[:danger]
   end
 
-
   def test_get_show_failure
     r :get, comfy_admin_cms_site_page_revision_path(@site, @page, "invalid")
     assert_response :redirect

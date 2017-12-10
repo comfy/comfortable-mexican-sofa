@@ -66,7 +66,6 @@ module ComfortableMexicanSofa::Seeds
 
   end
 
-
   class Exporter
 
     attr_accessor :site,

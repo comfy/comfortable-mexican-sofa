@@ -35,7 +35,6 @@ class Comfy::Cms::Site < ActiveRecord::Base
     return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
     cms_site = nil
 
-
     public_cms_path = ComfortableMexicanSofa.configuration.public_cms_path
     path.gsub!(%r{\A#{public_cms_path}}, "") unless path.nil? || public_cms_path == "/"
 

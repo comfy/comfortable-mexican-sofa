@@ -6,7 +6,6 @@ module ComfortableMexicanSofa::AccessControl
     #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = 'myname'
     #   ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = 'mypassword'
 
-
     mattr_accessor  :username,
                     :password
 

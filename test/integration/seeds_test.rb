@@ -34,7 +34,6 @@ class SeedsIntergrationTest < ActionDispatch::IntegrationTest
           assert_equal "Default Seed Layout", Comfy::Cms::Layout.find_by_identifier("default").label
           assert_equal "Default Seed Snippet", Comfy::Cms::Snippet.find_by_identifier("default").label
 
-
           file_path = url_for(ActiveStorage::Blob.find_by(filename: "header.png"))
           file_path = file_path.sub("http://test.host", "")
           out = <<-HTML.strip_heredoc

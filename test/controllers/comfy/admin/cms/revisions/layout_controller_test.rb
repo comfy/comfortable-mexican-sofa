@@ -45,7 +45,6 @@ class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::Integ
     assert_equal "Revision Not Found", flash[:danger]
   end
 
-
   def test_revert
     assert_difference -> { @layout.revisions.count } do
       r :patch, revert_comfy_admin_cms_site_layout_revision_path(@site, @layout, @revision)

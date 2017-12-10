@@ -17,9 +17,9 @@ module Comfy::Cms::WithCategories
 
     scope :for_category, ->(*categories) {
       if (categories = [categories].flatten.compact).present?
-        distinct.
-          joins(categorizations: :category).
-          where("comfy_cms_categories.label" => categories)
+        distinct
+          .joins(categorizations: :category)
+          .where("comfy_cms_categories.label" => categories)
       end
     }
   end

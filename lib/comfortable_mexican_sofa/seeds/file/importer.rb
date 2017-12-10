@@ -8,7 +8,6 @@ module ComfortableMexicanSofa::Seeds::File
 
     def import!
       Dir["#{path}[^_]*"].each do |file_path|
-
         filename = ::File.basename(file_path)
 
         file = site.files.with_attached_attachment

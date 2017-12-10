@@ -15,7 +15,6 @@ require "mocha/setup"
 
 Rails.backtrace_cleaner.remove_silencers!
 
-
 class ActiveSupport::TestCase
 
   include ActionDispatch::TestProcess
@@ -119,7 +118,6 @@ class ActiveSupport::TestCase
   end
 
 end
-
 
 class ActionDispatch::IntegrationTest
 

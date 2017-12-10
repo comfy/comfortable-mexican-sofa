@@ -1,6 +1,5 @@
 require_relative "../test_helper"
 
-
 class CmsFileTest < ActiveSupport::TestCase
 
   def test_fixtures_validity

@@ -1,6 +1,5 @@
 namespace :comfy do
   namespace :cms_seeds do
-
     desc "Import CMS Seed data into database (from: folder name, to: site identifier)"
 
     task :import, %i[from to] => [:environment] do |_t, args|

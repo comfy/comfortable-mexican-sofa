@@ -63,6 +63,12 @@ Layout/EmptyLinesAroundExceptionHandlingKeywords:
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: empty_lines_except_namespace
 
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
 # -- Style ---------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
