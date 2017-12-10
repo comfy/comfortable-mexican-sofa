@@ -46,7 +46,7 @@ class Comfy::Admin::Cms::Revisions::SnippetControllerTest < ActionDispatch::Inte
   end
 
   def test_revert
-    assert_difference -> {@snippet.revisions.count} do
+    assert_difference -> { @snippet.revisions.count } do
       r :patch, revert_comfy_admin_cms_site_snippet_revision_path(@site, @snippet, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_snippet_path(@site, @snippet)

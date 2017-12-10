@@ -208,7 +208,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     @translation.update_column(:content_cache, "translation content")
     I18n.locale = @translation.locale
 
-    assert_no_difference -> {@page.fragments.count} do
+    assert_no_difference -> { @page.fragments.count } do
       get comfy_cms_render_page_path(cms_path: "")
       assert_equal "translation content", response.body
     end

@@ -90,7 +90,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     assert_equal 1, frag.attachments.count
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
-    assert_difference -> {frag.attachments.count} do
+    assert_difference -> { frag.attachments.count } do
       frag.update_attributes(
         tag:    "files",
         files:  [@upload_doc]
@@ -102,7 +102,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     assert_equal 1, frag.attachments.count
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
-    assert_no_difference -> {frag.attachments.count} do
+    assert_no_difference -> { frag.attachments.count } do
       frag.update_attributes(
         tag:    "file",
         files:  [@upload_doc]
@@ -114,7 +114,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
 
   def test_update_with_file_removal
     frag = comfy_cms_fragments(:file)
-    assert_difference -> {frag.attachments.count}, -1 do
+    assert_difference -> { frag.attachments.count }, -1 do
       frag.update_attributes(
         file_ids_destroy: frag.attachments.pluck(:id)
       )

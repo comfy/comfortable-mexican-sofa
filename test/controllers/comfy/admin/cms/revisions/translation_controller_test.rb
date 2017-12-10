@@ -48,7 +48,7 @@ class Comfy::Admin::Cms::Revisions::TranslationControllerTest < ActionDispatch::
   end
 
   def test_revert
-    assert_difference -> {@translation.revisions.count} do
+    assert_difference -> { @translation.revisions.count } do
       r :patch, revert_comfy_admin_cms_site_page_translation_revision_path(@site, @page, @translation, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_translation_path(@site, @page, @translation)

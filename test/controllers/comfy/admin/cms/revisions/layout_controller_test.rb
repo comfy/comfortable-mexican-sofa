@@ -47,7 +47,7 @@ class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::Integ
 
 
   def test_revert
-    assert_difference -> {@layout.revisions.count} do
+    assert_difference -> { @layout.revisions.count } do
       r :patch, revert_comfy_admin_cms_site_layout_revision_path(@site, @layout, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_layout_path(@site, @layout)

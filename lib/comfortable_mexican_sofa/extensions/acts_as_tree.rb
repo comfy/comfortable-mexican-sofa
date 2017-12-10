@@ -22,7 +22,7 @@ module ComfortableMexicanSofa::ActsAsTree
         touch:          configuration[:touch]
 
       has_many :children,
-        -> { order(configuration[:order])},
+        -> { order(configuration[:order]) },
         class_name:   name,
         foreign_key:  configuration[:foreign_key],
         dependent:    configuration[:dependent]

@@ -30,7 +30,7 @@ class Comfy::Cms::Layout < ActiveRecord::Base
     out = []
     [current_layout || site.layouts.roots.order(:position)].flatten.each do |l|
       next if layout == l
-      out << [ "#{spacer*depth}#{l.label}", l.id ]
+      out << ["#{spacer*depth}#{l.label}", l.id]
       l.children.order(:position).each do |child|
         out += options_for_select(site, layout, child, depth + 1, spacer)
       end

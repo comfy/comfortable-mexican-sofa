@@ -304,25 +304,5 @@ Layout/SpaceInLambdaLiteral:
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces, SpaceBeforeBlockParameters.
 # SupportedStyles: space, no_space
 # SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 11
-# Cop supports --auto-correct.
-Layout/SpaceInsideBrackets:
-  Exclude:
-    - 'app/controllers/comfy/admin/cms/pages_controller.rb'
-    - 'app/models/comfy/cms/layout.rb'
-    - 'app/models/comfy/cms/page.rb'
-    - 'db/migrate/00_create_active_storage_tables.active_storage.rb'
-    - 'lib/comfortable_mexican_sofa/content/params_parser.rb'
-    - 'test/integration/i18n_test.rb'
-
-# Offense count: 271
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-# Layout/SpaceInsideHashLiteralBraces:
+# Layout/SpaceInsideBlockBraces:
 #   Enabled: false
-

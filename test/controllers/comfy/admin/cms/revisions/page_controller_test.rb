@@ -47,7 +47,7 @@ class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::Integra
   end
 
   def test_revert
-    assert_difference -> {@page.revisions.count} do
+    assert_difference -> { @page.revisions.count } do
       r :patch, revert_comfy_admin_cms_site_page_revision_path(@site, @page, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)

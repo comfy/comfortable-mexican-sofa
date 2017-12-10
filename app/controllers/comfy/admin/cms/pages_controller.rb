@@ -91,7 +91,7 @@ protected
     page_select_options = [{
       name: I18n.t("comfy.admin.cms.pages.form.choose_link"),
       url: false
-    }] + tree_walker.call(@site.pages.root, [ ], 0)
+    }] + tree_walker.call(@site.pages.root, [], 0)
 
     render json: page_select_options
   end

@@ -50,7 +50,7 @@ private
   def translation_select_options
     all = ComfortableMexicanSofa.config.locales
     taken = @page.translations.pluck(:locale) + [@site.locale] - [@translation.locale]
-    all.except(*taken).map{|k, v| ["#{v} (#{k})", k]}
+    all.except(*taken).map{ |k, v| ["#{v} (#{k})", k] }
   end
 
   def load_page

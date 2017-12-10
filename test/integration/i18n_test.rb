@@ -4,7 +4,7 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
 
   def collect_combined_keys(hash, ns = nil)
     hash.collect do |k, v|
-      keys = [ ]
+      keys = []
       keys << collect_combined_keys(v, "#{ns}.#{k}") if v.is_a?(Hash)
       keys << "#{ns}.#{k}"
     end.flatten

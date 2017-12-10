@@ -21,7 +21,7 @@ class ComfortableMexicanSofa::Content::Tag::Snippet < ComfortableMexicanSofa::Co
 
   # Grabbing or initializing Comfy::Cms::Snippet object
   def snippet
-    context.site.snippets.detect{|s| s.identifier == identifier} ||
+    context.site.snippets.detect{ |s| s.identifier == identifier } ||
     context.site.snippets.build(identifier: identifier)
   end
 end

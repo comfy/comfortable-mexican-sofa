@@ -47,7 +47,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     out = []
 
     unless current_page == page
-      out << [ "#{spacer*depth}#{current_page.label}", current_page.id ]
+      out << ["#{spacer*depth}#{current_page.label}", current_page.id]
     end
 
     if current_page.children_count.nonzero?

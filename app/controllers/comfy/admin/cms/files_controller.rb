@@ -50,7 +50,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
     if params[:category]
       ids = @site.categories.of_type("Comfy::Cms::File")
         .where(label: params[:category])
-        .each_with_object({}){|c, h| h[c.id] = 1}
+        .each_with_object({}){ |c, h| h[c.id] = 1 }
         @file.category_ids = ids
     end
 

@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
   end
 
   def self.parameterize(token_groups)
-    params = [ ]
+    params = []
     token_groups.each do |tokens|
       if tokens.count == 1
         collect_param_for_string!(params, tokens[0])
@@ -53,7 +53,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
       token[0] == :comma
     end
     slices.map do |expression|
-      expression.reject{|t| t[0] == :comma}
+      expression.reject{ |t| t[0] == :comma }
     end
   end
 
