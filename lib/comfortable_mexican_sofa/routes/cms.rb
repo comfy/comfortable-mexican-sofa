@@ -1,7 +1,6 @@
 class ActionDispatch::Routing::Mapper
 
   def comfy_route_cms(options = {})
-
     ComfortableMexicanSofa.configuration.public_cms_path = options[:path]
 
     scope module: :comfy, as: :comfy do

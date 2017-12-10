@@ -1,7 +1,6 @@
 module ComfortableMexicanSofa::RenderMethods
 
   def self.included(base)
-
     # If application controller doesn't have template associated with it
     # CMS will attempt to find one. This is so you don't have to explicitly
     # call render cms_page: '/something'
@@ -36,7 +35,6 @@ module ComfortableMexicanSofa::RenderMethods
   #   render cms_page: '/path/to/page', cms_site: 'default'
   #
   def render(options = {}, locals = {}, &block)
-
     return super unless options.is_a?(Hash)
 
     if (site_identifier = options.delete(:cms_site))
@@ -84,7 +82,6 @@ module ComfortableMexicanSofa::RenderMethods
   end
 
   def render_cms_layout(identifier, options = {}, locals = {}, &block)
-
     unless (@cms_layout = @cms_site.layouts.find_by_identifier(identifier))
       raise ComfortableMexicanSofa::MissingLayout, identifier
     end
