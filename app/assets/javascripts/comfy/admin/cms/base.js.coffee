@@ -99,6 +99,7 @@ window.CMS.codemirror = ->
   $('textarea[data-cms-cm-mode]').each (i, element) ->
     cm = CodeMirror.fromTextArea element,
       mode:           $(element).data('cms-cm-mode')
+      tabSize:        2
       lineWrapping:   true
       autoCloseTags:  true
       lineNumbers:    true
