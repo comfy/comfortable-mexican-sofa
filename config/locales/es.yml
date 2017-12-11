@@ -145,6 +145,8 @@ es:
             cancel: Cancelar
             update: Actualizar Página
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               La plantilla no tiene etiquetas de contenido definidas.<br/>

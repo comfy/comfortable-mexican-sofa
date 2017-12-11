@@ -145,6 +145,8 @@ zh-CN:
             cancel: 取消
             update: 更新页面
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               布局中没有定义内容标签。<br/>

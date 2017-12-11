@@ -145,6 +145,8 @@ nl:
             cancel: Annuleren
             update: Pagina Bijwerken
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Lay-out heeft geen inhoud-tags gedefinieerd.<br/>

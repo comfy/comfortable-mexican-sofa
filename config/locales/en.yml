@@ -145,6 +145,8 @@ en:
             cancel: Cancel
             update: Update Page
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Layout has no content tags defined.<br/>

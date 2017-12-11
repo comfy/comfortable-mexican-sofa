@@ -22,7 +22,7 @@ class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Cont
     attachments_partial =
       if fragment.attachments
         view.render(
-          partial: "comfy/admin/cms/pages/fragment_attachments",
+          partial: "comfy/admin/cms/fragments/form_fragment_attachments",
           locals: {
             object_name:  object_name,
             index:        index,

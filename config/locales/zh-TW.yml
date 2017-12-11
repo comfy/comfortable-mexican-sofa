@@ -145,6 +145,8 @@ zh-TW:
             cancel: 取消
             update: 更新頁面
             choose_link: 選擇頁面...
+
+        fragments:
           form_fragments:
             no_tags: |-
               佈局中沒有定義內容標記。<br/>

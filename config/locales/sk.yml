@@ -145,6 +145,8 @@ sk:
             cancel: Zrušiť
             update: Upraviť stránku
             choose_link: Zvoľte stránku...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Rozloženie nemá definované žiadne značky obsahu.<br/>

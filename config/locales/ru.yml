@@ -145,6 +145,8 @@ ru:
             cancel: Oтменить
             update: Обновить страницу
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Шаблон не содержит ни одного контент-тега.<br/>

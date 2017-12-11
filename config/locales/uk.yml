@@ -145,6 +145,8 @@ uk:
             cancel: Cкасувати
             update: Оновити сторінку
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Шаблон не містить жодного контент-тега. <br/>

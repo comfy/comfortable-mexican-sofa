@@ -145,6 +145,8 @@ da:
             cancel: Annuller
             update: Opdater side
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Layout har ingen indholdtags defineret.<br/>

@@ -1,6 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.2
   Exclude:
+    - bin/*
     - db/schema.rb
     - db/migrate/**/*
     - test/fixtures/**/*

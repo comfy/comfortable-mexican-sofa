@@ -145,6 +145,8 @@ ja:
             cancel: キャンセル
             update: ページを更新
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               レイアウトにはコンテンツタグが定義されていません。<br/>

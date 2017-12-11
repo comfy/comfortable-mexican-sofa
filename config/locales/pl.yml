@@ -145,6 +145,8 @@ pl:
             cancel: Anuluj
             update: Uaktualnij stronę
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Szablon nie ma zdefiniowanych tagów<br/>

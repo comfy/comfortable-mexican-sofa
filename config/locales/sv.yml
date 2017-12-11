@@ -145,6 +145,8 @@ sv:
             cancel: Avbryt
             update: Uppdatera sida
             choose_link: Välj sida...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Layout har inga innehållstaggar definierade.<br/>

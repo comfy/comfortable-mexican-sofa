@@ -145,6 +145,8 @@ fr:
             cancel: Annuler
             update: Modifier la page
             choose_link: Select page...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Mise en page sans aucun tag de contenu.<br/>

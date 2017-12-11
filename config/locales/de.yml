@@ -145,6 +145,8 @@ de:
             cancel: Abbrechen
             update: Seite speichern
             choose_link: Seite auswählen...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Das gewählte Layout hat kein Comfy-Tags deklariert, daher kann diese Seite nicht bearbeitet werden.<br/>

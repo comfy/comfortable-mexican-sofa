@@ -145,6 +145,8 @@ tr:
             cancel: İptal
             update: Sayfayı Güncelle
             choose_link: Sayfa Seç...
+
+        fragments:
           form_fragments:
             no_tags: |-
               Şablon etiket içermiyor.<br/>
