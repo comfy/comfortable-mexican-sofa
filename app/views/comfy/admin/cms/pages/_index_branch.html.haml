@@ -14,14 +14,14 @@
         .item-controls
           - if has_siblings
             .dragger.d-none.d-md-block
-              = fa_icon("bars")
+              %i.fas.fa-bars
 
           - if has_children && !page.root?
             - status = branch_open ? "open" : ""
             - url = toggle_branch_comfy_admin_cms_site_page_path(@site, page)
             = link_to url, remote: true, title: t(".toggle"), class: "toggle #{status}" do
-              = fa_icon("plus-square", class: "expand")
-              = fa_icon("minus-square", class: "collapse")
+              %i.fas.fa-plus-square.expand
+              %i.fas.fa-minus-square.collapse
 
       .item-content
         .item-title

@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "codemirror-rails",      ">= 5.16.0"
   s.add_dependency "coffee-rails",          ">= 4.2.0"
   s.add_dependency "comfy_bootstrap_form",  ">= 4.0.0.beta1"
-  s.add_dependency "font-awesome-rails",    ">= 4.7.0"
   s.add_dependency "haml-rails",            ">= 1.0.0"
   s.add_dependency "jquery-rails",          ">= 4.3.1"
   s.add_dependency "jquery-ui-rails",       ">= 6.0.1"

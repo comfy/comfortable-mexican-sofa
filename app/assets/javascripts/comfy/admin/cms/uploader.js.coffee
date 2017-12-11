@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class='col-md-3 d-flex align-items-center justify-content-md-end'>
-            <a class='btn btn-sm btn-danger pull-right cms-uploader-file-delete' href='#'>Delete</a>
+            <a class='btn btn-sm btn-danger float-right cms-uploader-file-delete' href='#'>Delete</a>
           </div>
         </li>
       ")

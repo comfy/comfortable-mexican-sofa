@@ -1,5 +1,5 @@
 .page-header
-  = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, class: 'btn btn-secondary pull-right'
+  = link_to 'New <%= class_name.titleize %>', new_admin_<%= file_name %>_path, class: 'btn btn-secondary float-right'
   %h2= '<%= class_name.pluralize.titleize %>'
 
 = paginate @<%= file_name.pluralize %>, theme: 'comfy'

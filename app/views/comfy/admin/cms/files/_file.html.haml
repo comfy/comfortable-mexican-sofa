@@ -4,7 +4,7 @@
       .item-controls.d-none.d-lg-block
         - if !params[:categories].present? && @site.files.count > 1
           .dragger
-            = fa_icon("bars")
+            %i.fas.fa-bars
       .item-content
         .item-title
           - if file.attachment.image?
