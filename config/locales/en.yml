@@ -254,7 +254,7 @@ en:
             label: Categories
             edit: Edit
             done: Done
-            all: All
+            all: All Categories
             add: Add
             add_placeholder: Add Category
           show:

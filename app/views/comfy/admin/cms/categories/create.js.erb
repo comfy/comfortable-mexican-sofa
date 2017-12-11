@@ -1,7 +1,7 @@
-$('.categories-widget .categories.editable form#new_category').before(
+$('.categories-widget .editable .categories').append(
   '<%= escape_javascript(render "show", category: @category) %>'
 );
-$('.categories-widget .categories.read').append(
+$('.categories-widget .read .categories').append(
   '<%= escape_javascript(render "show", category: @category, read: true) %>'
 );
-$('.categories-widget .categories.editable form#new_category input#category_label').val('');
+$('.categories-widget .editable form#new-category input#category_label').val('');

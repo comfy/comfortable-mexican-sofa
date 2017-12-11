@@ -1,3 +1,6 @@
+- content_for :right_column do
+  = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::File"
+
 #cms-uploader
   #cms-uploader-drag-drop-target
 
@@ -6,8 +9,6 @@
     %h2= t('.title')
 
   = comfy_admin_partial "comfy/admin/cms/partials/files_before"
-
-  = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::File"
 
   = comfy_paginate @files
 

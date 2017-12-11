@@ -115,6 +115,12 @@ body#comfy
       a.draft
         color: $gray-600
 
+    .box.categories-widget
+      .editable
+        display: none
+      .categories .category, form#new-category, form.edit_category
+        margin-bottom: 0.25rem
+
   #cms-main
     padding-bottom: 3.5rem
 
@@ -134,21 +140,6 @@ body#comfy
       right: 0
       z-index: 1000
       border-top: 1px solid $gray-200
-
-    .categories-widget
-      background-color: $gray-100
-      border: 1px solid $gray-300
-      padding: 10px 10px 5px 10px
-      margin-bottom: 1rem
-      .categories
-        .category, .edit_category
-          display: inline-block
-          margin-bottom: 5px
-        .toggle-cat-edit
-          float: right
-          margin-left: 5px
-        &.editable
-          display: none
 
     ul.list
       padding: 0

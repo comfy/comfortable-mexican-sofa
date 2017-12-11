@@ -162,8 +162,8 @@ window.CMS.page_update_preview = ->
 window.CMS.categories = ->
   $('button.toggle-cat-edit', '.categories-widget').click (event) ->
     event.preventDefault()
-    $('.categories.read', '.categories-widget').toggle()
-    $('.categories.editable', '.categories-widget').toggle()
+    $('.read', '.categories-widget').toggle()
+    $('.editable', '.categories-widget').toggle()
     $('.edit', '.categories-widget').toggle()
     $('.done', '.categories-widget').toggle()
 

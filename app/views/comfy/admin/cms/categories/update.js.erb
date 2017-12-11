@@ -1,6 +1,6 @@
-$('.categories.editable form#<%= dom_id(@category) %>').replaceWith(
+$('.editable form#<%= dom_id(@category) %>').replaceWith(
   '<%= escape_javascript(render "show", category: @category ) %>'
 );
-$('.categories.read .category#<%= dom_id(@category) %>').replaceWith(
+$('.read .category#<%= dom_id(@category) %>').replaceWith(
   '<%= escape_javascript(render "show", category: @category, read: true) %>'
 );

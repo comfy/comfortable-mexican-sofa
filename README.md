@@ -73,7 +73,7 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
-![Sofa's Page Edit View](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.jpg)
+![Admin Area Preview](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.jpg)
 
 #### Old Versions
 
