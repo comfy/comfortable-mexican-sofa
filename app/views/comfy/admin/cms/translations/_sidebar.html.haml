@@ -5,9 +5,10 @@
       - badge = content_tag(:span, translation.locale, class: "badge badge-primary")
       - name = "#{badge} #{translation.label}".html_safe
       - published_css_class = translation.is_published? ? "published" : "draft"
-      = link_to name, url, class: "#{published_css_class} translation btn btn-outline-light w-100"
+      = active_link_to name, url, class: "#{published_css_class} translation btn text-truncate btn-light w-100"
 
       - url = comfy_admin_cms_site_page_translation_path(@site, @page, translation)
-      = link_to t(".delete"), url, method: :delete, data: {confirm: t(".confirm")}, class: "btn btn-danger"
+      = link_to url, method: :delete, data: {confirm: t(".confirm")}, class: "btn btn-danger" do
+        %i.fas.fa-fw.fa-times
 
-  = link_to t(".new"), new_comfy_admin_cms_site_page_translation_path(@site, @page), class: "btn btn-secondary d-block mb-1"
+  = link_to t(".new"), new_comfy_admin_cms_site_page_translation_path(@site, @page), class: "btn btn-sm btn-secondary d-block mb-1"

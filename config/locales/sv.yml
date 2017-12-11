@@ -171,7 +171,6 @@ sv:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ sv:
 
         categories:
           index:
-            label: Kategorier
             edit: Ändra
             done: Klar
-            all: Alla
+            all: Alla Kategorier
             add: Lägg till
             add_placeholder: Lägga Kategori
           show:

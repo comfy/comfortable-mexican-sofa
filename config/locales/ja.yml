@@ -171,7 +171,6 @@ ja:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ ja:
 
         categories:
           index:
-            label: カテゴリー
             edit: 編集
             done: 完了
-            all: すべて
+            all: すべて カテゴリー
             add: 追加
             add_placeholder: カテゴリを追加
           show:

@@ -171,7 +171,6 @@ ru:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ ru:
 
         categories:
           index:
-            label: Категории
             edit: Редактировать
             done: Применить
-            all: Все
+            all: Все Категории
             add: Добавить
             add_placeholder: добавить категорию
           show:

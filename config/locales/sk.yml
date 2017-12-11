@@ -171,7 +171,6 @@ sk:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ sk:
 
         categories:
           index:
-            label: Kategórie
             edit: Upraviť
             done: Hotovo
-            all: Všetky
+            all: Všetky Kategórie
             add: Pridať
             add_placeholder: Pridať kategóriu
           show:

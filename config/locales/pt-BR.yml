@@ -171,7 +171,6 @@ pt-BR:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ pt-BR:
 
         categories:
           index:
-            label: Categorias
             edit: Editar
             done: Pronto
-            all: Todas
+            all: Todas Categorias
             add: Adicionar
             add_placeholder: Adicione uma Categoria
           show:

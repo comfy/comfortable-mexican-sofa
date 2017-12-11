@@ -171,7 +171,6 @@ da:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ da:
 
         categories:
           index:
-            label: Kategorier
             edit: Rediger
             done: Udført
-            all: Alle
+            all: Alle Kategorier
             add: Tilføj
             add_placeholder: Tilføj kategori
           show:

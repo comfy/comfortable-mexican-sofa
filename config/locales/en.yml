@@ -171,7 +171,6 @@ en:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,7 +250,6 @@ en:
 
         categories:
           index:
-            label: Categories
             edit: Edit
             done: Done
             all: All Categories

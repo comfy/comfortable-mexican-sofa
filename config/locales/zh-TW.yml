@@ -171,7 +171,6 @@ zh-TW:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ zh-TW:
 
         categories:
           index:
-            label: 分類
             edit: 編輯
             done: 完成
-            all: 全部
+            all: 全部 分類
             add: 創建
             add_placeholder: 添加類別
           show:

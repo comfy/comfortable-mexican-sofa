@@ -171,7 +171,6 @@ es:
             cancel: Return to Page
           sidebar:
             new: New Translation
-            delete: Delete
             confirm: Are you sure?
 
         snippets:
@@ -251,10 +250,9 @@ es:
 
         categories:
           index:
-            label: Categorias
             edit: Editar
             done: Listo
-            all: Todos
+            all: Todos Categorias
             add: Agregar
             add_placeholder: Añadir Categoría
           show:
