@@ -26,8 +26,8 @@ zh-CN:
       comfy/cms/page:
         label: 页面名称
         layout_id: 布局
-        slug: Slug
-        full_path: Full path
+        slug: 缩略路径
+        full_path: 完整路径
         parent_id: 上级
         target_page_id: 跳转至
         content: 内容
@@ -57,7 +57,7 @@ zh-CN:
       cms:
         base:
           site_not_found: 没有该站点
-          seeds_enabled: CMS夹具已经启用，在此处的所有修改将被忽略。
+          seeds_enabled: CMS样板已经启用，在此处的所有修改将被忽略。
 
           sites: 站点
           layouts: 布局
@@ -144,7 +144,7 @@ zh-CN:
             create: 创建页面
             cancel: 取消
             update: 更新页面
-            choose_link: Select page...
+            choose_link: 选择页面...
 
         fragments:
           form_fragments:
@@ -206,10 +206,10 @@ zh-CN:
             revision: 修订版本
             update: 更新到该修订版本
             cancel: 取消
-            content: Content
-            changes: Changes
-            previous: Previous
-            current: Current
+            content: 内容
+            changes: 更改
+            previous: 先前
+            current: 当前
           sidebar:
             revision:
               zero: '%{count} 修订版本'

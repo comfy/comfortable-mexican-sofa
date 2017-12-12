@@ -57,7 +57,7 @@ zh-TW:
       cms:
         base:
           site_not_found: 沒有該站點
-          seeds_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
+          seeds_enabled: CMS樣板已經啟用，在此處的所有修改將被忽略。
 
           sites: 站點
           layouts: 佈局
@@ -113,7 +113,7 @@ zh-TW:
             select_parent_layout: 選擇上級佈局
             select_app_layout: 選擇應用佈局
             create: 創建佈局
-            cancel: Cancel
+            cancel: 取消
             update: 更新佈局
 
         pages:
