@@ -6,7 +6,7 @@ zh-TW:
       comfy/cms/page: 頁面
       comfy/cms/snippet: 片段
       comfy/cms/file: 文件
-      comfy/cms/translation: Translation
+      comfy/cms/translation: 翻譯
 
     attributes:
       comfy/cms/site:
@@ -41,10 +41,10 @@ zh-TW:
         label: 標籤
         content: 內容
       comfy/cms/translation:
-        locale: Language
-        label: Label
-        layout_id: Layout
-        is_published: Published
+        locale: 語言
+        label: 標籤
+        layout_id: 佈局
+        is_published: 發佈
 
   comfy:
     cms:
@@ -57,7 +57,7 @@ zh-TW:
       cms:
         base:
           site_not_found: 沒有該站點
-          seeds_enabled: CMS 樣板已經啟用，在此處的所有修改將被忽略。
+          seeds_enabled: CMS樣板已經啟用，在此處的所有修改將被忽略。
 
           sites: 站點
           layouts: 佈局
@@ -113,7 +113,7 @@ zh-TW:
             select_parent_layout: 選擇上級佈局
             select_app_layout: 選擇應用佈局
             create: 創建佈局
-            cancel: Cancel
+            cancel: 取消
             update: 更新佈局
 
         pages:
@@ -153,25 +153,25 @@ zh-TW:
               編輯內容使其包含一個頁面或者欄位標記。例如： <code>{{cms:wysiwyg content}}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: 翻譯創建成功
+          creation_failure: 翻譯創建失敗
+          updated: 翻譯更新成功
+          update_failure: 翻譯更新失敗
+          deleted: 翻譯刪除成功
+          not_found: 翻譯不存在
 
           new:
-            title: New Translation
+            title: 新翻譯
           edit:
-            title: Editing Translation
+            title: 編輯翻譯
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: 預覽
+            create: 創建
+            update: 更新
+            cancel: 取消
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: 新翻譯
+            confirm: 確定刪除該翻譯嗎?
 
         snippets:
           created: 片段創建成功
