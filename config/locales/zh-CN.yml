@@ -6,7 +6,7 @@ zh-CN:
       comfy/cms/page: 页面
       comfy/cms/snippet: 片段
       comfy/cms/file: 文件
-      comfy/cms/translation: Translation
+      comfy/cms/translation: 翻译
 
     attributes:
       comfy/cms/site:
@@ -41,10 +41,10 @@ zh-CN:
         label: 标签
         content: 内容
       comfy/cms/translation:
-        locale: Language
-        label: Label
-        layout_id: Layout
-        is_published: Published
+        locale: 语言
+        label: 标签
+        layout_id: 布局
+        is_published: 发布
 
   comfy:
     cms:
@@ -153,25 +153,25 @@ zh-CN:
               编辑内容使其包含一个页面或者field标签。例如： <code>{{cms:wysiwyg content}}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: 翻译创建成功
+          creation_failure: 翻译创建失败
+          updated: 翻译更新成功
+          update_failure: 翻译更新失败
+          deleted: 翻译删除成功
+          not_found: 翻译不存在
 
           new:
-            title: New Translation
+            title: 新翻译
           edit:
-            title: Editing Translation
+            title: 编辑翻译
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: 预览
+            create: 创建
+            update: 更新
+            cancel: 取消
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: 新翻译
+            confirm: 确定吗?
 
         snippets:
           created: 片段创建成功
