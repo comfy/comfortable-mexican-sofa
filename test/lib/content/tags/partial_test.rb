@@ -23,12 +23,12 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
 
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "path/to/partial, key: val")
-    assert_equal "<%= render partial: '@path', locals: {\"key\"=>\"val\"} %>", tag.content
+    assert_equal "<%= render partial: \"path/to/partial\", locals: {\"key\"=>\"val\"} %>", tag.content
   end
 
   def test_render
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "path/to/partial, key: val")
-    assert_equal "<%= render partial: '@path', locals: {\"key\"=>\"val\"} %>", tag.render
+    assert_equal "<%= render partial: \"path/to/partial\", locals: {\"key\"=>\"val\"} %>", tag.render
   end
 
   def test_render_with_whitelist
@@ -38,7 +38,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
     assert_equal "", tag.render
 
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(@page, "safe/path")
-    assert_equal "<%= render partial: '@path', locals: {} %>", tag.render
+    assert_equal "<%= render partial: \"safe/path\", locals: {} %>", tag.render
   end
 
 end

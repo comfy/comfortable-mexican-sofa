@@ -222,7 +222,7 @@ class ContentRendererTest < ActiveSupport::TestCase
 
   def test_render_with_erb_allowed_via_tag
     out = render_string("{{cms:partial path}}")
-    assert_equal "<%= render partial: '@path', locals: {} %>", out
+    assert_equal "<%= render partial: \"path\", locals: {} %>", out
   end
 
   def test_render_with_nested_tag
