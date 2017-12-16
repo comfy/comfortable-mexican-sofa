@@ -1,0 +1,263 @@
+gr:
+  activerecord:
+    models:
+      comfy/cms/site: Ιστότοπος
+      comfy/cms/layout: Διάταξη
+      comfy/cms/page: Σελίδα
+      comfy/cms/snippet: Snippet
+      comfy/cms/file: Αρχείο
+      comfy/cms/translation: Μετάφραση
+
+    attributes:
+      comfy/cms/site:
+        identifier: Αναγνωριστικό
+        label: Ετικέτα
+        hostname: Όνομα host
+        path: Διαδρομή
+        locale: Γλώσσα
+      comfy/cms/layout:
+        identifier: Αναγνωριστικό
+        label: Όνομα Διάταξης
+        app_layout: Διάταξη Εφαρμογής
+        parent_id: Διάταξη γονέα
+        content: Περιεχόμενο
+        css: Stylesheet
+        js: Javascript
+      comfy/cms/page:
+        label: Ετικέτα
+        layout_id: Διάταξη
+        slug: Slug
+        full_path: Πλήρης Διαδρομή
+        parent_id: Γονέας
+        target_page_id: Ανακατεύθυνση σε Σελίδα
+        content: Περιεχόμενο
+        is_published: Δημοσιευμένο
+      comfy/cms/file:
+        label: Ετικέτα
+        file: Αρχείο
+        description: Περιγραφή
+      comfy/cms/snippet:
+        label: Ετικέτα
+        identifier: Αναγνωριστικό
+        content: Περιεχόμενο
+      comfy/cms/translation:
+        locale: Γλώσσα
+        label: Ετικέτα
+        layout_id: Διάταξη
+        is_published: Δημοσιευμένο
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Ο Ιστότοπος Δεν Βρέθηκε
+        layout_not_found: Η Διάταξη Δεν Βρέθηκε
+        page_not_found: Η Σελίδα Δεν Βρέθηκε
+
+    admin:
+      cms:
+        base:
+          site_not_found: Ο Ιστότοπος Δεν Βρέθηκε
+          seeds_enabled: Τα CMS Seeds είναι ενεργοποιημένα. Όλες οι αλλαγές που θα γίνουν εδώ δεν θα αποθηκευτούν.
+
+          sites: Ιστότοποι
+          layouts: Διατάξεις
+          pages: Σελίδες
+          snippets: Snippets
+          files: Αρχεία
+
+        sites:
+          created: Ο ιστότοπος δημιουργήθηκε
+          creation_failure: Αποτυχία δημιουργίας ιστοτόπου
+          updated: Ο ιστότοπος ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης ιστοτόπου
+          deleted: Ο ιστότοπος διαγράφηκε
+          not_found: Ο ιστότοπος δεν βρέθηκε
+
+          index:
+            title: Ιστότοποι
+            new_link: Δημιουργία Νέου Ιστότοπου
+            select: Επιλογή Ιστότοπου
+            edit: Επεξεργασία
+            delete: Διαγραφή
+            are_you_sure: Είστε σίγουροι πως θέλετε να διαγράψετε αυτόν τον ιστότοπο;
+          new:
+            title: Νέος Ιστότοπος
+          edit:
+            title: Επεξεργασία Ιστοτόπου
+          form:
+            create: Δημιουργία Ιστοτόπου
+            cancel: Ακύρωση
+            update: Ενημέρωση Ιστοτόπου
+
+        layouts:
+          created: Η διάταξη δημιουργήθηκε
+          creation_failure: Αποτυχία δημιουργίας διάταξης
+          updated: Η διάταξη ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης διάταξης
+          deleted: Η διάταξη διαγράφηκε
+          not_found: Η διάταξη δεν βρέθηκε
+
+          index:
+            title: Διατάξεις
+            new_link:  Δημιουργία Νέας Διάταξης
+          index_branch:
+            add_child_layout: Προσθήκη Child Διάταξης
+            edit: Επεξεργασία
+            delete: Διαγραφή
+            are_you_sure: Είστε σίγουροι;
+          new:
+            title: Νέα Διάταξη
+          edit:
+            title: Επεξεργασία Διάταξης
+          form:
+            select_parent_layout: Επιλογή Διάταξης Γονέα
+            select_app_layout: Επιλογή Διάταξης Εφαρμογής
+            create: Δημιουργία Διάταξης
+            cancel: Ακύρωση
+            update: Ενημέρωση Διάταξης
+
+        pages:
+          created: Η σελίδα δημιουργήθηκε
+          creation_failure: Αποτυχία δημιουργίας σελίδας
+          updated: Η σελίδα ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης σελίδας
+          deleted: Η σελίδα διαγράφηκε
+          not_found: Η σελίδα δεν βρέθηκε
+          layout_not_found: Η διάταξη δεν βρέθηκε. Προσπαθήστε να δημιουργήσετε μία.
+
+          index:
+            title: Σελίδες
+            new_link: Δημιουργία Νέας Σελίδας
+          index_branch:
+            toggle: Toggle
+            add_child_page: Δημιουργία Child Σελίδας
+            edit: Επεξεργασία
+            delete: Διαγραφή
+            are_you_sure: Είστε σίγουροι;
+          new:
+            title: Νέα Σελίδα
+          edit:
+            title: Επεξεργασία Σελίδας
+          form:
+            select_target_page: Καμία Ανακατεύθυνση
+            preview: Προεπισκόπηση
+            create: Δημιουργία Σελίδας
+            cancel: Ακύρωση
+            update: Ενημέρωση Σελίδας
+            choose_link: Επιλογή σελίδας...
+
+        fragments:
+          form_fragments:
+            no_tags: |-
+              Η διάταξη δεν έχει καθορίσει ετικέτες περιεχομένου.<br/>
+              Επεξεργαστείτε το περιεχόμενο για να συμπεριλάβετε μια ετικέτα σελίδας ή πεδίου. Για παράδειγμα: <code>{{cms:wysiwyg content}}</code>
+
+        translations:
+          created: Η μετάφραση δημιουρήθηκε
+          creation_failure: Αποτυχία δημιουργίας μετάφρασης
+          updated: Η μετάφραση ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης μετάφρασης
+          deleted: Η μετάφραση διαγράφηκε
+          not_found: Η μετάφραση δεν βρέθηκε
+
+          new:
+            title: Νέα Μετάφραση
+          edit:
+            title: Επεξεργασία Μετάφρασης
+          form:
+            preview: Προεπισκόπηση
+            create: Δημιουργία
+            update: Ενημέρωση
+            cancel: Επιστροφή στην Σελίδα
+          sidebar:
+            new: Νέα Μετάφραση
+            confirm: Είστε σίγουροι;
+
+        snippets:
+          created: Το Snippet δημιουργήθηκε
+          creation_failure: Αποτυχία δημιουργίας snippet
+          updated: Το Snippet ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης snippet
+          deleted: To Snippet διαγράφηκε
+          not_found: Το Snippet δεν βρέθηκε
+
+          index:
+            title: Snippets
+            new_link: Δημιουργία νέου Snippet
+            edit: Επεξεργασία
+            delete: Διαγραφή
+            are_you_sure: Είστε σίγουροι;
+          new:
+            title: Νέο Snippet
+          edit:
+            title: Επεξεργασία Snippet
+          form:
+            create: Δημιουργία Snippet
+            cancel: Ακύρωση
+            update: Ενημέρωση Snippet
+
+        revisions:
+          reverted: Το περιεχόμενο επαναφέρθηκε
+          record_not_found: Η Αναγραφή δεν βρέθηκε
+          not_found: Η αναθεώρηση δεν βρέθηκε
+
+          show:
+            title: Αναθεωρήσεις για
+            revision: Αναθεώρηση
+            update: Ενημερωσή σε αυτή την Αναθεώρηση
+            cancel: Ακύρωση
+            content: Περιεχόμενο
+            changes: Αλλαγές
+            previous: Προηγούμενη
+            current: Τρέχουσα
+          sidebar:
+            revision:
+              zero: Καμία Αναθεώρηση
+              one: '%{count} Αναθεώρηση'
+              few: '%{count} Αναθεωρήσεις'
+              many: '%{count} Αναθεωρήσεις'
+              other: '%{count} Αναθεωρήσεις'
+
+        files:
+          created: Το αρχείο ανέβηκε
+          creation_failure: Αποτυχία ανεβάσματος αρχείου
+          updated: Το αρχείο ενημερώθηκε
+          update_failure: Αποτυχία ενημέρωσης αρχείου
+          deleted: Το αρχείο διαγράφηκε
+          not_found: Το αρχεία δεν βρέθηκε
+
+          index:
+            title: Αρχεία
+            new_link: Ανέβασμα Νέων Αρχείων
+            button: Ανέβασμα Αρχείων
+          new:
+            title: Νέο Αρχείο
+          edit:
+            title: Επεξεργασία Αρχείου
+          form:
+            current_file: Τρέχων Αρχείο
+            create: Ανέβασμα Αρχείου
+            cancel: Ακύρωση
+            update: Ενημέρωση Αρχείου
+            delete: Διαγραφή Αρχείου
+            are_you_sure: Είστε σίγουροι;
+          page_form:
+            are_you_sure: Είστε σίγουροι;
+          file:
+            edit: Επεξεργασία
+            delete: Διαγραφή
+            are_you_sure: Είστε σίγουροι;
+
+        categories:
+          index:
+            edit: Επεξεργασία
+            done: Τέλος
+            all: Όλες οι κατηγορίες
+            add: Προσθήκη
+            add_placeholder: Προσθήκη κατηγορίας
+          show:
+            are_you_sure: Είστε σίγουροι;
+          edit:
+            save: Αποθήκευση
+          form:
+            label: Κατηγορίες
