@@ -6,7 +6,7 @@
 - branch_open   = (session[:cms_page_tree] || []).member?(page.id.to_s) || page.root?
 - category_view = params[:categories].present?
 
-%li{id: dom_id(page)}
+%li{id: dom_id(page), data: {id: page.id}}
   .row
 
     .col-md-6.item

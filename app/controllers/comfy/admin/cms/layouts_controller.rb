@@ -1,5 +1,8 @@
 class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
 
+  include ::Comfy::ReorderAction
+  self.reorder_action_resource = ::Comfy::Cms::Layout
+
   before_action :build_layout,  only: %i[new create]
   before_action :load_layout,   only: %i[edit update destroy]
   before_action :authorize
@@ -39,13 +42,6 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
     @layout.destroy
     flash[:success] = I18n.t("comfy.admin.cms.layouts.deleted")
     redirect_to action: :index
-  end
-
-  def reorder
-    (params[:comfy_cms_layout] || []).each_with_index do |id, index|
-      ::Comfy::Cms::Layout.where(id: id).update_all(position: index)
-    end
-    head :ok
   end
 
 protected

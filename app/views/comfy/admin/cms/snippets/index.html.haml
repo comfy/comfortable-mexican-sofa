@@ -9,7 +9,7 @@
 
 %ul.list.sortable
   - @snippets.each do |snippet|
-    %li{id: dom_id(snippet)}
+    %li{data: {id: snippet.id}}
       .row
         .col-md-6.item
           .item-controls.d-none.d-lg-block

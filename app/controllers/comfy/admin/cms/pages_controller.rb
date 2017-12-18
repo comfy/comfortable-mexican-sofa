@@ -1,5 +1,8 @@
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
+  include ::Comfy::ReorderAction
+  self.reorder_action_resource = ::Comfy::Cms::Page
+
   before_action :check_for_layouts, only: %i[new edit]
   before_action :build_page,        only: %i[new create]
   before_action :load_page,         only: %i[edit update destroy]
@@ -68,13 +71,6 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     s.member?(id) ? s.delete(id) : s << id
   rescue ActiveRecord::RecordNotFound
     render nothing: true
-  end
-
-  def reorder
-    (params[:comfy_cms_page] || []).each_with_index do |id, index|
-      ::Comfy::Cms::Page.where(id: id).update_all(position: index)
-    end
-    head :ok
   end
 
 protected

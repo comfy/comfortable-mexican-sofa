@@ -140,6 +140,10 @@ body#comfy
       border-top: 1px solid $gray-200
 
     ul.list
+      %item-active
+        background-color: $white
+      %control-active
+        color: $gray-800
       padding: 0
       li
         list-style: none
@@ -157,8 +161,6 @@ body#comfy
                 margin-right: 15px
                 display: block
                 color: $gray-500
-                &:hover
-                  color: $gray-800
               .dragger
                 cursor: move
               .toggle
@@ -166,6 +168,8 @@ body#comfy
                   display: none
                 .expand
                   display: inline
+                &:hover
+                  @extend %control-active
               .toggle.open
                 .collapse
                   display: inline
@@ -183,8 +187,20 @@ body#comfy
                 font-size: 0.75rem
           .btn-group
             background-color: $white
-        .row:hover
-          background-color: $white
+        &.sortable-ghost, &.sortable-chosen
+          > .row
+            @extend %item-active
+            > .item > .item-controls > .dragger
+              @extend %control-active
+      &:not(.sortable-active) > li
+        >.row
+          &:hover
+            @extend %item-active
+          > .item > .item-controls
+            .dragger
+              &:hover
+                @extend %control-active
+
 
   // -- Pages ------------------------------------------------------------------
   &.c-comfy-admin-cms-pages

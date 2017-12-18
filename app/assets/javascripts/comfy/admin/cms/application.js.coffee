@@ -1,6 +1,6 @@
 #= require rails-ujs
+#= require comfy/admin/cms/lib/sortable.min
 #= require jquery3
-#= require jquery-ui
 #= require codemirror
 #= require codemirror/modes/css
 #= require codemirror/modes/htmlmixed
