@@ -11,8 +11,13 @@ require "haml-rails"
 require "sass-rails"
 require "coffee-rails"
 require "codemirror-rails"
-require "bootstrap"
 require "plupload-rails"
+
+# We deliberately do not require "bootstrap". See:
+# https://github.com/comfy/comfortable-mexican-sofa/issues/777
+
+# Bootstrap 4 dependencies:
+require "popper_js"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine

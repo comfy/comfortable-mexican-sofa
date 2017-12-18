@@ -1,6 +1,11 @@
 @import "jquery-ui"
 @import "codemirror"
-@import "bootstrap"
+
+// Import bootstrap via an absolute path, allowing main_app to use Bootstrap 3.
+// See https://github.com/comfy/comfortable-mexican-sofa/issues/777
+@import "<%= File.join(Gem::Specification.find_by_name('bootstrap').gem_dir,
+                       'assets', 'stylesheets', 'bootstrap') %>"
+
 @import "rails_bootstrap_forms"
 @import "comfy/admin/cms/lib/fontawesome"
 @import "comfy/admin/cms/lib/redactor"
