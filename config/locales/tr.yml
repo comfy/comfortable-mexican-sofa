@@ -6,7 +6,7 @@ tr:
       comfy/cms/page: Sayfa
       comfy/cms/snippet: Pasaj
       comfy/cms/file: Dosya
-      comfy/cms/translation: Translation
+      comfy/cms/translation: Çeviri
 
     attributes:
       comfy/cms/site:
@@ -41,10 +41,10 @@ tr:
         identifier: Tanımlayıcı
         content: İçerik
       comfy/cms/translation:
-        locale: Language
-        label: Label
-        layout_id: Layout
-        is_published: Published
+        locale: Dil
+        label: Etiket
+        layout_id: Şablon
+        is_published: Yayında mı?
 
   comfy:
     cms:
@@ -57,7 +57,7 @@ tr:
       cms:
         base:
           site_not_found: Site Bulunamadı
-          seeds_enabled: CMS Fixtures are enabled. All changes done here will be discarded.
+          seeds_enabled: CMS Fixtures etkinleştirildi. Burada yapılan değişiklikler kullanılmayacak.
 
           sites: Siteler
           layouts: Şablonlar
@@ -153,25 +153,25 @@ tr:
               Lütfen bir etiket ekleyin. Örnek: <code>{{cms:wysiwyg content}}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: Çeviri oluşturuldu
+          creation_failure: Çeviri oluşturulamadı
+          updated: Çeviri güncellendi
+          update_failure: Çeviri güncellenemedi
+          deleted: Çeviri silindi
+          not_found: Çeviri bulunamadı
 
           new:
-            title: New Translation
+            title: Yeni Çeviri
           edit:
-            title: Editing Translation
+            title: Çeviri Düzenleniyor
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: Önizleme
+            create: Oluştur
+            update: Güncelle
+            cancel: Sayfaya Geri Dön
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: Yeni Çeviri
+            confirm: Emin Misin?
 
         snippets:
           created: Pasaj oluşturuldu
