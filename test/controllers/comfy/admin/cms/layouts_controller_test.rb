@@ -2,8 +2,14 @@ require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
+  setup do
+    @site = comfy_cms_sites(:default)
+  end
+
   def test_get_index
-    r :get, comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default))
+    @site.layouts.create!(identifier: "other")
+
+    r :get, comfy_admin_cms_site_layouts_path(site_id: @site)
     assert_response :success
     assert assigns(:layouts)
     assert_template :index
@@ -11,33 +17,31 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_get_index_with_no_layouts
     Comfy::Cms::Layout.delete_all
-    r :get, comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default))
+    r :get, comfy_admin_cms_site_layouts_path(site_id: @site)
     assert_response :redirect
     assert_redirected_to action: :new
   end
 
   def test_get_new
-    site = comfy_cms_sites(:default)
-    r :get, new_comfy_admin_cms_site_layout_path(site_id: site)
+    r :get, new_comfy_admin_cms_site_layout_path(site_id: @site)
     assert_response :success
     assert assigns(:layout)
     assert_equal "{{ cms:wysiwyg content }}", assigns(:layout).content
     assert_template :new
-    assert_select "form[action='/admin/sites/#{site.id}/layouts']"
+    assert_select "form[action='/admin/sites/#{@site.id}/layouts']"
   end
 
   def test_get_new_with_parent
-    site    = comfy_cms_sites(:default)
-    layout  = comfy_cms_layouts(:default)
+    layout = comfy_cms_layouts(:default)
     layout.update_column(:app_layout, "application")
-    r :get, new_comfy_admin_cms_site_layout_path(site_id: site), params: { parent_id: layout.id }
+    r :get, new_comfy_admin_cms_site_layout_path(site_id: @site), params: { parent_id: layout.id }
     assert_response :success
     assert_equal layout.app_layout, assigns(:layout).app_layout
   end
 
   def test_get_edit
     layout = comfy_cms_layouts(:default)
-    r :get, edit_comfy_admin_cms_site_layout_path(site_id: comfy_cms_sites(:default), id: layout)
+    r :get, edit_comfy_admin_cms_site_layout_path(site_id: @site, id: layout)
     assert_response :success
     assert assigns(:layout)
     assert_template :edit
@@ -45,7 +49,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_edit_failure
-    r :get, edit_comfy_admin_cms_site_layout_path(site_id: comfy_cms_sites(:default), id: "invalid")
+    r :get, edit_comfy_admin_cms_site_layout_path(site_id: @site, id: "invalid")
     assert_response :redirect
     assert_redirected_to action: :index
     assert_equal "Layout not found", flash[:danger]
@@ -53,14 +57,14 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation
     assert_difference "Comfy::Cms::Layout.count" do
-      r :post, comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default)), params: { layout: {
+      r :post, comfy_admin_cms_site_layouts_path(site_id: @site), params: { layout: {
         label:      "Test Layout",
         identifier: "test",
         content:    "Test {{cms:page:content}}"
       } }
       assert_response :redirect
       layout = Comfy::Cms::Layout.last
-      assert_equal comfy_cms_sites(:default), layout.site
+      assert_equal @site, layout.site
       assert_redirected_to action: :edit, site_id: layout.site, id: layout
       assert_equal "Layout created", flash[:success]
     end
@@ -68,7 +72,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_creation_failure
     assert_no_difference "Comfy::Cms::Layout.count" do
-      r :post, comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default)), params: { layout: {} }
+      r :post, comfy_admin_cms_site_layouts_path(site_id: @site), params: { layout: {} }
       assert_response :success
       assert_template :new
       assert_equal "Failed to create layout", flash[:danger]
@@ -77,7 +81,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_update
     layout = comfy_cms_layouts(:default)
-    r :put, comfy_admin_cms_site_layout_path(site_id: comfy_cms_sites(:default), id: layout), params: { layout: {
+    r :put, comfy_admin_cms_site_layout_path(site_id: @site, id: layout), params: { layout: {
       label:    "New Label",
       content:  "New {{cms:page:content}}"
     } }
@@ -91,7 +95,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_update_failure
     layout = comfy_cms_layouts(:default)
-    r :put, comfy_admin_cms_site_layout_path(site_id: comfy_cms_sites(:default), id: layout), params: { layout: {
+    r :put, comfy_admin_cms_site_layout_path(site_id: @site, id: layout), params: { layout: {
       identifier: ""
     } }
     assert_response :success
@@ -103,7 +107,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_destroy
     assert_difference "Comfy::Cms::Layout.count", -1 do
-      r :delete, comfy_admin_cms_site_layout_path(site_id: comfy_cms_sites(:default), id: comfy_cms_layouts(:default))
+      r :delete, comfy_admin_cms_site_layout_path(site_id: @site, id: comfy_cms_layouts(:default))
       assert_response :redirect
       assert_redirected_to action: :index
       assert_equal "Layout deleted", flash[:success]
@@ -112,14 +116,14 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
 
   def test_reorder
     layout_one = comfy_cms_layouts(:default)
-    layout_two = comfy_cms_sites(:default).layouts.create!(
+    layout_two = @site.layouts.create!(
       label:      "test",
       identifier: "test"
     )
     assert_equal 0, layout_one.position
     assert_equal 1, layout_two.position
 
-    r :put, reorder_comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default)), params: {
+    r :put, reorder_comfy_admin_cms_site_layouts_path(site_id: @site), params: {
       order: [layout_two.id, layout_one.id]
     }
     assert_response :success

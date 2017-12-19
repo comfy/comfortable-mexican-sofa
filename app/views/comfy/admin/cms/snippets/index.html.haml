@@ -15,7 +15,7 @@
           .item-controls.d-none.d-lg-block
             - if !params[:categories].present? && @site.snippets.count > 1
               .dragger
-                = fa_icon("bars")
+                %i.fas.fa-bars
           .item-content
             .item-title
               = link_to snippet.label, edit_comfy_admin_cms_site_snippet_path(@site, snippet)

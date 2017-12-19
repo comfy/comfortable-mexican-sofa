@@ -8,6 +8,8 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
   end
 
   def test_get_index
+    @site.snippets.create!(identifier: "other")
+
     r :get, comfy_admin_cms_site_snippets_path(site_id: @site)
     assert_response :success
     assert assigns(:snippets)

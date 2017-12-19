@@ -120,20 +120,22 @@ window.CMS.sortable_list = ->
       Array::map.call sortable.el.children, (el) -> el.getAttribute(dataIdAttr)
     set: (sortable) ->
       $.ajax
-        url: "#{CMS.current_path}/reorder"
-        type: 'POST'
+        url:      "#{CMS.current_path}/reorder"
+        type:     'POST'
         dataType: 'json'
         data:
-          order: sortable.toArray()
-          _method: 'PUT'
+          order:    sortable.toArray()
+          _method:  'PUT'
+
   for root in document.querySelectorAll('.sortable')
     Sortable.create root,
-      handle: '.dragger'
-      draggable: 'li'
+      handle:     '.dragger'
+      draggable:  'li'
       dataIdAttr: dataIdAttr
-      store: sortableStore
-      onStart: (evt) -> evt.from.classList.add('sortable-active')
-      onEnd: (evt) -> evt.from.classList.remove('sortable-active')
+      store:      sortableStore
+      onStart:    (evt) -> evt.from.classList.add('sortable-active')
+      onEnd:      (evt) -> evt.from.classList.remove('sortable-active')
+
 
 window.CMS.timepicker = ->
   $('input[type=text][data-cms-datetime]').flatpickr

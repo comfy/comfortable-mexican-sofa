@@ -3,6 +3,8 @@ require_relative "../../../../test_helper"
 class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_get_index
+    Comfy::Cms::Site.create!(hostname: "other.test")
+
     r :get, comfy_admin_cms_sites_path
     assert_response :success
     assert assigns(:sites)

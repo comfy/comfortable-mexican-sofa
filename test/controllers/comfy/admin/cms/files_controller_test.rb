@@ -8,6 +8,11 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_index
+    @site.files.create!(
+      label: "other",
+      file: fixture_file_upload("files/image.jpg", "image/jpeg")
+    )
+
     r :get, comfy_admin_cms_site_files_path(site_id: @site)
     assert_response :success
     assert assigns(:files)
@@ -122,7 +127,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       }
       assert_response :success
       assert_no_select "body"
-      assert_select "li[data-id=#{Comfy::Cms::File.last.id}]"
+      assert_select "li[data-id='#{Comfy::Cms::File.last.id}']"
     end
   end
 
