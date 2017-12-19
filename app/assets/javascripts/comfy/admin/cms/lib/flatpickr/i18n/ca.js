@@ -2,7 +2,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.cat = {})));
+	(factory((global.ca = {})));
 }(this, (function (exports) { 'use strict';
 
 var fp = typeof window !== "undefined" && window.flatpickr !== undefined
@@ -72,11 +72,11 @@ var Catalan = {
     },
     firstDayOfWeek: 1,
 };
-fp.l10ns.cat = Catalan;
-var cat = fp.l10ns;
+fp.l10ns.ca = Catalan;
+var ca = fp.l10ns;
 
 exports.Catalan = Catalan;
-exports['default'] = cat;
+exports['default'] = ca;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

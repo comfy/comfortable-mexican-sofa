@@ -1,0 +1,264 @@
+# encoding: utf-8
+ca:
+  activerecord:
+    models:
+      comfy/cms/site: Lloc
+      comfy/cms/layout: Plantilla
+      comfy/cms/page: Pàgina
+      comfy/cms/snippet: Fragment
+      comfy/cms/file: Arxiu
+      comfy/cms/translation: Traducció
+
+    attributes:
+      comfy/cms/site:
+        identifier: Identificador
+        label: Nom
+        hostname: Adreça
+        path: Ruta
+        locale: Lengua
+      comfy/cms/layout:
+        identifier: Identificador
+        label: Nom de la plantilla
+        app_layout: Plantilla base
+        parent_id: Plantilla pare
+        content: Contingut
+        css: Full d'estil
+        js: JavaScript
+      comfy/cms/page:
+        label: Títol
+        layout_id: Plantilla
+        slug: Ruta
+        full_path: Ruta complerta
+        parent_id: Pare
+        target_page_id: Redirigir a
+        content: Contingut
+        is_published: Publicada
+      comfy/cms/file:
+        label: Nom
+        file: Arxiu
+        description: Descripció
+      comfy/cms/snippet:
+        label: Nom
+        identifier: Identificador
+        content: Contingut
+      comfy/cms/translation:
+        locale: Idioma
+        label: Nom
+        layout_id: Plantilla
+        is_published: Publicat
+
+  comfy:
+    cms:
+      content:
+        site_not_found: El lloc no s'ha pogut trobar
+        layout_not_found: El disseny no s'ha pogut trobar
+        page_not_found: La pàgina no s'ha pogut trobar
+
+    admin:
+      cms:
+        base:
+          site_not_found: El lloc no s'ha pogut trobar
+          seeds_enabled: CMS Fixtures habilitades. Tots els canvis realitzats seran rebutjats.
+
+          sites: Llocs
+          layouts: Dissenys
+          pages: Pàgines
+          snippets: Fragments
+          files: Arxius
+
+        sites:
+          created: S'ha creat el lloc
+          creation_failure: El lloc no s'ha pogut ser crear
+          updated: S'ha actualitzat el lloc
+          update_failure: El lloc no s'ha pogut actualitzar
+          deleted: S'ha esborrat el lloc
+          not_found: El lloc no s'ha pogut trobar
+
+          index:
+            title: Llistat de llocs
+            new_link: Crea un nou lloc
+            select: Selecciona el lloc
+            edit: Edita
+            delete: Esborra
+            are_you_sure: Esteu segur de que voleu eliminar aquest lloc?
+          new:
+            title: Creant lloc
+          edit:
+            title: Editant lloc
+          form:
+            create: Crea lloc
+            cancel: Cancel·la
+            update: Actualiza el lloc
+
+        layouts:
+          created: S'ha creat el disseny
+          creation_failure: El disseny no s'ha pogut crear
+          updated: S'ha actualitzat el disseny
+          update_failure: El disseny NO s'ha pogut actualitzar
+          deleted: S'ha esborrat el disseny
+          not_found: El disseny no s'ha pogut trobar
+
+          index:
+            title: Dissenys
+            new_link: Crea un nou disseny
+          index_branch:
+            add_child_layout: Afegeix un disseny fill
+            edit: Edita
+            delete: Esborra
+            are_you_sure: Esteu segur?
+          new:
+            title: Nou disseny
+          edit:
+            title: Editant disseny
+          form:
+            select_parent_layout: Seleccioneu el disseny pare
+            select_app_layout: Seleccioneu el disseny per a l'aplicació
+            create: Crea el disseny
+            cancel: Cancel·la
+            update: Actualitza el disseny
+
+        pages:
+          created: S'ha creat la pàgina
+          creation_failure: La pàgina no s'ha pogut crear
+          updated: S'ha actualitzat la pàgina
+          update_failure: La pàgina no s'ha pogut actualitzar
+          deleted: S'ha esborrat la pàgina
+          not_found: La pàgina no s'ha pogut esborrar
+          layout_not_found: No s'ha trobat cap disseny. Creeu-ne un primer.
+
+          index:
+            title: Pàgines
+            new_link: Crea una nova pàgina
+          index_branch:
+            toggle: Canvia
+            add_child_page: Afegeix una pàgina filla
+            edit: Edita
+            delete: Elimina
+            are_you_sure: Esteu segur?
+          new:
+            title: Nova pàgina
+          edit:
+            title: Editant pàgina
+          form:
+            select_target_page: No redirigir
+            preview: Vista prèvia
+            create: Crea la pàgina
+            cancel: Cancel·la
+            update: Actualitza la pàgina
+            choose_link: Sel·leccioneu una pàgina…
+
+        fragments:
+          form_fragments:
+            no_tags: |-
+              La plantilla no té etiquetes de contingut definides.<br/>
+              Editeu el contingut per a incloure alguna etiqueta de pàgina o camp, com per exemple: <code>{{cms:wysiwyg content}}</code>
+
+        translations:
+          created: S'ha creat la traducció
+          creation_failure: La traducció no s'ha pogut crear
+          updated: S'ha actualitzat la traducció
+          update_failure: La traducció no s'ha pogut actualitzar
+          deleted: S'ha esborrat la traducció
+          not_found: La traducció no s'ha pogut esborrar
+
+          new:
+            title: Nova traducció
+          edit:
+            title: Editant traducció
+          form:
+            preview: Vista prèvia
+            create: Crea
+            update: Actualitza
+            cancel: Cancel·la
+          sidebar:
+            new: Crea una nova traducció
+            confirm: Esteu segur?
+
+        snippets:
+          created: S'ha creat el fragment
+          creation_failure: El fragment no s'ha pogut crear
+          updated: S'ha actualitzat el fragment
+          update_failure: El fragment no s'ha pogut actualitzar
+          deleted: S'ha esborrat el fragment
+          not_found: Fragment no trobat
+
+          index:
+            title: Fragments
+            new_link: Crea un nou fragment
+            edit: Edita
+            delete: Elimina
+            are_you_sure: Esteu segur?
+          new:
+            title: Nou fragment
+          edit:
+            title: Editant fragment
+          form:
+            create: Crear el fragment
+            cancel: Cancel·la
+            update: Actualitza el fragment
+
+        revisions:
+          reverted: S'ha revertit el contingut
+          record_not_found: El fragment no s'ha pogut trobar
+          not_found: La revisió no s'ha pogut trobar
+
+          show:
+            title: Revisions de
+            revision: Revisió
+            update: Actualitza a aquesta versió
+            cancel: Cancel·la
+            content: Contingut
+            changes: Canvis
+            previous: Anterior
+            current: Actual
+          sidebar:
+            revision:
+              zero: No hi ha cap revisió
+              one: '%{count} revisió'
+              few: '%{count} revisions'
+              many: '%{count} revisions'
+              other: '%{count} revisions'
+
+        files:
+          created: S'ha pujat l'arxiu
+          creation_failure: L'arxiu no s'ha pogut pujar
+          updated: S'ha actualitzat l'arxiu
+          update_failure: L'arxiu no s'ha pogut actualitzar
+          deleted: S'ha esborrat l'arxiu
+          not_found: L'arxiu no s'ha pogut trobar
+
+          index:
+            title: Arxius
+            new_link: Puja un nou arxiu
+            button: Carrega els arxius
+          new:
+            title: Nou arxiu
+          edit:
+            title: Editant arxiu
+          form:
+            current_file: Arxiu actual
+            create: Pujar arxiu
+            cancel: Cancel·la
+            update: Actualitza arxiu
+            delete: Esborra
+            are_you_sure: Esteu segur?
+          page_form:
+            are_you_sure: Esteu segur?
+          file:
+            edit: Edita
+            delete: Esborra
+            are_you_sure: Esteu segur?
+
+        categories:
+          index:
+            edit: Edita
+            done: Fet
+            all: Tots
+            add: Afegeix
+            add_placeholder: Afegeix una categoria
+          show:
+            are_you_sure: Esteu segur?
+          edit:
+            save: Guarda
+          form:
+            label: Categories
