@@ -68,20 +68,18 @@
       # Show drag and drop info and attach events if drag and drop is
       # supported and enabled.
       if up.settings.dragdrop and up.features.dragdrop
-        dropElement = $(up.settings.drop_element).get(0)
+        drop_element = $(up.settings.drop_element)
 
         # When dragging over the document add a class to the drop target
         # that puts it ontop of every element and remove that class when
         # dropping or leaving the drop target. Otherwise the dragleave
         # event would fire whenever we dragging over a child element inside
         # the drop target such as text nodes or stuff.
-        activeClass = 'cms-uploader-drag-drop-target-active'
-        document.addEventListener 'dragenter', (e) ->
-          if e.dataTransfer.files.length > 0
-            dropElement.classList.add(activeClass)
-        for eventName in ['drop', 'dragleave']
-          dropElement.addEventListener eventName, ->
-            dropElement.classList.remove(activeClass)
+        $(document).bind 'dragenter', (e) ->
+          drop_element.addClass('cms-uploader-drag-drop-target-active')
+
+        drop_element.bind 'drop dragleave', (e) ->
+          drop_element.removeClass('cms-uploader-drag-drop-target-active')
 
       else
         $('.cms-uploader-drag-drop-info', target).hide()
