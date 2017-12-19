@@ -564,7 +564,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, page_two.position
 
     r :put, reorder_comfy_admin_cms_site_pages_path(site_id: @site), params: {
-      comfy_cms_page: [page_two.id, page_one.id]
+      order: [page_two.id, page_one.id]
     }
     assert_response :success
     page_one.reload

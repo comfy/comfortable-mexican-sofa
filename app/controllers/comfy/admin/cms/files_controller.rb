@@ -1,5 +1,8 @@
 class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
+  include ::Comfy::ReorderAction
+  self.reorder_action_resource = ::Comfy::Cms::File
+
   include ActionView::Helpers::NumberHelper
 
   before_action :build_file,  only: %i[new create]
@@ -111,15 +114,6 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         redirect_to action: :index
       end
     end
-  end
-
-  def reorder
-    (params[:comfy_cms_file] || []).each_with_index do |id, index|
-      if (cms_file = ::Comfy::Cms::File.find_by_id(id))
-        cms_file.update_column(:position, index)
-      end
-    end
-    head :ok
   end
 
 protected

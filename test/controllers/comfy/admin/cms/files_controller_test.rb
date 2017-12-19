@@ -122,7 +122,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       }
       assert_response :success
       assert_no_select "body"
-      assert_select "li[id=comfy_cms_file_#{Comfy::Cms::File.last.id}]"
+      assert_select "li[data-id=#{Comfy::Cms::File.last.id}]"
     end
   end
 
@@ -224,7 +224,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, file_two.position
 
     r :put, reorder_comfy_admin_cms_site_files_path(site_id: @site), params: {
-      comfy_cms_file: [file_two.id, file_one.id]
+      order: [file_two.id, file_one.id]
     }
     assert_response :success
     file_one.reload

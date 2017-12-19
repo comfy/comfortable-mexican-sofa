@@ -114,12 +114,26 @@ window.CMS.codemirror = ->
 
 
 window.CMS.sortable_list = ->
-  $('.sortable').sortable
-    handle: '.dragger'
-    axis:   'y'
-    update: ->
-      $.post("#{CMS.current_path}/reorder", "_method=put&#{$(this).sortable('serialize')}")
-
+  dataIdAttr = 'data-id'
+  sortableStore =
+    get: (sortable) ->
+      Array::map.call sortable.el.children, (el) -> el.getAttribute(dataIdAttr)
+    set: (sortable) ->
+      $.ajax
+        url: "#{CMS.current_path}/reorder"
+        type: 'POST'
+        dataType: 'json'
+        data:
+          order: sortable.toArray()
+          _method: 'PUT'
+  for root in document.querySelectorAll('.sortable')
+    Sortable.create root,
+      handle: '.dragger'
+      draggable: 'li'
+      dataIdAttr: dataIdAttr
+      store: sortableStore
+      onStart: (evt) -> evt.from.classList.add('sortable-active')
+      onEnd: (evt) -> evt.from.classList.remove('sortable-active')
 
 window.CMS.timepicker = ->
   $('input[type=text][data-cms-datetime]').flatpickr

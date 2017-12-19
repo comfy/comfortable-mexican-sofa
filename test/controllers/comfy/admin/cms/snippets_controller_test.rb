@@ -141,7 +141,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionDispatch::IntegrationTes
     assert_equal 1, snippet_two.position
 
     r :put, reorder_comfy_admin_cms_site_snippets_path(site_id: @site), params: {
-      comfy_cms_snippet: [snippet_two.id, snippet_one.id]
+      order: [snippet_two.id, snippet_one.id]
     }
     assert_response :success
     snippet_one.reload

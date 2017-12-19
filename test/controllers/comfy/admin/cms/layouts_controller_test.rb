@@ -120,7 +120,7 @@ class Comfy::Admin::Cms::LayoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, layout_two.position
 
     r :put, reorder_comfy_admin_cms_site_layouts_path(site_id: comfy_cms_sites(:default)), params: {
-      comfy_cms_layout: [layout_two.id, layout_one.id]
+      order: [layout_two.id, layout_one.id]
     }
     assert_response :success
     layout_one.reload

@@ -1,5 +1,8 @@
 class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
 
+  include ::Comfy::ReorderAction
+  self.reorder_action_resource = ::Comfy::Cms::Snippet
+
   before_action :build_snippet, only: %i[new create]
   before_action :load_snippet,  only: %i[edit update destroy]
   before_action :authorize
@@ -39,13 +42,6 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
     @snippet.destroy
     flash[:success] = I18n.t("comfy.admin.cms.snippets.deleted")
     redirect_to action: :index
-  end
-
-  def reorder
-    (params[:comfy_cms_snippet] || []).each_with_index do |id, index|
-      ::Comfy::Cms::Snippet.where(id: id).update_all(position: index)
-    end
-    head :ok
   end
 
 protected
