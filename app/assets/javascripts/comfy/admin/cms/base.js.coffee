@@ -104,9 +104,7 @@ window.CMS.codemirror = ->
       autoCloseTags:  true
       lineNumbers:    true
     CMS.code_mirror_instances.push(cm)
-    $(cm.display.wrapper).resizable resize: ->
-      cm.setSize($(@).width(), $(@).height())
-      cm.refresh()
+    cmResize cm, resizableWidth: false
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', ->
     for cm in CMS.code_mirror_instances
