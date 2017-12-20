@@ -1,2 +1,2 @@
-app/assets/javascripts/comfy/admin/cms/lib/* linguist-vendored
-app/assets/stylesheets/comfy/admin/cms/lib/* linguist-vendored
+app/assets/javascripts/comfy/vendor/* linguist-vendored
+app/assets/stylesheets/comfy/vendor/* linguist-vendored
