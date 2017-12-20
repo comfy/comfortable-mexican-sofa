@@ -103,10 +103,9 @@ window.CMS.codemirror = ->
       lineWrapping:   true
       autoCloseTags:  true
       lineNumbers:    true
+      viewportMargin: Infinity
+
     CMS.code_mirror_instances.push(cm)
-    $(cm.display.wrapper).resizable resize: ->
-      cm.setSize($(@).width(), $(@).height())
-      cm.refresh()
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', ->
     for cm in CMS.code_mirror_instances
