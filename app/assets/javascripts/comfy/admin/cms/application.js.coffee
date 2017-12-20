@@ -8,6 +8,7 @@
 #= require codemirror/modes/markdown
 #= require codemirror/modes/xml
 #= require codemirror/addons/edit/closetag
+#= require comfy/admin/cms/lib/cm-resize
 #= require comfy/admin/cms/lib/popper.min
 #= require comfy/admin/cms/lib/bootstrap.min
 #= require comfy/admin/cms/lib/flatpickr.min
