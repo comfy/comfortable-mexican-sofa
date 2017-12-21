@@ -2,11 +2,16 @@ source 'http://rubygems.org'
 
 gemspec path: "../../"
 
-gem 'kaminari', '>= 0.14.0'
+group :development, :test do
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "capybara"
+  gem "kaminari"
+  gem "rubocop", require: false
+  gem "selenium-webdriver"
+  gem "sqlite3"
+end
 
 group :test do
-  gem "rubocop", "~> 0.51.0", require: false
-  gem "sqlite3"
   gem "coveralls",  require: false
   gem "mocha",      require: false
   gem "rails-controller-testing"

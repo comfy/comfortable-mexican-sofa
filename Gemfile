@@ -2,20 +2,22 @@ source "http://rubygems.org"
 
 gemspec
 
-# apps can also use will_paginate so there's no dependency in gemspec
-gem "kaminari"
+group :development, :test do
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "capybara"
+  gem "kaminari"
+  gem "rubocop", require: false
+  gem "selenium-webdriver"
+  gem "sqlite3"
+end
 
 group :development do
-  gem "awesome_print"
-  gem "better_errors"
-  gem "binding_of_caller"
   gem "listen"
-  gem "rubocop", "~> 0.51.0", require: false
+  gem "web-console"
 end
 
 group :test do
   gem "coveralls",  require: false
   gem "mocha",      require: false
   gem "rails-controller-testing"
-  gem "sqlite3"
 end

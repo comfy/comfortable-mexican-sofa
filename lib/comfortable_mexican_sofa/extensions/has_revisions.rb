@@ -7,7 +7,7 @@ module ComfortableMexicanSofa::HasRevisions
   module ClassMethods
 
     def cms_has_revisions_for(*fields)
-      include ComfortableMexicanSofa::HasRevisions::InstanceMethods
+      include ComfortableMexicanSofa::HasRevisions::InstanceMethods # rubocop:disable Style/MixinUsage
 
       attr_accessor :revision_data
 

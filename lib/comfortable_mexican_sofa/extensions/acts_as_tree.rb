@@ -29,7 +29,7 @@ module ComfortableMexicanSofa::ActsAsTree
         foreign_key:  configuration[:foreign_key],
         dependent:    configuration[:dependent]
 
-      class_eval <<-RUBY
+      class_eval <<-RUBY, __FILE__, __LINE__ + 1
         include ComfortableMexicanSofa::ActsAsTree::InstanceMethods
 
         scope :roots, -> {
