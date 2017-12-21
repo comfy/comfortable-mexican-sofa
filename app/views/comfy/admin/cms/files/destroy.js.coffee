@@ -1,2 +1,2 @@
-$("#<%= dom_id(@file) %>").fadeOut 'slow', ->
+$("li[data-id=<%= @file.id %>]").fadeOut 'slow', ->
   $(this).remove()

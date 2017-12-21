@@ -1,4 +1,3 @@
-require "rubygems"
 require "comfortable_mexican_sofa"
 require "rails"
 require "rails-i18n"
@@ -9,7 +8,6 @@ require "jquery-rails"
 require "haml-rails"
 require "sass-rails"
 require "coffee-rails"
-require "plupload-rails"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
