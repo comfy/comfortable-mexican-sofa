@@ -8,6 +8,12 @@ gemfile:
 branches:
   only:
     - master
+addons:
+  sources:
+  - google-chrome
+  apt:
+    packages:
+    - google-chrome-stable
 before_script:
   - wget http://chromedriver.storage.googleapis.com/2.34/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
