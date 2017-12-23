@@ -1,11 +1,4 @@
 language: ruby
-before_install:
-  - gem install bundler
-before_script:
-  - rake db:migrate
-script:
-  - bundle exec rake test
-  - bundle exec rubocop
 rvm:
   - 2.2.7
   - 2.3.5
@@ -15,3 +8,7 @@ gemfile:
 branches:
   only:
     - master
+script:
+  - bundle exec rake db:migrate
+  - bundle exec rake test
+  - bundle exec rubocop
