@@ -477,8 +477,8 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_url
-    assert_equal "//test.host/", @page.url
-    assert_equal "//test.host/child-page", comfy_cms_pages(:child).url
+    assert_equal "//www.example.com/", @page.url
+    assert_equal "//www.example.com/child-page", comfy_cms_pages(:child).url
 
     assert_equal "/", @page.url(relative: true)
     assert_equal "/child-page", comfy_cms_pages(:child).url(relative: true)
@@ -487,8 +487,8 @@ class CmsPageTest < ActiveSupport::TestCase
     @page.reload
     comfy_cms_pages(:child).reload
 
-    assert_equal "//test.host/en/site/", @page.url
-    assert_equal "//test.host/en/site/child-page", comfy_cms_pages(:child).url
+    assert_equal "//www.example.com/en/site/", @page.url
+    assert_equal "//www.example.com/en/site/child-page", comfy_cms_pages(:child).url
 
     assert_equal "/en/site/", @page.url(relative: true)
     assert_equal "/en/site/child-page", comfy_cms_pages(:child).url(relative: true)
@@ -496,8 +496,8 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_url_with_public_cms_path
     ComfortableMexicanSofa.config.public_cms_path = "/custom"
-    assert_equal "//test.host/custom/", @page.url
-    assert_equal "//test.host/custom/child-page", comfy_cms_pages(:child).url
+    assert_equal "//www.example.com/custom/", @page.url
+    assert_equal "//www.example.com/custom/child-page", comfy_cms_pages(:child).url
 
     assert_equal "/custom/", @page.url(relative: true)
     assert_equal "/custom/child-page", comfy_cms_pages(:child).url(relative: true)

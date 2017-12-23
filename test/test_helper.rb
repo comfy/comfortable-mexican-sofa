@@ -121,12 +121,6 @@ end
 
 class ActionDispatch::IntegrationTest
 
-  setup :setup_host
-
-  def setup_host
-    host! "test.host"
-  end
-
   # Attaching http_auth stuff with request. Example use:
   #   r :get, '/cms-admin/pages'
   def r(method, path, options = {})
@@ -183,6 +177,20 @@ class Rails::Generators::TestCase
         filename
       )
     )
+  end
+
+end
+
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+
+  # Visiting path and passing in BasicAuth credentials at the same time
+  # I have no idea how to set headers here.
+  def visit_p(path)
+    username = ComfortableMexicanSofa::AccessControl::AdminAuthentication.username
+    password = ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
+    visit("http://#{username}:#{password}@#{Capybara.server_host}:#{Capybara.server_port}#{path}")
   end
 
 end

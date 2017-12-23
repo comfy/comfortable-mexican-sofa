@@ -23,14 +23,14 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
     assert assigns(:cms_site)
-    assert_equal "test.host", assigns(:cms_site).hostname
+    assert_equal "www.example.com", assigns(:cms_site).hostname
   end
 
   def test_get_public_page_with_sites_with_different_paths
     Comfy::Cms::Site.delete_all
-    site_a = Comfy::Cms::Site.create!(identifier: "site-a", hostname: "test.host", path: "")
-    site_b = Comfy::Cms::Site.create!(identifier: "site-b", hostname: "test.host", path: "path-b")
-    site_c = Comfy::Cms::Site.create!(identifier: "site-c", hostname: "test.host", path: "path-c/child")
+    site_a = Comfy::Cms::Site.create!(identifier: "site-a", hostname: "www.example.com", path: "")
+    site_b = Comfy::Cms::Site.create!(identifier: "site-b", hostname: "www.example.com", path: "path-b")
+    site_c = Comfy::Cms::Site.create!(identifier: "site-c", hostname: "www.example.com", path: "path-c/child")
 
     [site_a, site_b, site_c].each do |site|
       layout = site.layouts.create!(identifier: "test")
@@ -62,8 +62,8 @@ class SitesIntegrationTest < ActionDispatch::IntegrationTest
 
   def test_get_public_page_with_host_with_port
     Comfy::Cms::Site.delete_all
-    site_a = Comfy::Cms::Site.create!(identifier: "site-a", hostname: "test.host:3000")
-    site_b = Comfy::Cms::Site.create!(identifier: "site-b", hostname: "test.host")
+    site_a = Comfy::Cms::Site.create!(identifier: "site-a", hostname: "www.example.com:3000")
+    site_b = Comfy::Cms::Site.create!(identifier: "site-b", hostname: "www.example.com")
 
     [site_a, site_b].each do |site|
       layout = site.layouts.create!(identifier: "test")

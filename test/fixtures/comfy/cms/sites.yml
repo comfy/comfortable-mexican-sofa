@@ -1,5 +1,5 @@
 default:
   label: Default Site
   identifier: default-site
-  hostname: test.host
+  hostname: www.example.com
   path:

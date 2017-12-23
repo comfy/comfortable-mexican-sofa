@@ -6,6 +6,7 @@ group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "capybara"
   gem "kaminari"
+  gem "puma"
   gem "rubocop", require: false
   gem "selenium-webdriver"
   gem "sqlite3"

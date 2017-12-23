@@ -22,7 +22,7 @@ class Comfy::Admin::Cms::SitesControllerTest < ActionDispatch::IntegrationTest
     r :get, new_comfy_admin_cms_site_path
     assert_response :success
     assert assigns(:site)
-    assert_equal "test.host", assigns(:site).hostname
+    assert_equal "www.example.com", assigns(:site).hostname
     assert_template :new
     assert_select "form[action='/admin/sites']"
   end

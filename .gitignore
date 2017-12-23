@@ -9,7 +9,7 @@ db/test.sqlite3-journal
 pkg
 rdoc
 /tmp
-public/*
+public/system/
 Gemfile.lock
 .rvmrc
 .ruby-version
