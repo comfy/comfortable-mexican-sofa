@@ -27,4 +27,5 @@ before_script:
 script:
   - bundle exec rake db:migrate
   - bundle exec rake test
+  - bundle exec rake test:system
   - bundle exec rubocop
