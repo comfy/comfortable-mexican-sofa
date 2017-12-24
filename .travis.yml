@@ -27,5 +27,5 @@ before_script:
 script:
   - bundle exec rake db:migrate
   - bundle exec rake test
-  - bundle exec rake test:system
+  - SKIP_COV=true bundle exec rake test:system
   - bundle exec rubocop

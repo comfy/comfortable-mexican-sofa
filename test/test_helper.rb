@@ -1,12 +1,17 @@
 ENV["RAILS_ENV"] = "test"
 
-require "simplecov"
-require "coveralls"
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start do
-  add_filter "lib/generators"
-  add_filter "lib/comfortable_mexican_sofa/engine.rb "
+# In CI envoronment I don't want to send coverage report for system tests that
+# obviously don't cover everything 100%
+unless ENV["SKIP_COV"]
+  require "simplecov"
+  require "coveralls"
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.start do
+    add_filter "lib/generators"
+    add_filter "lib/comfortable_mexican_sofa/engine.rb "
+  end
 end
+
 require_relative "../config/environment"
 
 require "rails/test_help"
