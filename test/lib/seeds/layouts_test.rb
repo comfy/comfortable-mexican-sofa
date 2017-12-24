@@ -79,11 +79,11 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
     ComfortableMexicanSofa::Seeds::Layout::Importer.new("sample-site", "default-site").import!
     layout.reload
-    assert_equal "default",               layout.identifier
-    assert_equal "Default Layout",        layout.label
-    assert_equal "{{cms:text content}}",  layout.content
-    assert_equal "default_css",           layout.css
-    assert_equal "default_js",            layout.js
+    assert_equal "default",                   layout.identifier
+    assert_equal "Default Layout",            layout.label
+    assert_equal "{{cms:textarea content}}",  layout.content
+    assert_equal "default_css",               layout.css
+    assert_equal "default_js",                layout.js
   end
 
   def test_export
@@ -107,7 +107,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       position: 0
 
       [content]
-      {{cms:text content}}
+      {{cms:textarea content}}
       [js]
       default_js
       [css]
@@ -124,7 +124,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
 
       [content]
       {{cms:text header}}
-      {{cms:text content}}
+      {{cms:textarea content}}
       [js]
       nested_js
       [css]
@@ -140,8 +140,8 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       position: 0
 
       [content]
-      {{cms:text left_column}}
-      {{cms:text right_column}}
+      {{cms:textarea left_column}}
+      {{cms:textarea right_column}}
       [js]
       child_js
       [css]

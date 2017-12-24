@@ -4,7 +4,7 @@ default:
   identifier: default
   parent:
   content: |-
-    {{cms:text content}}
+    {{cms:textarea content}}
   css: default_css
   js: default_js
   position: 0
@@ -16,7 +16,7 @@ nested:
   parent:
   content: |-
     {{cms:text header}}
-    {{cms:text content}}
+    {{cms:textarea content}}
   css: nested_css
   js: nested_js
   position: 0
@@ -27,8 +27,8 @@ child:
   identifier: child
   parent: nested
   content: |-
-    {{cms:text left_column}}
-    {{cms:text right_column}}
+    {{cms:textarea left_column}}
+    {{cms:textarea right_column}}
   css: child_css
   js: child_js
   position: 0
