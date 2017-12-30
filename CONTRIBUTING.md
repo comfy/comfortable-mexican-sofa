@@ -11,10 +11,10 @@ Fork the project. Optionally, create a branch you want to work on.
 - Install gem dependencies with `bundle install`
 - There's nothing to configure, by default database is SQLite so it will be
   created for you. Just run `bundle exec rake db:migrate`
-- Make sure that existing tests are passing by running `rake test`
+- Make sure that existing tests are passing by running `bundle exec rake test`
 - There are system tests that can be run with `bundle exec rake test:system`.
   You need to have `chromedriver` installed for that.
-- You should be able to start the app via `rails s` and navigate to http://localhost:3000/admin
+- You should be able to start the app via `bin/rails s` and navigate to http://localhost:3000/admin
 
 ### 3. Hack away
 
@@ -31,4 +31,5 @@ Fork the project. Optionally, create a branch you want to work on.
 
 ### 5. Done!
 
-If everything is good your changes will be merged into master branch. Eventually a new version of gem will be published.
+If everything is good your changes will be merged into master branch. Eventually
+a new version of gem will be published.
