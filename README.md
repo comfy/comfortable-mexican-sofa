@@ -83,11 +83,13 @@ With Rails 4.2 and 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfo
 
 With Rails 3.0 use gem version [1.8.5](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.8.5)
 
-#### Contributing [![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
+#### Contributing
 
 ComfortableMexicanSofa repository can be ran like a regular Rails application in
 development environment. It's as easy to work on as any other Rails app out there.
 For more detail take a look at [CONTRIBUTING](CONTRIBUTING.md)
+
+[![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
 
 #### Help and Contact
 
