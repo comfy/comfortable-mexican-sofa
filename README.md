@@ -99,10 +99,8 @@ Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
 
 #### Acknowledgements
 
-Big thanks to Roman Almeida ([@nasmorn](https://github.com/nasmorn)) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
+Thanks to [Roman Almeida](https://github.com/nasmorn) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
 
 ---
 
-ComfortableMexicanSofa is released under the [MIT license](https://github.com/comfy/comfortable-mexican-sofa/raw/master/LICENSE)
-
-Copyright 2010-2017 Oleg Khabarov
+Copyright 2010-2018 Oleg Khabarov. Released under the [MIT license](LICENSE)
