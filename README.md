@@ -9,7 +9,6 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/comfy/comfortable-mexican-sofa.svg?style=flat)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa)
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
 [![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
-[![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
 
 ## Features
 
@@ -74,7 +73,7 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
 
-![Admin Area Preview](https://github.com/comfy/comfortable-mexican-sofa/raw/master/doc/preview.jpg)
+![Admin Area Preview](doc/preview.jpg)
 
 #### Old Versions
 
@@ -83,6 +82,12 @@ CMS for Rails 5.1 doesn't have published gem, but you may use [rails 5.1 branch]
 With Rails 4.2 and 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.12.10)
 
 With Rails 3.0 use gem version [1.8.5](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.8.5)
+
+#### Contributing [![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
+
+ComfortableMexicanSofa repository can be ran like a regular Rails application in
+development environment. It's as easy to work on as any other Rails app out there.
+For more detail take a look at [CONTRIBUTING](CONTRIBUTING.md)
 
 #### Help and Contact
 
