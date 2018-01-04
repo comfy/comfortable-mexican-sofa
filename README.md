@@ -9,6 +9,7 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/comfy/comfortable-mexican-sofa.svg?style=flat)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa)
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
 [![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
+[![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
 
 ## Features
 
