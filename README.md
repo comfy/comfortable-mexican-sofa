@@ -99,7 +99,7 @@ Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
 
 #### Acknowledgements
 
-* Big thanks to Roman Almeida ([@nasmorn](https://github.com/nasmorn)) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
+Big thanks to Roman Almeida ([@nasmorn](https://github.com/nasmorn)) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
 
 ---
 
