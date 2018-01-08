@@ -2,16 +2,11 @@ require_relative "../../../test_helper"
 
 class ContentTagsFileLinkTest < ActiveSupport::TestCase
 
+  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+
   setup do
     @page = comfy_cms_pages(:default)
     @file = comfy_cms_files(:default)
-  end
-
-  def url_for(attachment)
-    ApplicationController.render(
-      inline: "<%= url_for(@attachment) %>",
-      assigns: { attachment: attachment }
-    )
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -51,21 +46,23 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
 
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, @file.id)
-    out = url_for(tag.file.attachment)
+    out = rails_blob_path(tag.file.attachment, only_path: true)
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
 
   def test_content_as_link
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "#{@file.id}, as: link")
-    out = "<a href='#{url_for(tag.file.attachment)}' target='_blank'>default file</a>"
+    url = rails_blob_path(tag.file.attachment, only_path: true)
+    out = "<a href='#{url}' target='_blank'>default file</a>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
 
   def test_content_as_image
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(@page, "#{@file.id}, as: image")
-    out = "<img src='#{url_for(tag.file.attachment)}' alt='default file'/>"
+    url = rails_blob_path(tag.file.attachment, only_path: true)
+    out = "<img src='#{url}' alt='default file'/>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
