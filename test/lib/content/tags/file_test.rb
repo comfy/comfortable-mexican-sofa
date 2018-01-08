@@ -2,15 +2,10 @@ require_relative "../../../test_helper"
 
 class ContentTagsFileTest < ActiveSupport::TestCase
 
+  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+
   setup do
     @page = comfy_cms_pages(:default)
-  end
-
-  def url_for(attachment)
-    ApplicationController.render(
-      inline: "<%= url_for(@attachment) %>",
-      assigns: { attachment: attachment }
-    )
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -36,20 +31,20 @@ class ContentTagsFileTest < ActiveSupport::TestCase
   def test_content
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(@page, frag.identifier)
-    assert_equal url_for(frag.attachments.first), tag.content
+    assert_equal rails_blob_path(frag.attachments.first, only_path: true), tag.content
   end
 
   def test_content_as_link
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(@page, "#{frag.identifier}, as: link")
-    out = "<a href='#{url_for(frag.attachments.first)}' target='_blank'>fragment.jpg</a>"
+    out = "<a href='#{rails_blob_path(frag.attachments.first, only_path: true)}' target='_blank'>fragment.jpg</a>"
     assert_equal out, tag.content
   end
 
   def test_content_as_image
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(@page, "#{frag.identifier}, as: image")
-    out = "<img src='#{url_for(frag.attachments.first)}' alt='fragment.jpg'/>"
+    out = "<img src='#{rails_blob_path(frag.attachments.first, only_path: true)}' alt='fragment.jpg'/>"
     assert_equal out, tag.content
   end
 

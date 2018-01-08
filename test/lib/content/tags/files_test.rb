@@ -2,15 +2,10 @@ require_relative "../../../test_helper"
 
 class ContentTagsFilesTest < ActiveSupport::TestCase
 
+  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+
   setup do
     @page = comfy_cms_pages(:default)
-  end
-
-  def url_for(attachment)
-    ApplicationController.render(
-      inline: "<%= url_for(@attachment) %>",
-      assigns: { attachment: attachment }
-    )
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -38,7 +33,7 @@ class ContentTagsFilesTest < ActiveSupport::TestCase
     frag.update_attribute(:tag, "files")
     frag.update_attribute(:files, fixture_file_upload("files/image.jpg", "image/jpeg"))
     tag = ComfortableMexicanSofa::Content::Tag::Files.new(@page, frag.identifier)
-    out = frag.attachments.map { |a| url_for(a) }.join(" ")
+    out = frag.attachments.map { |a| rails_blob_path(a, only_path: true) }.join(" ")
     assert_equal out, tag.content
   end
 

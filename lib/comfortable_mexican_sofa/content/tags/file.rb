@@ -12,6 +12,8 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
   attr_reader :as, :variant_attrs
 
+  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+
   def initialize(context, params_string)
     super
     @as             = options["as"] || "url"
@@ -26,13 +28,15 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
       file = file.variant(@variant_attrs)
     end
 
+    url = rails_blob_path(file, only_path: true)
+
     case @as
     when "link"
-      "<a href='#{url_for(file)}' target='_blank'>#{label}</a>"
+      "<a href='#{url}' target='_blank'>#{label}</a>"
     when "image"
-      "<img src='#{url_for(file)}' alt='#{label}'/>"
+      "<img src='#{url}' alt='#{label}'/>"
     else
-      url_for(file)
+      url
     end
   end
 
@@ -63,13 +67,6 @@ protected
 
   def label
     @label || attachment && attachment.filename
-  end
-
-  def url_for(attachment)
-    ApplicationController.render(
-      inline: "<%= url_for(@attachment) %>",
-      assigns: { attachment: attachment }
-    )
   end
 
 end
