@@ -20,7 +20,24 @@ window.CMS.init = ->
   CMS.page_update_preview()
   CMS.categories()
   CMS.files()
+  CMS.upload_queue()
   CMS.diff()
+
+
+window.CMS.upload_queue = ->
+  if $("#cms-uploader").length
+    uploader_url  = $("meta[name='cms-uploader-url']").attr("content")
+    token_name    = $("meta[name='cms-uploader-token-name']").attr("content")
+    token_value   = $("meta[name='cms-uploader-token-value']").attr("content")
+    session_name  = $("meta[name='cms-uploader-session-name']").attr("content")
+    session_value = $("meta[name='cms-uploader-session-value']").attr("content")
+
+    window.CMS.uploader $("#cms-uploader"),
+      url: uploader_url,
+      multipart_params:
+        "#{token_name}": token_value,
+        "#{session_name}": session_value
+
 
 window.CMS.slugify = ->
   slugify = (str) ->

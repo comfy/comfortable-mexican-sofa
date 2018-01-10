@@ -1,3 +1,12 @@
+- content_for :head do
+
+  - uploader_url = comfy_admin_cms_site_files_path(@site, source: :plupload, categories: params[:categories])
+  %meta{name: "cms-uploader-url",           content: uploader_url}
+  %meta{name: "cms-uploader-token-name",    content: request_forgery_protection_token}
+  %meta{name: "cms-uploader-token-value",   content: form_authenticity_token}
+  %meta{name: "cms-uploader-session-name",  content: Rails.application.config.session_options[:key]}
+  %meta{name: "cms-uploader-session-value", content: request.session_options[:id]}
+
 - content_for :right_column do
   = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::File"
 
@@ -18,15 +27,3 @@
   = comfy_admin_partial "comfy/admin/cms/partials/files_after"
 
   = comfy_paginate @files
-
-- content_for :javascript do
-  :javascript
-    $(function(){
-      window.CMS.uploader($("#cms-uploader"), {
-        url: '#{comfy_admin_cms_site_files_path(@site, source: :plupload, category: params[:category])}',
-        multipart_params: {
-          '#{request_forgery_protection_token}': '#{form_authenticity_token}',
-          '#{Rails.application.config.session_options[:key]}': '#{request.session_options[:id]}'
-        }
-      });
-    });
