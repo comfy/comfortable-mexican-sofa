@@ -2,11 +2,5 @@
 
 = javascript_include_tag "comfy/admin/cms/application", "data-turbolinks-track": "reload"
 
-- if @site && @site.persisted?
-  :javascript
-    CMS.file_upload_path  = '#{comfy_admin_cms_site_files_path(@site)}';
-    CMS.pages_path        = '#{comfy_admin_cms_site_pages_path(@site)}';
-    CMS.locale            = '#{I18n.locale}';
-
 - if content_for(:javascript)
   = yield :javascript
