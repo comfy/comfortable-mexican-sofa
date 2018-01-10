@@ -10,10 +10,7 @@ Gem::Specification.new do |s|
   s.summary       = "Rails 5.2+ CMS Engine"
   s.description   = "ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine"
   s.license       = "MIT"
-
   s.files         = `git ls-files`.split("\n")
-  s.platform      = Gem::Platform::RUBY
-  s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.2.2"
 
