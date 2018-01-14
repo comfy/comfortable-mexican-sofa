@@ -230,4 +230,20 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_with_translation_with_snippet
+    translation = @page.translations.create!(
+      locale: "ja",
+      label:  "Test Translation",
+      fragments_attributes: [
+        { identifier: "content",
+          tag:        "text",
+          content:    "test {{cms:snippet default}} test" }
+      ]
+    )
+    I18n.locale = translation.locale
+
+    get comfy_cms_render_page_path(cms_path: "")
+    assert_equal "test snippet content test", response.body
+  end
+
 end

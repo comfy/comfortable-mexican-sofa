@@ -6,6 +6,8 @@ class Comfy::Cms::Translation < ActiveRecord::Base
 
   cms_has_revisions_for :fragments_attributes
 
+  delegate :site, to: :page
+
   # -- Relationships -----------------------------------------------------------
   belongs_to :page
 
