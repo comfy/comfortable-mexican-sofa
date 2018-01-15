@@ -36,5 +36,7 @@
                   = fragments.field(record, tag, frag_index)
                   - frag_index += 1
 
-- rescue
-  - Rails.env.production?? nil : raise
+
+- rescue ComfortableMexicanSofa::Content::Renderer::SyntaxError, ComfortableMexicanSofa::Content::Tag::Error => e
+  .alert.alert-danger
+    = e
