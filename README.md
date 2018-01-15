@@ -89,8 +89,6 @@ ComfortableMexicanSofa repository can be ran like a regular Rails application in
 development environment. It's as easy to work on as any other Rails app out there.
 For more detail take a look at [CONTRIBUTING](CONTRIBUTING.md)
 
-[![Help Contribute to Open Source](https://www.codetriage.com/comfy/comfortable-mexican-sofa/badges/users.svg)](https://www.codetriage.com/comfy/comfortable-mexican-sofa)
-
 #### Help and Contact
 
 Gitter: https://gitter.im/comfy/comfortable-mexican-sofa
