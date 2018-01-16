@@ -71,7 +71,11 @@ class ComfortableMexicanSofa::Content::Renderer
     while (string = ss.scan_until(TAG_REGEX))
       text = string.sub(ss[0], "")
       tokens << text unless text.empty?
-      tokens << { tag_class: ss[:class], tag_params: ss[:params].strip }
+      tokens << {
+        tag_class:  ss[:class],
+        tag_params: ss[:params].strip,
+        source:     ss[0]
+      }
     end
     text = ss.rest
     tokens << text if text.present?
@@ -99,7 +103,7 @@ class ComfortableMexicanSofa::Content::Renderer
 
         else
           unless (klass = self.class.tags[tag_class])
-            raise SyntaxError, "Unrecognized tag #{tag_class}: #{token}"
+            raise SyntaxError, "Unrecognized tag: #{token[:source]}"
           end
 
           tag = klass.new(@context, token[:tag_params])

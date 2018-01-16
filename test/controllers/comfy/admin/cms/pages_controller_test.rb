@@ -190,7 +190,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     @layout.update_column(:content, "{{cms:invalid}}")
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
     assert_response :success
-    assert_select "div.alert-danger", "Unrecognized tag invalid: {:tag_class=>\"invalid\", :tag_params=>\"\"}"
+    assert_select "div.alert-danger", "Unrecognized tag: {{cms:invalid}}"
   end
 
   def test_get_new_with_invalid_fragment_tag

@@ -22,44 +22,64 @@ class CmsLayoutTest < ActiveSupport::TestCase
 
   def test_content_tokens
     layout = Comfy::Cms::Layout.new(content: "a {{cms:text content}} b")
-    assert_equal ["a ", { tag_class: "text", tag_params: "content" }, " b"],
-      layout.content_tokens
+    expected = [
+      "a ",
+      { tag_class: "text", tag_params: "content", source: "{{cms:text content}}" },
+      " b"
+    ]
+    assert_equal expected, layout.content_tokens
   end
 
   def test_content_tokens_nested
     layout_a = Comfy::Cms::Layout.new(content: "a {{cms:text content}} {{cms:text footer}} b")
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal [
-      "a ", "c ", { tag_class: "text", tag_params: "content" }, " d", " ",
-      { tag_class: "text", tag_params: "footer" }, " b"
-    ], layout_b.content_tokens
+    expected = [
+      "a ",
+      "c ",
+      { tag_class: "text", tag_params: "content", source: "{{cms:text content}}" },
+      " d",
+      " ",
+      { tag_class: "text", tag_params: "footer", source: "{{cms:text footer}}" },
+      " b"
+    ]
+    assert_equal expected, layout_b.content_tokens
   end
 
   def test_content_tokens_nested_with_fragment_subclass_tag
     layout_a = Comfy::Cms::Layout.new(content: "a {{cms:markdown content}} b")
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal [
-      "a ", "c ", { tag_class: "text", tag_params: "content" }, " d", " b"
-    ], layout_b.content_tokens
+    expected = [
+      "a ",
+      "c ",
+      { tag_class: "text", tag_params: "content", source: "{{cms:text content}}" },
+      " d",
+      " b"
+    ]
+    assert_equal expected, layout_b.content_tokens
   end
 
   def test_content_tokens_nested_with_non_fragment_subclass_tag
     layout_a = Comfy::Cms::Layout.new(content: "a {{cms:snippet content}} b")
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal [
-      "c ", { tag_class: "text", tag_params: "content" }, " d"
-    ], layout_b.content_tokens
+    expected = [
+      "c ",
+      { tag_class: "text", tag_params: "content", source: "{{cms:text content}}" },
+      " d"
+    ]
+    assert_equal expected, layout_b.content_tokens
   end
 
   def test_content_tokens_nested_without_content_tag
     layout_a = Comfy::Cms::Layout.new(content: "a {{cms:text footer}} b")
     layout_b = Comfy::Cms::Layout.new(content: "c {{cms:text content}} d")
     layout_b.parent = layout_a
-    assert_equal ["c ", { tag_class: "text", tag_params: "content" }, " d"],
-      layout_b.content_tokens
+    expected = [
+      "c ", { tag_class: "text", tag_params: "content", source: "{{cms:text content}}" }, " d"
+    ]
+    assert_equal expected, layout_b.content_tokens
   end
 
   def test_label_assignment

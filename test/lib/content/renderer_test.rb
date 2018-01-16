@@ -89,13 +89,17 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_tokenize_with_tag
-    assert_equal ["test ", { tag_class: "tag", tag_params: "" }, " text"],
+    assert_equal ["test ", { tag_class: "tag", tag_params: "", source: "{{cms:tag}}" }, " text"],
       @template.tokenize("test {{cms:tag}} text")
   end
 
   def test_tokenize_with_tag_and_params
-    assert_equal ["test ", { tag_class: "tag", tag_params: "name, key:val" }, " text"],
-      @template.tokenize("test {{cms:tag name, key:val}} text")
+    expected = [
+      "test ",
+      { tag_class: "tag", tag_params: "name, key:val", source: "{{cms:tag name, key:val}}" },
+      " text"
+    ]
+    assert_equal expected, @template.tokenize("test {{cms:tag name, key:val}} text")
   end
 
   def test_tokenize_with_invalid_tag
@@ -104,8 +108,12 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_tokenize_with_newlines
-    assert_equal [{ tag_class: "test", tag_params: "" }, "\n", { tag_class: "test", tag_params: "" }],
-      @template.tokenize("{{cms:test}}\n{{cms:test}}")
+    expected = [
+      { tag_class: "test", tag_params: "", source: "{{cms:test}}" },
+      "\n",
+      { tag_class: "test", tag_params: "", source: "{{cms:test}}" }
+    ]
+    assert_equal expected, @template.tokenize("{{cms:test}}\n{{cms:test}}")
   end
 
   def test_nodes
@@ -187,6 +195,14 @@ class ContentRendererTest < ActiveSupport::TestCase
     string = "a {{cms:end}} b"
     tokens = @template.tokenize(string)
     assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "closing unopened block" do
+      @template.nodes(tokens)
+    end
+  end
+
+  def test_nodes_with_invalid_tag
+    string = "a {{cms:invalid}} b"
+    tokens = @template.tokenize(string)
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "Unrecognized tag: {{cms:invalid}}" do
       @template.nodes(tokens)
     end
   end
