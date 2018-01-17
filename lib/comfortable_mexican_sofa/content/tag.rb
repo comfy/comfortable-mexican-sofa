@@ -2,11 +2,12 @@ class ComfortableMexicanSofa::Content::Tag
 
   class Error < StandardError; end
 
-  attr_reader :context, :params
+  attr_reader :context, :params, :source
 
-  def initialize(context, params_string)
+  def initialize(context: nil, params: [], source: nil)
     @context  = context
-    @params   = parse_params_string(params_string)
+    @params   = params
+    @source   = source
   end
 
   # Making sure we don't leak erb from tags by accident.
@@ -18,8 +19,8 @@ class ComfortableMexicanSofa::Content::Tag
   # Normally it's a string. However if tag content has tags, we need to expand
   # them and that produces potentually more stuff
   def nodes
-    template = ComfortableMexicanSofa::Content::Renderer.new(@context)
-    tokens = template.tokenize(content)
+    template  = ComfortableMexicanSofa::Content::Renderer.new(@context)
+    tokens    = template.tokenize(content)
     template.nodes(tokens)
   end
 
@@ -29,10 +30,6 @@ class ComfortableMexicanSofa::Content::Tag
 
   def render
     content
-  end
-
-  def parse_params_string(string)
-    ComfortableMexicanSofa::Content::ParamsParser.parse(string)
   end
 
 end

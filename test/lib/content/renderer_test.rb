@@ -42,7 +42,8 @@ class ContentRendererTest < ActiveSupport::TestCase
   }.freeze
 
   setup do
-    @template = ComfortableMexicanSofa::Content::Renderer.new(comfy_cms_pages(:default))
+    @page     = comfy_cms_pages(:default)
+    @template = ComfortableMexicanSofa::Content::Renderer.new(@page)
 
     ComfortableMexicanSofa::Content::Renderer.register_tag(:test, TestTag)
     ComfortableMexicanSofa::Content::Renderer.register_tag(:test_nested, TestNestedTag)
@@ -130,6 +131,17 @@ class ContentRendererTest < ActiveSupport::TestCase
     assert nodes[1].is_a?(ContentRendererTest::TestTag)
     assert_equal " content ", nodes[2]
     assert nodes[3].is_a?(ContentRendererTest::TestTag)
+  end
+
+  def test_nodes_with_tag_with_params
+    tokens = @template.tokenize("{{cms:test param, key: value}}")
+    nodes = @template.nodes(tokens)
+    assert_equal 1, nodes.count
+    assert nodes[0].is_a?(ContentRendererTest::TestTag)
+    tag = nodes[0]
+    assert_equal @page, tag.context
+    assert_equal ["param", { "key" => "value" }], tag.params
+    assert_equal "{{cms:test param, key: value}}", tag.source
   end
 
   def test_nodes_with_block_tag

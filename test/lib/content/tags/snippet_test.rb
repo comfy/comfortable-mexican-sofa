@@ -7,7 +7,7 @@ class ContentTagsSnippetTest < ActiveSupport::TestCase
   end
 
   def test_init
-    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "default")
+    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(context: @page, params: ["default"])
     assert_equal "default", tag.identifier
     assert_equal comfy_cms_snippets(:default), tag.snippet
   end
@@ -15,22 +15,22 @@ class ContentTagsSnippetTest < ActiveSupport::TestCase
   def test_init_without_identifier
     message = "Missing identifier for snippet tag"
     assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
-      ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "")
+      ComfortableMexicanSofa::Content::Tag::Snippet.new(context: @page)
     end
   end
 
   def test_snippet_new_record
-    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "new")
+    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(context: @page, params: ["new"])
     assert tag.snippet.new_record?
   end
 
   def test_content
-    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "default")
+    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(context: @page, params: ["default"])
     assert_equal "snippet content", tag.content
   end
 
   def test_content_new_record
-    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(@page, "new")
+    tag = ComfortableMexicanSofa::Content::Tag::Snippet.new(context: @page, params: ["new"])
     assert_nil tag.content
   end
 

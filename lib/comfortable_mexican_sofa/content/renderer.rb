@@ -106,7 +106,11 @@ class ComfortableMexicanSofa::Content::Renderer
             raise SyntaxError, "Unrecognized tag: #{token[:source]}"
           end
 
-          tag = klass.new(@context, token[:tag_params])
+          tag = klass.new(
+            context:  @context,
+            params:   ComfortableMexicanSofa::Content::ParamsParser.parse(token[:tag_params]),
+            source:   token[:source]
+          )
           nodes.last << tag
 
           # If it's a block tag we start collecting nodes into it

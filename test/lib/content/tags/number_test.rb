@@ -7,7 +7,7 @@ class ContentTagsNumberTest < ActiveSupport::TestCase
   end
 
   def test_init
-    tag = ComfortableMexicanSofa::Content::Tag::Number.new(@page, "test")
+    tag = ComfortableMexicanSofa::Content::Tag::Number.new(context: @page, params: ["test"])
     assert_equal "test", tag.identifier
   end
 

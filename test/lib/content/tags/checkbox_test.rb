@@ -7,13 +7,13 @@ class ContentTagsCheckboxTest < ActiveSupport::TestCase
   end
 
   def test_init
-    tag = ComfortableMexicanSofa::Content::Tag::Checkbox.new(@page, "test")
+    tag = ComfortableMexicanSofa::Content::Tag::Checkbox.new(context: @page, params: ["test"])
     assert_equal "test", tag.identifier
   end
 
   def test_content
     frag = comfy_cms_fragments(:boolean)
-    tag = ComfortableMexicanSofa::Content::Tag::Checkbox.new(@page, frag.identifier)
+    tag = ComfortableMexicanSofa::Content::Tag::Checkbox.new(context: @page, params: [frag.identifier])
     assert_equal frag,          tag.fragment
     assert_equal frag.boolean,  tag.content
   end

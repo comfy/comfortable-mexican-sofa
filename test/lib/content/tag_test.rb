@@ -30,18 +30,24 @@ class ContentTagTest < ActiveSupport::TestCase
 
   # -- Tests -------------------------------------------------------------------
 
-  def test_init_with_params
-    tag = TestTag.new(nil, "param_a, key: value")
+  def test_init
+    tag = TestTag.new(
+      context:  comfy_cms_pages(:default),
+      params:   ["param_a", { "key" => "value" }],
+      source:   "source"
+    )
+    assert_equal comfy_cms_pages(:default), tag.context
     assert_equal ["param_a", { "key" => "value" }], tag.params
+    assert_equal "source", tag.source
   end
 
   def test_nodes
-    tag = TestTag.new(nil, "")
+    tag = TestTag.new(context: nil, params: [], source: "")
     assert_equal ["test tag content"], tag.nodes
   end
 
   def test_tag_nodes_with_nested_tag
-    tag = TestNestedTag.new(nil, "")
+    tag = TestNestedTag.new(context: nil, params: [], source: "")
     nodes = tag.nodes
     assert_equal 3, nodes.count
     assert_equal "test ", nodes[0]

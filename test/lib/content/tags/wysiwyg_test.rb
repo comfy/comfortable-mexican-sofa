@@ -7,7 +7,7 @@ class ContentTagsWysiwygTest < ActiveSupport::TestCase
   end
 
   def test_init
-    tag = ComfortableMexicanSofa::Content::Tag::Wysiwyg.new(@page, "test")
+    tag = ComfortableMexicanSofa::Content::Tag::Wysiwyg.new(context: @page, params: ["test"])
     assert_equal "test", tag.identifier
   end
 

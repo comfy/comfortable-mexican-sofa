@@ -194,10 +194,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_new_with_invalid_fragment_tag
-    @layout.update_column(:content, "{{cms:markdown}}")
+    @layout.update_column(:content, "a {{cms:markdown}} b")
     r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
     assert_response :success
-    assert_select "div.alert-danger", "Missing identifier for fragment tag"
+    assert_select "div.alert-danger", "Missing identifier for fragment tag: {{cms:markdown}}"
   end
 
   def test_get_new_with_repeated_tag

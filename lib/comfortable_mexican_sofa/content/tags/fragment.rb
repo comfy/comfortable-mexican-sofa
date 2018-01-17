@@ -10,14 +10,14 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
 
   attr_reader :identifier, :renderable, :namespace, :options
 
-  def initialize(context, params_string)
+  def initialize(context: nil, params: [], source: nil)
     super
 
     @options    = params.extract_options!
     @identifier = params[0]
 
     unless @identifier.present?
-      raise Error, "Missing identifier for fragment tag"
+      raise Error, "Missing identifier for fragment tag: #{source}"
     end
 
     @namespace  = @options["namespace"] || "default"

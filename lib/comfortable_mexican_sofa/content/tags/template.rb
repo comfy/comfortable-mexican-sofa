@@ -8,7 +8,7 @@ class ComfortableMexicanSofa::Content::Tag::Template < ComfortableMexicanSofa::C
 
   attr_reader :path
 
-  def initialize(context, params_string)
+  def initialize(context: nil, params: [], source: nil)
     super
     @path = params[0]
 
