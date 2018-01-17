@@ -67,11 +67,20 @@ After creating a Site, you need to make a Layout. Layout is the template of your
 </html>
 ```
 
-[See Wiki entry on available Tags you can use](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags)
-
 Once you have a layout, you may start creating pages and populating content. It's that easy.
 
-For more information please refer to [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki).
+## Documentation
+
+For more information on how to use this CMS please refer to the [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki). Section that might be of interest is the entry
+on [Content Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags).
+
+[Comfy Demo App](https://github.com/comfy/comfy-demo) also can be used as an
+example of a default Rails app with CMS installed.
+
+## Add-ons
+
+If you want to add a Blog functionality to your app take a look at
+[ComfyBlog](https://github.com/comfy/comfy-blog).
 
 ![Admin Area Preview](doc/preview.jpg)
 
