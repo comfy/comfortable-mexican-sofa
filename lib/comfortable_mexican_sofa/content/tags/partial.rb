@@ -8,7 +8,7 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
 
   attr_reader :path, :locals
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
     @locals = params.extract_options!
     @path   = params[0]

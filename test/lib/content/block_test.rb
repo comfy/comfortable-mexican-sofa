@@ -17,7 +17,7 @@ class ContentBlockTest < ActiveSupport::TestCase
   # -- Tests -------------------------------------------------------------------
 
   def test_block_tag_nodes
-    block = TestBlockTag.new
+    block = TestBlockTag.new(context: nil)
     assert_equal [], block.nodes
     block.nodes << "text"
     assert_equal ["text"], block.nodes

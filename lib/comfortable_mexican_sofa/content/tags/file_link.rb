@@ -14,7 +14,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
 
   delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
 
     options = params.extract_options!

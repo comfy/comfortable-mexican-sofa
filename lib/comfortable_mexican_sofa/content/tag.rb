@@ -4,7 +4,7 @@ class ComfortableMexicanSofa::Content::Tag
 
   attr_reader :context, :params, :source
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     @context  = context
     @params   = params
     @source   = source

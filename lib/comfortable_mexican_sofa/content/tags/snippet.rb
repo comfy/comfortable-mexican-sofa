@@ -6,7 +6,7 @@ class ComfortableMexicanSofa::Content::Tag::Snippet < ComfortableMexicanSofa::Co
 
   attr_reader :identifier
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
     @identifier = params[0]
 

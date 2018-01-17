@@ -14,7 +14,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
   delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
     @as             = options["as"] || "url"
     @label          = options["label"]

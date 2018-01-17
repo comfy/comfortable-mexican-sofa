@@ -11,7 +11,7 @@ class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Con
 
   attr_reader :method_name
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
     @method_name = params.shift
 

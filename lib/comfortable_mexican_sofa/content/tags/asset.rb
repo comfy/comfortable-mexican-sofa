@@ -9,7 +9,7 @@ class ComfortableMexicanSofa::Content::Tag::Asset < ComfortableMexicanSofa::Cont
 
   attr_reader :identifier, :type, :as
 
-  def initialize(context: nil, params: [], source: nil)
+  def initialize(context:, params: [], source: nil)
     super
 
     options = params.extract_options!
