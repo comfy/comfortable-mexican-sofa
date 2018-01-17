@@ -55,7 +55,7 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, {"as" => "image"}]
+      params: [frag.identifier, { "as" => "image" }]
     )
     out = "<img src='#{rails_blob_path(frag.attachments.first, only_path: true)}' alt='fragment.jpg'/>"
     assert_equal out, tag.content

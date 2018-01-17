@@ -198,7 +198,8 @@ class ContentRendererTest < ActiveSupport::TestCase
   def test_nodes_with_unclosed_block_tag
     string = "a {{cms:test_block}} b"
     tokens = @template.tokenize(string)
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "unclosed block detected" do
+    message = "unclosed block detected"
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end
@@ -206,7 +207,8 @@ class ContentRendererTest < ActiveSupport::TestCase
   def test_nodes_with_closed_tag
     string = "a {{cms:end}} b"
     tokens = @template.tokenize(string)
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "closing unopened block" do
+    message = "closing unopened block"
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end
@@ -214,7 +216,8 @@ class ContentRendererTest < ActiveSupport::TestCase
   def test_nodes_with_invalid_tag
     string = "a {{cms:invalid}} b"
     tokens = @template.tokenize(string)
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, "Unrecognized tag: {{cms:invalid}}" do
+    message = "Unrecognized tag: {{cms:invalid}}"
+    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end

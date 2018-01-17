@@ -14,7 +14,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
   def test_init_with_locals
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(
       context: @page,
-      params: ["path/to/partial", {"key" => "val"}]
+      params: ["path/to/partial", { "key" => "val" }]
     )
     assert_equal "path/to/partial", tag.path
     assert_equal ({ "key" => "val" }), tag.locals
@@ -25,7 +25,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
     assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
       ComfortableMexicanSofa::Content::Tag::Partial.new(
         context: @page,
-        params: [{"key" => "val"}]
+        params: [{ "key" => "val" }]
       )
     end
   end
@@ -33,7 +33,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(
       context: @page,
-      params: ["path/to/partial", {"key" => "val"}]
+      params: ["path/to/partial", { "key" => "val" }]
     )
     assert_equal "<%= render partial: \"path/to/partial\", locals: {\"key\"=>\"val\"} %>", tag.content
   end
@@ -41,7 +41,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
   def test_render
     tag = ComfortableMexicanSofa::Content::Tag::Partial.new(
       context: @page,
-      params: ["path/to/partial", {"key" => "val"}]
+      params: ["path/to/partial", { "key" => "val" }]
     )
     assert_equal "<%= render partial: \"path/to/partial\", locals: {\"key\"=>\"val\"} %>", tag.render
   end

@@ -11,7 +11,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
   def test_init_with_params
     tag = ComfortableMexicanSofa::Content::Tag::Helper.new(
       context: @page,
-      params: ["helper_method", "param", {"key" => "val"}]
+      params: ["helper_method", "param", { "key" => "val" }]
     )
     assert_equal "helper_method", tag.method_name
     assert_equal ["param", { "key" => "val" }], tag.params
@@ -27,7 +27,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::Helper.new(
       context: @page,
-      params: ["method_name", "param", {"key" => "val"}]
+      params: ["method_name", "param", { "key" => "val" }]
     )
     assert_equal "<%= method_name(\"param\",{\"key\"=>\"val\"}) %>", tag.content
   end
@@ -35,7 +35,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
   def test_render
     tag = ComfortableMexicanSofa::Content::Tag::Helper.new(
       context: @page,
-      params: ["method_name", "param", {"key" => "val"}]
+      params: ["method_name", "param", { "key" => "val" }]
     )
     assert_equal "<%= method_name(\"param\",{\"key\"=>\"val\"}) %>", tag.render
   end

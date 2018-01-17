@@ -17,7 +17,7 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   def test_init_with_params
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(
       context: @page,
-      params: ["content", {"render" => "false", "namespace" => "test"}]
+      params: ["content", { "render" => "false", "namespace" => "test" }]
     )
     assert_equal false,  tag.renderable
     assert_equal "test", tag.namespace
@@ -60,7 +60,7 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
   def test_render_when_not_renderable
     tag = ComfortableMexicanSofa::Content::Tag::Fragment.new(
       context: @page,
-      params: ["content", {"render" =>  "false"}]
+      params: ["content", { "render" => "false" }]
     )
     assert_equal "", tag.render
   end

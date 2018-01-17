@@ -29,7 +29,7 @@ class ContentTagsMarkdownTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:default)
     tag = ComfortableMexicanSofa::Content::Tag::Markdown.new(
       context: @page,
-      params: [frag.identifier, {"render" => "false"}]
+      params: [frag.identifier, { "render" => "false" }]
     )
     assert_equal "", tag.render
   end

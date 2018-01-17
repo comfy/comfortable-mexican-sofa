@@ -63,7 +63,7 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   def test_content_as_link
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(
       context: @page,
-      params: [@file.id, {"as" => "link"}]
+      params: [@file.id, { "as" => "link" }]
     )
     url = rails_blob_path(tag.file.attachment, only_path: true)
     out = "<a href='#{url}' target='_blank'>default file</a>"
@@ -74,7 +74,7 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   def test_content_as_image
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(
       context: @page,
-      params: [@file.id, {"as" => "image"}]
+      params: [@file.id, { "as" => "image" }]
     )
     url = rails_blob_path(tag.file.attachment, only_path: true)
     out = "<img src='#{url}' alt='default file'/>"
