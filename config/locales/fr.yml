@@ -6,7 +6,7 @@ fr:
       comfy/cms/page: Page
       comfy/cms/snippet: Fragment
       comfy/cms/file: Fichier
-      comfy/cms/translation: Translation
+      comfy/cms/translation: Traduction
 
     attributes:
       comfy/cms/site:
@@ -27,11 +27,11 @@ fr:
         label: Nom de la page
         layout_id: Mise en page
         slug: Identifiant
-        full_path: Full path
+        full_path: Chemin complet
         parent_id: Parent
         target_page_id: Rediriger vers
         content: Contenu
-        is_published: Publié
+        is_published: Publiée
       comfy/cms/file:
         label: Nom
         file: Fichier
@@ -41,10 +41,10 @@ fr:
         label: Nom
         content: Contenu
       comfy/cms/translation:
-        locale: Language
-        label: Label
-        layout_id: Layout
-        is_published: Published
+        locale: Langue
+        label: Nom
+        layout_id: Mise en page
+        is_published: Publiée
 
   comfy:
     cms:
@@ -144,7 +144,7 @@ fr:
             create: Créer la page
             cancel: Annuler
             update: Modifier la page
-            choose_link: Select page...
+            choose_link: Sélectionner une page...
 
         fragments:
           form_fragments:
@@ -153,25 +153,25 @@ fr:
               Modifiez le contenu pour y ajouter un tag de page ou de champ. Exemple : <code>{{cms:wysiwyg content}}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: Traduction créée
+          creation_failure: Échec de la création de la traduction
+          updated: Traduction modifiée
+          update_failure: Échec de la modification de la traduction
+          deleted: Traduction supprimée
+          not_found: Traduction introuvable
 
           new:
-            title: New Translation
+            title: Nouvelle Traduction
           edit:
-            title: Editing Translation
+            title: Modification de la Traduction
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: Prévisualiser
+            create: Créer
+            update: Modifier
+            cancel: Annuler
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: Nouvelle Traduction
+            confirm: Êtes-vous sûr ?
 
         snippets:
           created: Fragment créé
@@ -206,17 +206,17 @@ fr:
             revision: révision
             update: Restaurer cette révision
             cancel: Annuler
-            content: Content
-            changes: Changes
-            previous: Previous
-            current: Actuel
+            content: Contenu
+            changes: Changements
+            previous: Précédente
+            current: Actuelle
           sidebar:
             revision:
-              zero: No Revisions
-              one: '%{count} Revision'
-              few: '%{count} Revisions'
-              many: '%{count} Revisions'
-              other: '%{count} Revisions'
+              zero: Pas de Révision
+              one: '%{count} Révision'
+              few: '%{count} Révisions'
+              many: '%{count} Révisions'
+              other: '%{count} Révisions'
 
         files:
           created: Fichier téléchargé
@@ -250,9 +250,9 @@ fr:
 
         categories:
           index:
-            edit: Modifier les catégories
+            edit: Modifier
             done: Terminé
-            all: Tout Catégories
+            all: Toutes les Catégories
             add: Ajouter
             add_placeholder: Ajouter la Catégorie
           show:
