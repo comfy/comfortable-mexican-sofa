@@ -5,5 +5,5 @@
 .page-header
   %h2= t('.title')
 
-= comfy_form_for @layout, as: :layout, url: {action: :update} do |form|
+= comfy_form_with model: @layout, scope: :layout, url: {action: :update} do |form|
   = render form

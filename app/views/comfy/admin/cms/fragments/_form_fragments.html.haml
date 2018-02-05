@@ -14,7 +14,7 @@
         = t(".no_tags").html_safe
 
     - else
-      = fields_for :fragments, nil, builder: ComfortableMexicanSofa::FormBuilder, layout: :horizontal do |fragments|
+      = fields scope: :fragments, builder: ComfortableMexicanSofa::FormBuilder, bootstrap: {layout: :horizontal} do |fragments|
 
         .tabbable
           - if namespace.size > 1

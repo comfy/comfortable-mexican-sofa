@@ -3,10 +3,11 @@ module Comfy
     module CmsHelper
 
       # Wrapper around ComfortableMexicanSofa::FormBuilder
-      def comfy_form_for(record, options = {}, &block)
-        options[:builder] = ComfortableMexicanSofa::FormBuilder
-        options[:layout] ||= :horizontal
-        bootstrap_form_for(record, options, &block)
+      def comfy_form_with(**options, &block)
+        form_options = options.merge(builder: ComfortableMexicanSofa::FormBuilder)
+        form_options[:bootstrap]  = {layout: :horizontal}
+        form_options[:local]      = true
+        bootstrap_form_with(**form_options, &block)
       end
 
       def comfy_admin_partial(path, params = {})

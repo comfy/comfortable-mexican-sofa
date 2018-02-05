@@ -6,5 +6,5 @@
 .page-header
   %h2= t('.title')
 
-= comfy_form_for @page, as: :page, url: {action: :update}, html: {multipart: true} do |form|
+= comfy_form_with model: @page, scope: :page, url: {action: :update}, html: {multipart: true} do |form|
   = render form

@@ -1,9 +1,5 @@
 class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
-  def default_label_col
-    "col-sm-2 text-md-right"
-  end
-
   def field(record, tag, index)
     object_name = record.class.to_s.demodulize.underscore
 
@@ -17,7 +13,8 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
       label = I18n.t("comfy.cms.content.tag.#{tag.identifier}", default: tag.identifier.titleize)
       renderable = tag.respond_to?(:renderable) ? tag.renderable : true
-      form_group label: { text: label, class: "renderable-#{renderable}" } do
+
+      form_group bootstrap: {label: { text: label, class: "renderable-#{renderable}" }} do
         [identifer_input, tag_name_input, tag_input].join.html_safe
       end
     end
@@ -26,15 +23,11 @@ class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
   # Wrapper for form action that is sticking to the bottom of the viewport
   def form_actions(&block)
     <<-HTML.strip_heredoc.html_safe
-      <div class="form-actions bg-light">
-        <div class="row">
-          <div class="col-lg-2"></div>
-          <div class="col-lg-8">
-            <div class="row">
-              <div class="col-sm-2"></div>
-              <div class="col-sm-10">
-                #{capture(&block)}
-              </div>
+      <div class="form-actions row bg-light">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="form-group row mb-0">
+            <div class="col-sm-10 offset-sm-2">
+              #{capture(&block)}
             </div>
           </div>
         </div>

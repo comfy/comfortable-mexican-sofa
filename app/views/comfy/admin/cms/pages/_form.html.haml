@@ -20,13 +20,11 @@
 - if (options = ::Comfy::Cms::Page.options_for_select(site: @site, page: @page)).present?
   = form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options
 
-.row
-  .col-sm-10.ml-auto
-    = form.check_box :is_published
+= form.check_box :is_published
 
 = comfy_admin_partial "comfy/admin/cms/partials/page_form_after", form: form
 
 = form.form_actions do
-  = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-secondary", data: {disable_with: false}
-  = form.submit t(@page.new_record?? ".create" : ".update"), class: "btn btn-primary", data: {disable_with: false}
+  = submit_tag t(".preview"), name: "preview", id: nil, class: "btn btn-secondary", data: {disable_with: false}
+  = submit_tag t(@page.new_record?? ".create" : ".update"), class: "btn btn-primary ml-sm-1", data: {disable_with: false}
   = link_to t(".cancel"), comfy_admin_cms_site_pages_path, class: "btn btn-link"
