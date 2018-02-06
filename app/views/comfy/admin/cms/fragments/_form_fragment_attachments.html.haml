@@ -3,8 +3,10 @@
     - if attachment.image?
       - variant = attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
       - thumb = image_tag(url_for(variant), size: "200x150")
-    .fragment-attachment.btn-group.btn-group-sm.mb-sm-1
-      = link_to attachment.filename, attachment, data: {toggle: "page-file-popover", content: thumb}, class: "btn btn-light", target: "_blank"
+    .fragment-attachment.btn-group.btn-group-sm.mb-1
+      - filename = attachment.filename.to_s
+      - truncated_filename = truncate(filename, length: 40, omission: "...#{filename.last(10)}")
+      = link_to truncated_filename, attachment, data: {toggle: "page-file-popover", content: thumb}, class: "btn btn-light text-truncate", target: "_blank"
       = check_box_tag "#{object_name}[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: dom_id(attachment)
       %label.btn.btn-light{for: dom_id(attachment)}
         %i.fas.fa-fw.fa-times
