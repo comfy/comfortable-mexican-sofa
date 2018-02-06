@@ -43,6 +43,9 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   end
 
   def test_categorized_syncing
+    # or we're not going to be able to link
+    @category.update_column(:categorized_type, "Comfy::Cms::Page")
+
     page = comfy_cms_pages(:default)
     assert_equal 0, page.categories.count
 
