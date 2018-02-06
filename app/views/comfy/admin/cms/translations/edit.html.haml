@@ -6,5 +6,5 @@
 .page-header
   %h2= t('.title')
 
-= comfy_form_for @translation, as: :translation, url: {action: :update}, html: {multipart: true} do |form|
+= comfy_form_with model: @translation, scope: :translation, url: {action: :update}, html: {multipart: true} do |form|
   = render form

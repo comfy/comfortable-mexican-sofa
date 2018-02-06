@@ -96,7 +96,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
         label:        "Test File",
         description:  "Test Description",
         file:         fixture_file_upload("files/image.jpg", "image/jpeg"),
-        category_ids: { comfy_cms_categories(:default).id => "1" }
+        category_ids: [comfy_cms_categories(:default).id]
       } }
       assert_response :redirect
       file = Comfy::Cms::File.last
@@ -176,8 +176,8 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
     assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
-        category: [category.label],
-        source:   "plupload",
+        categories: [category.label],
+        source:     "plupload",
         file: {
           file: fixture_file_upload("files/image.jpg", "image/jpeg")
         }

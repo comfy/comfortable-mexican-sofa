@@ -2,6 +2,10 @@ require_relative "../test_helper"
 
 class CmsCategorizationTest < ActiveSupport::TestCase
 
+  setup do
+    @category = comfy_cms_categories(:default)
+  end
+
   def test_fixtures_validity
     Comfy::Cms::Categorization.all.each do |categorization|
       assert categorization.valid?, categorization.errors.full_messages.to_s
@@ -16,7 +20,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
 
   def test_creation
     assert_difference "Comfy::Cms::Categorization.count" do
-      comfy_cms_categories(:default).categorizations.create!(
+      @category.categorizations.create!(
         categorized: comfy_cms_pages(:default)
       )
     end
@@ -26,7 +30,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     file = comfy_cms_files(:default)
     assert file.respond_to?(:category_ids)
     assert_equal 1, file.categories.count
-    assert_equal comfy_cms_categories(:default), file.categories.first
+    assert_equal @category, file.categories.first
 
     assert comfy_cms_pages(:default).respond_to?(:category_ids)
     assert_equal 0, comfy_cms_pages(:default).categories.count
@@ -42,22 +46,18 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     page = comfy_cms_pages(:default)
     assert_equal 0, page.categories.count
 
-    page.update_attributes(category_ids:
-      { comfy_cms_categories(:default).id => 1,
-        "invalid"                         => 1 })
+    page.update_attributes(category_ids: [@category.id, 9999])
 
     page.reload
     assert_equal 1, page.categories.count
 
-    page.update_attributes(category_ids:
-      { comfy_cms_categories(:default).id => 0,
-        "invalid"                         => 0 })
+    page.update_attributes(category_ids: [])
     page.reload
     assert_equal 0, page.categories.count
   end
 
   def test_scope_for_category
-    category = comfy_cms_categories(:default)
+    category = @category
     assert_equal 1, Comfy::Cms::File.for_category(category.label).count
     assert_equal 0, Comfy::Cms::File.for_category("invalid").count
     assert_equal 1, Comfy::Cms::File.for_category(category.label, "invalid").count

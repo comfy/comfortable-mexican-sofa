@@ -1,4 +1,4 @@
-//= render 'comfy/admin/cms/partials/translation_form_before', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/translation_form_before", form: form
 
 = form.select :locale, translation_select_options
 
@@ -9,13 +9,11 @@
 
 = render "comfy/admin/cms/fragments/form_fragments", record: @translation
 
-.row
-  .col-sm-10.ml-auto
-    = form.check_box :is_published
+= form.check_box :is_published
 
-//= render 'comfy/admin/cms/partials/translation_form_after', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/translation_form_after", form: form
 
 = form.form_actions do
-  = form.submit t(".preview"), name: "preview", id: nil, class: "btn btn-secondary", data: {disable_with: false}
-  = form.submit t(@translation.new_record?? ".create" : ".update"), class: "btn btn-primary", data: {disable_with: false}
+  = submit_tag t(".preview"), name: "preview", id: nil, class: "btn btn-secondary", data: {disable_with: false}
+  = submit_tag t(@translation.new_record? ? ".create" : ".update"), class: "btn btn-primary", data: {disable_with: false}
   = link_to t(".cancel"), edit_comfy_admin_cms_site_page_path(@site, @page), class: "btn btn-link"

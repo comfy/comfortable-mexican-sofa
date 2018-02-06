@@ -30,7 +30,7 @@
           .current.d-none= content
           .content
 
-= comfy_form_for @revision, url: { action: :revert } do |form|
+= comfy_form_with model: @revision, url: { action: :revert } do |form|
   = form.form_actions do
-    = form.submit t(".update"), class: "btn btn-primary"
+    = submit_tag t(".update"), class: "btn btn-primary"
     = link_to t(".cancel"), record_path, class: "btn btn-link"

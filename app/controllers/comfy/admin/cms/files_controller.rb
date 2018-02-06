@@ -50,18 +50,17 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
   end
 
   def create
-    if params[:category]
-      ids = @site.categories.of_type("Comfy::Cms::File")
-        .where(label: params[:category])
-        .each_with_object({}) { |c, h| h[c.id] = 1 }
+    categories_scope = @site.categories.of_type("Comfy::Cms::File")
+
+    if params[:categories]
+      ids = categories_scope.where(label: params[:categories]).pluck(:id)
       @file.category_ids = ids
     end
 
     # Automatically tagging upload if it's done through redactor
     if params[:source] == "redactor"
-      category = @site.categories.of_type("Comfy::Cms::File").find_or_create_by(label: "wysiwyg")
-      @file.category_ids ||= {}
-      @file.category_ids[category.id] = 1
+      category = categories_scope.find_or_create_by(label: "wysiwyg")
+      @file.category_ids = [category.id]
     end
 
     @file.save!
