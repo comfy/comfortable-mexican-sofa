@@ -42,7 +42,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][files]"
-    input   = view.send(:file_field_tag, name, id: nil)
+    input   = view.send(:file_field_tag, name, id: nil, class: "form-control")
 
     attachments_partial =
       if fragment.attachments

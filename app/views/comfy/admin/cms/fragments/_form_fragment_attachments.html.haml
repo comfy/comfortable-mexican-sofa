@@ -3,8 +3,8 @@
     - if attachment.image?
       - variant = attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
       - thumb = image_tag(url_for(variant), size: "200x150")
-    .btn.btn-outline-light
+    .fragment-attachment.btn.btn-outline-light
       = link_to attachment.filename, attachment, {data: {toggle: "page-file-popover", content: thumb}}
-      %label.custom-control.custom-checkbox
-        = check_box_tag "#{object_name}[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: nil, class: "custom-control-input"
-        %span.custom-control-indicator
+
+      = check_box_tag "#{object_name}[fragments_attributes][#{index}][file_ids_destroy][]", attachment.id, false, id: dom_id(attachment)
+      %label{for: dom_id(attachment)}
