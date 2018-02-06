@@ -2,6 +2,7 @@
 
 = form.text_field :label, data: {slugify: @layout.new_record?}
 = form.text_field :identifier, data: {slug: true}
+
 - if (options = Comfy::Cms::Layout.options_for_select(@site, @layout)).present?
   = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options
 
@@ -12,8 +13,8 @@
 = form.text_area :css, data: {'cms-cm-mode' => 'css'}
 = form.text_area :js, data: {'cms-cm-mode' => 'javascript'}
 
-= comfy_admin_partial 'comfy/admin/cms/partials/layout_form_after', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/layout_form_after", form: form
 
 = form.form_actions do
-  = form.submit t(@layout.new_record?? '.create' : '.update'), class: "btn btn-primary"
+  = submit_tag t(@layout.new_record? ? ".create" : ".update"), class: "btn btn-primary"
   = link_to t('.cancel'), comfy_admin_cms_site_layouts_path, class: "btn btn-link"

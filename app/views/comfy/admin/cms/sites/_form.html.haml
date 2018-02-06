@@ -1,4 +1,4 @@
-= comfy_admin_partial 'comfy/admin/cms/partials/site_form_before', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/site_form_before", form: form
 
 = form.text_field :label, data: {slugify: @site.new_record?}
 = form.text_field :identifier, data: {slug: true}
@@ -6,8 +6,8 @@
 = form.text_field :path
 = form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| ["#{l[1]} (#{l[0]})", l[0]]}
 
-= comfy_admin_partial 'comfy/admin/cms/partials/site_form_after', form: form
+= comfy_admin_partial "comfy/admin/cms/partials/site_form_after", form: form
 
 = form.form_actions do
-  = form.primary t(@site.new_record?? '.create' : '.update')
-  = link_to t('.cancel'), comfy_admin_cms_sites_path, class: 'btn btn-link'
+  = submit_tag t(@site.new_record? ? ".create" : ".update"), class: "btn btn-primary"
+  = link_to t(".cancel"), comfy_admin_cms_sites_path, class: "btn btn-link"

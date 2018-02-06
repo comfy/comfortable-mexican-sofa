@@ -11,7 +11,7 @@ module Comfy::Cms::WithCategories
       through:    :categorizations,
       class_name: "Comfy::Cms::Category"
 
-    attr_accessor :category_ids
+    attr_writer :category_ids
 
     after_save :sync_categories
 
@@ -24,17 +24,26 @@ module Comfy::Cms::WithCategories
     }
   end
 
+  def category_ids
+    @category_ids ||= categories.pluck(:id)
+  end
+
   def sync_categories
-    (category_ids || {}).each do |category_id, flag|
-      case flag.to_i
-      when 1
-        if (category = Comfy::Cms::Category.find_by_id(category_id))
-          category.categorizations.create(categorized: self)
-        end
-      when 0
-        categorizations.where(category_id: category_id).destroy_all
+    return unless category_ids.is_a?(Array)
+
+    ids_to_add = category_ids.map(&:to_i)
+    scope = Comfy::Cms::Category.of_type(self.class.to_s)
+
+    # adding categorizations
+    ids_to_add.each do |id|
+      if category = scope.find_by_id(id)
+        category.categorizations.create(categorized: self)
       end
     end
+
+    # removing categorizations
+    ids_to_remove = scope.pluck(:id) - ids_to_add
+    categorizations.where(category_id: ids_to_remove).destroy_all
   end
 
 end

@@ -5,7 +5,7 @@ module Comfy
       # Wrapper around ComfortableMexicanSofa::FormBuilder
       def comfy_form_with(**options, &block)
         form_options = options.merge(builder: ComfortableMexicanSofa::FormBuilder)
-        form_options[:bootstrap]  = {layout: :horizontal}
+        form_options[:bootstrap]  = { layout: :horizontal }
         form_options[:local]      = true
         bootstrap_form_with(**form_options, &block)
       end
