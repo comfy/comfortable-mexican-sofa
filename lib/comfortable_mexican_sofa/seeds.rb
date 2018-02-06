@@ -52,15 +52,12 @@ module ComfortableMexicanSofa::Seeds
     end
 
     def category_names_to_ids(record, names)
-      existing_category_ids = record.categories.each_with_object({}) do |id, category_ids|
-        category_ids[id] = 0
-      end
-      [names].flatten.each_with_object(existing_category_ids) do |name, category_ids|
+      [names].flatten.map do |name|
         category = site.categories.find_or_create_by(
           label:            name,
           categorized_type: record.class.to_s
         )
-        category_ids[category.id] = 1
+        category.id
       end
     end
 
