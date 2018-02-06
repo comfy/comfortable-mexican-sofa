@@ -38,7 +38,7 @@ module Comfy::Cms::WithCategories
 
     # adding categorizations
     ids_to_add.each do |id|
-      if category = scope.find_by_id(id)
+      if (category = scope.find_by_id(id))
         category.categorizations.create(categorized: self)
       end
     end
