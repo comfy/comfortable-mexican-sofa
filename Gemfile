@@ -2,8 +2,6 @@ source "http://rubygems.org"
 
 gemspec
 
-gem "comfy_bootstrap_form", github: "comfy/comfy-bootstrap-form"
-
 group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "capybara"
