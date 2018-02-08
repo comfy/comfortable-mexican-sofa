@@ -1,7 +1,7 @@
 - url = comfy_admin_cms_site_category_path(@site, category)
-= form_for @category, as: :category, url: url, remote: true, html: {id: dom_id(category)} do |form|
+= form_with model: @category, scope: :category, url: url, html: {class: "edit-category", id: dom_id(category)} do |form|
   .input-group
-    = form.text_field :label, class: "form-control form-control-sm"
+    = form.text_field :label, class: "form-control form-control-sm", id: nil
     .input-group-btn
-      %button.btn.btn-primary.btn-sm
+      %button.btn.btn-primary.btn-sm{aria: {label: "Update Category"}}
         %i.fas.fa-fw.fa-check

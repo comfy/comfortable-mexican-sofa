@@ -188,6 +188,8 @@ end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
+  Capybara.enable_aria_label = true
+
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
   # Visiting path and passing in BasicAuth credentials at the same time

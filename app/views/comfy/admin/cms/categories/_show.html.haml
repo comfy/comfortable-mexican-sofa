@@ -11,5 +11,5 @@
   - else
     .btn-group.d-flex
       = link_to category.label, edit_comfy_admin_cms_site_category_path(@site, category), remote: true, class: "btn btn-sm btn-light w-100 text-left text-truncate"
-      = link_to comfy_admin_cms_site_category_path(@site, category), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: 'btn btn-sm btn-danger' do
+      = link_to comfy_admin_cms_site_category_path(@site, category), method: :delete, remote: true, data: {confirm: t('.are_you_sure')}, class: 'btn btn-sm btn-danger', aria: {label: "Delete Category"} do
         %i.fas.fa-fw.fa-times
