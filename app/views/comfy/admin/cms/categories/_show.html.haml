@@ -6,7 +6,8 @@
   - if read
     - active_class = active ? "active" : nil
     - categories = active ? categories.reject{|c| c == category.label} : categories << category.label
-    = link_to category.label, {categories: categories}, class: "btn btn-sm btn-light btn-block text-left text-truncate #{active_class}"
+    - url = "?#{{categories: categories}.to_query}"
+    = link_to category.label, url, class: "btn btn-sm btn-light btn-block text-left text-truncate #{active_class}"
   - else
     .btn-group.d-flex
       = link_to category.label, edit_comfy_admin_cms_site_category_path(@site, category), remote: true, class: "btn btn-sm btn-light w-100 text-left text-truncate"
