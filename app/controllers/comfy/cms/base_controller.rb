@@ -2,6 +2,8 @@ class Comfy::Cms::BaseController < ApplicationController
 
   before_action :load_cms_site
 
+  helper Comfy::CmsHelper
+
 protected
 
   def load_cms_site
