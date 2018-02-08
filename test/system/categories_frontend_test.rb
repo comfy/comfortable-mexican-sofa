@@ -7,7 +7,6 @@ class CategoriesFrontendTest < ApplicationSystemTestCase
   end
 
   def test_category_management
-
     visit_p comfy_admin_cms_site_snippets_path(@site)
 
     find("button.toggle-cat-edit").click

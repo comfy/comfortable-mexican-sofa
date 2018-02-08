@@ -10,7 +10,10 @@ Gem::Specification.new do |s|
   s.summary       = "Rails 5.2+ CMS Engine"
   s.description   = "ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine"
   s.license       = "MIT"
-  s.files         = `git ls-files`.split("\n")
+
+  s.files = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|doc)/})
+  end
 
   s.required_ruby_version = ">= 2.2.2"
 
