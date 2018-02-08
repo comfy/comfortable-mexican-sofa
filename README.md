@@ -32,7 +32,7 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 Add gem definition to your Gemfile:
 
 ```ruby
-gem 'comfortable_mexican_sofa', '~> 2.0.0'
+gem "comfortable_mexican_sofa", "~> 2.0.0"
 ```
 
 Then from the Rails project's root run:
