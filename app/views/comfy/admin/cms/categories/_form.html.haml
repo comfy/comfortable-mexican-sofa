@@ -1,5 +1,5 @@
 - object = form.object
 - if (categories = @site.categories.of_type(object.class.to_s)).present?
-  - options = {bootstrap: {inline: true, label: {text: t(".label"), class: "pt-0"}}}
+  - options = {bootstrap: {check_inline: true, label: {text: t(".label"), class: "pt-0"}}}
   = form.collection_check_boxes :category_ids, categories, :id, :label, options
 
