@@ -38,6 +38,22 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     assert_equal [[:string, "key"], [:column, ":"], [:string, "v1, v2: v3"]], tokens
   end
 
+  def test_tokenizer_with_smart_quotes
+    expected = [[:string, "param"], [:comma, ","], [:string, "key"], [:column, ":"], [:string, "value"]]
+
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("'param', 'key': 'value'")
+    assert_equal expected, tokens
+
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize('"param", "key": "value"')
+    assert_equal expected, tokens
+
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("“param”, “key”: “value”")
+    assert_equal expected, tokens
+
+    tokens = ComfortableMexicanSofa::Content::ParamsParser.tokenize("‘param’, ‘key’: ‘value’")
+    assert_equal expected, tokens
+  end
+
   def test_tokenizer_with_bad_input
     message = "Unexpected char: %"
     assert_exception_raised ComfortableMexicanSofa::Content::ParamsParser::Error, message do

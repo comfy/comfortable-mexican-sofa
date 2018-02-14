@@ -57,8 +57,12 @@ module ComfortableMexicanSofa::Content::ParamsParser
     end
   end
 
-  # tokenizing input string into a list of touples
+  # Tokenizing input string into a list of touples
+  # Also args_string is stripped of "smart" quotes coming from wysiwyg
   def self.tokenize(args_string)
+    args_string.gsub!(%r{[“”]}, '"')
+    args_string.gsub!(%r{[‘’]}, "'")
+
     tokens = []
     ss = StringScanner.new(args_string)
     until ss.eos?
