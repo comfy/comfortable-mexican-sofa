@@ -11,8 +11,8 @@ class SeedsPagesTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Page.delete_all
 
-    assert_count_difference "Comfy::Cms::Page", 3 do
-      assert_count_difference "Comfy::Cms::Translation", 2 do
+    assert_difference -> { Comfy::Cms::Page.count }, 3 do
+      assert_difference -> { Comfy::Cms::Translation.count }, 2 do
         ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
       end
     end
@@ -92,7 +92,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
     child = comfy_cms_pages(:child)
     child.update_column(:slug, "old")
 
-    assert_count_difference [Comfy::Cms::Page] do
+    assert_difference -> { Comfy::Cms::Page.count } do
       ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
 
       @page.reload

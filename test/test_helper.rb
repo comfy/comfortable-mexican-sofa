@@ -98,20 +98,6 @@ class ActiveSupport::TestCase
     assert_select(selector, text: value, count: 0)
   end
 
-  def assert_count_difference(models, number = 1)
-    counts = [models].flatten.map { |m| "#{m}.count" }
-    assert_difference counts, number do
-      yield
-    end
-  end
-
-  def assert_count_no_difference(*models)
-    counts = [models].flatten.map { |m| "#{m}.count" }
-    assert_no_difference counts do
-      yield
-    end
-  end
-
   # Capturing STDOUT into a string
   def with_captured_stout
     old = $stdout

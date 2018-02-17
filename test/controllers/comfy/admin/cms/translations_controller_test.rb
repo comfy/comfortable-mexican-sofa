@@ -42,7 +42,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_create
-    assert_count_difference [Comfy::Cms::Translation] do
+    assert_difference -> { Comfy::Cms::Translation.count } do
       path = comfy_admin_cms_site_page_translations_path(@site, @page)
       r :post, path, params: { translation: {
         locale: "es",
@@ -57,7 +57,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_creation_failure
-    assert_count_no_difference [Comfy::Cms::Translation] do
+    assert_no_difference -> { Comfy::Cms::Translation.count } do
       path = comfy_admin_cms_site_page_translations_path(@site, @page)
       r :post, path, params: { translation: {} }
       assert_response :success
@@ -91,7 +91,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_destroy
-    assert_count_difference [Comfy::Cms::Translation], -1 do
+    assert_difference(-> { Comfy::Cms::Translation.count }, -1) do
       r :delete, comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)
@@ -130,7 +130,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_creation_preview
-    assert_count_no_difference [Comfy::Cms::Translation] do
+    assert_no_difference -> { Comfy::Cms::Translation.count } do
       r :post, comfy_admin_cms_site_page_translations_path(@site, @page), params: {
         preview: "Preview",
         translation: {
@@ -157,7 +157,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_update_preview
-    assert_count_no_difference [Comfy::Cms::Page] do
+    assert_no_difference -> { Comfy::Cms::Page.count } do
       r :put, comfy_admin_cms_site_page_translation_path(@site, @page, @translation), params: {
         preview: "Preview",
         translation: {

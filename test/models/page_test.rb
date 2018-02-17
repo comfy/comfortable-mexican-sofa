@@ -90,7 +90,10 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_create
-    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_difference [page_count, fragment_count] do
       page = @site.pages.create!(
         new_params(
           parent: @page,
@@ -107,7 +110,11 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_create_with_file
-    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment, ActiveStorage::Attachment] do
+    page_count        = -> { Comfy::Cms::Page.count }
+    fragment_count    = -> { Comfy::Cms::Fragment.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [page_count, fragment_count, attachment_count] do
       page = @site.pages.create!(
         new_params(
           parent: @page,
@@ -124,8 +131,12 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_create_with_files
-    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
-      assert_count_difference [ActiveStorage::Attachment], 2 do
+    page_count        = -> { Comfy::Cms::Page.count }
+    fragment_count    = -> { Comfy::Cms::Fragment.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [page_count, fragment_count] do
+      assert_difference(attachment_count, 2) do
         page = @site.pages.create!(
           new_params(
             parent: @page,
@@ -148,7 +159,11 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_create_with_date
     string = "1981-10-04 12:34:56"
     datetime = DateTime.parse(string)
-    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_difference [page_count, fragment_count] do
       page = @site.pages.create!(
         new_params(
           parent: @page,
@@ -165,7 +180,10 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_create_with_boolean
-    assert_count_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_difference [page_count, fragment_count] do
       page = @site.pages.create!(
         new_params(
           parent: @page,
@@ -183,7 +201,11 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_update
     frag = comfy_cms_fragments(:default)
-    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_no_difference [page_count, fragment_count] do
       @page.update_attributes!(fragments_attributes: [
         { identifier: frag.identifier,
           content:    "updated content" }
@@ -194,7 +216,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_update_with_file
-    assert_count_no_difference [ActiveStorage::Attachment] do
+    assert_no_difference -> { ActiveStorage::Attachment.count } do
       @page.update_attributes!(
         fragments_attributes: [{
           identifier: "file",
@@ -208,7 +230,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_update_with_file_removal
     id = comfy_cms_fragments(:file).attachments.first.id
-    assert_count_difference [ActiveStorage::Attachment], -1 do
+    assert_difference(-> { ActiveStorage::Attachment.count }, -1) do
       @page.update_attributes!(
         fragments_attributes: [{
           identifier:       "file",
@@ -222,7 +244,11 @@ class CmsPageTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:datetime)
     string = "2020-01-01"
     date = DateTime.parse(string)
-    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_no_difference [page_count, fragment_count] do
       @page.update_attributes!(fragments_attributes: [
         { identifier: frag.identifier,
           datetime:   string }
@@ -235,7 +261,11 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_update_with_boolean
     frag = comfy_cms_fragments(:boolean)
     assert frag.boolean
-    assert_count_no_difference [Comfy::Cms::Page, Comfy::Cms::Fragment] do
+
+    page_count      = -> { Comfy::Cms::Page.count }
+    fragment_count  = -> { Comfy::Cms::Fragment.count }
+
+    assert_no_difference [page_count, fragment_count] do
       @page.update_attributes!(fragments_attributes: [
         { identifier: frag.identifier,
           boolean:    "0" }
@@ -341,9 +371,9 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_cascading_destroy
-    assert_count_difference [Comfy::Cms::Page], -2 do
-      assert_count_difference [Comfy::Cms::Fragment], -4 do
-        assert_count_difference [Comfy::Cms::Translation], -1 do
+    assert_difference(-> { Comfy::Cms::Page.count }, -2) do
+      assert_difference(-> { Comfy::Cms::Fragment.count }, -4) do
+        assert_difference(-> { Comfy::Cms::Translation.count }, -1) do
           @page.destroy
         end
       end

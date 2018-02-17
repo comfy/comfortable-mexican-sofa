@@ -9,7 +9,7 @@ class SeedsFilesTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::File.delete_all
 
-    assert_count_difference [Comfy::Cms::File] do
+    assert_difference -> { Comfy::Cms::File.count } do
       ComfortableMexicanSofa::Seeds::File::Importer.new("sample-site", "default-site").import!
     end
 
@@ -31,7 +31,7 @@ class SeedsFilesTest < ActiveSupport::TestCase
     assert_equal "default file",        file.label
     assert_equal "default description", file.description
 
-    assert_count_no_difference [Comfy::Cms::File] do
+    assert_no_difference -> { Comfy::Cms::File.count } do
       ComfortableMexicanSofa::Seeds::File::Importer.new("sample-site", "default-site").import!
       file.reload
       assert_equal "default.jpg",           file.attachment.filename.to_s
@@ -59,7 +59,7 @@ class SeedsFilesTest < ActiveSupport::TestCase
     old_file = comfy_cms_files(:default)
     active_storage_blobs(:default).update_column(:filename, "old")
 
-    assert_count_no_difference [Comfy::Cms::File] do
+    assert_no_difference -> { Comfy::Cms::File.count } do
       ComfortableMexicanSofa::Seeds::File::Importer.new("sample-site", "default-site").import!
       assert file = Comfy::Cms::File.last
       assert_equal "default.jpg",           file.attachment.filename.to_s

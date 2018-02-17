@@ -26,7 +26,10 @@ class CmsCategoryTest < ActiveSupport::TestCase
   def test_destruction
     category = comfy_cms_categories(:default)
     assert_equal 1, category.categorizations.count
-    assert_difference ["Comfy::Cms::Category.count", "Comfy::Cms::Categorization.count"], -1 do
+
+    category_count = -> { Comfy::Cms::Category.count }
+    categorization_count = -> { Comfy::Cms::Categorization.count }
+    assert_difference([category_count, categorization_count], -1) do
       category.destroy
     end
   end

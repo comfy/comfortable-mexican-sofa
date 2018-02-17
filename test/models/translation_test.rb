@@ -40,7 +40,10 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_creation
-    assert_count_difference [Comfy::Cms::Translation, Comfy::Cms::Fragment] do
+    translation_count = -> { Comfy::Cms::Translation.count }
+    fragment_count    = -> { Comfy::Cms::Fragment.count }
+
+    assert_difference [translation_count, fragment_count] do
       translation = @page.translations.create(
         locale: "test",
         label:  "Test Translation",

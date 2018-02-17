@@ -10,7 +10,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Snippet.delete_all
 
-    assert_count_difference [Comfy::Cms::Snippet] do
+    assert_difference -> { Comfy::Cms::Snippet.count } do
       ComfortableMexicanSofa::Seeds::Snippet::Importer.new("sample-site", "default-site").import!
     end
 
@@ -29,7 +29,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     assert_equal "Default Snippet", @snippet.label
     assert_equal "snippet content", @snippet.content
 
-    assert_count_no_difference [Comfy::Cms::Snippet] do
+    assert_no_difference -> { Comfy::Cms::Snippet.count } do
       ComfortableMexicanSofa::Seeds::Snippet::Importer.new("sample-site", "default-site").import!
     end
 
@@ -43,7 +43,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
     old_snippet = @snippet
     old_snippet.update_column(:identifier, "old")
 
-    assert_count_no_difference [Comfy::Cms::Snippet] do
+    assert_no_difference -> { Comfy::Cms::Snippet.count } do
       ComfortableMexicanSofa::Seeds::Snippet::Importer.new("sample-site", "default-site").import!
     end
 

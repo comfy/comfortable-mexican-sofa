@@ -37,7 +37,10 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   end
 
   def test_categorized_destruction
-    assert_count_difference [Comfy::Cms::File, Comfy::Cms::Categorization], -1 do
+    file_count            = -> { Comfy::Cms::File.count }
+    categorization_count  = -> { Comfy::Cms::Categorization.count }
+
+    assert_difference([file_count, categorization_count], -1) do
       comfy_cms_files(:default).destroy
     end
   end

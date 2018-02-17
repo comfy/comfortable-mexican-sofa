@@ -63,8 +63,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_creation_with_files
-    assert_count_difference [Comfy::Cms::Fragment] do
-      assert_count_difference [ActiveStorage::Attachment], 2 do
+    assert_difference -> { Comfy::Cms::Fragment.count } do
+      assert_difference(-> { ActiveStorage::Attachment.count }, 2) do
         frag = @page.fragments.create!(
           identifier: "test",
           tag:        "files",
@@ -76,7 +76,10 @@ class CmsFragmentTest < ActiveSupport::TestCase
   end
 
   def test_creation_with_file
-    assert_count_difference [Comfy::Cms::Fragment, ActiveStorage::Attachment] do
+    fragment_count    = -> { Comfy::Cms::Fragment.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [fragment_count, attachment_count] do
       frag = @page.fragments.create!(
         identifier: "test",
         tag:        "file",

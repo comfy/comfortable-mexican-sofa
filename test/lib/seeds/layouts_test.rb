@@ -44,11 +44,12 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
     layout        = comfy_cms_layouts(:default)
     nested_layout = comfy_cms_layouts(:nested)
     child_layout  = comfy_cms_layouts(:child)
+
     layout.update_column(:updated_at, 10.years.ago)
     nested_layout.update_column(:updated_at, 10.years.ago)
     child_layout.update_column(:updated_at, 10.years.ago)
 
-    assert_count_difference [Comfy::Cms::Layout], -1 do
+    assert_difference(-> { Comfy::Cms::Layout.count }, -1) do
       ComfortableMexicanSofa::Seeds::Layout::Importer.new("sample-site", "default-site").import!
 
       layout.reload

@@ -90,8 +90,11 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create
-    models = [Comfy::Cms::File, Comfy::Cms::Categorization, ActiveStorage::Attachment]
-    assert_count_difference models do
+    file_count            = -> { Comfy::Cms::File.count }
+    categorization_count  = -> { Comfy::Cms::Categorization.count }
+    attachment_count      = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [file_count, categorization_count, attachment_count] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: { file: {
         label:        "Test File",
         description:  "Test Description",
@@ -109,7 +112,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_failure
-    assert_count_no_difference Comfy::Cms::File do
+    assert_no_difference -> { Comfy::Cms::File.count } do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: { file: {} }
       assert_response :success
       assert_template :new
@@ -118,7 +121,10 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_as_plupload
-    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment] do
+    file_count        = -> { Comfy::Cms::File.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [file_count, attachment_count] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         source: "plupload",
         file: {
@@ -132,7 +138,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_as_plupload_failure
-    assert_count_no_difference Comfy::Cms::File do
+    assert_no_difference -> { Comfy::Cms::File.count } do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         source: "plupload",
         file:   {}
@@ -142,7 +148,11 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_as_redactor
-    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment, Comfy::Cms::Categorization] do
+    file_count            = -> { Comfy::Cms::File.count }
+    categorization_count  = -> { Comfy::Cms::Categorization.count }
+    attachment_count      = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [file_count, categorization_count, attachment_count] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         source: "redactor",
         file:   fixture_file_upload("files/image.jpg", "image/jpeg")
@@ -162,7 +172,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_as_redactor_failure
-    assert_count_no_difference Comfy::Cms::File do
+    assert_no_difference -> { Comfy::Cms::File.count } do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         source: "redactor",
         file:   {}
@@ -174,7 +184,10 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   def test_create_as_plupload_with_selected_category
     category = comfy_cms_categories(:default)
 
-    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment] do
+    file_count        = -> { Comfy::Cms::File.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference [file_count, attachment_count] do
       r :post, comfy_admin_cms_site_files_path(site_id: @site), params: {
         categories: [category.label],
         source:     "plupload",
@@ -205,7 +218,10 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_destroy
-    assert_count_difference [Comfy::Cms::File, ActiveStorage::Attachment], -1 do
+    file_count        = -> { Comfy::Cms::File.count }
+    attachment_count  = -> { ActiveStorage::Attachment.count }
+
+    assert_difference([file_count, attachment_count], -1) do
       r :delete, comfy_admin_cms_site_file_path(site_id: @site, id: @file)
       assert_response :redirect
       assert_redirected_to action: :index
@@ -214,7 +230,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_destroy_as_xhr
-    assert_count_difference [Comfy::Cms::File], -1 do
+    assert_difference(-> { Comfy::Cms::File.count }, -1) do
       r :delete, comfy_admin_cms_site_file_path(site_id: @site, id: @file), xhr: true
       assert_response :success
     end
