@@ -21,7 +21,7 @@ class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Con
   end
 
   # we output erb into rest of the content
-  def allow_erb
+  def allow_erb?
     true
   end
 

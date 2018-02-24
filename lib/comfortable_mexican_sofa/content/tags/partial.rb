@@ -19,7 +19,7 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
   end
 
   # we output erb into rest of the content
-  def allow_erb
+  def allow_erb?
     true
   end
 

@@ -8,7 +8,10 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :renderable, :namespace, :options
+  attr_reader :identifier, :renderable, :namespace
+
+  # @type [{String => String}]
+  attr_reader :options
 
   def initialize(context:, params: [], source: nil)
     super
@@ -25,6 +28,7 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
   end
 
   # Grabs existing fragment record or spins up a new instance if there's none
+  # @return [Comfy::Cms::Fragment]
   def fragment
     context.fragments.detect { |f| f.identifier == identifier } ||
       context.fragments.build(identifier: identifier)

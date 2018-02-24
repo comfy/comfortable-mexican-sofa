@@ -10,10 +10,15 @@
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
-  attr_reader :as, :variant_attrs
+  # @type ["url", "link", "image"]
+  attr_reader :as
+
+  # @type [{String => String}]
+  attr_reader :variant_attrs
 
   delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
 
+  # @param (see ComfortableMexicanSofa::Content::Tag#initialize)
   def initialize(context:, params: [], source: nil)
     super
     @as             = options["as"] || "url"
@@ -61,10 +66,12 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
 protected
 
+  # @return [ActiveStorage::Blob]
   def attachment
     fragment.attachments.first
   end
 
+  # @return [String]
   def label
     @label || attachment && attachment.filename
   end

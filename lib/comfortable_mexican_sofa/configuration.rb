@@ -45,6 +45,7 @@ class ComfortableMexicanSofa::Configuration
   attr_accessor :admin_cache_sweeper
 
   # Not allowing erb code to be run inside page content. False by default.
+  # @return [Boolean]
   attr_accessor :allow_erb
 
   # Whitelist of all helper methods that can be used via {{cms:helper}} tag. By default

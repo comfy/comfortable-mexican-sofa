@@ -3,6 +3,7 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Content::Tag::File
 
+  # @param (see ComfortableMexicanSofa::Content::Tag#initialize)
   def initialize(context:, params: [], source: nil)
     super
   end

@@ -22,16 +22,20 @@ class ComfortableMexicanSofa::Content::Renderer
 
   class << self
 
+    # @return [Hash<String, Class<ComfortableMexicanSofa::Content::Tag>>]
     def tags
       @tags ||= {}
     end
 
+    # @param [String] name
+    # @param [Class<ComfortableMexicanSofa::Content::Tag>] klass
     def register_tag(name, klass)
       tags[name.to_s] = klass
     end
 
   end
 
+  # @param [Comfy::Cms::WithFragments, nil] context
   def initialize(context)
     @context = context
     @depth   = 0
@@ -39,6 +43,8 @@ class ComfortableMexicanSofa::Content::Renderer
 
   # This is how we render content out. Takes context (cms page) and content
   # nodes
+  # @param [Array<String, ComfortableMexicanSofa::Content::Tag>]
+  # @param [Boolean] allow_erb
   def render(nodes, allow_erb = ComfortableMexicanSofa.config.allow_erb)
     if (@depth += 1) > MAX_DEPTH
       raise Error, "Deep tag nesting or recursive nesting detected"
@@ -51,7 +57,7 @@ class ComfortableMexicanSofa::Content::Renderer
       else
         tokens  = tokenize(node.render)
         nodes   = nodes(tokens)
-        render(nodes, allow_erb || node.allow_erb)
+        render(nodes, allow_erb || node.allow_erb?)
       end
     end.flatten.join
   end
@@ -65,6 +71,7 @@ class ComfortableMexicanSofa::Content::Renderer
   end
 
   # Splitting text with tags into tokens we can process down the line
+  # @return [Array<String, {Symbol => String}>]
   def tokenize(string)
     tokens = []
     ss = StringScanner.new(string.to_s)
@@ -85,6 +92,8 @@ class ComfortableMexicanSofa::Content::Renderer
   # Constructing node tree for content. It's a list of strings and tags with
   # their own `nodes` method that has array of strings and tags with their own
   # `nodes` method that... you get the idea.
+  # @param [Array<String, {Symbol => String}>] tokens
+  # @return [Array<String, ComfortableMexicanSofa::Content::Tag>]
   def nodes(tokens)
     nodes = [[]]
     tokens.each do |token|
@@ -102,10 +111,11 @@ class ComfortableMexicanSofa::Content::Renderer
           nodes.pop
 
         else
-          unless (klass = self.class.tags[tag_class])
-            raise SyntaxError, "Unrecognized tag: #{token[:source]}"
-          end
+          # @type [Class<ComfortableMexicanSofa::Content::Tag>]
+          klass = self.class.tags[tag_class] ||
+            raise(SyntaxError, "Unrecognized tag: #{token[:source]}")
 
+          # @type [ComfortableMexicanSofa::Content::Tag]
           tag = klass.new(
             context:  @context,
             params:   ComfortableMexicanSofa::Content::ParamsParser.parse(token[:tag_params]),
