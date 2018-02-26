@@ -1,3 +1,5 @@
+require "strscan"
+
 # Processing content follows these stages:
 #
 #   string        - Text with tags. like this: "some {{cms:fragment content}} text"
