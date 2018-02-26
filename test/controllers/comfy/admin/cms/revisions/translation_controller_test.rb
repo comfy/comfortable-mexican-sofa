@@ -7,6 +7,9 @@ class Comfy::Admin::Cms::Revisions::TranslationControllerTest < ActionDispatch::
     @page         = comfy_cms_pages(:default)
     @translation  = comfy_cms_translations(:default)
     @revision     = comfy_cms_revisions(:translation)
+
+    # taking over one fragment
+    comfy_cms_fragments(:default).update_column(:record_type, "Comfy::Cms::Translation")
   end
 
   def test_get_index
