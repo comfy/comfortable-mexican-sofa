@@ -1,4 +1,4 @@
-require 'strscan'
+require "strscan"
 
 module ComfortableMexicanSofa::Content::ParamsParser
 
@@ -29,7 +29,11 @@ module ComfortableMexicanSofa::Content::ParamsParser
         params << parse_string_param(tokens[0])
       when 3
         param = parse_key_value_param(tokens)
-        params.last.is_a?(Hash) ? params.last.update(param) : params << param
+        if params.last.is_a?(Hash)
+          params.last.update(param)
+        else
+          params << param
+        end
       else
         raise Error, "Unexpected tokens found: #{tokens}"
       end
@@ -83,13 +87,13 @@ module ComfortableMexicanSofa::Content::ParamsParser
       ss.skip(%r{\s*})
       break if ss.eos?
       tokens <<
-          if    (t = ss.scan(STRING_LITERAL)) then [:string, t[1...-1]]
-          elsif (t = ss.scan(IDENTIFIER))     then [:string, t]
-          elsif (t = ss.scan(COLON))          then [:colon, t]
-          elsif (t = ss.scan(COMMA))          then [:comma, t]
-          else
-            raise Error, "Unexpected char: #{ss.getch}"
-          end
+        if    (t = ss.scan(STRING_LITERAL)) then [:string, t[1...-1]]
+        elsif (t = ss.scan(IDENTIFIER))     then [:string, t]
+        elsif (t = ss.scan(COLON))          then [:colon, t]
+        elsif (t = ss.scan(COMMA))          then [:comma, t]
+        else
+          raise Error, "Unexpected char: #{ss.getch}"
+        end
     end
     tokens
   end
