@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for text content that is going to be rendered using text input with date widget
 #   {{ cms:date identifier }}
 #

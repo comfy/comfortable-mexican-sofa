@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ComfortableMexicanSofa::Seeds
 
   class Error < StandardError; end

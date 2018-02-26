@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
 #   {{cms:file identifier, as: link, label: "My File"}}
@@ -73,7 +75,7 @@ protected
 
   # @return [String]
   def label
-    @label || attachment && attachment.filename
+    @label || attachment&.filename
   end
 
 end

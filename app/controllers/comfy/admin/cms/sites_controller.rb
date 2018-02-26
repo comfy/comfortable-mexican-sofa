@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
 
   skip_before_action  :load_admin_site,

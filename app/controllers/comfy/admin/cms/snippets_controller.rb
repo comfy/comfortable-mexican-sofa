@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
 
   include ::Comfy::ReorderAction

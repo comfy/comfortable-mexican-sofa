@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::Layout < ActiveRecord::Base
 
   self.table_name = "comfy_cms_layouts"
@@ -95,7 +97,7 @@ protected
   end
 
   def assign_position
-    return if position.to_i > 0
+    return if position.to_i.positive?
     max = site.layouts.where(parent_id: parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end

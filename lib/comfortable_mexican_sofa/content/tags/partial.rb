@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for injecting partials. Example tag:
 #   {{cms:partial path/to/partial, foo: bar, zip: zoop}}
 # This expands into a familiar:

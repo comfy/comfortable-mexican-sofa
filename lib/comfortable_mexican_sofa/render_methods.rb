@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ComfortableMexicanSofa::RenderMethods
 
   def self.included(base)

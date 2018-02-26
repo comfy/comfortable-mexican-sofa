@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for text content that is going to be rendered using number input
 #   {{ cms:number identifier }}
 #

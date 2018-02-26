@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for reusable snippets within context's site scope. Looks like this:
 #   {{cms:snippet identifier}}
 # Snippets may have more tags in them like fragments, so they may be expanded too.

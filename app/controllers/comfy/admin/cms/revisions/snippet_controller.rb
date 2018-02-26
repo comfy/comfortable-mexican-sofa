@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::Revisions::SnippetController < Comfy::Admin::Cms::Revisions::BaseController
 
 private

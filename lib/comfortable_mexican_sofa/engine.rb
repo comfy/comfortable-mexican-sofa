@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "comfortable_mexican_sofa"
 require "rails"
 require "rails-i18n"

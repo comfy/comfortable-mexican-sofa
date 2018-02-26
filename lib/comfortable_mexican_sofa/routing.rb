@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "routes/cms_admin"
 require_relative "routes/cms"
 

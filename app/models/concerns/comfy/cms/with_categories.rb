@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Comfy::Cms::WithCategories
 
   extend ActiveSupport::Concern

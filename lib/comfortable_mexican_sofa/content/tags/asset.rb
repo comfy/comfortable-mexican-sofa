@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This tag allows for linking of js and css content defined on the layout.
 # Looks something like this:
 #   {{cms:asset layout_identifier, type: css, as: tag}}

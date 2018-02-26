@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::Fragment < ActiveRecord::Base
 
   self.table_name = "comfy_cms_fragments"
@@ -48,7 +50,7 @@ protected
     # If we're dealing with a single file
     if tag == "file"
       @files = [@files.first]
-      attachments.purge_later if attachments
+      attachments&.purge_later
     end
 
     attachments.attach(@files)

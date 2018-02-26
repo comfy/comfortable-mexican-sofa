@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is how you link previously uploaded file to anywhere. Good example may be
 # a header image you want to use on the layout level.
 #   {{cms:file_link id, as: image}}
@@ -36,7 +38,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   end
 
   def content
-    return "" unless file && file.attachment
+    return "" unless file&.attachment
 
     attachment = file.attachment
     if @variant_attrs.present? && attachment.image?

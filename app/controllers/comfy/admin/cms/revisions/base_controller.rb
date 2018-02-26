@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::Revisions::BaseController < Comfy::Admin::Cms::BaseController
 
   helper_method :record_path

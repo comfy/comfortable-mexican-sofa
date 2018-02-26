@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::BaseController < Comfy::Admin::BaseController
 
   before_action :load_admin_site,
@@ -30,7 +32,7 @@ protected
   end
 
   def set_locale
-    I18n.locale = ComfortableMexicanSofa.config.admin_locale || (@site && @site.locale)
+    I18n.locale = ComfortableMexicanSofa.config.admin_locale || (@site&.locale)
     true
   end
 

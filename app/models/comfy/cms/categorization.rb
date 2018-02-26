@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::Categorization < ActiveRecord::Base
 
   self.table_name = "comfy_cms_categorizations"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Comfy
   module CmsHelper
 
@@ -7,7 +9,7 @@ module Comfy
     #   cms_fragment_content(:left_column, CmsPage.first)
     #   cms_fragment_content(:left_column) # if @cms_page is present
     def cms_fragment_content(identifier, page = @cms_page)
-      frag = page && page.fragments.detect { |f| f.identifier == identifier.to_s }
+      frag = page&.fragments&.detect { |f| f.identifier == identifier.to_s }
       return "" unless frag
       case frag.tag
       when "date", "datetime"
@@ -41,7 +43,7 @@ module Comfy
         end
         cms_site = Comfy::Cms::Site.find_site(host, path)
       end
-      snippet = cms_site && cms_site.snippets.find_by_identifier(identifier)
+      snippet = cms_site&.snippets&.find_by_identifier(identifier)
       return "" unless snippet
       snippet.content
     end
