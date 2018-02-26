@@ -4,6 +4,7 @@ rvm:
   - 2.3.6
   - 2.4.3
   - 2.5.0
+  - ruby-head
 gemfile:
   - test/gemfiles/5.2.gemfile
 branches:
@@ -33,3 +34,6 @@ script:
   - bundle exec rake test
   - SKIP_COV=true bundle exec rake test:system
   - bundle exec rubocop
+matrix:
+  allow_failures:
+    - rvm: ruby-head
