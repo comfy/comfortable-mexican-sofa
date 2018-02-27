@@ -49,15 +49,15 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
 
   def test_file
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(context: @page, params: [@file.id])
-    assert tag.file.is_a?(Comfy::Cms::File)
+    assert_instance_of Comfy::Cms::File, tag.file_record
 
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(context: @page, params: ["invalid"])
-    assert_nil tag.file
+    assert_nil tag.file_record
   end
 
   def test_content
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(context: @page, params: [@file.id])
-    out = rails_blob_path(tag.file.attachment, only_path: true)
+    out = rails_blob_path(tag.file, only_path: true)
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
@@ -67,7 +67,7 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
       context: @page,
       params: [@file.id, { "as" => "link" }]
     )
-    url = rails_blob_path(tag.file.attachment, only_path: true)
+    url = rails_blob_path(tag.file, only_path: true)
     out = "<a href='#{url}' target='_blank'>default file</a>"
     assert_equal out, tag.content
     assert_equal out, tag.render
@@ -78,7 +78,7 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
       context: @page,
       params: [@file.id, { "as" => "image" }]
     )
-    url = rails_blob_path(tag.file.attachment, only_path: true)
+    url = rails_blob_path(tag.file, only_path: true)
     out = "<img src='#{url}' alt='default file'/>"
     assert_equal out, tag.content
     assert_equal out, tag.render

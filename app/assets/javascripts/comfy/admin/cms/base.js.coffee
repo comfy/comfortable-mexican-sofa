@@ -16,10 +16,10 @@ window.CMS.init = ->
   CMS.sortable_list()
   CMS.timepicker()
   CMS.page_fragments()
-  CMS.page_file_popovers()
   CMS.page_update_preview()
   CMS.categories()
   CMS.files()
+  CMS.file_links()
   CMS.upload_queue()
   CMS.diff()
 
@@ -177,14 +177,7 @@ window.CMS.page_fragments = ->
         CMS.wysiwyg()
         CMS.timepicker()
         CMS.codemirror()
-        CMS.page_file_popovers()
-
-
-window.CMS.page_file_popovers = ->
-  $('[data-toggle="page-file-popover"]').popover
-    trigger:    'hover'
-    placement:  'top'
-    html:       true
+        CMS.file_links()
 
 
 window.CMS.page_update_preview = ->

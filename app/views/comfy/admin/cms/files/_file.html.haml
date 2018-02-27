@@ -1,4 +1,7 @@
 %li{data: {id: file.id}}
+  :ruby
+    file_tag = "{{ cms:file_link #{file.id} }}"
+    thumb_url = url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])) if file.attachment.image?
   .row
     .col-md-5.item
       .item-controls.d-none.d-lg-block
@@ -7,12 +10,8 @@
             %i.fas.fa-bars
       .item-content
         .item-title
-          - if file.attachment.image?
-            - variant = file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb])
-            - thumb = image_tag(url_for(variant), size: "200x150")
-          = link_to file.attachment, target: "_blank", data: {toggle: "page-file-popover", content: thumb} do
-            = file.label
-
+          = link_to file.label, file.attachment, target: "_blank",
+                    data: {cms_file_thumb_url: thumb_url, cms_file_link_tag: file_tag}
         .item-meta
           .content-type
             = truncate(file.attachment.content_type)
@@ -23,7 +22,6 @@
       = render partial: "comfy/admin/cms/categories/categories", object: file
 
     .col-md-2.d-flex.align-items-center
-      - file_tag = "{{cms:file_link #{file.id} }}"
       %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
 
     .col-md-3.d-flex.align-items-center.justify-content-md-end

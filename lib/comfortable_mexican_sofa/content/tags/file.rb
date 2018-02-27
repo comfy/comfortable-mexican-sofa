@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "file_content.rb"
+
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
 #   {{cms:file identifier, as: link, label: "My File"}}
@@ -12,13 +14,14 @@
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
+  include ComfortableMexicanSofa::Content::Tag::FileContent
+  include ActionView::Helpers::OutputSafetyHelper
+
   # @type ["url", "link", "image"]
   attr_reader :as
 
   # @type [{String => String}]
   attr_reader :variant_attrs
-
-  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
 
   # @param (see ComfortableMexicanSofa::Content::Tag#initialize)
   def initialize(context:, params: [], source: nil)
@@ -26,25 +29,6 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     @as             = options["as"] || "url"
     @label          = options["label"]
     @variant_attrs  = options.slice("resize", "gravity", "crop")
-  end
-
-  def content(file = attachment)
-    return "" unless file
-
-    if @variant_attrs.present? && attachment.image?
-      file = file.variant(@variant_attrs)
-    end
-
-    url = rails_blob_path(file, only_path: true)
-
-    case @as
-    when "link"
-      "<a href='#{url}' target='_blank'>#{label}</a>"
-    when "image"
-      "<img src='#{url}' alt='#{label}'/>"
-    else
-      url
-    end
   end
 
   def form_field(object_name, view, index)
@@ -58,24 +42,26 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
           locals: {
             object_name:  object_name,
             index:        index,
-            attachments:  fragment.attachments
+            attachments:  fragment.attachments,
+            fragment_id: identifier,
+            multiple:    false
           }
         )
       end
 
-    yield [input, attachments_partial].join.html_safe
+    yield safe_join([input, attachments_partial], "")
   end
 
 protected
 
   # @return [ActiveStorage::Blob]
-  def attachment
+  def file
     fragment.attachments.first
   end
 
   # @return [String]
   def label
-    @label || attachment&.filename
+    @label || file&.filename
   end
 
 end

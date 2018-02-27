@@ -27,4 +27,5 @@
 #= require comfy/admin/cms/base
 #= require comfy/admin/cms/uploader
 #= require comfy/admin/cms/files
+#= require comfy/admin/cms/file_link
 #= require comfy/admin/cms/custom

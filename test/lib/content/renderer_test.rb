@@ -25,22 +25,23 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   DEFAULT_REGISTERED_TAGS = {
-    "wysiwyg"   => ComfortableMexicanSofa::Content::Tag::Wysiwyg,
-    "text"      => ComfortableMexicanSofa::Content::Tag::Text,
-    "textarea"  => ComfortableMexicanSofa::Content::Tag::TextArea,
-    "markdown"  => ComfortableMexicanSofa::Content::Tag::Markdown,
-    "datetime"  => ComfortableMexicanSofa::Content::Tag::Datetime,
-    "date"      => ComfortableMexicanSofa::Content::Tag::Date,
-    "number"    => ComfortableMexicanSofa::Content::Tag::Number,
-    "checkbox"  => ComfortableMexicanSofa::Content::Tag::Checkbox,
-    "file"      => ComfortableMexicanSofa::Content::Tag::File,
-    "files"     => ComfortableMexicanSofa::Content::Tag::Files,
-    "snippet"   => ComfortableMexicanSofa::Content::Tag::Snippet,
-    "asset"     => ComfortableMexicanSofa::Content::Tag::Asset,
-    "file_link" => ComfortableMexicanSofa::Content::Tag::FileLink,
-    "helper"    => ComfortableMexicanSofa::Content::Tag::Helper,
-    "partial"   => ComfortableMexicanSofa::Content::Tag::Partial,
-    "template"  => ComfortableMexicanSofa::Content::Tag::Template
+    "wysiwyg"        => ComfortableMexicanSofa::Content::Tag::Wysiwyg,
+    "text"           => ComfortableMexicanSofa::Content::Tag::Text,
+    "textarea"       => ComfortableMexicanSofa::Content::Tag::TextArea,
+    "markdown"       => ComfortableMexicanSofa::Content::Tag::Markdown,
+    "datetime"       => ComfortableMexicanSofa::Content::Tag::Datetime,
+    "date"           => ComfortableMexicanSofa::Content::Tag::Date,
+    "number"         => ComfortableMexicanSofa::Content::Tag::Number,
+    "checkbox"       => ComfortableMexicanSofa::Content::Tag::Checkbox,
+    "file"           => ComfortableMexicanSofa::Content::Tag::File,
+    "files"          => ComfortableMexicanSofa::Content::Tag::Files,
+    "snippet"        => ComfortableMexicanSofa::Content::Tag::Snippet,
+    "asset"          => ComfortableMexicanSofa::Content::Tag::Asset,
+    "file_link"      => ComfortableMexicanSofa::Content::Tag::FileLink,
+    "page_file_link" => ComfortableMexicanSofa::Content::Tag::PageFileLink,
+    "helper"         => ComfortableMexicanSofa::Content::Tag::Helper,
+    "partial"        => ComfortableMexicanSofa::Content::Tag::Partial,
+    "template"       => ComfortableMexicanSofa::Content::Tag::Template
   }.freeze
 
   setup do

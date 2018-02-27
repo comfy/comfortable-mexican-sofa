@@ -26,4 +26,14 @@
     $(document).on 'click', '.cms-uploader-filelist input[type=text]', ->
       $(this).select()
 
+    # Allow dragging files out of the modal
+    hideFilesModalMessage = 'hideFilesModal'
+    if window.parent == window
+      window.addEventListener 'message', (event) ->
+        return unless event.origin == document.origin and event.data == hideFilesModalMessage
+        modal.modal('hide')
+    else
+      $(document).on 'dragstart', '.cms-uploader-filelist .item-title a', ->
+        window.parent.postMessage hideFilesModalMessage, document.origin
+
 ) jQuery

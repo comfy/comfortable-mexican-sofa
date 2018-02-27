@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "file_content.rb"
+
 # This is how you link previously uploaded file to anywhere. Good example may be
 # a header image you want to use on the layout level.
 #   {{cms:file_link id, as: image}}
@@ -12,9 +14,16 @@
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :as, :variant_attrs
+  include ComfortableMexicanSofa::Content::Tag::FileContent
 
-  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+  # @return [String] A {Comfy::Cms::Site#files} ID.
+  attr_reader :identifier
+
+  # @type ["url", "link", "image"]
+  attr_reader :as
+
+  # @type [{String => String}]
+  attr_reader :variant_attrs
 
   def initialize(context:, params: [], source: nil)
     super
@@ -29,32 +38,20 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
     end
   end
 
+  # @return [Comfy::Cms::File]
+  def file_record
+    @file_record ||= context.site.files.detect { |f| f.id == identifier.to_i }
+  end
+
+  # @return [ActiveStorage::Blob]
   def file
-    @file ||= context.site.files.detect { |f| f.id == identifier.to_i }
+    file_record&.attachment
   end
 
+  # @return [String]
   def label
-    @file.label.present? ? @file.label : @file.attachment.filename
-  end
-
-  def content
-    return "" unless file&.attachment
-
-    attachment = file.attachment
-    if @variant_attrs.present? && attachment.image?
-      attachment = attachment.variant(@variant_attrs)
-    end
-
-    url = rails_blob_path(attachment, only_path: true)
-
-    case @as
-    when "link"
-      "<a href='#{url}' target='_blank'>#{label}</a>"
-    when "image"
-      "<img src='#{url}' alt='#{label}'/>"
-    else
-      url
-    end
+    return "" if file_record.nil?
+    file_record.label.presence || file.filename.to_s
   end
 
 end

@@ -27,6 +27,19 @@ module Comfy
         ComfortableMexicanSofa::ViewHooks.render(name, self, options)
       end
 
+      # @param [String] fragment_id
+      # @param [ActiveStorage::Blob] attachment
+      # @param [Boolean] multiple
+      # @return [String] {{ cms:page_file_link #{fragment_id}, ... }}
+      def cms_page_file_link_tag(fragment_id:, attachment:, multiple:)
+        [
+          "{{ cms:page_file_link #{fragment_id}",
+          (", filename: \"#{attachment.filename}\"" if multiple),
+          (", as: image" if attachment.image?),
+          " }}"
+        ].compact.join
+      end
+
     end
   end
 end

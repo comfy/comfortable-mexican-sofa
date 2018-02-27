@@ -5,16 +5,11 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Content::Tag::File
 
-  # @param (see ComfortableMexicanSofa::Content::Tag#initialize)
-  def initialize(context:, params: [], source: nil)
-    super
-  end
-
   def content
     return "" if fragment.attachments.blank?
 
     fragment.attachments.collect do |attachment|
-      super(attachment)
+      super(file: attachment, label: attachment.filename)
     end.join(" ")
   end
 
@@ -29,12 +24,14 @@ class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Cont
           locals: {
             object_name:  object_name,
             index:        index,
-            attachments:  fragment.attachments
+            attachments:  fragment.attachments,
+            fragment_id:  identifier,
+            multiple:     true
           }
         )
       end
 
-    yield [input, attachments_partial].join.html_safe
+    yield safe_join([input, attachments_partial], "")
   end
 
 end
