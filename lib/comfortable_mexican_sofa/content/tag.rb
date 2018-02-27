@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ComfortableMexicanSofa::Content::Tag
 
   class Error < StandardError; end

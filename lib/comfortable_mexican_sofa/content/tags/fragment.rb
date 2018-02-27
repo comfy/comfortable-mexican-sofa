@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Base Tag class that other fragment tags depend on.
 # Tag handles following options:
 #   `render`: true (default) | false

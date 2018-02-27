@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Comfy
   module Generators
     module Cms

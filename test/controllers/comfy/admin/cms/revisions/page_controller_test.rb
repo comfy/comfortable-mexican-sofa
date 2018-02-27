@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../../../../../test_helper"
 
 class Comfy::Admin::Cms::Revisions::PageControllerTest < ActionDispatch::IntegrationTest

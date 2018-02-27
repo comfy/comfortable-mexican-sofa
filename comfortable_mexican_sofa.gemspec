@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 require "comfortable_mexican_sofa/version"
 
@@ -15,7 +17,7 @@ Gem::Specification.new do |s|
     f.match(%r{^(test|doc)/})
   end
 
-  s.required_ruby_version = ">= 2.2.2"
+  s.required_ruby_version = ">= 2.3.0"
 
   s.add_dependency "active_link_to",        ">= 1.0.0"
   s.add_dependency "coffee-rails",          ">= 4.2.0"

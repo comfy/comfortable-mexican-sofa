@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::Page < ActiveRecord::Base
 
   self.table_name = "comfy_cms_pages"
@@ -123,7 +125,7 @@ protected
 
   def assign_position
     return unless self.parent
-    return if position.to_i > 0
+    return if position.to_i.positive?
     max = self.parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end

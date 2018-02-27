@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Comfy::Paginate
 
   # Wrapper to deal with WillPaginate vs Kaminari nonsense

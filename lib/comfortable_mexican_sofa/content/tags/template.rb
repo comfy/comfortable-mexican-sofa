@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for injecting template rendering. Example tag:
 #   {{cms:template template/path}}
 # This expands into something like this:

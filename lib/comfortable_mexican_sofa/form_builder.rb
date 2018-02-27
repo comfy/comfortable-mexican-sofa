@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
 
   def field(record, tag, index)

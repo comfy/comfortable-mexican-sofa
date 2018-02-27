@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for injecting view helpers. Example tag:
 #   {{cms:helper method_name, param_a, param_b, foo: bar}}
 # This expands into something like this:

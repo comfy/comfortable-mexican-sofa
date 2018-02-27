@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::ContentController < Comfy::Cms::BaseController
 
   # Authentication module must have `authenticate` method
@@ -42,7 +44,7 @@ protected
   # it's possible to control mimetype of a page by creating a `mime_type` field
   def mime_type
     mime_block = @cms_page.fragments.detect { |f| f.identifier == "mime_type" }
-    mime_block && mime_block.content || "text/html"
+    mime_block&.content || "text/html"
   end
 
   def app_layout

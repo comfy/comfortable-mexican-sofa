@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ComfortableMexicanSofa::Configuration
 
   # Don't like ComfortableMexicanSofa? Set it to whatever you like. :(

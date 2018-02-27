@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActionDispatch::Routing::Mapper
 
   def comfy_route_cms(options = {})

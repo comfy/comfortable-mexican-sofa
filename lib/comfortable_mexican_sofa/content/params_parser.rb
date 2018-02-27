@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "strscan"
 
 module ComfortableMexicanSofa::Content::ParamsParser
@@ -80,7 +82,7 @@ module ComfortableMexicanSofa::Content::ParamsParser
   # @param [String] args_string
   # @return [Array<String>] tokens
   def self.tokenize(args_string)
-    args_string.tr!("“”‘’", %q(""''))
+    args_string = args_string.tr("“”‘’", %q(""''))
     ss = StringScanner.new(args_string)
     tokens = []
     loop do

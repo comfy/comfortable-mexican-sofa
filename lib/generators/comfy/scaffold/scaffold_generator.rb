@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails/generators/generated_attribute"
 require "rails/generators/active_record"
 

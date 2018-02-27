@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV["RAILS_ENV"] = "test"
 
 # In CI envoronment I don't want to send coverage report for system tests that

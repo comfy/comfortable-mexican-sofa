@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
 
   include ::Comfy::ReorderAction
@@ -112,7 +114,7 @@ protected
   def build_page
     @page = @site.pages.new(page_params)
     @page.parent ||= (@site.pages.find_by_id(params[:parent_id]) || @site.pages.root)
-    @page.layout ||= (@page.parent && @page.parent.layout || @site.layouts.first)
+    @page.layout ||= (@page.parent&.layout || @site.layouts.first)
   end
 
   def load_page

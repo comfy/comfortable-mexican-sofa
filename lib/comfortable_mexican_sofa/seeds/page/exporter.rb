@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ComfortableMexicanSofa::Seeds::Page
   class Exporter < ComfortableMexicanSofa::Seeds::Exporter
 

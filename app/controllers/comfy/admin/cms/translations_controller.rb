@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseController
 
   helper_method :translation_select_options

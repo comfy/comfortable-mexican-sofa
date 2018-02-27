@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tag for boolean content that is going to be rendered using checkbox
 #   {{ cms:checkbox identifier }}
 #

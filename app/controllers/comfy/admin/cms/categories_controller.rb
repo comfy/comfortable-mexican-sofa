@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Admin::Cms::CategoriesController < Comfy::Admin::Cms::BaseController
 
   before_action :load_category, only: %i[edit update destroy]

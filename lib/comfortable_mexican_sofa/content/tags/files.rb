@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Same tag as File, only it handles multiple attachments.
 # Generally not a bad idea to handle rendering of this in a partial/helper
 #

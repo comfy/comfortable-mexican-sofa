@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comfy::Cms::Site < ActiveRecord::Base
 
   self.table_name = "comfy_cms_sites"
@@ -36,7 +38,9 @@ class Comfy::Cms::Site < ActiveRecord::Base
     cms_site = nil
 
     public_cms_path = ComfortableMexicanSofa.configuration.public_cms_path
-    path.gsub!(%r{\A#{public_cms_path}}, "") unless path.nil? || public_cms_path == "/"
+    if path && public_cms_path != "/"
+      path = path.sub(%r{\A#{public_cms_path}}, "")
+    end
 
     Comfy::Cms::Site.where(hostname: real_host_from_aliases(host)).each do |site|
       if site.path.blank?

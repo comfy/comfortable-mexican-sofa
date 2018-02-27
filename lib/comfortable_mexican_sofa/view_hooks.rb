@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This mechanism is used by 3rd party plugins.
 # Normally you'd use partials from your own app
 module ComfortableMexicanSofa::ViewHooks
