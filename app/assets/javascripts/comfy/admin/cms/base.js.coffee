@@ -16,7 +16,6 @@ window.CMS.init = ->
   CMS.sortable_list()
   CMS.timepicker()
   CMS.page_fragments()
-  CMS.page_update_preview()
   CMS.categories()
   CMS.files()
   CMS.file_links()
@@ -178,13 +177,6 @@ window.CMS.page_fragments = ->
         CMS.timepicker()
         CMS.codemirror()
         CMS.file_links()
-
-
-window.CMS.page_update_preview = ->
-  $('input[name=commit]').click ->
-    $(this).parents('form').attr('target', '')
-  $('input[name=preview]').click ->
-    $(this).parents('form').attr('target', 'comfy-cms-preview')
 
 
 window.CMS.categories = ->
