@@ -6,6 +6,10 @@ unless Turbolinks?.controller? # Turbolinks 5 verification
   $ -> window.CMS.init()
 
 $(document).on 'page:load turbolinks:load', -> window.CMS.init()
+document.addEventListener 'turbolinks:before-cache', -> window.CMS.dispose()
+
+window.CMS.dispose = ->
+  CMS.files.dispose()
 
 window.CMS.init = ->
   window.CMS.current_path = window.location.pathname
@@ -18,7 +22,7 @@ window.CMS.init = ->
   CMS.page_fragments()
   CMS.page_update_preview()
   CMS.categories()
-  CMS.files()
+  CMS.files.init()
   CMS.file_links()
   CMS.upload_queue()
   CMS.diff()

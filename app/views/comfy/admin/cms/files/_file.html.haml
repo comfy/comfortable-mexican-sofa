@@ -22,7 +22,8 @@
       = render partial: "comfy/admin/cms/categories/categories", object: file
 
     .col-md-2.d-flex.align-items-center
-      %input.file-path{type: "text", value: file_tag, readonly: "readonly"}
+      %span.file-path
+        = file_tag
 
     .col-md-3.d-flex.align-items-center.justify-content-md-end
       .btn-group.btn-group-sm
