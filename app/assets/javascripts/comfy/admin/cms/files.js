@@ -7,7 +7,7 @@
     const onIframeDragStart = (evt) => {
       if (evt.target.nodeType === Node.ELEMENT_NODE &&
           evt.target.matches('.cms-uploader-filelist .item-title a')) {
-        window.parent.postMessage(HIDE_FILES_MODAL_MESSAGE, document.origin)
+        window.parent.postMessage(HIDE_FILES_MODAL_MESSAGE, self.origin)
       }
     };
     window.CMS.files = {
@@ -21,7 +21,7 @@
   } else {
     let modal = null;
     const onParentWindowMessage = (evt) => {
-      if (evt.origin !== document.origin || evt.data !== HIDE_FILES_MODAL_MESSAGE || modal === null) return;
+      if (evt.origin !== self.origin || evt.data !== HIDE_FILES_MODAL_MESSAGE || modal === null) return;
       modal.hide();
     };
     window.CMS.files = {
