@@ -438,7 +438,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:page)
     assert_equal 2, assigns(:page).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
 
     r :get, form_fragments_comfy_admin_cms_site_page_path(site_id: @site, id: @page), xhr: true, params: {
       layout_id: @layout.id
@@ -446,7 +446,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:page)
     assert_equal 1, assigns(:page).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
   end
 
   def test_get_form_fragments_for_new_page
@@ -456,7 +456,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert assigns(:page)
     assert_equal 1, assigns(:page).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
   end
 
   def test_creation_preview

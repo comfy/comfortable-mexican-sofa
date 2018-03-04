@@ -167,19 +167,6 @@ window.CMS.timepicker = ->
     locale: $("meta[name='cms-locale']").attr("content")
 
 
-window.CMS.page_fragments = ->
-  $('select#fragments-toggle').bind 'change.cms', ->
-    $.ajax
-      url: $(this).data('url'),
-      data:
-        layout_id: $(this).val()
-      complete: ->
-        CMS.wysiwyg()
-        CMS.timepicker()
-        CMS.codemirror()
-        CMS.file_links()
-
-
 window.CMS.page_update_preview = ->
   $('input[name=commit]').click ->
     $(this).parents('form').attr('target', '')
