@@ -2,7 +2,7 @@
 
 require_relative "../test_helper"
 
-class ViewMethodsTest < ActionView::TestCase
+class CmsHelperTest < ActionView::TestCase
 
   include Comfy::CmsHelper
 
