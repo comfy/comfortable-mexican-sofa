@@ -5,9 +5,38 @@ require_relative "../test_helper"
 class AdminCmsHelpersTest < ActionView::TestCase
 
   include Comfy::Admin::CmsHelper
+  include BootstrapForm::ViewHelper
 
   setup do
     @attachment = comfy_cms_files(:default).attachment
+  end
+
+  def test_comfy_form_with
+    actual = comfy_form_with(url: "/test") do |form|
+      form.text_field :foo
+    end
+    expected = <<-HTML.gsub(%r{^\s+|\n}, "")
+      <form action="/test" accept-charset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2 text-sm-right" for="foo">Foo</label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="foo" id="foo" />
+          </div>
+        </div>
+      </form>
+    HTML
+    assert_equal expected, actual
+  end
+
+  def test_comfy_admin_partial
+    actual = comfy_admin_partial("path/to/partial", foo: "bar")
+    assert_nil actual
+
+    ComfortableMexicanSofa.config.reveal_cms_partials = true
+    actual = comfy_admin_partial("path/to/partial", foo: "bar")
+    expected = '<div class="comfy-admin-partial">path/to/partial</div>'
+    assert_equal expected, actual
   end
 
   def test_cms_page_file_link_tag
@@ -23,7 +52,7 @@ class AdminCmsHelpersTest < ActionView::TestCase
 
   def test_cms_page_file_link_multiple
     actual = cms_page_file_link_tag(fragment_id: "test", attachment: @attachment, multiple: true)
-    assert_equal %q({{ cms:page_file_link test, filename: "default.jpg", as: image }}), actual
+    assert_equal '{{ cms:page_file_link test, filename: "default.jpg", as: image }}', actual
   end
 
 end
