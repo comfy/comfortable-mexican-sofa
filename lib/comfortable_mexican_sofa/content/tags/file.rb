@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "file_content.rb"
+require_relative "./mixins/file_content"
 
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
@@ -14,7 +14,7 @@ require_relative "file_content.rb"
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
-  include ComfortableMexicanSofa::Content::Tag::FileContent
+  include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
   include ActionView::Helpers::OutputSafetyHelper
 
   # @type ["url", "link", "image"]
@@ -43,8 +43,8 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
             object_name:  object_name,
             index:        index,
             attachments:  fragment.attachments,
-            fragment_id: identifier,
-            multiple:    false
+            fragment_id:  identifier,
+            multiple:     false
           }
         )
       end

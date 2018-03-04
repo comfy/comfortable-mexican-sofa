@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "file_content.rb"
+require_relative "./mixins/file_content"
 
 # This is how you link previously uploaded file to anywhere. Good example may be
 # a header image you want to use on the layout level.
@@ -14,7 +14,7 @@ require_relative "file_content.rb"
 #
 class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
 
-  include ComfortableMexicanSofa::Content::Tag::FileContent
+  include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
 
   # @return [String] A {Comfy::Cms::Site#files} ID.
   attr_reader :identifier

@@ -54,6 +54,7 @@ class ActiveSupport::TestCase
       config.allowed_partials     = nil
       config.allowed_templates    = nil
       config.hostname_aliases     = nil
+      config.reveal_cms_partials  = false
       config.public_cms_path      = nil
     end
     ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = "username"

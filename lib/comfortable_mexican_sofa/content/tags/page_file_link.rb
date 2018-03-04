@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "file_content.rb"
+require_relative "./mixins/file_content"
 
 # This tag allows you to link page-level files from withing the page.
 #
@@ -22,7 +22,7 @@ require_relative "file_content.rb"
 #
 class ComfortableMexicanSofa::Content::Tag::PageFileLink < ComfortableMexicanSofa::Content::Tag
 
-  include ComfortableMexicanSofa::Content::Tag::FileContent
+  include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
 
   # @return [String] A `cms:file(s)` identifier.
   attr_reader :identifier
