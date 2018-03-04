@@ -8,7 +8,7 @@ class AdminCmsHelpersTest < ActionView::TestCase
   include BootstrapForm::ViewHelper
 
   setup do
-    @attachment = comfy_cms_files(:default).attachment
+    @file = comfy_cms_files(:default)
   end
 
   def test_comfy_form_with
@@ -40,19 +40,42 @@ class AdminCmsHelpersTest < ActionView::TestCase
   end
 
   def test_cms_page_file_link_tag
-    actual = cms_page_file_link_tag(fragment_id: "test", attachment: @attachment, multiple: false)
+    actual = cms_page_file_link_tag(
+      fragment_id: "test",
+      attachment:   @file.attachment,
+      multiple:     false
+    )
     assert_equal "{{ cms:page_file_link test, as: image }}", actual
   end
 
   def test_cms_page_file_link_tag_non_image
-    @attachment.blob.update_column(:content_type, "application/pdf")
-    actual = cms_page_file_link_tag(fragment_id: "test", attachment: @attachment, multiple: false)
+    @file.attachment.blob.update_column(:content_type, "application/pdf")
+    actual = cms_page_file_link_tag(
+      fragment_id: "test",
+      attachment:   @file.attachment,
+      multiple:     false
+    )
     assert_equal "{{ cms:page_file_link test }}", actual
   end
 
   def test_cms_page_file_link_multiple
-    actual = cms_page_file_link_tag(fragment_id: "test", attachment: @attachment, multiple: true)
+    actual = cms_page_file_link_tag(
+      fragment_id:  "test",
+      attachment:   @file.attachment,
+      multiple:     true
+    )
     assert_equal '{{ cms:page_file_link test, filename: "default.jpg", as: image }}', actual
+  end
+
+  def test_cms_file_link_tag
+    actual = cms_file_link_tag(@file)
+    assert_equal "{{ cms:file_link 593363170, as: image }}", actual
+  end
+
+  def test_cms_file_link_tag_non_image
+    @file.attachment.blob.update_column(:content_type, "application/pdf")
+    actual = cms_file_link_tag(@file)
+    assert_equal "{{ cms:file_link 593363170 }}", actual
   end
 
 end

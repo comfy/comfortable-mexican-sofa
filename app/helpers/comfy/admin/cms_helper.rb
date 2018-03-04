@@ -37,6 +37,13 @@ module Comfy
         "{{ cms:page_file_link #{fragment_id}#{filename}#{as} }}"
       end
 
+      # @param [Comfy::Cms::File] file
+      # @return [String] {{ cms:file_link #{file.id}, ... }}
+      def cms_file_link_tag(file)
+        as = ", as: image" if file.attachment.image?
+        "{{ cms:file_link #{file.id}#{as} }}"
+      end
+
     end
   end
 end
