@@ -109,7 +109,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 2, assigns(:translation).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
 
     r :get, path, xhr: true, params: {
       layout_id: @layout.id
@@ -117,7 +117,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 1, assigns(:translation).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
   end
 
   def test_get_form_fragments_for_new_translation
@@ -128,7 +128,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 1, assigns(:translation).fragment_nodes.size
-    assert_template :form_fragments
+    assert_template "comfy/admin/cms/fragments/_form_fragments"
   end
 
   def test_creation_preview

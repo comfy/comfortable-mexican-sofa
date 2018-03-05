@@ -45,6 +45,7 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
   def form_fragments
     @translation = @page.translations.find_by(id: params[:id]) || @page.translations.new
     @translation.layout = @site.layouts.find_by(id: params[:layout_id])
+    render partial: "comfy/admin/cms/fragments/form_fragments", locals: { record: @translation }, layout: false
   end
 
 private

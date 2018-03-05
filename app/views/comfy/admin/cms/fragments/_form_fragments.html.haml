@@ -1,10 +1,6 @@
 - begin
   - nodes = record.fragment_nodes
-
-  // Grouping nodes by their namespace
-  - namespace = nodes.each_with_object({}) do |n, h|
-    - h[n.namespace] ||= []
-    - h[n.namespace] << n
+  - namespace = nodes.group_by(&:namespace)
 
   #form-fragments
     - if nodes.empty?
