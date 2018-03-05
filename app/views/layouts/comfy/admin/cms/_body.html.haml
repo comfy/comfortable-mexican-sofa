@@ -7,6 +7,7 @@
       #cms-main.col-lg-8.m-auto
         = render "layouts/comfy/admin/cms/flash"
         = yield
+        = render 'comfy/admin/cms/files/modal' if @site && !@site.new_record?
       #cms-right.col-lg-2
         = render 'layouts/comfy/admin/cms/right'
 

@@ -13,7 +13,6 @@ window.CMS.dispose = ->
 
 window.CMS.init = ->
   window.CMS.current_path = window.location.pathname
-  CMS.set_iframe_layout()
   CMS.slugify()
   CMS.wysiwyg()
   CMS.codemirror()
@@ -25,21 +24,6 @@ window.CMS.init = ->
   CMS.file_links()
   CMS.upload_queue()
   CMS.diff()
-
-
-window.CMS.upload_queue = ->
-  if $("#cms-uploader").length
-    uploader_url  = $("meta[name='cms-uploader-url']").attr("content")
-    token_name    = $("meta[name='cms-uploader-token-name']").attr("content")
-    token_value   = $("meta[name='cms-uploader-token-value']").attr("content")
-    session_name  = $("meta[name='cms-uploader-session-name']").attr("content")
-    session_value = $("meta[name='cms-uploader-session-value']").attr("content")
-
-    window.CMS.uploader $("#cms-uploader"),
-      url: uploader_url,
-      multipart_params:
-        "#{token_name}": token_value,
-        "#{session_name}": session_value
 
 
 window.CMS.wysiwyg = ->
@@ -134,16 +118,3 @@ window.CMS.diff = ->
     originalContainer:  '.original'
     changedContainer:   '.current'
     diffContainer:      '.diff .content'
-
-# If we are inside an iframe remove the columns and just keep the center column content.
-# This is used for the files widget that opens in a modal window.
-window.CMS.set_iframe_layout = ->
-  in_iframe = ->
-    try
-      return window.self != window.top
-    catch e
-      return true
-
-  $('body').ready ->
-    if in_iframe()
-      $('body').addClass('in-iframe')

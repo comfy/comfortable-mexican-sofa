@@ -19,11 +19,11 @@ class MetaVariablesIntegrationTest < ActionDispatch::IntegrationTest
     r :get, comfy_admin_cms_site_files_path(site)
     assert_response :success
 
-    assert_select "meta[name='cms-uploader-url']"
-    assert_select "meta[name='cms-uploader-token-name']"
-    assert_select "meta[name='cms-uploader-token-value']"
-    assert_select "meta[name='cms-uploader-session-name']"
-    assert_select "meta[name='cms-uploader-session-value']"
+    assert_select "[data-cms-uploader-url]"
+    assert_select "[data-cms-uploader-token-name]"
+    assert_select "[data-cms-uploader-token-value]"
+    assert_select "[data-cms-uploader-session-name]"
+    assert_select "[data-cms-uploader-session-value]"
   end
 
 end

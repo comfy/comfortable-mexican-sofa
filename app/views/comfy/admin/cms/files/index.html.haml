@@ -1,16 +1,16 @@
-- content_for :head do
-
-  - uploader_url = comfy_admin_cms_site_files_path(@site, source: :plupload, categories: params[:categories])
-  %meta{name: "cms-uploader-url",           content: uploader_url}
-  %meta{name: "cms-uploader-token-name",    content: request_forgery_protection_token}
-  %meta{name: "cms-uploader-token-value",   content: form_authenticity_token}
-  %meta{name: "cms-uploader-session-name",  content: Rails.application.config.session_options[:key]}
-  %meta{name: "cms-uploader-session-value", content: request.session_options[:id]}
-
 - content_for :right_column do
   = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::File"
 
-#cms-uploader
+:ruby
+  cms_uploader_data = {
+    cms_uploader: {
+      url: comfy_admin_cms_site_files_path(@site, source: :plupload, categories: params[:categories]),
+      token: {name: request_forgery_protection_token, value: form_authenticity_token},
+      session: {name: Rails.application.config.session_options[:key], value: request.session_options[:id]}
+    }
+  }
+
+#cms-uploader{data: cms_uploader_data}
   #cms-uploader-drag-drop-target
 
   .page-header

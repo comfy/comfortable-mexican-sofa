@@ -30,4 +30,5 @@
 #= require comfy/admin/cms/file_link
 #= require comfy/admin/cms/page_fragments
 #= require comfy/admin/cms/slugify
+#= require comfy/admin/cms/upload_queue
 #= require comfy/admin/cms/custom
