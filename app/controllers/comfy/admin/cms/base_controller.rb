@@ -7,6 +7,8 @@ class Comfy::Admin::Cms::BaseController < Comfy::Admin::BaseController
                 :load_seeds,
                 except: :jump
 
+  layout :infer_layout
+
   if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
     cache_sweeper(*ComfortableMexicanSofa.config.admin_cache_sweeper)
   end
@@ -44,6 +46,10 @@ protected
       ComfortableMexicanSofa::Seeds::Importer.new(@site.identifier).import!
       flash.now[:warning] = I18n.t("comfy.admin.cms.base.seeds_enabled")
     end
+  end
+
+  def infer_layout
+    false if params[:layout] == "false"
   end
 
 end

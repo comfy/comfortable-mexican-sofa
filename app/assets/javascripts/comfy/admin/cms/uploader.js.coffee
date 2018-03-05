@@ -47,11 +47,11 @@
         $('span', progress_bar).html(file.error_message)
 
     uploader = undefined
-    id      = target.attr("id")
+    id      = target.id
 
     unless id
       id = plupload.guid()
-      target.attr('id', id)
+      target.setAttribute('id', id)
 
     settings = $.extend(
       runtimes:       "html5,browserplus,silverlight,flash,gears"
@@ -128,6 +128,8 @@
       # Replace the dummy file entry in the file list with the the entry
       # from the server response.
       $("li##{file.id}").replaceWith(info.response)
+      window.CMS.file_links($("li##{file.id}").get(0))
+
 
     uploader.bind 'FilesRemoved', (up, files) ->
       $.each files, (i, file) ->

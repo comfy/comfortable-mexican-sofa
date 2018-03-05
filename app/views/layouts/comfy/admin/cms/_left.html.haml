@@ -23,7 +23,7 @@
             = t('comfy.admin.cms.base.snippets')
         %li.nav-item
           - unless is_active_link?(comfy_admin_cms_site_files_path(@site))
-            %a.cms-files-open-modal{href: '#', title: "Open library"}
+            %a.cms-files-open-modal{href: comfy_admin_cms_site_files_path(@site), title: "Open library"}
               %i.fas.fa-bars
           = active_link_to comfy_admin_cms_site_files_path(@site), class: "nav-link" do
             = t('comfy.admin.cms.base.files')

@@ -12,6 +12,7 @@
 
       if (this.isImage) {
         new bootstrap.Popover(link, {
+          container: link.parentElement,
           trigger: 'hover',
           placement: 'top',
           content: this.buildFileThumbnail(),
@@ -58,8 +59,8 @@
     }
   }
 
-  window.CMS.file_links = () => {
-    for (const link of document.querySelectorAll('[data-cms-file-link-tag]')) {
+  window.CMS.file_links = (root = document) => {
+    for (const link of root.querySelectorAll('[data-cms-file-link-tag]')) {
       new FileLink(link);
     }
   };
