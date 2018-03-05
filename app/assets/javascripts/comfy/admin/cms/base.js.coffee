@@ -39,57 +39,6 @@ window.CMS.upload_queue = ->
         "#{session_name}": session_value
 
 
-window.CMS.slugify = ->
-  slugify = (str) ->
-    # Trim string and lower case.
-    str = str.replace(/^\s+|\s+$/g, '').toLowerCase()
-
-    # Replace special chars.
-    replacements = [
-      ['à', 'a'],
-      ['á', 'a'],
-      ['ä', 'ae'],
-      ['â', 'a'],
-      ['ã', 'a'],
-      ['è', 'e'],
-      ['é', 'e'],
-      ['ë', 'e'],
-      ['ê', 'e'],
-      ['ì', 'i'],
-      ['í', 'i'],
-      ['ï', 'i'],
-      ['î', 'i'],
-      ['ò', 'o'],
-      ['ó', 'o'],
-      ['ö', 'oe'],
-      ['ô', 'o'],
-      ['õ', 'o'],
-      ['ù', 'u'],
-      ['ú', 'u'],
-      ['ü', 'ue'],
-      ['û', 'u'],
-      ['ñ', 'n'],
-      ['ç', 'c'],
-      ['ß', 'ss'],
-      ['·', '-'],
-      ['/', '-'],
-      [',', '-'],
-      [':', '-'],
-      [';', '-'],
-      ['_', '-'],
-      [' ', '-'],
-    ]
-
-    for replacement in replacements
-      str = str.replace(new RegExp(replacement[0], 'g'), replacement[1])
-
-    # Remove any other URL incompatible characters and replace multiple dashes with just a single one.
-    str = str.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-')
-
-  $('input[data-slugify=true]').bind 'keyup.cms', ->
-    $('input[data-slug=true]').val(slugify($(this).val()))
-
-
 window.CMS.wysiwyg = ->
   csrf_token = $('meta[name=csrf-token]').attr('content')
   csrf_param = $('meta[name=csrf-param]').attr('content')
