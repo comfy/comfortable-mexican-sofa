@@ -4,6 +4,8 @@ source "http://rubygems.org"
 
 gemspec
 
+gem "autoprefixer-rails"
+
 group :development, :test do
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara",           "~> 2.17.0"
