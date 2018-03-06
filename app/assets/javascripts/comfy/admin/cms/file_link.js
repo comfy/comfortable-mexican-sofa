@@ -59,7 +59,7 @@
     }
   }
 
-  window.CMS.file_links = (root = document) => {
+  window.CMS.fileLinks = (root = document) => {
     for (const link of root.querySelectorAll('[data-cms-file-link-tag]')) {
       new FileLink(link);
     }

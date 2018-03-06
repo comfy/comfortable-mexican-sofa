@@ -3,8 +3,8 @@
   let modal = null;
 
   const initModalContent = (modalContent) => {
-    window.CMS.upload_queue(modalContent);
-    window.CMS.file_links(modalContent);
+    window.CMS.fileUpload.init(modalContent);
+    window.CMS.fileLinks(modalContent);
     modalContent.addEventListener('dragstart', (evt) => {
       if (evt.target.nodeType === Node.ELEMENT_NODE &&
           evt.target.matches('.cms-uploader-filelist .item-title a') && modal != null) {

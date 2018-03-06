@@ -69,7 +69,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
 
     case params[:source]
     when "plupload"
-      render body: render_to_string(partial: "file", object: @file)
+      render partial: "file", object: @file
     when "redactor"
       render json: {
         filelink: url_for(@file.attachment),
