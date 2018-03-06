@@ -117,6 +117,10 @@ class Comfy::Cms::Page < ActiveRecord::Base
     find_by_slug(slug) || find_by_full_path!("/" + slug)
   }
 
+  scope :with_title_like, ->(phrase) {
+    where("#{table_name}.label LIKE ?", "%#{phrase}%")
+  }
+
   # These scopes are to be used with the Filtrable module
   scope :category, ->(category) { includes(:categories).for_category(category) }
   scope :layout, ->(layout) { joins(:layout).merge(Comfy::Cms::Layout.where(identifier: layout)) }
