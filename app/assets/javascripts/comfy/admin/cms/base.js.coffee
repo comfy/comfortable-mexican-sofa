@@ -10,19 +10,20 @@ document.addEventListener 'turbolinks:before-cache', -> window.CMS.dispose()
 
 window.CMS.dispose = ->
   CMS.files.dispose()
+  CMS.fileUpload.dispose()
 
 window.CMS.init = ->
   window.CMS.current_path = window.location.pathname
   CMS.slugify()
   CMS.wysiwyg()
   CMS.codemirror()
-  CMS.sortable_list()
+  CMS.sortableList()
   CMS.timepicker()
-  CMS.page_fragments()
+  CMS.pageFragments()
   CMS.categories()
   CMS.files.init()
-  CMS.file_links()
-  CMS.upload_queue()
+  CMS.fileLinks()
+  CMS.fileUpload.init()
   CMS.diff()
 
 
@@ -68,7 +69,7 @@ window.CMS.codemirror = ->
       cm.refresh()
 
 
-window.CMS.sortable_list = ->
+window.CMS.sortableList = ->
   dataIdAttr = 'data-id'
   sortableStore =
     get: (sortable) ->

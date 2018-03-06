@@ -25,10 +25,9 @@
 #= require_directory ../../vendor/flatpickr/i18n/
 
 #= require comfy/admin/cms/base
-#= require comfy/admin/cms/uploader
-#= require comfy/admin/cms/files
 #= require comfy/admin/cms/file_link
+#= require comfy/admin/cms/file_upload
+#= require comfy/admin/cms/files_modal
 #= require comfy/admin/cms/page_fragments
 #= require comfy/admin/cms/slugify
-#= require comfy/admin/cms/upload_queue
 #= require comfy/admin/cms/custom

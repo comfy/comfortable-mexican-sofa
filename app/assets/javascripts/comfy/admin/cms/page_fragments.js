@@ -1,4 +1,4 @@
-window.CMS.page_fragments = () => {
+window.CMS.pageFragments = () => {
   const toggle = document.querySelector('select#fragments-toggle');
   if (toggle === null) return;
   const url = new URL(toggle.dataset.url, document.location.href);
@@ -9,7 +9,7 @@ window.CMS.page_fragments = () => {
       CMS.wysiwyg();
       CMS.timepicker();
       CMS.codemirror();
-      CMS.file_links();
+      CMS.fileLinks();
     });
   });
 };
