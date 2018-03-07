@@ -182,12 +182,21 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
+  teardown do
+    assert_no_javascript_errors
+  end
+
   # Visiting path and passing in BasicAuth credentials at the same time
   # I have no idea how to set headers here.
   def visit_p(path)
     username = ComfortableMexicanSofa::AccessControl::AdminAuthentication.username
     password = ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     visit("http://#{username}:#{password}@#{Capybara.server_host}:#{Capybara.server_port}#{path}")
+  end
+
+  def assert_no_javascript_errors
+    assert_empty page.driver.browser.manage.logs.get(:browser)
+      .select { |e| e.level == "SEVERE" && e.message.present? }.map(&:message).to_a
   end
 
 end

@@ -7,7 +7,8 @@
 - if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {}, {data: {url: form_fragments_comfy_admin_cms_site_page_translation_path(@site, @page, @translation.id.to_i)}, id: "fragments-toggle"}
 
-= render "comfy/admin/cms/fragments/form_fragments", record: @translation
+#form-fragments-container
+  = render "comfy/admin/cms/fragments/form_fragments", record: @translation
 
 = form.check_box :is_published
 

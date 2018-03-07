@@ -14,4 +14,20 @@ class PagesFrontendTest < ApplicationSystemTestCase
     assert_equal "test-page", find_field("Slug").value
   end
 
+  def test_change_to_invalid_fragment_and_back
+    valid_layout = comfy_cms_layouts(:default)
+    valid_layout.update!(content: "{{ cms:text content }}")
+    invalid_layout = comfy_cms_layouts(:child)
+    invalid_layout.update!(content: "{{cms:wysiwyg}}")
+    cms_page = comfy_cms_pages(:default)
+    visit_p edit_comfy_admin_cms_site_page_path(@site, cms_page)
+    assert_field "page[fragments_attributes][0][content]", type: "text"
+
+    select invalid_layout.label, from: "Layout"
+    assert_equal "Missing identifier for fragment tag: {{cms:wysiwyg}}", find(".alert-danger").text.strip
+
+    select valid_layout.label, from: "Layout"
+    assert_field "page[fragments_attributes][0][content]", type: "text"
+  end
+
 end
