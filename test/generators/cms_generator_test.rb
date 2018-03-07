@@ -20,7 +20,7 @@ class CmsGeneratorTest < Rails::Generators::TestCase
 
     assert_directory "db/cms_seeds"
 
-    assert_file "app/assets/javascripts/comfy/admin/cms/custom.js.coffee"
+    assert_file "app/assets/javascripts/comfy/admin/cms/custom.js"
 
     assert_file "app/assets/stylesheets/comfy/admin/cms/custom.sass"
   end

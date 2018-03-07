@@ -50,8 +50,8 @@ module Comfy
       end
 
       def generate_assets
-        copy_file "app/assets/javascripts/comfy/admin/cms/custom.js.coffee",
-          "app/assets/javascripts/comfy/admin/cms/custom.js.coffee"
+        copy_file "app/assets/javascripts/comfy/admin/cms/custom.js",
+          "app/assets/javascripts/comfy/admin/cms/custom.js"
         copy_file "app/assets/stylesheets/comfy/admin/cms/custom.sass",
           "app/assets/stylesheets/comfy/admin/cms/custom.sass"
       end

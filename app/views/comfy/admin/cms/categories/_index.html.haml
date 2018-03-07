@@ -7,7 +7,7 @@
         = link_to t('.all'), {categories: nil}, class: "btn btn-sm btn-light btn-block #{active_class}"
       - @site.categories.of_type(type).each do |category|
         = render "comfy/admin/cms/categories/show", category: category, read: true
-    %button.toggle-cat-edit.btn.btn-secondary.btn-sm.btn-block
+    %button.toggle-cat-edit.btn.btn-secondary.btn-sm.btn-block{type: "button"}
       = t(".edit")
 
   .editable
@@ -24,5 +24,5 @@
           %button.btn.btn-primary.btn-sm{aria: {label: "Create Category"}}
             %i.fas.fa-fw.fa-plus
 
-    %button.toggle-cat-edit.btn.btn-light.btn-sm.btn-block
+    %button.toggle-cat-edit.btn.btn-light.btn-sm.btn-block{type: "button"}
       = t(".done")

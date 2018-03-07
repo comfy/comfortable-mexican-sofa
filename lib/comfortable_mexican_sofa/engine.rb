@@ -9,7 +9,6 @@ require "kramdown"
 require "jquery-rails"
 require "haml-rails"
 require "sass-rails"
-require "coffee-rails"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
