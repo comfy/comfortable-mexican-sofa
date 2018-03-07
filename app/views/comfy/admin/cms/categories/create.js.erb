@@ -4,4 +4,4 @@ $('.categories-widget .editable .categories').append(
 $('.categories-widget .read .categories').append(
   '<%= escape_javascript(render "show", category: @category, read: true) %>'
 );
-$('.categories-widget .editable form#new-category input').val('');
+$('.categories-widget .editable form#new-category input[name="category[label]"]').val('');

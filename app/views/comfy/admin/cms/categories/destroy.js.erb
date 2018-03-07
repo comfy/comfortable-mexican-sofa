@@ -1,3 +1,8 @@
-$('.categories .category#<%= dom_id(@category) %>').fadeOut('slow', function(){
-  $(this).remove()
-})
+(() => {
+  const categoryElements = document.querySelectorAll('.categories .category#<%= dom_id(@category) %>');
+  jQuery(categoryElements).fadeOut('slow', () => {
+    for (const element of categoryElements) {
+      element.remove();
+    }
+  });
+})();

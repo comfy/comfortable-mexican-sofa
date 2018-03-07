@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.3.0"
 
   s.add_dependency "active_link_to",        ">= 1.0.0"
-  s.add_dependency "coffee-rails",          ">= 4.2.0"
   s.add_dependency "comfy_bootstrap_form",  ">= 4.0.0"
   s.add_dependency "haml-rails",            ">= 1.0.0"
   s.add_dependency "jquery-rails",          ">= 4.3.1"
