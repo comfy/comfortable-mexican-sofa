@@ -182,9 +182,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
-  teardown do
-    assert_no_javascript_errors
-  end
+  teardown :assert_no_javascript_errors
 
   # Visiting path and passing in BasicAuth credentials at the same time
   # I have no idea how to set headers here.
