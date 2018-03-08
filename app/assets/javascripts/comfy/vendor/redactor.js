@@ -8,6 +8,9 @@
 	License: http://imperavi.com/redactor/license/
 
 	Usage: $('#content').redactor();
+
+	NOTE: This is the most recent editor we have licence for. There are inline
+	fixes and tweaks annotated with "COMFY FIX"
 */
 
 (function($)
@@ -1362,6 +1365,12 @@
 				},
 				setEventDrop: function(e)
 				{
+					// COMFY FIX
+					// Adding ability to drag-n-drop file links
+					var text = e.dataTransfer.getData('text/plain');
+					if (text) this.insert.html(text, false);
+					// END COMFY FIX
+
 					this.code.sync();
 					setTimeout(this.clean.clearUnverified, 1);
 					this.core.setCallback('drop', e);
@@ -7729,12 +7738,9 @@
 						var node2 = this.selection.getMarker(2);
 						this.selection.setMarker(this.range, node2, false);
 
-						// comfy fix
-						if (this.utils.browser('chrome'))
-						{
-							this.caret.set(node1, 0, node2, 0);
-						}
-						// end fix
+						// COMFY FIX
+						if (this.utils.browser('chrome')) this.caret.set(node1, 0, node2, 0);
+						// END COMFY FIX
 					}
 
 					this.savedSel = this.$editor.html();
