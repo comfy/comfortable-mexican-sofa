@@ -10,28 +10,28 @@
         = t(".no_tags").html_safe
 
     - else
-      = fields scope: :fragments, builder: ComfortableMexicanSofa::FormBuilder, bootstrap: { layout: :horizontal } do |fragments|
+      .tabbable
+        - if namespace.size > 1
+          .row
+            .col-sm-2
+            .col-sm-10
+              %ul.nav.nav-tabs
+                - namespace.each_with_index do |(name, tags), index|
+                  %li.nav-item
+                    - active = index == 0 ? "active" : nil
+                    - label = t("comfy.cms.content.namespace.#{name}", default: name.humanize)
+                    = link_to label, "#ns-#{name}", class: "nav-link #{active}", data: {toggle: "tab"}
 
-        .tabbable
-          - if namespace.size > 1
-            .row
-              .col-sm-2
-              .col-sm-10
-                %ul.nav.nav-tabs
-                  - namespace.each_with_index do |(name, tags), index|
-                    %li.nav-item
-                      - active = index == 0 ? "active" : nil
-                      - label = t("comfy.cms.content.namespace.#{name}", default: name.humanize)
-                      = link_to label, "#ns-#{name}", class: "nav-link #{active}", data: {toggle: "tab"}
+        .tab-content
+          - frag_index = 0
 
-          .tab-content
-            - frag_index = 0
+          - builder_opts = { builder: ComfortableMexicanSofa::FormBuilder, bootstrap: { layout: :horizontal }}
+          = fields scope, model: record, **builder_opts do |form|
             - namespace.each_with_index do |(name, tags), index|
               .tab-pane{id: "ns-#{name}", class: index == 0 ? "active" : nil}
                 - tags.each do |tag|
-                  = fragments.field(record, tag, frag_index)
+                  = form.fragment_field(tag, frag_index)
                   - frag_index += 1
-
 
 - rescue ComfortableMexicanSofa::Content::Renderer::SyntaxError, ComfortableMexicanSofa::Content::Tag::Error => e
   .alert.alert-danger

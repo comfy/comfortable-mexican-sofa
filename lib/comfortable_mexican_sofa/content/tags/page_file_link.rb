@@ -2,14 +2,15 @@
 
 require_relative "./mixins/file_content"
 
-# This tag allows you to link page-level files from withing the page.
+# This tag allows you to link page-level files from within the page content.
 #
 # E.g. if your layout has:
 #
-#   {{ cms:file graphic }}
-#   {{ cms:files attachments }}
+#   {{ cms:file graphic, render: false }}
+#   {{ cms:files attachments, redner: false }}
 #
-# You can link to the files from an individual page like so:
+# You can link to the files from an individual page (or snippet rendered in
+# the context of the page) like so:
 #
 #   {{ cms:page_file_link graphic }}
 #   {{ cms:page_file_link attachments, filename: "cat.jpg" }}

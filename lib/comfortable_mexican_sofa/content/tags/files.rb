@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # Same tag as File, only it handles multiple attachments.
-# Generally not a bad idea to handle rendering of this in a partial/helper
+# Generally not a bad idea to handle rendering of this in a partial/helper.
+# Example tag:
+#   {{ cms:files identifier }}
 #
 class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Content::Tag::File
 
@@ -15,7 +17,7 @@ class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Cont
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][files][]"
-    input   = view.send(:file_field_tag, name, id: nil, multiple: true, class: "form-control")
+    input   = view.send(:file_field_tag, name, id: form_field_id, multiple: true, class: "form-control")
 
     attachments_partial =
       if fragment.attachments
@@ -31,7 +33,7 @@ class ComfortableMexicanSofa::Content::Tag::Files < ComfortableMexicanSofa::Cont
         )
       end
 
-    yield safe_join([input, attachments_partial], "")
+    yield view.safe_join([input, attachments_partial], "")
   end
 
 end

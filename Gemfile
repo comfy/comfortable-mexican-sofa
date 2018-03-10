@@ -22,6 +22,8 @@ end
 
 group :test do
   gem "coveralls",                "~> 0.8.21", require: false
+  gem "diffy",                    "~> 3.2.0"
+  gem "equivalent-xml",           "~> 0.6.0"
   gem "mocha",                    "~> 1.3.0", require: false
   gem "rails-controller-testing", "~> 1.0.2"
 end

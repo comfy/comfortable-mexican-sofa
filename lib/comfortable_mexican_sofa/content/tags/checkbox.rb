@@ -11,10 +11,15 @@ class ComfortableMexicanSofa::Content::Tag::Checkbox < ComfortableMexicanSofa::C
 
   def form_field(object_name, view, index)
     name = "#{object_name}[fragments_attributes][#{index}][boolean]"
-    checkbox_hidden = view.hidden_field_tag(name, "0", id: nil)
-    checkbox_input  = view.check_box_tag(name, "1", content.present?, id: nil)
 
-    yield [checkbox_hidden, checkbox_input].join.html_safe
+    input = view.content_tag(:div, class: "form-check mt-2") do
+      view.concat view.hidden_field_tag(name, "0", id: nil)
+
+      options = { id: form_field_id, class: "form-check-input position-static" }
+      view.concat view.check_box_tag(name, "1", content.present?, options)
+    end
+
+    yield input
   end
 
 end

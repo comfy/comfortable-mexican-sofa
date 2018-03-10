@@ -75,97 +75,10 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
     assert_template :new
     assert_select "form[action='/admin/sites/#{@site.id}/pages']"
     assert_select "select[data-url='/admin/sites/#{@site.id}/pages/0/form_fragments']"
-  end
 
-  def test_get_new_with_field_wysiwyg
-    @layout.update_column(:content, "{{cms:wysiwyg test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "textarea[name='page[fragments_attributes][0][content]'][data-cms-rich-text]"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='wysiwyg']"
-  end
-
-  def test_get_new_with_field_text
-    @layout.update_column(:content, "{{cms:text test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='text'][name='page[fragments_attributes][0][content]']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='text']"
-  end
-
-  def test_get_new_with_field_textarea
-    @layout.update_column(:content, "{{cms:textarea test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "textarea[name='page[fragments_attributes][0][content]'][data-cms-cm-mode='text/html']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
+    assert_select "textarea[name='page[fragments_attributes][0][content]']"
+    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='content']"
     assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='text_area']"
-  end
-
-  def test_get_new_with_field_markdown
-    @layout.update_column(:content, "{{cms:markdown test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "textarea[name='page[fragments_attributes][0][content]'][data-cms-cm-mode='text/x-markdown']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='markdown']"
-  end
-
-  def test_get_new_with_field_datetime
-    @layout.update_column(:content, "{{cms:datetime test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='text'][name='page[fragments_attributes][0][datetime]'][data-cms-datetime]"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='datetime']"
-  end
-
-  def test_get_new_with_field_date
-    @layout.update_column(:content, "{{cms:date test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='text'][name='page[fragments_attributes][0][datetime]'][data-cms-date]"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='date']"
-  end
-
-  def test_get_new_with_field_number
-    @layout.update_column(:content, "{{cms:number test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='number'][name='page[fragments_attributes][0][content]']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='number']"
-  end
-
-  def test_get_new_with_field_checkbox
-    @layout.update_column(:content, "{{cms:checkbox test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][boolean]'][value='0']"
-    assert_select "input[type='checkbox'][name='page[fragments_attributes][0][boolean]'][value='1']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='checkbox']"
-  end
-
-  def test_get_new_with_field_file
-    @layout.update_column(:content, "{{cms:file test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='file'][name='page[fragments_attributes][0][files]']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='file']"
-  end
-
-  def test_get_new_with_field_files
-    @layout.update_column(:content, "{{cms:files test}}")
-    r :get, new_comfy_admin_cms_site_page_path(site_id: @site)
-    assert_response :success
-    assert_select "input[type='file'][name='page[fragments_attributes][0][files][]'][multiple=multiple]"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][identifier]'][value='test']"
-    assert_select "input[type='hidden'][name='page[fragments_attributes][0][tag]'][value='files']"
   end
 
   def test_get_new_with_several_fields

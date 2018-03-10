@@ -16,7 +16,7 @@
         = render "comfy/admin/cms/categories/show", category: category
 
     - url = comfy_admin_cms_site_categories_path(@site)
-    = form_for :category, url: url, remote: true, html: {id: "new-category"} do |form|
+    = form_with scope: :category, url: url, html: {id: "new-category"} do |form|
       = form.hidden_field :categorized_type, value: type
       .input-group
         = form.text_field :label, placeholder: t('.add_placeholder'), class: 'form-control form-control-sm', id: nil

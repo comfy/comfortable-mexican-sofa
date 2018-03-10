@@ -4,7 +4,7 @@ require_relative "./mixins/file_content"
 
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
-#   {{cms:file identifier, as: link, label: "My File"}}
+#   {{ cms:file identifier, as: link, label: "My File" }}
 #
 # `as`      - url (default) | link | image - render out link or image tag
 # `label`   - attach label attribute to link or image tag
@@ -15,7 +15,6 @@ require_relative "./mixins/file_content"
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
   include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
-  include ActionView::Helpers::OutputSafetyHelper
 
   # @type ["url", "link", "image"]
   attr_reader :as
@@ -33,7 +32,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][files]"
-    input   = view.send(:file_field_tag, name, id: nil, class: "form-control")
+    input   = view.send(:file_field_tag, name, id: form_field_id, class: "form-control")
 
     attachments_partial =
       if fragment.attachments
@@ -49,7 +48,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
         )
       end
 
-    yield safe_join([input, attachments_partial], "")
+    yield view.safe_join([input, attachments_partial], "")
   end
 
 protected

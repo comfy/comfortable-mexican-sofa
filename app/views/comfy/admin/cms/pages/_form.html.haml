@@ -14,7 +14,7 @@
 = comfy_admin_partial "comfy/admin/cms/partials/page_form_inner", form: form
 
 #form-fragments-container
-  = render "comfy/admin/cms/fragments/form_fragments", form: form, record: @page
+  = render "comfy/admin/cms/fragments/form_fragments", record: @page, scope: :page
 
 = render "comfy/admin/cms/categories/form", form: form
 

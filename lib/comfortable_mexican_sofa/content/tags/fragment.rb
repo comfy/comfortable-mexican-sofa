@@ -58,4 +58,8 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
     raise "Form field rendering not implemented for this Tag"
   end
 
+  def form_field_id
+    "fragment-#{@identifier}"
+  end
+
 end
