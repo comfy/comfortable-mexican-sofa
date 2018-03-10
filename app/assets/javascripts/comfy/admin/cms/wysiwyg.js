@@ -1,4 +1,5 @@
 (() => {
+  const Rails = window.Rails;
   const buildRedactorOptions = () => {
     const fileUploadPath = document.querySelector('meta[name="cms-file-upload-path"]').content;
     const pagesPath = document.querySelector('meta[name="cms-pages-path"]').content;
