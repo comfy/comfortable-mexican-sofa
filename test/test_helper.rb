@@ -9,6 +9,7 @@ unless ENV["SKIP_COV"]
   require "coveralls"
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
+    add_filter "lib/tasks"
     add_filter "lib/generators"
     add_filter "lib/comfortable_mexican_sofa/engine.rb "
   end
