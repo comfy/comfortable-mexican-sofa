@@ -13,7 +13,7 @@ class Comfy::Admin::BaseController < ComfortableMexicanSofa.config.base_controll
   helper Comfy::Admin::CmsHelper
   helper Comfy::CmsHelper
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   before_action :authenticate
 
