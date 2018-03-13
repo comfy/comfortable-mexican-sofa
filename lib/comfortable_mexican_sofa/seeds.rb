@@ -42,7 +42,7 @@ module ComfortableMexicanSofa::Seeds
     #   some more content
     def parse_file_content(file_path)
       text = ::File.read(file_path)
-      tokens = text.split(%r{^\[(.*?)\]\n})
+      tokens = text.split(%r{^\[(.*?)\]\r?\n})
       tokens.shift # first item should be blank
       tokens.in_groups_of(2).each_with_object({}) do |pair, h|
         h[pair[0]] = pair[1]
