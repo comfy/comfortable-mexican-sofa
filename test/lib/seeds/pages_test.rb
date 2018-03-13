@@ -176,7 +176,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     ComfortableMexicanSofa::Seeds::Page::Exporter.new("default-site", "test-site").export!
 
-    out = <<-TEXT.strip_heredoc
+    out = <<~TEXT
       [attributes]
       ---
       label: Default Page
@@ -200,7 +200,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     assert File.exist?(page_1_attachment_path)
 
-    out = <<-TEXT.strip_heredoc
+    out = <<~TEXT
       [attributes]
       ---
       label: Child Page
@@ -213,7 +213,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
     TEXT
     assert_equal out, IO.read(page_2_content_path)
 
-    out = <<-TEXT.strip_heredoc
+    out = <<~TEXT
       [attributes]
       ---
       label: Default Translation

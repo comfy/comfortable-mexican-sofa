@@ -185,13 +185,13 @@ class Rails::Generators::TestCase
     FileUtils.mkdir_p(config_path)
     FileUtils.touch(routes_path)
     File.open(routes_path, "w") do |f|
-      f.write <<-RUBY.strip_heredoc
+      f.write <<~RUBY
         Test::Application.routes.draw do
         end
       RUBY
     end
     File.open(app_path, "w") do |f|
-      f.write <<-RUBY.strip_heredoc
+      f.write <<~RUBY
         module TestApp
           class Application < Rails::Application
           end

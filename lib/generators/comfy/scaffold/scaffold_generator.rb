@@ -51,7 +51,7 @@ module Comfy
       end
 
       def generate_route
-        route_string = <<-TEXT.strip_heredoc
+        route_string = <<~TEXT
           namespace :admin do
             resources :#{file_name.pluralize}
           end
@@ -62,11 +62,13 @@ module Comfy
 
       def generate_navigation_link
         partial_path = "app/views/comfy/admin/cms/partials/_navigation_inner.html.haml"
+
         unless File.exist?(File.join(destination_root, partial_path))
           create_file partial_path
         end
+
         append_file partial_path do
-          <<-HAML.strip_heredoc
+          <<~HAML
             %li.nav-item
               = active_link_to '#{class_name.pluralize}', admin_#{file_name.pluralize}_path, class: 'nav-link'
           HAML

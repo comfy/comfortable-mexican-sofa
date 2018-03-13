@@ -29,7 +29,7 @@ module Comfy
       end
 
       def generate_railties_order
-        application <<-RUBY.strip_heredoc
+        application <<~RUBY
           # Ensuring that ActiveStorage routes are loaded before Comfy's globbing
           # route. Without this file serving routes are inaccessible.
           config.railties_order = [ActiveStorage::Engine, :main_app, :all]
@@ -37,7 +37,7 @@ module Comfy
       end
 
       def generate_routing
-        route_string = <<-RUBY.strip_heredoc
+        route_string = <<~RUBY
           comfy_route :cms_admin, path: "/admin"
           # Ensure that this route is defined last
           comfy_route :cms, path: "/"
