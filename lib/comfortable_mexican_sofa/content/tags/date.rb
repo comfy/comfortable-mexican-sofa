@@ -3,11 +3,7 @@
 # Tag for text content that is going to be rendered using text input with date widget
 #   {{ cms:date identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::Date < ComfortableMexicanSofa::Content::Tag::Fragment
-
-  def content
-    fragment.datetime
-  end
+class ComfortableMexicanSofa::Content::Tag::Date < ComfortableMexicanSofa::Content::Tag::Datetime
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][datetime]"
