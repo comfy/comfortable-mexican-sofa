@@ -122,7 +122,7 @@ class ComfortableMexicanSofa::Content::Renderer
           # @type [ComfortableMexicanSofa::Content::Tag]
           tag = klass.new(
             context:  @context,
-            params:   ComfortableMexicanSofa::Content::ParamsParser.parse(token[:tag_params]),
+            params:   ComfortableMexicanSofa::Content::ParamsParser.new(token[:tag_params]).params,
             source:   token[:source]
           )
           nodes.last << tag

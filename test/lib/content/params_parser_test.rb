@@ -7,116 +7,111 @@ class ContentParamsParserTest < ActiveSupport::TestCase
   PARSER = ComfortableMexicanSofa::Content::ParamsParser
 
   def test_tokenizer
-    tokens = PARSER.tokenize("param")
+    tokens = PARSER.new.send(:tokenize, "param")
     assert_equal [[:string, "param"]], tokens
   end
 
   def test_tokenizer_with_integer
-    tokens = PARSER.tokenize("123")
+    tokens = PARSER.new.send(:tokenize, "123")
     assert_equal [[:string, "123"]], tokens
   end
 
   def test_tokenizer_with_commas
-    tokens = PARSER.tokenize("param_a, param_b, param_c")
+    tokens = PARSER.new.send(:tokenize, "param_a, param_b, param_c")
     assert_equal [
-      [:string, "param_a"], [:comma, ","], [:string, "param_b"], [:comma, ","], [:string, "param_c"]
+      [:string, "param_a"],
+      [:string, "param_b"],
+      [:string, "param_c"]
     ], tokens
   end
 
-  def test_tokenizer_with_columns
-    tokens = PARSER.tokenize("key: value")
-    assert_equal [[:string, "key"], [:colon, ":"], [:string, "value"]], tokens
+  def test_tokenizer_with_hash_keys
+    tokens = PARSER.new.send(:tokenize, "key: value")
+    assert_equal [
+      [:hash_key, "key"],
+      [:string,   "value"]
+    ], tokens
+  end
+
+  def test_tokenizer_with_hashes
+    tokens = PARSER.new.send(:tokenize, "k: {x: {y: z}}")
+    assert_equal [
+      [:hash_key,   "k"],
+      [:hash_open,  "{"],
+      [:hash_key,   "x"],
+      [:hash_open,  "{"],
+      [:hash_key,   "y"],
+      [:string,     "z"],
+      [:hash_close, "}"],
+      [:hash_close, "}"]
+    ], tokens
+  end
+
+  def test_tokenizer_with_arrays
+    tokens = PARSER.new.send(:tokenize, "k: [a, b, c]")
+    assert_equal [
+      [:hash_key,     "k"],
+      [:array_open,   "["],
+      [:string,       "a"],
+      [:string,       "b"],
+      [:string,       "c"],
+      [:array_close,  "]"]
+    ], tokens
   end
 
   def test_tokenizer_with_quoted_value
-    tokens = PARSER.tokenize("key: ''")
-    assert_equal [[:string, "key"], [:colon, ":"], [:string, ""]], tokens
+    tokens = PARSER.new.send(:tokenize, "key: ''")
+    assert_equal [[:hash_key, "key"], [:string, ""]], tokens
 
-    tokens = PARSER.tokenize("key: 'test'")
-    assert_equal [[:string, "key"], [:colon, ":"], [:string, "test"]], tokens
+    tokens = PARSER.new.send(:tokenize, "key: 'test'")
+    assert_equal [[:hash_key, "key"], [:string, "test"]], tokens
 
-    tokens = PARSER.tokenize("key: 'v1, v2: v3'")
-    assert_equal [[:string, "key"], [:colon, ":"], [:string, "v1, v2: v3"]], tokens
+    tokens = PARSER.new.send(:tokenize, "key: 'v1, v2: v3'")
+    assert_equal [[:hash_key, "key"], [:string, "v1, v2: v3"]], tokens
 
-    tokens = PARSER.tokenize('key: "v1, v2: v3"')
-    assert_equal [[:string, "key"], [:colon, ":"], [:string, "v1, v2: v3"]], tokens
+    tokens = PARSER.new.send(:tokenize, 'key: "v1, v2: v3"')
+    assert_equal [[:hash_key, "key"], [:string, "v1, v2: v3"]], tokens
   end
 
   def test_tokenizer_with_smart_quotes
-    expected = [[:string, "param"], [:comma, ","], [:string, "key"], [:colon, ":"], [:string, "value"]]
+    expected = [[:string, "param"], [:hash_key, "key"], [:string, "value"]]
 
-    tokens = PARSER.tokenize("'param', 'key': 'value'")
+    tokens = PARSER.new.send(:tokenize, "'param', key: 'value'")
     assert_equal expected, tokens
 
-    tokens = PARSER.tokenize('"param", "key": "value"')
+    tokens = PARSER.new.send(:tokenize, '"param", key: "value"')
     assert_equal expected, tokens
 
-    tokens = PARSER.tokenize("“param”, “key”: “value”")
+    tokens = PARSER.new.send(:tokenize, "“param”, key: “value”")
     assert_equal expected, tokens
 
-    tokens = PARSER.tokenize("‘param’, ‘key’: ‘value’")
+    tokens = PARSER.new.send(:tokenize, "‘param’, key: ‘value’")
     assert_equal expected, tokens
   end
 
   def test_tokenizer_with_bad_input
     message = "Unexpected char: %"
     assert_exception_raised PARSER::Error, message do
-      PARSER.tokenize("%")
+      PARSER.new.send(:tokenize, "%")
     end
   end
 
-  def test_split_on_commas
-    tokens = [[:string, "a"], [:comma, ","], [:string, "b"]]
-    token_groups = PARSER.split_on_commas(tokens)
-    assert_equal [[[:string, "a"]], [[:string, "b"]]], token_groups
+  def test_params_from_string
+    string = "a, b, c"
+    assert_equal %w[a b c], PARSER.new(string).params
   end
 
-  def test_parse_token_groups
-    token_groups = [[[:string, "a"]]]
-    params = PARSER.parse_token_groups(token_groups)
-    assert_equal ["a"], params
+  def test_params_from_string_with_hashes
+    string = "a: b"
+    assert_equal [{ "a" => "b" }], PARSER.new(string).params
 
-    token_groups = [[[:string, "a"], [:colon, ":"], [:string, "b"]]]
-    params = PARSER.parse_token_groups(token_groups)
-    assert_equal [{ "a" => "b" }], params
+    string = "a: b, c: d"
+    assert_equal [{ "a" => "b", "c" => "d" }], PARSER.new(string).params
   end
 
-  def test_parse_token_groups_with_bad_input
-    message = "Unexpected tokens found: [[:string, \"a\"], [:string, \"b\"]]"
-    token_groups = [[[:string, "a"], [:string, "b"]]]
-    assert_exception_raised PARSER::Error, message do
-      PARSER.parse_token_groups(token_groups)
-    end
-  end
-
-  def test_parse_string_param
-    assert_equal "a", PARSER.parse_string_param([:string, "a"])
-  end
-
-  def test_parse_string_param_with_bad_input
-    message = "Unexpected token: [:invalid, \"a\"]"
-    assert_exception_raised PARSER::Error, message do
-      PARSER.parse_string_param([:invalid, "a"])
-    end
-  end
-
-  def test_parse_key_value_param
-    tokens = [[:string, "a"], [:colon, ":"], [:string, "b"]]
-    assert_equal({ "a" => "b" }, PARSER.parse_key_value_param(tokens))
-  end
-
-  def test_parse_key_value_param_with_bad_input
-    message = "Unexpected tokens: [[:string, \"a\"], [:invalid, \":\"], [:string, \"b\"]]"
-    assert_exception_raised PARSER::Error, message do
-      PARSER.parse_key_value_param(
-        [[:string, "a"], [:invalid, ":"], [:string, "b"]]
-      )
-    end
-  end
-
-  def test_parse
+  def test_params_from_string_mixed
     text = "param_a, param_b, key_a: val_a, key_b: val_b, param_c, key_c: val_c"
-    params = PARSER.parse(text)
+    params = PARSER.new(text).params
     assert_equal [
       "param_a",
       "param_b",
