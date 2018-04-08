@@ -96,29 +96,81 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     end
   end
 
-  def test_params_from_string
-    string = "a, b, c"
-    assert_equal %w[a b c], PARSER.new(string).params
+  def test_params_simple_list
+    assert_equal ["a", "b", "foo bar", "c"], PARSER.new("a, b, 'foo bar', c").params
   end
 
-  def test_params_from_string_with_hashes
-    string = "a: b"
-    assert_equal [{ "a" => "b" }], PARSER.new(string).params
-
-    string = "a: b, c: d"
-    assert_equal [{ "a" => "b", "c" => "d" }], PARSER.new(string).params
+  def test_params_simple_hash
+    assert_equal [{ "a" => "b" }],              PARSER.new("a: b").params
+    assert_equal [{ "a" => "b" }],              PARSER.new("{a: b}").params
+    assert_equal [{ "a" => "b", "c" => "d" }],  PARSER.new("a: b, c: d").params
+    assert_equal [{ "a" => "b", "c" => "d" }],  PARSER.new("{a: b, c: d}").params
   end
 
-  def test_params_from_string_mixed
-    text = "param_a, param_b, key_a: val_a, key_b: val_b, param_c, key_c: val_c"
-    params = PARSER.new(text).params
+  def test_params_nested_hash
     assert_equal [
-      "param_a",
-      "param_b",
-      { "key_a" => "val_a", "key_b" => "val_b" },
-      "param_c",
-      { "key_c" => "val_c" }
-    ], params
+      { "a" => { "b" => { "c" => "d", "e" => "f" } }, "g" => { "h" => "i" } }
+    ], PARSER.new("a: {b: {c: d, e: f}}, g: {h: i}").params
+  end
+
+  def test_params_invalid_hash
+    message = "Invalid params: a: b: c:"
+    assert_exception_raised PARSER::Error, message do
+      PARSER.new("a: b: c:").params
+    end
+  end
+
+  def test_params_invalid_hash_element
+    message = "Invalid params: {a: b, c}"
+    assert_exception_raised PARSER::Error, message do
+      PARSER.new("{a: b, c}").params
+    end
+  end
+
+  def test_params_array
+    assert_equal [["a", "b", "foo bar", "c"]], PARSER.new("[a, b, 'foo bar', c]").params
+  end
+
+  def test_params_nested_array
+    assert_equal ["a", ["b", %w[c d]]], PARSER.new("a, [b, [c, d]]").params
+  end
+
+  def test_params_array_unclosed
+    message = "Unclosed array param: [a, b"
+    assert_exception_raised PARSER::Error, message do
+      PARSER.new("[a, b").params
+    end
+  end
+
+  def test_params_mixed
+    assert_equal ["a", "b", { "c" => "d", "e" => "f" }], PARSER.new("a, b, c: d, e: f").params
+  end
+
+  def test_params_mixed_separate_hashes
+    assert_equal ["a", { "b" => "c" }, { "d" => "e" }], PARSER.new("a, {b: c}, {d: e}").params
+  end
+
+  def test_params_mixed_invalid
+    message = "Invalid params: a, b: c, d"
+    assert_exception_raised PARSER::Error, message do
+      PARSER.new("a, b: c, d").params
+    end
+
+    assert_equal ["a", { "b" => "c" }, "d"], PARSER.new("a, {b: c}, d").params
+  end
+
+  def test_params_mixed_complex
+    string = "a, b: [{c: {d: {e: f, g: h}}, i: j}, k], l: m"
+    assert_equal [
+      "a",
+      {
+        "b" => [
+          { "c" => { "d" => { "e" => "f", "g" => "h" } }, "i" => "j" },
+          "k"
+        ],
+        "l" => "m"
+      }
+    ], PARSER.new(string).params
   end
 
 end
