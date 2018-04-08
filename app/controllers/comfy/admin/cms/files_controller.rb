@@ -23,7 +23,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         case params[:type]
         when "image"
           file_scope.with_images.collect do |file|
-            { thumb: url_for(file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:redactor])),
+            { thumb: url_for(file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
               image: url_for(file.attachment),
               title: file.label }
           end

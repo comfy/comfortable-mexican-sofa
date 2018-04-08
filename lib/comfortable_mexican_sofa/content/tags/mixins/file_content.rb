@@ -13,7 +13,7 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
       return "" unless file
 
       if variant_attrs.present? && attachment.image?
-        file = file.variant(variant_attrs)
+        file = file.variant(combine_options: variant_attrs)
       end
 
       url = rails_blob_path(file)
