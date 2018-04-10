@@ -63,7 +63,12 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def form_fragments
     @page = @site.pages.find_by(id: params[:id]) || @site.pages.new
     @page.layout = @site.layouts.find_by(id: params[:layout_id])
-    render partial: "comfy/admin/cms/fragments/form_fragments", locals: { record: @page, scope: :page }, layout: false
+
+    render(
+      partial:  "comfy/admin/cms/fragments/form_fragments",
+      locals:   { record: @page, scope: :page },
+      layout:   false
+    )
   end
 
   def toggle_branch
