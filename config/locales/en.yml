@@ -150,7 +150,7 @@ en:
           form_fragments:
             no_tags: |-
               Layout has no content tags defined.<br/>
-              Edit the content to include a page or field tag. For example: <code>{{cms:wysiwyg content}}</code>
+              Edit Layout content to include a fragment tag. For example: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: Translation created
