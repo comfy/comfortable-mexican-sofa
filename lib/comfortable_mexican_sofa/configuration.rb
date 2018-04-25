@@ -97,6 +97,7 @@ class ComfortableMexicanSofa::Configuration
       "de"    => "Deutsch",
       "en"    => "English",
       "es"    => "Español",
+      "fi"    => "Suomi",
       "fr"    => "Français",
       "gr"    => "Ελληνικά",
       "it"    => "Italiano",

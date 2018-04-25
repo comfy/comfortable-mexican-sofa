@@ -1,0 +1,263 @@
+en:
+  activerecord:
+    models:
+      comfy/cms/site: Sivusto
+      comfy/cms/layout: Ulkoasu
+      comfy/cms/page: Sivu
+      comfy/cms/snippet: Koodinpätkä
+      comfy/cms/file: Tiedosto
+      comfy/cms/translation: Käännös
+
+    attributes:
+      comfy/cms/site:
+        identifier: Tunniste
+        label: Merkintä
+        hostname: Isäntänimi
+        path: Polku
+        locale: Kieli
+      comfy/cms/layout:
+        identifier: Tunniste
+        label: Ulkoasun nimi
+        app_layout: Sovelluksen ulkoasu
+        parent_id: Edeltäjän ulkoasu
+        content: Sisältö
+        css: Stylesheet
+        js: Javascript
+      comfy/cms/page:
+        label: Merkintä
+        layout_id: Ulkoasu
+        slug: URL-osa
+        full_path: Koko polku
+        parent_id: Edeltäjä
+        target_page_id: Ohjaa sivulle
+        content: Sisältö
+        is_published: Julkaistu
+      comfy/cms/file:
+        label: Merkintä
+        file: Tiedosto
+        description: Kuvaus
+      comfy/cms/snippet:
+        label: Merkintä
+        identifier: Tunniste
+        content: Sisältö
+      comfy/cms/translation:
+        locale: Kieli
+        label: Merkintä
+        layout_id: Ulkoasu
+        is_published: Julkaistu
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Sivustoa ei löydy
+        layout_not_found: Ulkoasua ei löydy
+        page_not_found: Sivua ei löydy
+
+    admin:
+      cms:
+        base:
+          site_not_found: Sivustoa ei löydy
+          seeds_enabled: CMS Seeds on kytketty päälle. Kaikki tehdyt muutokset hävitetään.
+
+          sites: Sivustot
+          layouts: Ulkoasut
+          pages: Sivut
+          snippets: Koodinpätkät
+          files: Tiedostot
+
+        sites:
+          created: Sivusto on luotu
+          creation_failure: Sivustoa ei voitu luoda
+          updated: Sivusto on päivitetty
+          update_failure: Sivustoa ei voitu päivittää
+          deleted: Sivusto on poistettu
+          not_found: Sivustoa ei löydy
+
+          index:
+            title: Sivustot
+            new_link: Luo uusi sivusto
+            select: Sivuston valinta
+            edit: Muokkaa
+            delete: Poista
+            are_you_sure: Oletko varma, että haluat poistaa tämän sivuston?
+          new:
+            title: Uusi sivusto
+          edit:
+            title: Sivuston muokkaus
+          form:
+            create: Luo sivusto
+            cancel: Peru
+            update: Päivitä sivusto
+
+        layouts:
+          created: Ulkoasu on luotu
+          creation_failure: Ulkoasua ei voitu luoda
+          updated: Ulkoasu on päivitetty
+          update_failure: Ulkoasua ei voitu päivittää
+          deleted: Ulkoasu on poistettu
+          not_found: Ulkoasua ei löydy
+
+          index:
+            title: Ulkoasut
+            new_link: Luo uusi ulkoasu
+          index_branch:
+            add_child_layout: Lisää periytyvä ulkoasu
+            edit: Muokkaa
+            delete: Poista
+            are_you_sure: Oletko varma?
+          new:
+            title: Uusi ulkoasu
+          edit:
+            title: Ulkoasun muokkaus
+          form:
+            select_parent_layout: Valitse edeltävä ulkoasu
+            select_app_layout: Valitse sovelluksen ulkoasu
+            create: Luo ulkoasu
+            cancel: Peru
+            update: Päivitä ulkoasu
+
+        pages:
+          created: Sivu on luotu
+          creation_failure: Sivua ei voitu luoda
+          updated: Sivu on päivitetty
+          update_failure: Sivua ei voitu päivittää
+          deleted: Sivu on poistettu
+          not_found: Sivua ei löydy
+          layout_not_found: Yhtään ulkoasua ei löydy. Ole hyvä ja luo sellainen.
+
+          index:
+            title: Sivut
+            new_link: Luo uusi sivu
+          index_branch:
+            toggle: Valinta
+            add_child_page: Lisää periytyvä sivu
+            edit: Muokkaa
+            delete: Poista
+            are_you_sure: Oletko varma?
+          new:
+            title: Uusi sivu
+          edit:
+            title: Sivun muokkaus
+          form:
+            select_target_page: Ei uudelleenohjausta
+            preview: Esikatselu
+            create: Luo sivu
+            cancel: Peru
+            update: Päivitä sivu
+            choose_link: Valitse sivu...
+
+        fragments:
+          form_fragments:
+            no_tags: |-
+              Ulkoasulla ei ole määriteltyjä tageja sisällölle.<br/>
+              Muokkaa ulkoasun sisältöä niin, että se sisältää koodileikkeen tagin. Esimerkiksi: <code>{{cms:wysiwyg content}}</code>
+
+        translations:
+          created: Käännös on luotu
+          creation_failure: Käännöstä ei voitu luoda
+          updated: Käännös on päivitetty
+          update_failure: Käännöstä ei voitu päivittää
+          deleted: Käännös on poistettu
+          not_found: Käännöstä ei löydy
+
+          new:
+            title: Uusi käännös
+          edit:
+            title: Käännöksen muokkaus
+          form:
+            preview: Esikatselu
+            create: Luo käännös
+            update: Päivitä käännös
+            cancel: Palaa sivulle
+          sidebar:
+            new: Uusi käännös
+            confirm: Oletko varma?
+
+        snippets:
+          created: Koodileike on luotu
+          creation_failure: Koodileikettä ei voitu luoda
+          updated: Koodileike on päivitetty
+          update_failure: Koodileikettä ei voitu päivittää
+          deleted: Koodileike on poistettu
+          not_found: Koodileikettä ei löydy
+
+          index:
+            title: Koodileikkeet
+            new_link: Luo uusi koodileike
+            edit: Muokkaa
+            delete: Poista
+            are_you_sure: Oletko varma?
+          new:
+            title: Uusi koodileike
+          edit:
+            title: Koodileikkeen muokkaaminen
+          form:
+            create: Luo koodileike
+            cancel: Peru
+            update: Päivitä koodileike
+
+        revisions:
+          reverted: Aiempi sisältö on palautettu
+          record_not_found: Tietuetta ei löydy
+          not_found: Versiota ei löydy
+
+          show:
+            title: Versiot kohteelle
+            revision: Versio
+            update: Päivitä tähän versioon
+            cancel: Peru
+            content: Sisältö
+            changes: Muokkaukset
+            previous: Edellinen
+            current: Nykyinen
+          sidebar:
+            revision:
+              zero: Ei versiohistoriaa
+              one: '%{count} aiempi versio'
+              few: '%{count} aiempaa versiota'
+              many: '%{count} aiempaa versiota'
+              other: '%{count} versiota'
+
+        files:
+          created: Tiedostot on ladattu onnistuneesti
+          creation_failure: Tiedostojen lataaminen epäonnistui
+          updated: Tiedosto on päivitetty
+          update_failure: Tiedoston päivittäminen epäonnistui
+          deleted: Tiedosto on poistettu
+          not_found: Tiedostoa ei löydy
+
+          index:
+            title: Tiedostot
+            new_link: Lataa uusi tiedosto
+            button: Lataa tiedostoja
+          new:
+            title: Uusi tiedosto
+          edit:
+            title: Tiedoston muokkaus
+          form:
+            current_file: Nykyinen tiedosto
+            create: Lataa tiedosto
+            cancel: Peru
+            update: Päivitä tiedosto
+            delete: Poista tiedosto
+            are_you_sure: Oletko varma?
+          page_form:
+            are_you_sure: Oletko varma?
+          file:
+            edit: Muokkaa
+            delete: Poista
+            are_you_sure: Oletko varma?
+
+        categories:
+          index:
+            edit: Muokkaa
+            done: Valmis
+            all: Kaikki luokat
+            add: Lisää
+            add_placeholder: Lisää luokka
+          show:
+            are_you_sure: Oletko varma?
+          edit:
+            save: Tallenna
+          form:
+            label: Luokat
