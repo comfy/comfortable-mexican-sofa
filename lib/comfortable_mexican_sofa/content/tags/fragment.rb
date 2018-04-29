@@ -10,7 +10,8 @@
 #
 class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::Content::Tag
 
-  attr_reader :identifier, :renderable, :namespace
+  attr_accessor :renderable
+  attr_reader :identifier, :namespace
 
   # @type [{String => String}]
   attr_reader :options

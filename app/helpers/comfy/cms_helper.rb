@@ -29,6 +29,7 @@ module Comfy
     def cms_fragment_render(identifier, page = @cms_page)
       node = page.fragment_nodes.detect { |n| n.identifier == identifier.to_s }
       return "" unless node
+      node.renderable = true
       render inline: page.render([node])
     end
 

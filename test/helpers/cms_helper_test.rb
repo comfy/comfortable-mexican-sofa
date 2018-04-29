@@ -54,6 +54,11 @@ class CmsHelperTest < ActionView::TestCase
     assert_equal "", cms_fragment_render(:invalid)
   end
 
+  def test_cms_fragment_render_unrenderable
+    comfy_cms_layouts(:default).update_column(:content, "{{cms:textarea content, render: false}}")
+    assert_equal "content", cms_fragment_render(:content)
+  end
+
   def test_cms_fragment_render_with_tags
     comfy_cms_fragments(:default).update_column(:content, "a {{cms:helper hello }} b")
     assert_equal "a hello b", cms_fragment_render(:content)
