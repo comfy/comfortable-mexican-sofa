@@ -91,13 +91,19 @@ class CmsHelperTest < ActionView::TestCase
     assert_equal "", cms_snippet_content(:invalid)
   end
 
-  def test_cms_snippet_content_with_site_loading
+  def test_cms_snippet_content_with_site_detection
     @cms_site = nil
     assert_equal "snippet content", cms_snippet_content(:default)
   end
 
   def test_cms_snippet_render
     assert_equal "snippet content", cms_snippet_render(:default)
+  end
+
+  def test_cms_snippet_render_with_tags_and_context
+    file = comfy_cms_files(:default)
+    comfy_cms_snippets(:default).update_column(:content, "{{cms:file_link #{file.id}}}")
+    assert_equal rails_blob_path(file.attachment, only_path: true), cms_snippet_render(:default)
   end
 
   def test_cms_snippet_with_erb
@@ -108,6 +114,26 @@ class CmsHelperTest < ActionView::TestCase
   def test_cms_snippet_render_with_tags
     comfy_cms_snippets(:default).update_column(:content, "a {{cms:helper hello}} b")
     assert_equal "a hello b", cms_snippet_render(:default)
+  end
+
+  def test_cms_site_detect
+    site = comfy_cms_sites(:default)
+    site.update_column(:path, "/en")
+    assert_equal site, cms_site_detect
+
+    site_b = Comfy::Cms::Site.create!(
+      label:      "with path",
+      identifier: "with-path",
+      hostname:   site.hostname,
+      path:       "fr"
+    )
+    request.fullpath = "/fr"
+    assert_equal site_b, cms_site_detect
+
+    site_b.update_columns(hostname: "site_b.com", path: "en")
+    request.host_with_port  = "site_b.com"
+    request.fullpath        = "/en"
+    assert_equal site_b, cms_site_detect
   end
 
 end

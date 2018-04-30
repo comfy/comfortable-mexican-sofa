@@ -37,13 +37,7 @@ module Comfy
     # Example:
     #   cms_snippet_content(:my_snippet)
     def cms_snippet_content(identifier, cms_site = @cms_site)
-      unless cms_site
-        if respond_to?(:request) && request
-          host = request.host_with_port.downcase
-          path = request.fullpath
-        end
-        cms_site = Comfy::Cms::Site.find_site(host, path)
-      end
+      cms_site ||= cms_site_detect
       snippet = cms_site&.snippets&.find_by_identifier(identifier)
       return "" unless snippet
       snippet.content
@@ -52,9 +46,17 @@ module Comfy
     # Same as cms_snippet_content but cms tags will be expanded. Note that there
     # is no page context, so snippet cannot contain fragment tags.
     def cms_snippet_render(identifier, cms_site = @cms_site)
-      content = cms_snippet_content(identifier, cms_site)
-      r = ComfortableMexicanSofa::Content::Renderer.new(Comfy::Cms::Page.new)
-      render inline: r.render(r.nodes(r.tokenize(content)))
+      cms_site ||= cms_site_detect
+      snippet = cms_site&.snippets&.find_by_identifier(identifier)
+      return "" unless snippet
+      r = ComfortableMexicanSofa::Content::Renderer.new(snippet)
+      render inline: r.render(r.nodes(r.tokenize(snippet.content)))
+    end
+
+    def cms_site_detect
+      host = request.host_with_port.downcase
+      path = request.fullpath
+      Comfy::Cms::Site.find_site(host, path)
     end
 
     # Wrapper to deal with Kaminari vs WillPaginate

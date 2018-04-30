@@ -138,6 +138,27 @@ end
 
 class ActionView::TestCase
 
+  # When testing view helpers we don't actually have access to request. So
+  # here's a fake one.
+  class FakeRequest
+
+    attr_accessor :host_with_port, :fullpath
+
+    def initialize
+      @host_with_port = "www.example.com"
+      @fullpath       = "/"
+    end
+
+  end
+
+  setup do
+    @request = FakeRequest.new
+  end
+
+  def request
+    @request ||= FakeRequest.new
+  end
+
   # Expected and actual are wrapped in a root tag to ensure proper XML structure.
   def assert_xml_equal(expected, actual)
     expected_xml = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>", &:noblanks)
