@@ -83,7 +83,7 @@ protected
       @cms_layout = @cms_page.layout
     end
 
-    return @cms_page
+    @cms_page
 
   rescue ActiveRecord::RecordNotFound
     nil

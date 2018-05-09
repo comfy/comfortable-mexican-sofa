@@ -61,4 +61,12 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
     end
   end
 
+  def test_render_with_erb_injection
+    tag = ComfortableMexicanSofa::Content::Tag::Helper.new(
+      context: @page,
+      params: ["foo\#{:bar}", "foo\#{Kernel.exec('poweroff')"]
+    )
+    assert_equal "<%= foo\#{:bar}(\"foo\\\#{Kernel.exec('poweroff')\") %>", tag.render
+  end
+
 end

@@ -50,4 +50,12 @@ class ContentTagsTemplateTest < ActiveSupport::TestCase
     assert_equal "", tag.render
   end
 
+  def test_render_with_erb_injection
+    tag = ComfortableMexicanSofa::Content::Tag::Template.new(
+      context: @page,
+      params: ["va\#{:l}ue"]
+    )
+    assert_equal "<%= render template: \"va\\\#{:l}ue\" %>", tag.render
+  end
+
 end

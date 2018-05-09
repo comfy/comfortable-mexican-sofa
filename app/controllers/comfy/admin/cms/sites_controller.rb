@@ -11,8 +11,8 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
 
   def index
     return redirect_to action: :new if ::Comfy::Cms::Site.count.zero?
-    @site = ::Comfy::Cms::Site.find_by_id(session[:site_id])
-    @sites ||= ::Comfy::Cms::Site.all
+    @site   = ::Comfy::Cms::Site.find_by_id(session[:site_id])
+    @sites  = ::Comfy::Cms::Site.all
   end
 
   def new

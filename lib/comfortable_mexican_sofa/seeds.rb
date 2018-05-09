@@ -90,7 +90,7 @@ module ComfortableMexicanSofa::Seeds
     # Writing to the seed file. Takes in file handler and array of hashes with
     # `header` and `content` keys
     def write_file_content(path, data)
-      open(::File.join(path), "wb") do |f|
+      ::File.open(::File.join(path), "wb") do |f|
         data.each do |item|
           f.write("[#{item[:header]}]\n")
           f.write("#{item[:content]}\n")

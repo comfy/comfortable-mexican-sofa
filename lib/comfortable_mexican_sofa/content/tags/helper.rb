@@ -31,9 +31,9 @@ class ComfortableMexicanSofa::Content::Tag::Helper < ComfortableMexicanSofa::Con
     helper_params = params.map do |p|
       case p
       when Hash
-        p.to_s
+        format("%<arg>s", arg: p)
       else
-        "\"#{p}\""
+        format("%<arg>p", arg: p)
       end
     end.join(",")
     "<%= #{method_name}(#{helper_params}) %>"

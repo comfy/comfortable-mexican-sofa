@@ -9,7 +9,7 @@ module Comfy
       include Rails::Generators::Migration
       include Thor::Actions
 
-      source_root File.expand_path("../../../../..", __FILE__)
+      source_root File.expand_path("../../../..", __dir__)
 
       def generate_migration
         destination   = File.expand_path("db/migrate/01_create_cms.rb", destination_root)

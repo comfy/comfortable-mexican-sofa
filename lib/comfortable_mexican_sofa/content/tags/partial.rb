@@ -26,7 +26,11 @@ class ComfortableMexicanSofa::Content::Tag::Partial < ComfortableMexicanSofa::Co
   end
 
   def content
-    "<%= render partial: \"#{@path}\", locals: #{@locals} %>"
+    format(
+      "<%%= render partial: %<path>s, locals: %<locals>s %%>",
+      path: @path.inspect,
+      locals: @locals
+    )
   end
 
   def render

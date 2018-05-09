@@ -64,4 +64,12 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
     assert_equal "<%= render partial: \"safe/path\", locals: {} %>", tag.render
   end
 
+  def test_render_with_erb_injection
+    tag = ComfortableMexicanSofa::Content::Tag::Partial.new(
+      context: @page,
+      params: ["foo\#{:bar}", { "key" => "va\#{:l}ue" }]
+    )
+    assert_equal "<%= render partial: \"foo\\\#{:bar}\", locals: {\"key\"=>\"va\\\#{:l}ue\"} %>", tag.render
+  end
+
 end

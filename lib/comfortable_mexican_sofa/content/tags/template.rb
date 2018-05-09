@@ -25,7 +25,7 @@ class ComfortableMexicanSofa::Content::Tag::Template < ComfortableMexicanSofa::C
   end
 
   def content
-    "<%= render template: \"#{path}\" %>"
+    format("<%%= render template: %<path>p %%>", path: path)
   end
 
   def render

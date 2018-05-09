@@ -10,7 +10,7 @@ group :development, :test do
   gem "capybara",           "~> 2.17.0"
   gem "kaminari",           "~> 1.1.1"
   gem "puma",               "~> 3.11.2"
-  gem "rubocop",            "~> 0.52.1", require: false
+  gem "rubocop",            "~> 0.55.0", require: false
   gem "selenium-webdriver", "~> 3.9.0"
   gem "sqlite3",            "~> 1.3.13"
 end

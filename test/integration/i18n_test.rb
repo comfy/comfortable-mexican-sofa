@@ -13,7 +13,7 @@ class I18nIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_translations
-    locales_path = File.expand_path("../../../config/locales", __FILE__)
+    locales_path = File.expand_path("../../config/locales", __dir__)
     locales = Dir.glob("#{locales_path}/*.yml").collect do |file_path|
       File.basename(file_path, ".yml")
     end

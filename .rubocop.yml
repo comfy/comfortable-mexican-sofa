@@ -94,3 +94,7 @@ Style/ClassAndModuleChildren:
 
 Style/AsciiComments:
   Enabled: false
+
+# -- Naming --------------------------------------------------------------------
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
