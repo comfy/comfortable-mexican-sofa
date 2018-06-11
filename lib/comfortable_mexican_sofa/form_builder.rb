@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ComfortableMexicanSofa::FormBuilder < BootstrapForm::FormBuilder
+class ComfortableMexicanSofa::FormBuilder < ComfyBootstrapForm::FormBuilder
 
   # Renders form input for a fragment
   #

@@ -3,7 +3,7 @@
 require "comfortable_mexican_sofa"
 require "rails"
 require "rails-i18n"
-require "bootstrap_form"
+require "comfy_bootstrap_form"
 require "active_link_to"
 require "kramdown"
 require "jquery-rails"

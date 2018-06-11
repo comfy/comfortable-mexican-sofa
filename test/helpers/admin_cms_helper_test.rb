@@ -5,7 +5,7 @@ require_relative "../test_helper"
 class AdminCmsHelpersTest < ActionView::TestCase
 
   include Comfy::Admin::CmsHelper
-  include BootstrapForm::ViewHelper
+  include ComfyBootstrapForm::ViewHelper
 
   setup do
     @file = comfy_cms_files(:default)
