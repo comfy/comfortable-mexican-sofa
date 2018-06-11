@@ -32,7 +32,10 @@ class ContentTagsDatetimeTest < ActiveSupport::TestCase
   end
 
   def test_render_not_renderable
-    tag = ComfortableMexicanSofa::Content::Tag::Datetime.new(context: @page, params: [@frag.identifier, "render" => "false"])
+    tag = ComfortableMexicanSofa::Content::Tag::Datetime.new(
+      context: @page,
+      params: [@frag.identifier, "render" => "false"]
+    )
     assert_equal "", tag.render
   end
 
