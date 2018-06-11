@@ -31,4 +31,9 @@ class ContentTagsDatetimeTest < ActiveSupport::TestCase
     assert_equal "at 12:34PM", tag.render
   end
 
+  def test_render_not_renderable
+    tag = ComfortableMexicanSofa::Content::Tag::Datetime.new(context: @page, params: [@frag.identifier, "render" => "false"])
+    assert_equal "", tag.render
+  end
+
 end

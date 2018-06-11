@@ -19,6 +19,8 @@ class ComfortableMexicanSofa::Content::Tag::Datetime < ComfortableMexicanSofa::C
   end
 
   def render
+    return "" unless renderable
+
     if strftime.present?
       content.strftime(strftime)
     else
