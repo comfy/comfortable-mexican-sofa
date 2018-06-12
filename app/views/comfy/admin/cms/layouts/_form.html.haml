@@ -4,10 +4,10 @@
 = form.text_field :identifier, data: {slug: true}
 
 - if (options = Comfy::Cms::Layout.options_for_select(@site, @layout)).present?
-  = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options
+  = form.select :parent_id, [["---- #{t('.select_parent_layout')} ----", nil]] + options, bootstrap: {custom_control: true}
 
 - if (options = Comfy::Cms::Layout.app_layouts_for_select(lookup_context.view_paths)).present?
-  = form.select :app_layout, [["---- #{t('.select_app_layout')} ----", nil]] + options
+  = form.select :app_layout, [["---- #{t('.select_app_layout')} ----", nil]] + options, bootstrap: {custom_control: true}
 
 = form.text_area :content, data: {'cms-cm-mode' => 'text/html'}
 = form.text_area :css, data: {'cms-cm-mode' => 'css'}

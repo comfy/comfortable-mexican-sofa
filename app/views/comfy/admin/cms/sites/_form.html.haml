@@ -4,7 +4,9 @@
 = form.text_field :identifier, data: {slug: true}
 = form.text_field :hostname
 = form.text_field :path
-= form.select :locale, ComfortableMexicanSofa.config.locales.to_a.collect{|l| ["#{l[1]} (#{l[0]})", l[0]]}
+
+- locales = ComfortableMexicanSofa.config.locales.to_a.collect{|l| ["#{l[1]} (#{l[0]})", l[0]]}
+= form.select :locale, locales, bootstrap: {custom_control: true}
 
 = comfy_admin_partial "comfy/admin/cms/partials/site_form_after", form: form
 
