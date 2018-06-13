@@ -9,6 +9,10 @@ class ComfortableMexicanSofa::Configuration
   # 'ApplicationController' is the default
   attr_accessor :base_controller
 
+  # Controller that Comfy::Cms::BaseController will inherit from
+  # 'ApplicationController' is the default
+  attr_accessor :base_cms_controller
+
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
 
@@ -80,6 +84,7 @@ class ComfortableMexicanSofa::Configuration
   def initialize
     @cms_title            = "ComfortableMexicanSofa CMS Engine"
     @base_controller      = "ApplicationController"
+    @base_cms_controller  = "ApplicationController"
     @admin_auth           = "ComfortableMexicanSofa::AccessControl::AdminAuthentication"
     @admin_authorization  = "ComfortableMexicanSofa::AccessControl::AdminAuthorization"
     @public_auth          = "ComfortableMexicanSofa::AccessControl::PublicAuthentication"

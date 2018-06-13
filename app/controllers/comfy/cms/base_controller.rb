@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::BaseController < ApplicationController
+class Comfy::Cms::BaseController < ComfortableMexicanSofa.config.base_cms_controller.to_s.constantize
 
   before_action :load_cms_site
 
