@@ -19,7 +19,7 @@ class Comfy::Cms::BaseControllerTest < ActionDispatch::IntegrationTest
 
   def test_base_class_configuration
     get comfy_cms_render_page_path(cms_path: "")
-    assert @controller.kind_of? AnotherTestController
+    assert @controller.is_a? AnotherTestController
   end
 
 end
