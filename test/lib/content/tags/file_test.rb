@@ -63,6 +63,16 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     assert_equal out, tag.content
   end
 
+  def test_content_as_image_with_variant
+    frag = comfy_cms_fragments(:file)
+    tag = ComfortableMexicanSofa::Content::Tag::File.new(
+      context: @page,
+      params: [frag.identifier, { "as" => "image", "resize" => "50x50" }]
+    )
+    out = "<img src='#{rails_blob_path(frag.attachments.first, only_path: true)}' alt='fragment.jpg'/>"
+    assert_equal out, tag.content
+  end
+
   def test_content_with_no_attachment
     tag = ComfortableMexicanSofa::Content::Tag::File.new(context: @page, params: ["test"])
     assert_equal "", tag.content

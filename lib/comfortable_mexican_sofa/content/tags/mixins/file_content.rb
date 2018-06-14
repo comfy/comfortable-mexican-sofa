@@ -12,11 +12,11 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-      if variant_attrs.present? && attachment.image?
+      if variant_attrs.present? && file.image?
         file = file.variant(combine_options: variant_attrs)
       end
 
-      url = rails_blob_path(file)
+      url = rails_blob_path(file.blob)
 
       case as
       when "link"
