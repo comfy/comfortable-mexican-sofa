@@ -25,16 +25,9 @@ namespace :test do
     t.pattern = 'test/generators/**/*_test.rb'
     t.verbose = true
   end
-
-  Rake::TestTask.new(:models) do |t|
-    t.libs << 'test'
-    t.pattern = 'test/models/**/*_test.rb'
-    t.verbose = true
-  end
 end
 
 Rake::Task[:test].enhance do
   Rake::Task['test:lib'].invoke
-  Rake::Task['test:models'].invoke
   Rake::Task['test:generators'].invoke
 end

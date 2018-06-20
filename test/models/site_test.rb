@@ -133,7 +133,9 @@ class CmsSiteTest < ActiveSupport::TestCase
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr?a=b')
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr/some/path')
     assert_equal site_c,  Comfy::Cms::Site.find_site('test2.host', '/fr/some/path?a=b')
+  end
 
+  def find_site_with_base_path
     base_path = '/base_path'
     ComfortableMexicanSofa.configuration.public_cms_path = base_path
     site_d = Comfy::Cms::Site.create!(:identifier => 'test_d', :hostname => 'test3.host', :path => 'de')
