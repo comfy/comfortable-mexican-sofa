@@ -5,10 +5,10 @@ ComfortableMexicanSofa.configure do |config|
   #   config.cms_title = 'ComfortableMexicanSofa CMS Engine'
 
   # Controller that is inherited from CmsAdmin::BaseController
-  #   config.base_controller = 'ApplicationController'
+  #   config.admin_base_controller = 'ApplicationController'
 
   # Controller that Comfy::Cms::BaseController will inherit from
-  #   config.base_cms_controller = 'ApplicationController'
+  #   config.public_base_controller = 'ApplicationController'
 
   # Module responsible for authentication. You can replace it with your own.
   # It simply needs to have #authenticate method. See http_auth.rb for reference.

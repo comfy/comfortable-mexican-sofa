@@ -7,11 +7,11 @@ class ComfortableMexicanSofa::Configuration
 
   # Controller that is inherited from CmsAdmin::BaseController
   # 'ApplicationController' is the default
-  attr_accessor :base_controller
+  attr_accessor :admin_base_controller
 
   # Controller that Comfy::Cms::BaseController will inherit from
   # 'ApplicationController' is the default
-  attr_accessor :base_cms_controller
+  attr_accessor :public_base_controller
 
   # Module that will handle authentication to access cms-admin area
   attr_accessor :admin_auth
@@ -82,20 +82,20 @@ class ComfortableMexicanSofa::Configuration
 
   # Configuration defaults
   def initialize
-    @cms_title            = "ComfortableMexicanSofa CMS Engine"
-    @base_controller      = "ApplicationController"
-    @base_cms_controller  = "ApplicationController"
-    @admin_auth           = "ComfortableMexicanSofa::AccessControl::AdminAuthentication"
-    @admin_authorization  = "ComfortableMexicanSofa::AccessControl::AdminAuthorization"
-    @public_auth          = "ComfortableMexicanSofa::AccessControl::PublicAuthentication"
-    @public_authorization = "ComfortableMexicanSofa::AccessControl::PublicAuthorization"
-    @seed_data_path       = nil
-    @admin_route_redirect = ""
-    @enable_sitemap       = true
-    @enable_seeds         = false
-    @seeds_path           = File.expand_path("db/cms_seeds", Rails.root)
-    @revisions_limit      = 25
-    @locales              = {
+    @cms_title              = "ComfortableMexicanSofa CMS Engine"
+    @admin_base_controller  = "ApplicationController"
+    @public_base_controller = "ApplicationController"
+    @admin_auth             = "ComfortableMexicanSofa::AccessControl::AdminAuthentication"
+    @admin_authorization    = "ComfortableMexicanSofa::AccessControl::AdminAuthorization"
+    @public_auth            = "ComfortableMexicanSofa::AccessControl::PublicAuthentication"
+    @public_authorization   = "ComfortableMexicanSofa::AccessControl::PublicAuthorization"
+    @seed_data_path         = nil
+    @admin_route_redirect   = ""
+    @enable_sitemap         = true
+    @enable_seeds           = false
+    @seeds_path             = File.expand_path("db/cms_seeds", Rails.root)
+    @revisions_limit        = 25
+    @locales                = {
       "ca"    => "Català",
       "cs"    => "Česky",
       "da"    => "Dansk",

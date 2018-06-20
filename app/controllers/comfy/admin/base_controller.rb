@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Admin::BaseController < ComfortableMexicanSofa.config.base_controller.to_s.constantize
+class Comfy::Admin::BaseController < ComfortableMexicanSofa.config.admin_base_controller.to_s.constantize
 
   include Comfy::Paginate
 

@@ -10,7 +10,7 @@ class Comfy::Cms::BaseControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @existing = ComfortableMexicanSofa.configuration.base_cms_controller
-    ComfortableMexicanSofa.configuration.base_cms_controller = "AnotherTestController"
+    ComfortableMexicanSofa.configuration.public_base_controller = "AnotherTestController"
   end
 
   teardown do
