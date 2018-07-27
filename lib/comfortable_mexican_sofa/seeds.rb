@@ -26,7 +26,7 @@ module ComfortableMexicanSofa::Seeds
       end
     end
 
-    def import!(klasses)
+    def import!(klasses = nil)
       klasses = klasses || %w[Layout Page Snippet File]
       klasses.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
@@ -79,7 +79,7 @@ module ComfortableMexicanSofa::Seeds
       self.site = Comfy::Cms::Site.where(identifier: from).first!
     end
 
-    def export!(klasses)
+    def export!(klasses = nil)
       klasses = klasses || %w[Layout Page Snippet File]
       klasses.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
