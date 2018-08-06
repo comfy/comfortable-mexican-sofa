@@ -13,6 +13,14 @@ require "sass-rails"
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
 
+    initializer 'rails_email_preview.setup_assets' do
+      ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w(
+        comfy/admin/cms/application.js
+        comfy/admin/cms/application.css
+        comfy/admin/cms/lib/redactor-font.eot
+      )
+    end
+    
     config.to_prepare do
       Dir.glob(Rails.root + "app/decorators/comfortable_mexican_sofa/*_decorator*.rb").each do |c|
         require_dependency(c)
