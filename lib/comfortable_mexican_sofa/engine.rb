@@ -20,7 +20,7 @@ module ComfortableMexicanSofa
         comfy/admin/cms/lib/redactor-font.eot
       ]
     end
-    
+
     config.to_prepare do
       Dir.glob(Rails.root + "app/decorators/comfortable_mexican_sofa/*_decorator*.rb").each do |c|
         require_dependency(c)
