@@ -13,7 +13,7 @@ require "sass-rails"
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
 
-    initializer 'comfortable_mexican_sofa.setup_assets' do
+    initializer "comfortable_mexican_sofa.setup_assets" do
       ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w[
         comfy/admin/cms/application.js
         comfy/admin/cms/application.css
