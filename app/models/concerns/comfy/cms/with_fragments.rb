@@ -78,6 +78,8 @@ module Comfy::Cms::WithFragments
   # duplicate tags on the layout. That's wierd (but still works).
   def fragment_nodes
     nodes
+      .map { |n| n.respond_to?(:nodes) ? ([n] + n.nodes) : n }
+      .flatten
       .select { |n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment) }
       .uniq(&:identifier)
   end
