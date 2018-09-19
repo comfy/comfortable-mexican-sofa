@@ -1,7 +1,7 @@
 .fragment-attachments
   - attachments.each do |attachment|
     :ruby
-      thumb_url = if attachment.image?
+      thumb_url = if attachment.variable?
         url_for(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
       end
       filename = attachment.filename.to_s
