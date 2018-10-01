@@ -44,7 +44,7 @@ protected
   # it's possible to control mimetype of a page by creating a `mime_type` field
   def mime_type
     mime_block = @cms_page.fragments.detect { |f| f.identifier == "mime_type" }
-    mime_block&.content || "text/html"
+    mime_block&.content&.strip || "text/html"
   end
 
   def app_layout
