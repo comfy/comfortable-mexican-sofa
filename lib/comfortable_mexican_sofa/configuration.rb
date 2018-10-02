@@ -80,6 +80,8 @@ class ComfortableMexicanSofa::Configuration
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
+  # Customize returned content json data
+  # e.g. include fragments into json data config.content_json_options = { include: [:fragments] }
   attr_accessor :content_json_options
 
   # Configuration defaults
