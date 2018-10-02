@@ -41,7 +41,7 @@ class Comfy::Cms::ContentControllerJsonTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "application/json", response.content_type
     json_response = JSON.parse(response.body)
-    puts json_response
+
     assert_equal @page.id,        json_response["id"]
     assert_equal @page.site.id,   json_response["site_id"]
     assert_equal @page.layout.id, json_response["layout_id"]
