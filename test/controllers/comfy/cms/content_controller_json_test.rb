@@ -34,9 +34,9 @@ class Comfy::Cms::ContentControllerJsonTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_as_json_with_include
-    setup_json_config({
+    setup_json_config(
       include: [:fragments]
-    })
+    )
     get comfy_cms_render_page_path(cms_path: ""), as: :json
     assert_response :success
     assert_equal "application/json", response.content_type
@@ -84,4 +84,5 @@ class Comfy::Cms::ContentControllerJsonTest < ActionDispatch::IntegrationTest
       config.content_json_options = json_options
     end
   end
+
 end

@@ -132,7 +132,6 @@ class ComfortableMexicanSofa::Configuration
     @reveal_cms_partials  = false
     @public_cms_path      = nil
     @content_json_options = {}
-
   end
 
 end
