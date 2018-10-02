@@ -80,6 +80,8 @@ class ComfortableMexicanSofa::Configuration
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
+  attr_accessor :content_json_options
+
   # Configuration defaults
   def initialize
     @cms_title              = "ComfortableMexicanSofa CMS Engine"
@@ -127,6 +129,8 @@ class ComfortableMexicanSofa::Configuration
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
     @public_cms_path      = nil
+    @content_json_options = {}
+
   end
 
 end
