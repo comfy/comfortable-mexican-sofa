@@ -2,7 +2,7 @@
 
 class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
 
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, raise: false
 
   before_action :load_cms_layout,
                 :use_null_session
