@@ -6,7 +6,7 @@ pl:
       comfy/cms/page: Strona
       comfy/cms/snippet: Snippet
       comfy/cms/file: Plik
-      comfy/cms/translation: Translation
+      comfy/cms/translation: Tłumaczenie
 
     attributes:
       comfy/cms/site:
@@ -41,10 +41,10 @@ pl:
         label: Tytuł
         content: Zawartość
       comfy/cms/translation:
-        locale: Language
-        label: Label
-        layout_id: Layout
-        is_published: Published
+        locale: Język
+        label: Nazwa
+        layout_id: Szablon
+        is_published: Opublikowano
 
   comfy:
     cms:
@@ -144,7 +144,7 @@ pl:
             create: Utwórz stronę
             cancel: Anuluj
             update: Uaktualnij stronę
-            choose_link: Select page...
+            choose_link: Wybierz stronę...
 
         fragments:
           form_fragments:
@@ -153,25 +153,25 @@ pl:
               Dodaj do jego treści tag strony lub pola, np. <code>{{cms:wysiwyg content}}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: Tłumaczenie zostało utworzone
+          creation_failure: Błąd przy tworzeniu tlumaczenia
+          updated: Tłumaczenie zostało uaktualnione
+          update_failure: Błąd przy uaktualnianiu tłumaczenia
+          deleted: Tłumaczenie zostało usunięte
+          not_found: Nie znaleziono tłumaczenia
 
           new:
-            title: New Translation
+            title: Nowe tłumaczenie
           edit:
-            title: Editing Translation
+            title: Edytuj tłumaczenie
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: Podgląd
+            create: Utwórz tłumaczenie
+            update: Uaktualnij tłumaczenie
+            cancel: Anuluj
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: Nowe tłumaczenie
+            confirm: Jesteś pewien?
 
         snippets:
           created: Snippet został utworzony
