@@ -93,8 +93,8 @@ class FixtureFilesTest < ActiveSupport::TestCase
       returns(File.join(Rails.root, 'db/cms_fixtures/sample-site/files/sample.jpg'))
     ComfortableMexicanSofa::Fixture::File::Exporter.new('default-site', 'test-site').export!
 
-    assert File.exists?(attr_path)
-    assert File.exists?(file_path)
+    assert File.exist?(attr_path)
+    assert File.exist?(file_path)
     assert_equal ({
       'label'       => 'Default File',
       'description' => 'Default Description',

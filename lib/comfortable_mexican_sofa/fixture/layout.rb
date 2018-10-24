@@ -9,7 +9,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         layout.parent = parent
         
         # setting attributes
-        if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
+        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(layout, attrs_path)
             attrs = get_attributes(attrs_path)
             layout.label      = attrs['label']
@@ -20,7 +20,7 @@ module ComfortableMexicanSofa::Fixture::Layout
         
         # setting content
         %w(html haml).each do |extension|
-          if File.exists?(content_path = File.join(path, "content.#{extension}"))
+          if File.exist?(content_path = File.join(path, "content.#{extension}"))
             if fresh_fixture?(layout, content_path)
               layout.content = extension == "html" ? 
                 ::File.open(content_path).read : 
@@ -29,12 +29,12 @@ module ComfortableMexicanSofa::Fixture::Layout
           end
         end
         
-        if File.exists?(content_path = File.join(path, 'stylesheet.css'))
+        if File.exist?(content_path = File.join(path, 'stylesheet.css'))
           if fresh_fixture?(layout, content_path)
             layout.css = File.open(content_path).read
           end
         end
-        if File.exists?(content_path = File.join(path, 'javascript.js'))
+        if File.exist?(content_path = File.join(path, 'javascript.js'))
           if fresh_fixture?(layout, content_path)
             layout.js = File.open(content_path).read
           end
