@@ -3,7 +3,7 @@ require_relative '../../../../test_helper'
 class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_get_index
-    get :index, :site_id => comfy_cms_sites(:default)
+    get :index, params: { :site_id => comfy_cms_sites(:default) }
     assert_response :success
     assert assigns(:snippets)
     assert_template :index
@@ -11,7 +11,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_get_index_with_no_snippets
     Comfy::Cms::Snippet.delete_all
-    get :index, :site_id => comfy_cms_sites(:default)
+    get :index, params: { :site_id => comfy_cms_sites(:default) }
     assert_response :redirect
     assert_redirected_to :action => :new
   end
@@ -23,7 +23,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     )
     category.categorizations.create!(:categorized => comfy_cms_snippets(:default))
 
-    get :index, :site_id => comfy_cms_sites(:default), :category => category.label
+    get :index, params: { :site_id => comfy_cms_sites(:default), :category => category.label }
     assert_response :success
     assert assigns(:snippets)
     assert_equal 1, assigns(:snippets).count
@@ -31,7 +31,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_category_invalid
-    get :index, :site_id => comfy_cms_sites(:default), :category => 'invalid'
+    get :index, params: { :site_id => comfy_cms_sites(:default), :category => 'invalid'}
     assert_response :success
     assert assigns(:snippets)
     assert_equal 0, assigns(:snippets).count
@@ -39,7 +39,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_get_new
     site = comfy_cms_sites(:default)
-    get :new, :site_id => site
+    get :new, params: { :site_id => site }
     assert_response :success
     assert assigns(:snippet)
     assert_template :new
@@ -48,7 +48,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_get_edit
     snippet = comfy_cms_snippets(:default)
-    get :edit, :site_id => snippet.site, :id => snippet
+    get :edit, params: { :site_id => snippet.site, :id => snippet }
     assert_response :success
     assert assigns(:snippet)
     assert_template :edit
@@ -57,14 +57,14 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_get_edit_with_params
     snippet = comfy_cms_snippets(:default)
-    get :edit, :site_id => snippet.site, :id => snippet, :snippet => {:label => 'New Label'}
+    get :edit, params: { :site_id => snippet.site, :id => snippet, :snippet => {:label => 'New Label'} }
     assert_response :success
     assert assigns(:snippet)
     assert_equal 'New Label', assigns(:snippet).label
   end
 
   def test_get_edit_failure
-    get :edit, :site_id => comfy_cms_sites(:default), :id => 'not_found'
+    get :edit, params: { :site_id => comfy_cms_sites(:default), :id => 'not_found' }
     assert_response :redirect
     assert_redirected_to :action => :index
     assert_equal 'Snippet not found', flash[:danger]
@@ -72,11 +72,11 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference 'Comfy::Cms::Snippet.count' do
-      post :create, :site_id => comfy_cms_sites(:default), :snippet => {
+      post :create, params: { :site_id => comfy_cms_sites(:default), :snippet => {
         :label      => 'Test Snippet',
         :identifier => 'test-snippet',
         :content    => 'Test Content'
-      }
+      }}
       assert_response :redirect
       snippet = Comfy::Cms::Snippet.last
       assert_equal comfy_cms_sites(:default), snippet.site
@@ -87,7 +87,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_creation_failure
     assert_no_difference 'Comfy::Cms::Snippet.count' do
-      post :create, :site_id => comfy_cms_sites(:default), :snippet => { }
+      post :create, params: { :site_id => comfy_cms_sites(:default), :snippet => { } }
       assert_response :success
       assert_template :new
       assert_equal 'Failed to create snippet', flash[:danger]
@@ -96,10 +96,10 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_update
     snippet = comfy_cms_snippets(:default)
-    put :update, :site_id => snippet.site, :id => snippet, :snippet => {
+    put :update, params: { :site_id => snippet.site, :id => snippet, :snippet => {
       :label    => 'New-Snippet',
       :content  => 'New Content'
-    }
+    }}
     assert_response :redirect
     assert_redirected_to :action => :edit, :site_id => snippet.site, :id => snippet
     assert_equal 'Snippet updated', flash[:success]
@@ -110,9 +110,9 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_update_failure
     snippet = comfy_cms_snippets(:default)
-    put :update, :site_id => snippet.site, :id => snippet, :snippet => {
+    put :update, params: { :site_id => snippet.site, :id => snippet, :snippet => {
       :identifier => ''
-    }
+    }}
     assert_response :success
     assert_template :edit
     snippet.reload
@@ -122,7 +122,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
 
   def test_destroy
     assert_difference 'Comfy::Cms::Snippet.count', -1 do
-      delete :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_snippets(:default)
+      delete :destroy, params: { :site_id => comfy_cms_sites(:default), :id => comfy_cms_snippets(:default) }
       assert_response :redirect
       assert_redirected_to :action => :index
       assert_equal 'Snippet deleted', flash[:success]
@@ -138,7 +138,7 @@ class Comfy::Admin::Cms::SnippetsControllerTest < ActionController::TestCase
     assert_equal 0, snippet_one.position
     assert_equal 1, snippet_two.position
 
-    post :reorder, :site_id => comfy_cms_sites(:default), :comfy_cms_snippet => [snippet_two.id, snippet_one.id]
+    post :reorder, params: { :site_id => comfy_cms_sites(:default), :comfy_cms_snippet => [snippet_two.id, snippet_one.id] }
     assert_response :success
     snippet_one.reload
     snippet_two.reload
