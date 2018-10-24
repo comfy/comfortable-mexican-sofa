@@ -2,6 +2,7 @@ class Comfy::Admin::Cms::CategoriesController < Comfy::Admin::Cms::BaseControlle
 
   before_action :load_category,  :only => [:edit, :update, :destroy]
   before_action :authorize
+  before_action :categories, only: [:create, :update]
 
   def edit
     render
@@ -35,4 +36,7 @@ protected
     params.fetch(:category, {}).permit!
   end
 
+  def categories
+    @categories = params[:category]
+  end
 end
