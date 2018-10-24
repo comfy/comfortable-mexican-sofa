@@ -28,8 +28,8 @@ module Comfy
 
       def generate_routing
         route_string  = "  comfy_route :cms_admin, :path => '/admin'\n\n"
-        route_string << "  # Make sure this routeset is defined last\n"
-        route_string << "  comfy_route :cms, :path => '/', :sitemap => false\n"
+        route_string << "# Make sure this routeset is defined last\n"
+        route_string << "comfy_route :cms, :path => '/', :sitemap => false\n\n"
         route route_string[2..-1]
       end
 
