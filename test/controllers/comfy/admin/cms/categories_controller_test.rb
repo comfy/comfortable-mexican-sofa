@@ -3,24 +3,24 @@ require_relative '../../../../test_helper'
 class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   
   def test_get_edit
-    xhr :get, :edit, :site_id => comfy_cms_sites(:default), :id => comfy_cms_categories(:default)
+    get :edit, params: { :site_id => comfy_cms_sites(:default), :id => comfy_cms_categories(:default) }, xhr: true
     assert_response :success
     assert_template :edit
     assert assigns(:category)
   end
   
   def test_get_edit_failure
-    xhr :get, :edit, :site_id => comfy_cms_sites(:default), :id => 'invalid'
+    get :edit, params: { :site_id => comfy_cms_sites(:default), :id => 'invalid' }
     assert_response :success
     assert response.body.blank?
   end
   
   def test_creation
     assert_difference 'Comfy::Cms::Category.count' do
-      xhr :post, :create, :site_id => comfy_cms_sites(:default), :category => {
+      post :create, params: { :site_id => comfy_cms_sites(:default), :category => {
         :label            => 'Test Label',
         :categorized_type => 'Comfy::Cms::Snippet'
-      }
+      } }, xhr: true
       assert_response :success
       assert_template :create
       assert assigns(:category)
@@ -29,7 +29,7 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   
   def test_creation_failure
     assert_no_difference 'Comfy::Cms::Category.count' do
-      xhr :post, :create, :site_id => comfy_cms_sites(:default), :category => { }
+      post :create, params: { :site_id => comfy_cms_sites(:default), :category => { } }, xhr: true
       assert_response :success
       assert response.body.blank?
     end
@@ -37,9 +37,9 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   
   def test_update
     category = comfy_cms_categories(:default)
-    xhr :put, :update, :site_id => comfy_cms_sites(:default), :id => category, :category => {
+    put :update, params: { :site_id => comfy_cms_sites(:default), :id => category, :category => {
       :label => 'Updated Label'
-    }
+    }}, xhr: true
     assert_response :success
     assert_template :update
     assert assigns(:category)
@@ -49,9 +49,9 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   
   def test_update_failure
     category = comfy_cms_categories(:default)
-    xhr :put, :update, :site_id => comfy_cms_sites(:default), :id => category, :category => {
+    put :update, params: { :site_id => comfy_cms_sites(:default), :id => category, :category => {
       :label => ''
-    }
+    }}, xhr: true
     assert_response :success
     assert response.body.blank?
     category.reload
@@ -60,7 +60,7 @@ class Comfy::Admin::Cms::CategoriesControllerTest < ActionController::TestCase
   
   def test_destroy
     assert_difference 'Comfy::Cms::Category.count', -1 do
-      xhr :delete, :destroy, :site_id => comfy_cms_sites(:default), :id => comfy_cms_categories(:default)
+      delete :destroy, params: { :site_id => comfy_cms_sites(:default), :id => comfy_cms_categories(:default)}, xhr: true
       assert assigns(:category)
       assert_response :success
       assert_template :destroy
