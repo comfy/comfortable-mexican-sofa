@@ -101,15 +101,15 @@ class FixtureLayoutsTest < ActiveSupport::TestCase
     
     ComfortableMexicanSofa::Fixture::Layout::Exporter.new('default-site', 'test-site').export!
     
-    assert File.exists?(layout_1_attr_path)
-    assert File.exists?(layout_1_content_path)
-    assert File.exists?(layout_1_css_path)
-    assert File.exists?(layout_1_js_path)
+    assert File.exist?(layout_1_attr_path)
+    assert File.exist?(layout_1_content_path)
+    assert File.exist?(layout_1_css_path)
+    assert File.exist?(layout_1_js_path)
     
-    assert File.exists?(layout_2_attr_path)
-    assert File.exists?(layout_2_content_path)
-    assert File.exists?(layout_2_css_path)
-    assert File.exists?(layout_2_js_path)
+    assert File.exist?(layout_2_attr_path)
+    assert File.exist?(layout_2_content_path)
+    assert File.exist?(layout_2_css_path)
+    assert File.exist?(layout_2_js_path)
     
     assert_equal ({
       'label'       => 'Nested Layout',

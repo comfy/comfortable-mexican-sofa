@@ -92,8 +92,8 @@ class FixtureSnippetsTest < ActiveSupport::TestCase
     
     ComfortableMexicanSofa::Fixture::Snippet::Exporter.new('default-site', 'test-site').export!
     
-    assert File.exists?(attr_path)
-    assert File.exists?(content_path)
+    assert File.exist?(attr_path)
+    assert File.exist?(content_path)
     assert_equal ({
       'label'       => 'Default Snippet',
       'categories'  => ['Default']
