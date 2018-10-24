@@ -38,14 +38,14 @@ module ComfortableMexicanSofa::IsMirrored
       (Comfy::Cms::Site.mirrored - [self.site]).each do |site|
         mirror = case self
         when Comfy::Cms::Layout
-          m = site.layouts.find_by_identifier(self.identifier_was || self.identifier) || site.layouts.new
+          m = site.layouts.find_by_identifier(attribute_before_last_save(:identifier) || self.identifier) || site.layouts.new
           m.attributes = {
             :identifier => self.identifier,
             :parent_id  => site.layouts.find_by_identifier(self.parent.try(:identifier)).try(:id)
           }
           m
         when Comfy::Cms::Page
-          m = site.pages.find_by_full_path(self.full_path_was || self.full_path) || site.pages.new
+          m = site.pages.find_by_full_path(attribute_before_last_save(:full_path) || self.full_path) || site.pages.new
           m.attributes = {
             :slug       => self.slug,
             :label      => m.label.blank?? self.label : m.label,
@@ -54,7 +54,7 @@ module ComfortableMexicanSofa::IsMirrored
           }
           m
         when Comfy::Cms::Snippet
-          m = site.snippets.find_by_identifier(self.identifier_was || self.identifier) || site.snippets.new
+          m = site.snippets.find_by_identifier(attribute_before_last_save(:identifier) || self.identifier) || site.snippets.new
           m.attributes = {
             :identifier => self.identifier
           }
