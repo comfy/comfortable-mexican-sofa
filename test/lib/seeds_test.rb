@@ -67,6 +67,7 @@ class SeedsTest < ActiveSupport::TestCase
 
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
     ComfortableMexicanSofa::Seeds::Exporter.new("default-site", "test-site").export!
+  ensure
     FileUtils.rm_rf(host_path)
   end
 
@@ -82,13 +83,15 @@ class SeedsTest < ActiveSupport::TestCase
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
     ComfortableMexicanSofa::Seeds::Exporter.new("default-site", "test-site").export!(["Layout"])
     assert(File.exist?(File.join(host_path, "layouts")))
+  ensure
     FileUtils.rm_rf(host_path)
   end
 
   def test_export_multiple_classes
     host_path = File.join(ComfortableMexicanSofa.config.seeds_path, "test-site")
     ComfortableMexicanSofa::Seeds::Exporter.new("default-site", "test-site").export!(%w[Layout Snippet])
-    assert(%w[layouts snippets].all? {|klass| File.exist?(File.join(host_path, klass))})
+    assert(%w[layouts snippets].all? { |klass| File.exist?(File.join(host_path, klass)) })
+  ensure
     FileUtils.rm_rf(host_path)
   end
 
