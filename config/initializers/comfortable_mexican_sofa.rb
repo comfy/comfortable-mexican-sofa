@@ -80,6 +80,12 @@ ComfortableMexicanSofa.configure do |config|
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   #   config.reveal_cms_partials = false
+  #
+  # Customize the returned content json data
+  # include fragments in content json
+  #   config.content_json_options = {
+  #     include: [:fragments]
+  #   }
 end
 
 # Default credentials for ComfortableMexicanSofa::AccessControl::AdminAuthentication
