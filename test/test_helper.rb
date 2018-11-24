@@ -57,6 +57,7 @@ class ActiveSupport::TestCase
       config.hostname_aliases     = nil
       config.reveal_cms_partials  = false
       config.public_cms_path      = nil
+      config.page_to_json_options = { methods: [:content], except: [:content_cache] }
     end
     ComfortableMexicanSofa::AccessControl::AdminAuthentication.username = "username"
     ComfortableMexicanSofa::AccessControl::AdminAuthentication.password = "password"

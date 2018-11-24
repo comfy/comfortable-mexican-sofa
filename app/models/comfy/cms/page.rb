@@ -10,6 +10,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
   cms_acts_as_tree counter_cache: :children_count, order: :position
   cms_has_revisions_for :fragments_attributes
 
+  attr_accessor :content
+
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
   belongs_to :target_page,

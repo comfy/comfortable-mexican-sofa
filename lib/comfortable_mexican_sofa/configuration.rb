@@ -80,9 +80,10 @@ class ComfortableMexicanSofa::Configuration
   # Auto-setting parameter derived from the routes
   attr_accessor :public_cms_path
 
-  # Customize returned content json data
-  # e.g. include fragments into json data config.content_json_options = { include: [:fragments] }
-  attr_accessor :content_json_options
+  # Customize returned content from `page.to_json`
+  # Default is set to `methods: [:content], except: [:content_cache]`
+  # For example: include fragments into json data with `config.page_to_json_options = { include: [:fragments] }`
+  attr_accessor :page_to_json_options
 
   # Configuration defaults
   def initialize
@@ -131,7 +132,7 @@ class ComfortableMexicanSofa::Configuration
     @hostname_aliases     = nil
     @reveal_cms_partials  = false
     @public_cms_path      = nil
-    @content_json_options = {}
+    @page_to_json_options = { methods: [:content], except: [:content_cache] }
   end
 
 end

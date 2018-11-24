@@ -27,6 +27,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_nil config.allowed_partials
     assert_nil config.allowed_templates
     assert_nil config.hostname_aliases
+    assert_equal ({ methods: [:content], except: [:content_cache] }), config.page_to_json_options
   end
 
   def test_initialization_overrides

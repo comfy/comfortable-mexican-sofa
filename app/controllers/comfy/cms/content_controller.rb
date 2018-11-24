@@ -21,12 +21,11 @@ class Comfy::Cms::ContentController < Comfy::Cms::BaseController
       respond_to do |format|
         format.html { render_page }
         format.json do
-          json_options = { except: [:content_cache] }.merge(ComfortableMexicanSofa.config.content_json_options)
-          json_page = @cms_page.as_json(json_options)
-          json_page[:content] = render_to_string(
+          @cms_page.content = render_to_string(
             inline: @cms_page.content_cache,
             layout: false
           )
+          json_page = @cms_page.as_json(ComfortableMexicanSofa.config.page_to_json_options)
           render json: json_page
         end
       end
