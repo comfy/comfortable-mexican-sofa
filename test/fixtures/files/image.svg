@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="620" height="472" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="Composición_barra_de_color_EBU.svg">
+  <metadata id="metadata83">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1366" inkscape:window-height="719" id="namedview81" showgrid="false" inkscape:zoom="1.059" inkscape:cx="310" inkscape:cy="236" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="svg2"/>
+  <defs id="defs4">
+    <rect id="box1" width="77px" height="210px" style="stroke:#000;stroke-width:2px;"/>
+    <rect id="box2" width="77px" height="60px" style="stroke:#000;stroke-width:2px;"/>
+  </defs>
+  <rect id="bg" width="620" height="472" fill="#fff"/>
+  <g transform="translate(2 1)" id="g9">
+    <use xlink:href="#box1" x="0" fill="#fff" id="use11"/>
+    <use xlink:href="#box1" x="77" fill="#ff0" id="use13"/>
+    <use xlink:href="#box1" x="154" fill="#0ff" id="use15"/>
+    <use xlink:href="#box1" x="231" fill="#0f0" id="use17"/>
+    <use xlink:href="#box1" x="308" fill="#f0f" id="use19"/>
+    <use xlink:href="#box1" x="385" fill="#f00" id="use21"/>
+    <use xlink:href="#box1" x="462" fill="#00f" id="use23"/>
+    <use xlink:href="#box1" x="539" fill="#000" id="use25"/>
+  </g>
+  <g transform="translate(2 230)" id="g27">
+    <use xlink:href="#box2" x="0" fill="#f00" id="use29"/>
+    <use xlink:href="#box2" x="77" fill="#f00" id="use31"/>
+    <use xlink:href="#box2" x="154" fill="#fff" id="use33"/>
+    <use xlink:href="#box2" x="231" fill="#fff" id="use35"/>
+    <use xlink:href="#box2" x="308" fill="#f00" id="use37"/>
+    <use xlink:href="#box2" x="385" fill="#f00" id="use39"/>
+    <use xlink:href="#box2" x="462" fill="#fff" id="use41"/>
+    <use xlink:href="#box2" x="539" fill="#fff" id="use43"/>
+  </g>
+  <g transform="translate(2 312)" id="g45">
+    <use xlink:href="#box2" x="0" fill="#0f0" id="use47"/>
+    <use xlink:href="#box2" x="77" fill="#0f0" id="use49"/>
+    <use xlink:href="#box2" x="154" fill="#0f0" id="use51"/>
+    <use xlink:href="#box2" x="231" fill="#0f0" id="use53"/>
+    <use xlink:href="#box2" x="308" fill="#fff" id="use55"/>
+    <use xlink:href="#box2" x="385" fill="#fff" id="use57"/>
+    <use xlink:href="#box2" x="462" fill="#fff" id="use59"/>
+    <use xlink:href="#box2" x="539" fill="#fff" id="use61"/>
+  </g>
+  <g transform="translate(2 392)" id="g63">
+    <use xlink:href="#box2" x="0" fill="#00f" id="use65"/>
+    <use xlink:href="#box2" x="77" fill="#fff" id="use67"/>
+    <use xlink:href="#box2" x="154" fill="#00f" id="use69"/>
+    <use xlink:href="#box2" x="231" fill="#fff" id="use71"/>
+    <use xlink:href="#box2" x="308" fill="#00f" id="use73"/>
+    <use xlink:href="#box2" x="385" fill="#fff" id="use75"/>
+    <use xlink:href="#box2" x="462" fill="#00f" id="use77"/>
+    <use xlink:href="#box2" x="539" fill="#fff" id="use79"/>
+  </g>
+  <text xml:space="preserve" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:180px;line-height:125%;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" x="59.492619" y="174.47415" id="text3446" sodipodi:linespacing="125%"><tspan sodipodi:role="line" id="tspan3448" x="59.492619" y="174.47415">TEST</tspan></text>
+</svg>
