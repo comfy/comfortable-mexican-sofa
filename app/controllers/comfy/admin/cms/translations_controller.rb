@@ -28,7 +28,7 @@ class Comfy::Admin::Cms::TranslationsController < Comfy::Admin::Cms::BaseControl
   end
 
   def update
-    @translation.update_attributes!(translation_params)
+    @translation.update!(translation_params)
     flash[:success] = I18n.t("comfy.admin.cms.translations.updated")
     redirect_to action: :edit, id: @translation
   rescue ActiveRecord::RecordInvalid

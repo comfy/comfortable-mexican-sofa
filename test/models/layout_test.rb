@@ -179,7 +179,7 @@ class CmsLayoutTest < ActiveSupport::TestCase
     assert_equal "header_content\ncontent_content", page_a.content_cache
     assert_equal "header_content\nleft_column_content\nleft_column_content", page_b.content_cache
 
-    layout_a.update_attributes(content: "Updated {{cms:text content}}")
+    layout_a.update(content: "Updated {{cms:text content}}")
     page_a.reload
     page_b.reload
 

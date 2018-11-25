@@ -33,7 +33,7 @@ class Comfy::Admin::Cms::SitesController < Comfy::Admin::Cms::BaseController
   end
 
   def update
-    @site.update_attributes!(site_params)
+    @site.update!(site_params)
     flash[:success] = I18n.t("comfy.admin.cms.sites.updated")
     redirect_to action: :edit, id: @site
   rescue ActiveRecord::RecordInvalid

@@ -208,7 +208,7 @@ class CmsPageTest < ActiveSupport::TestCase
     fragment_count  = -> { Comfy::Cms::Fragment.count }
 
     assert_no_difference [page_count, fragment_count] do
-      @page.update_attributes!(fragments_attributes: [
+      @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
           content:    "updated content" }
       ])
@@ -219,7 +219,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_update_with_file
     assert_no_difference -> { ActiveStorage::Attachment.count } do
-      @page.update_attributes!(
+      @page.update!(
         fragments_attributes: [{
           identifier: "file",
           tag:        "file",
@@ -233,7 +233,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_update_with_file_removal
     id = comfy_cms_fragments(:file).attachments.first.id
     assert_difference(-> { ActiveStorage::Attachment.count }, -1) do
-      @page.update_attributes!(
+      @page.update!(
         fragments_attributes: [{
           identifier:       "file",
           file_ids_destroy: [id]
@@ -251,7 +251,7 @@ class CmsPageTest < ActiveSupport::TestCase
     fragment_count  = -> { Comfy::Cms::Fragment.count }
 
     assert_no_difference [page_count, fragment_count] do
-      @page.update_attributes!(fragments_attributes: [
+      @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
           datetime:   string }
       ])
@@ -268,7 +268,7 @@ class CmsPageTest < ActiveSupport::TestCase
     fragment_count  = -> { Comfy::Cms::Fragment.count }
 
     assert_no_difference [page_count, fragment_count] do
-      @page.update_attributes!(fragments_attributes: [
+      @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
           boolean:    "0" }
       ])
@@ -291,7 +291,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 0, page_b.children_count
     assert_equal 0, page_c.children_count
 
-    page_c.update_attributes!(parent_id: page_b)
+    page_c.update!(parent_id: page_b)
 
     [page_a, page_b, page_c].each(&:reload)
     assert_equal 1, page_a.children_count
@@ -333,7 +333,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "/child-page/test-page-2/test-page-3", page_c.full_path
     assert_equal "/child-page/test-page-1/test-page-4", page_d.full_path
 
-    page.update_attributes!(slug: "updated-page")
+    page.update!(slug: "updated-page")
     assert_equal "/updated-page", page.full_path
     [page_a, page_b, page_c, page_d].each(&:reload)
     assert_equal "/updated-page/test-page-1", page_a.full_path
@@ -341,7 +341,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "/updated-page/test-page-2/test-page-3", page_c.full_path
     assert_equal "/updated-page/test-page-1/test-page-4", page_d.full_path
 
-    page_b.update_attributes!(parent: page_a)
+    page_b.update!(parent: page_a)
     [page_a, page_b, page_c, page_d].each(&:reload)
     assert_equal "/updated-page/test-page-1", page_a.full_path
     assert_equal "/updated-page/test-page-1/test-page-2", page_b.full_path
@@ -361,7 +361,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, page_b.children_count
     assert_equal 0, page_c.children_count
 
-    page_c.update_attributes!(parent: page_a)
+    page_c.update!(parent: page_a)
     [page_a, page_b].each(&:reload)
     assert_equal 2, page_a.children_count
     assert_equal 0, page_b.children_count

@@ -96,7 +96,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal 1, frag.attachments.count
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
     assert_difference -> { frag.attachments.count } do
-      frag.update_attributes(
+      frag.update(
         tag:    "files",
         files:  [@upload_doc]
       )
@@ -108,7 +108,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
     assert_equal 1, frag.attachments.count
     assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
     assert_no_difference -> { frag.attachments.count } do
-      frag.update_attributes(
+      frag.update(
         tag:    "file",
         files:  [@upload_doc]
       )
@@ -120,7 +120,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def test_update_with_file_removal
     frag = comfy_cms_fragments(:file)
     assert_difference -> { frag.attachments.count }, -1 do
-      frag.update_attributes(
+      frag.update(
         file_ids_destroy: frag.attachments.pluck(:id)
       )
     end
@@ -129,7 +129,7 @@ class CmsFragmentTest < ActiveSupport::TestCase
   def test_touch
     timestamp = 2.days.ago
     @page.update_column(:updated_at, timestamp)
-    comfy_cms_fragments(:default).update_attributes(content: "updated")
+    comfy_cms_fragments(:default).update(content: "updated")
     @page.reload
     refute_equal timestamp, @page.updated_at
   end

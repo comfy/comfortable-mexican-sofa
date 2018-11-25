@@ -13,7 +13,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
       get "/render-layout"          => "render_test#render_layout"
     end
     comfy_cms_layouts(:default).update_columns(content: "{{cms:text content}}")
-    comfy_cms_pages(:child).update_attributes(fragments_attributes: [
+    comfy_cms_pages(:child).update(fragments_attributes: [
       { identifier: "content", content: "TestBlockContent" }
     ])
   end
@@ -119,7 +119,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   # -- Page Render Test --------------------------------------------------------
   def test_implicit_cms_page
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: "render-basic")
+    page.update(slug: "render-basic")
     get "/render-basic?type=page_implicit"
     assert_response :success
     assert assigns(:cms_site)
@@ -131,7 +131,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_implicit_cms_page_with_site_path
     comfy_cms_sites(:default).update_column(:path, "site-path")
-    comfy_cms_pages(:child).update_attributes(slug: "render-page")
+    comfy_cms_pages(:child).update(slug: "render-page")
     get "/site-path/render-page?type=page_implicit"
     assert_response :success
     assert_equal "TestBlockContent", response.body
@@ -139,7 +139,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_explicit_cms_page
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: "test-page")
+    page.update(slug: "test-page")
     get "/render-page?type=page_explicit"
     assert_response :success
     assert assigns(:cms_site)
@@ -151,7 +151,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_explicit_cms_page_with_status
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: "test-page")
+    page.update(slug: "test-page")
     get "/render-page?type=page_explicit_with_status"
     assert_response :not_found
     assert assigns(:cms_site)
@@ -163,7 +163,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_explicit_cms_page_failure
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: "invalid")
+    page.update(slug: "invalid")
     assert_exception_raised ComfortableMexicanSofa::MissingPage do
       get "/render-page?type=page_explicit"
     end
@@ -186,7 +186,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_explicit_with_page_blocks
     page = comfy_cms_pages(:child)
-    page.update_attributes(slug: "test-page")
+    page.update(slug: "test-page")
     get "/render-page?type=page_explicit_with_blocks"
     assert_response :success
     assert_equal "custom page content", response.body

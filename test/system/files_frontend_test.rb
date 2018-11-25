@@ -25,7 +25,7 @@ class FilesFrontendTest < ApplicationSystemTestCase
 
     comfy_cms_fragments(:default).update_column(:content, "")
 
-    @page.update_attributes!(
+    @page.update!(
       fragments_attributes: [{
         identifier: "attachments",
         tag:        "files",

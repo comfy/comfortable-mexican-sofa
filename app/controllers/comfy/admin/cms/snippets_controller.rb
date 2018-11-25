@@ -32,7 +32,7 @@ class Comfy::Admin::Cms::SnippetsController < Comfy::Admin::Cms::BaseController
   end
 
   def update
-    @snippet.update_attributes!(snippet_params)
+    @snippet.update!(snippet_params)
     flash[:success] = I18n.t("comfy.admin.cms.snippets.updated")
     redirect_to action: :edit, id: @snippet
   rescue ActiveRecord::RecordInvalid

@@ -43,7 +43,7 @@ class RevisionsTest < ActiveSupport::TestCase
     old_attributes = @layout.attributes.slice("content", "css", "js")
 
     assert_difference -> { @layout.revisions.count } do
-      @layout.update_attributes!(
+      @layout.update!(
         content:  "new {{cms:fragment content}}",
         js:       "new js"
       )
@@ -56,13 +56,13 @@ class RevisionsTest < ActiveSupport::TestCase
 
   def test_creation_for_layout_ignore
     assert_no_difference -> { @layout.revisions.count } do
-      @layout.update_attributes(label: "new label")
+      @layout.update(label: "new label")
     end
   end
 
   def test_creation_for_page
     assert_difference -> { @page.revisions.count } do
-      @page.update_attributes!(
+      @page.update!(
         fragments_attributes:  [
           { identifier: "content",
             content:    "new content" }
@@ -101,7 +101,7 @@ class RevisionsTest < ActiveSupport::TestCase
 
   def test_creation_for_page_ignore
     assert_no_difference -> { @page.revisions.count } do
-      @page.update_attributes(label: "new label")
+      @page.update(label: "new label")
     end
   end
 
@@ -109,7 +109,7 @@ class RevisionsTest < ActiveSupport::TestCase
     old_attributes = @snippet.attributes.slice("content")
 
     assert_difference -> { @snippet.revisions.count } do
-      @snippet.update_attributes(content: "new content")
+      @snippet.update(content: "new content")
       @snippet.reload
       assert_equal 2, @snippet.revisions.count
       revision = @snippet.revisions.last
@@ -119,7 +119,7 @@ class RevisionsTest < ActiveSupport::TestCase
 
   def test_creation_for_snippet_ignore
     assert_no_difference -> { @snippet.revisions.count } do
-      @snippet.update_attributes(label: "new label")
+      @snippet.update(label: "new label")
     end
   end
 
@@ -212,7 +212,7 @@ class RevisionsTest < ActiveSupport::TestCase
     assert_equal 1, @snippet.revisions.count
 
     assert_no_difference -> { @snippet.revisions.count } do
-      @snippet.update_attributes(content: "new content")
+      @snippet.update(content: "new content")
       assert_nil Comfy::Cms::Revision.find_by_id(revision.id)
 
       @snippet.reload

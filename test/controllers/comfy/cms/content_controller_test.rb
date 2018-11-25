@@ -71,7 +71,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_as_json_with_erb
-    @page.update_attributes(fragments_attributes: [
+    @page.update(fragments_attributes: [
       { identifier: "content", content: "{{ cms:helper pluralize, 2, monkey }}" }
     ])
     get comfy_cms_render_page_path(cms_path: ""), as: :json

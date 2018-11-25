@@ -54,12 +54,12 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     page = comfy_cms_pages(:default)
     assert_equal 0, page.categories.count
 
-    page.update_attributes(category_ids: [@category.id, 9999])
+    page.update(category_ids: [@category.id, 9999])
 
     page.reload
     assert_equal 1, page.categories.count
 
-    page.update_attributes(category_ids: [])
+    page.update(category_ids: [])
     page.reload
     assert_equal 0, page.categories.count
   end

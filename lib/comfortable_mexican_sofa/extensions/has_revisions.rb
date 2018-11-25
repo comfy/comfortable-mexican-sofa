@@ -60,7 +60,7 @@ module ComfortableMexicanSofa::HasRevisions
     # Assigning whatever is found in revision data and attempting to save the object
     def restore_from_revision(revision)
       return unless revision.record == self
-      update_attributes!(revision.data)
+      update!(revision.data)
     end
 
   end

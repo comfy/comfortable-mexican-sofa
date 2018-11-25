@@ -160,7 +160,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
       categorized: comfy_cms_pages(:default)
     )
 
-    comfy_cms_translations(:default).update_attributes!(fragments_attributes: [
+    comfy_cms_translations(:default).update!(fragments_attributes: [
       {
         identifier: "content",
         content:    "translation content",

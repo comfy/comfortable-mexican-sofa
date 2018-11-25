@@ -29,7 +29,7 @@ class Admin::<%= class_name.pluralize %>Controller < Comfy::Admin::BaseControlle
   end
 
   def update
-    @<%= file_name %>.update_attributes!(<%= file_name %>_params)
+    @<%= file_name %>.update!(<%= file_name %>_params)
     flash[:success] = '<%= class_name.titleize %> updated'
     redirect_to action: :show, id: @<%= file_name %>
   rescue ActiveRecord::RecordInvalid
