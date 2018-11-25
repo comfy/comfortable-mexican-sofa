@@ -192,6 +192,20 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
     assert_equal "custom page content", response.body
   end
 
+  def test_explicit_with_translation
+    I18n.locale = :fr
+
+    page = comfy_cms_pages(:child)
+    page.update(slug: "test-page")
+
+    # pointing translation to our page here
+    translation = comfy_cms_translations(:default)
+    translation.update_column(:page_id, page.id)
+
+    get "/render-page?type=page_explicit"
+    assert_equal "translated content", response.body
+  end
+
   # -- Layout Render Tests -----------------------------------------------------
   def test_cms_layout_defaults
     get "/render-layout?type=layout_defaults"

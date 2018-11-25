@@ -374,7 +374,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_cascading_destroy
     assert_difference(-> { Comfy::Cms::Page.count }, -2) do
-      assert_difference(-> { Comfy::Cms::Fragment.count }, -4) do
+      assert_difference(-> { Comfy::Cms::Fragment.count }, -5) do
         assert_difference(-> { Comfy::Cms::Translation.count }, -1) do
           @page.destroy
         end
@@ -580,27 +580,51 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_translate
+    I18n.locale = :fr
+
     translation = comfy_cms_translations(:default)
     translation.update_columns(layout_id: comfy_cms_layouts(:nested).id)
 
-    @page.translate!(:fr)
+    @page.translate!
     assert @page.readonly?
 
     assert_equal comfy_cms_layouts(:nested), @page.layout
     assert_equal "Default Translation", @page.label
     assert_equal "Translation Content", @page.content_cache
+
+    frag = @page.fragments.find { |f| f.identifier == "content" }
+    assert_equal "translated content", frag.content
+  end
+
+  def test_translate_with_no_translations
+    I18n.locale = :fr
+    Comfy::Cms::Translation.delete_all
+
+    @page.translate!
+    assert_equal "Default Page", @page.label
+  end
+
+  def test_translate_with_default_locale
+    I18n.locale = @page.site.locale
+
+    @page.translate!
+    assert_equal "Default Page", @page.label
   end
 
   def test_translate_with_unpublished
+    I18n.locale = :fr
+
     comfy_cms_translations(:default).update_column(:is_published, false)
     assert_exception_raised ActiveRecord::RecordNotFound do
-      @page.translate!(:fr)
+      @page.translate!
     end
   end
 
   def test_translate_with_invalid_locale
+    I18n.locale = :es
+
     assert_exception_raised ActiveRecord::RecordNotFound do
-      @page.translate!(:es)
+      @page.translate!
     end
   end
 

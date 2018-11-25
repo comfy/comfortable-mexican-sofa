@@ -73,15 +73,10 @@ protected
   # Getting page and setting content_cache and fragments data if we need to
   # serve translation data
   def find_cms_page_by_full_path(full_path)
-    @cms_page   = @cms_site.pages.published.find_by!(full_path: full_path)
-    @cms_layout = @cms_page.layout
+    @cms_page = @cms_site.pages.published.find_by!(full_path: full_path)
 
-    # There are translations for this page and locale is not the default site
-    # locale, so we need to grab translation data.
-    if @cms_page.translations.any? && @cms_site.locale != I18n.locale.to_s
-      @cms_page.translate!(I18n.locale)
-      @cms_layout = @cms_page.layout
-    end
+    @cms_page.translate!
+    @cms_layout = @cms_page.layout
 
     @cms_page
 

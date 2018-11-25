@@ -23,3 +23,9 @@ boolean:
   tag: checkbox
   content:
   boolean: true
+
+translation:
+  record: default (Comfy::Cms::Translation)
+  identifier: content
+  tag: text
+  content: translated content

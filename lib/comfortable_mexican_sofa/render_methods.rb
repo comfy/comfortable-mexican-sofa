@@ -67,6 +67,8 @@ module ComfortableMexicanSofa::RenderMethods
       raise ComfortableMexicanSofa::MissingPage, path
     end
 
+    @cms_page.translate!
+
     @cms_layout = @cms_page.layout
     if (cms_fragments = options.delete(:cms_fragments)).present?
       cms_fragments.each do |identifier, value|

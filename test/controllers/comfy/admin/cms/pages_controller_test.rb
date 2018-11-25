@@ -335,7 +335,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_destroy
     assert_difference "Comfy::Cms::Page.count", -2 do
-      assert_difference "Comfy::Cms::Fragment.count", -4 do
+      assert_difference "Comfy::Cms::Fragment.count", -5 do
         r :delete, comfy_admin_cms_site_page_path(site_id: @site, id: @page)
         assert_response :redirect
         assert_redirected_to action: :index
