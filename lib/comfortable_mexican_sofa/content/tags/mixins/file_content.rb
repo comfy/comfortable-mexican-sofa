@@ -29,7 +29,7 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     end
 
     def html_class
-      variant_attrs["class"].blank?? "" : " class='#{variant_attrs["class"]}'"
+      variant_attrs["class"].blank? ? "" : " class='#{variant_attrs['class']}'"
     end
 
     # @param [ActiveStorage::Blob]
