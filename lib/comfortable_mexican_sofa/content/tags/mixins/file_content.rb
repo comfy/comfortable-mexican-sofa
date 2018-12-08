@@ -12,7 +12,7 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-      if variant_attrs.present? && file.image?
+      if variant_attrs.except("class").present? && file.image?
         file = file.variant(combine_options: variant_attrs)
       end
 
@@ -20,12 +20,16 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
 
       case as
       when "link"
-        "<a href='#{url}' target='_blank'>#{label}</a>"
+        "<a href='#{url}' target='_blank'#{html_class}>#{label}</a>"
       when "image"
-        "<img src='#{url}' alt='#{label}'/>"
+        "<img src='#{url}' alt='#{label}'#{html_class}/>"
       else
         url
       end
+    end
+
+    def html_class
+      variant_attrs["class"].blank?? "" : " class='#{variant_attrs["class"]}'"
     end
 
     # @param [ActiveStorage::Blob]

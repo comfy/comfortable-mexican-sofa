@@ -27,7 +27,8 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
           "as"      => "image",
           "resize"  => "100x100",
           "gravity" => "center",
-          "crop"    => "100x100+0+0"
+          "crop"    => "100x100+0+0",
+          "class"   => "class1 class2"
         }
       ]
     )
@@ -36,7 +37,8 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
     assert_equal ({
       "resize"  => "100x100",
       "gravity" => "center",
-      "crop"    => "100x100+0+0"
+      "crop"    => "100x100+0+0",
+      "class"   => "class1 class2"
     }), tag.variant_attrs
   end
 
@@ -65,10 +67,10 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   def test_content_as_link
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(
       context: @page,
-      params: [@file.id, { "as" => "link" }]
+      params: [@file.id, { "as" => "link", "class" => "class1" }]
     )
     url = rails_blob_path(tag.file, only_path: true)
-    out = "<a href='#{url}' target='_blank'>default file</a>"
+    out = "<a href='#{url}' target='_blank' class='class1'>default file</a>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
