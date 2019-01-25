@@ -51,6 +51,7 @@ protected
   def process_attachment
     return if @file.blank?
     attachment.attach(@file)
+    update_attribute(:label, label)
   end
 
 end
