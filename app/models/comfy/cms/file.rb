@@ -22,7 +22,7 @@ class Comfy::Cms::File < ActiveRecord::Base
 
   # -- Callbacks ---------------------------------------------------------------
   before_create :assign_position
-  before_save :assing_label_name
+  before_save :assign_label_name
   after_save :process_attachment
 
   # -- Validations -------------------------------------------------------------
@@ -49,7 +49,7 @@ protected
     self.position = max ? max + 1 : 0
   end
 
-  def assing_label_name
+  def assign_label_name
     l = read_attribute(:label)
     write_attribute(:label, file.original_filename) unless l.present?
   end
