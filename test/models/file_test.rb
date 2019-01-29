@@ -19,6 +19,7 @@ class CmsFileTest < ActiveSupport::TestCase
   end
 
   def test_creation
+    binding.pry
     assert_difference ["Comfy::Cms::File.count", "ActiveStorage::Attachment.count"] do
       file = comfy_cms_sites(:default).files.create(
         label:        "test",
@@ -28,7 +29,7 @@ class CmsFileTest < ActiveSupport::TestCase
       assert_equal 1, file.position
     end
   end
-  
+
   def test_creation_without_label
     assert_difference ["Comfy::Cms::File.count", "ActiveStorage::Attachment.count"] do
       file = comfy_cms_sites(:default).files.create(
