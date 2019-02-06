@@ -80,6 +80,7 @@ window.CMS.wysiwyg = ->
     params = csrf_param + "=" + encodeURIComponent(csrf_token)
 
   $('textarea.rich-text-editor, textarea[data-cms-rich-text]').redactor
+    convertUrlLinks: false
     minHeight:        160
     autoresize:       true
     imageUpload:      "#{CMS.file_upload_path}?source=redactor&type=image&#{params}"
