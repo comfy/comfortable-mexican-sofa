@@ -109,6 +109,10 @@ Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
 
 Thanks to [Roman Almeida](https://github.com/nasmorn) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
 
+Thanks to [Bichinger Software & Consulting](https://www.bichinger.de) for contributing OEM License upgrade to [Redactor 3](http://imperavi.com/redactor)
+
+![Bichinger Software & Consulting](doc/bichinger_logo.png)
+
 ---
 
 Copyright 2010-2018 Oleg Khabarov. Released under the [MIT license](LICENSE)
