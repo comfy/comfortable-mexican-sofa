@@ -16,7 +16,8 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
         file = file.variant(combine_options: variant_attrs)
       end
 
-      url = rails_blob_path(file.blob)
+      #url = rails_blob_path(file.blob)
+      url = file_path(file)
 
       case as
       when "link"
@@ -28,11 +29,23 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
       end
     end
 
+    # @param [ActiveStorage::Attachment or ActiveStorage::Variant]
+    # @return [String]
+    def file_path file
+      helper = Rails.application.routes.url_helpers
+      #if file.is_a?(ActiveStorage::Variant)
+      if file.respond_to?(:variation)
+        helper.rails_representation_path(file, only_path: true)
+      else
+        helper.rails_blob_path(file.blob, only_path: true)
+      end
+    end
+
     # @param [ActiveStorage::Blob]
     # @return [String]
-    def rails_blob_path(blob)
-      Rails.application.routes.url_helpers.rails_blob_path(blob, only_path: true)
-    end
+    #def rails_blob_path(blob)
+    #  Rails.application.routes.url_helpers.rails_blob_path(blob, only_path: true)
+    #end
 
   end
 end
