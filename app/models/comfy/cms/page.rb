@@ -51,7 +51,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     return [] if (current_page ||= site.pages.root) == page && exclude_self || !current_page
     out = []
 
-    unless current_page == page
+    unless current_page == page && exclude_self
       out << ["#{spacer * depth}#{current_page.label}", current_page.id]
     end
 
