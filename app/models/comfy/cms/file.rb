@@ -26,6 +26,7 @@ class Comfy::Cms::File < ActiveRecord::Base
   after_save :process_attachment
 
   # -- Validations -------------------------------------------------------------
+  validates :label, presence: true
   validates :file, presence: true, on: :create
 
   # -- Scopes ------------------------------------------------------------------

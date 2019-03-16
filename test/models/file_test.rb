@@ -15,7 +15,7 @@ class CmsFileTest < ActiveSupport::TestCase
   def test_validations
     file = Comfy::Cms::File.new
     assert file.invalid?
-    assert_has_errors_on file, :site, :file
+    assert_has_errors_on file, :site, :file, :label
   end
 
   def test_creation
