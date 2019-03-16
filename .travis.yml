@@ -1,8 +1,9 @@
 language: ruby
 rvm:
-  - 2.3.7
-  - 2.4.4
-  - 2.5.1
+  - 2.3.8
+  - 2.4.5
+  - 2.5.5
+  - 2.6.2
   - ruby-head
 gemfile:
   - test/gemfiles/5.2.gemfile
