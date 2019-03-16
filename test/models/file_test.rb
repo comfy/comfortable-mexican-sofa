@@ -36,7 +36,7 @@ class CmsFileTest < ActiveSupport::TestCase
         file:         fixture_file_upload("files/image.jpg", "image/jpeg")
       )
       assert_equal 1, file.position
-      assert_equal file.label, "image.jpg"
+      assert_equal "image.jpg", file.label
     end
   end
 
@@ -44,13 +44,6 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_equal 1, Comfy::Cms::File.with_attached_attachment.with_images.count
     active_storage_blobs(:default).update_column(:content_type, "application/pdf")
     assert_equal 0, Comfy::Cms::File.with_attached_attachment.with_images.count
-  end
-
-  def test_label
-    file = comfy_cms_files(:default)
-    assert_equal "default file", file.label
-    file.update_column(:label, "")
-    assert_equal "default.jpg", file.label
   end
 
 end
