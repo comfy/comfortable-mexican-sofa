@@ -29,6 +29,17 @@ class CmsFileTest < ActiveSupport::TestCase
     end
   end
 
+  def test_creation_without_label
+    assert_difference ["Comfy::Cms::File.count", "ActiveStorage::Attachment.count"] do
+      file = comfy_cms_sites(:default).files.create(
+        description:  "test file",
+        file:         fixture_file_upload("files/image.jpg", "image/jpeg")
+      )
+      assert_equal 1, file.position
+      assert_equal file.label, "image.jpg"
+    end
+  end
+
   def test_scope_with_images
     assert_equal 1, Comfy::Cms::File.with_attached_attachment.with_images.count
     active_storage_blobs(:default).update_column(:content_type, "application/pdf")
