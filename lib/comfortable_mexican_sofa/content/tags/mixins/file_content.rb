@@ -12,32 +12,25 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-      if variant_attrs.present? && file.image?
-        file = file.variant(combine_options: variant_attrs)
-      end
 
-      url = file_path(file)
+      url_helpers = Rails.application.routes.url_helpers
+
+      attachment_url =
+        if variant_attrs.present? && file.image?
+          variant = file.variant(combine_options: variant_attrs)
+          url_helpers.rails_representation_path(variant, only_path: true)
+        else
+          url_helpers.rails_blob_path(file, only_path: true)
+        end
 
       case as
       when "link"
-        "<a href='#{url}' target='_blank'>#{label}</a>"
+        "<a href='#{attachment_url}' target='_blank'>#{label}</a>"
       when "image"
-        "<img src='#{url}' alt='#{label}'/>"
+        "<img src='#{attachment_url}' alt='#{label}'/>"
       else
-        url
+        attachment_url
       end
     end
-
-    # @param [ActiveStorage::Attachment or ActiveStorage::Variant]
-    # @return [String]
-    def file_path file
-      helper = Rails.application.routes.url_helpers
-      if file.respond_to?(:variation)
-        helper.rails_representation_path(file, only_path: true)
-      else
-        helper.rails_blob_path(file.blob, only_path: true)
-      end
-    end
-
   end
 end
