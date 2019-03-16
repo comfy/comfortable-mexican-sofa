@@ -12,7 +12,6 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-
       url_helpers = Rails.application.routes.url_helpers
 
       attachment_url =
@@ -25,12 +24,20 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
 
       case as
       when "link"
-        "<a href='#{attachment_url}' target='_blank'>#{label}</a>"
+        "<a href='#{attachment_url}'#{html_class_attribute} target='_blank'>#{label}</a>"
       when "image"
-        "<img src='#{attachment_url}' alt='#{label}'/>"
+        "<img src='#{attachment_url}'#{html_class_attribute} alt='#{label}'/>"
       else
         attachment_url
       end
     end
+
+  private
+
+    def html_class_attribute
+      return if @class.blank?
+      " class='#{@class}'"
+    end
+
   end
 end

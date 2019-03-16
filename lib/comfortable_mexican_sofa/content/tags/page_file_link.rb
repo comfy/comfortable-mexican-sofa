@@ -20,6 +20,7 @@ require_relative "./mixins/file_content"
 # `resize`  - imagemagick option. For example: "100x50>"
 # `gravity` - imagemagick option. For example: "center"
 # `crop`    - imagemagick option. For example: "100x50+0+0"
+# `class`   - any html classes that you want on the result link or image tag. For example "class1 class2"
 #
 class ComfortableMexicanSofa::Content::Tag::PageFileLink < ComfortableMexicanSofa::Content::Tag
 
@@ -44,6 +45,7 @@ class ComfortableMexicanSofa::Content::Tag::PageFileLink < ComfortableMexicanSof
     options = params.extract_options!
     @identifier     = params[0]
     @as             = options["as"] || "url"
+    @class          = options["class"]
     @variant_attrs  = options.slice("resize", "gravity", "crop")
     @filename       = options["filename"]
 

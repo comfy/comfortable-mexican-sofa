@@ -49,11 +49,11 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, { "as" => "link" }]
+      params: [frag.identifier, { "as" => "link", "class" => "html-class" }]
     )
 
     path  = rails_blob_path(frag.attachments.first, only_path: true)
-    out   = "<a href='#{path}' target='_blank'>fragment.jpg</a>"
+    out   = "<a href='#{path}' class='html-class' target='_blank'>fragment.jpg</a>"
     assert_equal out, tag.content
   end
 
@@ -61,10 +61,10 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, { "as" => "image" }]
+      params: [frag.identifier, { "as" => "image", "class" => "html-class" }]
     )
     path  = rails_blob_path(frag.attachments.first, only_path: true)
-    out   = "<img src='#{path}' alt='fragment.jpg'/>"
+    out   = "<img src='#{path}' class='html-class' alt='fragment.jpg'/>"
     assert_equal out, tag.content
   end
 
@@ -74,7 +74,7 @@ class ContentTagsFileTest < ActiveSupport::TestCase
       context: @page,
       params: [frag.identifier, { "as" => "image", "resize" => "50x50" }]
     )
-    variant = frag.attachments.first.variant(combine_options: {"resize" => "50x50"})
+    variant = frag.attachments.first.variant(combine_options: { "resize" => "50x50" })
     path    = rails_representation_path(variant, only_path: true)
     out     = "<img src='#{path}' alt='fragment.jpg'/>"
     assert_equal out, tag.content

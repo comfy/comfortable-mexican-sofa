@@ -65,10 +65,10 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   def test_content_as_link
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(
       context: @page,
-      params: [@file.id, { "as" => "link" }]
+      params: [@file.id, { "as" => "link", "class" => "html-class" }]
     )
     url = rails_blob_path(tag.file, only_path: true)
-    out = "<a href='#{url}' target='_blank'>default file</a>"
+    out = "<a href='#{url}' class='html-class' target='_blank'>default file</a>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
@@ -76,10 +76,10 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
   def test_content_as_image
     tag = ComfortableMexicanSofa::Content::Tag::FileLink.new(
       context: @page,
-      params: [@file.id, { "as" => "image" }]
+      params: [@file.id, { "as" => "image", "class" => "html-class" }]
     )
     url = rails_blob_path(tag.file, only_path: true)
-    out = "<img src='#{url}' alt='default file'/>"
+    out = "<img src='#{url}' class='html-class' alt='default file'/>"
     assert_equal out, tag.content
     assert_equal out, tag.render
   end
