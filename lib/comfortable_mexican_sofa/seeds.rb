@@ -2,13 +2,13 @@
 
 module ComfortableMexicanSofa::Seeds
 
-  SEED_CLASSES = %w[Layout Page Snippet File].freeze
-
   class Error < StandardError; end
 
   require "mimemagic"
 
   class Importer
+    
+    SEED_CLASSES = %w[Layout Page Snippet File].freeze
 
     attr_accessor :site,
                   :path,
