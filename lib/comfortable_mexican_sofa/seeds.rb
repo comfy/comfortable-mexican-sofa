@@ -29,7 +29,7 @@ module ComfortableMexicanSofa::Seeds
     end
 
     # if passed nil will use default seed classes
-    def import!(classes=nil)
+    def import!(classes = nil)
       classes ||= SEED_CLASSES
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
@@ -83,7 +83,7 @@ module ComfortableMexicanSofa::Seeds
     end
 
     # if passed nil will use default seed classes
-    def export!(classes=nil)
+    def export!(classes = nil)
       classes ||= SEED_CLASSES
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
