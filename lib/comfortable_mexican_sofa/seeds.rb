@@ -3,7 +3,7 @@
 module ComfortableMexicanSofa::Seeds
 
   SEED_CLASSES = %w[Layout Page Snippet File].freeze
-  
+
   class Error < StandardError; end
 
   require "mimemagic"
