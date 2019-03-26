@@ -2,13 +2,13 @@
 
 module ComfortableMexicanSofa::Seeds
 
+  SEED_CLASSES = %w[Layout Page Snippet File].freeze
+  
   class Error < StandardError; end
 
   require "mimemagic"
 
   class Importer
-    
-    SEED_CLASSES = %w[Layout Page Snippet File].freeze
 
     attr_accessor :site,
                   :path,
@@ -28,7 +28,7 @@ module ComfortableMexicanSofa::Seeds
       end
     end
 
-    def import!(classes = SEED_CLASSES)
+    def import!(classes = ComfortableMexicanSofa::Seeds::SEED_CLASSES)
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
         klass.constantize.new(from, to).import!
@@ -80,7 +80,7 @@ module ComfortableMexicanSofa::Seeds
       self.site = Comfy::Cms::Site.where(identifier: from).first!
     end
 
-    def export!(classes = SEED_CLASSES)
+    def export!(classes = ComfortableMexicanSofa::Seeds::SEED_CLASSES)
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
         klass.constantize.new(from, to).export!
