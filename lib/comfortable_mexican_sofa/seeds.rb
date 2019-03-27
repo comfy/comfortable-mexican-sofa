@@ -28,7 +28,9 @@ module ComfortableMexicanSofa::Seeds
       end
     end
 
-    def import!(classes = SEED_CLASSES)
+    # if passed nil will use default seed classes
+    def import!(classes = nil)
+      classes ||= SEED_CLASSES
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Importer"
         klass.constantize.new(from, to).import!
@@ -80,7 +82,9 @@ module ComfortableMexicanSofa::Seeds
       self.site = Comfy::Cms::Site.where(identifier: from).first!
     end
 
-    def export!(classes = SEED_CLASSES)
+    # if passed nil will use default seed classes
+    def export!(classes = nil)
+      classes ||= SEED_CLASSES
       classes.each do |klass|
         klass = "ComfortableMexicanSofa::Seeds::#{klass}::Exporter"
         klass.constantize.new(from, to).export!
