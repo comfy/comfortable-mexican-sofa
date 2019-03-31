@@ -32,10 +32,10 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   def self.options_for_select(site, current_layout = nil)
     options = []
 
-    options_for_layout = -> (layout, depth = 0) do
+    options_for_layout = ->(layout, depth = 0) do
       return if layout == current_layout
 
-      options << ["#{". . " * depth}#{layout.label}", layout.id]
+      options << ["#{'. . ' * depth}#{layout.label}", layout.id]
 
       layout.children.order(:position).each do |child_layout|
         options_for_layout.call(child_layout, depth + 1)
