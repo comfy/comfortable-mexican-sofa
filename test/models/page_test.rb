@@ -383,16 +383,16 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_options_for_select
-    assert_equal ["Default Page", ". . Child Page"],
-      Comfy::Cms::Page.options_for_select(site: @site).collect(&:first)
-    assert_equal ["Default Page"],
-      Comfy::Cms::Page.options_for_select(site: @site, page: comfy_cms_pages(:child)).collect(&:first)
-    assert_equal [],
-      Comfy::Cms::Page.options_for_select(site: @site, page: @page)
+    options = ["Default Page", ". . Child Page"]
+    assert_equal options, Comfy::Cms::Page.options_for_select(site: @site).map(&:first)
 
-    page = Comfy::Cms::Page.new(new_params(parent: @page))
-    assert_equal ["Default Page", ". . Child Page"],
-      Comfy::Cms::Page.options_for_select(site: @site, page: page).collect(&:first)
+    expected = ["Default Page"]
+    actual = Comfy::Cms::Page.options_for_select(
+      site:         @site,
+      current_page: comfy_cms_pages(:child),
+      exclude_self: true
+    ).map(&:first)
+    assert_equal expected, actual
   end
 
   def test_fragments_attributes
