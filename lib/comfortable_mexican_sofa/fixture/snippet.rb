@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         
         # setting attributes
         categories = []
-        if File.exists?(attrs_path = File.join(path, 'attributes.yml'))
+        if File.exist?(attrs_path = File.join(path, 'attributes.yml'))
           if fresh_fixture?(snippet, attrs_path)
             attrs = get_attributes(attrs_path)
             
@@ -19,7 +19,7 @@ module ComfortableMexicanSofa::Fixture::Snippet
         
         # setting content
         %w(html haml).each do |extension|
-          if File.exists?(content_path = File.join(path, "content.#{extension}"))
+          if File.exist?(content_path = File.join(path, "content.#{extension}"))
             if fresh_fixture?(snippet, content_path)
               snippet.content = extension == "html" ? 
                 ::File.open(content_path).read : 

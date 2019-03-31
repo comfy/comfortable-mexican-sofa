@@ -99,7 +99,7 @@ protected
   # When site is marked as a mirror we need to sync its structure
   # with other mirrors.
   def sync_mirrors
-    return unless is_mirrored_changed? && is_mirrored?
+    return unless saved_change_to_is_mirrored? && is_mirrored?
 
     [self, Comfy::Cms::Site.mirrored.where("id != #{id}").first].compact.each do |site|
       site.layouts.reload

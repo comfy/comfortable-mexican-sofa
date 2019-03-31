@@ -18,7 +18,8 @@ module ComfortableMexicanSofa::ActsAsTree
         :class_name     => name, 
         :foreign_key    => configuration[:foreign_key],
         :counter_cache  => configuration[:counter_cache],
-        :touch          => configuration[:touch]
+        :touch          => configuration[:touch],
+        :optional       => true
         
       has_many :children,
         -> { order(configuration[:order])},

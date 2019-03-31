@@ -50,8 +50,8 @@ module Comfy
       
       def generate_route
         route_string  = "  namespace :admin do\n"
-        route_string << "    resources :#{file_name.pluralize}\n"
-        route_string << "  end\n"
+        route_string << "  resources :#{file_name.pluralize}\n"
+        route_string << "end\n\n"
         route route_string[2..-1]
       end
       
