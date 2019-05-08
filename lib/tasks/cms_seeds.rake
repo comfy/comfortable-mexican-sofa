@@ -24,7 +24,7 @@ namespace :comfy do
     task :export, %i[from to klasses] => [:environment] do |_t, args|
       from  = args[:from]
       to    = args[:to] || from
-      classes = args[:classes]&.split
+      klasses = args[:klasses]&.split
 
       puts "Exporting CMS data from Site [#{from}] to Folder [#{to}] ..."
 
@@ -32,7 +32,7 @@ namespace :comfy do
       logger = ComfortableMexicanSofa.logger
       ComfortableMexicanSofa.logger = Logger.new(STDOUT)
 
-      ComfortableMexicanSofa::Seeds::Exporter.new(from, to).export!(classes)
+      ComfortableMexicanSofa::Seeds::Exporter.new(from, to).export!(klasses)
 
       ComfortableMexicanSofa.logger = logger
     end
