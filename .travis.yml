@@ -1,3 +1,13 @@
+dist: xenial
+services:
+  - xvfb
+addons:
+  sources:
+  - google-chrome
+  apt:
+    packages:
+    - google-chrome-stable
+
 language: ruby
 rvm:
   - 2.3.8
@@ -10,12 +20,7 @@ gemfile:
 branches:
   only:
     - master
-addons:
-  sources:
-  - google-chrome
-  apt:
-    packages:
-    - google-chrome-stable
+
 before_install:
   - gem update --system
   - gem update bundler
