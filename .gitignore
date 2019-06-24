@@ -13,6 +13,7 @@ public/system/
 Gemfile.lock
 .rvmrc
 .ruby-version
+.ruby-gemset
 /.sass-cache
 coverage/
 /storage
