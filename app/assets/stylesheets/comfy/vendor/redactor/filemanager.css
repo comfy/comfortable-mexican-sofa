@@ -1,0 +1,38 @@
+#redactor-filemanager-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#redactor-filemanager-list li {
+    position: relative;
+    line-height: 23px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+#redactor-filemanager-list li:last-child {
+    border-bottom-color: transparent;
+}
+#redactor-filemanager-list a {
+    text-decoration: none;
+    display: block;
+    color: #000;
+    padding: 3px 0 2px 0;
+    font-size: 15px;
+}
+#redactor-filemanager-list a:hover {
+    background: #f8f8f8;
+}
+#redactor-filemanager-list span {
+    font-family: monospace;
+    font-size: 11px;
+    color: #888;
+}
+#redactor-filemanager-list span.r-file-name {
+    margin-left: 8px;
+    top: -2px;
+    position: relative;
+}
+#redactor-filemanager-list span.r-file-size {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+}
