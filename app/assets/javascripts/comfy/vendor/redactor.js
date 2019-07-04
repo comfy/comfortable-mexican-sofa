@@ -1,7 +1,7 @@
 /*
     Redactor
-    Version 3.1.8
-    Updated: April 3, 2019
+    Version 3.2.0
+    Updated: June 21, 2019
 
     http://imperavi.com/redactor/
 
@@ -1336,7 +1336,7 @@ var $R = function(selector, options)
 
 // Globals
 $R.app = [];
-$R.version = '3.1.8';
+$R.version = '3.2.0';
 $R.options = {};
 $R.modules = {};
 $R.services = {};
@@ -4315,8 +4315,8 @@ $R.add('service', 'selection', {
         return (
             selected === text
             || text.search(selected) !== -1
-            || selected.search(new RegExp('^' + text)) !== -1
-            || selected.search(new RegExp(text + '$')) !== -1
+            || selected.search(new RegExp('^' + this.utils.escapeRegExp(text))) !== -1
+            || selected.search(new RegExp(this.utils.escapeRegExp(text) + '$')) !== -1
         );
     },
     _isInlineNode: function(node)
@@ -4741,7 +4741,9 @@ $R.add('service', 'toolbar', {
             if (tags.indexOf(key) !== -1)
             {
                 button = this.getButton(buttons[key]);
-                button.setActive();
+                if (button) {
+                    button.setActive();
+                }
             }
 
         }
@@ -4793,12 +4795,6 @@ $R.add('service', 'toolbar', {
 
         return ($btn.length !== 0) ? $btn.dataget('data-button-instance') : false;
     },
-    getButtonByIndex: function(index)
-    {
-        var $btn = this.$toolbar.find('.re-button').eq(index);
-
-        return ($btn.length !== 0) ? $btn.dataget('data-button-instance') : false;
-    },
     getButtons: function()
     {
         var buttons = [];
@@ -4827,27 +4823,10 @@ $R.add('service', 'toolbar', {
     {
         position = position || 'end';
 
-        var index = this._getButtonIndex(name);
         var $button = $R.create('toolbar.button', this.app, name, btnObj);
-
         if (btnObj.observe)
         {
             this.opts.activeButtonsObservers[name] = { observe: btnObj.observe, button: $button };
-        }
-
-        // api added
-        if (start !== true)
-        {
-            if (index === 0) position = 'first';
-            else if (index !== -1)
-            {
-                var $elm = this.getButtonByIndex(index-1);
-                if ($elm)
-                {
-                    position = 'after';
-                    $el = $elm;
-                }
-            }
         }
 
         if (this.is())
@@ -4927,12 +4906,6 @@ $R.add('service', 'toolbar', {
     },
 
     // private
-    _getButtonIndex: function(name)
-    {
-        var index = this.buttons.indexOf(name);
-
-        return (index === -1) ? false : index;
-    },
     _findButton: function(selector)
     {
         return (this.is()) ? this.$toolbar.find(selector) : $R.dom();
@@ -5250,7 +5223,7 @@ $R.add('class', 'toolbar.dropdown', {
         // local
         this.name = name;
         this.started = false;
-        this.items = items;
+        this.items = (name === 'format') ? $R.extend({}, true, items) : items;
         this.$items = [];
     },
     // public
@@ -5596,8 +5569,8 @@ $R.add('service', 'cleaner', {
         html = this._setSpanAttr(html);
         html = this._setStyleCache(html);
         html = this.removeTags(html, this.deniedTags);
-        //html = (this.opts.removeScript) ? this._removeScriptTag(html) : this._replaceScriptTag(html);
-        html = (this.opts.removeScript) ? this._removeScriptTag(html) : html;
+        html = (this.opts.removeScript) ? this._removeScriptTag(html) : this._replaceScriptTag(html);
+        //html = (this.opts.removeScript) ? this._removeScriptTag(html) : html;
         html = (this.opts.removeComments) ? this.removeComments(html) : html;
         html = (this._isSpacedEmpty(html)) ? this.opts.emptyHtml : html;
 
@@ -5607,6 +5580,23 @@ $R.add('service', 'cleaner', {
         // clear wrapped components
         html = this._cleanWrapped(html);
 
+        // remove image attributes
+        var $wrapper = this.utils.buildWrapper(html);
+        var imageattrs = ['alt', 'title', 'src', 'class', 'width', 'height', 'srcset'];
+        $wrapper.find('img').each(function(node) {
+            if (node.attributes.length > 0) {
+                var attrs = node.attributes;
+                for (var i = attrs.length - 1; i >= 0; i--) {
+                    if (imageattrs.indexOf(attrs[i].name) === -1) {
+                        node.removeAttribute(attrs[i].name);
+                    }
+                }
+            }
+        });
+
+        // get wrapper html
+        html = this.utils.getWrapperHtml($wrapper);
+
         // paragraphize
         html = (paragraphize) ? this.paragraphize(html) : html;
 
@@ -5615,6 +5605,8 @@ $R.add('service', 'cleaner', {
     output: function(html, removeMarkers)
     {
         html = this.removeInvisibleSpaces(html);
+
+        html = html.replace(/&#36;/g, '$');
 
         // empty
         if (this._isSpacedEmpty(html)) return '';
@@ -5738,6 +5730,19 @@ $R.add('service', 'cleaner', {
         {
             var style = node.getAttribute('data-redactor-style-cache');
             node.setAttribute('style', style);
+        });
+
+        // remove image attributes
+        var imageattrs = ['alt', 'title', 'src', 'class', 'width', 'height', 'srcset'];
+        $wrapper.find('img').each(function(node) {
+            if (node.attributes.length > 0) {
+                var attrs = node.attributes;
+                for (var i = attrs.length - 1; i >= 0; i--) {
+                    if (imageattrs.indexOf(attrs[i].name) === -1) {
+                        node.removeAttribute(attrs[i].name);
+                    }
+                }
+            }
         });
 
         // remove empty span
@@ -6171,75 +6176,45 @@ $R.add('service', 'cleaner', {
     _parseWordLists: function($wrapper)
     {
         var lastLevel = 0;
-        var pnt = null;
         var $item = null;
         var setPnt = false;
+        var $list = null;
 
-        $wrapper.find('p').each(function(node)
-        {
+        $wrapper.find('p').each(function(node) {
             var $node = $R.dom(node);
             var currentLevel = $node.data('_listLevel');
 
-            if (currentLevel !== null)
-            {
+            if (currentLevel !== null) {
                 var txt = $node.text();
-                var listTag = '<ul></ul>';
-                if (/^\s*\w+\./.test(txt))
-                {
-                    var matches = /([0-9])\./.exec(txt);
-                    if (matches)
-                    {
-                        var start = parseInt(matches[1], 10);
-                        listTag = (start > 1) ? '<ol start="' + start + '"></ol>' : '<ol></ol>';
-                    }
-                    else
-                    {
-                        listTag = '<ol></ol>';
-                    }
+                var listTag = (/^\s*\w+\./.test(txt)) ? '<ol></ol>' : '<ul></ul>';
+
+                if ($node.hasClass('MsoListParagraphCxSpFirst')) {
+                    $node.before(listTag);
+                    $list = $node.prev();
                 }
 
-                if (currentLevel > lastLevel)
-                {
-                    if (lastLevel === 0)
-                    {
-                        $node.before(listTag);
-                        pnt = $node.prev();
-                    }
-                    else
-                    {
-                        var $list = $R.dom(listTag);
-
-                        if ($item)
-                        {
-                            $item.append($list);
-                            pnt = $list;
-                            setPnt = true;
-
-                        }
-                        else
-                        {
-                            pnt.append($list);
-                        }
-
+                if (currentLevel > lastLevel && lastLevel !== 0) {
+                    var $list2 = $R.dom(listTag);
+                    if ($item) {
+                        $item.append($list2);
+                        $list = $list2;
+                        setPnt = true;
                     }
                 }
 
                 $node.find('span').first().unwrap();
                 $item = $R.dom('<li>' + $node.html().trim() + '</li>');
-                pnt.append($item);
+                $list.append($item);
                 $node.remove();
 
-                if (setPnt)
-                {
-                    pnt = pnt.parent();
+                if (setPnt) {
+                    $list = $list.parent();
                 }
 
                 lastLevel = currentLevel;
                 setPnt = false;
-
             }
-            else
-            {
+            else {
                 lastLevel = 0;
             }
         });
@@ -6296,11 +6271,11 @@ $R.add('service', 'cleaner', {
     // replace
     _replaceScriptTag: function(html)
     {
-        return html.replace(this.reScriptTag, '<pre class="redactor-script-tag" $1>$2</pre>');
+        return html.replace(this.reScriptTag, '<script class="redactor-script-tag" $1>$2</script>');
     },
     _unreplaceScriptTag: function(html)
     {
-        return html.replace(/<pre class="redactor-script-tag"(.*?[^>]?)>([\w\W]*?)<\/pre>/gi, '<script$1>$2</script>');
+        return html.replace(/<script class="redactor-script-tag"(.*?[^>]?)>([\w\W]*?)<\/script>/gi, '<script$1>$2</script>');
     },
 	_replaceNlToBr: function(html)
 	{
@@ -6471,7 +6446,6 @@ $R.add('class', 'cleaner.figure', {
 
         if ($figure.length === 0)
         {
-
             var $parent = ($link.length !== 0) ? $link.closest('p') : $node.closest('p');
             if (this.opts.imageFigure === false && $parent.length !== 0)
             {
@@ -6481,6 +6455,10 @@ $R.add('class', 'cleaner.figure', {
             }
             else
             {
+                if ($parent.length !== 0) {
+                    $parent.unwrap();
+                }
+
                 $figure = ($link.length !== 0) ? $link.wrap('<figure>') : $node.wrap('<figure>');
             }
         }
@@ -10047,7 +10025,7 @@ $R.add('service', 'utils', {
     // escape
     escapeRegExp: function(s)
     {
-        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        return s.replace(/[-\/\\^$*~+?.()|[\]{}]/g, '\\$&');
     },
 
     // random
@@ -10766,14 +10744,14 @@ $R.add('class', 'editor.events', {
     contextmenu: function(e)
     {
         // chrome crashes fix
-        this.editor.disableNonEditables();
+        //this.editor.disableNonEditables();
 
-        setTimeout(function()
-        {
-            this.editor.enableNonEditables();
-            this.app.broadcast('contextmenu', e);
+        //setTimeout(function()
+        //{
+          //  this.editor.enableNonEditables();
+           // this.app.broadcast('contextmenu', e);
 
-        }.bind(this), 0);
+        //}.bind(this), 0);
     },
     click: function(e)
     {
@@ -10788,7 +10766,7 @@ $R.add('class', 'editor.events', {
             this.selection.setRange(range)
         }
 
-        // observe bottom click
+        // observe bottom click & start click
         var $target = $R.dom(e.target);
         if ($target.hasClass('redactor-in'))
         {
@@ -11060,13 +11038,6 @@ $R.add('module', 'source', {
 
         if (this.app.isStarted()) html = this.app.broadcast('source.open', html);
 
-        // insert markers
-        var sourceSelection = $R.create('source.selection', this.app);
-
-        var editorHtml = sourceSelection.insertMarkersToEditor();
-        editorHtml = this.cleaner.output(editorHtml, false);
-        editorHtml = editorHtml.trim();
-
         // get height
         var editorHeight = $editor.height();
 
@@ -11079,10 +11050,13 @@ $R.add('module', 'source', {
         $source.on('keydown.redactor-source-events', this._onTabKey.bind(this));
         $source.on('focus.redactor-source-events', this._onFocus.bind(this));
 
-        $container.addClass('redactor-source-view');
-
-        // offset markers
-        sourceSelection.setSelectionOffsetSource(editorHtml);
+        if (this.opts.source.hasOwnProperty('codemirror')) {
+            var opts = (typeof this.opts.source.codemirror === 'object') ? this.opts.source.codemirror : {};
+            this.codemirror = CodeMirror.fromTextArea($source.get(), opts);
+        }
+        else {
+            $container.addClass('redactor-source-view');
+        }
 
         // buttons
         setTimeout(function()
@@ -11103,10 +11077,11 @@ $R.add('module', 'source', {
         var $container = this.container.getElement();
 
         var html = $source.val();
+        if (this.opts.source.hasOwnProperty('codemirror')) {
+            html = this.codemirror.getValue();
+            this.codemirror.toTextArea();
+        }
 
-        // insert markers
-        var sourceSelection = $R.create('source.selection', this.app);
-        html = sourceSelection.insertMarkersToSource(html);
 
         // clean
         html = this.cleaner.input(html, true);
@@ -11127,9 +11102,7 @@ $R.add('module', 'source', {
 
         setTimeout(function()
         {
-            if (sourceSelection.isOffset()) this.selection.restoreMarkers();
-            else if (sourceSelection.isOffsetEnd()) this.editor.endFocus();
-            else this.editor.startFocus();
+            this.editor.startFocus();
 
             // widget's scripts
             this.component.executeScripts();
@@ -11241,148 +11214,6 @@ $R.add('module', 'source', {
     {
         var $btn = this.toolbar.getButton('html');
         $btn.setInactive();
-    }
-});
-$R.add('class', 'source.selection', {
-    init: function(app)
-    {
-        this.app = app;
-        this.utils = app.utils;
-        this.source = app.source;
-        this.editor = app.editor;
-        this.marker = app.marker;
-        this.component = app.component;
-        this.selection = app.selection;
-
-        // local
-        this.markersOffset = false;
-        this.markersOffsetEnd = false;
-    },
-    insertMarkersToEditor: function()
-    {
-        var $editor = this.editor.getElement();
-        var start = this.marker.build('start');
-        var end = this.marker.build('end');
-        var component = this.component.getActive();
-        if (component)
-        {
-            this.marker.remove();
-            var $component = $R.dom(component);
-
-            $component.after(end);
-            $component.after(start);
-        }
-        else if (window.getSelection && this.selection.is())
-        {
-            this.marker.insert('both');
-        }
-
-        return this._getHtmlAndRemoveMarkers($editor);
-    },
-    setSelectionOffsetSource: function(editorHtml)
-    {
-        var start = 0;
-        var end = 0;
-        var $source = this.source.getElement();
-        if (editorHtml !== '')
-        {
-            var startMarker = this.utils.removeInvisibleChars(this.marker.buildHtml('start'));
-            var endMarker = this.utils.removeInvisibleChars(this.marker.buildHtml('end'));
-
-            start = this._strpos(editorHtml, startMarker);
-            end = this._strpos(editorHtml, endMarker) - endMarker.toString().length - 2;
-
-            if (start === false)
-            {
-                start = 0;
-                end = 0;
-            }
-        }
-
-        $source.get().setSelectionRange(start, end);
-        $source.get().scrollTop = 0;
-
-        setTimeout(function() { $source.focus(); }.bind(this), 0);
-    },
-    isOffset: function()
-    {
-        return this.markersOffset;
-    },
-    isOffsetEnd: function()
-    {
-        return this.markersOffsetEnd;
-    },
-    insertMarkersToSource: function(html)
-    {
-        var $source = this.source.getElement();
-        var markerStart = this.marker.buildHtml('start');
-        var markerEnd = this.marker.buildHtml('end');
-
-        var markerLength = markerStart.toString().length;
-        var startOffset = this._enlargeOffset(html, $source.get().selectionStart);
-        var endOffset = this._enlargeOffset(html, $source.get().selectionEnd);
-        var sizeOffset = html.length;
-
-        if (startOffset === sizeOffset)
-        {
-            this.markersOffsetEnd = true;
-        }
-        else if (startOffset !== 0 && endOffset !== 0)
-        {
-            this.markersOffset = true;
-
-            html = html.substr(0, startOffset) + markerStart + html.substr(startOffset);
-            html = html.substr(0, endOffset + markerLength) + markerEnd + html.substr(endOffset + markerLength);
-        }
-        else
-        {
-            this.markersOffset = false;
-        }
-
-        return html;
-    },
-
-    // private
-    _getHtmlAndRemoveMarkers: function($editor)
-    {
-        var html = $editor.html();
-        $editor.find('.redactor-selection-marker').remove();
-
-        return html;
-    },
-    _strpos: function(haystack, needle, offset)
-    {
-        var i = haystack.indexOf(needle, offset);
-        return i >= 0 ? i : false;
-    },
-    _enlargeOffset: function(html, offset)
-    {
-        var htmlLength = html.length;
-        var c = 0;
-
-        if (html[offset] === '>')
-        {
-            c++;
-        }
-        else
-        {
-            for(var i = offset; i <= htmlLength; i++)
-            {
-                c++;
-
-                if (html[i] === '>')
-                {
-                    break;
-                }
-                else if (html[i] === '<' || i === htmlLength)
-                {
-                    c = 0;
-                    break;
-                }
-            }
-        }
-
-        return offset + c;
     }
 });
 $R.add('module', 'observer', {
@@ -14937,6 +14768,11 @@ $R.add('class', 'input.enter', {
         var block = this.selection.getBlock();
         var data = this.inspector.parse(current);
         var blockTag = (block) ? block.tagName.toLowerCase() : false;
+        var $variable = $R.dom(current).closest('[data-redactor-type=variable]');
+        // variable parent
+        if ($variable.length !== 0) {
+            this.caret.setAfter($variable);
+        }
 
         // pre
         if (data.isPre())
@@ -15210,6 +15046,7 @@ $R.add('class', 'input.paste', {
         // clean
         html = html.trim();
         html = (this.isRawCode) ? html : this.cleaner.paste(html);
+        html = html.trim();
         html = (this.isRawCode) ? this.cleaner.encodePhpCode(html) : html;
 
         // paste callback
@@ -15221,17 +15058,27 @@ $R.add('class', 'input.paste', {
         // stop input
         if (!this.opts.input) return;
 
-        // autoparse
-        if (this.opts.autoparse && this.opts.autoparsePaste)
-        {
-            html = this.autoparser.parse(html);
+        var nodes = [];
+        if (this.isRawCode) {
+            var textNode = document.createTextNode(html)
+            nodes = this.insertion.insertNode(textNode, 'after');
+
+            this.app.broadcast('pasted', nodes);
         }
+        else {
 
-        var nodes = (this.dropPasted) ? this.insertion.insertToPoint(e, html, this.pointInserted) : this.insertion.insertHtml(html);
+            // autoparse
+            if (this.opts.autoparse && this.opts.autoparsePaste)
+            {
+                html = this.autoparser.parse(html);
+            }
 
-        // pasted callback
-        this.app.broadcast('pasted', nodes);
-        this.app.broadcast('autoparseobserve');
+            nodes = (this.dropPasted) ? this.insertion.insertToPoint(e, html, this.pointInserted) : this.insertion.insertHtml(html);
+
+            // pasted callback
+            this.app.broadcast('pasted', nodes);
+            this.app.broadcast('autoparseobserve');
+        }
     },
     _insertFiles: function(e, files)
     {
@@ -16626,6 +16473,7 @@ $R.add('class', 'image.component', {
         var imageMargin = '';
         var textAlign = '';
         var $el = this;
+        var $img = this.find('img');
         var $figcaption = this.find('figcaption');
 
         if (typeof this.opts.imagePosition === 'object')
@@ -16644,6 +16492,8 @@ $R.add('class', 'image.component', {
         }
         else
         {
+            var width = $img.width();
+
             switch (align)
             {
                 case 'left':
@@ -16659,8 +16509,12 @@ $R.add('class', 'image.component', {
                 break;
             }
 
-            $el.css({ 'float': imageFloat, 'margin': imageMargin, 'text-align': textAlign });
+            $el.css({ 'float': imageFloat, maxWidth: width + 'px', 'margin': imageMargin, 'text-align': textAlign });
             $el.attr('rel', $el.attr('style'));
+
+            if (align === 'none') {
+                $el.css('max-width', '');
+            }
 
             if (align === 'center')
             {
@@ -16871,6 +16725,7 @@ $R.add('class', 'image.resize', {
             x : e.pageX,
             y : e.pageY,
             el : this.$resizableImage,
+            $figure: this.$resizableImage.closest('figure'),
             ratio: this.$resizableImage.width() / this.$resizableImage.height(),
             h: this.$resizableImage.height()
         };
@@ -16913,6 +16768,9 @@ $R.add('class', 'image.resize', {
         if (height < 20 || width < 100) return;
         if (this._getResizableBoxWidth() <= width) return;
 
+        if (this.resizeHandle.$figure.length !== 0 && this.resizeHandle.$figure.css('max-width') !== '') {
+            this.resizeHandle.$figure.css('max-width', width + 'px');
+        }
         this.resizeHandle.el.attr({width: width, height: height});
         this.resizeHandle.el.width(width);
         this.resizeHandle.el.height(height);
