@@ -11,6 +11,7 @@ require_relative "./mixins/file_content"
 # `resize`  - imagemagic option. For example: "100x50>"
 # `gravity` - imagemagic option. For example: "center"
 # `crop`    - imagemagic option. For example: "100x50+0+0"
+# `class`   - any html classes that you want on the result link or image tag. For example "class1 class2"
 #
 class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
 
@@ -27,6 +28,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     super
     @as             = options["as"] || "url"
     @label          = options["label"]
+    @class          = options["class"]
     @variant_attrs  = options.slice("resize", "gravity", "crop")
   end
 

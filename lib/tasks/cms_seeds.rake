@@ -2,12 +2,12 @@
 
 namespace :comfy do
   namespace :cms_seeds do
-    desc "Import CMS Seed data into database (from: folder name, to: site identifier, klasses: class name[s])"
+    desc "Import CMS Seed data into database (from: folder name, to: site identifier, classes: class name[s])"
 
-    task :import, %i[from to klasses] => [:environment] do |_t, args|
+    task :import, %i[from to classes] => [:environment] do |_t, args|
       from  = args[:from]
       to    = args[:to] || from
-      klasses = args[:klasses].nil? ? nil : args[:klasses].split
+      classes = args[:classes].nil? ? nil : args[:classes].split
 
       puts "Importing CMS Seed data from Folder [#{from}] to Site [#{to}] ..."
 
@@ -15,16 +15,16 @@ namespace :comfy do
       logger = ComfortableMexicanSofa.logger
       ComfortableMexicanSofa.logger = Logger.new(STDOUT)
 
-      ComfortableMexicanSofa::Seeds::Importer.new(from, to).import!(klasses)
+      ComfortableMexicanSofa::Seeds::Importer.new(from, to).import!(classes)
 
       ComfortableMexicanSofa.logger = logger
     end
 
-    desc "Export database data into CMS Seed files (from: site identifier, to: folder name, klasses: class name[s])"
-    task :export, %i[from to klasses] => [:environment] do |_t, args|
+    desc "Export database data into CMS Seed files (from: site identifier, to: folder name, classes: class name[s])"
+    task :export, %i[from to classes] => [:environment] do |_t, args|
       from  = args[:from]
       to    = args[:to] || from
-      classes = args[:classes]&.split
+      classes = args[:classes].nil? ? nil : args[:classes].split
 
       puts "Exporting CMS data from Site [#{from}] to Folder [#{to}] ..."
 

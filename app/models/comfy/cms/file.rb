@@ -21,10 +21,12 @@ class Comfy::Cms::File < ActiveRecord::Base
   belongs_to :site
 
   # -- Callbacks ---------------------------------------------------------------
+  before_validation :assign_label, on: :create
   before_create :assign_position
   after_save :process_attachment
 
   # -- Validations -------------------------------------------------------------
+  validates :label, presence: true
   validates :file, presence: true, on: :create
 
   # -- Scopes ------------------------------------------------------------------
@@ -34,18 +36,17 @@ class Comfy::Cms::File < ActiveRecord::Base
     where("active_storage_blobs.content_type LIKE 'image/%'").references(:blob)
   }
 
-  # -- Instance Methods --------------------------------------------------------
-  def label
-    l = read_attribute(:label)
-    return l if l.present?
-    attachment.attached? ? attachment.filename.to_s : nil
-  end
-
 protected
 
   def assign_position
     max = Comfy::Cms::File.maximum(:position)
     self.position = max ? max + 1 : 0
+  end
+
+  # TODO: Change db schema not to set blank string
+  def assign_label
+    return if label.present?
+    self.label = file&.original_filename
   end
 
   def process_attachment

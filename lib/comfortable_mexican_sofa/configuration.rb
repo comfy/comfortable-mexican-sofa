@@ -110,6 +110,7 @@ class ComfortableMexicanSofa::Configuration
       "fi"    => "Suomi",
       "fr"    => "Français",
       "gr"    => "Ελληνικά",
+      "hr"    => "Hrvatski",
       "it"    => "Italiano",
       "ja"    => "日本語",
       "nb"    => "Norsk",

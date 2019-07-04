@@ -4,7 +4,9 @@ require_relative "../../../test_helper"
 
 class ContentTagsFileTest < ActiveSupport::TestCase
 
-  delegate :rails_blob_path, to: "Rails.application.routes.url_helpers"
+  delegate  :rails_blob_path,
+            :rails_representation_path,
+            to: "Rails.application.routes.url_helpers"
 
   setup do
     @page = comfy_cms_pages(:default)
@@ -47,9 +49,11 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, { "as" => "link" }]
+      params: [frag.identifier, { "as" => "link", "class" => "html-class" }]
     )
-    out = "<a href='#{rails_blob_path(frag.attachments.first, only_path: true)}' target='_blank'>fragment.jpg</a>"
+
+    path  = rails_blob_path(frag.attachments.first, only_path: true)
+    out   = "<a href='#{path}' class='html-class' target='_blank'>fragment.jpg</a>"
     assert_equal out, tag.content
   end
 
@@ -57,9 +61,10 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, { "as" => "image" }]
+      params: [frag.identifier, { "as" => "image", "class" => "html-class" }]
     )
-    out = "<img src='#{rails_blob_path(frag.attachments.first, only_path: true)}' alt='fragment.jpg'/>"
+    path  = rails_blob_path(frag.attachments.first, only_path: true)
+    out   = "<img src='#{path}' class='html-class' alt='fragment.jpg'/>"
     assert_equal out, tag.content
   end
 
@@ -69,7 +74,9 @@ class ContentTagsFileTest < ActiveSupport::TestCase
       context: @page,
       params: [frag.identifier, { "as" => "image", "resize" => "50x50" }]
     )
-    out = "<img src='#{rails_blob_path(frag.attachments.first, only_path: true)}' alt='fragment.jpg'/>"
+    variant = frag.attachments.first.variant(combine_options: { "resize" => "50x50" })
+    path    = rails_representation_path(variant, only_path: true)
+    out     = "<img src='#{path}' alt='fragment.jpg'/>"
     assert_equal out, tag.content
   end
 

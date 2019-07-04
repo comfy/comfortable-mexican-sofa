@@ -1,0 +1,263 @@
+hr:
+  activerecord:
+    models:
+      comfy/cms/site: Website
+      comfy/cms/layout: Predložak
+      comfy/cms/page: Stranica
+      comfy/cms/snippet: Isječak
+      comfy/cms/file: Datoteka
+      comfy/cms/translation: Prijevod
+
+    attributes:
+      comfy/cms/site:
+        identifier: Identifikator
+        label: Naziv
+        hostname: Host (URL)
+        path: Putanja
+        locale: Prijevod
+      comfy/cms/layout:
+        identifier: Identifikator
+        label: Naziv
+        app_layout: Predložak iz applikacije
+        parent_id: Nedređeni Predložak
+        content: Sadržaj
+        css: Stylesheet
+        js: Javaskripta
+      comfy/cms/page:
+        label: Naziv
+        layout_id: Predložak
+        slug: Slug
+        full_path: Putanja
+        parent_id: Nedređena stranica
+        target_page_id: Preusmjeri na stranicu
+        content: Sadržaj
+        is_published: Objavljeno
+      comfy/cms/file:
+        label: Naziv
+        file: Datoteka
+        description: Opis
+      comfy/cms/snippet:
+        label: Naziv
+        identifier: Identifikator
+        content: Sadržaj
+      comfy/cms/translation:
+        locale: Prijevod
+        label: Naziv
+        layout_id: Predložak
+        is_published: Objavljeno
+
+  comfy:
+    cms:
+      content:
+        site_not_found: Website nije pronađen
+        layout_not_found: Predložak nije pronađen
+        page_not_found: Stranica nije pronađena
+
+    admin:
+      cms:
+        base:
+          site_not_found: Website nije pronađen.
+          seeds_enabled: Opcija CMS Seeds je uključena. Promjene neće biti sačuvane.
+
+          sites: Website
+          layouts: Predlošci
+          pages: Stranice
+          snippets: Isječci
+          files: Datoteke
+
+        sites:
+          created: Website kreiran
+          creation_failure: Website nije kreiran
+          updated: Website ažuriran
+          update_failure: Website nije ažuriran
+          deleted: Website izbrisan
+          not_found: Website nije pronađen
+
+          index:
+            title: Website
+            new_link: Kreiraj novi website
+            select: Odaberi
+            edit: Uredi
+            delete: Izbriši
+            are_you_sure: Da li ste sigurni da želite obrisati ovaj website?
+          new:
+            title: Novi website
+          edit:
+            title: Uredi website
+          form:
+            create: Kreiraj website
+            cancel: Otkaži
+            update: Ažuriraj
+
+        layouts:
+          created: Predložak kreiran
+          creation_failure: Predložak nije kreiran
+          updated: Predložak ažuriran
+          update_failure: Predložak nije ažuriran
+          deleted: Predložak izbrisan
+          not_found: Predložak nije pronađen
+
+          index:
+            title: Predložak
+            new_link: Kreiraj novi predložak
+          index_branch:
+            add_child_layout: Dodaj podređeni predložak
+            edit: Uredi
+            delete: Izbriši
+            are_you_sure: Jesite li sigurni?
+          new:
+            title: Novi predložak
+          edit:
+            title: Uređivanje predloška
+          form:
+            select_parent_layout: Odaberi nadređeni predložak
+            select_app_layout: Odaberi predložak iz aplikacije
+            create: Kreiraj predložak
+            cancel: Otkaži
+            update: Ažuriraj predložak
+
+        pages:
+          created: Stranica kreirana
+          creation_failure: Kreiranje stranice nije uspjelo
+          updated: Stranica ažurirana
+          update_failure: Ažuriranje nije uspjelo
+          deleted: Stranica izbrisana
+          not_found: Stranica nije pronađena
+          layout_not_found: Nema aktivnih predložaka. Molimo vas prvo kreirajte predložak.
+
+          index:
+            title: Stranice
+            new_link: Kreiraj novu stranicu
+          index_branch:
+            toggle: Pomakni
+            add_child_page: Dodaj podređenu stranicu
+            edit: Uredi
+            delete: Izbriši
+            are_you_sure: Jesite li sigurni?
+          new:
+            title: Nova stranica
+          edit:
+            title: Uređivanje stranice
+          form:
+            select_target_page: Nema redirekcije
+            preview: Pregled
+            create: Kreiraj stranicu
+            cancel: Otkaži
+            update: Ažuriraj
+            choose_link: Odaberi stranicu...
+
+        fragments:
+          form_fragments:
+            no_tags: |-
+              Predložak nema definiranih tagova.<br/>
+              Uredi predložak tako da sadrži barem jedan tag. Na primjer: <code>{{cms:wysiwyg content}}</code>
+
+        translations:
+          created: Prijevod kreiran
+          creation_failure: Kreiranje prijevoda nije uspjelo
+          updated: Prijevod ažuriran
+          update_failure: Ažuriranje prijevoda nije uspjelo
+          deleted: Prijevod izbrisan
+          not_found: Prijevod nije pronađen
+
+          new:
+            title: Novi prijevod
+          edit:
+            title: Uredi prijevod
+          form:
+            preview: Pregled
+            create: Kreiraj
+            update: Ažuriraj
+            cancel: Povratak na stranicu
+          sidebar:
+            new: Novi prijevod
+            confirm: Jesite li sigurni?
+
+        snippets:
+          created: Isječak kreiran
+          creation_failure: Kreiranje isječka nije bilo uspješno
+          updated: Isječak ažuriran
+          update_failure: Ažuriranje isječka nije bilo usjpješno
+          deleted: Isječak izbrisan
+          not_found: Isječak nije pronađen
+
+          index:
+            title: Isječci
+            new_link: Kreiraj novi isječak
+            edit: Uredi
+            delete: Izbriši
+            are_you_sure: Jesite li sigurni?
+          new:
+            title: Novi isječak
+          edit:
+            title: Uređivanje isječka
+          form:
+            create: Kreiraj isječak
+            cancel: Otkaži
+            update: Ažuriraj isječak
+
+        revisions:
+          reverted: Sadržaj je poništen
+          record_not_found: Zapis nije pronađen
+          not_found: Revizija nije pronađena
+
+          show:
+            title: Revizija za
+            revision: Revizija
+            update: Ažuriraj na ovu reveiziju
+            cancel: Otkaži
+            content: Sadržaj
+            changes: Promjene
+            previous: Prethodna
+            current: Trenutačna
+          sidebar:
+            revision:
+              zero: Nema revizija
+              one: '%{count} revizija'
+              few: '%{count} revizija'
+              many: '%{count} revizija'
+              other: '%{count} revizija'
+
+        files:
+          created: Datoteka učitana
+          creation_failure: Učitavanje datoteka nije uspješno
+          updated: Datoteka ažurirana
+          update_failure: Ažuriranje datoteke nije uspješno
+          deleted: Datoteka izbrisana
+          not_found: Datoteka nije pronađena
+
+          index:
+            title: Datoteke
+            new_link: Dodaj novu datoteku
+            button: Učitavanje datoteke
+          new:
+            title: Nova datoteka
+          edit:
+            title: Uredi datoteku
+          form:
+            current_file: Trenutačna datoteka
+            create: Učitavanje datoteke
+            cancel: Otkaži
+            update: Ažuriraj datoteku
+            delete: Izbriši datoteku
+            are_you_sure: Jesite li sigurni?
+          page_form:
+            are_you_sure: Jesite li sigurni?
+          file:
+            edit: Uredi
+            delete: Izbriši
+            are_you_sure: Jesite li sigurni?
+
+        categories:
+          index:
+            edit: Uredi
+            done: Završi
+            all: Sve kategorije
+            add: Dodaj
+            add_placeholder: Dodaj kategoriju
+          show:
+            are_you_sure: Jesite li sigurni?
+          edit:
+            save: Spremi
+          form:
+            label: Kategorije

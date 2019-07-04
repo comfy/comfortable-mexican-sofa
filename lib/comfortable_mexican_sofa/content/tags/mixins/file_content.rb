@@ -12,26 +12,31 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-      if variant_attrs.present? && file.image?
-        file = file.variant(combine_options: variant_attrs)
-      end
+      url_helpers = Rails.application.routes.url_helpers
 
-      url = rails_blob_path(file.blob)
+      attachment_url =
+        if variant_attrs.present? && file.image?
+          variant = file.variant(combine_options: variant_attrs)
+          url_helpers.rails_representation_path(variant, only_path: true)
+        else
+          url_helpers.rails_blob_path(file, only_path: true)
+        end
 
       case as
       when "link"
-        "<a href='#{url}' target='_blank'>#{label}</a>"
+        "<a href='#{attachment_url}'#{html_class_attribute} target='_blank'>#{label}</a>"
       when "image"
-        "<img src='#{url}' alt='#{label}'/>"
+        "<img src='#{attachment_url}'#{html_class_attribute} alt='#{label}'/>"
       else
-        url
+        attachment_url
       end
     end
 
-    # @param [ActiveStorage::Blob]
-    # @return [String]
-    def rails_blob_path(blob)
-      Rails.application.routes.url_helpers.rails_blob_path(blob, only_path: true)
+  private
+
+    def html_class_attribute
+      return if @class.blank?
+      " class='#{@class}'"
     end
 
   end

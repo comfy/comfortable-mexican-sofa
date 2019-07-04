@@ -29,16 +29,24 @@ class Comfy::Cms::Layout < ActiveRecord::Base
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts
-  def self.options_for_select(site, layout = nil, current_layout = nil, depth = 0, spacer = ". . ")
-    out = []
-    [current_layout || site.layouts.roots.order(:position)].flatten.each do |l|
-      next if layout == l
-      out << ["#{spacer * depth}#{l.label}", l.id]
-      l.children.order(:position).each do |child|
-        out += options_for_select(site, layout, child, depth + 1, spacer)
+  def self.options_for_select(site, current_layout = nil)
+    options = []
+
+    options_for_layout = ->(layout, depth = 0) do
+      return if layout == current_layout
+
+      options << ["#{'. . ' * depth}#{layout.label}", layout.id]
+
+      layout.children.order(:position).each do |child_layout|
+        options_for_layout.call(child_layout, depth + 1)
       end
     end
-    out.compact
+
+    site.layouts.roots.order(:position).each do |layout|
+      options_for_layout.call(layout)
+    end
+
+    options
   end
 
   # List of available application layouts

@@ -23,6 +23,16 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_import_for_a_specific_class
+    importer = mock
+    ComfortableMexicanSofa::Seeds::Importer.expects(:new).with("from_folder", "to_site").returns(importer)
+    importer.expects(:import!).with(["Page"])
+
+    with_captured_stout do
+      @rake["comfy:cms_seeds:import"].invoke("from_folder", "to_site", "Page")
+    end
+  end
+
   def test_export
     exporter = mock
     ComfortableMexicanSofa::Seeds::Exporter.expects(:new).with("from_site", "to_folder").returns(exporter)
@@ -30,6 +40,16 @@ class CmsSeedsTaskTest < ActiveSupport::TestCase
 
     with_captured_stout do
       @rake["comfy:cms_seeds:export"].invoke("from_site", "to_folder")
+    end
+  end
+
+  def test_export_for_a_specific_class
+    exporter = mock
+    ComfortableMexicanSofa::Seeds::Exporter.expects(:new).with("from_site", "to_folder").returns(exporter)
+    exporter.expects(:export!).with(["Page"])
+
+    with_captured_stout do
+      @rake["comfy:cms_seeds:export"].invoke("from_site", "to_folder", "Page")
     end
   end
 
