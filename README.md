@@ -113,7 +113,7 @@ Thanks to [Roman Almeida](https://github.com/nasmorn) for contributing OEM Licen
 
 Thanks to [Bichinger Software & Consulting](https://www.bichinger.de) for contributing OEM License upgrade to [Redactor 3](http://imperavi.com/redactor)
 
-![Bichinger Software & Consulting](doc/bichinger_logo.png)
+[![Bichinger Software & Consulting](doc/bichinger_logo.png)](https://www.bichinger.de)
 
 ---
 
