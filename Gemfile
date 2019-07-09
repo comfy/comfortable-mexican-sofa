@@ -11,8 +11,8 @@ group :development, :test do
   gem "kaminari",           "~> 1.1.1"
   gem "puma",               "~> 3.11.2"
   gem "rubocop",            "~> 0.55.0", require: false
-  gem "webdrivers",         '~> 4.1.0'
   gem "sqlite3",            "~> 1.3.13"
+  gem "webdrivers",         "~> 4.1.0"
 end
 
 group :development do

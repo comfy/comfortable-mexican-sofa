@@ -238,7 +238,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   Capybara.enable_aria_label = true
 
-  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400], options: { desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { w3c: false })}
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { w3c: false })
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400], options: { desired_capabilities: caps }
 
   teardown :assert_no_javascript_errors
 
