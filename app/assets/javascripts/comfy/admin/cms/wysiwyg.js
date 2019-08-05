@@ -39,7 +39,7 @@
       imageManagerJson,
       fileUpload,
       fileManagerJson,
-      definedlinks
+      definedlinks: definedlinks.toString()
     };
   };
 
