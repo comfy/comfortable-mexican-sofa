@@ -50,12 +50,12 @@
       if (textareas.length === 0) return;
       const redactorOptions = buildRedactorOptions();
       for (const textarea of textareas) {
-        redactorInstances.push(new jQuery.Redactor(textarea, redactorOptions));
+        redactorInstances.push(new $R(textarea, redactorOptions));
       }
     },
     dispose() {
       for (const redactor of redactorInstances) {
-        redactor.core.destroy();
+        redactor.app.stop();
       }
       redactorInstances.length = 0;
     }
