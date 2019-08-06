@@ -9,6 +9,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal "ComfortableMexicanSofa CMS Engine", config.cms_title
     assert_equal "ApplicationController", config.admin_base_controller
     assert_equal "ApplicationController", config.public_base_controller
+    assert_equal "ActiveRecord::Base", config.base_model
     assert_equal "ComfortableMexicanSofa::AccessControl::AdminAuthentication",  config.admin_auth
     assert_equal "ComfortableMexicanSofa::AccessControl::AdminAuthorization",   config.admin_authorization
     assert_equal "ComfortableMexicanSofa::AccessControl::PublicAuthentication", config.public_auth

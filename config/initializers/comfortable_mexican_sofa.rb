@@ -10,6 +10,9 @@ ComfortableMexicanSofa.configure do |config|
   # Controller that Comfy::Cms::BaseController will inherit from
   #   config.public_base_controller = 'ApplicationController'
 
+  # Model that Comfy models will inherit from
+  #   config.base_model = 'ActiveRecord::Base'
+
   # Module responsible for authentication. You can replace it with your own.
   # It simply needs to have #authenticate method. See http_auth.rb for reference.
   #   config.admin_auth = 'ComfyAdminAuthentication'
