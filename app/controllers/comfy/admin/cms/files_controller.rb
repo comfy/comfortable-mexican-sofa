@@ -24,15 +24,17 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         when "image"
           file_scope.with_images.collect do |file|
             { thumb: url_for(file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
-              image: url_for(file.attachment),
-              title: file.label }
+              url:   url_for(file.attachment),
+              title: file.label,
+              id:    file.id }
           end
         else
           file_scope.collect do |file|
             { title:  file.label,
               name:   file.attachment.filename,
-              link:   url_for(file.attachment),
-              size:   number_to_human_size(file.attachment.byte_size) }
+              url:    url_for(file.attachment),
+              size:   number_to_human_size(file.attachment.byte_size),
+              id:     file.id }
           end
         end
 
