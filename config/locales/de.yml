@@ -1,12 +1,12 @@
 de:
   activerecord:
     models:
-      comfy/cms/site: Web
-      comfy/cms/layout: Layout
+      comfy/cms/site: Site
+      comfy/cms/layout: Vorlage
       comfy/cms/page: Seite
       comfy/cms/snippet: Schnipsel
       comfy/cms/file: Datei
-      comfy/cms/translation: Translation
+      comfy/cms/translation: Übersetzung
 
     attributes:
       comfy/cms/site:
@@ -19,14 +19,14 @@ de:
         identifier: Eindeutiger Name
         label: Name
         app_layout: Grundlegendes Layout
-        parent_id: Übergeordnetes Layout
+        parent_id: Übergeordnete Vorlage
         content: Inhalt
         css: CSS-Stilvorlage
         js: JavaScript
       comfy/cms/page:
         label: Titel
-        layout_id: Layout
-        slug: URL
+        layout_id: Vorlage
+        slug: URL-Teil
         full_path: Vollständiger Pfad
         parent_id: Vorfahre
         target_page_id: Weiterleitung zu Seite
@@ -41,16 +41,16 @@ de:
         label: Bezeichnung
         content: Inhalt
       comfy/cms/translation:
-        locale: Language
+        locale: Sprache
         label: Label
-        layout_id: Layout
-        is_published: Published
+        layout_id: Vorlage
+        is_published: Veröffentlicht
 
   comfy:
     cms:
       content:
-        site_not_found: Web nicht gefunden
-        layout_not_found: Layout nicht gefunden
+        site_not_found: Site nicht gefunden
+        layout_not_found: Vorlage nicht gefunden
         page_not_found: Seite nicht gefunden
 
     admin:
@@ -59,62 +59,62 @@ de:
           site_not_found: Fehler
           seeds_enabled: Fixtures sind aktiviert - alle Änderungen werden verworfen!
 
-          sites: Webs
-          layouts: Layouts
+          sites: Sites
+          layouts: Vorlagen
           pages: Seiten
           snippets: Schnipsel
           files: Dateien
 
         sites:
-          created: Web erstellt
-          creation_failure: Fehler beim Erstellen des Webs!
-          updated: Web aktualisiert
-          update_failure: Fehler beim Aktualisieren des Webs!
-          deleted: Web gelöscht
-          not_found: Web existiert nicht
+          created: Site erstellt
+          creation_failure: Fehler beim Erstellen der Site!
+          updated: Site aktualisiert
+          update_failure: Fehler beim Aktualisieren der Site!
+          deleted: Site gelöscht
+          not_found: Site existiert nicht
 
           index:
-            title: Webs
-            new_link: Neues Web erstellen
+            title: Sites
+            new_link: Neue Site erstellen
             select: Auswählen
             edit: Bearbeiten
             delete: Löschen
-            are_you_sure: Sicher, dass Sie dieses Web löschen möchten?
+            are_you_sure: Sicher, dass Sie diese Site löschen möchten?
           new:
-            title: Web erstellen
+            title: Site erstellen
           edit:
-            title: Web bearbeiten
+            title: Site bearbeiten
           form:
-            create: Web erstellen
+            create: Site erstellen
             cancel: Abbrechen
-            update: Web speichern
+            update: Site speichern
 
         layouts:
-          created: Layout erstellt
-          creation_failure: Fehler beim Erstellen des Layouts!
-          updated: Layout aktualisiert
-          update_failure: Fehler beim Aktualisieren des Layouts!
-          deleted: Layout gelöscht
-          not_found: Layout nicht angelegt
+          created: Vorlage erstellt
+          creation_failure: Fehler beim Erstellen der Vorlage!
+          updated: Vorlage aktualisiert
+          update_failure: Fehler beim Aktualisieren der Vorlage!
+          deleted: Vorlage gelöscht
+          not_found: Vorlage nicht gefunden
 
           index:
-            title: Layouts
-            new_link: Neues Layout erstellen
+            title: Vorlagen
+            new_link: Neue Vorlage erstellen
           index_branch:
-            add_child_layout: Neues, untergeordnetes Layout erstellen
-            edit: Layout bearbeiten
-            delete: Layout löschen
-            are_you_sure: Sind Sie sicher, dass Sie dieses Layout löschen möchten?
+            add_child_layout: Neue, untergeordnete Vorlage erstellen
+            edit: Vorlage bearbeiten
+            delete: Vorlage löschen
+            are_you_sure: Sind Sie sicher, dass Sie diese Vorlage löschen möchten?
           new:
-            title: Neues Layout
+            title: Neue Vorlage
           edit:
-            title: Layout bearbeiten
+            title: Vorlage bearbeiten
           form:
-            select_parent_layout: Übergeordnetes Layout auswählen
+            select_parent_layout: Übergeordnete Vorlage auswählen
             select_app_layout: Grundlegendes Layout auswählen
-            create: Layout erstellen
+            create: Vorlage erstellen
             cancel: Abbrechen
-            update: Layout speichern
+            update: Vorlage speichern
 
         pages:
           created: Seite erstellt
@@ -123,7 +123,7 @@ de:
           update_failure: Fehler beim Aktualisieren der Seite!
           deleted: Seite gelöscht
           not_found: Seite nicht gefunden
-          layout_not_found: Bisher wurde kein Layout angelegt!
+          layout_not_found: Bisher wurde keine Vorlage angelegt!
 
           index:
             title: Seiten
@@ -153,25 +153,25 @@ de:
               Beispiel: <code>{{ cms:wysiwyg content }}</code>
 
         translations:
-          created: Translation created
-          creation_failure: Failed to create translation
-          updated: Translation updated
-          update_failure: Failed to update translation
-          deleted: Translation deleted
-          not_found: Translation not found
+          created: Übersetzung angelegt
+          creation_failure: Fehler beim Anlegen der Übersetzung!
+          updated: Übersetzung aktualisiert
+          update_failure: Fehler beim Aktualisieren der Übersetzung!
+          deleted: Übersetzung gelöscht
+          not_found: Übersetzung nicht gefunden
 
           new:
-            title: New Translation
+            title: Übersetzung erstellen
           edit:
-            title: Editing Translation
+            title: Übersetzung bearbeiten
           form:
-            preview: Preview
-            create: Create
-            update: Update
-            cancel: Return to Page
+            preview: Vorschau
+            create: Neue Übersetzung
+            update: Überstzung speichern
+            cancel: Zurück zur Seite
           sidebar:
-            new: New Translation
-            confirm: Are you sure?
+            new: Neue Übersetzung
+            confirm: Sind Sie sicher?
 
         snippets:
           created: Schnipsel erstellt
@@ -227,7 +227,7 @@ de:
           not_found: Datei nicht gefunden
 
           index:
-            title: Datei
+            title: Dateien
             new_link: Neue Datei hochladen
             button: Datei hochladen
           new:
@@ -253,7 +253,7 @@ de:
             edit: Bearbeiten
             done: Erledigt
             all: Alle Kategorien
-            add: Hinzuzufügen
+            add: Hinzufügen
             add_placeholder: Kategorie hinzuzufügen
           show:
             are_you_sure: Sind Sie sicher, dass Sie diese Kategorie löschen möchten?
