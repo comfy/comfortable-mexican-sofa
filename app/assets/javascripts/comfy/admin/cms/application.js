@@ -8,7 +8,8 @@
 //= require comfy/vendor/codemirror/mode/markdown/markdown
 //= require comfy/vendor/codemirror/mode/xml/xml
 //= require comfy/vendor/codemirror/addon/edit/closetag
-//= require comfy/vendor/sortable.min
+// https://github.com/SortableJS/Sortable
+//= require comfy/vendor/Sortable.min
 //= require comfy/vendor/bootstrap.bundle.min
 //= require comfy/vendor/diff/diff_match_patch.min
 //= require comfy/vendor/diff/pretty_text_diff
