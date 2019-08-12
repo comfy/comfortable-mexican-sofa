@@ -23,7 +23,7 @@ class Comfy::Cms::File < ActiveRecord::Base
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label, on: :create
   before_create :assign_position
-  after_save :process_attachment
+  before_save :process_attachment
 
   # -- Validations -------------------------------------------------------------
   validates :label, presence: true
