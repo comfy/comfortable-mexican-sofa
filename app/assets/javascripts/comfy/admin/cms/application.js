@@ -10,8 +10,10 @@
 //= require comfy/vendor/codemirror/addon/edit/closetag
 //= require comfy/vendor/sortable.min
 //= require comfy/vendor/bootstrap.bundle.min
-//= require comfy/vendor/diff/diff_match_patch.min
-//= require comfy/vendor/diff/pretty_text_diff
+// https://github.com/google/diff-match-patch
+//= require comfy/vendor/diff/diff_match_patch
+// https://github.com/arnab/jQuery.PrettyTextDiff
+//= require comfy/vendor/diff/jquery.pretty-text-diff.min
 //= require comfy/vendor/fontawesome
 //= require comfy/vendor/redactor
 //= require comfy/vendor/redactor/filemanager
