@@ -9,8 +9,7 @@
 //= require comfy/vendor/codemirror/mode/xml/xml
 //= require comfy/vendor/codemirror/addon/edit/closetag
 //= require comfy/vendor/sortable.min
-//= require comfy/vendor/popper.min
-//= require comfy/vendor/bootstrap.min
+//= require comfy/vendor/bootstrap.bundle.min
 //= require comfy/vendor/diff/diff_match_patch.min
 //= require comfy/vendor/diff/pretty_text_diff
 //= require comfy/vendor/fontawesome
