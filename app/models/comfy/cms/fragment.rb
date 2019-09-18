@@ -11,8 +11,9 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
   attr_reader :files
 
   # -- Callbacks ---------------------------------------------------------------
-  after_save  :remove_attachments,
-              :add_attachments
+  # active_storage attachment behavior changed in rails 6 - see PR#892 for details
+  before_save :remove_attachments, :add_attachments, if: proc { Rails::VERSION::MAJOR >= 6 }
+  after_save :remove_attachments, :add_attachments, unless: proc { Rails::VERSION::MAJOR >= 6 }
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :record, polymorphic: true, touch: true
