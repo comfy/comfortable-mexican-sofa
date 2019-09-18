@@ -24,8 +24,11 @@ class Comfy::Cms::File < ActiveRecord::Base
   before_validation :assign_label, on: :create
   before_create :assign_position
   # active_storage attachment behavior changed in rails 6 - see PR#892 for details
-  before_save :process_attachment, if: proc { Rails::VERSION::MAJOR >= 6 }
-  after_save :process_attachment, unless: proc { Rails::VERSION::MAJOR >= 6 }
+  if Rails::VERSION::MAJOR >= 6
+    before_save :process_attachment
+  else
+    after_save :process_attachment
+  end
 
   # -- Validations -------------------------------------------------------------
   validates :label, presence: true

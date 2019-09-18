@@ -12,8 +12,11 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   # -- Callbacks ---------------------------------------------------------------
   # active_storage attachment behavior changed in rails 6 - see PR#892 for details
-  before_save :remove_attachments, :add_attachments, if: proc { Rails::VERSION::MAJOR >= 6 }
-  after_save :remove_attachments, :add_attachments, unless: proc { Rails::VERSION::MAJOR >= 6 }
+  if Rails::VERSION::MAJOR >= 6
+    before_save :remove_attachments, :add_attachments
+  else
+    after_save :remove_attachments, :add_attachments
+  end
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :record, polymorphic: true, touch: true
