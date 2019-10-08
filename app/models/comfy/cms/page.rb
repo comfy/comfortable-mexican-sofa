@@ -76,15 +76,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
     parents
   end
 
-  def family_tree_helper(parents, current_parent)
-    parent_info = { label: current_parent.label,
-      path: current_parent.full_path }
-    parents.unshift(parent_info)
-    return unless current_parent.parent&.full_path != '/'
-    current_parent = current_parent.parent
-    family_tree_helper(parents, current_parent)
-  end
-
   # For previewing purposes sometimes we need to have full_path set. This
   # full path take care of the pages and its childs but not of the site path
   def full_path
@@ -150,6 +141,15 @@ protected
     self.position = max ? max + 1 : 0
   end
 
+  def family_tree_helper(parents, current_parent)
+    parent_info = { label: current_parent.label,
+      path: current_parent.full_path }
+    parents.unshift(parent_info)
+    return unless current_parent.parent&.full_path != '/'
+    current_parent = current_parent.parent
+    family_tree_helper(parents, current_parent)
+  end
+
   def validate_target_page
     return unless target_page
     p = self
@@ -184,5 +184,4 @@ protected
     self.slug       = CGI.unescape(slug)      unless slug.nil?
     self.full_path  = CGI.unescape(full_path) unless full_path.nil?
   end
-
 end
