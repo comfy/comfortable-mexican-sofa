@@ -1,35 +1,40 @@
-// Site files modal.
-(() => {
-  let modal = null;
+"use strict";
 
-  const initModalContent = (modalContent) => {
+// Site files modal.
+(function () {
+  var modal = null;
+
+  var initModalContent = function initModalContent(modalContent) {
     window.CMS.fileUpload.init(modalContent);
     window.CMS.fileLinks(modalContent);
-    modalContent.addEventListener('dragstart', (evt) => {
-      if (evt.target.nodeType === Node.ELEMENT_NODE &&
-          evt.target.matches('.cms-uploader-filelist .item-title a') && modal != null) {
+    modalContent.addEventListener('dragstart', function (evt) {
+      if (evt.target.nodeType === Node.ELEMENT_NODE && evt.target.matches('.cms-uploader-filelist .item-title a') && modal != null) {
         modal.hide();
       }
     });
   };
 
   window.CMS.files = {
-    init() {
-      const modalToggle = document.querySelector('.cms-files-open-modal');
-      const modalContainer = document.querySelector('.cms-files-modal');
+    init: function init() {
+      var modalToggle = document.querySelector('.cms-files-open-modal');
+      var modalContainer = document.querySelector('.cms-files-modal');
       if (modalToggle === null || modalContainer === null) return;
-      const modalContent = modalContainer.querySelector('.modal-content');
-      modalToggle.addEventListener('click', (evt) => {
+      var modalContent = modalContainer.querySelector('.modal-content');
+      modalToggle.addEventListener('click', function (evt) {
         evt.preventDefault();
-        fetch(modalContainer.dataset.url, {credentials: 'same-origin'}).then((resp) => resp.text()).then((html) => {
-          modalContent.innerHTML = `<div class="modal-body">${html}</div>`;
+        fetch(modalContainer.dataset.url, {
+          credentials: 'same-origin'
+        }).then(function (resp) {
+          return resp.text();
+        }).then(function (html) {
+          modalContent.innerHTML = "<div class=\"modal-body\">".concat(html, "</div>");
           initModalContent(modalContent);
         });
         modal = modal || new bootstrap.Modal(modalContainer);
         modal.show();
       });
     },
-    dispose() {
+    dispose: function dispose() {
       if (modal !== null) {
         modal.hide();
         modal.dispose();

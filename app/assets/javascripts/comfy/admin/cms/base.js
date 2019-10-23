@@ -1,24 +1,26 @@
-(() => {
-  if (!window.CMS) window.CMS = {};
-  const CMS = window.CMS;
+"use strict";
 
-  // TODO(glebm): Use the battle-tested universal onPageLoad code and enable Turbolinks+async in the demo app.
+(function () {
+  if (!window.CMS) window.CMS = {};
+  var CMS = window.CMS; // TODO(glebm): Use the battle-tested universal onPageLoad code and enable Turbolinks+async in the demo app.
   // See: https://gist.github.com/glebm/2496daf445877055447a6fac46509d9a
-  const isTurbolinks = 'Turbolinks' in window && window.Turbolinks.supported;
+
+  var isTurbolinks = 'Turbolinks' in window && window.Turbolinks.supported;
+
   if (isTurbolinks) {
-    document.addEventListener('turbolinks:load', () => {
+    document.addEventListener('turbolinks:load', function () {
       window.CMS.init();
     });
-    document.addEventListener('turbolinks:before-cache', () => {
+    document.addEventListener('turbolinks:before-cache', function () {
       window.CMS.dispose();
     });
   } else {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function () {
       window.CMS.init();
     });
   }
 
-  CMS.init = () => {
+  CMS.init = function () {
     CMS.current_path = window.location.pathname;
     CMS.slugify();
     CMS.codemirror.init();
@@ -33,7 +35,7 @@
     CMS.diff();
   };
 
-  CMS.dispose = () => {
+  CMS.dispose = function () {
     CMS.codemirror.dispose();
     CMS.wysiwyg.dispose();
     CMS.files.dispose();
@@ -42,5 +44,7 @@
     CMS.timepicker.dispose();
   };
 
-  CMS.getLocale = () => document.querySelector('meta[name="cms-locale"]').content;
+  CMS.getLocale = function () {
+    return document.querySelector('meta[name="cms-locale"]').content;
+  };
 })();
