@@ -8,13 +8,13 @@ class PagesFrontendTest < ApplicationSystemTestCase
     @site = comfy_cms_sites(:default)
   end
 
-  def test_new_identifier
+  def test_pages_new_identifier
     visit_p new_comfy_admin_cms_site_page_path(@site)
     fill_in "Label", with: "Test Page"
     assert_equal "test-page", find_field("Slug").value
   end
 
-  def test_change_to_invalid_fragment_and_back
+  def test_pages_change_to_invalid_fragment_and_back
     valid_layout = comfy_cms_layouts(:default)
     valid_layout.update_column(:content, "{{ cms:text content }}")
 
