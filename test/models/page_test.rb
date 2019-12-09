@@ -393,6 +393,9 @@ class CmsPageTest < ActiveSupport::TestCase
       exclude_self: true
     ).map(&:first)
     assert_equal expected, actual
+
+    Comfy::Cms::Page.delete_all
+    assert_equal [], Comfy::Cms::Page.options_for_select(site: @site).map(&:first)
   end
 
   def test_fragments_attributes
