@@ -58,7 +58,6 @@ tr:
         base:
           site_not_found: Site Bulunamadı
           seeds_enabled: CMS Fixtures etkinleştirildi. Burada yapılan değişiklikler kullanılmayacak.
-
           sites: Siteler
           layouts: Şablonlar
           pages: Sayfalar

@@ -58,7 +58,6 @@ ja:
         base:
           site_not_found: サイトが見つかりません
           seeds_enabled: CMS フィクスチャが有効です。 ここでの変更はすべて破棄されます。
-
           sites: サイト
           layouts: レイアウト
           pages: ページ

@@ -58,7 +58,6 @@ cs:
         base:
           site_not_found: Web nenalezen
           seeds_enabled: Je povolen pevně definovaný obsah CMS. Všechny zde provedené změny budou ztraceny.
-
           sites: Weby
           layouts: Rozložení
           pages: Stránky

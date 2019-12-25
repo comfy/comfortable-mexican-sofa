@@ -58,7 +58,6 @@ fi:
         base:
           site_not_found: Sivustoa ei löydy
           seeds_enabled: CMS Seeds on kytketty päälle. Kaikki tehdyt muutokset hävitetään.
-
           sites: Sivustot
           layouts: Ulkoasut
           pages: Sivut

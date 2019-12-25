@@ -58,7 +58,6 @@ nl:
         base:
           site_not_found: Site niet gevonden
           seeds_enabled: CMS Fixtures zijn ingeschakeld. Alle veranderingen die hier gedaan zijn worden weggegooid.
-
           sites: Sites
           layouts: Lay-outs
           pages: Pagina's

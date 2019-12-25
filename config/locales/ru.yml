@@ -58,7 +58,6 @@ ru:
         base:
           site_not_found: Сайт не найден
           seeds_enabled: CMS Fixtures включены. Все изменения, сделанные здесь, будут отменены.
-
           sites: Сайты
           layouts: Шаблоны
           pages: Страницы

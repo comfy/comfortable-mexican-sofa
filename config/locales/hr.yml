@@ -58,7 +58,6 @@ hr:
         base:
           site_not_found: Website nije pronađen.
           seeds_enabled: Opcija CMS Seeds je uključena. Promjene neće biti sačuvane.
-
           sites: Website
           layouts: Predlošci
           pages: Stranice

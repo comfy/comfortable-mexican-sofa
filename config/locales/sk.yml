@@ -58,7 +58,6 @@ sk:
         base:
           site_not_found: Web nenájdený
           seeds_enabled: Sú povolené CMS Fixtures. Všetky tu vykonané zmeny budú stratené.
-
           sites: Weby
           layouts: Rozloženia
           pages: Stránky

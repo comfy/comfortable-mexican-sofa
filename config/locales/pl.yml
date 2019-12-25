@@ -58,7 +58,6 @@ pl:
         base:
           site_not_found: Strona nie została znaleziona
           seeds_enabled: Fikstury CMS są włączone. Wszystkie zmiany zapisane tutaj nie będą uwzględnione.
-
           sites: Witryny
           layouts: Szablony
           pages: Strony

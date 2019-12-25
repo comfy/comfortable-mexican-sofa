@@ -58,7 +58,6 @@ ar:
         base:
           site_not_found: غير موجود
           seeds_enabled: يتم تمكين بذور CMS. سيتم تجاهل جميع التغييرات التي أجريت هنا.
-
           sites: المواقع الخاصة بي
           layouts: مخطط
           pages: الصفحات
@@ -69,7 +68,6 @@ ar:
           created: موقع جديد تم انشاءه
           creation_failure: فشل في إنشاء الموقع
           updated: تحديث الموقع
-
           update_failure: فشل في تحديث الموقع
           deleted: تم الحذف
           not_found: غير موجود
@@ -151,7 +149,7 @@ ar:
           form_fragments:
             no_tags: |-
               لا يحتوي التخطيط على علامات محتوى محددة.<br/>
-              تحرير محتوى تخطيط لتضمين علامة التجزئة. فمثلا: <code>{{cms:wysiwyg content}}</code> 
+              تحرير محتوى تخطيط لتضمين علامة التجزئة. فمثلا: <code>{{cms:wysiwyg content}}</code>
 
         translations:
           created: تم إنشاء الترجمة

@@ -58,7 +58,6 @@ sv:
         base:
           site_not_found: Site kan inte hittas
           seeds_enabled: CMS Fixtures är aktiverade. Inga ändringar kommer att sparas.
-
           sites: Sites
           layouts: Layouter
           pages: Sidor

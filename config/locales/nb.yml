@@ -58,7 +58,6 @@ nb:
         base:
           site_not_found: Fant ikke nettside
           seeds_enabled: CMS Fixtures er aktivert. Alle endringer som er er utført vil bli fjernet.
-
           sites: Nettsider
           layouts: Layouter
           pages: Sider
