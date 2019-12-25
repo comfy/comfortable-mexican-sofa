@@ -6,7 +6,7 @@
     cms_uploader: {
       url: comfy_admin_cms_site_files_path(@site, source: :plupload, categories: params[:categories]),
       token: {name: request_forgery_protection_token, value: form_authenticity_token},
-      session: {name: Rails.application.config.session_options[:key], value: request.session_options[:id]}
+      session: {name: Rails.application.config.session_options[:key], value: request.session_options[:id].public_id}
     }
   }
 
