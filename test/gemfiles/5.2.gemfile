@@ -10,7 +10,7 @@ group :development, :test do
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara",           "~> 2.17.0"
   gem "kaminari",           "~> 1.1.1"
-  gem "puma",               "~> 3.11.2"
+  gem "puma",               "~> 3.12.2"
   gem "rubocop",            "~> 0.55.0", require: false
   gem "selenium-webdriver", "~> 3.9.0"
   gem "sqlite3",            "~> 1.4.2"
