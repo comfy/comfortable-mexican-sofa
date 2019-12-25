@@ -14,14 +14,17 @@ rvm:
   - 2.4.9
   - 2.5.7
   - 2.6.5
-  - ruby-head
 gemfile:
   - test/gemfiles/5.2.gemfile
-  - test/gemfiles/6.0.gemfile
+jobs:
+  include:
+    - rvm: 2.5.7
+      gemfile: test/gemfiles/6.0.gemfile
+    - rvm: 2.6.5
+      gemfile: test/gemfiles/6.0.gemfile
 branches:
   only:
     - master
-
 before_install:
   - gem update --system
   - gem update bundler
@@ -39,6 +42,3 @@ script:
   - bundle exec rake test
   - SKIP_COV=true bundle exec rake test:system
   - bundle exec rubocop
-matrix:
-  allow_failures:
-    - rvm: ruby-head
