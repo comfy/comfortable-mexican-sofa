@@ -101,6 +101,7 @@ class ComfortableMexicanSofa::Configuration
     @seeds_path             = File.expand_path("db/cms_seeds", Rails.root)
     @revisions_limit        = 25
     @locales                = {
+      "ar"    => "عربي",
       "ca"    => "Català",
       "cs"    => "Česky",
       "da"    => "Dansk",
