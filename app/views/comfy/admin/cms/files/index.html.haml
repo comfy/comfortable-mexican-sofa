@@ -21,13 +21,17 @@
 
   = comfy_paginate @files
 
+:ruby
+  session_id = request.session_options[:id]
+  session_id_value = session_id.respond_to?(:public_id) ? session_id.public_id : session_id.to_s
+
 :javascript
   $(function(){
     window.CMS.uploader($("#cms-uploader"), {
       url: '#{comfy_admin_cms_site_files_path(@site, :source => :plupload, :category => params[:category])}',
       multipart_params: {
         '#{request_forgery_protection_token}': '#{form_authenticity_token}',
-        '#{Rails.application.config.session_options[:key]}': '#{request.session_options[:id]}'
+        '#{Rails.application.config.session_options[:key]}': '#{session_id_value}'
       }
     });
   });
