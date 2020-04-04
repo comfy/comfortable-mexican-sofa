@@ -1,6 +1,7 @@
 //= require rails-ujs
 //= require jquery3
 
+// https://github.com/codemirror/codemirror
 //= require comfy/vendor/codemirror
 //= require comfy/vendor/codemirror/mode/css/css
 //= require comfy/vendor/codemirror/mode/htmlmixed/htmlmixed
