@@ -176,7 +176,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     ComfortableMexicanSofa::Seeds::Page::Exporter.new("default-site", "test-site").export!
 
-    out = <<~TEXT
+    out = <<~TEXT.chomp
       [attributes]
       ---
       label: Default Page
@@ -186,7 +186,6 @@ class SeedsPagesTest < ActiveSupport::TestCase
       - Default
       is_published: true
       position: 0
-
       [checkbox boolean]
       true
       [file file]
@@ -200,7 +199,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
 
     assert File.exist?(page_1_attachment_path)
 
-    out = <<~TEXT
+    out = <<~TEXT.chomp
       [attributes]
       ---
       label: Child Page
@@ -213,13 +212,12 @@ class SeedsPagesTest < ActiveSupport::TestCase
     TEXT
     assert_equal out, IO.read(page_2_content_path)
 
-    out = <<~TEXT
+    out = <<~TEXT.chomp
       [attributes]
       ---
       label: Default Translation
       layout: default
       is_published: true
-
       [markdown content]
       translation content
     TEXT
