@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Layout < ActiveRecord::Base
+class Comfy::Cms::Layout < ComfortableMexicanSofa.config.base_model.to_s.constantize
 
   self.table_name = "comfy_cms_layouts"
 

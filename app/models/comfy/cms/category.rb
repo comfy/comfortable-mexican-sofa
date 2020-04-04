@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Category < ActiveRecord::Base
+class Comfy::Cms::Category < ComfortableMexicanSofa.config.base_model.to_s.constantize
 
   self.table_name = "comfy_cms_categories"
 

@@ -9,6 +9,10 @@ class ComfortableMexicanSofa::Configuration
   # 'ApplicationController' is the default
   attr_accessor :admin_base_controller
 
+  # Model that Comfy models will inherit from
+  # 'ApplicationRecord' is the default
+  attr_accessor :base_model
+
   # Controller that Comfy::Cms::BaseController will inherit from
   # 'ApplicationController' is the default
   attr_accessor :public_base_controller
@@ -90,6 +94,7 @@ class ComfortableMexicanSofa::Configuration
     @cms_title              = "ComfortableMexicanSofa CMS Engine"
     @admin_base_controller  = "ApplicationController"
     @public_base_controller = "ApplicationController"
+    @base_model             = "ActiveRecord::Base"
     @admin_auth             = "ComfortableMexicanSofa::AccessControl::AdminAuthentication"
     @admin_authorization    = "ComfortableMexicanSofa::AccessControl::AdminAuthorization"
     @public_auth            = "ComfortableMexicanSofa::AccessControl::PublicAuthentication"
