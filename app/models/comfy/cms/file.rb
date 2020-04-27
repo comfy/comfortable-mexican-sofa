@@ -56,7 +56,12 @@ protected
 
   def process_attachment
     return if @file.blank?
-    attachment.attach(@file)
+
+    # prevents stack overflow issue when attachment update is run in Rails 6
+    tmp = @file
+    @file = nil
+
+    attachment.attach(tmp)
   end
 
 end
