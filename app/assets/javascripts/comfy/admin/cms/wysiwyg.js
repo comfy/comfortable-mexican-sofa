@@ -35,6 +35,7 @@
       plugins: ['imagemanager', 'filemanager', 'table', 'video', 'definedlinks'],
       lang: CMS.getLocale(),
       convertDivs: false,
+      replaceDivs: false,
       imageUpload,
       imageManagerJson,
       fileUpload,
@@ -61,5 +62,3 @@
     }
   }
 })();
-
-
