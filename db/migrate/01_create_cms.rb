@@ -46,7 +46,8 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.integer :position,        null: false, default: 0
       t.integer :children_count,  null: false, default: 0
       t.boolean :is_published,    null: false, default: true
-      t.timestamps
+      t.timestamps,
+      t.datetime :published_date
 
       t.index [:site_id, :full_path]
       t.index [:parent_id, :position]
