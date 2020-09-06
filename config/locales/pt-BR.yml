@@ -2,7 +2,7 @@ pt-BR:
   activerecord:
     models:
       comfy/cms/site: Site
-      comfy/cms/layout: Leiaute
+      comfy/cms/layout: Layout
       comfy/cms/page: Página
       comfy/cms/snippet: Fragmento
       comfy/cms/file: Arquivo
@@ -17,15 +17,15 @@ pt-BR:
         locale: Idioma
       comfy/cms/layout:
         identifier: Identificador
-        label: Nome do Leiaute
-        app_layout: Leiaute da Aplicação
-        parent_id: Leiaute Pai
+        label: Nome do Layout
+        app_layout: Layout da Aplicação
+        parent_id: Layout Pai
         content: Conteúdo
         css: Stylesheet
         js: Javascript
       comfy/cms/page:
         label: Título
-        layout_id: Leiaute
+        layout_id: Layout
         slug: Identificador
         full_path: Full path
         parent_id: Pai
@@ -50,7 +50,7 @@ pt-BR:
     cms:
       content:
         site_not_found: Site Não Encontrado
-        layout_not_found: Leiaute Não Encontrado
+        layout_not_found: Layout Não Encontrado
         page_not_found: Página Não Encontrada
 
     admin:
@@ -59,7 +59,7 @@ pt-BR:
           site_not_found: Site não encontrado
           seeds_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
           sites: Sites
-          layouts: Leiautes
+          layouts: Layouts
           pages: Páginas
           snippets: Fragmentos
           files: Arquivos
@@ -89,31 +89,31 @@ pt-BR:
             update: Atualizar Site
 
         layouts:
-          created: Leiaute criado com sucesso.
-          creation_failure: Não foi possível criar leiaute.
-          updated: Leiaute atualizado com sucesso.
-          update_failure: Não foi possível atualizar leiaute.
-          deleted: Leiaute excluído com sucesso.
-          not_found: Leiaute não encontrado.
+          created: Layout criado com sucesso.
+          creation_failure: Não foi possível criar layout.
+          updated: Layout atualizado com sucesso.
+          update_failure: Não foi possível atualizar layout.
+          deleted: Layout excluído com sucesso.
+          not_found: Layout não encontrado.
 
           index:
-            title: Leiautes
-            new_link: Criar Novo Leiaute
+            title: Layouts
+            new_link: Criar Novo Layout
           index_branch:
-            add_child_layout: Adicionar Leiaute Filho
+            add_child_layout: Adicionar layout Filho
             edit: Editar
             delete: Excluir
             are_you_sure: Tem certeza?
           new:
-            title: Novo Leiaute
+            title: Novo Layout
           edit:
-            title: Editando Leiaute
+            title: Editando Layout
           form:
-            select_parent_layout: Selecione o Leiaute Pai
-            select_app_layout: Selecione o Leiaute da Aplicação
-            create: Criar Leiaute
+            select_parent_layout: Selecione o Layout Pai
+            select_app_layout: Selecione o Layout da Aplicação
+            create: Criar Layout
             cancel: Cancelar
-            update: Atualizar Leiaute
+            update: Atualizar Layout
 
         pages:
           created: Página criada com sucesso.
@@ -122,7 +122,7 @@ pt-BR:
           update_failure: Não foi possível atualizar página.
           deleted: Página excluída com sucesso.
           not_found: Página não encontrada.
-          layout_not_found: "Nenhum leiaute foi encontrado. Por favor, crie um."
+          layout_not_found: "Nenhum layout foi encontrado. Por favor, crie um."
 
           index:
             title: Páginas
@@ -148,7 +148,7 @@ pt-BR:
         fragments:
           form_fragments:
             no_tags: |-
-              O leiaute não possui tags de conteúdo definidas.<br/>
+              O layout não possui tags de conteúdo definidas.<br/>
               Edite o conteúdo e inclua uma tag de página ou de campo. Por exemplo: <code>{{cms:wysiwyg content}}</code>
 
         translations:
