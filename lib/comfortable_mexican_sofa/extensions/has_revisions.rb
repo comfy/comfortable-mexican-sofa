@@ -53,7 +53,7 @@ module ComfortableMexicanSofa::HasRevisions
       end
 
       # blowing away old revisions
-      ids = [0] + revisions.order(created_at: :desc).limit(limit).pluck(:id)
+      ids = revisions.order(created_at: :desc).limit(limit).pluck(:id)
       revisions.where("id NOT IN (?)", ids).destroy_all
     end
 
