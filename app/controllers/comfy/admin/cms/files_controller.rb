@@ -39,7 +39,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       render json: file_hashes
 
     else
-      files_scope = files_scope
+      files_scope = files_scope.with_images
         .includes(:categories)
         .for_category(params[:categories])
         .order("comfy_cms_files.position")
