@@ -1,19 +1,26 @@
+#require 'app/helpers/comfy/cms_helper.rb'
+
 # frozen_string_literal: true
 
 # A mixin for tags that returns the file as their content.
 module ComfortableMexicanSofa::Content::Tag::Mixins
   module FileContent
+    def url_for_cms(blob)
+      url_helpers = Rails.application.routes.url_helpers
 
-    def url_for_cms(blob, only_path = true)
       if Rails.env.test?
-        return Rails.application.routes.url_helpers.url_for(blob, only_path)
+        if blob.is_a?(ActiveStorage::Variant)
+          return url_helpers.rails_representation_path(blob, only_path: true)
+        else
+          return url_helpers.rails_blob_path(blob, only_path: true)
+        end
       end
 
       if blob.is_a?(ActiveStorage::Variant)
-        return Rails.application.routes.url_helpers.rails_public_blob_url(blob.blob)
+        return url_helpers.rails_public_blob_url(blob.blob)
       end
 
-      Rails.application.routes.url_helpers.rails_public_blob_url(blob)
+      url_helpers.rails_public_blob_url(blob)
     end
 
     # @param [ActiveStorage::Blob] file
@@ -27,9 +34,9 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
       attachment_url =
         if variant_attrs.present? && file.image?
           variant = file.variant(combine_options: variant_attrs)
-          url_for_cms(variant, only_path: true)
+          url_for_cms(variant)
         else
-          url_for_cms(file, only_path: true)
+          url_for_cms(file)
         end
 
       case as

@@ -3,6 +3,7 @@
 require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
+  include Comfy::CmsHelper
 
   def setup
     @site = comfy_cms_sites(:default)

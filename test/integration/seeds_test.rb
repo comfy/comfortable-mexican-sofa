@@ -3,6 +3,7 @@
 require_relative "../test_helper"
 
 class SeedsIntergrationTest < ActionDispatch::IntegrationTest
+  include Comfy::CmsHelper
 
   setup do
     @site = comfy_cms_sites(:default)
