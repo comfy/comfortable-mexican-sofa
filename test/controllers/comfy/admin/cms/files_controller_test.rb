@@ -172,7 +172,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
       file = Comfy::Cms::File.last
       assert_equal ({
-        "filelink" => url_for_cms(file.attachment),
+        "filelink" => url_for(file.attachment),
         "filename" => file.attachment.filename
       }), JSON.parse(response.body)
 

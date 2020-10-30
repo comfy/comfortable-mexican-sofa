@@ -72,7 +72,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       render partial: "file", object: @file
     when "redactor"
       render json: {
-        filelink: url_for_cms(@file.attachment),
+        filelink: url_for(@file.attachment),
         filename: @file.attachment.filename
       }
     else
