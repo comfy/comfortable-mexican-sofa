@@ -3,9 +3,9 @@
 module Comfy
   module CmsHelper
 
-    def url_for_cms(blob)
+    def url_for_cms(blob, only_path: true)
       if Rails.env.test?
-        Rails.application.routes.url_helpers.url_for(blob)
+        Rails.application.routes.url_helpers.url_for(blob, only_path)
       end
 
       if blob.is_a?(ActiveStorage::Variant)
