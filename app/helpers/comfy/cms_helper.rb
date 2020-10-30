@@ -5,7 +5,7 @@ module Comfy
 
     def url_for_cms(blob)
       if Rails.env.test?
-        super(blob)
+        Rails.application.routes.url_helpers.url_for(blob)
       end
 
       if blob.is_a?(ActiveStorage::Variant)
