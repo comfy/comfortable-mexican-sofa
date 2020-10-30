@@ -149,8 +149,8 @@ class FormBuilderTest < ActionView::TestCase
     actual = @builder.fragment_field(tag, 123)
 
     attachment = active_storage_attachments(:file)
-    attachment_url  = view.url_for(attachment)
-    thumb_url       = view.url_for(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
+    attachment_url  = view.url_for_cms(attachment)
+    thumb_url       = view.url_for_cms(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
 
     expected = <<~HTML
       <div class="form-group row">
@@ -196,8 +196,8 @@ class FormBuilderTest < ActionView::TestCase
     actual = @builder.fragment_field(tag, 123)
 
     attachment = active_storage_attachments(:file)
-    attachment_url  = view.url_for(attachment)
-    thumb_url       = view.url_for(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
+    attachment_url  = view.url_for_cms(attachment)
+    thumb_url       = view.url_for_cms(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
 
     expected = <<~HTML
       <div class="form-group row">

@@ -4,6 +4,18 @@
 module ComfortableMexicanSofa::Content::Tag::Mixins
   module FileContent
 
+    def url_for_cms(blob, only_path = true)
+      if Rails.env.test?
+        return Rails.application.routes.url_helpers.url_for(blob, only_path)
+      end
+
+      if blob.is_a?(ActiveStorage::Variant)
+        return Rails.application.routes.url_helpers.rails_public_blob_url(blob.blob)
+      end
+
+      Rails.application.routes.url_helpers.rails_public_blob_url(blob)
+    end
+
     # @param [ActiveStorage::Blob] file
     # @param ["link", "image", "url"] as
     # @param [{String => String}] variant_attrs ImageMagick variant attributes
@@ -12,14 +24,12 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
       return "" unless file
 
-      url_helpers = Rails.application.routes.url_helpers
-
       attachment_url =
         if variant_attrs.present? && file.image?
           variant = file.variant(combine_options: variant_attrs)
-          url_helpers.rails_representation_path(variant, only_path: true)
+          url_for_cms(variant, only_path: true)
         else
-          url_helpers.rails_blob_path(file, only_path: true)
+          url_for_cms(file, only_path: true)
         end
 
       case as

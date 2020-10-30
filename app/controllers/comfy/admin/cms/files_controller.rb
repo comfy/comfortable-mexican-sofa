@@ -23,15 +23,15 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
         case params[:type]
         when "image"
           file_scope.with_images.collect do |file|
-            { thumb: url_for(file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
-              image: url_for(file.attachment),
+            { thumb: url_for_cms(file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
+              image: url_for_cms(file.attachment),
               title: file.label }
           end
         else
           file_scope.collect do |file|
             { title:  file.label,
               name:   file.attachment.filename,
-              link:   url_for(file.attachment),
+              link:   url_for_cms(file.attachment),
               size:   number_to_human_size(file.attachment.byte_size) }
           end
         end
@@ -72,7 +72,7 @@ class Comfy::Admin::Cms::FilesController < Comfy::Admin::Cms::BaseController
       render partial: "file", object: @file
     when "redactor"
       render json: {
-        filelink: url_for(@file.attachment),
+        filelink: url_for_cms(@file.attachment),
         filename: @file.attachment.filename
       }
     else

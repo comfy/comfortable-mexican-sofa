@@ -2,7 +2,7 @@
   - attachments.each do |attachment|
     :ruby
       thumb_url = if attachment.variable?
-        url_for(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
+        url_for_cms(attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:thumb]))
       end
       filename = attachment.filename.to_s
       truncated_filename = truncate(filename, length: 40, omission: "...#{filename.last(10)}")
