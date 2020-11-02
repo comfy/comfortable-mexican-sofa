@@ -3,6 +3,7 @@
 require_relative "../../../../test_helper"
 
 class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
+  include Comfy::CmsHelper
 
   def setup
     @site = comfy_cms_sites(:default)
@@ -48,8 +49,8 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_equal [{
-      "thumb" => url_for(@file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
-      "image" => url_for(@file.attachment),
+      "thumb" => url_for_cms(@file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
+      "image" => url_for_cms(@file.attachment),
       "title" => @file.label
     }], JSON.parse(response.body)
   end
@@ -63,7 +64,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_equal [{
       "title" => @file.label,
       "name"  => @file.attachment.filename.to_s,
-      "link"  => url_for(@file.attachment),
+      "link"  => url_for_cms(@file.attachment),
       "size"  => "12.1 KB"
     }], JSON.parse(response.body)
   end
@@ -172,7 +173,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
 
       file = Comfy::Cms::File.last
       assert_equal ({
-        "filelink" => url_for(file.attachment),
+        "filelink" => url_for_cms(file.attachment),
         "filename" => file.attachment.filename
       }), JSON.parse(response.body)
 

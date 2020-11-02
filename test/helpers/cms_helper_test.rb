@@ -82,7 +82,7 @@ class CmsHelperTest < ActionView::TestCase
   def test_cms_fragment_render_with_files
     frag = comfy_cms_fragments(:file)
     comfy_cms_layouts(:default).update_column(:content, "{{cms:file file}}")
-    assert_equal url_for(frag.attachments.first), cms_fragment_render(:file)
+    assert_equal url_for_cms(frag.attachments.first), cms_fragment_render(:file)
   end
 
   def test_cms_snippet_content

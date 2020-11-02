@@ -2,6 +2,21 @@
 
 module Comfy
   module CmsHelper
+    def url_for_cms(blob)
+      if Rails.env.test?
+        if blob.is_a?(ActiveStorage::Variant)
+          return rails_representation_path(blob, only_path: true)
+        else
+          return rails_blob_path(blob, only_path: true)
+        end
+      end
+
+      if blob.is_a?(ActiveStorage::Variant)
+        return Rails.application.routes.url_helpers.rails_public_blob_url(blob.blob)
+      end
+
+      Rails.application.routes.url_helpers.rails_public_blob_url(blob)
+    end
 
     # Raw content of a page fragment. This is how you get content from unrenderable
     # tags like {{cms:fragment meta, render: false}}
