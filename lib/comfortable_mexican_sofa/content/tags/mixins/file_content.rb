@@ -8,7 +8,7 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     def url_for_cms(blob)
       url_helpers = Rails.application.routes.url_helpers
 
-      if Rails.env.test?
+      if Rails.env.development? || Rails.env.test?
         if blob.is_a?(ActiveStorage::Variant)
           return url_helpers.rails_representation_path(blob, only_path: true)
         else
