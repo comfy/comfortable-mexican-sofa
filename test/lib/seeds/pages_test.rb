@@ -13,7 +13,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
   def test_creation
     Comfy::Cms::Page.delete_all
 
-    assert_difference -> { Comfy::Cms::Page.count }, 3 do
+    assert_difference -> { Comfy::Cms::Page.count }, 4 do
       assert_difference -> { Comfy::Cms::Translation.count }, 2 do
         ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
       end
@@ -72,6 +72,10 @@ class SeedsPagesTest < ActiveSupport::TestCase
     assert child_page_b = Comfy::Cms::Page.find_by(full_path: "/child_b")
     assert_equal page, child_page_b.parent
 
+    assert child_page_b_a = Comfy::Cms::Page.find_by(full_path: "/child_b/child_a")
+    assert_equal child_page_a.slug, child_page_b_a.slug
+    assert_equal child_page_b, child_page_b_a.parent
+
     assert_equal child_page_b, child_page_a.target_page
 
     assert_equal 2, page.translations.count
@@ -94,7 +98,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
     child = comfy_cms_pages(:child)
     child.update_column(:slug, "old")
 
-    assert_difference -> { Comfy::Cms::Page.count } do
+    assert_difference -> { Comfy::Cms::Page.count }, 2 do
       ComfortableMexicanSofa::Seeds::Page::Importer.new("sample-site", "default-site").import!
 
       @page.reload
