@@ -50,7 +50,7 @@ class ComfortableMexicanSofa::Content::Renderer
   # @param [Boolean] allow_erb
   # @param [Integer] depth
   def render(nodes, allow_erb = ComfortableMexicanSofa.config.allow_erb, depth = 0)
-    if (depth += 1) > MAX_DEPTH
+    if depth >= MAX_DEPTH
       raise Error, "Deep tag nesting or recursive nesting detected"
     end
 
@@ -61,7 +61,7 @@ class ComfortableMexicanSofa::Content::Renderer
       else
         tokens  = tokenize(node.render)
         nodes   = nodes(tokens)
-        render(nodes, allow_erb || node.allow_erb?, depth)
+        render(nodes, allow_erb || node.allow_erb?, depth.next)
       end
     end.flatten.join
   end
