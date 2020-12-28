@@ -268,9 +268,12 @@ class ContentRendererTest < ActiveSupport::TestCase
   end
 
   def test_render_with_more_than_hundred_tags
-    test_string = Array.new(101) { "{{cms:text content}}" }.join(" ")
+    test_string =
+      Array.new(ComfortableMexicanSofa::Content::Renderer::MAX_DEPTH) { "{{cms:text content}}" }.join(" ")
     out = render_string(test_string)
-    assert_equal Array.new(101) { "content" }.join(" "), out
+    expected =
+      Array.new(ComfortableMexicanSofa::Content::Renderer::MAX_DEPTH) { "content" }.join(" ")
+    assert_equal expected, out
   end
 
   def test_render_stack_overflow

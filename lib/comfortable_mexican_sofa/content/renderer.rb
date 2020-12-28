@@ -42,30 +42,28 @@ class ComfortableMexicanSofa::Content::Renderer
   # @param [Comfy::Cms::WithFragments, nil] context
   def initialize(context)
     @context = context
-    @depth   = 0
   end
 
   # This is how we render content out. Takes context (cms page) and content
   # nodes
   # @param [Array<String, ComfortableMexicanSofa::Content::Tag>]
   # @param [Boolean] allow_erb
-  def render(nodes, allow_erb = ComfortableMexicanSofa.config.allow_erb)
-    if (@depth += 1) > MAX_DEPTH
+  # @param [Integer] depth
+  def render(nodes, allow_erb = ComfortableMexicanSofa.config.allow_erb, depth = 0)
+    if (depth += 1) > MAX_DEPTH
       raise Error, "Deep tag nesting or recursive nesting detected"
     end
 
-    result = nodes.map do |node|
+    nodes.map do |node|
       case node
       when String
         sanitize_erb(node, allow_erb)
       else
         tokens  = tokenize(node.render)
         nodes   = nodes(tokens)
-        render(nodes, allow_erb || node.allow_erb?)
+        render(nodes, allow_erb || node.allow_erb?, depth)
       end
     end.flatten.join
-    @depth -= 1
-    result
   end
 
   def sanitize_erb(string, allow_erb)
