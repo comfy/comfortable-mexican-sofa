@@ -267,6 +267,12 @@ class ContentRendererTest < ActiveSupport::TestCase
     assert_equal "a c e <%= test() %> f d b", out
   end
 
+  def test_render_with_more_than_hundred_tags
+    test_string = Array.new(101) { "{{cms:text content}}" }.join(" ")
+    out = render_string(test_string)
+    assert_equal Array.new(101) { "content" }.join(" "), out
+  end
+
   def test_render_stack_overflow
     # making self-referencing content loop here
     comfy_cms_snippets(:default).update_column(:content, "a {{cms:snippet default}} b")

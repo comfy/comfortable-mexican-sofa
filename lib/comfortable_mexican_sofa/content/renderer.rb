@@ -54,7 +54,7 @@ class ComfortableMexicanSofa::Content::Renderer
       raise Error, "Deep tag nesting or recursive nesting detected"
     end
 
-    nodes.map do |node|
+    result = nodes.map do |node|
       case node
       when String
         sanitize_erb(node, allow_erb)
@@ -64,6 +64,8 @@ class ComfortableMexicanSofa::Content::Renderer
         render(nodes, allow_erb || node.allow_erb?)
       end
     end.flatten.join
+    @depth -= 1
+    result
   end
 
   def sanitize_erb(string, allow_erb)
