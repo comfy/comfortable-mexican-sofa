@@ -30,7 +30,7 @@ module ComfortableMexicanSofa::Seeds::Page
       # setting page record
       page =
         if parent.present?
-          child = site.pages.where(slug: slug).first_or_initialize
+          child = site.pages.where(slug: slug, parent_id: parent.id).first_or_initialize
           child.parent = parent
           child
         else

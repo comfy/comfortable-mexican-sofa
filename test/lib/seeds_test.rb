@@ -10,7 +10,7 @@ class SeedsTest < ActiveSupport::TestCase
     Comfy::Cms::Snippet.destroy_all
 
     assert_difference(-> { Comfy::Cms::Layout.count }, 2) do
-      assert_difference(-> { Comfy::Cms::Page.count }, 3) do
+      assert_difference(-> { Comfy::Cms::Page.count }, 4) do
         assert_difference(-> { Comfy::Cms::Snippet.count }, 1) do
           ComfortableMexicanSofa::Seeds::Importer.new("sample-site", "default-site").import!
         end
