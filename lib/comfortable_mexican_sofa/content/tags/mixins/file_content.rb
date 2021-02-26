@@ -16,7 +16,7 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
 
       attachment_url =
         if variant_attrs.present? && file.image?
-          variant = file.variant(combine_options: variant_attrs)
+          variant = file.variant( variant_attrs)
           url_helpers.rails_representation_path(variant, only_path: true)
         else
           url_helpers.rails_blob_path(file, only_path: true)
