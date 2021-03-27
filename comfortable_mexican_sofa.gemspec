@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml-rails",            ">= 1.0.0"
   s.add_dependency "jquery-rails",          ">= 4.3.1"
   s.add_dependency "kramdown",              ">= 1.0.0"
-  s.add_dependency "mimemagic",             ">= 0.3.2"
+  s.add_dependency "marcel",                ">= 1.0.0"
   s.add_dependency "mini_magick",           ">= 4.8.0"
   s.add_dependency "rails",                 ">= 5.2.0"
   s.add_dependency "rails-i18n",            ">= 5.0.0"

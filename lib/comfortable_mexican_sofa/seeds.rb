@@ -6,7 +6,7 @@ module ComfortableMexicanSofa::Seeds
 
   class Error < StandardError; end
 
-  require "mimemagic"
+  require "marcel"
 
   class Importer
 
