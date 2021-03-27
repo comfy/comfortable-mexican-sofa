@@ -4,7 +4,7 @@ source "http://rubygems.org"
 
 gemspec path: "../../"
 
-gem "rails", ">= 6.0"
+gem "rails", ">= 6.0", "< 6.1"
 
 group :development, :test do
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
