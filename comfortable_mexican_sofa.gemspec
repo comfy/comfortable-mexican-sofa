@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
   s.summary       = "Rails 5.2+ CMS Engine"
   s.description   = "ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine"
-  s.license       = "MIT"
+  s.licenses      = %w[ MIT Apache-2.0 ]
 
   s.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|doc)/})
