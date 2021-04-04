@@ -13,6 +13,7 @@ group :development, :test do
   gem "rubocop",            "~> 0.55.0", require: false
   gem "selenium-webdriver", "~> 3.9.0"
   gem "sqlite3",            "~> 1.4.2"
+  gem "image_processing",      ">= 1.2"
 end
 
 group :development do
