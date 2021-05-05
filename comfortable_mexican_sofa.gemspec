@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_dependency "rails",                 ">= 5.2.0"
   s.add_dependency "rails-i18n",            ">= 5.0.0"
   s.add_dependency "sassc-rails",           ">= 2.0.0"
+  s.add_dependency "rexml",                 ">= 3.2.5"
 end
