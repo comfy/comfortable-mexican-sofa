@@ -41,7 +41,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = comfy_cms_snippets(:default)
     page = comfy_cms_pages(:default)
     assert_match snippet.content, page.content_cache
-    snippet.update_attributes(:content => 'new_snippet_content')
+    snippet.update(:content => 'new_snippet_content')
     page.reload
     assert_match /new_snippet_content/, page.content_cache
   end

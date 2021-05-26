@@ -45,14 +45,14 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     snippet = comfy_cms_snippets(:default)
     assert_equal 0, snippet.categories.count
     
-    snippet.update_attributes(:category_ids => {
+    snippet.update(:category_ids => {
       comfy_cms_categories(:default).id => 1,
       'invalid'                   => 1
     })
     snippet.reload
     assert_equal 1, snippet.categories.count
     
-    snippet.update_attributes(:category_ids => {
+    snippet.update(:category_ids => {
       comfy_cms_categories(:default).id => 0,
       'invalid'                   => 0
     })

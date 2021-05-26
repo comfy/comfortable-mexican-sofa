@@ -19,7 +19,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
       default_snippet_content
       layout_content_c'
     ), response.body
-    assert_equal 'text/html', response.content_type
+    assert_equal 'text/html', response.media_type
 
     assert_equal :en, assigns(:locale)
     assert_equal :en, I18n.locale
@@ -38,13 +38,13 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     request.headers["Accept"] = "*/*"
     get :show, params: { :cms_path => '' }
     assert_response :success
-    assert_equal 'text/html', response.content_type
+    assert_equal 'text/html', response.media_type
   end
 
   def test_show_as_json
     get :show, params: { :cms_path => '', :format => 'json' }
     assert_response :success
-    assert_equal 'application/json', response.content_type
+    assert_equal 'application/json', response.media_type
 
     content = rendered_content_formatter(
       '
@@ -93,7 +93,7 @@ class Comfy::Cms::ContentControllerTest < ActionController::TestCase
     )
     get :show, params: { :cms_path => 'rss' }
     assert_response :success
-    assert_equal 'application/rss+xml', response.content_type
+    assert_equal 'application/rss+xml', response.media_type
   end
 
   def test_show_with_app_layout
