@@ -11,7 +11,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   def test_validation
     category = Comfy::Cms::Categorization.new
     assert category.invalid?
-    assert_has_errors_on category, :category_id, :categorized_type, :categorized_id
+    assert_has_errors_on category, :category, :categorized
   end
   
   def test_creation

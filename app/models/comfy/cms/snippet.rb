@@ -15,8 +15,6 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
   after_destroy :clear_page_content_cache
   
   # -- Validations ----------------------------------------------------------
-  validates :site_id,
-    :presence   => true
   validates :label,
     :presence   => true
   validates :identifier,

@@ -12,7 +12,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = Comfy::Cms::Snippet.new
     snippet.save
     assert snippet.invalid?
-    assert_has_errors_on snippet, :site_id, :label, :identifier
+    assert_has_errors_on snippet, :site, :label, :identifier
   end
   
   def test_label_assignment

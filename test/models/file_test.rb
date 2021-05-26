@@ -16,7 +16,7 @@ class CmsFileTest < ActiveSupport::TestCase
   def test_validations
     file = Comfy::Cms::File.new
     assert file.invalid?
-    assert_has_errors_on file, :site_id, :file
+    assert_has_errors_on file, :site, :file
   end
   
   def test_validations_uniqueness
