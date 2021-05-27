@@ -55,7 +55,7 @@ class ViewMethodsTest < ActionView::TestCase
 
   def test_cms_block_with_files
     @cms_page.layout.update_column(:content, '{{cms:page_files:files}}')
-    @cms_page.update_attributes!(
+    @cms_page.update!(
       :blocks_attributes => [
         {
           :identifier => 'files',

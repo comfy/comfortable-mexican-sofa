@@ -29,7 +29,7 @@ class Admin::FoosController < Comfy::Admin::Cms::BaseController
   end
 
   def update
-    @foo.update_attributes!(foo_params)
+    @foo.update!(foo_params)
     flash[:success] = 'Foo updated'
     redirect_to :action => :show, :id => @foo
   rescue ActiveRecord::RecordInvalid

@@ -6,11 +6,11 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/comfy/comfortable-mexican-sofa.svg?style=flat)](https://codeclimate.com/github/comfy/comfortable-mexican-sofa) 
 [![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
 
-ComfortableMexicanSofa is a powerful Rails 4/5 CMS Engine
+ComfortableMexicanSofa is a powerful Rails 5/6 CMS Engine
 
 ## Features
 
-* Simple integration with Rails 4 apps
+* Simple integration with Rails 5/6 apps
 * Build your application in Rails, not in CMS
 * Powerful page templating capability using [Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Sites) from a single installation
@@ -24,7 +24,7 @@ ComfortableMexicanSofa is a powerful Rails 4/5 CMS Engine
 Add gem definition to your Gemfile:
 
 ```ruby
-gem 'comfortable_mexican_sofa', '~> 1.12.0'
+gem 'comfortable_mexican_sofa', '~> 1.14.0'
 ```
 
 Then from the Rails project's root run:

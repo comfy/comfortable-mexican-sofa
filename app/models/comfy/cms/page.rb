@@ -26,8 +26,6 @@ class Comfy::Cms::Page < ActiveRecord::Base
   after_find        :unescape_slug_and_path
 
   # -- Validations ----------------------------------------------------------
-  validates :site_id,
-    :presence   => true
   validates :label,
     :presence   => true
   validates :slug,

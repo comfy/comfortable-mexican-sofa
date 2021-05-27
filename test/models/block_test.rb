@@ -134,7 +134,7 @@ class CmsBlockTest < ActiveSupport::TestCase
     end
 
     assert_no_difference ['Comfy::Cms::Block.count', 'Comfy::Cms::File.count'] do
-      page.update_attributes!(
+      page.update!(
         :blocks_attributes => [
           { :identifier => 'file',
             :content    => fixture_file_upload('files/document.pdf', "application/pdf") }
@@ -181,7 +181,7 @@ class CmsBlockTest < ActiveSupport::TestCase
 
     assert_no_difference 'Comfy::Cms::Block.count' do
       assert_difference 'Comfy::Cms::File.count', 2 do
-        page.update_attributes!(
+        page.update!(
           :blocks_attributes => [
             { :identifier => 'files',
               :content    => [

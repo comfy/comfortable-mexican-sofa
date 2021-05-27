@@ -12,7 +12,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = Comfy::Cms::Snippet.new
     snippet.save
     assert snippet.invalid?
-    assert_has_errors_on snippet, :site_id, :label, :identifier
+    assert_has_errors_on snippet, :site, :label, :identifier
   end
   
   def test_label_assignment
@@ -41,7 +41,7 @@ class CmsSnippetTest < ActiveSupport::TestCase
     snippet = comfy_cms_snippets(:default)
     page = comfy_cms_pages(:default)
     assert_match snippet.content, page.content_cache
-    snippet.update_attributes(:content => 'new_snippet_content')
+    snippet.update(:content => 'new_snippet_content')
     page.reload
     assert_match /new_snippet_content/, page.content_cache
   end

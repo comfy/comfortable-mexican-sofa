@@ -4,7 +4,7 @@ class CollectionTagTest < ActiveSupport::TestCase
 
   module TestCollectionScope
     def self.included(base)
-      base.scope :cms_collection, lambda{|*args| base.where(:identifier => args.first) if args.first }
+      base.scope :cms_collection, lambda{|*args| base.default_scoped.where(:identifier => args.first) if args.first }
     end
   end
   Comfy::Cms::Snippet.send(:include, TestCollectionScope)

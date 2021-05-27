@@ -15,7 +15,7 @@ class Comfy::Admin::Cms::CategoriesController < Comfy::Admin::Cms::BaseControlle
   end
 
   def update
-    @category.update_attributes!(category_params)
+    @category.update!(category_params)
   rescue ActiveRecord::RecordInvalid
     head :ok
   end

@@ -7,8 +7,6 @@ class Comfy::Cms::Category < ActiveRecord::Base
     :dependent => :destroy
     
   # -- Validations ----------------------------------------------------------
-  validates :site_id, 
-    :presence   => true
   validates :label,
     :presence   => true,
     :uniqueness => { :scope => [:categorized_type, :site_id] }

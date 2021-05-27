@@ -24,8 +24,6 @@ class Comfy::Cms::File < ActiveRecord::Base
   belongs_to :block, optional: true
 
   # -- Validations ----------------------------------------------------------
-  validates :site_id,
-    :presence   => true
   validates_attachment_presence :file
   do_not_validate_attachment_file_type :file
 
