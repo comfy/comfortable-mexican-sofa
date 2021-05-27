@@ -11,6 +11,7 @@ rvm:
   - 2.7.3
 gemfile:
   - test/gemfiles/Gemfile.rails.6.0
+  - test/gemfiles/Gemfile.rails.6.1
 branches:
   only:
     - master
