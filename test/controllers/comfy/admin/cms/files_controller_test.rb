@@ -48,7 +48,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_equal [{
-      "thumb" => url_for(@file.attachment.variant(combine_options: Comfy::Cms::File::VARIANT_SIZE[:redactor])),
+      "thumb" => url_for(@file.attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:redactor])),
       "image" => url_for(@file.attachment),
       "title" => @file.label
     }], JSON.parse(response.body)
