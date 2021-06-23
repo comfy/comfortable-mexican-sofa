@@ -53,8 +53,8 @@ module ComfortableMexicanSofa::HasRevisions
       end
 
       # blowing away old revisions
-      ids = [0] + revisions.order(created_at: :desc).limit(limit).pluck(:id)
-      revisions.where("id NOT IN (?)", ids).destroy_all
+      ids = revisions.order(created_at: :desc).limit(limit).pluck(:id)
+      revisions.where.not(id: ids).destroy_all
     end
 
     # Assigning whatever is found in revision data and attempting to save the object
