@@ -15,9 +15,10 @@ module ComfortableMexicanSofa::Seeds::File
         file_path = File.join(path, file.attachment.filename.to_s)
 
         # writing attributes
-        ::File.open(::File.join(path, "_#{file.attachment.filename}.yml"), "w") do |f|
+        ::File.open(::File.join(path, "#{'%07d' % file.id}.yml"), "w") do |f|
           f.write({
             "label"       => file.label,
+            "name"        => file.attachment.filename.to_s,
             "description" => file.description,
             "categories"  => file.categories.map(&:label)
           }.to_yaml)
