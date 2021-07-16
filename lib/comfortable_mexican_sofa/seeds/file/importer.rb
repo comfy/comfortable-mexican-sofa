@@ -9,8 +9,12 @@ module ComfortableMexicanSofa::Seeds::File
     end
 
     def import!
-      Dir["#{path}[^_]*"].each do |file_path|
-        filename = ::File.basename(file_path)
+      Dir["#{path}*.yml"].sort.each do |file_path|
+        yml_name = ::File.basename(file_path)
+
+        attrs = YAML.safe_load(File.read(file_path))
+        filename = attrs["name"] unless attrs.nil?
+        org_path = Pathname.new(path) + filename
 
         file = site.files.with_attached_attachment
           .where("active_storage_blobs.filename" => filename).references(:blob).first ||
@@ -19,11 +23,12 @@ module ComfortableMexicanSofa::Seeds::File
         # We need to track actual file and its attributes
         fresh_file = false
 
-        if File.exist?(attrs_path = File.join(path, "_#{filename}.yml"))
+        if File.exist?(attrs_path = File.join(path, yml_name))
           if fresh_seed?(file, attrs_path)
             fresh_file = true
 
             attrs = YAML.safe_load(File.read(attrs_path))
+            attrs.delete("name")
             category_ids = category_names_to_ids(file, attrs.delete("categories"))
             file.attributes = attrs.merge(
               category_ids: category_ids
@@ -31,10 +36,10 @@ module ComfortableMexicanSofa::Seeds::File
           end
         end
 
-        if fresh_seed?(file, file_path)
+        if fresh_seed?(file, org_path)
           fresh_file = true
 
-          file_handler = File.open(file_path)
+          file_handler = File.open(org_path)
           file.file = {
             io:           file_handler,
             filename:     filename,
@@ -44,7 +49,7 @@ module ComfortableMexicanSofa::Seeds::File
 
         if fresh_file
           if file.save
-            message = "[CMS SEEDS] Imported File \t #{file_path}"
+            message = "[CMS SEEDS] Imported File \t #{org_path}"
             ComfortableMexicanSofa.logger.info(message)
           else
             message = "[CMS SEEDS] Failed to import File \n#{file.errors.inspect}"
