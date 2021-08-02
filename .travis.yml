@@ -10,21 +10,12 @@ addons:
 
 language: ruby
 rvm:
-  - 2.3.8
-  - 2.4.9
-  - 2.5.7
-  - 2.6.5
+  - 2.6.8
+  - 2.7.4
   - 3.0.2
 gemfile:
   - test/gemfiles/5.2.gemfile
-jobs:
-  include:
-    - rvm: 2.5.7
-      gemfile: test/gemfiles/6.0.gemfile
-    - rvm: 2.6.5
-      gemfile: test/gemfiles/6.0.gemfile
-    - rvm: 3.0.2
-      gemfile: test/gemfiles/6.0.gemfile
+  - test/gemfiles/6.0.gemfile
 branches:
   only:
     - master
