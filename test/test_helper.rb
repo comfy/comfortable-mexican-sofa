@@ -254,3 +254,33 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
 end
+
+# Copy from unreleased Rails 7
+unless defined?(ActiveStorage::FixtureSet)
+  require "active_support/testing/file_fixtures"
+  require "active_record/secure_token"
+
+  module ActiveStorage
+    class FixtureSet
+
+      include ActiveSupport::Testing::FileFixtures
+      include ActiveRecord::SecureToken
+
+      self.file_fixture_path = ActiveSupport::TestCase.file_fixture_path
+
+      def self.blob(filename:, **attributes)
+        new.prepare Blob.new(filename: filename, key: generate_unique_secure_token), **attributes
+      end
+
+      def prepare(instance, **attributes)
+        io = file_fixture(instance.filename.to_s).open
+        instance.unfurl(io)
+        instance.assign_attributes(attributes)
+        instance.upload_without_unfurling(io)
+
+        instance.attributes.transform_values { |value| value.is_a?(Hash) ? value.to_json : value }.compact.to_json
+      end
+
+    end
+  end
+end

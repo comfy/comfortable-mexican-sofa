@@ -64,7 +64,7 @@ class Comfy::Admin::Cms::FilesControllerTest < ActionDispatch::IntegrationTest
       "title" => @file.label,
       "name"  => @file.attachment.filename.to_s,
       "link"  => url_for(@file.attachment),
-      "size"  => "12.1 KB"
+      "size"  => "6.25 KB"
     }], JSON.parse(response.body)
   end
 

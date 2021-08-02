@@ -54,7 +54,7 @@ protected
     # If we're dealing with a single file
     if tag == "file"
       @files = [@files.first]
-      attachments&.purge_later
+      attachments.clear
     end
 
     attachments.attach(@files)
