@@ -1,13 +1,3 @@
-default:
-  key: 123abc
-  filename: default.jpg
-  content_type: image/jpg
-  byte_size: 12345
-  checksum: 123abc
+default: <%= ActiveStorage::FixtureSet.blob(filename: "default.jpg") %>
 
-fragment:
-  key: 456def
-  filename: fragment.jpg
-  content_type: image/jpg
-  byte_size: 12345
-  checksum: 456def
+fragment: <%= ActiveStorage::FixtureSet.blob(filename: "fragment.jpg") %>

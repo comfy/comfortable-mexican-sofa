@@ -19,7 +19,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal "content", response.body
-    assert_equal "text/html", response.content_type
+    assert_equal "text/html", response.media_type
 
     assert_equal :en, I18n.locale
   end
@@ -27,13 +27,13 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
   def test_show_default_html
     get comfy_cms_render_page_path(cms_path: ""), headers: { "Accept" => "*/*" }
     assert_response :success
-    assert_equal "text/html", response.content_type
+    assert_equal "text/html", response.media_type
   end
 
   def test_show_as_json
     get comfy_cms_render_page_path(cms_path: ""), as: :json
     assert_response :success
-    assert_equal "application/json", response.content_type
+    assert_equal "application/json", response.media_type
 
     json_response = JSON.parse(response.body)
     assert_equal @page.id,        json_response["id"]
@@ -58,7 +58,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
     get comfy_cms_render_page_path(cms_path: ""), as: :json
     assert_response :success
-    assert_equal "application/json", response.content_type
+    assert_equal "application/json", response.media_type
     json_response = JSON.parse(response.body)
 
     # assert_nil json_response["position"]
@@ -80,7 +80,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
 
     get comfy_cms_render_page_path(cms_path: ""), as: :json
     assert_response :success
-    assert_equal "application/json", response.content_type
+    assert_equal "application/json", response.media_type
     json_response = JSON.parse(response.body)
 
     assert_equal "Translation Content", json_response["content"]
@@ -119,7 +119,7 @@ class Comfy::Cms::ContentControllerTest < ActionDispatch::IntegrationTest
     )
     get comfy_cms_render_page_path(cms_path: "rss")
     assert_response :success
-    assert_equal "application/rss+xml", response.content_type
+    assert_equal "application/rss+xml", response.media_type
   end
 
   def test_show_with_app_layout

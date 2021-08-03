@@ -1,0 +1,44 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.0', '2.7', '2.6']
+        rails: ['6.0', '6.1']
+    env:
+      SKIP_COV: true
+      RAILS_VERSION: "~> ${{ matrix.rails }}.0"
+    name: Ruby ${{ matrix.ruby }} / Rails ${{ matrix.rails }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+          cache-version: ruby-${{ matrix.ruby }}:rails-${{ matrix.rails }}
+      - name: Install bundler
+        run: gem install bundler
+      - name: Run bundler
+        run: bundle install --jobs 4 --retry 3
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@master
+      - name: Migrate database
+        run: bundle exec rake db:migrate
+      - name: Run tests
+        run: bundle exec rake test
+      - name: Run system tests
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+          bundle exec rake test:system
+      - name: Run rubocop
+        run: bundle exec rubocop

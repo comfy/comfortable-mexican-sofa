@@ -116,7 +116,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       default_css
     TEXT
 
-    assert_equal out, IO.read(layout_1_content_path)
+    assert_seed_equal out, IO.read(layout_1_content_path)
 
     out = <<~TEXT.chomp
       [attributes]
@@ -132,7 +132,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       [css]
       nested_css
     TEXT
-    assert_equal out, IO.read(layout_2_content_path)
+    assert_seed_equal out, IO.read(layout_2_content_path)
 
     out = <<~TEXT.chomp
       [attributes]
@@ -148,10 +148,16 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       [css]
       child_css
     TEXT
-    assert_equal out, IO.read(layout_3_content_path)
+    assert_seed_equal out, IO.read(layout_3_content_path)
 
   ensure
     FileUtils.rm_rf(host_path)
+  end
+
+  def assert_seed_equal(expected, actual)
+    # YAML in Ruby 3 does not add a space after blank attributes
+    [expected, actual].each { |str| str.gsub! %r{\s+$}, "" }
+    assert_equal expected, actual
   end
 
 end

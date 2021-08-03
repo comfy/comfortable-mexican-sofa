@@ -6,6 +6,7 @@ AllCops:
     - db/migrate/**/*
     - test/fixtures/**/*
     - tmp/**/*
+    - vendor/**/*
 
 # -- Performance ---------------------------------------------------------------
 Performance/Casecmp:
