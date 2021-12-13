@@ -12,7 +12,7 @@ class Comfy::Cms::Category < ActiveRecord::Base
   # -- Validations ----------------------------------------------------------
   validates :label,
     presence:   true,
-    uniqueness: { scope: %i[categorized_type site_id] }
+    uniqueness: { scope: %i[categorized_type site_id], case_sensitive: true }
   validates :categorized_type,
     presence:   true
 

@@ -25,7 +25,7 @@ class Comfy::Cms::Translation < ActiveRecord::Base
 
   validates :locale,
     presence:   true,
-    uniqueness: { scope: :page_id }
+    uniqueness: { scope: :page_id, case_sensitive: true }
 
   validate :validate_locale
 
