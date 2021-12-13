@@ -195,7 +195,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
       [text content]
       content
     TEXT
-    assert_equal out, IO.read(page_1_content_path)
+    assert_seed_equal out, IO.read(page_1_content_path)
 
     assert File.exist?(page_1_attachment_path)
 
@@ -210,7 +210,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
       position: 0
 
     TEXT
-    assert_equal out, IO.read(page_2_content_path)
+    assert_seed_equal out, IO.read(page_2_content_path)
 
     out = <<~TEXT.chomp
       [attributes]
@@ -221,7 +221,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
       [markdown content]
       translation content
     TEXT
-    assert_equal out, IO.read(translation_path)
+    assert_seed_equal out, IO.read(translation_path)
 
   ensure
     FileUtils.rm_rf(host_path)

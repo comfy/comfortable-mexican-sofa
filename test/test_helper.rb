@@ -103,6 +103,12 @@ class ActiveSupport::TestCase
     assert_select(selector, text: value, count: 0)
   end
 
+  # ignore whitespace after blank attributes
+  def assert_seed_equal(expected, actual)
+    [expected, actual].each { |str| str.gsub! %r{\s+$}, '' }
+    assert_equal expected, actual
+  end
+
   # Capturing STDOUT into a string
   def with_captured_stout
     old = $stdout

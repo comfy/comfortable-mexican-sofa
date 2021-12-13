@@ -116,7 +116,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       default_css
     TEXT
 
-    assert_equal out, IO.read(layout_1_content_path)
+    assert_seed_equal out, IO.read(layout_1_content_path)
 
     out = <<~TEXT.chomp
       [attributes]
@@ -132,7 +132,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       [css]
       nested_css
     TEXT
-    assert_equal out, IO.read(layout_2_content_path)
+    assert_seed_equal out, IO.read(layout_2_content_path)
 
     out = <<~TEXT.chomp
       [attributes]
@@ -148,7 +148,7 @@ class SeedsLayoutsTest < ActiveSupport::TestCase
       [css]
       child_css
     TEXT
-    assert_equal out, IO.read(layout_3_content_path)
+    assert_seed_equal out, IO.read(layout_3_content_path)
 
   ensure
     FileUtils.rm_rf(host_path)
