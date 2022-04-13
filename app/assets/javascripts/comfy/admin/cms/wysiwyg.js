@@ -24,8 +24,8 @@
     fileManagerJson.searchParams.set('source', 'redactor');
     fileManagerJson.searchParams.set('type', 'file');
 
-    const definedLinks = new URL(pagesPath, document.location.href);
-    definedLinks.searchParams.set('source', 'redactor');
+    const definedlinks = new URL(pagesPath, document.location.href);
+    definedlinks.searchParams.set('source', 'redactor');
 
     return {
       minHeight: 160,
@@ -39,7 +39,7 @@
       imageManagerJson,
       fileUpload,
       fileManagerJson,
-      definedLinks
+      definedlinks: definedlinks.toString()
     };
   };
 
@@ -50,12 +50,12 @@
       if (textareas.length === 0) return;
       const redactorOptions = buildRedactorOptions();
       for (const textarea of textareas) {
-        redactorInstances.push(new jQuery.Redactor(textarea, redactorOptions));
+        redactorInstances.push(new $R(textarea, redactorOptions));
       }
     },
     dispose() {
       for (const redactor of redactorInstances) {
-        redactor.core.destroy();
+        redactor.app.stop();
       }
       redactorInstances.length = 0;
     }

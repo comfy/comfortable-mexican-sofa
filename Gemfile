@@ -11,8 +11,9 @@ group :development, :test do
   gem "kaminari",           "~> 1.1.1"
   gem "puma",               "~> 3.12.2"
   gem "rubocop",            "~> 0.55.0", require: false
-  gem "selenium-webdriver", "~> 3.9.0"
   gem "sqlite3",            "~> 1.4.2"
+  gem "webdrivers",         "~> 4.1.0"
+  gem "selenium-webdriver", "~> 3.9.0"
 end
 
 group :development do

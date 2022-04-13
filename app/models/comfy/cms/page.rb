@@ -61,7 +61,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
       end
     end
 
-    options_for_page.call(site.pages.root)
+    root_page = site.pages.root
+    options_for_page.call(root_page) if root_page
 
     options
   end

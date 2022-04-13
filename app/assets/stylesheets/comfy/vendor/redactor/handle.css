@@ -1,0 +1,27 @@
+#redactor-handle-list {
+    font-family: "Trebuchet MS", 'Helvetica Neue', Helvetica, Tahoma, sans-serif;
+    display: none;
+    position: absolute;
+    z-index: 1053;
+    background-color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+    border-radius: 2px;
+    width: 264px;
+    max-height: 250px;
+    margin: 0;
+    overflow: auto;
+    font-size: 14px;
+    padding: 0;
+}
+#redactor-handle-list a {
+    display: block;
+    text-decoration: none;
+    padding: 10px 8px;
+    white-space: nowrap;
+    color: #000;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+#redactor-handle-list a:hover {
+    color: #fff !important;
+    background-color: #449aef !important;
+}

@@ -1,77 +1,151 @@
-if (!RedactorPlugins) var RedactorPlugins = {};
-
-(function($)
+(function($R)
 {
-	RedactorPlugins.video = function()
-	{
-		return {
-			reUrlYoutube: /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig,
-			reUrlVimeo: /https?:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/,
-			getTemplate: function()
+    $R.add('plugin', 'video', {
+        translations: {
+            en: {
+                "video": "Video",
+                "video-html-code": "Video Embed Code or Youtube/Vimeo Link"
+            }
+        },
+        modals: {
+            'video':
+                '<form action=""> \
+                    <div class="form-item"> \
+                        <label for="modal-video-input">## video-html-code ##</label> \
+                        <textarea id="modal-video-input" name="video" style="height: 160px;"></textarea> \
+                    </div> \
+                </form>'
+        },
+        init: function(app)
+        {
+            this.app = app;
+            this.lang = app.lang;
+            this.opts = app.opts;
+            this.toolbar = app.toolbar;
+            this.component = app.component;
+            this.insertion = app.insertion;
+            this.inspector = app.inspector;
+        },
+        // messages
+        onmodal: {
+            video: {
+                opened: function($modal, $form)
+                {
+                    $form.getField('video').focus();
+                },
+                insert: function($modal, $form)
+                {
+                    var data = $form.getData();
+                    this._insert(data);
+                }
+            }
+        },
+        oncontextbar: function(e, contextbar)
+        {
+            var data = this.inspector.parse(e.target)
+            if (data.isComponentType('video'))
+            {
+                var node = data.getComponent();
+                var buttons = {
+                    "remove": {
+                        title: this.lang.get('delete'),
+                        api: 'plugin.video.remove',
+                        args: node
+                    }
+                };
+
+                contextbar.set(e, node, buttons, 'bottom');
+            }
+
+        },
+
+        // public
+        start: function()
+        {
+            var obj = {
+                title: this.lang.get('video'),
+                api: 'plugin.video.open'
+            };
+
+            var $button = this.toolbar.addButtonAfter('image', 'video', obj);
+            $button.setIcon('<i class="re-icon-video"></i>');
+        },
+        open: function()
+		{
+            var options = {
+                title: this.lang.get('video'),
+                width: '600px',
+                name: 'video',
+                handle: 'insert',
+                commands: {
+                    insert: { title: this.lang.get('insert') },
+                    cancel: { title: this.lang.get('cancel') }
+                }
+            };
+
+            this.app.api('module.modal.build', options);
+		},
+        remove: function(node)
+        {
+            this.component.remove(node);
+        },
+
+        // private
+		_insert: function(data)
+		{
+    		this.app.api('module.modal.close');
+
+    		if (data.video.trim() === '')
+    		{
+        	    return;
+    		}
+
+            // parsing
+            data.video = this._matchData(data.video);
+
+            // inserting
+            if (this._isVideoIframe(data.video))
+            {
+                var $video = this.component.create('video', data.video);
+                this.insertion.insertHtml($video);
+            }
+		},
+
+		_isVideoIframe: function(data)
+		{
+            return (data.match(/<iframe|<video/gi) !== null);
+		},
+		_matchData: function(data)
+		{
+			var iframeStart = '<iframe style="width: 500px; height: 281px;" src="';
+			var iframeEnd = '" frameborder="0" allowfullscreen></iframe>';
+
+            if (this._isVideoIframe(data))
 			{
-				return String()
-				+ '<section id="redactor-modal-video-insert">'
-					+ '<label>' + this.lang.get('video_html_code') + '</label>'
-					+ '<textarea id="redactor-insert-video-area" style="height: 160px;"></textarea>'
-				+ '</section>';
-			},
-			init: function()
-			{
-				var button = this.button.addAfter('image', 'video', this.lang.get('video'));
-				this.button.addCallback(button, this.video.show);
-			},
-			show: function()
-			{
-				this.modal.addTemplate('video', this.video.getTemplate());
+				var allowed = ['iframe', 'video', 'source'];
+				var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
 
-				this.modal.load('video', this.lang.get('video'), 700);
-				this.modal.createCancelButton();
+                data = data.replace(/<p(.*?[^>]?)>([\w\W]*?)<\/p>/gi, '');
+			    data = data.replace(tags, function ($0, $1)
+			    {
+			        return (allowed.indexOf($1.toLowerCase()) === -1) ? '' : $0;
+			    });
+			}
+            else
+            {
+    			if (data.match(this.opts.regex.youtube))
+    			{
+    				data = data.replace(this.opts.regex.youtube, iframeStart + '//www.youtube.com/embed/$1' + iframeEnd);
+    			}
+    			else if (data.match(this.opts.regex.vimeo))
+    			{
 
-				var button = this.modal.createActionButton(this.lang.get('insert'));
-				button.on('click', this.video.insert);
-
-				this.selection.save();
-				this.modal.show();
-
-				$('#redactor-insert-video-area').focus();
-
-			},
-			insert: function()
-			{
-				var data = $('#redactor-insert-video-area').val();
-
-				if (!data.match(/<iframe|<video/gi))
-				{
-					data = this.clean.stripTags(data);
-
-					// parse if it is link on youtube & vimeo
-					var iframeStart = '<iframe style="width: 500px; height: 281px;" src="',
-						iframeEnd = '" frameborder="0" allowfullscreen></iframe>';
-
-					if (data.match(this.video.reUrlYoutube))
-					{
-						data = data.replace(this.video.reUrlYoutube, iframeStart + '//www.youtube.com/embed/$1' + iframeEnd);
-					}
-					else if (data.match(this.video.reUrlVimeo))
-					{
-						data = data.replace(this.video.reUrlVimeo, iframeStart + '//player.vimeo.com/video/$2' + iframeEnd);
-					}
-				}
-
-				this.selection.restore();
-				this.modal.close();
-
-				var current = this.selection.getBlock() || this.selection.getCurrent();
-
-				if (current) $(current).after(data);
-				else
-				{
-					this.insert.html(data);
-				}
-
-				this.code.sync();
+    				data = data.replace(this.opts.regex.vimeo, iframeStart + '//player.vimeo.com/video/$2' + iframeEnd);
+    			}
 			}
 
-		};
-	};
-})(jQuery);
+
+			return data;
+		}
+    });
+})(Redactor);
