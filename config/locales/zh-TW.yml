@@ -58,7 +58,6 @@ zh-TW:
         base:
           site_not_found: 沒有該站點
           seeds_enabled: CMS樣板已經啟用，在此處的所有修改將被忽略。
-
           sites: 站點
           layouts: 佈局
           pages: 頁面

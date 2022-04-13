@@ -58,7 +58,6 @@ es:
         base:
           site_not_found: Sitio no encontrado
           seeds_enabled: CMS Fixtures habilitadas. Todos los cambios realizados serán descartados.
-
           sites: Sitios
           layouts: Diseños
           pages: Páginas

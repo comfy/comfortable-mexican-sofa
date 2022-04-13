@@ -58,7 +58,6 @@ ca:
         base:
           site_not_found: El lloc no s'ha pogut trobar
           seeds_enabled: CMS Fixtures habilitades. Tots els canvis realitzats seran rebutjats.
-
           sites: Llocs
           layouts: Dissenys
           pages: Pàgines

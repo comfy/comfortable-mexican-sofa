@@ -1,0 +1,262 @@
+ar:
+  activerecord:
+    models:
+      comfy/cms/site: الموقع
+      comfy/cms/layout: تصميم
+      comfy/cms/page: الصفحة
+      comfy/cms/snippet: قصاصة
+      comfy/cms/file: ملف
+      comfy/cms/translation: الترجمة
+
+    attributes:
+      comfy/cms/site:
+        identifier: المعرّف
+        label: عنوان
+        hostname: اسم مضيف الموقع
+        path: مسار
+        locale: اللغة
+      comfy/cms/layout:
+        identifier: المعرّف
+        label: اسم التخطيط
+        app_layout: التصميم
+        parent_id: التخطيط الرئيسي
+        content: المحتوى
+        css: أوراق الأنماط
+        js: جافا سكريبت
+      comfy/cms/page:
+        label: عنوان
+        layout_id: تصميم
+        slug: كلمة الدلالة
+        full_path: المسار الكامل
+        parent_id: الآب
+        target_page_id: إعادة توجيه الي
+        content: المحتوى
+        is_published: نشرت
+      comfy/cms/file:
+        label: عنوان
+        file: ملف
+        description: الوصف
+      comfy/cms/snippet:
+        label: عنوان
+        identifier: المعرّف
+        content: المحتوى
+      comfy/cms/translation:
+        locale: اللغة
+        label: عنوان
+        layout_id: تصميم
+        is_published: نشرت
+
+  comfy:
+    cms:
+      content:
+        site_not_found: غير موجود
+        layout_not_found: تخطيط غير موجود
+        page_not_found: الصفحة غير موجودة
+
+    admin:
+      cms:
+        base:
+          site_not_found: غير موجود
+          seeds_enabled: يتم تمكين بذور CMS. سيتم تجاهل جميع التغييرات التي أجريت هنا.
+          sites: المواقع الخاصة بي
+          layouts: مخطط
+          pages: الصفحات
+          snippets: مقتطفات
+          files: ملفات
+
+        sites:
+          created: موقع جديد تم انشاءه
+          creation_failure: فشل في إنشاء الموقع
+          updated: تحديث الموقع
+          update_failure: فشل في تحديث الموقع
+          deleted: تم الحذف
+          not_found: غير موجود
+
+          index:
+            title: المواقع الخاصة بي
+            new_link: إنشاء جديد
+            select: اختيار الموقع
+            edit: تعديل
+            delete: حذف
+            are_you_sure: هل أنت متأكد أنك تريد حذف هذا؟
+          new:
+            title: موقع جديد
+          edit:
+            title: تعديل
+          form:
+            create: إنشاء موقع
+            cancel: إلغاء
+            update: تحديث الموقع
+
+        layouts:
+          created: إنشاء تخطيط
+          creation_failure: لا يمكن إنشاء النسق
+          updated: تم تحديث التصميم
+          update_failure: فشل في تحديث التصميم
+          deleted: تم حذف التصميم
+          not_found: تخطيط غير موجود
+
+          index:
+            title: مخطط
+            new_link: إنشاء تخطيط جديد
+          index_branch:
+            add_child_layout: إضافة تخطيط الطفل
+            edit: تعديل
+            delete: حذف
+            are_you_sure: هل أنت متاكد؟
+          new:
+            title: تصميم جديد
+          edit:
+            title: تحرير التخطيط
+          form:
+            select_parent_layout: التخطيط الرئيسي
+            select_app_layout: حدد تخطيط التطبيق
+            create: انشاء تصميم
+            cancel: إلغاء
+            update: تحديث التخطيط
+
+        pages:
+          created: تم إنشاء الصفحة
+          creation_failure: فشل في إنشاء الصفحة
+          updated: تحديث الصفحة
+          update_failure: فشل في تحديث الصفحة
+          deleted: تم حذف الصفحة
+          not_found: الصفحة غير موجودة
+          layout_not_found: لم يتم العثور على تخطيطات يرجى إنشاء واحد.
+
+          index:
+            title: الصفحات
+            new_link: إنشاء صفحة جديدة
+          index_branch:
+            toggle: تبديل
+            add_child_page: أضف صفحة فرعية
+            edit: تعديل
+            delete: حذف
+            are_you_sure: هل أنت متاكد؟
+          new:
+            title: صفحة جديدة
+          edit:
+            title: تعديل
+          form:
+            select_target_page: لا إعادة توجيه
+            preview: معاينة
+            create: إنشاء صفحة
+            cancel: إلغاء
+            update: تحديث الصفحة
+            choose_link: اختر الصفحة...
+
+        fragments:
+          form_fragments:
+            no_tags: |-
+              لا يحتوي التخطيط على علامات محتوى محددة.<br/>
+              تحرير محتوى تخطيط لتضمين علامة التجزئة. فمثلا: <code>{{cms:wysiwyg content}}</code>
+
+        translations:
+          created: تم إنشاء الترجمة
+          creation_failure: فشل في إنشاء الترجمة
+          updated: تم تحديث الترجمة
+          update_failure: فشل في تحديث الترجمة
+          deleted: تم حذف الترجمة
+          not_found: لم يتم العثور على الترجمة
+
+          new:
+            title: ترجمة جديدة
+          edit:
+            title: تحرير الترجمة
+          form:
+            preview: معاينة
+            create: إنشاء
+            update: تحديث
+            cancel: الرجوع إلى
+          sidebar:
+            new: ترجمة جديدة
+            confirm: هل أنت متاكد؟
+
+        snippets:
+          created: تم إنشاء مقتطف
+          creation_failure: فشل في إنشاء مقتطف
+          updated: تم تحديث المقتطف
+          update_failure: فشل تحديث المقتطف
+          deleted: تم حذف المقتطف
+          not_found: مقتطف غير موجود
+
+          index:
+            title: مقتطفات
+            new_link: إنشاء مقتطف جديد
+            edit: تعديل
+            delete: حذف
+            are_you_sure: هل أنت متاكد؟
+          new:
+            title: مقتطف جديد
+          edit:
+            title: تحرير مقتطف
+          form:
+            create: إنشاء مقتطف جديد
+            cancel: إلغاء
+            update: تحديث مقتطف
+
+        revisions:
+          reverted: محتوى عاد
+          record_not_found: لم يتم العثور على السجل
+          not_found: لم يتم العثور على المراجعة
+
+          show:
+            title: مراجعات لـ
+            revision: الإصدار
+            update: تحديث لهذا المراجعة
+            cancel: إلغاء
+            content: المحتوى
+            changes: التغييرات
+            previous: السابق
+            current: الحالي
+          sidebar:
+            revision:
+              zero: لا مراجعات
+              one: '٪ {count} المراجعة'
+              few: '٪ {count} المراجعات'
+              many: '٪ {count} المراجعات'
+              other: '٪ {count} المراجعات'
+
+        files:
+          created: الملفات المحملة
+          creation_failure: فشل تحميل الملفات
+          updated: تم تحديث الملف
+          update_failure: فشل في تحديث الملف
+          deleted: تم حذف الملف‬
+          not_found: لم يتم العثور على الملف
+
+          index:
+            title: ملفات
+            new_link: رفع ملف جديد
+            button: رفع الملفات
+          new:
+            title: ملف جديد
+          edit:
+            title: تعديل
+          form:
+            current_file: الملف الحالي
+            create: رفع ملف
+            cancel: إلغاء
+            update: تحديث الملف
+            delete: حذف الملف
+            are_you_sure: هل أنت متاكد؟
+          page_form:
+            are_you_sure: هل أنت متاكد؟
+          file:
+            edit: تعديل
+            delete: حذف
+            are_you_sure: هل أنت متاكد؟
+
+        categories:
+          index:
+            edit: تعديل
+            done: تم
+            all: كل الفئات
+            add: إضافة
+            add_placeholder: إضافة فئة
+          show:
+            are_you_sure: هل أنت متاكد؟
+          edit:
+            save: حفظ
+          form:
+            label: الفئات

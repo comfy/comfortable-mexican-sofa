@@ -2,23 +2,18 @@
 
 source "http://rubygems.org"
 
-gemspec
+gemspec path: "../../"
+
+gem "rails", ">= 6.0"
 
 group :development, :test do
-  gem "autoprefixer-rails", "~> 8.1.0"
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara",           "~> 2.17.0"
   gem "kaminari",           "~> 1.1.1"
   gem "puma",               "~> 3.12.2"
   gem "rubocop",            "~> 0.55.0", require: false
-  gem "sqlite3",            "~> 1.4.2"
-  gem "webdrivers",         "~> 4.1.0"
   gem "selenium-webdriver", "~> 3.9.0"
-end
-
-group :development do
-  gem "listen",       "~> 3.1.5"
-  gem "web-console",  "~> 3.5.1"
+  gem "sqlite3",            "~> 1.4.2"
 end
 
 group :test do

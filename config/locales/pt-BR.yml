@@ -58,7 +58,6 @@ pt-BR:
         base:
           site_not_found: Site não encontrado
           seeds_enabled: Os Fixtures do CMS estão ativados. Todas as mudanças feitas aqui serão descartadas.
-
           sites: Sites
           layouts: Leiautes
           pages: Páginas

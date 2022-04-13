@@ -58,7 +58,6 @@ fr:
         base:
           site_not_found: Site introuvable
           seeds_enabled: Fixtures activés. Toutes les modifications seront supprimées.
-
           sites: Sites
           layouts: Mises en page
           pages: Pages

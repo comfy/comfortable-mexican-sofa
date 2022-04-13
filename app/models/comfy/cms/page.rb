@@ -51,6 +51,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
     options = []
 
     options_for_page = ->(page, depth = 0) do
+      return if page.nil?
       return if exclude_self && page == current_page
 
       options << ["#{'. . ' * depth}#{page.label}", page.id]

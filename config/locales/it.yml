@@ -58,7 +58,6 @@ it:
         base:
           site_not_found: Sito non trovato
           seeds_enabled: Le Fixtures CMS sono abilitate. Tutti i cambiamenti fatti qui saranno scartati.
-
           sites: Siti
           layouts: Layout
           pages: Pagine

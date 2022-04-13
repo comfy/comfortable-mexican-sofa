@@ -58,7 +58,6 @@ uk:
         base:
           site_not_found: Сайт не знайдено
           seeds_enabled: CMS Fixtures ввімкнені. Всі зміни, зроблені тут, будуть скасовані.
-
           sites: Сайти
           layouts: Шаблони
           pages: Сторінки

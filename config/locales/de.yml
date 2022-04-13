@@ -58,7 +58,6 @@ de:
         base:
           site_not_found: Fehler
           seeds_enabled: Fixtures sind aktiviert - alle Änderungen werden verworfen!
-
           sites: Sites
           layouts: Vorlagen
           pages: Seiten

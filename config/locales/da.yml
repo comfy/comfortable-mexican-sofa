@@ -58,7 +58,6 @@ da:
         base:
           site_not_found: Webstedet findes ikke
           seeds_enabled: CMS Fixtures er slået til. Alle ændringer til blive ignoreret.
-
           sites: Websteder
           layouts: Layouts
           pages: Sider

@@ -98,8 +98,12 @@ module ComfortableMexicanSofa::Seeds
     def write_file_content(path, data)
       ::File.open(::File.join(path), "wb") do |f|
         data.each do |item|
-          f.write("[#{item[:header]}]\n")
-          f.write("#{item[:content]}\n")
+          f.write("[#{item[:header]}]\n#{item[:content]}")
+          # adds a newline between items if not already there
+          # makes sure last item does not have a newline
+          if data.last != item && !item[:content].to_s.end_with?("\n")
+            f.write("\n")
+          end
         end
       end
     end

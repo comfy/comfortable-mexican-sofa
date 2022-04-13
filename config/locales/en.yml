@@ -58,7 +58,6 @@ en:
         base:
           site_not_found: Site not found
           seeds_enabled: CMS Seeds are enabled. All changes done here will be discarded.
-
           sites: Sites
           layouts: Layouts
           pages: Pages
