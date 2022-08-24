@@ -3,7 +3,6 @@
 require_relative "../test_helper"
 
 class CmsFileTest < ActiveSupport::TestCase
-
   def test_fixtures_validity
     Comfy::Cms::File.all.each do |file|
       assert file.valid?, file.errors.full_messages.to_s
@@ -23,7 +22,7 @@ class CmsFileTest < ActiveSupport::TestCase
       file = comfy_cms_sites(:default).files.create(
         label:        "test",
         description:  "test file",
-        file:         fixture_file_upload("files/image.jpg", "image/jpeg")
+        file:         fixture_file_upload("image.jpg", "image/jpeg")
       )
       assert_equal 1, file.position
     end
@@ -33,7 +32,7 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_difference ["Comfy::Cms::File.count", "ActiveStorage::Attachment.count"] do
       file = comfy_cms_sites(:default).files.create(
         description:  "test file",
-        file:         fixture_file_upload("files/image.jpg", "image/jpeg")
+        file:         fixture_file_upload("image.jpg", "image/jpeg")
       )
       assert_equal 1, file.position
       assert_equal "image.jpg", file.label
@@ -45,5 +44,4 @@ class CmsFileTest < ActiveSupport::TestCase
     active_storage_blobs(:default).update_column(:content_type, "application/pdf")
     assert_equal 0, Comfy::Cms::File.with_attached_attachment.with_images.count
   end
-
 end

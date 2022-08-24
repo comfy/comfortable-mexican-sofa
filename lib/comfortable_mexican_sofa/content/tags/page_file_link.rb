@@ -46,7 +46,7 @@ class ComfortableMexicanSofa::Content::Tag::PageFileLink < ComfortableMexicanSof
     @identifier     = params[0]
     @as             = options["as"] || "url"
     @class          = options["class"]
-    @variant_attrs  = options.slice("resize", "gravity", "crop")
+    @variant_attrs  = options.slice("resize_to_fill", "gravity", "crop")
     @filename       = options["filename"]
 
     unless @identifier.present?

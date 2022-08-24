@@ -71,9 +71,9 @@ class ActiveSupport::TestCase
   # Example usage:
   #   assert_has_errors_on @record, :field_1, :field_2
   def assert_has_errors_on(record, *fields)
-    unmatched = record.errors.keys - fields.flatten
+    unmatched = record.errors.to_hash.keys - fields.flatten
     assert unmatched.blank?, "#{record.class} has errors on '#{unmatched.join(', ')}'"
-    unmatched = fields.flatten - record.errors.keys
+    unmatched = fields.flatten - record.errors.to_hash.keys
     assert unmatched.blank?, "#{record.class} doesn't have errors on '#{unmatched.join(', ')}'"
   end
 
@@ -125,14 +125,12 @@ class ActionDispatch::IntegrationTest
 
   # Attaching http_auth stuff with request. Example use:
   #   r :get, '/cms-admin/pages'
-  def r(method, path, options = {})
-    headers = options[:headers] || {}
+  def r(method, path, headers: {}, params: {}, xhr: false)
     headers["HTTP_AUTHORIZATION"] = ActionController::HttpAuthentication::Basic.encode_credentials(
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     )
-    options[:headers] = headers
-    send(method, path, options)
+    send(method, path, params: params, headers: headers, xhr: xhr)
   end
 
   def with_routing

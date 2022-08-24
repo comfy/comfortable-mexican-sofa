@@ -9,8 +9,8 @@ class CmsFragmentTest < ActiveSupport::TestCase
     @layout = comfy_cms_layouts(:default)
     @page   = comfy_cms_pages(:default)
 
-    @upload_doc = fixture_file_upload("files/document.pdf", "application/pdf")
-    @upload_img = fixture_file_upload("files/image.jpg", "image/jpeg")
+    @upload_doc = fixture_file_upload("document.pdf", "application/pdf")
+    @upload_img = fixture_file_upload("image.jpg", "image/jpeg")
   end
 
   def page_params(frag_params = [])

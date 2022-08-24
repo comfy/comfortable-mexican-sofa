@@ -29,7 +29,7 @@ class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Conte
     @as             = options["as"] || "url"
     @label          = options["label"]
     @class          = options["class"]
-    @variant_attrs  = options.slice("resize", "gravity", "crop")
+    @variant_attrs  = options.slice("resize_to_fill", "gravity", "crop")
   end
 
   def form_field(object_name, view, index)

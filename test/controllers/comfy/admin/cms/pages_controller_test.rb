@@ -240,13 +240,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
               fragments_attributes: [
                 { identifier: "image",
                   tag:        "file",
-                  files:      fixture_file_upload("files/image.jpg", "image/jpeg")
+                  files:      fixture_file_upload("image.jpg", "image/jpeg")
                 },
                 { identifier: "files_multiple",
                   tag:        "files",
                   files: [
-                    fixture_file_upload("files/image.jpg", "image/jpeg"),
-                    fixture_file_upload("files/document.pdf", "application/pdf")
+                    fixture_file_upload("image.jpg", "image/jpeg"),
+                    fixture_file_upload("document.pdf", "application/pdf")
                   ]
                 },
                 { identifier: "unpopulated",

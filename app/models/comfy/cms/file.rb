@@ -7,9 +7,9 @@ class Comfy::Cms::File < ActiveRecord::Base
   include Comfy::Cms::WithCategories
 
   VARIANT_SIZE = {
-    redactor: { resize: "100x75^",   gravity: "center", crop: "100x75+0+0" },
-    thumb:    { resize: "200x150^",  gravity: "center", crop: "200x150+0+0" },
-    icon:     { resize: "28x28^",    gravity: "center", crop: "28x28+0+0" }
+    redactor: { resize_to_fill: [100, 75],   gravity: "center", crop: [0, 0, 100, 75] },
+    thumb:    { resize_to_fill: [200, 150],  gravity: "center", crop: [0, 0, 200, 150] },
+    icon:     { resize_to_fill: [28, 28],    gravity: "center", crop: [0, 0, 28, 28] }
   }.freeze
 
   # temporary place to store attachment
