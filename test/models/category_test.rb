@@ -22,7 +22,34 @@ class CmsCategoryTest < ActiveSupport::TestCase
       )
     end
   end
-  
+
+  def test_slug_generation
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => 'Test Category',
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test-category', cat.slug
+    
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => "Test 'Category",
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test--category', cat.slug
+
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => "Test Category2",
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test-category2', cat.slug
+    
+    cat.label = '01235455" !@#$%^&*()'
+    assert cat.save
+    assert_equal '01235455------------', cat.slug
+  end
+
   def test_destruction
     category = comfy_cms_categories(:default)
     assert_equal 1, category.categorizations.count
