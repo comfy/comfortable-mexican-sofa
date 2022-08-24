@@ -104,6 +104,7 @@ class CreateCms < ActiveRecord::Migration[4.2]
     create_table :comfy_cms_categories, :force => true do |t|
       t.integer :site_id,          :null => false
       t.string  :label,            :null => false
+      t.string  :slug,             :null => false
       t.string  :categorized_type, :null => false
     end
     add_index :comfy_cms_categories, [:site_id, :categorized_type, :label], :unique => true,
