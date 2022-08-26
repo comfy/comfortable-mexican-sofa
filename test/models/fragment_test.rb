@@ -101,6 +101,9 @@ class CmsFragmentTest < ActiveSupport::TestCase
         files:  [@upload_doc]
       )
     end
+    frag.reload
+    assert_equal "fragment.jpg", frag.attachments.first.filename.to_s
+    assert_equal "document.pdf", frag.attachments.last.filename.to_s
   end
 
   def test_update_with_file
