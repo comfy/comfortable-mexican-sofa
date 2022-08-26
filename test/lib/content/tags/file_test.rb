@@ -25,7 +25,7 @@ class ContentTagsFileTest < ActiveSupport::TestCase
       context: @page,
       params: ["test", {
         "as"      => "image",
-        "resize_to_fill"  => [100, 100],
+        "resize_to_fit"  => [100, 100],
         "gravity" => "center",
         "crop"    => [0, 0, 100, 100]
       }]
@@ -33,7 +33,7 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     assert_equal "test",  tag.identifier
     assert_equal "image", tag.as
     assert_equal ({
-      "resize_to_fill"  => [100, 100],
+      "resize_to_fit"  => [100, 100],
       "gravity" => "center",
       "crop"    => [0, 0, 100, 100]
     }), tag.variant_attrs
@@ -72,9 +72,9 @@ class ContentTagsFileTest < ActiveSupport::TestCase
     frag = comfy_cms_fragments(:file)
     tag = ComfortableMexicanSofa::Content::Tag::File.new(
       context: @page,
-      params: [frag.identifier, { "as" => "image", "resize_to_fill" => [50, 50] }]
+      params: [frag.identifier, { "as" => "image", "resize_to_fit" => [50, 50] }]
     )
-    variant = frag.attachments.first.variant(resize_to_fill: [50, 50])
+    variant = frag.attachments.first.variant(resize_to_fit: [50, 50])
     path    = rails_representation_path(variant, only_path: true)
     out     = "<img src='#{path}' alt='fragment.jpg'/>"
     assert_equal out, tag.content

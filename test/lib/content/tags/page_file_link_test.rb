@@ -25,7 +25,7 @@ class ContentTagsPageFileLinkTest < ActiveSupport::TestCase
       params: [
         "123", {
           "as" => "image",
-          "resize_to_fill"  => [100, 100],
+          "resize_to_fit"  => [100, 100],
           "gravity" => "center",
           "crop"    => [0, 0, 100, 100]
         }
@@ -34,7 +34,7 @@ class ContentTagsPageFileLinkTest < ActiveSupport::TestCase
     assert_equal "123", tag.identifier
     assert_equal "image", tag.as
     assert_equal ({
-      "resize_to_fill"  => [100, 100],
+      "resize_to_fit"  => [100, 100],
       "gravity" => "center",
       "crop"    => [0, 0, 100, 100]
     }), tag.variant_attrs

@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     f.match(%r{^(test|doc)/})
   end
 
-  s.required_ruby_version = ">= 3.0.4"
+  s.required_ruby_version = ">= 3.0.3"
 
   s.add_dependency "active_link_to",        ">= 1.0.0"
   s.add_dependency "comfy_bootstrap_form",  ">= 4.0.0"
