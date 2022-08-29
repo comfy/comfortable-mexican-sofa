@@ -12,7 +12,9 @@ require_relative '../config/environment'
 
 require 'rails/test_help'
 require 'rails/generators'
-require 'mocha/setup'
+# require 'mocha/test_unit'
+require 'mocha/minitest'
+# require 'mocha/api'
 
 # No need to add cache-busters in test environment
 Paperclip::Attachment.default_options[:use_timestamp] = false

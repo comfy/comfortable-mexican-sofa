@@ -7,7 +7,8 @@ Bundler.require(*Rails.groups(assets: %w(development test)))
 
 module ComfortableMexicanSofa
   class Application < Rails::Application
-    
+    config.load_defaults 5.2
+  
     require_relative '../lib/comfortable_mexican_sofa'
     
     # Settings in config/environments/* take precedence over those specified here.
@@ -26,7 +27,5 @@ module ComfortableMexicanSofa
     config.paths['config/routes.rb'] << 'config/cms_routes.rb'
     
     config.i18n.enforce_available_locales = true
-
-    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end

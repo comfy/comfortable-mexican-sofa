@@ -6,11 +6,12 @@ before_script:
 script:
   - rake ci
 rvm:
-  - 2.2.7
-  - 2.3.5
-  - 2.4.2
+  - 2.5.9
+  - 2.6.7
+  - 2.7.3
 gemfile:
-  - test/gemfiles/Gemfile.rails.5.2
+  - test/gemfiles/Gemfile.rails.6.0
+  - test/gemfiles/Gemfile.rails.6.1
 branches:
   only:
     - master

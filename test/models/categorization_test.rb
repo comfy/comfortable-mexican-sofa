@@ -11,7 +11,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   def test_validation
     category = Comfy::Cms::Categorization.new
     assert category.invalid?
-    assert_has_errors_on category, :category_id, :categorized_type, :categorized_id
+    assert_has_errors_on category, :category, :categorized
   end
   
   def test_creation
@@ -45,14 +45,14 @@ class CmsCategorizationTest < ActiveSupport::TestCase
     snippet = comfy_cms_snippets(:default)
     assert_equal 0, snippet.categories.count
     
-    snippet.update_attributes(:category_ids => {
+    snippet.update(:category_ids => {
       comfy_cms_categories(:default).id => 1,
       'invalid'                   => 1
     })
     snippet.reload
     assert_equal 1, snippet.categories.count
     
-    snippet.update_attributes(:category_ids => {
+    snippet.update(:category_ids => {
       comfy_cms_categories(:default).id => 0,
       'invalid'                   => 0
     })

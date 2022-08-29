@@ -1,3 +1,7 @@
+if jQuery.size == undefined
+  window.jQuery.fn.size = ->
+    this.length
+
 window.CMS ||= {}
 
 window.CMS.code_mirror_instances = [ ]

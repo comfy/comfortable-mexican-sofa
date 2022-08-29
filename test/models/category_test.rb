@@ -11,7 +11,7 @@ class CmsCategoryTest < ActiveSupport::TestCase
   def test_validation
     category = Comfy::Cms::Category.new
     assert category.invalid?
-    assert_has_errors_on category, [:site_id, :label, :categorized_type]
+    assert_has_errors_on category, [:site, :label, :categorized_type]
   end
   
   def test_creation
@@ -22,7 +22,34 @@ class CmsCategoryTest < ActiveSupport::TestCase
       )
     end
   end
-  
+
+  def test_slug_generation
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => 'Test Category',
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test-category', cat.slug
+    
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => "Test 'Category",
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test--category', cat.slug
+
+    cat = comfy_cms_sites(:default).categories.create(
+      :label => "Test Category2",
+      :categorized_type => 'Comfy::Cms::Snippet'
+    )
+    
+    assert_equal 'test-category2', cat.slug
+    
+    cat.label = '01235455" !@#$%^&*()'
+    assert cat.save
+    assert_equal '01235455------------', cat.slug
+  end
+
   def test_destruction
     category = comfy_cms_categories(:default)
     assert_equal 1, category.categorizations.count
