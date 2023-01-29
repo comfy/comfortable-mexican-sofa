@@ -8,6 +8,7 @@ group :development, :test do
   gem "autoprefixer-rails", "~> 8.1.0"
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara",           "~> 2.17.0"
+  gem "image_processing",   ">= 1.2"
   gem "kaminari",           "~> 1.1.1"
   gem "puma",               "~> 3.12.2"
   gem "rubocop",            "~> 0.55.0", require: false
