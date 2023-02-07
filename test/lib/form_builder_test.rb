@@ -16,8 +16,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][content]" type="text"/>
         </div>
       </div>
@@ -32,8 +32,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-false col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][content]" type="text"/>
         </div>
       </div>
@@ -48,8 +48,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-content">Content</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="content"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="content"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="text"/>
           <input class="form-control" id="fragment-content" name="page[fragments_attributes][123][content]" type="text" value="content"/>
         </div>
       </div>
@@ -64,10 +64,10 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="checkbox"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="checkbox"/>
           <div class="form-check mt-2">
-            <input name="page[fragments_attributes][123][boolean]" type="hidden" value="0"/>
+            <input autocomplete="off" name="page[fragments_attributes][123][boolean]" type="hidden" value="0"/>
             <input class="form-check-input position-static" id="fragment-test" name="page[fragments_attributes][123][boolean]" type="checkbox" value="1"/>
           </div>
         </div>
@@ -83,10 +83,10 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-boolean">Boolean</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="boolean"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="checkbox"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="boolean"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="checkbox"/>
           <div class="form-check mt-2">
-            <input name="page[fragments_attributes][123][boolean]" type="hidden" value="0"/>
+            <input autocomplete="off" name="page[fragments_attributes][123][boolean]" type="hidden" value="0"/>
             <input checked="checked" class="form-check-input position-static" id="fragment-boolean" name="page[fragments_attributes][123][boolean]" type="checkbox" value="1"/>
           </div>
         </div>
@@ -102,8 +102,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="date"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="date"/>
           <input class="form-control" data-cms-date="true" id="fragment-test" name="page[fragments_attributes][123][datetime]" type="text" value=""/>
         </div>
       </div>
@@ -118,8 +118,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="datetime"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="datetime"/>
           <input class="form-control" data-cms-datetime="true" id="fragment-test" name="page[fragments_attributes][123][datetime]" type="text" value=""/>
         </div>
       </div>
@@ -134,10 +134,11 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][files]" type="file"/>
-          <div class="fragment-attachments"></div>
+          <div class="fragment-attachments">
+          </div>
         </div>
       </div>
     HTML
@@ -150,14 +151,13 @@ class FormBuilderTest < ActionView::TestCase
 
     attachment = active_storage_attachments(:file)
     attachment_url  = view.url_for(attachment)
-    thumb_url       = view.url_for(attachment.variant( Comfy::Cms::File::VARIANT_SIZE[:thumb]))
-
+    thumb_url       = view.url_for(attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb]))
     expected = <<~HTML
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-file">File</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="file"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="file"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
           <input class="form-control" id="fragment-file" name="page[fragments_attributes][123][files]" type="file"/>
           <div class="fragment-attachments">
             <div class="fragment-attachment btn-group btn-group-sm mb-1">
@@ -181,8 +181,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="files"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="files"/>
           <input class="form-control" id="fragment-test" multiple="multiple" name="page[fragments_attributes][123][files][]" type="file"/>
           <div class="fragment-attachments"></div>
         </div>
@@ -203,8 +203,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-file">File</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="file"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="files"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="file"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="files"/>
           <input class="form-control" id="fragment-file" multiple="multiple" name="page[fragments_attributes][123][files][]" type="file"/>
           <div class="fragment-attachments">
             <div class="fragment-attachment btn-group btn-group-sm mb-1">
@@ -228,8 +228,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="markdown"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="markdown"/>
           <textarea data-cms-cm-mode="text/x-markdown" id="fragment-test" name="page[fragments_attributes][123][content]"></textarea>
         </div>
       </div>
@@ -244,8 +244,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="number"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="number"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][content]" type="number"/>
         </div>
       </div>
@@ -260,8 +260,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][files]" type="file"/>
           <div class="fragment-attachments"></div>
         </div>
@@ -277,8 +277,8 @@ class FormBuilderTest < ActionView::TestCase
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-test">Test</label>
         <div class="col-sm-10">
-          <input name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
-          <input name="page[fragments_attributes][123][tag]" type="hidden" value="wysiwyg"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
+          <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="wysiwyg"/>
           <textarea data-cms-rich-text="true" id="fragment-test" name="page[fragments_attributes][123][content]"></textarea>
         </div>
       </div>

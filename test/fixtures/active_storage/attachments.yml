@@ -6,4 +6,4 @@ default:
 file:
   record: file (Comfy::Cms::Fragment)
   name: attachments
-  blob: fragment
+  blob: fragment_blob

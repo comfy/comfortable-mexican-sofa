@@ -23,24 +23,24 @@ class ContentTagsFilesTest < ActiveSupport::TestCase
       context: @page,
       params: ["test", {
         "as"      => "image",
-        "resize"  => "100x100",
+        "resize_to_fit"  => [100, 100],
         "gravity" => "center",
-        "crop"    => "100x100+0+0"
+        "crop"    => [0, 0, 100, 100]
       }]
     )
     assert_equal "test",  tag.identifier
     assert_equal "image", tag.as
     assert_equal ({
-      "resize"  => "100x100",
+      "resize_to_fit"  => [100, 100],
       "gravity" => "center",
-      "crop"    => "100x100+0+0"
+      "crop"    => [0, 0, 100, 100]
     }), tag.variant_attrs
   end
 
   def test_content
     frag = comfy_cms_fragments(:file)
     frag.update_attribute(:tag, "files")
-    frag.update_attribute(:files, fixture_file_upload("files/image.jpg", "image/jpeg"))
+    frag.update_attribute(:files, fixture_file_upload("image.jpg", "image/jpeg"))
     tag = ComfortableMexicanSofa::Content::Tag::Files.new(context: @page, params: [frag.identifier])
     out = frag.attachments.map { |a| rails_blob_path(a, only_path: true) }.join(" ")
     assert_equal out, tag.content

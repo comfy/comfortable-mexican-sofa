@@ -71,9 +71,9 @@ class ActiveSupport::TestCase
   # Example usage:
   #   assert_has_errors_on @record, :field_1, :field_2
   def assert_has_errors_on(record, *fields)
-    unmatched = record.errors.keys - fields.flatten
+    unmatched = record.errors.to_hash.keys - fields.flatten
     assert unmatched.blank?, "#{record.class} has errors on '#{unmatched.join(', ')}'"
-    unmatched = fields.flatten - record.errors.keys
+    unmatched = fields.flatten - record.errors.to_hash.keys
     assert unmatched.blank?, "#{record.class} doesn't have errors on '#{unmatched.join(', ')}'"
   end
 
@@ -103,6 +103,12 @@ class ActiveSupport::TestCase
     assert_select(selector, text: value, count: 0)
   end
 
+  # ignore whitespace after blank attributes
+  def assert_seed_equal(expected, actual)
+    [expected, actual].each { |str| str.gsub! %r{\s+$}, '' }
+    assert_equal expected, actual
+  end
+
   # Capturing STDOUT into a string
   def with_captured_stout
     old = $stdout
@@ -119,14 +125,12 @@ class ActionDispatch::IntegrationTest
 
   # Attaching http_auth stuff with request. Example use:
   #   r :get, '/cms-admin/pages'
-  def r(method, path, options = {})
-    headers = options[:headers] || {}
+  def r(method, path, headers: {}, params: {}, xhr: false)
     headers["HTTP_AUTHORIZATION"] = ActionController::HttpAuthentication::Basic.encode_credentials(
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     )
-    options[:headers] = headers
-    send(method, path, options)
+    send(method, path, params: params, headers: headers, xhr: xhr)
   end
 
   def with_routing

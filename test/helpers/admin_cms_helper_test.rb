@@ -17,7 +17,6 @@ class AdminCmsHelpersTest < ActionView::TestCase
     end
     expected = <<-HTML.gsub(%r{^\s+|\n}, "")
       <form action="/test" accept-charset="UTF-8" method="post">
-        <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
           <label class="col-form-label col-sm-2 text-sm-right" for="foo">Foo</label>
           <div class="col-sm-10">

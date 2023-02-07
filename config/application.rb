@@ -13,7 +13,10 @@ module ComfortableMexicanSofa
 
     require_relative "../lib/comfortable_mexican_sofa"
 
-    config.load_defaults 5.2
+    config.load_defaults 7.0
+
+    # Will have to be removed in 7.1
+    config.active_storage.replace_on_assign_to_many = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

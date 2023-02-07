@@ -91,7 +91,7 @@ class SeedsSnippetsTest < ActiveSupport::TestCase
       [content]
       snippet content
     TEXT
-    assert_equal out, IO.read(content_path)
+    assert_seed_equal out, IO.read(content_path)
 
   ensure
     FileUtils.rm_rf(host_path)
