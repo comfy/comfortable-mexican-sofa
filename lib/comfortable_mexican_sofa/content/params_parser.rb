@@ -134,8 +134,8 @@ private
       tokens <<
         if    (t = ss.scan(STRING_LITERAL)) then [:string, t[1...-1]]
         elsif (t = ss.scan(HASH_KEY))       then [:hash_key, t[0...-1]]
-        elsif (t = ss.scan(IDENTIFIER))     then [:string, t]
         elsif (t = ss.scan(INTEGER))        then [:string, t.to_i]
+        elsif (t = ss.scan(IDENTIFIER))     then [:string, t]
         elsif (t = ss.scan(HASH_OPEN))      then [:hash_open, t]
         elsif (t = ss.scan(HASH_CLOSE))     then [:hash_close, t]
         elsif (t = ss.scan(ARRAY_OPEN))     then [:array_open, t]
