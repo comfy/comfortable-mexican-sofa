@@ -59,6 +59,18 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     ], tokens
   end
 
+  def test_tokenizer_with_arrays_containing_numbers
+    tokens = PARSER.new.send(:tokenize, "arr: [1, 2, 3]")
+    assert_equal [
+      [:hash_key,     "arr"],
+      [:array_open,   "["],
+      [:string,       "1".to_i],
+      [:string,       "2".to_i],
+      [:string,       "3".to_i],
+      [:array_close,  "]"]
+    ], tokens
+  end
+
   def test_tokenizer_with_quoted_value
     tokens = PARSER.new.send(:tokenize, "key: ''")
     assert_equal [[:hash_key, "key"], [:string, ""]], tokens
