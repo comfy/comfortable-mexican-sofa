@@ -1,11 +1,11 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui
-#= require mode/css
-#= require mode/htmlmixed
-#= require mode/javascript
-#= require mode/markdown
-#= require mode/xml
+#= require_directory mode/css/
+#= require_directory mode/htmlmixed/
+#= require_directory mode/javascript/
+#= require_directory mode/markdown/
+#= require_directory mode/xml/
 #= require addons/edit/closetag
 #= require lib/codemirror
 #= require bootstrap-sprockets
