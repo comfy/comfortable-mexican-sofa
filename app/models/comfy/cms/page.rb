@@ -85,12 +85,8 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # This method will mutate page object by transfering attributes from translation
   # for a given locale.
-  def translate!
-    # If site locale same as page's or there's no translastions, we do nothing
-    if site.locale == I18n.locale.to_s || translations.blank?
-      return
-    end
 
+  def translation
     translation = translations.published.find_by!(locale: I18n.locale)
     self.layout        = translation.layout
     self.label         = translation.label
@@ -103,6 +99,23 @@ class Comfy::Cms::Page < ActiveRecord::Base
     readonly!
 
     self
+  end
+  
+  def translate!
+    if site.locale == I18n.locale.to_s
+      return
+    end
+
+    translation
+  end
+  
+  def translate
+    # If site locale same as page's or there's no translastions, we do nothing
+    if site.locale == I18n.locale.to_s || translations.blank?
+      return
+    end
+
+    translation
   end
 
 protected
