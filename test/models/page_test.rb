@@ -126,7 +126,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '/child-page/test-page-2/test-page-3', page_3.full_path
     assert_equal '/child-page/test-page-1/test-page-4', page_4.full_path
 
-    page.update_attributes!(:slug => 'updated-page')
+    page.update!(:slug => 'updated-page')
     assert_equal '/updated-page', page.full_path
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
     assert_equal '/updated-page/test-page-1', page_1.full_path
@@ -134,7 +134,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal '/updated-page/test-page-2/test-page-3', page_3.full_path
     assert_equal '/updated-page/test-page-1/test-page-4', page_4.full_path
 
-    page_2.update_attributes!(:parent => page_1)
+    page_2.update!(:parent => page_1)
     page_1.reload; page_2.reload; page_3.reload; page_4.reload
     assert_equal '/updated-page/test-page-1', page_1.full_path
     assert_equal '/updated-page/test-page-1/test-page-2', page_2.full_path
@@ -154,7 +154,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, page_2.children_count
     assert_equal 0, page_3.children_count
 
-    page_3.update_attributes!(:parent => page_1)
+    page_3.update!(:parent => page_1)
     page_1.reload; page_2.reload
     assert_equal 2, page_1.children_count
     assert_equal 0, page_2.children_count
