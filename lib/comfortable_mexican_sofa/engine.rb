@@ -11,12 +11,13 @@ require 'jquery-ui-rails'
 require 'haml-rails'
 require 'sass-rails'
 require 'coffee-rails'
-require 'codemirror-rails'
 require 'bootstrap-sass'
 require 'plupload-rails'
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
+    config.assets.precompile += %w(vendor/assets/codemirror-5.58.2/*)
+
     config.to_prepare do
       Dir.glob(Rails.root + "app/decorators/comfortable_mexican_sofa/*_decorator*.rb").each do |c|
         require_dependency(c)
