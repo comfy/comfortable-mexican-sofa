@@ -53,7 +53,7 @@ class PageFileTagTest < ActiveSupport::TestCase
     assert_nil tag.content
     assert_equal '', tag.render
     
-    page.update_attributes!(
+    page.update!(
       :blocks_attributes => [
         { :identifier => 'file',
           :content    => fixture_file_upload('files/image.jpg', "image/jpeg") }
@@ -99,12 +99,12 @@ class PageFileTagTest < ActiveSupport::TestCase
   
   def test_content_and_render_with_dimentions
     layout = comfy_cms_layouts(:default)
-    layout.update_attributes(:content => '{{ cms:page_file:file:image[10x10#] }}')
+    layout.update(:content => '{{ cms:page_file:file:image[10x10#] }}')
     page = comfy_cms_pages(:default)
     upload = fixture_file_upload('files/image.jpg', 'image/jpeg')
     
     assert_difference 'Comfy::Cms::File.count' do
-      page.update_attributes!(
+      page.update!(
         :blocks_attributes => [
           { :identifier => 'file',
             :content    => upload }

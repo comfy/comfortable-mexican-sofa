@@ -27,7 +27,7 @@ class Comfy::Admin::Cms::LayoutsController < Comfy::Admin::Cms::BaseController
   end
 
   def update
-    @layout.update_attributes!(layout_params)
+    @layout.update!(layout_params)
     flash[:success] = I18n.t('comfy.admin.cms.layouts.updated')
     redirect_to :action => :edit, :id => @layout
   rescue ActiveRecord::RecordInvalid

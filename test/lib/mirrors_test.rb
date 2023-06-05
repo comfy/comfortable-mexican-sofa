@@ -28,7 +28,7 @@ class MirrorsTest < ActiveSupport::TestCase
       assert_equal '/', page_mirror.full_path
       assert_equal page_mirror.label, label
 
-      page_mirror.update_attributes!(
+      page_mirror.update!(
         :label => mirror_label
       )
       page.reload
@@ -57,7 +57,7 @@ class MirrorsTest < ActiveSupport::TestCase
     assert layout_2c = layout_1c.mirrors.first
     assert_equal layout_2a, layout_2c.parent
 
-    layout_1c.update_attributes!(
+    layout_1c.update!(
       :identifier => 'updated',
       :parent     => layout_1b,
       :content    => 'updated content'
@@ -82,7 +82,7 @@ class MirrorsTest < ActiveSupport::TestCase
     assert page_2a = page_1a.mirrors.first
     assert page_2b = page_1b.mirrors.first
 
-    page_1b.update_attributes!(
+    page_1b.update!(
       :slug => 'updated',
       :parent => page_1a,
       :layout => layout_1b
@@ -98,7 +98,7 @@ class MirrorsTest < ActiveSupport::TestCase
     setup_sites
     snippet_1 = @site_a.snippets.create(:identifier => 'test')
     assert snippet_2 = snippet_1.mirrors.first
-    snippet_1.update_attributes!(
+    snippet_1.update!(
       :identifier => 'updated',
       :content    => 'updated content'
     )
@@ -210,7 +210,7 @@ class MirrorsTest < ActiveSupport::TestCase
         assert_difference 'mirror.pages.count', 1 do
           assert_difference 'mirror.snippets.count', 1 do
 
-            mirror.update_attributes(:is_mirrored => true)
+            mirror.update(:is_mirrored => true)
 
             site.reload
             assert site.layouts.where(:identifier => 'mirror_layout').present?
