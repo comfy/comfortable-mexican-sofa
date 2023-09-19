@@ -13,7 +13,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_tokenizer_with_integer
     tokens = PARSER.new.send(:tokenize, "123")
-    assert_equal [[:string, "123"]], tokens
+    assert_equal [[:string, 123]], tokens
   end
 
   def test_tokenizer_with_commas

@@ -2,8 +2,10 @@ default:
   record: default (Comfy::Cms::File)
   name: attachment
   blob: default
+  created_at: <%= Time.current.to_s(:db) %>
 
 file:
   record: file (Comfy::Cms::Fragment)
   name: attachments
   blob: fragment
+  created_at: <%= Time.current.to_s(:db) %>
