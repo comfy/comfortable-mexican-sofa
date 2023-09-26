@@ -231,6 +231,8 @@ class CmsPageTest < ActiveSupport::TestCase
       assert_equal 1, page.fragments.first.attachments.count
       assert_equal "document.pdf", page.fragments.first.attachments.first.filename.to_s
     end
+
+    fixture_file_upload("document.pdf", "application/pdf")
   end
 
   def test_update_with_file_removal
@@ -621,7 +623,7 @@ class CmsPageTest < ActiveSupport::TestCase
     I18n.locale = :fr
 
     comfy_cms_translations(:default).update_column(:is_published, false)
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       @page.translate!
     end
   end
@@ -629,7 +631,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_translate_with_invalid_locale
     I18n.locale = :es
 
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       @page.translate!
     end
   end
