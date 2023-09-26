@@ -202,7 +202,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     string = "a {{cms:test_block}} b"
     tokens = @template.tokenize(string)
     message = "unclosed block detected"
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
+    assert_raises ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end
@@ -211,7 +211,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     string = "a {{cms:end}} b"
     tokens = @template.tokenize(string)
     message = "closing unopened block"
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
+    assert_raises ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end
@@ -220,7 +220,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     string = "a {{cms:invalid}} b"
     tokens = @template.tokenize(string)
     message = "Unrecognized tag: {{cms:invalid}}"
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
+    assert_raises ComfortableMexicanSofa::Content::Renderer::SyntaxError, message do
       @template.nodes(tokens)
     end
   end
@@ -271,7 +271,7 @@ class ContentRendererTest < ActiveSupport::TestCase
     # making self-referencing content loop here
     comfy_cms_snippets(:default).update_column(:content, "a {{cms:snippet default}} b")
     message = "Deep tag nesting or recursive nesting detected"
-    assert_exception_raised ComfortableMexicanSofa::Content::Renderer::Error, message do
+    assert_raises ComfortableMexicanSofa::Content::Renderer::Error, message do
       render_string("{{cms:snippet default}}")
     end
   end

@@ -103,7 +103,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_tokenizer_with_bad_input
     message = "Unexpected char: %"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new.send(:tokenize, "%")
     end
   end
@@ -127,14 +127,14 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_invalid_hash
     message = "Invalid params: a: b: c:"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("a: b: c:").params
     end
   end
 
   def test_params_invalid_hash_element
     message = "Invalid params: {a: b, c}"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("{a: b, c}").params
     end
   end
@@ -149,7 +149,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_array_unclosed
     message = "Unclosed array param: [a, b"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("[a, b").params
     end
   end
@@ -164,7 +164,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_mixed_invalid
     message = "Invalid params: a, b: c, d"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("a, b: c, d").params
     end
 

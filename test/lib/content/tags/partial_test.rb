@@ -24,7 +24,7 @@ class ContentTagsPartialTest < ActiveSupport::TestCase
 
   def test_init_without_path
     message = "Missing path for partial tag"
-    assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
+    assert_raises ComfortableMexicanSofa::Content::Tag::Error, message do
       ComfortableMexicanSofa::Content::Tag::Partial.new(
         context: @page,
         params: [{ "key" => "val" }]

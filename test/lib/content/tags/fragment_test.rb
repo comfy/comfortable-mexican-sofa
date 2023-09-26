@@ -27,7 +27,7 @@ class ContentTagsFragmentTest < ActiveSupport::TestCase
 
   def test_init_without_identifier
     message = "Missing identifier for fragment tag: {{cms:markdown}}"
-    assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
+    assert_raises ComfortableMexicanSofa::Content::Tag::Error, message do
       ComfortableMexicanSofa::Content::Tag::Fragment.new(context: @page, source: "{{cms:markdown}}")
     end
   end

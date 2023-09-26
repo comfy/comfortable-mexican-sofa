@@ -8,6 +8,7 @@ require "simplecov"
 # obviously don't cover everything 100%
 unless ENV["SKIP_COV"]
   require "coveralls"
+  Coveralls.wear!("rails")
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.command_name "Unit Tests"
   SimpleCov.start do
@@ -85,27 +86,6 @@ class ActiveSupport::TestCase
     assert unmatched.blank?, "#{record.class} doesn't have errors on '#{unmatched.join(', ')}'"
   end
 
-  # Example usage:
-  #   assert_exception_raised                                 do ... end
-  #   assert_exception_raised ActiveRecord::RecordInvalid     do ... end
-  #   assert_exception_raised Plugin::Error, 'error_message'  do ... end
-  def assert_exception_raised(exception_class = nil, error_message = nil)
-    exception_raised = nil
-    yield
-  rescue StandardError => exception_raised
-    exception_raised
-  ensure
-    if exception_raised
-      if exception_class
-        assert_equal exception_class, exception_raised.class, exception_raised.to_s
-      else
-        assert true
-      end
-      assert_equal error_message, exception_raised.to_s if error_message
-    else
-      flunk "Exception was not raised"
-    end
-  end
 
   def assert_no_select(selector, value = nil)
     assert_select(selector, text: value, count: 0)

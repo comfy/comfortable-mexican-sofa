@@ -42,7 +42,7 @@ class ContentTagsFileLinkTest < ActiveSupport::TestCase
 
   def test_init_without_identifier
     message = "Missing identifier for file link tag"
-    assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
+    assert_raises ComfortableMexicanSofa::Content::Tag::Error, message do
       ComfortableMexicanSofa::Content::Tag::FileLink.new(context: @page)
     end
   end
