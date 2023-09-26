@@ -123,7 +123,7 @@ class CmsPageTest < ActiveSupport::TestCase
           fragments_attributes: [{
             identifier: "test",
             tag:        "file",
-            files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
+            files:      [fixture_file_upload("image.jpg", "image/jpeg")]
           }]
         )
       )
@@ -146,8 +146,8 @@ class CmsPageTest < ActiveSupport::TestCase
               identifier: "test",
               tag:        "files",
               files:      [
-                fixture_file_upload("files/image.jpg", "image/jpeg"),
-                fixture_file_upload("files/document.pdf", "application/pdf")
+                fixture_file_upload("image.jpg", "image/jpeg"),
+                fixture_file_upload("document.pdf", "application/pdf")
               ]
             }]
           )
@@ -218,15 +218,18 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_update_with_file
-    assert_no_difference -> { ActiveStorage::Attachment.count } do
-      @page.update!(
+    page = @site.pages.new(new_params)
+    assert_difference -> { ActiveStorage::Attachment.count } do
+      page.update!(
         fragments_attributes: [{
           identifier: "file",
           tag:        "file",
-          files:      fixture_file_upload("files/document.pdf", "application/pdf")
+          files:      [fixture_file_upload("document.pdf", "application/pdf")]
         }]
       )
-      assert_equal "document.pdf", comfy_cms_fragments(:file).attachments.first.filename.to_s
+      assert_equal 1, page.fragments.count
+      assert_equal 1, page.fragments.first.attachments.count
+      assert_equal "document.pdf", page.fragments.first.attachments.first.filename.to_s
     end
   end
 

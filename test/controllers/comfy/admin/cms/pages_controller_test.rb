@@ -240,13 +240,13 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
               fragments_attributes: [
                 { identifier: "image",
                   tag:        "file",
-                  files:      fixture_file_upload("files/image.jpg", "image/jpeg")
+                  files:      fixture_file_upload("image.jpg", "image/jpeg")
                 },
                 { identifier: "files_multiple",
                   tag:        "files",
                   files: [
-                    fixture_file_upload("files/image.jpg", "image/jpeg"),
-                    fixture_file_upload("files/document.pdf", "application/pdf")
+                    fixture_file_upload("image.jpg", "image/jpeg"),
+                    fixture_file_upload("document.pdf", "application/pdf")
                   ]
                 },
                 { identifier: "unpopulated",
@@ -389,7 +389,7 @@ class Comfy::Admin::Cms::PagesControllerTest < ActionDispatch::IntegrationTest
       }
       assert_response :success
       assert_match %r{preview content}, response.body
-      assert_equal "text/html", response.content_type
+      assert_equal "text/html", response.media_type
 
       assert_equal @site, assigns(:cms_site)
       assert_equal @layout, assigns(:cms_layout)

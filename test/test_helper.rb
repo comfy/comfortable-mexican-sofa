@@ -2,12 +2,14 @@
 
 ENV["RAILS_ENV"] = "test"
 
+require "simplecov"
+
 # In CI envoronment I don't want to send coverage report for system tests that
 # obviously don't cover everything 100%
 unless ENV["SKIP_COV"]
-  require "simplecov"
   require "coveralls"
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.command_name "Unit Tests"
   SimpleCov.start do
     add_filter "lib/tasks"
     add_filter "lib/generators"
@@ -15,16 +17,22 @@ unless ENV["SKIP_COV"]
   end
 end
 
+SimpleCov.start "rails"
+
 require_relative "../config/environment"
 
 require "rails/test_help"
 require "rails/generators"
+require "minitest/unit"
 require "mocha/setup"
+require "minitest/reporters"
+
+reporter_options = { color: true }
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
 
 Rails.backtrace_cleaner.remove_silencers!
 
 class ActiveSupport::TestCase
-
   include ActionDispatch::TestProcess
 
   fixtures :all
@@ -71,9 +79,9 @@ class ActiveSupport::TestCase
   # Example usage:
   #   assert_has_errors_on @record, :field_1, :field_2
   def assert_has_errors_on(record, *fields)
-    unmatched = record.errors.keys - fields.flatten
+    unmatched = record.errors.attribute_names - fields.flatten
     assert unmatched.blank?, "#{record.class} has errors on '#{unmatched.join(', ')}'"
-    unmatched = fields.flatten - record.errors.keys
+    unmatched = fields.flatten - record.errors.attribute_names
     assert unmatched.blank?, "#{record.class} doesn't have errors on '#{unmatched.join(', ')}'"
   end
 
@@ -126,7 +134,7 @@ class ActionDispatch::IntegrationTest
       ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
     )
     options[:headers] = headers
-    send(method, path, options)
+    send(method, path, **options)
   end
 
   def with_routing
@@ -206,20 +214,16 @@ class Rails::Generators::TestCase
     app_path    = File.join(config_path, "application.rb")
     FileUtils.mkdir_p(config_path)
     FileUtils.touch(routes_path)
-    File.open(routes_path, "w") do |f|
-      f.write <<~RUBY
-        Test::Application.routes.draw do
+    File.write(routes_path, <<~RUBY)
+      Test::Application.routes.draw do
+      end
+    RUBY
+    File.write(app_path, <<~RUBY)
+      module TestApp
+        class Application < Rails::Application
         end
-      RUBY
-    end
-    File.open(app_path, "w") do |f|
-      f.write <<~RUBY
-        module TestApp
-          class Application < Rails::Application
-          end
-        end
-      RUBY
-    end
+      end
+    RUBY
   end
 
   def read_file(filename)
