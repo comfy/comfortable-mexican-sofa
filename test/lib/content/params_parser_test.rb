@@ -13,7 +13,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_tokenizer_with_integer
     tokens = PARSER.new.send(:tokenize, "123")
-    assert_equal [[:string, "123"]], tokens
+    assert_equal [[:string, 123]], tokens
   end
 
   def test_tokenizer_with_commas
@@ -59,6 +59,18 @@ class ContentParamsParserTest < ActiveSupport::TestCase
     ], tokens
   end
 
+  def test_tokenizer_with_arrays_containing_numbers
+    tokens = PARSER.new.send(:tokenize, "arr: [1, 2, 3]")
+    assert_equal [
+      [:hash_key,     "arr"],
+      [:array_open,   "["],
+      [:string,       "1".to_i],
+      [:string,       "2".to_i],
+      [:string,       "3".to_i],
+      [:array_close,  "]"]
+    ], tokens
+  end
+
   def test_tokenizer_with_quoted_value
     tokens = PARSER.new.send(:tokenize, "key: ''")
     assert_equal [[:hash_key, "key"], [:string, ""]], tokens
@@ -91,7 +103,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_tokenizer_with_bad_input
     message = "Unexpected char: %"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new.send(:tokenize, "%")
     end
   end
@@ -115,14 +127,14 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_invalid_hash
     message = "Invalid params: a: b: c:"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("a: b: c:").params
     end
   end
 
   def test_params_invalid_hash_element
     message = "Invalid params: {a: b, c}"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("{a: b, c}").params
     end
   end
@@ -137,7 +149,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_array_unclosed
     message = "Unclosed array param: [a, b"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("[a, b").params
     end
   end
@@ -152,7 +164,7 @@ class ContentParamsParserTest < ActiveSupport::TestCase
 
   def test_params_mixed_invalid
     message = "Invalid params: a, b: c, d"
-    assert_exception_raised PARSER::Error, message do
+    assert_raises PARSER::Error, message do
       PARSER.new("a, b: c, d").params
     end
 

@@ -21,7 +21,7 @@ class SeedsTest < ActiveSupport::TestCase
   def test_import_all_with_no_site
     comfy_cms_sites(:default).destroy
 
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       ComfortableMexicanSofa::Seeds::Importer.new("sample-site", "default-site").import!
     end
   end
@@ -55,7 +55,7 @@ class SeedsTest < ActiveSupport::TestCase
   end
 
   def test_import_all_with_no_folder
-    assert_exception_raised ComfortableMexicanSofa::Seeds::Error do
+    assert_raises ComfortableMexicanSofa::Seeds::Error do
       ComfortableMexicanSofa::Seeds::Importer.new("invalid", "default-site").import!
     end
   end
@@ -74,7 +74,7 @@ class SeedsTest < ActiveSupport::TestCase
   def test_export_all_with_no_site
     comfy_cms_sites(:default).destroy
 
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       ComfortableMexicanSofa::Seeds::Exporter.new("sample-site", "default-site").export!
     end
   end

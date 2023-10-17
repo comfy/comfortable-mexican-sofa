@@ -21,7 +21,7 @@ class ContentTagsHelperTest < ActiveSupport::TestCase
 
   def test_init_without_method_name
     message = "Missing method name for helper tag"
-    assert_exception_raised ComfortableMexicanSofa::Content::Tag::Error, message do
+    assert_raises ComfortableMexicanSofa::Content::Tag::Error, message do
       ComfortableMexicanSofa::Content::Tag::Helper.new(context: @page)
     end
   end

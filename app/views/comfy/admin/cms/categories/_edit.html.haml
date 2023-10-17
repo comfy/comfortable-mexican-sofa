@@ -1,5 +1,5 @@
 - url = comfy_admin_cms_site_category_path(@site, category)
-= form_with model: @category, scope: :category, url: url, html: {class: "edit-category", id: dom_id(category)} do |form|
+= form_with model: @category, scope: :category, url: url, html: {class: "edit-category", id: dom_id(category)}, local: false do |form|
   .input-group
     = form.text_field :label, class: "form-control form-control-sm", id: nil
     .input-group-btn

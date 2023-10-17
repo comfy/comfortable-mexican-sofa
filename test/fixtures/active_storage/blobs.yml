@@ -4,6 +4,7 @@ default:
   content_type: image/jpg
   byte_size: 12345
   checksum: 123abc
+  service_name: test
 
 fragment:
   key: 456def
@@ -11,3 +12,4 @@ fragment:
   content_type: image/jpg
   byte_size: 12345
   checksum: 456def
+  service_name: test

@@ -44,7 +44,7 @@ protected
   end
 
   def record_path
-    raise "no implemented"
+    raise "not implemented"
   end
 
 end
