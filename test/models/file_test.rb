@@ -23,7 +23,7 @@ class CmsFileTest < ActiveSupport::TestCase
       file = comfy_cms_sites(:default).files.create(
         label:        "test",
         description:  "test file",
-        file:         fixture_file_upload("files/image.jpg", "image/jpeg")
+        file:         fixture_file_upload("image.jpg", "image/jpeg")
       )
       assert_equal 1, file.position
     end
@@ -33,7 +33,7 @@ class CmsFileTest < ActiveSupport::TestCase
     assert_difference ["Comfy::Cms::File.count", "ActiveStorage::Attachment.count"] do
       file = comfy_cms_sites(:default).files.create(
         description:  "test file",
-        file:         fixture_file_upload("files/image.jpg", "image/jpeg")
+        file:         fixture_file_upload("image.jpg", "image/jpeg")
       )
       assert_equal 1, file.position
       assert_equal "image.jpg", file.label

@@ -111,7 +111,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
 
   def test_implicit_cms_page_failure
     Comfy::Cms::Site.destroy_all
-    assert_exception_raised ActionView::MissingTemplate do
+    assert_raises ActionView::MissingTemplate do
       get "/render-basic"
     end
   end
@@ -164,7 +164,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   def test_explicit_cms_page_failure
     page = comfy_cms_pages(:child)
     page.update(slug: "invalid")
-    assert_exception_raised ComfortableMexicanSofa::MissingPage do
+    assert_raises ComfortableMexicanSofa::MissingPage do
       get "/render-page?type=page_explicit"
     end
   end
@@ -179,7 +179,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_explicit_with_site_failure
-    assert_exception_raised ComfortableMexicanSofa::MissingSite do
+    assert_raises ComfortableMexicanSofa::MissingSite do
       get "/render-page?type=page_explicit_with_site"
     end
   end
@@ -248,7 +248,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_layout_failure
-    assert_exception_raised ComfortableMexicanSofa::MissingLayout do
+    assert_raises ComfortableMexicanSofa::MissingLayout do
       get "/render-layout?type=layout_invalid"
     end
   end
@@ -263,7 +263,7 @@ class RenderCmsIntergrationTest < ActionDispatch::IntegrationTest
   end
 
   def test_cms_layout_defaults_with_site_failure
-    assert_exception_raised ComfortableMexicanSofa::MissingSite do
+    assert_raises ComfortableMexicanSofa::MissingSite do
       get "/render-layout?type=layout_defaults_with_site"
     end
   end

@@ -11,6 +11,7 @@ rdoc
 /tmp
 public/system/
 Gemfile.lock
+gemfiles/*.gemfile.lock
 .rvmrc
 .ruby-version
 .ruby-gemset

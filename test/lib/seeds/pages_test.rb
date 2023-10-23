@@ -204,7 +204,7 @@ class SeedsPagesTest < ActiveSupport::TestCase
       ---
       label: Child Page
       layout: default
-      target_page:\s
+      target_page:
       categories: []
       is_published: true
       position: 0
