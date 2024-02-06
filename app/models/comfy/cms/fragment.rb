@@ -4,7 +4,7 @@ class Comfy::Cms::Fragment < ActiveRecord::Base
 
   self.table_name = "comfy_cms_fragments"
 
-  serialize :content
+  serialize :content, coder: ComfortableMexicanSofa.config.active_record_serializer.to_s.constantize
 
   attr_reader :files
 

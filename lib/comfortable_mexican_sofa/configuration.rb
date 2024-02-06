@@ -85,6 +85,8 @@ class ComfortableMexicanSofa::Configuration
   # For example: include fragments into json data with `config.page_to_json_options = { include: [:fragments] }`
   attr_accessor :page_to_json_options
 
+  attr_accessor :active_record_serializer
+
   # Configuration defaults
   def initialize
     @cms_title              = "ComfortableMexicanSofa CMS Engine"
@@ -135,6 +137,7 @@ class ComfortableMexicanSofa::Configuration
     @reveal_cms_partials  = false
     @public_cms_path      = nil
     @page_to_json_options = { methods: [:content], except: [:content_cache] }
+    @active_record_serializer = nil
   end
 
 end
