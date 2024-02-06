@@ -33,7 +33,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
     @identifier     = params[0]
     @as             = options["as"] || "url"
     @class          = options["class"]
-    @variant_attrs  = options.slice("resize", "gravity", "crop")
+    @variant_attrs  = options.slice("resize_to_fit", "gravity", "crop")
 
     unless @identifier.present?
       raise Error, "Missing identifier for file link tag"

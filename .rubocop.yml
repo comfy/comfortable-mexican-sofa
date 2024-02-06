@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.0.3
   Exclude:
     - bin/*
     - db/schema.rb

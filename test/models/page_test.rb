@@ -224,7 +224,7 @@ class CmsPageTest < ActiveSupport::TestCase
         fragments_attributes: [{
           identifier: "file",
           tag:        "file",
-          files:      [fixture_file_upload("document.pdf", "application/pdf")]
+          files:      fixture_file_upload("document.pdf", "application/pdf")
         }]
       )
       assert_equal 1, page.fragments.count

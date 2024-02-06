@@ -6,10 +6,4 @@ default:
   checksum: 123abc
   service_name: test
 
-fragment:
-  key: 456def
-  filename: fragment.jpg
-  content_type: image/jpg
-  byte_size: 12345
-  checksum: 456def
-  service_name: test
+fragment_blob: <%= ActiveStorage::FixtureSet.blob filename: "fragment.jpg" %>

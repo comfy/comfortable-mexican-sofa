@@ -3,7 +3,6 @@
 require_relative "../test_helper"
 
 class CmsFileTest < ActiveSupport::TestCase
-
   def test_fixtures_validity
     Comfy::Cms::File.all.each do |file|
       assert file.valid?, file.errors.full_messages.to_s
@@ -45,5 +44,4 @@ class CmsFileTest < ActiveSupport::TestCase
     active_storage_blobs(:default).update_column(:content_type, "application/pdf")
     assert_equal 0, Comfy::Cms::File.with_attached_attachment.with_images.count
   end
-
 end

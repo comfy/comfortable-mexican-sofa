@@ -137,7 +137,8 @@ class FormBuilderTest < ActionView::TestCase
           <input autocomplete="off" name="page[fragments_attributes][123][identifier]" type="hidden" value="test"/>
           <input autocomplete="off" name="page[fragments_attributes][123][tag]" type="hidden" value="file"/>
           <input class="form-control" id="fragment-test" name="page[fragments_attributes][123][files]" type="file"/>
-          <div class="fragment-attachments"></div>
+          <div class="fragment-attachments">
+          </div>
         </div>
       </div>
     HTML
@@ -151,7 +152,6 @@ class FormBuilderTest < ActionView::TestCase
     attachment = active_storage_attachments(:file)
     attachment_url  = view.url_for(attachment)
     thumb_url       = view.url_for(attachment.variant(Comfy::Cms::File::VARIANT_SIZE[:thumb]))
-
     expected = <<~HTML
       <div class="form-group row">
         <label class="renderable-true col-form-label col-sm-2 text-sm-right" for="fragment-file">File</label>

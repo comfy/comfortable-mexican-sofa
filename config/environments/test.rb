@@ -43,6 +43,18 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
+  # Raises error for missing translations.
+  config.i18n.raise_on_missing_translations = true
+
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
+
   config.active_job.queue_adapter = :inline
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
@@ -55,4 +67,12 @@ defined?(ComfortableMexicanSofa::Application) && ComfortableMexicanSofa::Applica
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  config.active_record.yaml_column_permitted_classes = [
+    ActiveSupport::TimeWithZone,
+    ActiveSupport::TimeZone,
+    Symbol,
+    Time
+  ]
+
+  config.active_storage.variant_processor = :mini_magick
 end
