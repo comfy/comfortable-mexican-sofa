@@ -13,7 +13,7 @@ module ComfortableMexicanSofa
 
     require_relative "../lib/comfortable_mexican_sofa"
 
-    config.load_defaults 6.1
+    config.load_defaults 7.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -36,5 +36,7 @@ module ComfortableMexicanSofa
     config.i18n.enforce_available_locales = true
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
+
+    config.active_support.message_serializer = :json_allow_marshal
   end
 end
