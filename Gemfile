@@ -5,7 +5,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem "rails", "~> 7.0.0"
+  gem "rails", "~> 7.1.0"
   gem "autoprefixer-rails", "~> 8.1.0"
   gem "byebug",             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara",           "~> 3.26"
