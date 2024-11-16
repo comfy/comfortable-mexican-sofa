@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::Snippet < ActiveRecord::Base
-
-  self.table_name = "comfy_cms_snippets"
+  self.table_name = 'comfy_cms_snippets'
 
   include Comfy::Cms::WithCategories
 
@@ -19,11 +18,11 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
 
   # -- Validations -------------------------------------------------------------
   validates :label,
-    presence:   true
+            presence: true
   validates :identifier,
-    presence:   true,
-    uniqueness: { scope: :site_id },
-    format:     { with: %r{\A\w[a-z0-9_-]*\z}i }
+            presence: true,
+            uniqueness: { scope: :site_id },
+            format: { with: %r{\A\w[a-z0-9_-]*\z}i }
 
 protected
 
@@ -41,5 +40,4 @@ protected
     max = site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
-
 end

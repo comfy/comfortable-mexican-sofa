@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::BaseController < ComfortableMexicanSofa.config.public_base_controller.to_s.constantize
-
+class Comfy::Cms::BaseController < ComfortableMediaSurfer.config.public_base_controller.to_s.constantize
   before_action :load_cms_site
 
   helper Comfy::CmsHelper
@@ -16,18 +15,12 @@ protected
         ::Comfy::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
       end
 
-    if @cms_site
-      if @cms_site.path.present? && !params[:site_id]
-        if params[:cms_path]&.match(%r{\A#{@cms_site.path}})
-          params[:cms_path].gsub!(%r{\A#{@cms_site.path}}, "")
-          params[:cms_path]&.gsub!(%r{\A/}, "")
-        else
-          raise ActionController::RoutingError, "Site Not Found"
-        end
-      end
-    else
-      raise ActionController::RoutingError, "Site Not Found"
-    end
-  end
+    raise ActionController::RoutingError, 'Site Not Found' unless @cms_site
 
+    return unless @cms_site.path.present? && !params[:site_id]
+    raise ActionController::RoutingError, 'Site Not Found' unless params[:cms_path]&.match(%r{\A#{@cms_site.path}})
+
+    params[:cms_path].gsub!(%r{\A#{@cms_site.path}}, '')
+    params[:cms_path]&.gsub!(%r{\A/}, '')
+  end
 end

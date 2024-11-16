@@ -25,7 +25,7 @@
         .tab-content
           - frag_index = 0
 
-          - builder_opts = { builder: ComfortableMexicanSofa::FormBuilder, bootstrap: { layout: :horizontal }}
+          - builder_opts = { builder: ComfortableMediaSurfer::FormBuilder, bootstrap: { layout: :horizontal }}
           = fields scope, model: record, **builder_opts do |form|
             - namespace.each_with_index do |(name, tags), index|
               .tab-pane{id: "ns-#{name}", class: index == 0 ? "active" : nil}
@@ -33,6 +33,6 @@
                   = form.fragment_field(tag, frag_index)
                   - frag_index += 1
 
-- rescue ComfortableMexicanSofa::Content::Renderer::SyntaxError, ComfortableMexicanSofa::Content::Tag::Error => e
+- rescue ComfortableMediaSurfer::Content::Renderer::SyntaxError, ComfortableMediaSurfer::Content::Tag::Error => e
   .alert.alert-danger
     = e

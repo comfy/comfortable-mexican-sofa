@@ -1,100 +1,75 @@
+require:
+  # - rubocop-rails
+  # - rubocop-minitest
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.0
+  NewCops: enable
   Exclude:
     - bin/*
     - db/schema.rb
     - db/migrate/**/*
     - test/fixtures/**/*
     - tmp/**/*
-
-# -- Performance ---------------------------------------------------------------
-Performance/Casecmp:
-  Enabled: false
-
-# -- Metrics -------------------------------------------------------------------
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ParameterLists:
-  Enabled: false
-
-Metrics/LineLength:
-  Max: 120
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
+    - vendor/bundle/**/*
 
 # -- Layout --------------------------------------------------------------------
-Layout/MultilineOperationIndentation:
-  Enabled: false
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/LineLength:
+  Max: 148
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Layout/MultilineHashBraceLayout:
-  Enabled: false
-
-Layout/IndentArray:
-  EnforcedStyle: consistent
-
-Layout/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines_except_namespace
-
-Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Enabled: false
-
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines_except_namespace
-
-Layout/AlignParameters:
-  Enabled: false
-
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
-# -- Style ---------------------------------------------------------------------
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
-Style/RegexpLiteral:
-  EnforcedStyle: percent_r
-
-Style/Lambda:
-  EnforcedStyle: literal
-
-Style/IfUnlessModifier:
+# -- Metrics -------------------------------------------------------------------
+Metrics/AbcSize:
   Enabled: false
 
-Style/GuardClause:
+Metrics/BlockLength:
+  Max: 45
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+# -- Naming --------------------------------------------------------------------
+Naming/MethodParameterName:
+  Enabled: false
+
+# -- Style ---------------------------------------------------------------------
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Style/DateTime:
+Style/DocumentDynamicEvalDefinition:
   Enabled: false
 
-Style/ClassAndModuleChildren:
+Style/IfUnlessModifier:
   Enabled: false
 
-Style/AsciiComments:
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/OptionalBooleanParameter:
   Enabled: false
 
-# -- Naming --------------------------------------------------------------------
-Naming/UncommunicativeMethodParamName:
+Style/SafeNavigation:
   Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r

@@ -1,30 +1,25 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::Fragment < ActiveRecord::Base
-
-  self.table_name = "comfy_cms_fragments"
+  self.table_name = 'comfy_cms_fragments'
 
   has_many_attached :attachments
 
-  serialize :content
+  serialize :content, coder: Psych
 
   attr_reader :files
 
   # -- Callbacks ---------------------------------------------------------------
-  # active_storage attachment behavior changed in rails 6 - see PR#892 for details
-  if Rails::VERSION::MAJOR >= 6
-    before_save :remove_attachments, :add_attachments
-  else
-    after_save :remove_attachments, :add_attachments
-  end
+  # active_storage attachment behavior changed in rails 6
+  before_save :remove_attachments, :add_attachments
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :record, polymorphic: true, touch: true
 
   # -- Validations -------------------------------------------------------------
   validates :identifier,
-    presence:   true,
-    uniqueness: { scope: :record }
+            presence: true,
+            uniqueness: { scope: :record }
 
   # -- Instance Methods --------------------------------------------------------
 
@@ -45,6 +40,7 @@ protected
 
   def remove_attachments
     return unless @file_ids_destroy.present?
+
     attachments.where(id: @file_ids_destroy).destroy_all
   end
 
@@ -52,12 +48,11 @@ protected
     return if @files.blank?
 
     # If we're dealing with a single file
-    if tag == "file"
+    if tag == 'file'
       @files = [@files.first]
       attachments&.purge_later
     end
 
     attachments.attach(@files)
   end
-
 end

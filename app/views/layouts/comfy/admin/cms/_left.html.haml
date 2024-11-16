@@ -35,5 +35,12 @@
 = comfy_admin_partial "comfy/admin/cms/partials/navigation_after"
 
 .left-footer
-  = link_to 'ComfortableMexicanSofa', 'https://github.com/comfy', target: '_blank'
-  %span.version= ComfortableMexicanSofa::VERSION
+  = link_to 'ComfortableMediaSurfer', 'https://github.com/shakacode/comfortable-media-surfer', target: '_blank'
+  %span.version= ComfortableMediaSurfer::VERSION
+  = link_to 'Rails', 'https://rubyonrails.org', target: '_blank'
+  %span.version= Rails::version
+  = link_to 'Ruby', 'https://www.ruby-lang.org', target: '_blank'
+  %span.version= RUBY_VERSION
+  %br
+  = Rails.env.upcase + ' - ' + ActiveRecord::Base.connection.adapter_name
+

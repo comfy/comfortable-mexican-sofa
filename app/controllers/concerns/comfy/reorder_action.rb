@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Comfy::ReorderAction
-
   extend ActiveSupport::Concern
 
   included do
@@ -11,9 +10,11 @@ module Comfy::ReorderAction
   def reorder
     resource_class = self.class.reorder_action_resource
     (params.permit(order: [])[:order] || []).each_with_index do |id, index|
-      resource_class.where(id: id).update_all(position: index)
+      resource_class.where(id:).update_all(position: index)
+    end
+    if resource_class == ::Comfy::Cms::Page
+      Comfy::Cms::Page.all.each(&:save!)
     end
     head :ok
   end
-
 end

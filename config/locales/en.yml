@@ -116,11 +116,11 @@ en:
             update: Update Layout
 
         pages:
-          created: Page created
+          created: Page created, siblings, and parent updated
           creation_failure: Failed to create page
-          updated: Page updated
+          updated: Page, siblings, and parent updated
           update_failure: Failed to update page
-          deleted: Page deleted
+          deleted: Page deleted, siblings, and parent updated
           not_found: Page not found
           layout_not_found: No Layouts found. Please create one.
 

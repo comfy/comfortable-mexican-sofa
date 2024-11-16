@@ -2,5 +2,14 @@ default:
   site: default
   label: Default Snippet
   identifier: default
-  content: snippet content
+  content: "## snippet content"
+  markdown: false
   position: 0
+
+markdown:
+  site: default
+  label: Default Markdown Snippet
+  identifier: markdown
+  content: "## snippet content"
+  markdown: true
+  position: 1

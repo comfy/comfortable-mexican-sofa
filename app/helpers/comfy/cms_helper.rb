@@ -2,7 +2,6 @@
 
 module Comfy
   module CmsHelper
-
     # Raw content of a page fragment. This is how you get content from unrenderable
     # tags like {{cms:fragment meta, render: false}}
     # Example:
@@ -10,13 +9,14 @@ module Comfy
     #   cms_fragment_content(:left_column) # if @cms_page is present
     def cms_fragment_content(identifier, page = @cms_page)
       frag = page&.fragments&.detect { |f| f.identifier == identifier.to_s }
-      return "" unless frag
+      return '' unless frag
+
       case frag.tag
-      when "date", "datetime"
+      when 'date', 'datetime'
         frag.datetime
-      when "checkbox"
+      when 'checkbox'
         frag.boolean
-      when "file", "files"
+      when 'file', 'files'
         frag.attachments
       else
         frag.content
@@ -28,7 +28,8 @@ module Comfy
     # text because this is a potentially expensive call.
     def cms_fragment_render(identifier, page = @cms_page)
       node = page.fragment_nodes.detect { |n| n.identifier == identifier.to_s }
-      return "" unless node
+      return '' unless node
+
       node.renderable = true
       render inline: page.render([node])
     end
@@ -39,7 +40,8 @@ module Comfy
     def cms_snippet_content(identifier, cms_site = @cms_site)
       cms_site ||= cms_site_detect
       snippet = cms_site&.snippets&.find_by_identifier(identifier)
-      return "" unless snippet
+      return '' unless snippet
+
       snippet.content
     end
 
@@ -48,8 +50,9 @@ module Comfy
     def cms_snippet_render(identifier, cms_site = @cms_site)
       cms_site ||= cms_site_detect
       snippet = cms_site&.snippets&.find_by_identifier(identifier)
-      return "" unless snippet
-      r = ComfortableMexicanSofa::Content::Renderer.new(snippet)
+      return '' unless snippet
+
+      r = ComfortableMediaSurfer::Content::Renderer.new(snippet)
       render inline: r.render(r.nodes(r.tokenize(snippet.content)))
     end
 
@@ -59,15 +62,10 @@ module Comfy
       Comfy::Cms::Site.find_site(host, path)
     end
 
-    # Wrapper to deal with Kaminari vs WillPaginate
     def comfy_paginate(collection)
       return unless collection
-      if defined?(WillPaginate)
-        will_paginate collection
-      elsif defined?(Kaminari)
-        paginate collection, theme: "comfy"
-      end
-    end
 
+      paginate collection, theme: 'comfy' if defined?(Kaminari)
+    end
   end
 end

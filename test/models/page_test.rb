@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 class CmsPageTest < ActiveSupport::TestCase
-
   setup do
     @site   = comfy_cms_sites(:default)
     @layout = comfy_cms_layouts(:default)
@@ -11,10 +10,9 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def new_params(options = {})
-    { label:  "Test Page",
-      slug:   "test-page",
-      layout: @layout
-    }.merge(options)
+    { label: 'Test Page',
+      slug: 'test-page',
+      layout: @layout }.merge(options)
   end
 
   # -- Tests -------------------------------------------------------------------
@@ -63,13 +61,13 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_validation_of_slug
     page = comfy_cms_pages(:child)
-    page.slug = "slug.with.d0ts-and_things"
+    page.slug = 'slug.with.d0ts-and_things'
     assert page.valid?
 
-    page.slug = "inva lid"
+    page.slug = 'inva lid'
     assert page.invalid?
 
-    page.slug = "acción"
+    page.slug = 'acción'
     assert page.valid?
   end
 
@@ -83,12 +81,12 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_label_assignment
     page = @site.pages.new(
-      slug:   "test",
+      slug: 'test',
       parent: @page,
       layout: @layout
     )
     assert page.valid?
-    assert_equal "Test", page.label
+    assert_equal 'Test', page.label
   end
 
   def test_create
@@ -100,9 +98,9 @@ class CmsPageTest < ActiveSupport::TestCase
         new_params(
           parent: @page,
           fragments_attributes: [
-            { identifier: "content",
-              tag:        "text",
-              content:    "test" }
+            { identifier: 'content',
+              tag: 'text',
+              content: 'test' }
           ]
         )
       )
@@ -121,9 +119,9 @@ class CmsPageTest < ActiveSupport::TestCase
         new_params(
           parent: @page,
           fragments_attributes: [{
-            identifier: "test",
-            tag:        "file",
-            files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
+            identifier: 'test',
+            tag: 'file',
+            files: [fixture_file_upload('image.jpg', 'image/jpeg')]
           }]
         )
       )
@@ -143,11 +141,11 @@ class CmsPageTest < ActiveSupport::TestCase
           new_params(
             parent: @page,
             fragments_attributes: [{
-              identifier: "test",
-              tag:        "files",
-              files:      [
-                fixture_file_upload("files/image.jpg", "image/jpeg"),
-                fixture_file_upload("files/document.pdf", "application/pdf")
+              identifier: 'test',
+              tag: 'files',
+              files: [
+                fixture_file_upload('image.jpg', 'image/jpeg'),
+                fixture_file_upload('document.pdf', 'application/pdf')
               ]
             }]
           )
@@ -159,7 +157,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_create_with_date
-    string = "1981-10-04 12:34:56"
+    string = '1981-10-04 12:34:56'
     datetime = DateTime.parse(string)
 
     page_count      = -> { Comfy::Cms::Page.count }
@@ -170,9 +168,9 @@ class CmsPageTest < ActiveSupport::TestCase
         new_params(
           parent: @page,
           fragments_attributes: [{
-            identifier: "test",
-            tag:        "date_time",
-            datetime:   string
+            identifier: 'test',
+            tag: 'date_time',
+            datetime: string
           }]
         )
       )
@@ -190,9 +188,9 @@ class CmsPageTest < ActiveSupport::TestCase
         new_params(
           parent: @page,
           fragments_attributes: [{
-            identifier: "test",
-            tag:        "checkbox",
-            boolean:    "1"
+            identifier: 'test',
+            tag: 'checkbox',
+            boolean: '1'
           }]
         )
       )
@@ -210,24 +208,29 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_no_difference [page_count, fragment_count] do
       @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
-          content:    "updated content" }
+          content: 'updated content' }
       ])
     end
     frag.reload
-    assert_equal "updated content", frag.content
+    assert_equal 'updated content', frag.content
   end
 
   def test_update_with_file
-    assert_no_difference -> { ActiveStorage::Attachment.count } do
-      @page.update!(
+    page = @site.pages.new(new_params)
+    assert_difference -> { ActiveStorage::Attachment.count } do
+      page.update!(
         fragments_attributes: [{
-          identifier: "file",
-          tag:        "file",
-          files:      fixture_file_upload("files/document.pdf", "application/pdf")
+          identifier: 'file',
+          tag: 'file',
+          files: [fixture_file_upload('document.pdf', 'application/pdf')]
         }]
       )
-      assert_equal "document.pdf", comfy_cms_fragments(:file).attachments.first.filename.to_s
+      assert_equal 1, page.fragments.count
+      assert_equal 1, page.fragments.first.attachments.count
+      assert_equal 'document.pdf', page.fragments.first.attachments.first.filename.to_s
     end
+
+    fixture_file_upload('document.pdf', 'application/pdf')
   end
 
   def test_update_with_file_removal
@@ -235,7 +238,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_difference(-> { ActiveStorage::Attachment.count }, -1) do
       @page.update!(
         fragments_attributes: [{
-          identifier:       "file",
+          identifier: 'file',
           file_ids_destroy: [id]
         }]
       )
@@ -244,7 +247,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_update_with_date
     frag = comfy_cms_fragments(:datetime)
-    string = "2020-01-01"
+    string = '2020-01-01'
     date = DateTime.parse(string)
 
     page_count      = -> { Comfy::Cms::Page.count }
@@ -253,7 +256,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_no_difference [page_count, fragment_count] do
       @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
-          datetime:   string }
+          datetime: string }
       ])
     end
     frag.reload
@@ -270,7 +273,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_no_difference [page_count, fragment_count] do
       @page.update!(fragments_attributes: [
         { identifier: frag.identifier,
-          boolean:    "0" }
+          boolean: '0' }
       ])
     end
     frag.reload
@@ -281,8 +284,8 @@ class CmsPageTest < ActiveSupport::TestCase
     page_a = @page
     page_b = comfy_cms_pages(:child)
     page_c = @site.pages.create!(
-      label:  "Test Page",
-      slug:   "test-page",
+      label: 'Test Page',
+      slug: 'test-page',
       layout: @layout,
       parent: page_a
     )
@@ -301,7 +304,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   def test_initialization_of_full_path
     page = Comfy::Cms::Page.new
-    assert_equal "/", page.full_path
+    assert_equal '/', page.full_path
 
     page = Comfy::Cms::Page.new(new_params)
     assert page.invalid?
@@ -309,44 +312,44 @@ class CmsPageTest < ActiveSupport::TestCase
 
     page = @site.pages.new(new_params(parent: @page))
     assert page.valid?
-    assert_equal "/test-page", page.full_path
+    assert_equal '/test-page', page.full_path
 
     page = @site.pages.new(new_params(parent: comfy_cms_pages(:child)))
     assert page.valid?
-    assert_equal "/child-page/test-page", page.full_path
+    assert_equal '/child-page/test-page', page.full_path
 
     Comfy::Cms::Page.destroy_all
     page = @site.pages.new(new_params)
     assert page.valid?
-    assert_equal "/", page.full_path
+    assert_equal '/', page.full_path
   end
 
   def test_sync_child_pages
     page = comfy_cms_pages(:child)
-    page_a = @site.pages.create!(new_params(parent: page, slug: "test-page-1"))
-    page_b = @site.pages.create!(new_params(parent: page, slug: "test-page-2"))
-    page_c = @site.pages.create!(new_params(parent: page_b, slug: "test-page-3"))
-    page_d = @site.pages.create!(new_params(parent: page_a, slug: "test-page-4"))
+    page_a = @site.pages.create!(new_params(parent: page, slug: 'test-page-1'))
+    page_b = @site.pages.create!(new_params(parent: page, slug: 'test-page-2'))
+    page_c = @site.pages.create!(new_params(parent: page_b, slug: 'test-page-3'))
+    page_d = @site.pages.create!(new_params(parent: page_a, slug: 'test-page-4'))
 
-    assert_equal "/child-page/test-page-1", page_a.full_path
-    assert_equal "/child-page/test-page-2", page_b.full_path
-    assert_equal "/child-page/test-page-2/test-page-3", page_c.full_path
-    assert_equal "/child-page/test-page-1/test-page-4", page_d.full_path
+    assert_equal '/child-page/test-page-1', page_a.full_path
+    assert_equal '/child-page/test-page-2', page_b.full_path
+    assert_equal '/child-page/test-page-2/test-page-3', page_c.full_path
+    assert_equal '/child-page/test-page-1/test-page-4', page_d.full_path
 
-    page.update!(slug: "updated-page")
-    assert_equal "/updated-page", page.full_path
+    page.update!(slug: 'updated-page')
+    assert_equal '/updated-page', page.full_path
     [page_a, page_b, page_c, page_d].each(&:reload)
-    assert_equal "/updated-page/test-page-1", page_a.full_path
-    assert_equal "/updated-page/test-page-2", page_b.full_path
-    assert_equal "/updated-page/test-page-2/test-page-3", page_c.full_path
-    assert_equal "/updated-page/test-page-1/test-page-4", page_d.full_path
+    assert_equal '/updated-page/test-page-1', page_a.full_path
+    assert_equal '/updated-page/test-page-2', page_b.full_path
+    assert_equal '/updated-page/test-page-2/test-page-3', page_c.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_d.full_path
 
     page_b.update!(parent: page_a)
     [page_a, page_b, page_c, page_d].each(&:reload)
-    assert_equal "/updated-page/test-page-1", page_a.full_path
-    assert_equal "/updated-page/test-page-1/test-page-2", page_b.full_path
-    assert_equal "/updated-page/test-page-1/test-page-2/test-page-3", page_c.full_path
-    assert_equal "/updated-page/test-page-1/test-page-4", page_d.full_path
+    assert_equal '/updated-page/test-page-1', page_a.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2', page_b.full_path
+    assert_equal '/updated-page/test-page-1/test-page-2/test-page-3', page_c.full_path
+    assert_equal '/updated-page/test-page-1/test-page-4', page_d.full_path
   end
 
   def test_children_count_updating
@@ -383,12 +386,12 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_options_for_select
-    options = ["Default Page", ". . Child Page"]
+    options = ['Default Page', '. . Child Page']
     assert_equal options, Comfy::Cms::Page.options_for_select(site: @site).map(&:first)
 
-    expected = ["Default Page"]
+    expected = ['Default Page']
     actual = Comfy::Cms::Page.options_for_select(
-      site:         @site,
+      site: @site,
       current_page: comfy_cms_pages(:child),
       exclude_self: true
     ).map(&:first)
@@ -402,79 +405,78 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal @page.fragments.count, @page.fragments_attributes.size
 
     @page.fragments_attributes = [
-      { identifier: "content",
-        content:    "updated content"
-      }
+      { identifier: 'content',
+        content: 'updated content' }
     ]
 
     assert_equal [
-      { identifier: "boolean",
-        tag:        "checkbox",
-        content:    nil,
-        datetime:   nil,
-        boolean:    true },
-      { identifier: "file",
-        tag:        "file",
-        content:    nil,
-        datetime:   nil,
-        boolean:    false },
-      { identifier: "datetime",
-        tag:        "datetime",
-        content:    nil,
-        datetime:   comfy_cms_fragments(:datetime).datetime,
-        boolean:    false },
-      { identifier: "content",
-        tag:        "text",
-        content:    "updated content",
-        datetime:   nil,
-        boolean:    false }
+      { identifier: 'boolean',
+        tag: 'checkbox',
+        content: nil,
+        datetime: nil,
+        boolean: true },
+      { identifier: 'file',
+        tag: 'file',
+        content: nil,
+        datetime: nil,
+        boolean: false },
+      { identifier: 'datetime',
+        tag: 'datetime',
+        content: nil,
+        datetime: comfy_cms_fragments(:datetime).datetime,
+        boolean: false },
+      { identifier: 'content',
+        tag: 'text',
+        content: 'updated content',
+        datetime: nil,
+        boolean: false }
     ], @page.fragments_attributes
 
     assert_equal [
-      { identifier: "boolean",
-        tag:        "checkbox",
-        content:    nil,
-        datetime:   nil,
-        boolean:    true },
-      { identifier: "file",
-        tag:        "file",
-        content:    nil,
-        datetime:   nil,
-        boolean:    false },
-      { identifier: "datetime",
-        tag:        "datetime",
-        content:    nil,
-        datetime:   comfy_cms_fragments(:datetime).datetime,
-        boolean:    false },
-      { identifier: "content",
-        tag:        "text",
-        content:    "content",
-        datetime:   nil,
-        boolean:    false }
+      { identifier: 'boolean',
+        tag: 'checkbox',
+        content: nil,
+        datetime: nil,
+        boolean: true },
+      { identifier: 'file',
+        tag: 'file',
+        content: nil,
+        datetime: nil,
+        boolean: false },
+      { identifier: 'datetime',
+        tag: 'datetime',
+        content: nil,
+        datetime: comfy_cms_fragments(:datetime).datetime,
+        boolean: false },
+      { identifier: 'content',
+        tag: 'text',
+        content: 'content',
+        datetime: nil,
+        boolean: false }
     ], @page.fragments_attributes_was
   end
 
   def test_render
     expected = @page.render
-    assert_equal "content", expected
+    assert_equal 'content', expected
   end
 
   def test_fragment_nodes
-    content = "a {{cms:text a}} b {{cms:snippet b}} c {{cms:text c}}"
+    content = 'a {{cms:text a}} b {{cms:snippet b}} c {{cms:text c}}'
     @page.layout.update_column(:content, content)
     nodes = @page.fragment_nodes
     assert_equal 2, nodes.count
-    assert_equal "a", nodes[0].identifier
-    assert_equal "c", nodes[1].identifier
+    assert_equal 'a', nodes[0].identifier
+    assert_equal 'c', nodes[1].identifier
   end
 
   def test_fragment_nodes_with_duplicates
-    content = "{{cms:wysiwyg test}} {{cms:markdown test}}"
+    content = '{{cms:wysiwyg test}} {{cms:markdown test}}'
     @page.layout.update_column(:content, content)
     nodes = @page.fragment_nodes
     assert_equal 1, nodes.count
-    assert_equal ComfortableMexicanSofa::Content::Tag::Wysiwyg, nodes[0].class
-    assert_equal "test", nodes[0].identifier
+    assert_equal ComfortableMediaSurfer::Content::Tags::Wysiwyg, nodes[0].class
+    assert_equal 'test', nodes[0].identifier
   end
 
   def test_fragment_nodes_with_no_layout
@@ -485,7 +487,7 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_content_caching
     assert_equal @page.content_cache, @page.render
 
-    @page.update_columns(content_cache: "Old Content")
+    @page.update_columns(content_cache: 'Old Content')
     refute_equal @page.content_cache, @page.render
 
     @page.clear_content_cache!
@@ -493,7 +495,7 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_content_cache_clear_on_save
-    old_content = "Old Content"
+    old_content = 'Old Content'
     @page.update_columns(content_cache: old_content)
 
     @page.save!
@@ -512,53 +514,53 @@ class CmsPageTest < ActiveSupport::TestCase
   end
 
   def test_url
-    assert_equal "//www.example.com/", @page.url
-    assert_equal "//www.example.com/child-page", comfy_cms_pages(:child).url
+    assert_equal '//www.example.com/', @page.url
+    assert_equal '//www.example.com/child-page', comfy_cms_pages(:child).url
 
-    assert_equal "/", @page.url(relative: true)
-    assert_equal "/child-page", comfy_cms_pages(:child).url(relative: true)
+    assert_equal '/', @page.url(relative: true)
+    assert_equal '/child-page', comfy_cms_pages(:child).url(relative: true)
 
-    @site.update_columns(path: "/en/site")
+    @site.update_columns(path: '/en/site')
     @page.reload
     comfy_cms_pages(:child).reload
 
-    assert_equal "//www.example.com/en/site/", @page.url
-    assert_equal "//www.example.com/en/site/child-page", comfy_cms_pages(:child).url
+    assert_equal '//www.example.com/en/site/', @page.url
+    assert_equal '//www.example.com/en/site/child-page', comfy_cms_pages(:child).url
 
-    assert_equal "/en/site/", @page.url(relative: true)
-    assert_equal "/en/site/child-page", comfy_cms_pages(:child).url(relative: true)
+    assert_equal '/en/site/', @page.url(relative: true)
+    assert_equal '/en/site/child-page', comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_url_with_public_cms_path
-    ComfortableMexicanSofa.config.public_cms_path = "/custom"
-    assert_equal "//www.example.com/custom/", @page.url
-    assert_equal "//www.example.com/custom/child-page", comfy_cms_pages(:child).url
+    ComfortableMediaSurfer.config.public_cms_path = '/custom'
+    assert_equal '//www.example.com/custom/', @page.url
+    assert_equal '//www.example.com/custom/child-page', comfy_cms_pages(:child).url
 
-    assert_equal "/custom/", @page.url(relative: true)
-    assert_equal "/custom/child-page", comfy_cms_pages(:child).url(relative: true)
+    assert_equal '/custom/', @page.url(relative: true)
+    assert_equal '/custom/child-page', comfy_cms_pages(:child).url(relative: true)
   end
 
   def test_unicode_slug_escaping
     page = comfy_cms_pages(:child)
-    page_a = @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
-    assert_equal CGI.escape("tést-ünicode-slug"), page_a.slug
-    assert_equal CGI.escape("/child-page/tést-ünicode-slug").gsub("%2F", "/"), page_a.full_path
+    page_a = @site.pages.create!(new_params(parent: page, slug: 'tést-ünicode-slug'))
+    assert_equal CGI.escape('tést-ünicode-slug'), page_a.slug
+    assert_equal CGI.escape('/child-page/tést-ünicode-slug').gsub('%2F', '/'), page_a.full_path
   end
 
   def test_unicode_slug_unescaping
     page = comfy_cms_pages(:child)
-    @site.pages.create!(new_params(parent: page, slug: "tést-ünicode-slug"))
-    found_page = @site.pages.where(slug: CGI.escape("tést-ünicode-slug")).first
-    assert_equal "tést-ünicode-slug", found_page.slug
-    assert_equal "/child-page/tést-ünicode-slug", found_page.full_path
+    @site.pages.create!(new_params(parent: page, slug: 'tést-ünicode-slug'))
+    found_page = @site.pages.where(slug: CGI.escape('tést-ünicode-slug')).first
+    assert_equal 'tést-ünicode-slug', found_page.slug
+    assert_equal '/child-page/tést-ünicode-slug', found_page.full_path
   end
 
   def test_identifier
-    assert_equal "index",       @page.identifier
-    assert_equal "child-page",  comfy_cms_pages(:child).identifier
+    assert_equal 'index',       @page.identifier
+    assert_equal 'child-page',  comfy_cms_pages(:child).identifier
 
-    @page.update_column(:slug, "index")
-    assert_equal "index", comfy_cms_pages(:default).identifier
+    @page.update_column(:slug, 'index')
+    assert_equal 'index', comfy_cms_pages(:default).identifier
   end
 
   def test_children_count_updating_on_move
@@ -592,11 +594,11 @@ class CmsPageTest < ActiveSupport::TestCase
     assert @page.readonly?
 
     assert_equal comfy_cms_layouts(:nested), @page.layout
-    assert_equal "Default Translation", @page.label
-    assert_equal "Translation Content", @page.content_cache
+    assert_equal 'Default Translation', @page.label
+    assert_equal 'Translation Content', @page.content_cache
 
-    frag = @page.fragments.find { |f| f.identifier == "content" }
-    assert_equal "translated content", frag.content
+    frag = @page.fragments.find { |f| f.identifier == 'content' }
+    assert_equal 'translated content', frag.content
   end
 
   def test_translate_with_no_translations
@@ -604,21 +606,21 @@ class CmsPageTest < ActiveSupport::TestCase
     Comfy::Cms::Translation.delete_all
 
     @page.translate!
-    assert_equal "Default Page", @page.label
+    assert_equal 'Default Page', @page.label
   end
 
   def test_translate_with_default_locale
     I18n.locale = @page.site.locale
 
     @page.translate!
-    assert_equal "Default Page", @page.label
+    assert_equal 'Default Page', @page.label
   end
 
   def test_translate_with_unpublished
     I18n.locale = :fr
 
     comfy_cms_translations(:default).update_column(:is_published, false)
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       @page.translate!
     end
   end
@@ -626,9 +628,8 @@ class CmsPageTest < ActiveSupport::TestCase
   def test_translate_with_invalid_locale
     I18n.locale = :es
 
-    assert_exception_raised ActiveRecord::RecordNotFound do
+    assert_raises ActiveRecord::RecordNotFound do
       @page.translate!
     end
   end
-
 end

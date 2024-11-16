@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../../../../../test_helper"
+require_relative '../../../../../test_helper'
 
 class Comfy::Admin::Cms::Revisions::TranslationControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @site         = comfy_cms_sites(:default)
     @page         = comfy_cms_pages(:default)
@@ -34,18 +33,18 @@ class Comfy::Admin::Cms::Revisions::TranslationControllerTest < ActionDispatch::
   end
 
   def test_get_show_for_invalid_record
-    r :get, comfy_admin_cms_site_page_translation_revision_path(@site, @page, "invalid", @revision)
+    r :get, comfy_admin_cms_site_page_translation_revision_path(@site, @page, 'invalid', @revision)
     assert_response :redirect
     assert_redirected_to comfy_admin_cms_site_pages_path(@site)
-    assert_equal "Record Not Found", flash[:danger]
+    assert_equal 'Record Not Found', flash[:danger]
   end
 
   def test_get_show_failure
-    r :get, comfy_admin_cms_site_page_translation_revision_path(@site, @page, @translation, "invalid")
+    r :get, comfy_admin_cms_site_page_translation_revision_path(@site, @page, @translation, 'invalid')
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_page_translation_path(@site, @page, assigns(:record))
-    assert_equal "Revision Not Found", flash[:danger]
+    assert_equal 'Revision Not Found', flash[:danger]
   end
 
   def test_revert
@@ -53,18 +52,17 @@ class Comfy::Admin::Cms::Revisions::TranslationControllerTest < ActionDispatch::
       r :patch, revert_comfy_admin_cms_site_page_translation_revision_path(@site, @page, @translation, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
-      assert_equal "Content Reverted", flash[:success]
+      assert_equal 'Content Reverted', flash[:success]
 
       @translation.reload
 
       assert_equal [{
-        identifier: "content",
-        tag:        "text",
-        content:    "old content",
-        datetime:   nil,
-        boolean:    false
+        identifier: 'content',
+        tag: 'text',
+        content: 'old content',
+        datetime: nil,
+        boolean: false
       }], @translation.fragments_attributes
     end
   end
-
 end

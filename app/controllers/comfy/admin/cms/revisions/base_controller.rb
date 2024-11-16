@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Comfy::Admin::Cms::Revisions::BaseController < Comfy::Admin::Cms::BaseController
-
   helper_method :record_path
 
   before_action :load_record
@@ -21,30 +20,29 @@ class Comfy::Admin::Cms::Revisions::BaseController < Comfy::Admin::Cms::BaseCont
     @current_content    = @record.revision_fields.each_with_object({}) { |f, c| c[f] = @record.send(f) }
     @versioned_content  = @record.revision_fields.each_with_object({}) { |f, c| c[f] = @revision.data[f] }
 
-    render "comfy/admin/cms/revisions/show"
+    render 'comfy/admin/cms/revisions/show'
   end
 
   def revert
     @record.restore_from_revision(@revision)
-    flash[:success] = I18n.t("comfy.admin.cms.revisions.reverted")
+    flash[:success] = I18n.t('comfy.admin.cms.revisions.reverted')
     redirect_to record_path
   end
 
 protected
 
   def load_record
-    raise "not implemented"
+    raise 'not implemented'
   end
 
   def load_revision
     @revision = @record.revisions.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = I18n.t("comfy.admin.cms.revisions.not_found")
+    flash[:danger] = I18n.t('comfy.admin.cms.revisions.not_found')
     redirect_to record_path
   end
 
   def record_path
-    raise "no implemented"
+    raise 'not implemented'
   end
-
 end

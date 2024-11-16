@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../../../../test_helper"
+require_relative '../../../../test_helper'
 
 class Comfy::Admin::Cms::BaseControllerTest < ActionDispatch::IntegrationTest
-
   def test_get_jump
     r :get, comfy_admin_cms_path
     assert_response :redirect
@@ -11,10 +10,9 @@ class Comfy::Admin::Cms::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_jump_with_redirect_setting
-    ComfortableMexicanSofa.config.admin_route_redirect = "/cms-admin/sites"
+    ComfortableMediaSurfer.config.admin_route_redirect = '/cms-admin/sites'
     r :get, comfy_admin_cms_path
     assert_response :redirect
-    assert_redirected_to "/cms-admin/sites"
+    assert_redirected_to '/cms-admin/sites'
   end
-
 end

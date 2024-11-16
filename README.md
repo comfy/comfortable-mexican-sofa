@@ -1,17 +1,11 @@
-# ComfortableMexicanSofa
+# ComfortableMediaSurfer
 
-ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management System) Engine
-
-[![Gem Version](https://img.shields.io/gem/v/comfortable_mexican_sofa.svg?style=flat)](http://rubygems.org/gems/comfortable_mexican_sofa)
-[![Gem Downloads](https://img.shields.io/gem/dt/comfortable_mexican_sofa.svg?style=flat)](http://rubygems.org/gems/comfortable_mexican_sofa)
-[![Build Status](https://img.shields.io/travis/comfy/comfortable-mexican-sofa.svg?branch=master&style=flat)](https://travis-ci.org/comfy/comfortable-mexican-sofa)
-[![Coverage Status](https://img.shields.io/coveralls/comfy/comfortable-mexican-sofa.svg?style=flat)](https://coveralls.io/r/comfy/comfortable-mexican-sofa?branch=master)
-[![Gitter](https://badges.gitter.im/comfy/comfortable-mexican-sofa.svg)](https://gitter.im/comfy/comfortable-mexican-sofa)
+ComfortableMediaSurfer is a powerful Ruby 6.1+ CMS (Content Management System) Engine, picking up where [ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa) left off.
 
 ## Features
 
-* Simple drop-in integration with Rails 5.2+ apps with minimal configuration
-* CMS stays away from the rest of your application
+* Simple drop-in integration with Rails 6.1+ apps with minimal configuration
+* The CMS keeps clear from the rest of your application
 * Powerful page templating capability using [Content Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags)
 * [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Sites) from a single installation
 * Multi-Language Support (i18n) (ca, cs, da, de, en, es, fi, fr, gr, hr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
@@ -25,12 +19,17 @@ ComfortableMexicanSofa is a powerful Ruby on Rails 5.2+ CMS (Content Management 
 * Image resizing is done with with [ImageMagick](http://www.imagemagick.org/script/download.php), so make sure it's installed.
 * Pagination is handled by [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate). Please add one of those to your Gemfile.
 
+## Compatibility
+
+- Ruby >= 3.0 with Rails >= 6.1
+- On Ruby 3.x, Rails 7.x + is recommended, since performance is noticably better than on 6.x
+
 ## Installation
 
 Add gem definition to your Gemfile:
 
 ```ruby
-gem "comfortable_mexican_sofa", "~> 2.0.0"
+gem "comfortable_media_surfer", "~> 3.0.0"
 ```
 
 Then from the Rails project's root run:
@@ -50,7 +49,7 @@ comfy_route :cms, path: "/"
 
 After finishing installation you should be able to navigate to http://localhost:3000/admin
 
-Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_mexican_sofa.rb)
+Default username and password is 'username' and 'password'. You probably want to change it right away. Admin credentials (among other things) can be found and changed in the cms initializer: [/config/initializers/comfortable\_mexican\_sofa.rb](https://github.com/comfy/comfortable-mexican-sofa/blob/master/config/initializers/comfortable_media_surfer.rb)
 
 Before creating pages and populating them with content we need to create a Site. Site defines a hostname, content path and its language.
 
@@ -84,33 +83,27 @@ If you want to add a Blog functionality to your app take a look at
 
 #### Old Versions
 
-CMS for Rails 5.1 doesn't have published gem, but you may use [rails 5.1 branch](https://github.com/comfy/comfortable-mexican-sofa/tree/rails5.1) directly.
-
-If you want to use CMS version 1.12 on Rails 5.2 use [1.13 branch](https://github.com/comfy/comfortable-mexican-sofa/tree/1.13) directly.
-
-With Rails 4.2 and 5.0 use gem version [1.12.10](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.12.10)
-
-With Rails 3.0 use gem version [1.8.5](https://rubygems.org/gems/comfortable_mexican_sofa/versions/1.8.5)
-
 [CHANGELOG](//github.com/comfy/comfortable-mexican-sofa/releases) is documented
 in Github releases.
 
 #### Contributing
 
-ComfortableMexicanSofa repository can be ran like a regular Rails application in
+ComfortableMediaSurfer repository can be ran like a regular Rails application in
 development environment. It's as easy to work on as any other Rails app out there.
 For more detail take a look at [CONTRIBUTING](CONTRIBUTING.md)
 
-#### Help and Contact
+#### Testing
 
-Gitter: https://gitter.im/comfy/comfortable-mexican-sofa
-
-Twitter: [@GroceryBagHead](https://twitter.com/grocerybaghead)
+- `bin/rails db:migrate RAILS_ENV=test`
+- `rake db:test:prepare`
+- `rake test`
 
 #### Acknowledgements
 
-Thanks to [Roman Almeida](https://github.com/nasmorn) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
+- to [Oleg Khabarov](https://github.com/GBH), the creator of [ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa)
+- to [Roman Almeida](https://github.com/nasmorn) for contributing OEM License for [Redactor Text Editor](http://imperavi.com/redactor)
 
 ---
 
-Copyright 2010-2019 Oleg Khabarov. Released under the [MIT license](LICENSE)
+Copyright 2010-2019 Oleg Khabarov, 2024 ShakaCode LLC
+Released under the [MIT license](LICENSE)

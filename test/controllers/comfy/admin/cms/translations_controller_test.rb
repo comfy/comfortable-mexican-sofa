@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../../../../test_helper"
+require_relative '../../../../test_helper'
 
 class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @site         = comfy_cms_sites(:default)
     @layout       = comfy_cms_layouts(:default)
@@ -20,7 +19,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_get_new_with_field_wysiwyg
-    @layout.update_column(:content, "{{cms:wysiwyg test}}")
+    @layout.update_column(:content, '{{cms:wysiwyg test}}')
     r :get, new_comfy_admin_cms_site_page_translation_path(@site, @page)
     assert_response :success
     assert_select "textarea[name='translation[fragments_attributes][0][content]'][data-cms-rich-text]"
@@ -37,24 +36,24 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   end
 
   def test_get_edit_failure
-    r :get, edit_comfy_admin_cms_site_page_translation_path(@site, @page, "invalid")
+    r :get, edit_comfy_admin_cms_site_page_translation_path(@site, @page, 'invalid')
     assert_response :redirect
     assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)
-    assert_equal "Translation not found", flash[:danger]
+    assert_equal 'Translation not found', flash[:danger]
   end
 
   def test_create
     assert_difference -> { Comfy::Cms::Translation.count } do
       path = comfy_admin_cms_site_page_translations_path(@site, @page)
       r :post, path, params: { translation: {
-        locale: "es",
-        label:  "Test Translation"
+        locale: 'es',
+        label: 'Test Translation'
       } }
       assert_response :redirect
       translation = Comfy::Cms::Translation.last
       assert_equal @page, translation.page
       assert_redirected_to action: :edit, id: translation
-      assert_equal "Translation created", flash[:success]
+      assert_equal 'Translation created', flash[:success]
     end
   end
 
@@ -64,32 +63,32 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
       r :post, path, params: { translation: {} }
       assert_response :success
       assert_template :new
-      assert_equal "Failed to create translation", flash[:danger]
+      assert_equal 'Failed to create translation', flash[:danger]
     end
   end
 
   def test_update
     path = comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
     r :put, path, params: { translation: {
-      label: "Updated Translation"
+      label: 'Updated Translation'
     } }
     assert_response :redirect
     assert_redirected_to action: :edit, site_id: @site, page_id: @page, id: @translation
-    assert_equal "Translation updated", flash[:success]
+    assert_equal 'Translation updated', flash[:success]
     @translation.reload
-    assert_equal "Updated Translation", @translation.label
+    assert_equal 'Updated Translation', @translation.label
   end
 
   def test_update_failure
     path = comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
     r :put, path, params: { translation: {
-      locale: ""
+      locale: ''
     } }
     assert_response :success
     assert_template :edit
     @translation.reload
-    assert_not_equal "", @translation.locale
-    assert_equal "Failed to update translation", flash[:danger]
+    assert_not_equal '', @translation.locale
+    assert_equal 'Failed to update translation', flash[:danger]
   end
 
   def test_destroy
@@ -97,7 +96,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
       r :delete, comfy_admin_cms_site_page_translation_path(@site, @page, @translation)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_page_path(@site, @page)
-      assert_equal "Translation deleted", flash[:success]
+      assert_equal 'Translation deleted', flash[:success]
     end
   end
 
@@ -109,7 +108,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 2, assigns(:translation).fragment_nodes.size
-    assert_template "comfy/admin/cms/fragments/_form_fragments"
+    assert_template 'comfy/admin/cms/fragments/_form_fragments'
 
     r :get, path, xhr: true, params: {
       layout_id: @layout.id
@@ -117,7 +116,7 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 1, assigns(:translation).fragment_nodes.size
-    assert_template "comfy/admin/cms/fragments/_form_fragments"
+    assert_template 'comfy/admin/cms/fragments/_form_fragments'
   end
 
   def test_get_form_fragments_for_new_translation
@@ -128,27 +127,26 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
     assert_response :success
     assert assigns(:translation)
     assert_equal 1, assigns(:translation).fragment_nodes.size
-    assert_template "comfy/admin/cms/fragments/_form_fragments"
+    assert_template 'comfy/admin/cms/fragments/_form_fragments'
   end
 
   def test_creation_preview
     assert_no_difference -> { Comfy::Cms::Translation.count } do
       r :post, comfy_admin_cms_site_page_translations_path(@site, @page), params: {
-        preview: "Preview",
+        preview: 'Preview',
         translation: {
-          label:      "Test Page",
-          layout_id:  @layout.id,
-          locale:     "fr",
+          label: 'Test Page',
+          layout_id: @layout.id,
+          locale: 'fr',
           fragments_attributes: [
-            { identifier: "content",
-              content:    "preview content" }
+            { identifier: 'content',
+              content: 'preview content' }
           ]
         }
       }
       assert_response :success
       assert_match %r{preview content}, response.body
-      assert_equal "text/html", response.content_type
-
+      assert_equal 'text/html; charset=utf-8', response.content_type
       assert_equal @site, assigns(:cms_site)
       assert_equal @layout, assigns(:cms_layout)
       assert assigns(:cms_page)
@@ -161,24 +159,23 @@ class Comfy::Admin::Cms::TranslationsControllerTest < ActionDispatch::Integratio
   def test_update_preview
     assert_no_difference -> { Comfy::Cms::Page.count } do
       r :put, comfy_admin_cms_site_page_translation_path(@site, @page, @translation), params: {
-        preview: "Preview",
+        preview: 'Preview',
         translation: {
-          label: "Updated Label",
+          label: 'Updated Label',
           fragments_attributes: [
-            { identifier: "content",
-              content:    "preview content" }
+            { identifier: 'content',
+              content: 'preview content' }
           ]
         }
       }
       assert_response :success
       assert_match %r{preview content}, response.body
       @translation.reload
-      assert_not_equal "Updated Label", @page.label
+      assert_not_equal 'Updated Label', @page.label
 
       assert_equal @page.site,    assigns(:cms_site)
       assert_equal @page.layout,  assigns(:cms_layout)
       assert_equal @page,         assigns(:cms_page)
     end
   end
-
 end

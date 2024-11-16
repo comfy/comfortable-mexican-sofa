@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../../../../../test_helper"
+require_relative '../../../../../test_helper'
 
 class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::IntegrationTest
-
   setup do
     @site     = comfy_cms_sites(:default)
     @layout   = comfy_cms_layouts(:default)
@@ -33,18 +32,18 @@ class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::Integ
   end
 
   def test_get_show_for_invalid_record
-    r :get, comfy_admin_cms_site_layout_revision_path(@site, "invalid", @revision)
+    r :get, comfy_admin_cms_site_layout_revision_path(@site, 'invalid', @revision)
     assert_response :redirect
     assert_redirected_to comfy_admin_cms_site_layouts_path(@site)
-    assert_equal "Record Not Found", flash[:danger]
+    assert_equal 'Record Not Found', flash[:danger]
   end
 
   def test_get_show_failure
-    r :get, comfy_admin_cms_site_layout_revision_path(@site, @layout, "invalid")
+    r :get, comfy_admin_cms_site_layout_revision_path(@site, @layout, 'invalid')
     assert_response :redirect
     assert assigns(:record)
     assert_redirected_to edit_comfy_admin_cms_site_layout_path(@site, assigns(:record))
-    assert_equal "Revision Not Found", flash[:danger]
+    assert_equal 'Revision Not Found', flash[:danger]
   end
 
   def test_revert
@@ -52,13 +51,12 @@ class Comfy::Admin::Cms::Revisions::LayoutControllerTest < ActionDispatch::Integ
       r :patch, revert_comfy_admin_cms_site_layout_revision_path(@site, @layout, @revision)
       assert_response :redirect
       assert_redirected_to edit_comfy_admin_cms_site_layout_path(@site, @layout)
-      assert_equal "Content Reverted", flash[:success]
+      assert_equal 'Content Reverted', flash[:success]
 
       @layout.reload
-      assert_equal "revision {{cms:fragment content}}", @layout.content
-      assert_equal "revision css", @layout.css
-      assert_equal "revision js", @layout.js
+      assert_equal 'revision {{cms:fragment content}}', @layout.content
+      assert_equal 'revision css', @layout.css
+      assert_equal 'revision js', @layout.js
     end
   end
-
 end

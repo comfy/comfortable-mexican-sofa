@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::File < ActiveRecord::Base
-
-  self.table_name = "comfy_cms_files"
+  self.table_name = 'comfy_cms_files'
 
   include Comfy::Cms::WithCategories
 
   VARIANT_SIZE = {
-    redactor: { resize: "100x75^",   gravity: "center", crop: "100x75+0+0" },
-    thumb:    { resize: "200x150^",  gravity: "center", crop: "200x150+0+0" },
-    icon:     { resize: "28x28^",    gravity: "center", crop: "28x28+0+0" }
+    redactor: { resize: '100x75^', gravity: 'center', crop: '100x75+0+0' },
+    thumb: { resize: '200x150^', gravity: 'center', crop: '200x150+0+0' },
+    icon: { resize: '28x28^', gravity: 'center', crop: '28x28+0+0' }
   }.freeze
 
   # temporary place to store attachment
@@ -23,12 +22,9 @@ class Comfy::Cms::File < ActiveRecord::Base
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label, on: :create
   before_create :assign_position
-  # active_storage attachment behavior changed in rails 6 - see PR#892 for details
-  if Rails::VERSION::MAJOR >= 6
-    before_save :process_attachment
-  else
-    after_save :process_attachment
-  end
+  # active_storage attachment behavior changed in rails 6
+  before_save :process_attachment
+  after_save :clear_page_content_cache
 
   # -- Validations -------------------------------------------------------------
   validates :label, presence: true
@@ -41,6 +37,12 @@ class Comfy::Cms::File < ActiveRecord::Base
     where("active_storage_blobs.content_type LIKE 'image/%'").references(:blob)
   }
 
+private
+
+  def clear_page_content_cache
+    Comfy::Cms::Page.where(id: site.pages.pluck(:id)).update_all(content_cache: nil)
+  end
+
 protected
 
   def assign_position
@@ -51,12 +53,13 @@ protected
   # TODO: Change db schema not to set blank string
   def assign_label
     return if label.present?
+
     self.label = file&.original_filename
   end
 
   def process_attachment
     return if @file.blank?
-    attachment.attach(@file)
-  end
 
+    self.attachment = @file
+  end
 end

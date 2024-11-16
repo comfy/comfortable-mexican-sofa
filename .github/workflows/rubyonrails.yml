@@ -1,0 +1,51 @@
+name: "Rails CI"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_test_lint_audit:
+    strategy:
+      matrix:
+        ruby-version:
+          - "3.1"
+          - "3.2"
+          - "3.3"
+        rails-version:
+          - "6.1"
+          - "7.1"
+          - "7.2"
+        continue-on-error: [true]
+    name: ${{ format('Tests (Ruby {0}, Rails {1})', matrix.ruby-version, matrix.rails-version) }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.continue-on-error }}
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.rails-version }}.gemfile
+      RAILS_ENV: test
+      SKIP_COV: true
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      - name: Run tests
+        run: |
+          bin/bundle install --retry 3 --quiet
+          bin/bundle exec rails db:drop
+          bin/bundle exec rails db:create
+          bin/bundle exec rails db:migrate
+          bin/bundle exec rails test:db
+
+      - name: Lint the code
+        run: bin/bundle exec rubocop --parallel
+
+      - name: Audit for security
+        run: |
+          bin/bundle exec brakeman -q -w3
+          bin/bundle exec bundler-audit --update --gemfile-lock gemfiles/${{ matrix.rails-version }}.gemfile.lock

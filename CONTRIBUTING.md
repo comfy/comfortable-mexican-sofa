@@ -1,6 +1,6 @@
 # Contributing
 
-Contribute your code to ComfortableMexicanSofa in 5 easy steps:
+Contribute your code to ComfortableMediaSurfer in 5 easy steps:
 
 ### 1. Fork it
 

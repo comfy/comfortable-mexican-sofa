@@ -1,6 +1,6 @@
 .bundle
-db/*.sqlite3
-log/*.log
+db/*.sqlite3*
+log/*
 tmp/**/*
 .DS_Store
 db/schema.rb

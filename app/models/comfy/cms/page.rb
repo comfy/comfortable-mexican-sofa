@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::Page < ActiveRecord::Base
-
-  self.table_name = "comfy_cms_pages"
+  self.table_name = 'comfy_cms_pages'
 
   include Comfy::Cms::WithFragments
   include Comfy::Cms::WithCategories
@@ -15,11 +14,11 @@ class Comfy::Cms::Page < ActiveRecord::Base
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
   belongs_to :target_page,
-    class_name: "Comfy::Cms::Page",
-    optional:   true
+             class_name: 'Comfy::Cms::Page',
+             optional: true
 
   has_many :translations,
-    dependent: :destroy
+           dependent: :destroy
 
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assigns_label,
@@ -32,13 +31,13 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # -- Validations -------------------------------------------------------------
   validates :label,
-    presence:   true
+            presence: true
   validates :slug,
-    presence:   true,
-    uniqueness: { scope: :parent_id },
-    unless:     ->(p) {
-      p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
-    }
+            presence: true,
+            uniqueness: { scope: :parent_id },
+            unless: ->(p) {
+              p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
+            }
   validate :validate_target_page
   validate :validate_format_of_unescaped_slug
 
@@ -75,7 +74,7 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
   # Somewhat unique method of identifying a page that is not a full_path
   def identifier
-    parent_id.blank? ? "index" : full_path[1..-1].parameterize
+    parent_id.blank? ? 'index' : full_path[1..].parameterize
   end
 
   # Full url for a page
@@ -113,44 +112,49 @@ protected
 
   def assign_parent
     return unless site
+
     self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count.zero?
   end
 
   def assign_full_path
     self.full_path =
       if self.parent
-        [CGI.escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
+        [CGI.escape(self.parent.full_path).gsub('%2F', '/'), slug].join('/').squeeze('/')
       else
-        "/"
+        '/'
       end
   end
 
   def assign_position
     return unless self.parent
     return if position.to_i.positive?
+
     max = self.parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end
 
   def validate_target_page
     return unless target_page
+
     p = self
     while p.target_page
       if (p = p.target_page) == self
-        return errors.add(:target_page_id, "Invalid Redirect")
+        return errors.add(:target_page_id, 'Invalid Redirect')
       end
     end
   end
 
   def validate_format_of_unescaped_slug
     return unless slug.present?
+
     unescaped_slug = CGI.unescape(slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ %r{^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$}i
+    errors.add(:slug, :invalid) unless unescaped_slug =~ %r{^\p{Alnum}[.\p{Alnum}\p{Mark}_-]*$}i
   end
 
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
     return unless full_path_previously_changed?
+
     children.each do |p|
       p.update_attribute(:full_path, p.send(:assign_full_path))
     end
@@ -166,5 +170,4 @@ protected
     self.slug       = CGI.unescape(slug)      unless slug.nil?
     self.full_path  = CGI.unescape(full_path) unless full_path.nil?
   end
-
 end

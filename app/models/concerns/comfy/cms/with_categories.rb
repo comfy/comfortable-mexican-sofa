@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 module Comfy::Cms::WithCategories
-
   extend ActiveSupport::Concern
 
   included do
     has_many :categorizations,
-      as:         :categorized,
-      class_name: "Comfy::Cms::Categorization",
-      dependent:  :destroy
+             as: :categorized,
+             class_name: 'Comfy::Cms::Categorization',
+             dependent: :destroy
     has_many :categories,
-      through:    :categorizations,
-      class_name: "Comfy::Cms::Category"
+             through: :categorizations,
+             class_name: 'Comfy::Cms::Category'
 
     attr_writer :category_ids
 
@@ -21,7 +20,7 @@ module Comfy::Cms::WithCategories
       if (categories = [categories].flatten.compact).present?
         distinct
           .joins(categorizations: :category)
-          .where("comfy_cms_categories.label" => categories)
+          .where('comfy_cms_categories.label' => categories)
       end
     }
   end
@@ -49,5 +48,4 @@ module Comfy::Cms::WithCategories
     ids_to_remove = existing_ids - ids_to_add
     categorizations.where(category_id: ids_to_remove).destroy_all
   end
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
-
   skip_before_action :verify_authenticity_token, raise: false
 
   before_action :load_cms_layout,
@@ -10,11 +9,11 @@ class Comfy::Cms::AssetsController < Comfy::Cms::BaseController
   after_action :set_cache_control_header
 
   def render_css
-    render body: @cms_layout.css, content_type: "text/css"
+    render body: @cms_layout.css, content_type: 'text/css'
   end
 
   def render_js
-    render body: @cms_layout.js, content_type: "application/javascript"
+    render body: @cms_layout.js, content_type: 'application/javascript'
   end
 
 protected
@@ -32,9 +31,8 @@ protected
   end
 
   def set_cache_control_header
-    if params[:cache_buster].present?
-      response.headers["Cache-Control"] = "public, max-age=#{1.year.to_i}"
-    end
-  end
+    return unless params[:cache_buster].present?
 
+    response.headers['Cache-Control'] = "public, max-age=#{1.year.to_i}"
+  end
 end

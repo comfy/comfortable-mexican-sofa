@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 class CmsCategoryTest < ActiveSupport::TestCase
-
   def test_fixtures_validity
     Comfy::Cms::Category.all.each do |category|
       assert category.valid?, category.errors.full_messages.to_s
@@ -17,10 +16,10 @@ class CmsCategoryTest < ActiveSupport::TestCase
   end
 
   def test_creation
-    assert_difference "Comfy::Cms::Category.count" do
+    assert_difference 'Comfy::Cms::Category.count' do
       comfy_cms_sites(:default).categories.create(
-        label:            "Test Category",
-        categorized_type: "Comfy::Cms::Snippet"
+        label: 'Test Category',
+        categorized_type: 'Comfy::Cms::Snippet'
       )
     end
   end
@@ -37,8 +36,7 @@ class CmsCategoryTest < ActiveSupport::TestCase
   end
 
   def test_scope_of_type
-    assert_equal 1, Comfy::Cms::Category.of_type("Comfy::Cms::File").count
-    assert_equal 0, Comfy::Cms::Category.of_type("Invalid").count
+    assert_equal 1, Comfy::Cms::Category.of_type('Comfy::Cms::File').count
+    assert_equal 0, Comfy::Cms::Category.of_type('Invalid').count
   end
-
 end

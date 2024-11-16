@@ -1,25 +1,24 @@
 # frozen_string_literal: true
 
 module Comfy::Cms::WithFragments
-
   extend ActiveSupport::Concern
 
   included do
     attr_accessor :fragments_attributes_changed
 
     belongs_to :layout,
-      class_name: "Comfy::Cms::Layout"
+               class_name: 'Comfy::Cms::Layout'
 
     has_many :fragments,
-      class_name: "Comfy::Cms::Fragment",
-      as:         :record,
-      autosave:   true,
-      dependent:  :destroy
+             class_name: 'Comfy::Cms::Fragment',
+             as: :record,
+             autosave: true,
+             dependent: :destroy
 
     before_save :clear_content_cache
 
     validates :layout,
-      presence: true
+              presence: true
   end
 
   # Array of fragment hashes in the following format:
@@ -78,7 +77,7 @@ module Comfy::Cms::WithFragments
   # duplicate tags on the layout. That's wierd (but still works).
   def fragment_nodes
     nodes
-      .select { |n| n.is_a?(ComfortableMexicanSofa::Content::Tag::Fragment) }
+      .select { |n| n.is_a?(ComfortableMediaSurfer::Content::Tags::Fragment) }
       .uniq(&:identifier)
   end
 
@@ -112,7 +111,7 @@ module Comfy::Cms::WithFragments
 protected
 
   def renderer
-    ComfortableMexicanSofa::Content::Renderer.new(self)
+    ComfortableMediaSurfer::Content::Renderer.new(self)
   end
 
   def nodes
@@ -121,5 +120,4 @@ protected
     tokens = layout.content_tokens
     renderer.nodes(tokens)
   end
-
 end

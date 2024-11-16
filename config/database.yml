@@ -9,3 +9,32 @@ test:
   database: db/test.sqlite3
   pool: 5
   timeout: 10000
+
+# default: &default
+#   adapter: mysql2
+#   encoding: utf8mb4
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   username: root
+#   password:
+#   socket: /tmp/mysql.sock
+#
+# development:
+#   <<: *default
+#   database: comfy_dev
+#
+# test:
+#   <<: *default
+#   database: comfy_test
+
+# default: &default
+#   adapter: postgresql
+#   encoding: unicode
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#
+# development:
+#   <<: *default
+#   database: comfy_dev
+#
+# test:
+#   <<: *default
+#   database: comfy_test

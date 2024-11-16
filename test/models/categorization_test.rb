@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "../test_helper"
+require_relative '../test_helper'
 
 class CmsCategorizationTest < ActiveSupport::TestCase
-
   setup do
     @category = comfy_cms_categories(:default)
   end
@@ -21,7 +20,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   end
 
   def test_creation
-    assert_difference "Comfy::Cms::Categorization.count" do
+    assert_difference 'Comfy::Cms::Categorization.count' do
       @category.categorizations.create!(
         categorized: comfy_cms_pages(:default)
       )
@@ -49,7 +48,7 @@ class CmsCategorizationTest < ActiveSupport::TestCase
 
   def test_categorized_syncing
     # or we're not going to be able to link
-    @category.update_column(:categorized_type, "Comfy::Cms::Page")
+    @category.update_column(:categorized_type, 'Comfy::Cms::Page')
 
     page = comfy_cms_pages(:default)
     assert_equal 0, page.categories.count
@@ -67,18 +66,17 @@ class CmsCategorizationTest < ActiveSupport::TestCase
   def test_scope_for_category
     category = @category
     assert_equal 1, Comfy::Cms::File.for_category(category.label).count
-    assert_equal 0, Comfy::Cms::File.for_category("invalid").count
-    assert_equal 1, Comfy::Cms::File.for_category(category.label, "invalid").count
+    assert_equal 0, Comfy::Cms::File.for_category('invalid').count
+    assert_equal 1, Comfy::Cms::File.for_category(category.label, 'invalid').count
     assert_equal 1, Comfy::Cms::File.for_category(nil).count
 
     new_category = comfy_cms_sites(:default).categories.create!(
-      label:            "Test Category",
-      categorized_type: "Comfy::Cms::File"
+      label: 'Test Category',
+      categorized_type: 'Comfy::Cms::File'
     )
     new_category.categorizations.create!(categorized: comfy_cms_pages(:default))
     assert_equal 1, Comfy::Cms::File.for_category(category.label, new_category.label).to_a.size
     assert_equal 1,
-      Comfy::Cms::File.for_category(category.label, new_category.label).distinct.count("comfy_cms_files.id")
+                 Comfy::Cms::File.for_category(category.label, new_category.label).distinct.count('comfy_cms_files.id')
   end
-
 end
