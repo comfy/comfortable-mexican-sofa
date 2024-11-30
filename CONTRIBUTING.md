@@ -27,7 +27,7 @@ Fork the project. Optionally, create a branch you want to work on.
 ### 4. Make a pull request
 
 - If you never done it before read this: https://help.github.com/articles/using-pull-requests
-- When PR is submitted check if TravisCI ran all tests successfully and Rubocop didn't raise any issues
+- When PR is submitted check if Github actions CI ran all tests successfully
 
 ### 5. Done!
 

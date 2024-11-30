@@ -1,3 +1,11 @@
+[![Rails CI](https://github.com/shakacode/comfortable-media-surfer/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/shakacode/comfortable-media-surfer/actions/workflows/rubyonrails.yml)
+[![Coverage Status](https://coveralls.io/repos/github/shakacode/comfortable-media-surfer/badge.svg?branch=master)](https://coveralls.io/github/shakacode/comfortable-media-surfer?branch=master)
+[![Gem Version](https://img.shields.io/gem/v/comfortable_media_surfer.svg?style=flat)](http://rubygems.org/gems/comfortable_media_surfer)
+[![Gem Downloads](https://img.shields.io/gem/dt/comfortable_media_surfer.svg?style=flat)](http://rubygems.org/gems/comfortable_media_surfer)
+[![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/shakacode/comfortable-media-surfer?label=last%20release&color=seagreen)](https://github.com/shakacode/comfortable-media-surfer/releases)
+
+https://github.com/shakacode/comfortable-media-surfer/actions/workflows/rubyonrails.yml/badge.svg
+
 # ComfortableMediaSurfer
 
 ComfortableMediaSurfer is a powerful Ruby 6.1+ CMS (Content Management System) Engine, picking up where [ComfortableMexicanSofa](https://github.com/comfy/comfortable-mexican-sofa) left off.
@@ -88,9 +96,8 @@ in Github releases.
 
 #### Contributing
 
-ComfortableMediaSurfer repository can be ran like a regular Rails application in
-development environment. It's as easy to work on as any other Rails app out there.
-For more detail take a look at [CONTRIBUTING](CONTRIBUTING.md)
+ComfortableMediaSurfer can run like any Rails application in development. It's as easy to work on as any other Rails app. For more detail see [CONTRIBUTING](CONTRIBUTING.md)
+
 
 #### Testing
 
