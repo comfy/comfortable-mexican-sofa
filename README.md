@@ -11,19 +11,19 @@ ComfortableMediaSurfer is a powerful Ruby 7.0+ CMS (Content Management System) E
 ## Features
 
 - Simple drop-in integration with Rails 7.0+ apps with minimal configuration
-- The CMS keeps clear from the rest of your application
-- Powerful page templating capability using [Content Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags)
-- [Multiple Sites](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Sites) from a single installation
-- Multi-Language Support (i18n) (ca, cs, da, de, en, es, fi, fr, gr, hr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
-- [CMS Seeds](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-CMS-Seeds) for initial content population
-- [Revision History](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Revisions) to revert changes
-- [Extendable Admin Area](https://github.com/comfy/comfortable-mexican-sofa/wiki/HowTo:-Reusing-Admin-Area) built with [Bootstrap 4](http://getbootstrap.com) (responsive design). Using [CodeMirror](http://codemirror.net) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as the WYSIWYG editor.
+* The CMS keeps clear from the rest of your application
+* Powerful page templating capability using [Content Tags](https://github.com/shakacode/comfortable-media-surfer/wiki/Docs:-Content-Tags)
+* [Multiple Sites](https://github.com/shakacode/comfortable-media-surfer/wiki/Docs:-Sites) from a single installation
+* Multi-Language Support (i18n) (ca, cs, da, de, en, es, fi, fr, gr, hr, it, ja, nb, nl, pl, pt-BR, ru, sv, tr, uk, zh-CN, zh-TW) and page localization.
+* [CMS Seeds](https://github.com/shakacode/comfortable-media-surfer/wiki/Docs:-CMS-Seeds) for initial content population
+* [Revision History](https://github.com/shakacode/comfortable-media-surfer/wiki/Docs:-Revisions) to revert changes
+* [Extendable Admin Area](https://github.com/shakacode/comfortable-media-surfer/wiki/HowTo:-Reusing-Admin-Area) built with [Bootstrap 4](http://getbootstrap.com) (responsive design). Using [CodeMirror](http://codemirror.net) for HTML and Markdown highlighing and [Redactor](http://imperavi.com/redactor) as the WYSIWYG editor.
 
 ## Dependencies
 
 - File attachments are handled by [ActiveStorage](https://github.com/rails/rails/tree/master/activestorage). Make sure that you can run appropriate migrations by running: `rails active_storage:install`
 - Image resizing is done with with [ImageMagick](http://www.imagemagick.org/script/download.php), so make sure it's installed.
-- Pagination is handled by [kaminari](https://github.com/amatsuda/kaminari) or [will_paginate](https://github.com/mislav/will_paginate). Please add one of those to your Gemfile.
+- Pagination is handled by [kaminari](https://github.com/amatsuda/kaminari).
 
 ## Compatibility
 
@@ -34,14 +34,16 @@ On Ruby 3.x, Rails 7.x +
 Add gem definition to your Gemfile:
 
 ```ruby
-gem "comfortable_media_surfer", "~> 3.0.0"
+gem "comfortable_media_surfer", "~> 3.1.0"
 ```
 
 Then from the Rails project's root run:
 
+```
     bundle install
     rails generate comfy:cms
     rake db:migrate
+```
 
 Now take a look inside your `config/routes.rb` file. You'll see where routes attach for the admin area and content serving. Make sure that content serving route appears as a very last item or it will make all other routes to be inaccessible.
 
@@ -73,11 +75,8 @@ Once you have a layout, you may start creating pages and populating content. It'
 
 ## Documentation
 
-For more information on how to use this CMS please refer to the [Wiki](https://github.com/comfy/comfortable-mexican-sofa/wiki). Section that might be of interest is the entry
-on [Content Tags](https://github.com/comfy/comfortable-mexican-sofa/wiki/Docs:-Content-Tags).
-
-[Comfy Demo App](https://github.com/comfy/comfy-demo) also can be used as an
-example of a default Rails app with CMS installed.
+For more information on how to use this CMS please refer to the [Wiki](https://github.com/shakacode/comfortable-media-surfer/wiki). Section that might be of interest is the entry
+on [Content Tags](https://github.com/shakacode/comfortable-media-surfer/wiki/Docs:-Content-Tags).
 
 ## Add-ons
 
@@ -86,10 +85,9 @@ If you want to add a Blog functionality to your app take a look at
 
 ![Admin Area Preview](doc/preview.jpg)
 
-#### Old Versions
+#### Old Versions of ComfortableMexicanSofa
 
-[CHANGELOG](//github.com/comfy/comfortable-mexican-sofa/releases) is documented
-in Github releases.
+[CHANGELOG](//github.com/comfy/comfortable-mexican-sofa/releases) is documented in ComfortableMexicanSofa Github releases.
 
 #### Contributing
 

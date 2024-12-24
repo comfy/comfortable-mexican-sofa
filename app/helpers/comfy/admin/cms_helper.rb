@@ -4,11 +4,11 @@ module Comfy
   module Admin
     module CmsHelper
       # Wrapper around Comfy::FormBuilder
-      def comfy_form_with(**options, &block)
+      def comfy_form_with(**options, &)
         form_options = options.merge(builder: ComfortableMediaSurfer::FormBuilder)
         form_options[:bootstrap]  = { layout: :horizontal }
         form_options[:local]      = true
-        bootstrap_form_with(**form_options, &block)
+        bootstrap_form_with(**form_options, &)
       end
 
       def comfy_admin_partial(path, params = {})

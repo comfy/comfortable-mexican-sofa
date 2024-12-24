@@ -17,7 +17,7 @@ module ComfortableMediaSurfer
     if Gem::Version.new(Rails.version) >= Gem::Version.new('7.1.0')
       config.active_record.default_column_serializer = YAML
       config.active_record.before_committed_on_all_records = false
-      config.active_record.commit_transaction_on_non_local_return = false
+      # config.active_record.commit_transaction_on_non_local_return = false # deprecated in Rails 8
       config.active_record.run_after_transaction_callbacks_in_order_defined = false
       config.active_support.message_serializer = :json
       config.active_record.run_commit_callbacks_on_first_saved_instances_in_transaction = true

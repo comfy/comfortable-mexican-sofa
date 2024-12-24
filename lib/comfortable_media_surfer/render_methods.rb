@@ -33,7 +33,7 @@ module ComfortableMediaSurfer::RenderMethods
   # it by passing :cms_site parameter with site's slug. For example:
   #   render cms_page: '/path/to/page', cms_site: 'default'
   #
-  def render(options = {}, locals = {}, &block)
+  def render(options = {}, locals = {}, &)
     return super unless options.is_a?(Hash)
 
     if (site_identifier = options.delete(:cms_site)) && !(@cms_site = Comfy::Cms::Site.find_by_identifier(site_identifier))
@@ -47,15 +47,15 @@ module ComfortableMediaSurfer::RenderMethods
     end
 
     if page_path
-      render_cms_page(page_path, options, locals, &block)
+      render_cms_page(page_path, options, locals, &)
     elsif layout_identifier
-      render_cms_layout(layout_identifier, options, locals, &block)
+      render_cms_layout(layout_identifier, options, locals, &)
     else
       super
     end
   end
 
-  def render_cms_page(path, options = {}, locals = {}, &block)
+  def render_cms_page(path, options = {}, locals = {}, &)
     path.gsub!(%r{^/#{@cms_site.path}}, '') if @cms_site.path.present?
 
     unless (@cms_page = @cms_site.pages.find_by_full_path(path))
@@ -77,10 +77,10 @@ module ComfortableMediaSurfer::RenderMethods
     options[:layout] ||= cms_app_layout.blank? ? nil : cms_app_layout
     options[:inline] = @cms_page.render
 
-    render(options, locals, &block)
+    render(options, locals, &)
   end
 
-  def render_cms_layout(identifier, options = {}, locals = {}, &block)
+  def render_cms_layout(identifier, options = {}, locals = {}, &)
     unless (@cms_layout = @cms_site.layouts.find_by_identifier(identifier))
       raise ComfortableMediaSurfer::MissingLayout, identifier
     end
@@ -97,7 +97,7 @@ module ComfortableMediaSurfer::RenderMethods
     options[:layout] ||= cms_app_layout.blank? ? nil : cms_app_layout
     options[:inline] = cms_page.render
 
-    render(options, locals, &block)
+    render(options, locals, &)
   end
 end
 

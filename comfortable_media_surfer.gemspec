@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|doc)/})
   end
 
-  spec.required_ruby_version = '>= 3.0.0'
+  spec.required_ruby_version = '>= 3.2.0'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.add_dependency 'active_link_to',       '~> 1.0',   '>= 1.0.5'

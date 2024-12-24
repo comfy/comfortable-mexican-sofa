@@ -16,7 +16,7 @@ module Comfy
 
       argument :model_args, type: :array, default: [], banner: 'attribute:type'
 
-      def initialize(*args, &block)
+      def initialize(*args, &)
         super
         @model_attrs = []
         model_args.each do |arg|
