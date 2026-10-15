@@ -4,6 +4,8 @@ source "http://rubygems.org"
 
 gemspec
 
+
+
 group :development, :test do
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
@@ -16,6 +18,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "bootsnap", require: false
   gem "listen"#,       "~> 3.1.5"
   #gem "web-console",  "~> 3.5.1"
 end
