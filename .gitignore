@@ -19,3 +19,5 @@ coverage/
 /storage
 db/cms_fixtures/test-site/
 .idea
+db/development.sqlite3-shm
+db/development.sqlite3-wal
