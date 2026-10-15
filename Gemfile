@@ -7,6 +7,8 @@ gemspec
 
 
 group :development, :test do
+  gem "rspec-rails", "~> 8.0.4"
+
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   gem "capybara"#,           "~> 2.17.0"
@@ -19,11 +21,15 @@ end
 
 group :development do
   gem "bootsnap", require: false
+
   gem "listen"#,       "~> 3.1.5"
   #gem "web-console",  "~> 3.5.1"
 end
 
 group :test do
+
+
+
   gem "coveralls"#,                "~> 0.8.21", require: false
   gem "diffy"#,                    "~> 3.2.0"
   gem "equivalent-xml"#,           "~> 0.6.0"
