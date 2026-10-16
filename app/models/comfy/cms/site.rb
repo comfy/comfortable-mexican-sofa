@@ -4,6 +4,8 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
   self.table_name = "comfy_cms_sites"
 
+  normalizes :path, with: -> (path) { path.squeeze("/").chomp("/").presence }
+
   # -- Relationships -----------------------------------------------------------
   with_options dependent: :destroy do |site|
     site.has_many :layouts
@@ -16,8 +18,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_identifier,
                     :assign_hostname,
-                    :assign_label,
-                    :clean_path
+                    :assign_label
 
   # -- Validations -------------------------------------------------------------
   validates :identifier,
@@ -33,7 +34,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
   # -- Class Methods -----------------------------------------------------------
   # returning the Comfy::Cms::Site instance based on host and path
-  def self.find_site(host, path = nil)
+  def self.find_site(hostname:, path: nil)
     return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
     cms_site = nil
 
@@ -42,7 +43,7 @@ class Comfy::Cms::Site < ActiveRecord::Base
       path = path.sub(%r{\A#{public_cms_path}}, "")
     end
 
-    Comfy::Cms::Site.where(hostname: real_host_from_aliases(host)).each do |site|
+    Comfy::Cms::Site.where(hostname: real_host_from_aliases(hostname)).each do |site|
       if site.path.blank?
         cms_site = site
       elsif "#{path.to_s.split('?')[0]}/" =~ %r{^/#{Regexp.escape(site.path.to_s)}/}
@@ -84,11 +85,11 @@ protected
     self.label = label.blank? ? identifier.try(:titleize) : label
   end
 
-  def clean_path
-    self.path ||= ""
-    self.path.squeeze!("/")
-    self.path.gsub!(%r{/$}, "")
-    self.path = nil if self.path.blank?
-  end
+  # def clean_path
+  #   self.path ||= ""
+  #   self.path.squeeze!("/")
+  #   self.path.gsub!(%r{/$}, "")
+  #   self.path = nil if self.path.blank?
+  # end
 
 end

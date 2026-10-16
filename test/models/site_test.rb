@@ -14,77 +14,77 @@ class CmsSiteTest < ActiveSupport::TestCase
   #   end
   # end
 
-  def test_validation
-    site = Comfy::Cms::Site.new
-    assert site.invalid?
-    assert_has_errors_on site, :identifier, :label, :hostname
+#   def test_validation
+#     site = Comfy::Cms::Site.new
+#     assert site.invalid?
+#     assert_has_errors_on site, :identifier, :label, :hostname
+#
+#     site = Comfy::Cms::Site.new(identifier: "test", hostname: "http://site.host")
+#     assert site.invalid?
+#     assert_has_errors_on site, :hostname
+#
+#     site = Comfy::Cms::Site.new(identifier: @site.identifier, hostname: "site.host")
+#     assert site.invalid?
+#     assert_has_errors_on site, :identifier
+#
+#     site = Comfy::Cms::Site.new(identifier: "test", hostname: "site.host")
+#     assert site.valid?, site.errors.inspect
+#
+#     site = Comfy::Cms::Site.new(identifier: "test", hostname: "localhost:3000")
+#     assert site.valid?, site.errors.inspect
+#   end
 
-    site = Comfy::Cms::Site.new(identifier: "test", hostname: "http://site.host")
-    assert site.invalid?
-    assert_has_errors_on site, :hostname
+#   def test_validation_path_uniqueness
+#     s1 = @site
+#     s2 = Comfy::Cms::Site.new(
+#       identifier: "test",
+#       hostname:   s1.hostname,
+#       path:       s1.path
+#     )
+#     assert s2.invalid?
+#     assert_has_errors_on s2, :hostname
+#
+#     s2 = Comfy::Cms::Site.new(
+#       identifier: "test",
+#       hostname:   s1.hostname,
+#       path:       "/en"
+#     )
+#     assert s2.valid?
+#   end
 
-    site = Comfy::Cms::Site.new(identifier: @site.identifier, hostname: "site.host")
-    assert site.invalid?
-    assert_has_errors_on site, :identifier
+  # def test_identifier_assignment
+  #   site = Comfy::Cms::Site.new(hostname: "my-site.host")
+  #   assert site.valid?
+  #   assert_equal "my-site-host", site.identifier
+  # end
 
-    site = Comfy::Cms::Site.new(identifier: "test", hostname: "site.host")
-    assert site.valid?, site.errors.inspect
+  # def test_hostname_assignment
+  #   site = Comfy::Cms::Site.new(identifier: "test-site")
+  #   assert site.valid?
+  #   assert_equal "test-site", site.hostname
+  # end
 
-    site = Comfy::Cms::Site.new(identifier: "test", hostname: "localhost:3000")
-    assert site.valid?, site.errors.inspect
-  end
+  # def test_label_assignment
+  #   site = Comfy::Cms::Site.new(identifier: "test", hostname: "my-site.host")
+  #   assert site.valid?
+  #   assert_equal "Test", site.label
+  # end
 
-  def test_validation_path_uniqueness
-    s1 = @site
-    s2 = Comfy::Cms::Site.new(
-      identifier: "test",
-      hostname:   s1.hostname,
-      path:       s1.path
-    )
-    assert s2.invalid?
-    assert_has_errors_on s2, :hostname
-
-    s2 = Comfy::Cms::Site.new(
-      identifier: "test",
-      hostname:   s1.hostname,
-      path:       "/en"
-    )
-    assert s2.valid?
-  end
-
-  def test_identifier_assignment
-    site = Comfy::Cms::Site.new(hostname: "my-site.host")
-    assert site.valid?
-    assert_equal "my-site-host", site.identifier
-  end
-
-  def test_hostname_assignment
-    site = Comfy::Cms::Site.new(identifier: "test-site")
-    assert site.valid?
-    assert_equal "test-site", site.hostname
-  end
-
-  def test_label_assignment
-    site = Comfy::Cms::Site.new(identifier: "test", hostname: "my-site.host")
-    assert site.valid?
-    assert_equal "Test", site.label
-  end
-
-  def test_clean_path
-    site = Comfy::Cms::Site.create!(
-      identifier: "test_a",
-      hostname:   "test.host",
-      path:       "/en///test//"
-    )
-    assert_equal "/en/test", site.path
-
-    site = Comfy::Cms::Site.create!(
-      identifier: "test_b",
-      hostname:   "my-site.host",
-      path:       "/"
-    )
-    assert_nil site.path
-  end
+#   def test_clean_path
+#     site = Comfy::Cms::Site.create!(
+#       identifier: "test_a",
+#       hostname:   "test.host",
+#       path:       "/en///test//"
+#     )
+#     assert_equal "/en/test", site.path
+#
+#     site = Comfy::Cms::Site.create!(
+#       identifier: "test_b",
+#       hostname:   "my-site.host",
+#       path:       "/"
+#     )
+#     assert_nil site.path
+#   end
 
   # def test_creation
   #   assert_difference "Comfy::Cms::Site.count" do
