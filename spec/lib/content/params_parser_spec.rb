@@ -73,7 +73,12 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
       expect(parser.params).to eq(["a", { "b" => "c" }, { "d" => "e" }])
     end
 
-    it "errors out on an invalid mix" do
+    it "handles hash in the middle" do
+      parser = described_class.new("a, {b: c}, d")
+      expect(parser.params).to eq(["a", { "b" => "c" }, "d"])
+    end
+
+    it "errors out on an unwrapped hash in the middle" do
       parser = described_class.new("a, b: c, d")
       expect do
         parser.params
