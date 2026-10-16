@@ -23,7 +23,7 @@ group :development do
   gem "bootsnap", require: false
 
   gem "listen"#,       "~> 3.1.5"
-  #gem "web-console",  "~> 3.5.1"
+  gem "web-console"#,  "~> 3.5.1"
 end
 
 group :test do

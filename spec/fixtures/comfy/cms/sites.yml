@@ -2,4 +2,4 @@ default:
   label: Default Site
   identifier: default-site
   hostname: www.example.com
-  path:
+  path: "/"

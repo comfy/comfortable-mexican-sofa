@@ -4,7 +4,11 @@ class Comfy::Cms::Site < ActiveRecord::Base
 
   self.table_name = "comfy_cms_sites"
 
-  normalizes :path, with: -> (path) { path.squeeze("/").chomp("/").presence }
+  # Ensuring that path is always of "/foo/bar" format
+  normalizes :path, apply_to_nil: true, with: -> (path) do
+    path = "/#{path}".gsub(%r{\s}, "").to_s.squeeze("/").sub(%r{/+\z}, "")
+    path.blank? ? "/" : path
+  end
 
   # -- Relationships -----------------------------------------------------------
   with_options dependent: :destroy do |site|
@@ -33,34 +37,36 @@ class Comfy::Cms::Site < ActiveRecord::Base
     format:     { with: %r{\A[\w.-]+(?:\:\d+)?\z} }
 
   # -- Class Methods -----------------------------------------------------------
-  # returning the Comfy::Cms::Site instance based on host and path
-  def self.find_site(hostname:, path: nil)
-    return Comfy::Cms::Site.first if Comfy::Cms::Site.count == 1
-    cms_site = nil
-
-    public_cms_path = ComfortableMexicanSofa.configuration.public_cms_path
-    if path && public_cms_path != "/"
-      path = path.sub(%r{\A#{public_cms_path}}, "")
+  # Returning Comfy::Cms::Site instance based on the given host and path.
+  # Note that path is request.fullpath that looks like this: `/foo/bar?eggs=bacon`
+  # Hitting root makes path `/` so it helps if site.path is properly normalized
+  def self.find_site(hostname:, path: "/")
+    # If there's only one site, we just return it
+    if Comfy::Cms::Site.one?
+      return Comfy::Cms::Site.first
     end
 
-    Comfy::Cms::Site.where(hostname: real_host_from_aliases(hostname)).each do |site|
-      if site.path.blank?
-        cms_site = site
-      elsif "#{path.to_s.split('?')[0]}/" =~ %r{^/#{Regexp.escape(site.path.to_s)}/}
-        cms_site = site
-        break
+    # sometimes real hosthame is hiding behind an alias
+    real_host_from_aliases = -> (hostname) do
+      if (aliases = ComfortableMexicanSofa.config.hostname_aliases)
+        aliases.each do |alias_hostname, hostnames|
+          return alias_hostname if hostnames.include?(hostname)
+        end
+      end
+      hostname
+    end
+
+    # from multiple sites we need to choose one with the correct path
+    if (sites = Comfy::Cms::Site.where(hostname: real_host_from_aliases.call(hostname)))
+      sites.each do |site|
+        if path.start_with?("#{ComfortableMexicanSofa.configuration.public_cms_path}/#{site.path}".squeeze("/"))
+          return site
+        end
       end
     end
-    cms_site
-  end
 
-  def self.real_host_from_aliases(host)
-    if (aliases = ComfortableMexicanSofa.config.hostname_aliases)
-      aliases.each do |alias_host, hosts|
-        return alias_host if hosts.include?(host)
-      end
-    end
-    host
+    # we found nothing
+    return nil
   end
 
   # -- Instance Methods --------------------------------------------------------

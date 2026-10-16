@@ -13,8 +13,11 @@ RSpec.describe Comfy::Cms::Site do
       site = described_class.new(path: "/en///test//")
       expect(site.path).to eq("/en/test")
 
-      site = described_class.new(path: "/")
-      expect(site.path).to eq(nil)
+      site = described_class.new(path: nil)
+      expect(site.path).to eq("/")
+
+      site = described_class.new(path: "invalid input")
+      expect(site.path).to eq("/invalidinput")
     end
   end
 
