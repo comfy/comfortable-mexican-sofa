@@ -10,6 +10,7 @@ class ComfortableMexicanSofa::Content::Tag
   # @type [Array<String, {String => String}>] params
   attr_reader :params
 
+  # TODO: what's this? Might be tag signature.
   # @type [String, nil] source
   attr_reader :source
 
@@ -32,8 +33,8 @@ class ComfortableMexicanSofa::Content::Tag
   # we need to expand them and that produces potentially more stuff.
   # @return [Array<String, ComfortableMexicanSofa::Content::Tag>]
   def nodes
-    template  = ComfortableMexicanSofa::Content::Renderer.new(@context)
-    tokens    = template.tokenize(content)
+    template = ComfortableMexicanSofa::Content::Renderer.new(@context)
+    tokens   = template.tokenize(content)
     template.nodes(tokens)
   end
 
