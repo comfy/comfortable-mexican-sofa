@@ -85,11 +85,4 @@ protected
     self.label = label.blank? ? identifier.try(:titleize) : label
   end
 
-  # def clean_path
-  #   self.path ||= ""
-  #   self.path.squeeze!("/")
-  #   self.path.gsub!(%r{/$}, "")
-  #   self.path = nil if self.path.blank?
-  # end
-
 end

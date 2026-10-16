@@ -103,11 +103,67 @@ RSpec.describe Comfy::Cms::Site do
 
       expect(described_class.find_site(hostname: site_b.hostname)).to be_nil
       expect(described_class.find_site(hostname: site_b.hostname, path: "/any-path")).to be_nil
-      expect(described_class.find_site(hostname: site_b.hostname, path: "/en")).to              eq(site_b)
-      expect(described_class.find_site(hostname: site_b.hostname, path: "/en?foo=bar")).to      eq(site_b)
+      expect(described_class.find_site(hostname: site_b.hostname, path: "/en")).to eq(site_b)
+      expect(described_class.find_site(hostname: site_b.hostname, path: "/en?foo=bar")).to eq(site_b)
       expect(described_class.find_site(hostname: site_b.hostname, path: "/en/any-path?foo=bar")).to eq(site_b)
 
       expect(described_class.find_site(hostname: site_c.hostname, path: "/fr")).to eq(site_c)
+    end
+
+    it "finds site when public_cms_path is defined" do
+      ComfortableMexicanSofa.config.public_cms_path = "/custom"
+
+      expect(site.url).to eq("//www.example.com/custom")
+
+      site_b = described_class.create!(identifier: "test_a", hostname: "test2.host", path: "en")
+      site_c = described_class.create!(identifier: "test_b", hostname: "test2.host", path: "fr")
+
+      expect(described_class.find_site(hostname: site_b.hostname)).to be_nil
+      expect(described_class.find_site(hostname: site_b.hostname, path: "/custom/any-path")).to be_nil
+      expect(described_class.find_site(hostname: site_b.hostname, path: "/en")).to be_nil
+      expect(described_class.find_site(hostname: site_b.hostname, path: "/custom/en")).to eq(site_b)
+
+      expect(described_class.find_site(hostname: site_c.hostname, path: "/fr")).to be_nil
+      expect(described_class.find_site(hostname: site_c.hostname, path: "/custom/fr")).to eq(site_c)
+    end
+
+    it "finds site when hostname_aliases are defined" do
+      ComfortableMexicanSofa.config.hostname_aliases = {
+        "www.example.com" => "alias.host",
+        "test2.host"      => %w[foo.host bar.host]
+      }
+
+      site_b = described_class.create!(identifier: "site_b", hostname: "test2.host")
+
+      expect(described_class.find_site(hostname: "alias.host")).to eq(site)
+      expect(described_class.find_site(hostname: "foo.host")).to eq(site_b)
+      expect(described_class.find_site(hostname: "bar.host")).to eq(site_b)
+    end
+  end
+
+  describe "#url" do
+    it "returns site url" do
+      expect(site.url).to eq("//www.example.com")
+    end
+
+    context "with path" do
+      before do
+        site.update_column(:path, "/some-path")
+      end
+
+      it "returns site url with path" do
+        expect(site.url).to eq("//www.example.com/some-path")
+      end
+
+      it "returns site url when public_cms_path is defined" do
+        ComfortableMexicanSofa.config.public_cms_path = "cms"
+        expect(site.url).to eq("//www.example.com/cms/some-path")
+      end
+
+      it "returns site url when relative flag is active" do
+        ComfortableMexicanSofa.config.public_cms_path = "cms"
+        expect(site.url(relative: true)).to eq("/cms/some-path")
+      end
     end
   end
 
