@@ -49,7 +49,13 @@ private
     while (token = @tokens.shift)
       params << parse_value(token)
     end
-    params
+
+    # If params is just a simple hash, return that instead of wrapping in an array
+    if params.one? && params.first.is_a?(Hash)
+      params.first
+    else
+      params
+    end
   end
 
   # Gets token value. Will trigger parsing of hash and array structures
