@@ -7,7 +7,8 @@ gemspec
 
 
 group :development, :test do
-  gem "rspec-rails", "~> 8.0.4"
+  gem "rspec-rails",         "~> 8.0.4"
+  gem "rspec-html-matchers", "~> 0.10"
 
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]

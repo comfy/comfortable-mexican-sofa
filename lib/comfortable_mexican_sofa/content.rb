@@ -9,8 +9,10 @@ require_relative "content/params_parser"
 require_relative "content/tag"
 require_relative "content/fragment_tag"
 
+require_relative "content/tags/text_tag"
+
 # require_relative "content/tags/wysiwyg"
-# require_relative "content/tags/text"
+
 # require_relative "content/tags/textarea"
 # require_relative "content/tags/markdown"
 # require_relative "content/tags/datetime"
