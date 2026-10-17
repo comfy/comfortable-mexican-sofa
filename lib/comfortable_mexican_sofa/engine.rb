@@ -2,10 +2,14 @@
 
 require "comfortable_mexican_sofa"
 require "rails"
+require "image_processing"
+require "commonmarker"
+
+
+
 require "rails-i18n"
 require "comfy_bootstrap_form"
 require "active_link_to"
-require "commonmarker"
 require "jquery-rails"
 require "haml-rails"
 require "sassc-rails"

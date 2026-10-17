@@ -4,8 +4,6 @@ source "http://rubygems.org"
 
 gemspec
 
-
-
 group :development, :test do
   gem "rspec-rails",         "~> 8.0.4"
   gem "rspec-html-matchers", "~> 0.10"
@@ -31,7 +29,7 @@ group :test do
 
 
 
-  gem "coveralls"#,                "~> 0.8.21", require: false
+
   gem "diffy"#,                    "~> 3.2.0"
   gem "equivalent-xml"#,           "~> 0.6.0"
   gem "mocha"#,                    "~> 1.3.0", require: false
