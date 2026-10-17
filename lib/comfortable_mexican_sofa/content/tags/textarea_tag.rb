@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-# Tag for text content that is going to be rendered using textarea
+# Tag for text content that is going to be rendered using textarea (with CodeMirror support)
+#
 #   {{ cms:textarea identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::TextArea < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::TextareaTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -12,9 +13,8 @@ class ComfortableMexicanSofa::Content::Tag::TextArea < ComfortableMexicanSofa::C
 
     yield input
   end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :textarea, ComfortableMexicanSofa::Content::Tag::TextArea
+  :textarea, ComfortableMexicanSofa::Content::TextareaTag
 )

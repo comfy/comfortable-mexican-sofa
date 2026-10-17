@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # Tag for text content that is going to be rendered using number input
+#
 #   {{ cms:number identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::Number < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::NumberTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -16,5 +17,5 @@ class ComfortableMexicanSofa::Content::Tag::Number < ComfortableMexicanSofa::Con
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :number, ComfortableMexicanSofa::Content::Tag::Number
+  :number, ComfortableMexicanSofa::Content::NumberTag
 )

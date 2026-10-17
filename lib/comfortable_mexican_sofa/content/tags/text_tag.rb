@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Tag for text content that is going to be rendered using text input
+#
 #   {{ cms:text identifier }}
 #
 class ComfortableMexicanSofa::Content::TextTag < ComfortableMexicanSofa::Content::FragmentTag
@@ -12,7 +13,6 @@ class ComfortableMexicanSofa::Content::TextTag < ComfortableMexicanSofa::Content
 
     yield input
   end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

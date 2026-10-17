@@ -10,14 +10,17 @@ require_relative "content/tag"
 require_relative "content/fragment_tag"
 
 require_relative "content/tags/text_tag"
+require_relative "content/tags/textarea_tag"
+require_relative "content/tags/wysiwyg_tag"
+require_relative "content/tags/number_tag"
 
-# require_relative "content/tags/wysiwyg"
+require_relative "content/tags/datetime_tag"
+require_relative "content/tags/date_tag"
 
-# require_relative "content/tags/textarea"
+#
 # require_relative "content/tags/markdown"
-# require_relative "content/tags/datetime"
-# require_relative "content/tags/date"
-# require_relative "content/tags/number"
+
+#
 # require_relative "content/tags/checkbox"
 # require_relative "content/tags/file"
 # require_relative "content/tags/files"

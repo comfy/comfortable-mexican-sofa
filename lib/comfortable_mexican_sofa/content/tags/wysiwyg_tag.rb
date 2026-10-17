@@ -2,10 +2,10 @@
 
 # Tag for text content that is going to be rendered using Redactor (default) in
 # the admin area
+#
 #   {{ cms:wysiwyg identifier }}
 #
-#
-class ComfortableMexicanSofa::Content::Tag::Wysiwyg < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::WysiwygTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -17,5 +17,5 @@ class ComfortableMexicanSofa::Content::Tag::Wysiwyg < ComfortableMexicanSofa::Co
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :wysiwyg, ComfortableMexicanSofa::Content::Tag::Wysiwyg
+  :wysiwyg, ComfortableMexicanSofa::Content::WysiwygTag
 )
