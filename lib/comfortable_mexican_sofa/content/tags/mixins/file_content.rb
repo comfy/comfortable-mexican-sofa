@@ -14,6 +14,8 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
 
       url_helpers = Rails.application.routes.url_helpers
 
+      # raise
+
       attachment_url =
         if variant_attrs.present? && file.image?
           variant = file.variant(combine_options: variant_attrs)

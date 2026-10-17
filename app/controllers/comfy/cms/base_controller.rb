@@ -13,19 +13,23 @@ protected
       if params[:site_id]
         ::Comfy::Cms::Site.find_by_id(params[:site_id])
       else
-        ::Comfy::Cms::Site.find_site(request.host_with_port.downcase, request.fullpath)
+        ::Comfy::Cms::Site.find_site(hostname: request.host_with_port.downcase, path: request.fullpath)
       end
 
-    if @cms_site
-      if @cms_site.path.present? && !params[:site_id]
-        if params[:cms_path]&.match(%r{\A#{@cms_site.path}})
-          params[:cms_path].gsub!(%r{\A#{@cms_site.path}}, "")
-          params[:cms_path]&.gsub!(%r{\A/}, "")
-        else
-          raise ActionController::RoutingError, "Site Not Found"
-        end
-      end
-    else
+    # if @cms_site
+    #   if @cms_site.path.present? && !params[:site_id]
+    #     if params[:cms_path]&.match(%r{\A#{@cms_site.path}})
+    #       params[:cms_path].gsub!(%r{\A#{@cms_site.path}}, "")
+    #       params[:cms_path]&.gsub!(%r{\A/}, "")
+    #     else
+    #       raise ActionController::RoutingError, "Site Not Found"
+    #     end
+    #   end
+    # else
+    #   raise ActionController::RoutingError, "Site Not Found"
+    # end
+    #
+    if @cms_site.nil?
       raise ActionController::RoutingError, "Site Not Found"
     end
   end

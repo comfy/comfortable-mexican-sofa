@@ -13,7 +13,7 @@ require_relative "./mixins/file_content"
 # `crop`    - imagemagic option. For example: "100x50+0+0"
 # `class`   - any html classes that you want on the result link or image tag. For example "class1 class2"
 #
-class ComfortableMexicanSofa::Content::Tag::File < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::FileTag < ComfortableMexicanSofa::Content::FragmentTag
 
   include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
 
@@ -68,5 +68,5 @@ protected
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :file, ComfortableMexicanSofa::Content::Tag::File
+  :file, ComfortableMexicanSofa::Content::FileTag
 )

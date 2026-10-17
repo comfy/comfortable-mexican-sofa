@@ -4,6 +4,8 @@ source "http://rubygems.org"
 
 gemspec
 
+gem "ruby-vips", "~> 2.2"
+
 group :development, :test do
   gem "rspec-rails",         "~> 8.0.4"
   gem "rspec-html-matchers", "~> 0.10"
