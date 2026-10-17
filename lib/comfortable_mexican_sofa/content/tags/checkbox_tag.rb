@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # Tag for boolean content that is going to be rendered using checkbox
+#
 #   {{ cms:checkbox identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::Checkbox < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::CheckboxTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def content
     fragment.boolean
@@ -21,9 +22,8 @@ class ComfortableMexicanSofa::Content::Tag::Checkbox < ComfortableMexicanSofa::C
 
     yield input
   end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :checkbox, ComfortableMexicanSofa::Content::Tag::Checkbox
+  :checkbox, ComfortableMexicanSofa::Content::CheckboxTag
 )

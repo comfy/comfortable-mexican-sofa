@@ -16,12 +16,10 @@ require_relative "content/tags/number_tag"
 require_relative "content/tags/markdown_tag"
 require_relative "content/tags/datetime_tag"
 require_relative "content/tags/date_tag"
+require_relative "content/tags/checkbox_tag"
+
 
 #
-#
-
-#
-# require_relative "content/tags/checkbox"
 # require_relative "content/tags/file"
 # require_relative "content/tags/files"
 #
