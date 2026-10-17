@@ -7,7 +7,7 @@
 class ComfortableMexicanSofa::Content::MarkdownTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def render
-    renderable ? Kramdown::Document.new(content.to_s).to_html : ""
+    renderable ? Commonmarker.to_html(content.to_s) : ""
   end
 
   def form_field(object_name, view, index)
