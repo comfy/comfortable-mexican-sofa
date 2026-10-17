@@ -1,9 +1,0 @@
-default:
-  record: default (Comfy::Cms::File)
-  name: attachment
-  blob: default
-
-file:
-  record: file (Comfy::Cms::Fragment)
-  name: attachments
-  blob: fragment

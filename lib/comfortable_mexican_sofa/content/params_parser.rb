@@ -44,11 +44,14 @@ class ComfortableMexicanSofa::Content::ParamsParser
 private
 
   # Contructs root-level list of arguments sent via content tag
+  # It always returns an array of strings and/or hashes
   def parse_params
     params = []
+
     while (token = @tokens.shift)
       params << parse_value(token)
     end
+
     params
   end
 
