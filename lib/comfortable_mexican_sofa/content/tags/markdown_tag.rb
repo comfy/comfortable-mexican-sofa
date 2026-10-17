@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # Tag for text content that is going to be rendered using textarea with markdown
+#
 #   {{ cms:markdown identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::Markdown < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::MarkdownTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def render
     renderable ? Kramdown::Document.new(content.to_s).to_html : ""
@@ -20,5 +21,5 @@ class ComfortableMexicanSofa::Content::Tag::Markdown < ComfortableMexicanSofa::C
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :markdown, ComfortableMexicanSofa::Content::Tag::Markdown
+  :markdown, ComfortableMexicanSofa::Content::MarkdownTag
 )

@@ -13,12 +13,12 @@ require_relative "content/tags/text_tag"
 require_relative "content/tags/textarea_tag"
 require_relative "content/tags/wysiwyg_tag"
 require_relative "content/tags/number_tag"
-
+require_relative "content/tags/markdown_tag"
 require_relative "content/tags/datetime_tag"
 require_relative "content/tags/date_tag"
 
 #
-# require_relative "content/tags/markdown"
+#
 
 #
 # require_relative "content/tags/checkbox"
