@@ -12,24 +12,24 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
 
     it "returns simple hash" do
       parser = described_class.new("a:b")
-      expect(parser.params).to eq({ "a" => "b" })
+      expect(parser.params).to eq([{ "a" => "b" }])
 
       parser = described_class.new("{a: b}")
-      expect(parser.params).to eq({ "a" => "b" })
+      expect(parser.params).to eq([{ "a" => "b" }])
 
       parser = described_class.new("a: b, c: d")
-      expect(parser.params).to eq({ "a" => "b", "c" => "d" })
+      expect(parser.params).to eq([{ "a" => "b", "c" => "d" }])
 
       parser = described_class.new("{a: b, c: d}")
-      expect(parser.params).to eq({ "a" => "b", "c" => "d" })
+      expect(parser.params).to eq([{ "a" => "b", "c" => "d" }])
     end
 
     it "returns nested hash" do
       parser = described_class.new("a: {b: {c: d, e: f}}, g: {h: i}")
-      expect(parser.params).to eq({
+      expect(parser.params).to eq([{
         "a" => { "b" => { "c" => "d", "e" => "f" } },
         "g" => { "h" => "i" }
-      })
+      }])
     end
 
     it "errors out on hash without value" do

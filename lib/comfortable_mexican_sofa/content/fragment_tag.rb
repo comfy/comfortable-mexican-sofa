@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
-# Base Tag class that other fragment tags depend on.
-# Tag handles following options:
-#   `render`: true (default) | false
+# Base tag class that used for content coming from Comfy::Cms::Fragment records
+#
+# Tag handles following params:
+#
+#   - `render`: true (default) | false
 #     do we want to render this content on the page, or manually access it via
 #     helpers. Good example would be content for meta tags.
-#   `namespace`:
+#   - `namespace`:
 #     Just a string that allows grouping of form elements in the admin area
 #
-class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::Content::Tag
+class ComfortableMexicanSofa::Content::FragmentTag < ComfortableMexicanSofa::Content::Tag
 
   attr_accessor :renderable
-  attr_reader :identifier, :namespace
 
-  # @type [{String => String}]
-  attr_reader :options
+  attr_reader :identifier, :namespace, :options
 
+  # Context should be an object with cms fragments
   def initialize(context:, params: [], source: nil)
     super
 
@@ -49,14 +50,16 @@ class ComfortableMexicanSofa::Content::Tag::Fragment < ComfortableMexicanSofa::C
 
   # Tag renders its own form inputs via `form_field(template, index)`
   # For example:
+  #
   #   class MyTag < ComfortableMexicanSofa::Content::Tag::Fragment
   #     def form_field(view, index, &block)
   #       # omit yield if you don't want default wrapper
   #       yield view.text_area "input_name", "value"
   #     end
   #   end
+  #
   def form_field
-    raise "Form field rendering not implemented for this Tag"
+    raise Error, "Form field rendering not implemented for this Tag class"
   end
 
   def form_field_id

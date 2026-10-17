@@ -2,7 +2,8 @@ default:
   record: default (Comfy::Cms::Page)
   identifier: content
   tag: text
-  content: content
+  content: >
+    "fragment content"
 
 file:
   record: default (Comfy::Cms::Page)

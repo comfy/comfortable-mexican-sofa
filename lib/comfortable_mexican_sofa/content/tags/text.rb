@@ -3,7 +3,7 @@
 # Tag for text content that is going to be rendered using text input
 #   {{ cms:text identifier }}
 #
-class ComfortableMexicanSofa::Content::Tag::Text < ComfortableMexicanSofa::Content::Tag::Fragment
+class ComfortableMexicanSofa::Content::Tags::TextTag < ComfortableMexicanSofa::Content::Tags::Fragment
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -16,5 +16,5 @@ class ComfortableMexicanSofa::Content::Tag::Text < ComfortableMexicanSofa::Conte
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :text, ComfortableMexicanSofa::Content::Tag::Text
+  :text, ComfortableMexicanSofa::Content::Tags::TextTag
 )
