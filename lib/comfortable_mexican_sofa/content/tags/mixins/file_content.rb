@@ -9,16 +9,14 @@ module ComfortableMexicanSofa::Content::Tag::Mixins
     # @param [{String => String}] variant_attrs ImageMagick variant attributes
     # @param [String] label alt text for `as: "image"`, link text for `as: "link"`
     # @return [String]
-    def content(file: self.file, as: self.as, variant_attrs: self.variant_attrs, label: self.label)
+    def content(file: self.file, as: self.as, variant_options: self.variant_options, label: self.label)
       return "" unless file
 
       url_helpers = Rails.application.routes.url_helpers
 
-      # raise
-
       attachment_url =
-        if variant_attrs.present? && file.image?
-          variant = file.variant(combine_options: variant_attrs)
+        if variant_options.present? && file.image?
+          variant = file.variant(variant_options)
           url_helpers.rails_representation_path(variant, only_path: true)
         else
           url_helpers.rails_blob_path(file, only_path: true)

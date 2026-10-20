@@ -20,6 +20,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libvips-dev
       - run: bundle exec rails assets:precompile
       - run: bundle exec rails db:prepare
       - run: bundle exec rspec
