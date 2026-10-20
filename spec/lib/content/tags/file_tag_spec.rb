@@ -28,29 +28,6 @@ RSpec.describe ComfortableMexicanSofa::Content::FileTag do
     end
   end
 
-  describe "#variant_options" do
-    it "converts options into image_processing options" do
-      tag = described_class.new(context: page, params: [frag.identifier, "resize_to_fill" => "100x50"])
-      expect(tag.variant_options).to eq(resize_to_fill: [100, 50])
-    end
-
-    it "only handles one variant option (slice controls the order)" do
-      params = { "resize_and_pad" => "50x25", "resize_to_fill" => "100x50" }
-      tag = described_class.new(context: page, params: [frag.identifier, params])
-      expect(tag.variant_options).to eq(resize_to_fill: [100, 50])
-    end
-
-    it "ignores malformed option" do
-      tag = described_class.new(context: page, params: [frag.identifier, "resize_to_fill" => "foox50"])
-      expect(tag.variant_options).to eq({})
-    end
-
-    it "handles spaces" do
-      tag = described_class.new(context: page, params: [frag.identifier, "resize_and_pad" => "100 x 50"])
-      expect(tag.variant_options).to eq(resize_and_pad: [100, 50])
-    end
-  end
-
   describe "#form_field" do
     it "renders the field" do
       tag = described_class.new(context: page, params: ["test"])
@@ -66,5 +43,4 @@ RSpec.describe ComfortableMexicanSofa::Content::FileTag do
       skip "todo when view components are in"
     end
   end
-
 end

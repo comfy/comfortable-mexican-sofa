@@ -24,7 +24,7 @@ class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::C
   attr_reader :as
 
   # @type [{String => String}]
-  attr_reader :variant_attrs
+  attr_reader :variant_attrs, :class
 
   def initialize(context:, params: [], source: nil)
     super

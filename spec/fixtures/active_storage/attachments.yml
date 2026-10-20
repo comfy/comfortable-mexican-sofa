@@ -1,0 +1,4 @@
+default:
+  name: attachments
+  record: file (Comfy::Cms::Fragment)
+  blob: default
