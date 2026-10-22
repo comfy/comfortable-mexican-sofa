@@ -18,7 +18,7 @@ require_relative "content/tags/datetime_tag"
 require_relative "content/tags/date_tag"
 require_relative "content/tags/checkbox_tag"
 
-require_relative "content/tags/file_tag"
+require_relative "content/tags/files_tag"
 
 # require_relative "content/tags/files"
 #

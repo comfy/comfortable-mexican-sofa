@@ -2,14 +2,14 @@
 
 require "rails_helper"
 
-RSpec.describe ComfortableMexicanSofa::Content::FileTag do
+RSpec.describe ComfortableMexicanSofa::Content::FilesTag do
   include ActionView::TestCase::Behavior
 
   let(:page) { comfy_cms_pages(:default) }
   let(:frag) { comfy_cms_fragments(:file) }
 
   it "is registered with renderer" do
-    expect(ComfortableMexicanSofa::Content::Renderer.tags["file"]).to eq(described_class)
+    expect(ComfortableMexicanSofa::Content::Renderer.tags["files"]).to eq(described_class)
   end
 
   describe ".new" do

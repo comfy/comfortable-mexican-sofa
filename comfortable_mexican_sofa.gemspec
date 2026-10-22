@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "image_processing", ">= 2.2"
   s.add_dependency "active_link_to",   ">= 1.1.0"
   s.add_dependency "view_component",   ">= 4.17.0"
-
+  s.add_dependency "inline_svg",       ">= 1.10.0"
 
 
   s.add_dependency "comfy_bootstrap_form"#,  ">= 4.0.0"

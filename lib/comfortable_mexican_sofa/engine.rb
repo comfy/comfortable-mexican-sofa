@@ -5,6 +5,7 @@ require "rails"
 require "image_processing"
 require "commonmarker"
 require "view_component"
+require "inline_svg"
 
 
 
@@ -20,6 +21,9 @@ module ComfortableMexicanSofa
 
     initializer "comfortable_mexican_sofa.setup_assets" do
       ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w[
+        comfy/cms/application.css
+
+
         comfy/admin/cms/application.js
         comfy/admin/cms/application.css
         comfy/admin/cms/lib/redactor-font.eot

@@ -7,7 +7,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
 
   let(:page)      { comfy_cms_pages(:default) }
   let(:frag)      { comfy_cms_fragments(:file) }
-  let(:tag_class) { ComfortableMexicanSofa::Content::FileTag }
+  let(:tag_class) { ComfortableMexicanSofa::Content::FilesTag }
 
   describe ".new" do
     it "initializes with options" do
@@ -21,17 +21,23 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
   describe "#content" do
     it "returns nothing if there's no attached file" do
       tag = tag_class.new(context: page, params: ["test"])
-      expect(tag.send(:file)).to be_nil
       expect(tag.content).to eq("")
     end
 
     it "returns url string" do
       tag = tag_class.new(context: page, params: [frag.identifier])
-      expect(tag.send(:file)).to be_a(ActiveStorage::Attachment)
       expect(tag.content).to start_with("/rails/active_storage/blobs/redirect/").and end_with("/image.jpg")
     end
 
-    it "returns link tag" do
+    it "returns list of urls when there are multiple attachments" do
+      frag.attachments.attach(fixture_file_upload("image.gif", "image/gif"))
+      tag = tag_class.new(context: page, params: [frag.identifier])
+      file_a, file_b = tag.content.split(", ")
+      expect(file_a).to start_with("/rails/active_storage/blobs/redirect/").and end_with("/image.jpg")
+      expect(file_b).to start_with("/rails/active_storage/blobs/redirect/").and end_with("/image.gif")
+    end
+
+    it "returns link tag with default label" do
       tag = tag_class.new(context: page, params: [frag.identifier, "as" => "link"])
       expect(tag.content).to have_tag(:a, with: { target: "_blank" }, text: "image.jpg")
     end

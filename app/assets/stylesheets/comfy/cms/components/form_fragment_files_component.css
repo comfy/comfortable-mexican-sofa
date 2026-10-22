@@ -1,0 +1,44 @@
+comfy--cms--form-fragment-files-component {
+  display:    flex;
+  flex-wrap:  wrap;
+  gap:        0.5rem;
+  margin-top: 0.5rem;
+  .attachment {
+    font-size:   var(--font-size-sm);
+    line-height: var(--line-height-sm);
+    align-items: center;
+    display:     flex;
+    align-items: stretch;
+    a {
+      border:           1px solid var(--gray-200);
+      border-radius:    0.25rem 0 0 0.25rem;
+      padding:          0.25rem 0.75rem;
+      background-color: var(--gray-50);
+      color:            var(--gray-500);
+      &:hover {
+        text-decoration:  none;
+        background-color: var(--gray-100);
+      }
+    }
+    input {
+      display: none;
+      & + label {
+        display:          flex;
+        align-items:      center;
+        padding:          0 0.25rem;
+        border-radius:    0 0.25rem 0.25rem 0;
+        margin:           0;
+        background-color: var(--gray-200);
+        color:            var(--gray-500);
+        svg {
+          height: 16px;
+          width:  16px;
+        }
+      }
+      &:checked + label {
+        color:            white;
+        background-color: var(--red-500);
+      }
+    }
+  }
+}

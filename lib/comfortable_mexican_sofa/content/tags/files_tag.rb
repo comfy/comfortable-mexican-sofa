@@ -14,7 +14,7 @@ require_relative "./mixins/file_content_mixin"
 # `resize_to_fill`  - same
 # `resize_and_pad`  - same
 #
-class ComfortableMexicanSofa::Content::FileTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::FilesTag < ComfortableMexicanSofa::Content::FragmentTag
 
   include ComfortableMexicanSofa::Content::FileContentMixin
 
@@ -31,44 +31,17 @@ class ComfortableMexicanSofa::Content::FileTag < ComfortableMexicanSofa::Content
 
   def form_field(object_name, view, index)
     name  = "#{object_name}[fragments_attributes][#{index}][files]"
-    input = view.send(:file_field_tag, name, id: form_field_id, class: "form-control")
+    input = view.send(:file_field_tag, name, id: form_field_id, multiple: true, class: "form-control")
 
-    component = Comfy::Admin::Cms::FormFragmentFilesComponent.new(
+    component = Comfy::Cms::FormFragmentFilesComponent.new(
       object_name: object_name, index: index, fragment: fragment
     )
     attachments = view.render(component)
 
-    # attachments_partial =
-    #   if fragment.attachments
-    #
-    #     # view.render(
-    #     #   partial: "comfy/admin/cms/fragments/form_fragment_attachments",
-    #     #   locals: {
-    #     #     object_name:  object_name,
-    #     #     index:        index,
-    #     #     attachments:  fragment.attachments,
-    #     #     fragment_id:  identifier,
-    #     #     multiple:     false
-    #     #   }
-    #     # )
-    #   end
-
     yield view.safe_join([input, attachments], "")
-  end
-
-protected
-
-  # @return [ActiveStorage::Blob]
-  def file
-    fragment.attachments.first
-  end
-
-  # @return [String]
-  def label
-    @label || file&.filename
   end
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :file, ComfortableMexicanSofa::Content::FileTag
+  :files, ComfortableMexicanSofa::Content::FilesTag
 )

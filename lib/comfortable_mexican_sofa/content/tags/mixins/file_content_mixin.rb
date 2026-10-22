@@ -18,28 +18,35 @@ module ComfortableMexicanSofa::Content::FileContentMixin
   end
 
   def content
-    return "" unless file
+    return "" if fragment.attachments.blank?
 
     url_helpers = Rails.application.routes.url_helpers
     helpers     = ActionController::Base.helpers
 
-    attachment =
-      if variant_options.present? && file.image?
-        file.variant(variant_options)
+    variant_options_cached = variant_options
+    join_string = ""
+
+    fragment.attachments.collect do |attachment|
+      file =
+        if variant_options.present? && attachment.image?
+          attachment.variant(variant_options_cached)
+        else
+          attachment
+        end
+
+      label    = @label || file&.filename
+      file_url = url_helpers.rails_blob_path(file, only_path: true)
+
+      case as
+      when "link"
+        helpers.link_to(label, file_url, class: @html_class, target: "_blank")
+      when "image"
+        helpers.image_tag(file_url, class: @html_class, alt: label)
       else
-        file
+        join_string = ", "
+        file_url
       end
-
-    attachment_url = url_helpers.rails_blob_path(attachment, only_path: true)
-
-    case as
-    when "link"
-      helpers.link_to(label, attachment_url, class: @html_class, target: "_blank")
-    when "image"
-      helpers.image_tag(attachment_url, class: @html_class, alt: label)
-    else
-      attachment_url
-    end
+    end.join(join_string)
   end
 
   # For simplicity sake, we only allow resizing and will convert variant options
