@@ -9,6 +9,15 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
   let(:frag)      { comfy_cms_fragments(:file) }
   let(:tag_class) { ComfortableMexicanSofa::Content::FileTag }
 
+  describe ".new" do
+    it "initializes with options" do
+      tag = tag_class.new(context: page, params: ["test", "as" => "image", "resize_to_fill" => "50x50"])
+      expect(tag.identifier).to eq("test")
+      expect(tag.as).to eq("image")
+      expect(tag.variant_options).to eq(resize_to_fill: [50, 50])
+    end
+  end
+
   describe "#content" do
     it "returns nothing if there's no attached file" do
       tag = tag_class.new(context: page, params: ["test"])

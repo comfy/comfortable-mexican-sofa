@@ -27,13 +27,6 @@ class ComfortableMexicanSofa::Content::FileTag < ComfortableMexicanSofa::Content
     @as         = options["as"] || "url"
     @label      = options["label"]
     @html_class = options["class"]
-
-    @variant_options = options.slice(
-      "resize_to_limit",
-      "resize_to_fit",
-      "resize_to_fill",
-      "resize_and_pad"
-    )
   end
 
   def form_field(object_name, view, index)

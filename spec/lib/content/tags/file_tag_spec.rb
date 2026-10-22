@@ -19,13 +19,6 @@ RSpec.describe ComfortableMexicanSofa::Content::FileTag do
       expect(tag.as).to eq("url")
       expect(tag.variant_options).to eq({})
     end
-
-    it "initializes with options" do
-      tag = described_class.new(context: page, params: ["test", "as" => "image", "resize_to_fill" => "50x50"])
-      expect(tag.identifier).to eq("test")
-      expect(tag.as).to eq("image")
-      expect(tag.variant_options).to eq(resize_to_fill: [50, 50])
-    end
   end
 
   describe "#form_field" do

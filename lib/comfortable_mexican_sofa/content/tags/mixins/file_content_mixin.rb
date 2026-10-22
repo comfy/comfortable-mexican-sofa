@@ -6,6 +6,17 @@ module ComfortableMexicanSofa::Content::FileContentMixin
   # When resizing let's not allow gigantic dimensions
   MAX_VARIANT_DIMENSION = 2500.freeze
 
+  def initialize(context:, params: [], source: nil)
+    super
+
+    @variant_options = options.slice(
+      "resize_to_limit",
+      "resize_to_fit",
+      "resize_to_fill",
+      "resize_and_pad"
+    )
+  end
+
   def content
     return "" unless file
 
