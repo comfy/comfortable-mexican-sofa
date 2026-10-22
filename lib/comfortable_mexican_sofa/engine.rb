@@ -4,6 +4,7 @@ require "comfortable_mexican_sofa"
 require "rails"
 require "image_processing"
 require "commonmarker"
+require "view_component"
 
 
 

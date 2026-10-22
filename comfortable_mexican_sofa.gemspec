@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency "commonmarker",     ">= 2.10.1"
   s.add_dependency "image_processing", ">= 2.2"
   s.add_dependency "active_link_to",   ">= 1.1.0"
+  s.add_dependency "view_component",   ">= 4.17.0"
 
 
 
