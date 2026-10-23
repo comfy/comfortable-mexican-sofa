@@ -9,10 +9,11 @@ gem "ruby-vips", "~> 2.2"
 group :development, :test do
   gem "rspec-rails",         "~> 8.0.4"
   gem "rspec-html-matchers", "~> 0.10"
+  gem "capybara"
 
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
-  gem "capybara"#,           "~> 2.17.0"
+  #,           "~> 2.17.0"
   gem "kaminari"#,           "~> 1.1.1"
   gem "puma"#,               "~> 3.12.2"
   gem "rubocop"#,            "~> 0.55.0", require: false

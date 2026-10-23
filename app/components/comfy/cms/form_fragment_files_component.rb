@@ -4,11 +4,17 @@
 # and generates checkboxes that allow file removal on page save
 class Comfy::Cms::FormFragmentFilesComponent < Comfy::BaseComponent
   MAX_FILENAME_LENGTH = 40
+  TOOLTIP_SIZE        = [200, 200]
 
   haml_template <<~HAML
     - @fragment.attachments.each do |attachment|
       .attachment
         = link_to truncated_filename(attachment: attachment), url_for(attachment), target: "_blank"
+
+        - if attachment.variable?
+          .variant-tooltip
+            = helpers.image_tag(attachment.variant(resize_to_fit: TOOLTIP_SIZE))
+
         = check_box_tag input_name, attachment.id, false, id: dom_id(attachment)
         %label{ for: dom_id(attachment) }
           = helpers.inline_svg_tag("comfy/x.svg")
