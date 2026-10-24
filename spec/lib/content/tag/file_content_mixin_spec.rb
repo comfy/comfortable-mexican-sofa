@@ -64,6 +64,26 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::FileContentMixin do
       tag = tag_class.new(context: page, params: [frag.identifier, options])
       expect(tag.content).to start_with("/rails/active_storage/representations/redirect/").and end_with("/image.jpg")
     end
+
+    context "when selecting by filename" do
+      before do
+        frag.attachments.attach(fixture_file_upload("image.gif", "image/gif"))
+      end
+
+      it "shows only one attachment if filename is passed in" do
+        options = { "filename" => "image.gif" }
+        tag = tag_class.new(context: page, params: [frag.identifier, options])
+
+        expect(tag.content).to include("image.gif")
+        expect(tag.content).not_to include("image.jpg")
+      end
+
+      it "shows nothing if filename matches no attachments" do
+        options = { "filename" => "invalid.file" }
+        tag = tag_class.new(context: page, params: [frag.identifier, options])
+        expect(tag.content).to eq("")
+      end
+    end
   end
 
   describe "#variant_options" do

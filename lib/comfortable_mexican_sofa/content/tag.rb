@@ -4,20 +4,24 @@ class ComfortableMexicanSofa::Content::Tag
 
   class Error < StandardError; end
 
-  # @type [Comfy::Cms::WithFragments]
+  # Usually a page object
   attr_reader :context
 
-  # @type [Array<String, {String => String}>] params
+  # List of strings extracted from the tag signature
   attr_reader :params
 
-  # TODO: what's this? Might be tag signature.
-  # @type [String, nil] source
+  # Hash options extracted from the params
+  attr_reader :options
+
+  # Usually tag representation used in error messages
   attr_reader :source
 
   # @param [Comfy::Cms::WithFragments] context
   # @param [Array<String, {String => String}>] params
   # @param [String, nil] source
   def initialize(context:, params: [], source: nil)
+    @options  = params.extract_options!
+
     @context  = context
     @params   = params
     @source   = source
@@ -47,5 +51,4 @@ class ComfortableMexicanSofa::Content::Tag
   def render
     content
   end
-
 end

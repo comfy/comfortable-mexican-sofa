@@ -39,11 +39,12 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag do
     it "initializes tag" do
       tag = tag_class.new(
         context: page,
-        params:  ["param_a", { "key" => "value" }],
+        params:  ["param_a", "param_b", { "key" => "value" }],
         source:  "source"
       )
       expect(tag.context).to eq(page)
-      expect(tag.params).to eq(["param_a", { "key" => "value" }])
+      expect(tag.options).to eq("key" => "value")
+      expect(tag.params).to eq(%w[param_a param_b])
       expect(tag.source).to eq("source")
     end
   end

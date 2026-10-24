@@ -14,13 +14,12 @@ class ComfortableMexicanSofa::Content::FragmentTag < ComfortableMexicanSofa::Con
 
   attr_accessor :renderable
 
-  attr_reader :identifier, :namespace, :options
+  attr_reader :identifier, :namespace
 
   # Context should be an object with cms fragments
   def initialize(context:, params: [], source: nil)
     super
 
-    @options    = params.extract_options!
     @identifier = params[0]
 
     unless @identifier.present?

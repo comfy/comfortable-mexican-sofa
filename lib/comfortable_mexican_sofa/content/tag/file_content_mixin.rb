@@ -6,8 +6,15 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
   # When resizing let's not allow gigantic dimensions
   MAX_VARIANT_DIMENSION = 2500.freeze
 
+  attr_reader :as, :label, :html_class, :filename
+
   def initialize(context:, params: [], source: nil)
     super
+
+    @as         = options["as"] || "url"
+    @label      = options["label"]
+    @html_class = options["class"]
+    @filename   = options["filename"]
 
     @variant_options = options.slice(
       "resize_to_limit",
@@ -18,7 +25,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
   end
 
   def content
-    return "" if fragment.attachments.blank?
+    return "" if fragment_attachments.blank?
 
     url_helpers = Rails.application.routes.url_helpers
     helpers     = ActionController::Base.helpers
@@ -26,7 +33,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
     variant_options_cached = variant_options
     join_string = ""
 
-    fragment.attachments.collect do |attachment|
+    fragment_attachments.collect do |attachment|
       file =
         if variant_options.present? && attachment.image?
           attachment.variant(variant_options_cached)
@@ -34,14 +41,14 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
           attachment
         end
 
-      label    = @label || file&.filename
-      file_url = url_helpers.rails_blob_path(file, only_path: true)
+      file_label = label || file&.filename
+      file_url   = url_helpers.rails_blob_path(file, only_path: true)
 
       case as
       when "link"
-        helpers.link_to(label, file_url, class: @html_class, target: "_blank")
+        helpers.link_to(file_label, file_url, class: html_class, target: "_blank")
       when "image"
-        helpers.image_tag(file_url, class: @html_class, alt: label)
+        helpers.image_tag(file_url, class: html_class, alt: file_label)
       else
         join_string = ", "
         file_url
@@ -59,5 +66,15 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
     return {} unless x.positive? && y.positive?
 
     { key.to_sym => [x, y] }
+  end
+
+  def fragment_attachments
+    return [] if fragment.nil?
+
+    if filename.present?
+      Array.wrap(fragment.attachments.detect { |a| a.filename.to_s == filename })
+    else
+      fragment.attachments
+    end
   end
 end

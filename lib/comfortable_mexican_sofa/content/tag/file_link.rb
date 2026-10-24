@@ -1,63 +1,49 @@
 # frozen_string_literal: true
 
-require_relative "./mixins/file_content"
-
-# This is how you link previously uploaded file to anywhere. Good example may be
-# a header image you want to use on the layout level.
-#   {{cms:file_link id, as: image}}
+# This tag allows you to link page-level files from within the page content.
 #
-# `as`      - url (default) | link | image - how file gets rendered out
-# `label`   - attach label attribute to link or image tag
-# `resize`  - imagemagic option. For example: "100x50>"
-# `gravity` - imagemagic option. For example: "center"
-# `crop`    - imagemagic option. For example: "100x50+0+0"
-# `class`   - any html classes that you want on the result link or image tag. For example "class1 class2"
+# E.g. if your layout has:
 #
-class ComfortableMexicanSofa::Content::Tag::FileLink < ComfortableMexicanSofa::Content::Tag
+#   {{ cms:file graphic, render: false }}
+#   {{ cms:files attachments, render: false }}
+#
+# You can link to the files from an individual page (or snippet rendered in
+# the context of the page) like so:
+#
+#   {{ cms:file_link graphic }}
+#   {{ cms:file_link attachments, filename: "cat.jpg" }}
+#
+# `as`              - url (default) | link | image - render out link or image tag
+# `label`           - attach label attribute to link or image tag
+# `class`           - any html classes that you want on the resulting link or image tag
+# `filename`        - if you need to pull a single file from the collection (if cms:file tag was used)
+# `resize_to_limit` - image_processing variant option. Value is dimensions like: "100x50"
+# `resize_to_fit`   - same
+# `resize_to_fill`  - same
+# `resize_and_pad`  - same
+#
+class ComfortableMexicanSofa::Content::Tag::FileLinkTag < ComfortableMexicanSofa::Content::Tag
 
-  include ComfortableMexicanSofa::Content::Tag::Mixins::FileContent
+  include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
-  # @return [String] A {Comfy::Cms::Site#files} ID.
   attr_reader :identifier
 
-  # @type ["url", "link", "image"]
-  attr_reader :as
-
-  # @type [{String => String}]
-  attr_reader :variant_attrs, :class
-
+  # This class does not inherit from the FragmentTag, so we need to copy some things
   def initialize(context:, params: [], source: nil)
     super
 
-    options = params.extract_options!
-    @identifier     = params[0]
-    @as             = options["as"] || "url"
-    @class          = options["class"]
-    @variant_attrs  = options.slice("resize", "gravity", "crop")
+    @identifier = params[0]
 
     unless @identifier.present?
-      raise Error, "Missing identifier for file link tag"
+      raise Error, "Missing identifier for tag: #{source}"
     end
   end
 
-  # @return [Comfy::Cms::File]
-  def file_record
-    @file_record ||= context.site.files.detect { |f| f.id == identifier.to_i }
+  def fragment
+    @fragment ||= context.fragments.detect { |f| f.identifier == identifier }
   end
-
-  # @return [ActiveStorage::Blob]
-  def file
-    file_record&.attachment
-  end
-
-  # @return [String]
-  def label
-    return "" if file_record.nil?
-    file_record.label.presence || file.filename.to_s
-  end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :file_link, ComfortableMexicanSofa::Content::Tag::FileLink
+  :file_link, ComfortableMexicanSofa::Content::Tag::FileLinkTag
 )
