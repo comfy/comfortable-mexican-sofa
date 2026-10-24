@@ -39,24 +39,24 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
 
     it "returns link tag with default label" do
       tag = tag_class.new(context: page, params: [frag.identifier, "as" => "link"])
-      expect(tag.content).to have_tag(:a, with: { target: "_blank" }, text: "image.jpg")
+      expect(Capybara.string(tag.content)).to have_css("a[target='_blank']", text: "image.jpg")
     end
 
     it "returns link tag with class and label" do
       options = { "as" => "link", "class" => "custom", "label" => "label" }
       tag = tag_class.new(context: page, params: [frag.identifier, options])
-      expect(tag.content).to have_tag(:a, with: { target: "_blank", class: "custom" }, text: "label")
+      expect(Capybara.string(tag.content)).to have_css("a.custom[target='_blank']", text: "label")
     end
 
     it "returns image tag" do
       tag = tag_class.new(context: page, params: [frag.identifier, "as" => "image"])
-      expect(tag.content).to have_tag(:img, with: { alt: "image.jpg" })
+      expect(Capybara.string(tag.content)).to have_css("img[alt='image.jpg']")
     end
 
     it "returns image tag with class and label" do
       options = { "as" => "image", "class" => "custom", "label" => "label" }
       tag = tag_class.new(context: page, params: [frag.identifier, options])
-      expect(tag.content).to have_tag(:img, with: { class: "custom", alt: "label" })
+      expect(Capybara.string(tag.content)).to have_css("img.custom[alt='label']")
     end
 
     it "returns variant url" do

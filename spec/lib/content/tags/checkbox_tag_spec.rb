@@ -28,12 +28,22 @@ RSpec.describe ComfortableMexicanSofa::Content::CheckboxTag do
 
   describe "#form_field" do
     it "renders the field" do
-      tag = described_class.new(context: page, params: ["test"])
-      output = tag.form_field("object_name", view, 0, &:itself)
+      tag = described_class.new(context: page, params: [frag.identifier])
+      output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
 
-      expect(output).to have_tag("div") do
-        with_tag "input", with: { type: "hidden", name: "object_name[fragments_attributes][0][boolean]", value: "0" }
-        with_tag "input", with: { type: "checkbox", name: "object_name[fragments_attributes][0][boolean]", value: "1" }
+      expect(output).to have_css("div") do |div|
+        expect(div).to have_selector(:element, "input",
+          type:    "hidden",
+          name:    "object_name[fragments_attributes][0][boolean]",
+          value:   "0",
+          visible: false
+        )
+        expect(div).to have_selector(:element, "input",
+          type:    "checkbox",
+          name:    "object_name[fragments_attributes][0][boolean]",
+          value:   "1",
+          checked: true
+        )
       end
     end
   end

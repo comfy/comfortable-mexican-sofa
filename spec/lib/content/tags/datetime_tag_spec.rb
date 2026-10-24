@@ -48,14 +48,14 @@ RSpec.describe ComfortableMexicanSofa::Content::DatetimeTag do
     it "renders the field" do
       tag = described_class.new(context: page, params: [frag.identifier])
       output = tag.form_field("object_name", view, 0, &:itself)
-      expect(output).to have_tag("input", with: {
+      expect(Capybara.string(output)).to have_selector(:element, "input",
         value:               "1981-10-04 12:34:56",
         type:                "text",
         name:                "object_name[fragments_attributes][0][datetime]",
         id:                  "fragment-datetime",
         class:               "form-control",
         "data-cms-datetime": "true"
-      })
+      )
     end
   end
 

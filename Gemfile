@@ -7,9 +7,8 @@ gemspec
 gem "ruby-vips", "~> 2.2"
 
 group :development, :test do
-  gem "rspec-rails",         "~> 8.0.4"
-  gem "rspec-html-matchers", "~> 0.10"
-  gem "capybara"
+  gem "rspec-rails", ">= 8.0.4"
+  gem "capybara",    ">= 3.40.0"
 
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]

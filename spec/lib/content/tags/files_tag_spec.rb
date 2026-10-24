@@ -23,17 +23,14 @@ RSpec.describe ComfortableMexicanSofa::Content::FilesTag do
 
   describe "#form_field" do
     it "renders the field" do
-      tag = described_class.new(context: page, params: ["test"])
-      output = tag.form_field("object_name", view, 0, &:itself)
-      expect(output).to have_tag("input", with: {
+      tag = described_class.new(context: page, params: [frag.identifier])
+      output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
+      expect(output).to have_selector(:element, "input",
         type: "file",
         name: "object_name[fragments_attributes][0][files]",
-        id:   "fragment-test"
-      })
-    end
-
-    it "renders field with attached file" do
-      skip "todo when view components are in"
+        id:   "fragment-file"
+      )
+      expect(output).to have_css("comfy--cms--form-fragment-files-component .attachment")
     end
   end
 end
