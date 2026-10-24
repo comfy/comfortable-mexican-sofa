@@ -16,6 +16,8 @@ class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::C
 
   include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
+  MULTIPLE = true
+
   attr_reader :as, :html_class
 
   # @param (see ComfortableMexicanSofa::Content::Tag#initialize)
@@ -29,7 +31,7 @@ class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::C
 
   def form_field(object_name, view, index)
     name  = "#{object_name}[fragments_attributes][#{index}][files]"
-    input = view.send(:file_field_tag, name, id: form_field_id, multiple: true, class: "form-control")
+    input = view.send(:file_field_tag, name, id: form_field_id, multiple: self.class::MULTIPLE, class: "form-control")
 
     component = Comfy::Cms::FormFragmentFilesComponent.new(
       object_name: object_name, index: index, fragment: fragment
