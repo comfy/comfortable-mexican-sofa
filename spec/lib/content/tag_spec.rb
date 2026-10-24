@@ -38,9 +38,9 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag do
   describe ".new" do
     it "initializes tag" do
       tag = tag_class.new(
-        context:  page,
-        params:   ["param_a", { "key" => "value" }],
-        source:   "source"
+        context: page,
+        params:  ["param_a", { "key" => "value" }],
+        source:  "source"
       )
       expect(tag.context).to eq(page)
       expect(tag.params).to eq(["param_a", { "key" => "value" }])

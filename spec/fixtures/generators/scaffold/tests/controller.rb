@@ -1,4 +1,4 @@
-require_relative '../../test_helper'
+require_relative "../../test_helper"
 
 class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
 
@@ -11,7 +11,7 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   # Move this to test_helper.rb
   def r(verb, path, options = {})
     headers = options[:headers] || {}
-    headers['HTTP_AUTHORIZATION'] =
+    headers["HTTP_AUTHORIZATION"] =
       ActionController::HttpAuthentication::Basic.encode_credentials(
         ComfortableMexicanSofa::AccessControl::AdminAuthentication.username,
         ComfortableMexicanSofa::AccessControl::AdminAuthentication.password
@@ -35,10 +35,10 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_show_failure
-    r :get, admin_foo_path('invalid')
+    r :get, admin_foo_path("invalid")
     assert_response :redirect
     assert_redirected_to action: :index
-    assert_equal 'Foo not found', flash[:danger]
+    assert_equal "Foo not found", flash[:danger]
   end
 
   def test_get_new
@@ -58,54 +58,54 @@ class Admin::FoosControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_creation
-    assert_difference 'Foo.count' do
+    assert_difference "Foo.count" do
       r :post, admin_foos_path, params: {foo: {
-        bar: 'test bar',
+        bar: "test bar",
       }}
       foo = Foo.last
       assert_response :redirect
       assert_redirected_to action: :show, id: foo
-      assert_equal 'Foo created', flash[:success]
+      assert_equal "Foo created", flash[:success]
     end
   end
 
   def test_creation_failure
-    assert_no_difference 'Foo.count' do
+    assert_no_difference "Foo.count" do
       r :post, admin_foos_path, params: {foo: { }}
       assert_response :success
       assert_template :new
-      assert_equal 'Failed to create Foo', flash[:danger]
+      assert_equal "Failed to create Foo", flash[:danger]
     end
   end
 
   def test_update
     r :put, admin_foo_path(@foo), params: {foo: {
-      bar: 'Updated'
+      bar: "Updated"
     }}
     assert_response :redirect
     assert_redirected_to action: :show, id: @foo
-    assert_equal 'Foo updated', flash[:success]
+    assert_equal "Foo updated", flash[:success]
     @foo.reload
-    assert_equal 'Updated', @foo.bar
+    assert_equal "Updated", @foo.bar
   end
 
   def test_update_failure
     r :put, admin_foo_path(@foo), params: {foo: {
-      bar: ''
+      bar: ""
     }}
     assert_response :success
     assert_template :edit
-    assert_equal 'Failed to update Foo', flash[:danger]
+    assert_equal "Failed to update Foo", flash[:danger]
     @foo.reload
-    refute_equal '', @foo.bar
+    refute_equal "", @foo.bar
   end
 
   def test_destroy
-    assert_difference 'Foo.count', -1 do
+    assert_difference "Foo.count", -1 do
       r :delete, admin_foo_path(@foo)
       assert_response :redirect
       assert_redirected_to action: :index
-      assert_equal 'Foo deleted', flash[:success]
+      assert_equal "Foo deleted", flash[:success]
     end
   end
 end

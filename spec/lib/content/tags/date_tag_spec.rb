@@ -23,10 +23,10 @@ RSpec.describe ComfortableMexicanSofa::Content::DateTag do
     it "renders the field same as for datetime only with different data attribute" do
       tag = described_class.new(context: page, params: [frag.identifier])
       output = tag.form_field("object_name", view, 0, &:itself)
-      expect(Capybara.string(output)).to have_selector(:element, "input",
+      expect(Capybara.string(output)).to have_selector(
+        :element, "input",
         "data-cms-date": "true"
       )
     end
   end
-
 end

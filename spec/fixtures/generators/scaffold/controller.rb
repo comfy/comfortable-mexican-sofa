@@ -21,25 +21,25 @@ class Admin::FoosController < Comfy::Admin::BaseController
 
   def create
     @foo.save!
-    flash[:success] = 'Foo created'
+    flash[:success] = "Foo created"
     redirect_to action: :show, id: @foo
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = 'Failed to create Foo'
+    flash.now[:danger] = "Failed to create Foo"
     render action: :new
   end
 
   def update
     @foo.update!(foo_params)
-    flash[:success] = 'Foo updated'
+    flash[:success] = "Foo updated"
     redirect_to action: :show, id: @foo
   rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = 'Failed to update Foo'
+    flash.now[:danger] = "Failed to update Foo"
     render action: :edit
   end
 
   def destroy
     @foo.destroy
-    flash[:success] = 'Foo deleted'
+    flash[:success] = "Foo deleted"
     redirect_to action: :index
   end
 
@@ -52,7 +52,7 @@ protected
   def load_foo
     @foo = Foo.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:danger] = 'Foo not found'
+    flash[:danger] = "Foo not found"
     redirect_to action: :index
   end
 

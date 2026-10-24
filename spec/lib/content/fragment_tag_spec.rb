@@ -16,10 +16,10 @@ RSpec.describe ComfortableMexicanSofa::Content::FragmentTag do
 
     it "initializes object with params" do
       tag = described_class.new(
-        context: @page,
-        params: ["foo", { "render" => "false", "namespace" => "test" }]
+        context: page,
+        params:  ["foo", { "render" => "false", "namespace" => "test" }]
       )
-      expect(tag.renderable).to eq(false)
+      expect(tag.renderable).to be(false)
       expect(tag.namespace).to eq("test")
     end
 

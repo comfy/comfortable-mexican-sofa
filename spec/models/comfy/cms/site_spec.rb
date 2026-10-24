@@ -54,7 +54,7 @@ RSpec.describe Comfy::Cms::Site do
         hostname:   site.hostname,
         path:       site.path
       )
-      expect(new_site).to be_invalid
+      expect(new_site).not_to be_valid
       expect(new_site.errors[:hostname]).to include("has already been taken")
 
       new_site.path = "test"
@@ -63,7 +63,7 @@ RSpec.describe Comfy::Cms::Site do
 
     it "has hostname format validations" do
       site = described_class.new(identifier: "test", hostname: "http://site.host")
-      expect(site).to be_invalid
+      expect(site).not_to be_valid
       expect(site.errors[:hostname]).to include("is invalid")
 
       site = described_class.new(identifier: "test", hostname: "localhost:3000")
@@ -72,7 +72,7 @@ RSpec.describe Comfy::Cms::Site do
 
     it "checks if identifier is globally unique" do
       new_site = described_class.new(identifier: site.identifier, hostname: "site.host")
-      expect(new_site).to be_invalid
+      expect(new_site).not_to be_valid
       expect(new_site.errors[:identifier]).to include("has already been taken")
     end
   end
@@ -174,7 +174,7 @@ RSpec.describe Comfy::Cms::Site do
     it "removes site and all dependent records" do
       expect do
         site.destroy
-      end.to change(Comfy::Cms::Site, :count).by(-1)
+      end.to change(described_class, :count).by(-1)
         .and change(Comfy::Cms::Layout, :count).by(-3)
         .and change(Comfy::Cms::Page, :count).by(-2)
         .and change(Comfy::Cms::Snippet, :count).by(-1)

@@ -11,7 +11,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
 
   describe ".new" do
     it "initializes with options" do
-      tag = tag_class.new(context: page, params: ["test", "as" => "image", "resize_to_fill" => "50x50"])
+      tag = tag_class.new(context: page, params: ["test", { "as" => "image", "resize_to_fill" => "50x50" }])
       expect(tag.identifier).to eq("test")
       expect(tag.as).to eq("image")
       expect(tag.variant_options).to eq(resize_to_fill: [50, 50])
@@ -38,7 +38,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
     end
 
     it "returns link tag with default label" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "as" => "link"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "as" => "link" }])
       expect(Capybara.string(tag.content)).to have_css("a[target='_blank']", text: "image.jpg")
     end
 
@@ -49,7 +49,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
     end
 
     it "returns image tag" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "as" => "image"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "as" => "image" }])
       expect(Capybara.string(tag.content)).to have_css("img[alt='image.jpg']")
     end
 
@@ -68,7 +68,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
 
   describe "#variant_options" do
     it "converts options into image_processing options" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "resize_to_fill" => "100x50"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "resize_to_fill" => "100x50" }])
       expect(tag.variant_options).to eq(resize_to_fill: [100, 50])
     end
 
@@ -79,17 +79,17 @@ RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
     end
 
     it "ignores malformed option" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "resize_to_fill" => "foox50"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "resize_to_fill" => "foox50" }])
       expect(tag.variant_options).to eq({})
     end
 
     it "handles spaces" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "resize_and_pad" => "100 x 50"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "resize_and_pad" => "100 x 50" }])
       expect(tag.variant_options).to eq(resize_and_pad: [100, 50])
     end
 
     it "limits image dimensions" do
-      tag = tag_class.new(context: page, params: [frag.identifier, "resize_to_fit" => "9999999 x 999999"])
+      tag = tag_class.new(context: page, params: [frag.identifier, { "resize_to_fit" => "9999999 x 999999" }])
       expect(tag.variant_options).to eq(resize_to_fit: [2500, 2500])
     end
   end

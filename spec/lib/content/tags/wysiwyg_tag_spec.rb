@@ -23,7 +23,8 @@ RSpec.describe ComfortableMexicanSofa::Content::WysiwygTag do
       tag = described_class.new(context: page, params: ["test"])
       output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
 
-      expect(output).to have_selector(:element, "textarea",
+      expect(output).to have_selector(
+        :element, "textarea",
         id:                   "fragment-test",
         name:                 "object_name[fragments_attributes][0][content]",
         "data-cms-rich-text": "true"

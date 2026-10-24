@@ -11,7 +11,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
       render_inline(component)
 
       container = page.find("comfy--cms--form-fragment-files-component .attachment")
-      expect(container).to have_link("image.jpg", href: %r{/rails/active_storage/blobs} )
+      expect(container).to have_link("image.jpg", href: %r{/rails/active_storage/blobs})
       expect(container).to have_css(".variant-tooltip img[src*='rails/active_storage/representations']")
       expect(container).to have_field("page[fragments_attributes][0][file_ids_destroy][]", type: "checkbox")
     end
@@ -49,7 +49,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
 
       render_inline(component)
 
-      expect(page).to have_link("this-filename-is-...us.mp3.exe" )
+      expect(page).to have_link("this-filename-is-...us.mp3.exe")
     end
   end
 end

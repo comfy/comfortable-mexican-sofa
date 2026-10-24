@@ -32,13 +32,15 @@ RSpec.describe ComfortableMexicanSofa::Content::CheckboxTag do
       output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
 
       expect(output).to have_css("div") do |div|
-        expect(div).to have_selector(:element, "input",
+        expect(div).to have_selector(
+          :element, "input",
           type:    "hidden",
           name:    "object_name[fragments_attributes][0][boolean]",
           value:   "0",
-          visible: false
+          visible: :all
         )
-        expect(div).to have_selector(:element, "input",
+        expect(div).to have_selector(
+          :element, "input",
           type:    "checkbox",
           name:    "object_name[fragments_attributes][0][boolean]",
           value:   "1",

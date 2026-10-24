@@ -12,6 +12,10 @@ gem "ruby-vips",   "~> 2.2"
 gem "rspec-rails", ">= 8.0.4"
 gem "capybara",    ">= 3.40.0"
 gem "rubocop",     ">= 1.92.1"
+gem "rubocop-capybara",    require: false
+gem "rubocop-rails",       require: false
+gem "rubocop-rspec",       require: false
+gem "rubocop-rspec_rails", require: false
 
 group :development do
   gem "web-console"

@@ -23,7 +23,8 @@ RSpec.describe ComfortableMexicanSofa::Content::NumberTag do
       tag = described_class.new(context: page, params: ["test"])
       output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
 
-      expect(output).to have_selector(:element, "input",
+      expect(output).to have_selector(
+        :element, "input",
         type: "number",
         name: "object_name[fragments_attributes][0][content]",
         id:   "fragment-test"

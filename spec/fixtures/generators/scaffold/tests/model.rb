@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class FooTest < ActiveSupport::TestCase
 
@@ -15,9 +15,9 @@ class FooTest < ActiveSupport::TestCase
   end
 
   def test_creation
-    assert_difference 'Foo.count' do
+    assert_difference "Foo.count" do
       Foo.create(
-        bar: 'test bar',
+        bar: "test bar",
       )
     end
   end

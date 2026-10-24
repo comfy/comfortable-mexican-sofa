@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
-
   describe "#params" do
     it "returns simple list" do
       parser = described_class.new("a, b, 'foo bar', c")
@@ -27,9 +26,9 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
     it "returns nested hash" do
       parser = described_class.new("a: {b: {c: d, e: f}}, g: {h: i}")
       expect(parser.params).to eq([{
-        "a" => { "b" => { "c" => "d", "e" => "f" } },
-        "g" => { "h" => "i" }
-      }])
+                                    "a" => { "b" => { "c" => "d", "e" => "f" } },
+                                    "g" => { "h" => "i" }
+                                  }])
     end
 
     it "errors out on hash without value" do
@@ -87,20 +86,22 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
 
     it "returns values for a complex mix" do
       parser = described_class.new("a, b: [{c: {d: {e: f, g: h}}, i: j}, k], l: m")
-      expect(parser.params).to eq([
-        "a",
-        {
-          "b" => [
-            { "c" => { "d" => { "e" => "f", "g" => "h" } }, "i" => "j" },
-            "k"
-          ],
-          "l" => "m"
-        }
-      ])
+      expect(parser.params).to eq(
+        [
+          "a",
+          {
+            "b" => [
+              { "c" => { "d" => { "e" => "f", "g" => "h" } }, "i" => "j" },
+              "k"
+            ],
+            "l" => "m"
+          }
+        ]
+      )
     end
 
     it "does not interpolate strings" do
-      parser = described_class.new(%q("a#{:a}", key: "va#{:l}ue"))
+      parser = described_class.new(%("aa", key: "value"))
       expect(parser.params).to eq(["a\#{:a}", { "key" => "va\#{:l}ue" }])
     end
   end
@@ -119,45 +120,53 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
 
       it "tokenizes comma-separated values" do
         tokens = described_class.new.send(:tokenize, "eggs, ham, bacon")
-        expect(tokens).to eq([
-          [:string, "eggs"],
-          [:string, "ham"],
-          [:string, "bacon"]
-        ])
+        expect(tokens).to eq(
+          [
+            [:string, "eggs"],
+            [:string, "ham"],
+            [:string, "bacon"]
+          ]
+        )
       end
 
       it "tokenizes hashes" do
         tokens = described_class.new.send(:tokenize, "foo: bar")
-        expect(tokens).to eq([
-          [:hash_key, "foo"],
-          [:string,   "bar"]
-        ])
+        expect(tokens).to eq(
+          [
+            [:hash_key, "foo"],
+            [:string, "bar"]
+          ]
+        )
       end
 
       it "tokenizes nested hashes" do
         tokens = described_class.new.send(:tokenize, "k: {x: {y: z}}")
-        expect(tokens).to eq([
-          [:hash_key,   "k"],
-          [:hash_open,  "{"],
-          [:hash_key,   "x"],
-          [:hash_open,  "{"],
-          [:hash_key,   "y"],
-          [:string,     "z"],
-          [:hash_close, "}"],
-          [:hash_close, "}"]
-        ])
+        expect(tokens).to eq(
+          [
+            [:hash_key, "k"],
+            [:hash_open,  "{"],
+            [:hash_key,   "x"],
+            [:hash_open,  "{"],
+            [:hash_key,   "y"],
+            [:string,     "z"],
+            [:hash_close, "}"],
+            [:hash_close, "}"]
+          ]
+        )
       end
 
       it "tokenizes hash with array value" do
         tokens = described_class.new.send(:tokenize, "k: [a, b, c]")
-        expect(tokens).to eq([
-          [:hash_key,     "k"],
-          [:array_open,   "["],
-          [:string,       "a"],
-          [:string,       "b"],
-          [:string,       "c"],
-          [:array_close,  "]"]
-        ])
+        expect(tokens).to eq(
+          [
+            [:hash_key, "k"],
+            [:array_open,   "["],
+            [:string,       "a"],
+            [:string,       "b"],
+            [:string,       "c"],
+            [:array_close,  "]"]
+          ]
+        )
       end
 
       it "tokenizes hash with quoted value" do
