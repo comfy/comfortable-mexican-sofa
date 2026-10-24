@@ -25,7 +25,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
   end
 
   def content
-    return "" if fragment_attachments.blank?
+    return "" if attachments.blank?
 
     url_helpers = Rails.application.routes.url_helpers
     helpers     = ActionController::Base.helpers
@@ -33,7 +33,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
     variant_options_cached = variant_options
     join_string = ""
 
-    fragment_attachments.collect do |attachment|
+    attachments.collect do |attachment|
       file =
         if variant_options.present? && attachment.image?
           attachment.variant(variant_options_cached)
@@ -68,7 +68,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
     { key.to_sym => [x, y] }
   end
 
-  def fragment_attachments
+  def attachments
     return [] if fragment.nil?
 
     if filename.present?

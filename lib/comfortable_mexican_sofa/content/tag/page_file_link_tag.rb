@@ -10,8 +10,8 @@
 # You can link to the files from an individual page (or snippet rendered in
 # the context of the page) like so:
 #
-#   {{ cms:file_link graphic }}
-#   {{ cms:file_link attachments, filename: "cat.jpg" }}
+#   {{ cms:page_file_link graphic }}
+#   {{ cms:page_file_link attachments, filename: "cat.jpg" }}
 #
 # `as`              - url (default) | link | image - render out link or image tag
 # `label`           - attach label attribute to link or image tag
@@ -22,7 +22,7 @@
 # `resize_to_fill`  - same
 # `resize_and_pad`  - same
 #
-class ComfortableMexicanSofa::Content::Tag::FileLinkTag < ComfortableMexicanSofa::Content::Tag
+class ComfortableMexicanSofa::Content::Tag::PageFileLinkTag < ComfortableMexicanSofa::Content::Tag
 
   include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
@@ -45,5 +45,5 @@ class ComfortableMexicanSofa::Content::Tag::FileLinkTag < ComfortableMexicanSofa
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :file_link, ComfortableMexicanSofa::Content::Tag::FileLinkTag
+  :page_file_link, ComfortableMexicanSofa::Content::Tag::PageFileLinkTag
 )

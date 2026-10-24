@@ -22,7 +22,9 @@ require_relative "content/tag/checkbox_tag"
 require_relative "content/tag/file_content_mixin"
 require_relative "content/tag/files_tag"
 require_relative "content/tag/file_tag"
-require_relative "content/tag/file_link"
+require_relative "content/tag/page_file_link_tag"
+require_relative "content/tag/site_file_link_tag"
+
 
 # require_relative "content/tags/files"
 #
