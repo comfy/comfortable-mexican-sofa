@@ -1,0 +1,2 @@
+default:
+  <%= ActiveStorage::FixtureSet.blob(filename: "image.jpg", content_type: "image/jpeg") %>

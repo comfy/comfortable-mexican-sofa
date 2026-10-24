@@ -2,10 +2,15 @@
 
 require "comfortable_mexican_sofa"
 require "rails"
+require "image_processing"
+require "commonmarker"
+require "view_component"
+require "inline_svg"
+require "active_link_to"
+
+
 require "rails-i18n"
 require "comfy_bootstrap_form"
-require "active_link_to"
-require "kramdown"
 require "jquery-rails"
 require "haml-rails"
 require "sassc-rails"
@@ -15,6 +20,9 @@ module ComfortableMexicanSofa
 
     initializer "comfortable_mexican_sofa.setup_assets" do
       ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w[
+        comfy/cms/application.css
+
+
         comfy/admin/cms/application.js
         comfy/admin/cms/application.css
         comfy/admin/cms/lib/redactor-font.eot

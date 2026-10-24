@@ -126,11 +126,6 @@ class ComfortableMexicanSofa::Content::Renderer
             source:   token[:source]
           )
           nodes.last << tag
-
-          # If it's a block tag we start collecting nodes into it
-          if tag.is_a?(ComfortableMexicanSofa::Content::Block)
-            nodes << tag.nodes
-          end
         end
 
       # text
