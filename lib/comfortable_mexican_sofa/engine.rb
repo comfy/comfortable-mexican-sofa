@@ -6,12 +6,11 @@ require "image_processing"
 require "commonmarker"
 require "view_component"
 require "inline_svg"
-
+require "active_link_to"
 
 
 require "rails-i18n"
 require "comfy_bootstrap_form"
-require "active_link_to"
 require "jquery-rails"
 require "haml-rails"
 require "sassc-rails"

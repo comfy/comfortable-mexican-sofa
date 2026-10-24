@@ -4,27 +4,43 @@ source "http://rubygems.org"
 
 gemspec
 
-gem "ruby-vips", "~> 2.2"
+gem "bootsnap", require: false
+# gem "propshaft"
+gem "puma",        ">= 5.0"
+gem "sqlite3",     ">= 2.10.1"
+gem "ruby-vips",   "~> 2.2"
+gem "rspec-rails", ">= 8.0.4"
+gem "capybara",    ">= 3.40.0"
+gem "rubocop",     ">= 1.92.1"
+
+group :development do
+  gem "web-console"
+end
+
+
+
+
+
+
+
 
 group :development, :test do
-  gem "rspec-rails", ">= 8.0.4"
-  gem "capybara",    ">= 3.40.0"
+
 
   gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   #,           "~> 2.17.0"
   gem "kaminari"#,           "~> 1.1.1"
-  gem "puma"#,               "~> 3.12.2"
-  gem "rubocop"#,            "~> 0.55.0", require: false
+
+
   gem "selenium-webdriver"#, "~> 3.9.0"
-  gem "sqlite3"#,            "~> 1.4.2"
+
 end
 
 group :development do
-  gem "bootsnap", require: false
 
-  gem "listen"#,       "~> 3.1.5"
-  gem "web-console"#,  "~> 3.5.1"
+
+  # gem "listen"#,       "~> 3.1.5"
 end
 
 group :test do

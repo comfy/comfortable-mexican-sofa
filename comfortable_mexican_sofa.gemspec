@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ["Oleg Khabarov"]
   s.email         = ["oleg@khabarov.ca"]
   s.homepage      = "http://github.com/comfy/comfortable-mexican-sofa"
-  s.summary       = "Rails 5.2+ CMS Engine"
-  s.description   = "ComfortableMexicanSofa is a powerful Rails 5.2+ CMS Engine"
+  s.summary       = "Rails 8+ CMS Engine"
+  s.description   = "ComfortableMexicanSofa is a powerful Rails 8+ CMS Engine"
   s.license       = "MIT"
 
   s.files = `git ls-files -z`.split("\x0").reject do |f|
@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   end
 
   s.required_ruby_version = ">= 4.0.0"
-
 
   s.add_dependency "rails",            ">= 8.0.0"
   s.add_dependency "commonmarker",     ">= 2.10.1"
