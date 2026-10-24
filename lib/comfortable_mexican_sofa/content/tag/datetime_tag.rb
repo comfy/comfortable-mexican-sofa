@@ -6,7 +6,7 @@
 #
 # `strftime` - Format datetime string during rendering
 #
-class ComfortableMexicanSofa::Content::DatetimeTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::DatetimeTag < ComfortableMexicanSofa::Content::FragmentTag
 
   attr_reader :strftime
 
@@ -41,5 +41,5 @@ class ComfortableMexicanSofa::Content::DatetimeTag < ComfortableMexicanSofa::Con
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :datetime, ComfortableMexicanSofa::Content::DatetimeTag
+  :datetime, ComfortableMexicanSofa::Content::Tag::DatetimeTag
 )

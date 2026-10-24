@@ -35,3 +35,7 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Enabled: false
+
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    ComfortableMexicanSofa: lib

@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-RSpec.describe ComfortableMexicanSofa::Content::FileContentMixin do
+RSpec.describe ComfortableMexicanSofa::Content::Tag::FileContentMixin do
   include ActionView::TestCase::Behavior
 
   let(:page)      { comfy_cms_pages(:default) }
   let(:frag)      { comfy_cms_fragments(:file) }
-  let(:tag_class) { ComfortableMexicanSofa::Content::FilesTag }
+  let(:tag_class) { ComfortableMexicanSofa::Content::Tag::FilesTag }
 
   describe ".new" do
     it "initializes with options" do

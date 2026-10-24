@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ComfortableMexicanSofa::Content::WysiwygTag do
+RSpec.describe ComfortableMexicanSofa::Content::Tag::WysiwygTag do
   include ActionView::TestCase::Behavior
 
   let(:page) { comfy_cms_pages(:default) }

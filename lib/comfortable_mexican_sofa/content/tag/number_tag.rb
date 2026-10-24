@@ -4,7 +4,7 @@
 #
 #   {{ cms:number identifier }}
 #
-class ComfortableMexicanSofa::Content::NumberTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::NumberTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -17,5 +17,5 @@ class ComfortableMexicanSofa::Content::NumberTag < ComfortableMexicanSofa::Conte
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :number, ComfortableMexicanSofa::Content::NumberTag
+  :number, ComfortableMexicanSofa::Content::Tag::NumberTag
 )

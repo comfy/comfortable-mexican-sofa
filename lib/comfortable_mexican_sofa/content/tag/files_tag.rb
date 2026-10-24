@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "./mixins/file_content_mixin"
-
 # File tag allows attaching of file to the page. This controls how files are
 # uploaded and then displayed on the page. Example tag:
 #   {{ cms:file identifier, as: link, label: "My File" }}
@@ -14,9 +12,9 @@ require_relative "./mixins/file_content_mixin"
 # `resize_to_fill`  - same
 # `resize_and_pad`  - same
 #
-class ComfortableMexicanSofa::Content::FilesTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::Content::FragmentTag
 
-  include ComfortableMexicanSofa::Content::FileContentMixin
+  include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
   attr_reader :as, :html_class
 
@@ -43,5 +41,5 @@ class ComfortableMexicanSofa::Content::FilesTag < ComfortableMexicanSofa::Conten
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :files, ComfortableMexicanSofa::Content::FilesTag
+  :files, ComfortableMexicanSofa::Content::Tag::FilesTag
 )

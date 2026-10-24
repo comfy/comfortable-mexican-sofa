@@ -4,7 +4,7 @@
 #
 #   {{ cms:checkbox identifier }}
 #
-class ComfortableMexicanSofa::Content::CheckboxTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::CheckboxTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def content
     fragment.boolean
@@ -25,5 +25,5 @@ class ComfortableMexicanSofa::Content::CheckboxTag < ComfortableMexicanSofa::Con
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :checkbox, ComfortableMexicanSofa::Content::CheckboxTag
+  :checkbox, ComfortableMexicanSofa::Content::Tag::CheckboxTag
 )

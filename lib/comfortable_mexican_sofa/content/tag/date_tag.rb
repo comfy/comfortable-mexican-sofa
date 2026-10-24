@@ -4,7 +4,7 @@
 #
 #   {{ cms:date identifier }}
 #
-class ComfortableMexicanSofa::Content::DateTag < ComfortableMexicanSofa::Content::DatetimeTag
+class ComfortableMexicanSofa::Content::Tag::DateTag < ComfortableMexicanSofa::Content::Tag::DatetimeTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][datetime]"
@@ -18,5 +18,5 @@ class ComfortableMexicanSofa::Content::DateTag < ComfortableMexicanSofa::Content
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :date, ComfortableMexicanSofa::Content::DateTag
+  :date, ComfortableMexicanSofa::Content::Tag::DateTag
 )

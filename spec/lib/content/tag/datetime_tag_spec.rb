@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ComfortableMexicanSofa::Content::DatetimeTag do
+RSpec.describe ComfortableMexicanSofa::Content::Tag::DatetimeTag do
   include ActionView::TestCase::Behavior
 
   let(:page) { comfy_cms_pages(:default) }

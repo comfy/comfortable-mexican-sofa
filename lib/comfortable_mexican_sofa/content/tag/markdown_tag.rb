@@ -4,7 +4,7 @@
 #
 #   {{ cms:markdown identifier }}
 #
-class ComfortableMexicanSofa::Content::MarkdownTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::MarkdownTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def render
     renderable ? Commonmarker.to_html(content.to_s) : ""
@@ -20,5 +20,5 @@ class ComfortableMexicanSofa::Content::MarkdownTag < ComfortableMexicanSofa::Con
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :markdown, ComfortableMexicanSofa::Content::MarkdownTag
+  :markdown, ComfortableMexicanSofa::Content::Tag::MarkdownTag
 )

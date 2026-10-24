@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe ComfortableMexicanSofa::Content::NumberTag do
+RSpec.describe ComfortableMexicanSofa::Content::Tag::TextareaTag do
   include ActionView::TestCase::Behavior
 
   let(:page) { comfy_cms_pages(:default) }
 
   it "is registered with renderer" do
-    expect(ComfortableMexicanSofa::Content::Renderer.tags["number"]).to eq(described_class)
+    expect(ComfortableMexicanSofa::Content::Renderer.tags["textarea"]).to eq(described_class)
   end
 
   describe ".new" do
@@ -21,13 +21,12 @@ RSpec.describe ComfortableMexicanSofa::Content::NumberTag do
   describe "#form_field" do
     it "renders the field" do
       tag = described_class.new(context: page, params: ["test"])
-      output = Capybara.string(tag.form_field("object_name", view, 0, &:itself))
-
-      expect(output).to have_selector(
-        :element, "input",
-        type: "number",
-        name: "object_name[fragments_attributes][0][content]",
-        id:   "fragment-test"
+      output = tag.form_field("object_name", view, 0, &:itself)
+      expect(Capybara.string(output)).to have_selector(
+        :element, "textarea",
+        name:               "object_name[fragments_attributes][0][content]",
+        id:                 "fragment-test",
+        "data-cms-cm-mode": "text/html"
       )
     end
   end

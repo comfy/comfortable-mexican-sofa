@@ -4,7 +4,7 @@
 #
 #   {{ cms:textarea identifier }}
 #
-class ComfortableMexicanSofa::Content::TextareaTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::TextareaTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -16,5 +16,5 @@ class ComfortableMexicanSofa::Content::TextareaTag < ComfortableMexicanSofa::Con
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :textarea, ComfortableMexicanSofa::Content::TextareaTag
+  :textarea, ComfortableMexicanSofa::Content::Tag::TextareaTag
 )

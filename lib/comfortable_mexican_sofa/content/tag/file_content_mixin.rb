@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A mixin for tags that returns the file as their content.
-module ComfortableMexicanSofa::Content::FileContentMixin
+module ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
   # When resizing let's not allow gigantic dimensions
   MAX_VARIANT_DIMENSION = 2500.freeze

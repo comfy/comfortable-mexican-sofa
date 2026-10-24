@@ -101,7 +101,7 @@ RSpec.describe ComfortableMexicanSofa::Content::ParamsParser do
     end
 
     it "does not interpolate strings" do
-      parser = described_class.new(%("aa", key: "value"))
+      parser = described_class.new(%q("a#{:a}", key: "va#{:l}ue")) # rubocop:disable Style/RedundantPercentQ
       expect(parser.params).to eq(["a\#{:a}", { "key" => "va\#{:l}ue" }])
     end
   end

@@ -5,7 +5,7 @@
 #
 #   {{ cms:wysiwyg identifier }}
 #
-class ComfortableMexicanSofa::Content::WysiwygTag < ComfortableMexicanSofa::Content::FragmentTag
+class ComfortableMexicanSofa::Content::Tag::WysiwygTag < ComfortableMexicanSofa::Content::FragmentTag
 
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
@@ -17,5 +17,5 @@ class ComfortableMexicanSofa::Content::WysiwygTag < ComfortableMexicanSofa::Cont
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(
-  :wysiwyg, ComfortableMexicanSofa::Content::WysiwygTag
+  :wysiwyg, ComfortableMexicanSofa::Content::Tag::WysiwygTag
 )
