@@ -9,6 +9,8 @@ AllCops:
   Include:
     - "spec/**/*.rb"
   Exclude:
+    - "vendor/**/*"
+    - "vendor/bundle/**/*"
     - "spec/fixtures/**/*"
 
 Rails/SkipsModelValidations:
