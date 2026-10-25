@@ -24,6 +24,7 @@ require_relative "content/tag/page_file_link_tag"
 require_relative "content/tag/site_file_link_tag"
 require_relative "content/tag/snippet_tag"
 require_relative "content/tag/layout_asset_tag"
+require_relative "content/tag/render_template_tag"
 
 
 #
