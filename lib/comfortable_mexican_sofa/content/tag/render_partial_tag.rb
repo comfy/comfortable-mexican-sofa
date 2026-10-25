@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 # Tag for injecting partials. Example tag:
-#   {{cms:partial path/to/partial, foo: bar, zip: zoop}}
+#   {{cms:render_partial path/to/partial, foo: bar, zip: zoop}}
 # This expands into a familiar:
 #   <%= render partial: "path/to/partial", locals: {foo: bar, zip: zoop} %>
-# Whitelist is can be used to control what partials are renderable.
+#
+# ComfortableMexicanSofa.config.allowed_partials controls what partials are renderable.
 #
 class ComfortableMexicanSofa::Content::Tag::RenderPartialTag < ComfortableMexicanSofa::Content::Tag
   attr_reader :path
@@ -21,7 +22,7 @@ class ComfortableMexicanSofa::Content::Tag::RenderPartialTag < ComfortableMexica
 
   def content
     whitelist = Array.wrap(ComfortableMexicanSofa.config.allowed_partials)
-    return "" if whitelist.present? && !whitelist.member?(@path)
+    return "" unless whitelist.member?(@path)
 
     Kernel.format(
       "<%%= render partial: %<path>p, locals: %<locals>s %%>",

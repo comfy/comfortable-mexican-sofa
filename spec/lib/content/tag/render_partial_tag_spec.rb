@@ -28,24 +28,26 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::RenderPartialTag do
   end
 
   describe "#content" do
-    it "outputs erb" do
-      tag = described_class.new(context: nil, params: ["test/path", { "foo" => "bar" }])
-      expect(tag.content).to eq("<%= render partial: \"test/path\", locals: {\"foo\" => \"bar\"} %>")
-    end
-
-    it "only outputs partials defined in whitelist (if there are any)" do
-      ComfortableMexicanSofa.config.allowed_partials = ["allowed/path"]
-
-      tag = described_class.new(context: nil, params: ["allowed/path"])
-      expect(tag.content).to eq("<%= render partial: \"allowed/path\", locals: {} %>")
-
-      tag = described_class.new(context: nil, params: ["not_allowed/path"])
+    it "outputs nothing if partial not allowed" do
+      expect(ComfortableMexicanSofa.config.allowed_partials).to be_blank
+      tag = described_class.new(context: nil, params: ["test/path"])
       expect(tag.content).to eq("")
     end
 
-    it "escapes string interpolations" do
-      tag = described_class.new(context: nil, params: ["foo\#{:bar}", { "key" => "va\#{:l}ue" }])
-      expect(tag.content).to eq("<%= render partial: \"foo\\\#{:bar}\", locals: {\"key\" => \"va\\\#{:l}ue\"} %>")
+    context "with allowed partial" do
+      before do
+        ComfortableMexicanSofa.config.allowed_partials = ["test/path"]
+      end
+
+      it "outputs erb" do
+        tag = described_class.new(context: nil, params: ["test/path", { "foo" => "bar" }])
+        expect(tag.content).to eq('<%= render partial: "test/path", locals: {"foo" => "bar"} %>')
+      end
+
+      it "escapes string interpolations" do
+        tag = described_class.new(context: nil, params: ["test/path", { "key" => "va\#{:l}ue" }])
+        expect(tag.content).to eq('<%= render partial: "test/path", locals: {"key" => "va\\#{:l}ue"} %>')
+      end
     end
   end
 

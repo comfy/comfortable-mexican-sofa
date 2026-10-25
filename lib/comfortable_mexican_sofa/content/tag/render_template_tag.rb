@@ -23,7 +23,7 @@ class ComfortableMexicanSofa::Content::Tag::RenderTemplateTag < ComfortableMexic
 
   def content
     whitelist = Array.wrap(ComfortableMexicanSofa.config.allowed_templates)
-    return "" if whitelist.present? && !whitelist.member?(@path)
+    return "" unless whitelist.member?(@path)
 
     Kernel.format("<%%= render template: %<path>p %%>", path: path)
   end

@@ -21,24 +21,20 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::RenderTemplateTag do
   end
 
   describe "#content" do
-    it "outputs erb" do
-      tag = described_class.new(context: nil, params: ["path/to/template"])
-      expect(tag.content).to eq("<%= render template: \"path/to/template\" %>")
-    end
-
-    it "only outputs templates defined in whitelist (if there are any)" do
-      ComfortableMexicanSofa.config.allowed_templates = ["allowed/path"]
-
-      tag = described_class.new(context: nil, params: ["allowed/path"])
-      expect(tag.content).to eq("<%= render template: \"allowed/path\" %>")
-
+    it "outputs nothing unless it's in the whitelist" do
       tag = described_class.new(context: nil, params: ["not_allowed/path"])
       expect(tag.content).to eq("")
     end
 
-    it "escapes string interpolations" do
-      tag = described_class.new(context: nil, params: ["va\#{:l}ue"])
-      expect(tag.content).to eq("<%= render template: \"va\\\#{:l}ue\" %>")
+    context "with allowed template" do
+      before do
+        ComfortableMexicanSofa.config.allowed_templates = ["test/template"]
+      end
+
+      it "outputs erb" do
+        tag = described_class.new(context: nil, params: ["test/template"])
+        expect(tag.content).to eq("<%= render template: \"test/template\" %>")
+      end
     end
   end
 

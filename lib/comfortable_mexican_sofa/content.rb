@@ -26,11 +26,4 @@ require_relative "content/tag/snippet_tag"
 require_relative "content/tag/layout_asset_tag"
 require_relative "content/tag/render_template_tag"
 require_relative "content/tag/render_partial_tag"
-
-
-
-#
-#
-#
-
-# require_relative "content/tags/helper"
+require_relative "content/tag/helper_tag"
