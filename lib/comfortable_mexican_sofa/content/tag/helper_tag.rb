@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-# Tag for injecting view helpers. Example tag:
+# NOTE: ComfortableMexicanSofa.config.allowed_helpers controls what view helpers are available.
+# By default, no helpers may be used.
+#
+#  Example tag:
 #   {{cms:helper method_name, param_a, param_b, foo: bar}}
+#
 # This expands into something like this:
-#   <%= method_name("param_a", "param_b", "foo" => "bar") %>
-# Whitelist is can be used to control what helpers are available.
-# By default there's a blacklist of methods that should not be called.
+#   <%= method_name("param_a", "param_b", { "foo" => "bar" }) %>
 #
 class ComfortableMexicanSofa::Content::Tag::HelperTag < ComfortableMexicanSofa::Content::Tag
   attr_reader :method_name

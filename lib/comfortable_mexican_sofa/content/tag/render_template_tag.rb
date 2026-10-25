@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-# Tag for injecting template rendering. Example tag:
+# NOTE: ComfortableMexicanSofa.config.allowed_templates controls what templates can be rendered.
+# By default, no templates can be rendered.
+#
+# Example tag:
 #   {{ cms:render_template template/path }}
+#
 # This expands into something like this:
 #   <%= render template: "template/path" %>
 #
-# ComfortableMexicanSofa.config.allowed_templates can be used to control what templates are available.
-#
 class ComfortableMexicanSofa::Content::Tag::RenderTemplateTag < ComfortableMexicanSofa::Content::Tag
-
   attr_reader :path
 
   def initialize(context:, params: [], source: nil)
