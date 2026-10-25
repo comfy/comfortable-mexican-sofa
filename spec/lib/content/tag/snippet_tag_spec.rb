@@ -3,8 +3,6 @@
 require "rails_helper"
 
 RSpec.describe ComfortableMexicanSofa::Content::Tag::SnippetTag do
-  include ActionView::TestCase::Behavior
-
   let(:page)    { comfy_cms_pages(:default) }
   let(:snippet) { comfy_cms_snippets(:default) }
 
