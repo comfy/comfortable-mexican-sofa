@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Layout < ActiveRecord::Base
-
+class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
   self.table_name = "comfy_cms_layouts"
 
   cms_acts_as_tree
@@ -18,8 +17,8 @@ class Comfy::Cms::Layout < ActiveRecord::Base
   after_destroy :clear_page_content_cache
 
   # -- Validations -------------------------------------------------------------
-  validates :site_id,
-    presence:   true
+
+
   validates :label,
     presence:   true
   validates :identifier,

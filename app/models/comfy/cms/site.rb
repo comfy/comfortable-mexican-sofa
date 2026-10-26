@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Site < ActiveRecord::Base
+class Comfy::Cms::Site < Comfy::Cms::ApplicationRecord
 
   self.table_name = "comfy_cms_sites"
 

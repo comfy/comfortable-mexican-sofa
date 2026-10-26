@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Fragment < ActiveRecord::Base
+class Comfy::Cms::Fragment < Comfy::Cms::ApplicationRecord
 
   self.table_name = "comfy_cms_fragments"
 

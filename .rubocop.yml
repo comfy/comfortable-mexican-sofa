@@ -51,6 +51,9 @@ Style/GuardClause:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
 # -- Metrics ------------------------------------------------------------------
 Metrics/MethodLength:
   Enabled: false
