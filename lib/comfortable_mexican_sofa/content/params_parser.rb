@@ -2,18 +2,19 @@
 
 require "strscan"
 
+# This class is responsible for tokenizing params found in cms tags
+#
 class ComfortableMexicanSofa::Content::ParamsParser
-
   class Error < StandardError; end
 
-  STRING_LITERAL  = %r{'[^']*'|"[^"]*"}
-  IDENTIFIER      = %r{[a-z0-9][\w\-/.]*}i
-  HASH_KEY        = %r{#{IDENTIFIER}:}
-  COMMA           = %r{,}
-  HASH_OPEN       = %r{\{}
-  HASH_CLOSE      = %r{\}}
-  ARRAY_OPEN      = %r{\[}
-  ARRAY_CLOSE     = %r{\]}
+  STRING_LITERAL = /'[^']*'|"[^"]*"/
+  IDENTIFIER     = %r{[a-z0-9][\w\-/.]*}i
+  HASH_KEY       = /#{IDENTIFIER}:/
+  COMMA          = /,/
+  HASH_OPEN      = /\{/
+  HASH_CLOSE     = /\}/
+  ARRAY_OPEN     = /\[/
+  ARRAY_CLOSE    = /\]/
 
   # @param <String> string
   def initialize(string = "")
@@ -127,7 +128,7 @@ private
     ss = StringScanner.new(args_string)
     tokens = []
     loop do
-      ss.skip(%r{\s*})
+      ss.skip(/\s*/)
       break if ss.eos?
 
       # commas are just separators like spaces
@@ -148,5 +149,4 @@ private
 
     tokens
   end
-
 end

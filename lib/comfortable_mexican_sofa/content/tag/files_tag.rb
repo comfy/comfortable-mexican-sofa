@@ -13,7 +13,6 @@
 # `resize_and_pad`  - same
 #
 class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::Content::FragmentTag
-
   include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
   MULTIPLE = true

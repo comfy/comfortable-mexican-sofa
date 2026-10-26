@@ -11,7 +11,6 @@
 #     Just a string that allows grouping of form elements in the admin area
 #
 class ComfortableMexicanSofa::Content::FragmentTag < ComfortableMexicanSofa::Content::Tag
-
   attr_accessor :renderable
 
   attr_reader :identifier, :namespace
@@ -22,7 +21,7 @@ class ComfortableMexicanSofa::Content::FragmentTag < ComfortableMexicanSofa::Con
 
     @identifier = params[0]
 
-    unless @identifier.present?
+    if @identifier.blank?
       raise Error, "Missing identifier for fragment tag: #{source}"
     end
 
@@ -64,5 +63,4 @@ class ComfortableMexicanSofa::Content::FragmentTag < ComfortableMexicanSofa::Con
   def form_field_id
     "fragment-#{@identifier}"
   end
-
 end

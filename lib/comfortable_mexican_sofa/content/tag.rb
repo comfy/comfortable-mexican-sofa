@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+# Base class for all the cms tags
+#
 class ComfortableMexicanSofa::Content::Tag
-
   class Error < StandardError; end
 
   # Usually a page object

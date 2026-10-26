@@ -15,14 +15,13 @@ require "strscan"
 #                   Resulting list is flattened and joined into a final rendered string.
 #
 class ComfortableMexicanSofa::Content::Renderer
-
   class SyntaxError < StandardError; end
   class Error < StandardError; end
 
   MAX_DEPTH = 100
 
   # tags are in this format: {{ cms:tag_class params }}
-  TAG_REGEX = %r{\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}}
+  TAG_REGEX = /\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}/
 
   # @return [Hash<String, Class<ComfortableMexicanSofa::Content::Tag>>]
   def self.tags
@@ -59,7 +58,7 @@ class ComfortableMexicanSofa::Content::Renderer
         nodes   = nodes(tokens)
         render(nodes, allow_erb || node.allow_erb?)
       end
-    end.flatten.join
+    end.join
   end
 
   def sanitize_erb(string, allow_erb:)

@@ -2,9 +2,8 @@
 
 # A mixin for tags that returns the file as their content.
 module ComfortableMexicanSofa::Content::Tag::FileContentMixin
-
   # When resizing let's not allow gigantic dimensions
-  MAX_VARIANT_DIMENSION = 2500.freeze
+  MAX_VARIANT_DIMENSION = 2500
 
   attr_reader :as, :label, :html_class, :filename
 
@@ -46,7 +45,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
       case as
       when "link"
-        helpers.link_to(file_label, file_url, class: html_class, target: "_blank")
+        helpers.link_to(file_label, file_url, class: html_class, target: "_blank", rel: "noopener")
       when "image"
         helpers.image_tag(file_url, class: html_class, alt: file_label)
       else
@@ -62,7 +61,7 @@ module ComfortableMexicanSofa::Content::Tag::FileContentMixin
     key, value = @variant_options&.first
     return {} unless key && value
 
-    x, y = value.split("x").map(&:to_i).map{ [_1, MAX_VARIANT_DIMENSION].min }
+    x, y = value.split("x").map(&:to_i).map { [it, MAX_VARIANT_DIMENSION].min }
     return {} unless x.positive? && y.positive?
 
     { key.to_sym => [x, y] }

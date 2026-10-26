@@ -7,18 +7,24 @@ plugins:
 AllCops:
   NewCops: enable
   Include:
+    - "lib/comfortable_mexican_sofa/content/**/*"
     - "spec/**/*.rb"
   Exclude:
     - "vendor/**/*"
     - "vendor/bundle/**/*"
     - "spec/fixtures/**/*"
 
+# -- Rails --------------------------------------------------------------------
 Rails/SkipsModelValidations:
   Enabled: false
 
 Rails/I18nLocaleAssignment:
   Enabled: false
 
+Rails/Delegate:
+  Enabled: false
+
+# -- Layout -------------------------------------------------------------------
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
@@ -26,12 +32,39 @@ Layout/HashAlignment:
   EnforcedColonStyle: table
   EnforcedHashRocketStyle: table
 
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+# -- Style --------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/ArgumentsForwarding:
   Enabled: false
 
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# -- Metrics ------------------------------------------------------------------
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+# -- RSpec --------------------------------------------------------------------
 RSpec/MultipleExpectations:
   Enabled: false
 

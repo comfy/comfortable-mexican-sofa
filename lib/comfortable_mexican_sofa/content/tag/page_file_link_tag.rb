@@ -23,7 +23,6 @@
 # `resize_and_pad`  - same
 #
 class ComfortableMexicanSofa::Content::Tag::PageFileLinkTag < ComfortableMexicanSofa::Content::Tag
-
   include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
   attr_reader :identifier
@@ -34,7 +33,7 @@ class ComfortableMexicanSofa::Content::Tag::PageFileLinkTag < ComfortableMexican
 
     @identifier = params[0]
 
-    unless @identifier.present?
+    if @identifier.blank?
       raise Error, "Missing identifier for tag: #{source}"
     end
   end

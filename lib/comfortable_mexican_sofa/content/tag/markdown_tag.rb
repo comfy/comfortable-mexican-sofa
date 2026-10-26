@@ -5,7 +5,6 @@
 #   {{ cms:markdown identifier }}
 #
 class ComfortableMexicanSofa::Content::Tag::MarkdownTag < ComfortableMexicanSofa::Content::FragmentTag
-
   def render
     renderable ? Commonmarker.to_html(content.to_s) : ""
   end

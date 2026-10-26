@@ -5,7 +5,6 @@
 #   {{ cms:date identifier }}
 #
 class ComfortableMexicanSofa::Content::Tag::DateTag < ComfortableMexicanSofa::Content::Tag::DatetimeTag
-
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][datetime]"
     options = { id: form_field_id, class: "form-control", data: { "cms-date" => true } }
@@ -14,7 +13,6 @@ class ComfortableMexicanSofa::Content::Tag::DateTag < ComfortableMexicanSofa::Co
 
     yield input
   end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

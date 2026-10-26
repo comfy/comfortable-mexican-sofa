@@ -7,7 +7,6 @@
 #   {{ cms:site_file_link filename, as: image }}
 #
 class ComfortableMexicanSofa::Content::Tag::SiteFileLinkTag < ComfortableMexicanSofa::Content::Tag
-
   include ComfortableMexicanSofa::Content::Tag::FileContentMixin
 
   # This class does not inherit from the FragmentTag, so we need to copy some things
@@ -16,7 +15,7 @@ class ComfortableMexicanSofa::Content::Tag::SiteFileLinkTag < ComfortableMexican
 
     @filename = params[0]
 
-    unless @filename.present?
+    if @filename.blank?
       raise Error, "Missing filename for tag: #{source}"
     end
   end

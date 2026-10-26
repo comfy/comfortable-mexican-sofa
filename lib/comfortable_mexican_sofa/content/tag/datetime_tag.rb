@@ -7,7 +7,6 @@
 # `strftime` - Format datetime string during rendering
 #
 class ComfortableMexicanSofa::Content::Tag::DatetimeTag < ComfortableMexicanSofa::Content::FragmentTag
-
   attr_reader :strftime
 
   def initialize(context:, params: [], source: nil)
@@ -37,7 +36,6 @@ class ComfortableMexicanSofa::Content::Tag::DatetimeTag < ComfortableMexicanSofa
 
     yield input
   end
-
 end
 
 ComfortableMexicanSofa::Content::Renderer.register_tag(

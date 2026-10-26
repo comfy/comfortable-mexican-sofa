@@ -5,7 +5,6 @@
 #   {{ cms:checkbox identifier }}
 #
 class ComfortableMexicanSofa::Content::Tag::CheckboxTag < ComfortableMexicanSofa::Content::FragmentTag
-
   def content
     fragment.boolean
   end

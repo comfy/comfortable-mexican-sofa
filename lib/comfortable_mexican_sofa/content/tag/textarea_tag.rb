@@ -5,7 +5,6 @@
 #   {{ cms:textarea identifier }}
 #
 class ComfortableMexicanSofa::Content::Tag::TextareaTag < ComfortableMexicanSofa::Content::FragmentTag
-
   def form_field(object_name, view, index)
     name    = "#{object_name}[fragments_attributes][#{index}][content]"
     options = { id: form_field_id, data: { "cms-cm-mode" => "text/html" } }
