@@ -24,19 +24,15 @@ class ComfortableMexicanSofa::Content::Renderer
   # tags are in this format: {{ cms:tag_class params }}
   TAG_REGEX = %r{\{\{\s*?cms:(?<class>\w+)(?<params>.*?)\}\}}
 
-  class << self
+  # @return [Hash<String, Class<ComfortableMexicanSofa::Content::Tag>>]
+  def self.tags
+    @tags ||= {}
+  end
 
-    # @return [Hash<String, Class<ComfortableMexicanSofa::Content::Tag>>]
-    def tags
-      @tags ||= {}
-    end
-
-    # @param [String] name
-    # @param [Class<ComfortableMexicanSofa::Content::Tag>] klass
-    def register_tag(name, klass)
-      tags[name.to_s] = klass
-    end
-
+  # @param [String] name
+  # @param [Class<ComfortableMexicanSofa::Content::Tag>] klass
+  def self.register_tag(name, klass)
+    tags[name.to_s] = klass
   end
 
   # @param [Comfy::Cms::WithFragments, nil] context
@@ -57,7 +53,7 @@ class ComfortableMexicanSofa::Content::Renderer
     nodes.map do |node|
       case node
       when String
-        sanitize_erb(node, allow_erb)
+        sanitize_erb(node, allow_erb: allow_erb)
       else
         tokens  = tokenize(node.render)
         nodes   = nodes(tokens)
@@ -66,7 +62,7 @@ class ComfortableMexicanSofa::Content::Renderer
     end.flatten.join
   end
 
-  def sanitize_erb(string, allow_erb)
+  def sanitize_erb(string, allow_erb:)
     if allow_erb
       string.to_s
     else
@@ -99,46 +95,27 @@ class ComfortableMexicanSofa::Content::Renderer
   # @param [Array<String, {Symbol => String}>] tokens
   # @return [Array<String, ComfortableMexicanSofa::Content::Tag>]
   def nodes(tokens)
-    nodes = [[]]
-    tokens.each do |token|
+    tokens.map do |token|
       case token
 
       # tag signature
       when Hash
-        case tag_class = token[:tag_class]
+        # @type [Class<ComfortableMexicanSofa::Content::Tag>]
+        klass =
+          self.class.tags[token[:tag_class]] ||
+          raise(SyntaxError, "Unrecognized tag: #{token[:source]}")
 
-        # This handles {{cms:end}} tag. Stopping collecting block nodes.
-        when "end"
-          if nodes.count == 1
-            raise SyntaxError, "closing unopened block"
-          end
-          nodes.pop
-
-        else
-          # @type [Class<ComfortableMexicanSofa::Content::Tag>]
-          klass = self.class.tags[tag_class] ||
-            raise(SyntaxError, "Unrecognized tag: #{token[:source]}")
-
-          # @type [ComfortableMexicanSofa::Content::Tag]
-          tag = klass.new(
-            context:  @context,
-            params:   ComfortableMexicanSofa::Content::ParamsParser.new(token[:tag_params]).params,
-            source:   token[:source]
-          )
-          nodes.last << tag
-        end
+        # @type [ComfortableMexicanSofa::Content::Tag]
+        klass.new(
+          context: @context,
+          params:  ComfortableMexicanSofa::Content::ParamsParser.new(token[:tag_params]).params,
+          source:  token[:source]
+        )
 
       # text
       else
-        nodes.last << token
+        token
       end
     end
-
-    if nodes.count > 1
-      raise SyntaxError, "unclosed block detected"
-    end
-
-    nodes.flatten
   end
-
 end

@@ -38,6 +38,9 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/SpecFilePathFormat:
   CustomTransform:
     ComfortableMexicanSofa: lib

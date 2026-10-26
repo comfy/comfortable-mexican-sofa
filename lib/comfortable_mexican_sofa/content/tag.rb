@@ -20,11 +20,11 @@ class ComfortableMexicanSofa::Content::Tag
   # @param [Array<String, {String => String}>] params
   # @param [String, nil] source
   def initialize(context:, params: [], source: nil)
-    @options  = params.extract_options!
+    @options = params.extract_options!
 
-    @context  = context
-    @params   = params
-    @source   = source
+    @context = context
+    @params  = params
+    @source  = source
   end
 
   # Making sure we don't leak erb from tags by accident.
