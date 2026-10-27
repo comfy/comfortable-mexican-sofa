@@ -4,58 +4,65 @@ class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
   self.table_name = "comfy_cms_layouts"
 
   cms_acts_as_tree
+
   cms_has_revisions_for :content, :css, :js
 
   # -- Relationships --------------------------------------------------------
   belongs_to :site
+
   has_many :pages, dependent: :nullify
 
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
-  after_save    :clear_page_content_cache
-  after_destroy :clear_page_content_cache
+  before_destroy :clear_page_content_cache, prepend: true
+  after_save     :clear_page_content_cache
 
   # -- Validations -------------------------------------------------------------
 
-
-  validates :label,
-    presence:   true
+  validates :label, presence: true
   validates :identifier,
-    presence:   true,
-    uniqueness: { scope: :site_id },
-    format:     { with: %r{\A\w[a-z0-9_-]*\z}i }
+            presence:   true,
+            uniqueness: { scope: :site_id },
+            format:     { with: /\A\w[a-z0-9_-]*\z/i }
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts
   def self.options_for_select(site, current_layout = nil)
-    options = []
-
-    options_for_layout = ->(layout, depth = 0) do
+    options_for_layout = lambda do |layout, depth = 0|
       return if layout == current_layout
 
-      options << ["#{'. . ' * depth}#{layout.label}", layout.id]
+      current_option = [["#{'. . ' * depth}#{layout.label}", layout.id]]
 
-      layout.children.order(:position).each do |child_layout|
-        options_for_layout.call(child_layout, depth + 1)
-      end
+      children_options =
+        layout.children.order(:position).flat_map do |child_layout|
+          options_for_layout.call(child_layout, depth + 1)
+        end
+
+      current_option + children_options
     end
 
-    site.layouts.roots.order(:position).each do |layout|
-      options_for_layout.call(layout)
+    site.layouts.roots.order(:position).flat_map do |root_layout|
+      options_for_layout.call(root_layout)
     end
-
-    options
   end
 
   # List of available application layouts
   def self.app_layouts_for_select(view_paths)
-    view_paths.map(&:to_s).select { |path| path.start_with?(Rails.root.to_s) }.flat_map do |full_path|
-      Dir.glob("#{full_path}/layouts/**/*.html.*").collect do |filename|
-        filename.gsub!("#{full_path}/layouts/", "")
-        filename.split("/").last[0...1] == "_" ? nil : filename.split(".").first
-      end.compact.sort
-    end.compact.uniq.sort
+    local_paths = view_paths.map(&:to_s).select { |path| path.start_with?(Rails.root.to_s) }
+
+    local_paths.flat_map do |layouts_dir|
+      layout_files = Dir.glob(File.join(layouts_dir, "layouts", "**", "*.html.*"))
+
+      layout_files.filter_map do |file_path|
+        relative_path = file_path.sub("#{layouts_dir}/layouts/", "")
+        filename = File.basename(relative_path)
+
+        next if filename.start_with?("_")
+
+        relative_path.split(".").first
+      end
+    end.uniq.sort
   end
 
   # -- Instance Methods --------------------------------------------------------
@@ -67,15 +74,17 @@ class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
     tokens    = renderer.tokenize(content)
 
     if parent
-      fragment_tags = ComfortableMexicanSofa::Content::Tag::Fragment.subclasses.map do |c|
-        ComfortableMexicanSofa::Content::Renderer.tags.key(c)
-      end
+      fragment_tags =
+        ComfortableMexicanSofa::Content::FragmentTag.subclasses.map do |c|
+          ComfortableMexicanSofa::Content::Renderer.tags.key(c)
+        end
 
       parent_tokens = parent.content_tokens
+
       replacement_position = parent_tokens.index do |n|
         n.is_a?(Hash) &&
-        fragment_tags.member?(n[:tag_class]) &&
-        n[:tag_params].split(%r{\s}).first == "content"
+          fragment_tags.member?(n[:tag_class]) &&
+          n[:tag_params].split(/\s/).first == "content"
       end
 
       if replacement_position
@@ -100,13 +109,15 @@ class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
 protected
 
   def assign_label
-    self.label = label.blank? ? identifier.try(:titleize) : label
+    return if identifier.blank? || label.present?
+
+    self.label = identifier.titleize
   end
 
   def assign_position
     return if position.to_i.positive?
+
     max = site.layouts.where(parent_id: parent_id).maximum(:position)
     self.position = max ? max + 1 : 0
   end
-
 end
