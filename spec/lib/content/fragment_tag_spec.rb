@@ -47,7 +47,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FragmentTag do
   describe "#content" do
     it "returns content for existing fragment" do
       tag = described_class.new(context: page, params: ["content"])
-      expect(tag.content).to eq("fragment content")
+      expect(tag.content).to eq("fragment content {{cms:snippet default}}")
     end
 
     it "returns content for new fragment" do
@@ -59,7 +59,7 @@ RSpec.describe ComfortableMexicanSofa::Content::FragmentTag do
   describe "#render" do
     it "outputs tag content" do
       tag = described_class.new(context: page, params: ["content"])
-      expect(tag.render).to eq("fragment content")
+      expect(tag.render).to eq("fragment content {{cms:snippet default}}")
     end
 
     it "outputs nothing if not renderable" do
