@@ -82,7 +82,7 @@ class CreateCms < ActiveRecord::Migration[8.0]
       t.index [:datetime]
       t.index [:boolean]
 
-      t.index [:record_type, :record_id, :identifier], unique: true
+      t.index %i[identifier record_type record_id], unique: true
     end
 
     # -- Snippets --------------------------------------------------------------

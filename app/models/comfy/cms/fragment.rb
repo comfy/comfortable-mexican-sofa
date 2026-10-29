@@ -3,55 +3,32 @@
 class Comfy::Cms::Fragment < Comfy::Cms::ApplicationRecord
   self.table_name = "comfy_cms_fragments"
 
-  has_many_attached :attachments
+  has_many_attached :attachments, dependent: :purge_later
 
   serialize :content, coder: JSON, comparable: true
-
-  attr_reader :files
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :record, polymorphic: true, touch: true
 
-  # -- Callbacks ---------------------------------------------------------------
-  before_save :remove_attachments
-  before_save :add_attachments
-
   # -- Validations -------------------------------------------------------------
-  validates :identifier, presence: true, uniqueness: { scope: :record }
+  validates :identifier,
+            presence:   true,
+            uniqueness: { scope: %i[record_type record_id] }
 
   # -- Instance Methods --------------------------------------------------------
+  # Not allowing direct assignment as has_many_attached will replace things
+  # unless you also pass in signed_ids. This keeps things simple and working.
+  def files=(incoming_files)
+    incoming_files = Array.wrap(incoming_files).compact
+    return if incoming_files.blank?
 
-  # Temporary accessor for uploaded files. We can only attach to persisted
-  # records so we are deffering it to the after_save callback.
-  # Note: hijacking dirty tracking to force trigger callbacks later.
-  def files=(files)
-    @files = [files].flatten.compact
-    content_will_change! if @files.present?
+    attachments.attach(incoming_files)
   end
 
   def file_ids_destroy=(ids)
-    @file_ids_destroy = [ids].flatten.compact
-    content_will_change! if @file_ids_destroy.present?
+    ids = Array.wrap(ids).compact
+    return if ids.blank?
+
+    attachments.where(id: ids).find_each(&:purge_later)
   end
-
-protected
-
-  def remove_attachments
-    return if @file_ids_destroy.blank?
-
-    attachments.where(id: @file_ids_destroy).destroy_all
-  end
-
-  def add_attachments
-    return if @files.blank?
-
-    # If we're dealing with a single file
-    if tag == "file"
-      @files = [@files.first]
-      attachments&.purge_later
-    end
-
-    attachments.attach(@files)
-  end
-
 end
