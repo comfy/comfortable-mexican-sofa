@@ -1,4 +1,4 @@
-class CreateCms < ActiveRecord::Migration[5.2]
+class CreateCms < ActiveRecord::Migration[8.0]
 
   LIMIT = 16777215
 
@@ -81,6 +81,8 @@ class CreateCms < ActiveRecord::Migration[5.2]
       t.index [:identifier]
       t.index [:datetime]
       t.index [:boolean]
+
+      t.index [:record_type, :record_id, :identifier], unique: true
     end
 
     # -- Snippets --------------------------------------------------------------

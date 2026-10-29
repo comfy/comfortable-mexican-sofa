@@ -18,7 +18,7 @@ class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::C
   MULTIPLE = true
 
   def form_field(object_name, view, index)
-    name  = "#{object_name}[fragments_attributes][#{index}][files]"
+    name  = "#{object_name}[fragments_attributes][#{index}][files][]"
     input = view.send(:file_field_tag, name, id: form_field_id, multiple: self.class::MULTIPLE, class: "form-control")
 
     component = Comfy::Cms::FormFragmentFilesComponent.new(
