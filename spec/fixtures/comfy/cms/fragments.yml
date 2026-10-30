@@ -3,7 +3,7 @@ default:
   identifier: content
   tag: text
   content: >
-    "fragment content {{cms:snippet default}}"
+    "fragment-content {{cms:snippet default}}"
 
 file:
   record: default (Comfy::Cms::Page)
@@ -29,4 +29,4 @@ translation:
   record: default (Comfy::Cms::Translation)
   identifier: content
   tag: text
-  content: translated content
+  content: translated-content

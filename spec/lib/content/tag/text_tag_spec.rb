@@ -25,7 +25,7 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::TextTag do
       output = tag.form_field("object_name", view, 0, &:itself)
       expect(Capybara.string(output)).to have_selector(
         :element, "input",
-        value: "fragment content {{cms:snippet default}}",
+        value: "fragment-content {{cms:snippet default}}",
         type:  "text",
         name:  "object_name[fragments_attributes][0][content]",
         id:    "fragment-content",

@@ -46,14 +46,14 @@ RSpec.describe Comfy::Cms::Snippet do
       let(:page) { comfy_cms_pages(:default) }
 
       it "clears all page caches on update" do
-        expect(page.content_cache).to eq("fragment content snippet content")
+        expect(page.content_cache).to eq("fragment-content snippet-content")
         snippet.update!(content: "Updated")
-        expect(page.reload.content_cache).to eq("fragment content Updated")
+        expect(page.reload.content_cache).to eq("fragment-content Updated")
       end
 
       it "clears all page caches on destroy" do
         snippet.destroy
-        expect(page.reload.content_cache).to eq("fragment content ")
+        expect(page.reload.content_cache).to eq("fragment-content ")
       end
     end
   end

@@ -4,7 +4,7 @@ class Comfy::Cms::Translation < Comfy::Cms::ApplicationRecord
 
   self.table_name = "comfy_cms_translations"
 
-  include Comfy::Cms::WithFragments
+  include Comfy::Cms::WithFragmentsConcern
 
   cms_has_revisions_for :fragments_attributes
 

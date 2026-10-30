@@ -26,7 +26,7 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::SnippetTag do
   describe "#content" do
     it "outputs snippet content" do
       tag = described_class.new(context: page, params: [snippet.identifier])
-      expect(tag.content).to eq("snippet content")
+      expect(tag.content).to eq("snippet-content")
     end
 
     it "outputs nothing if snippet not found" do

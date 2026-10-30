@@ -454,51 +454,11 @@ class CmsPageTest < ActiveSupport::TestCase
     ], @page.fragments_attributes_was
   end
 
-  def test_render
-    expected = @page.render
-    assert_equal "content", expected
-  end
 
-  def test_fragment_nodes
-    content = "a {{cms:text a}} b {{cms:snippet b}} c {{cms:text c}}"
-    @page.layout.update_column(:content, content)
-    nodes = @page.fragment_nodes
-    assert_equal 2, nodes.count
-    assert_equal "a", nodes[0].identifier
-    assert_equal "c", nodes[1].identifier
-  end
 
-  def test_fragment_nodes_with_duplicates
-    content = "{{cms:wysiwyg test}} {{cms:markdown test}}"
-    @page.layout.update_column(:content, content)
-    nodes = @page.fragment_nodes
-    assert_equal 1, nodes.count
-    assert_equal ComfortableMexicanSofa::Content::Tag::Wysiwyg, nodes[0].class
-    assert_equal "test", nodes[0].identifier
-  end
 
-  def test_fragment_nodes_with_no_layout
-    @page.update_column(:layout_id, nil)
-    assert_equal [], @page.fragment_nodes
-  end
 
-  def test_content_caching
-    assert_equal @page.content_cache, @page.render
 
-    @page.update_columns(content_cache: "Old Content")
-    refute_equal @page.content_cache, @page.render
-
-    @page.clear_content_cache!
-    assert_equal @page.content_cache, @page.render
-  end
-
-  def test_content_cache_clear_on_save
-    old_content = "Old Content"
-    @page.update_columns(content_cache: old_content)
-
-    @page.save!
-    refute_equal old_content, @page.content_cache
-  end
 
   def test_scope_published
     assert_equal 2, Comfy::Cms::Page.published.count

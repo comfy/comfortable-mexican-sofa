@@ -35,6 +35,9 @@ Layout/HashAlignment:
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
 # -- Style --------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes

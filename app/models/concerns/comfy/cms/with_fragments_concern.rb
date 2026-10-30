@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-module Comfy::Cms::WithFragments
-
+module Comfy::Cms::WithFragmentsConcern
   extend ActiveSupport::Concern
 
   included do
@@ -17,26 +16,24 @@ module Comfy::Cms::WithFragments
       dependent:  :destroy
 
     before_save :clear_content_cache
-
-    validates :layout,
-      presence: true
   end
 
   # Array of fragment hashes in the following format:
   #   [
-  #     {identifier: "frag_a", format: "text", content: "fragment a content"},
-  #     {identifier: "frag_b", format: "file", files: [{file_a}, {file_b}]}
+  #     { identifier: "frag_a", format: "text", content: "fragment a content" },
+  #     { identifier: "frag_b", format: "file", files: [{file_a}, {file_b}] }
   #   ]
-  # It also handles when frag hashes come in as a hash:
+  # It also handles when frag hashes come in as a hash (what comes from the controller):
   #   {
-  #     "0" => {identifer: "foo", content: "bar"},
-  #     "1" => {identifier: "bar", content: "foo"}
+  #     "0" => { identifer: "foo", content: "bar" },
+  #     "1" => { identifier: "bar", content: "foo" }
   #   }
+  #
   def fragments_attributes=(frag_hashes = [])
     frag_hashes = frag_hashes.values if frag_hashes.is_a?(Hash)
 
     frag_hashes.each do |frag_attrs|
-      unless frag_attrs.is_a?(HashWithIndifferentAccess)
+      unless frag_attrs.is_a?(ActiveSupport::HashWithIndifferentAccess)
         frag_attrs.symbolize_keys!
       end
 
@@ -92,11 +89,15 @@ module Comfy::Cms::WithFragments
   # If content_cache column is populated we don't need to call render for this
   # page.
   def content_cache
-    if (cache = read_attribute(:content_cache)).nil?
-      cache = render
-      update_column(:content_cache, cache) unless new_record?
+    if (current_cache = super).present?
+      return current_cache
     end
-    cache
+
+    fresh_content = render
+
+    update_column(:content_cache, fresh_content) unless new_record?
+
+    fresh_content
   end
 
   # Nuking content cache so it can be regenerated.

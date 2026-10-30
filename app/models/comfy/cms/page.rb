@@ -4,7 +4,7 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   self.table_name = "comfy_cms_pages"
 
-  include Comfy::Cms::WithFragments
+  include Comfy::Cms::WithFragmentsConcern
   include Comfy::Cms::WithCategories
 
   cms_acts_as_tree counter_cache: :children_count, order: :position
