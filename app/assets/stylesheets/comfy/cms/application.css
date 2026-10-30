@@ -1,0 +1,18 @@
+@import "./components/form_fragment_files_component.css";
+
+body#comfy {
+  /* -- Color swatches -- */
+  --gray-50:  oklch(.985 .002 247.839);
+  --gray-100: oklch(.968 .007 247.896);
+  --gray-200: oklch(.928 .006 264.531);
+  --gray-300: oklch(.869 .022 252.894);
+  --gray-400: oklch(.707 .022 261.325);
+  --gray-500: oklch(.551 .027 264.364);
+  --red-500:  oklch(.637 .237 25.331);
+
+  /* -- Typography -- */
+  --font-size-sm:   0.875rem;
+  --line-height-sm: 1.25rem;
+  --font-size-xs:   0.75rem;
+  --line-height-xs: 1rem;
+}

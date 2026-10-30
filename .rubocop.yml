@@ -1,81 +1,49 @@
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-capybara
+
 AllCops:
-  TargetRubyVersion: 2.3
+  NewCops: enable
+  Include:
+    - "lib/comfortable_mexican_sofa/content/**/*"
+    - "spec/**/*.rb"
   Exclude:
-    - bin/*
-    - db/schema.rb
-    - db/migrate/**/*
-    - test/fixtures/**/*
-    - tmp/**/*
+    - "vendor/**/*"
+    - "vendor/bundle/**/*"
+    - "spec/fixtures/**/*"
 
-# -- Performance ---------------------------------------------------------------
-Performance/Casecmp:
+# -- Rails --------------------------------------------------------------------
+Rails/SkipsModelValidations:
   Enabled: false
 
-# -- Metrics -------------------------------------------------------------------
-Metrics/PerceivedComplexity:
+Rails/I18nLocaleAssignment:
   Enabled: false
 
-Metrics/MethodLength:
+Rails/Delegate:
   Enabled: false
 
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ParameterLists:
-  Enabled: false
-
-Metrics/LineLength:
-  Max: 120
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-# -- Layout --------------------------------------------------------------------
-Layout/MultilineOperationIndentation:
-  Enabled: false
-
+# -- Layout -------------------------------------------------------------------
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Layout/MultilineHashBraceLayout:
-  Enabled: false
-
-Layout/IndentArray:
-  EnforcedStyle: consistent
-
-Layout/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines_except_namespace
-
-Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Enabled: false
-
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines_except_namespace
-
-Layout/AlignParameters:
-  Enabled: false
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
-# -- Style ---------------------------------------------------------------------
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+# -- Style --------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/RegexpLiteral:
-  EnforcedStyle: percent_r
-
-Style/Lambda:
-  EnforcedStyle: literal
+Style/ArgumentsForwarding:
+  Enabled: false
 
 Style/IfUnlessModifier:
   Enabled: false
@@ -83,18 +51,35 @@ Style/IfUnlessModifier:
 Style/GuardClause:
   Enabled: false
 
-Style/Documentation:
-  Enabled: false
-
-Style/DateTime:
-  Enabled: false
-
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Style/AsciiComments:
+Style/Documentation:
   Enabled: false
 
-# -- Naming --------------------------------------------------------------------
-Naming/UncommunicativeMethodParamName:
+# -- Metrics ------------------------------------------------------------------
+Metrics/MethodLength:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+# -- RSpec --------------------------------------------------------------------
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    ComfortableMexicanSofa: lib

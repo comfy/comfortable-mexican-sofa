@@ -1,0 +1,88 @@
+comfy--cms--form-fragment-files-component {
+  display:    flex;
+  flex-wrap:  wrap;
+  gap:        0.5rem;
+  margin-top: 0.5rem;
+  .attachment {
+    position:    relative;
+    font-size:   var(--font-size-sm);
+    line-height: var(--line-height-sm);
+    align-items: center;
+    display:     flex;
+    align-items: stretch;
+    a {
+      border:           1px solid var(--gray-200);
+      border-radius:    0.25rem 0 0 0.25rem;
+      padding:          0.25rem 0.75rem;
+      background-color: var(--gray-50);
+      color:            var(--gray-500);
+      &:hover, &:focus {
+        text-decoration:  none;
+        background-color: var(--gray-100);
+      }
+      &:hover + .variant-tooltip,
+      &:focus + .variant-tooltip {
+        opacity:    1;
+        visibility: visible;
+        transform:  translateX(50%), translateY(-0.5rem);
+      }
+    }
+    input {
+      display: none;
+      & + label {
+        display:          flex;
+        align-items:      center;
+        padding:          0 0.25rem;
+        border-radius:    0 0.25rem 0.25rem 0;
+        margin:           0;
+        background-color: var(--gray-200);
+        color:            var(--gray-500);
+        svg {
+          height: 16px;
+          width:  16px;
+        }
+      }
+      &:checked + label {
+        color:            white;
+        background-color: var(--red-500);
+      }
+    }
+    .variant-tooltip {
+      background:     var(--gray-50);
+      padding:        0.5rem;
+      border-radius:  0.5rem;
+      border:         1px solid var(--gray-200);
+      position:       absolute;
+      bottom:         100%;
+      left:           50%;
+      transform:      translateX(-50%) translateY(-0.75rem);
+      opacity:        0;
+      visibility:     hidden;
+      pointer-events: none;
+      transition:     opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      img {
+        border-radius: 0.25rem;
+      }
+      &::before {
+        content:      "";
+        position:     absolute;
+        top:          100%;
+        left:         50%;
+        transform:    translateX(-50%);
+        border-width: 11px;
+        border-style: solid;
+        border-color: var(--gray-200) transparent transparent transparent;
+      }
+      &::after {
+        content:      "";
+        position:     absolute;
+        top:          100%;
+        left:         50%;
+        transform:    translateX(-50%);
+        border-width: 10px;
+        border-style: solid;
+        border-color: var(--gray-50) transparent transparent transparent;
+      }
+    }
+  }
+}

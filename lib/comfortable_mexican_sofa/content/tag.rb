@@ -1,25 +1,31 @@
 # frozen_string_literal: true
 
+# Base class for all the cms tags
+#
 class ComfortableMexicanSofa::Content::Tag
-
   class Error < StandardError; end
 
-  # @type [Comfy::Cms::WithFragments]
+  # Usually a page object
   attr_reader :context
 
-  # @type [Array<String, {String => String}>] params
+  # List of strings extracted from the tag signature
   attr_reader :params
 
-  # @type [String, nil] source
+  # Hash options extracted from the params
+  attr_reader :options
+
+  # Usually tag representation used in error messages
   attr_reader :source
 
   # @param [Comfy::Cms::WithFragments] context
   # @param [Array<String, {String => String}>] params
   # @param [String, nil] source
   def initialize(context:, params: [], source: nil)
-    @context  = context
-    @params   = params
-    @source   = source
+    @options = params.extract_options!
+
+    @context = context
+    @params  = params
+    @source  = source
   end
 
   # Making sure we don't leak erb from tags by accident.
@@ -32,8 +38,8 @@ class ComfortableMexicanSofa::Content::Tag
   # we need to expand them and that produces potentially more stuff.
   # @return [Array<String, ComfortableMexicanSofa::Content::Tag>]
   def nodes
-    template  = ComfortableMexicanSofa::Content::Renderer.new(@context)
-    tokens    = template.tokenize(content)
+    template = ComfortableMexicanSofa::Content::Renderer.new(@context)
+    tokens   = template.tokenize(content)
     template.nodes(tokens)
   end
 
@@ -46,5 +52,4 @@ class ComfortableMexicanSofa::Content::Tag
   def render
     content
   end
-
 end

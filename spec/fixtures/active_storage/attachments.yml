@@ -1,0 +1,9 @@
+fragment_file:
+  name: attachments
+  record: file (Comfy::Cms::Fragment)
+  blob: fragment_file
+
+site_file:
+  name: attachment
+  record: default (Comfy::Cms::File)
+  blob: site_file
