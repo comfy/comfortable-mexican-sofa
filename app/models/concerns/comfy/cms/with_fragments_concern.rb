@@ -18,6 +18,20 @@ module Comfy::Cms::WithFragmentsConcern
     before_save :clear_content_cache
   end
 
+  # Snapshop of page fragments data used primarily for saving revisions
+  def fragments_attributes(was: false)
+    keys = %i[identifier tag content datetime boolean]
+
+    fragments.collect do |frag|
+      attributes = {}
+      keys.each do |attribute|
+        attributes[attribute] = frag.public_send(was ? "#{attribute}_was" : attribute)
+      end
+      attributes[:attachments] = frag.attachments.map { |a| a.persisted? ? a.signed_id : nil }
+      attributes
+    end
+  end
+
   # Array of fragment hashes in the following format:
   #   [
   #     { identifier: "frag_a", format: "text", content: "fragment a content" },
@@ -50,24 +64,9 @@ module Comfy::Cms::WithFragmentsConcern
     end
   end
 
-  # Snapshop of page fragments data used primarily for saving revisions
-  def fragments_attributes(was = false)
-    fragments.collect do |frag|
-      attrs = {}
-      %i[identifier tag content datetime boolean].each do |column|
-        attrs[column] = frag.send(was ? "#{column}_was" : column)
-      end
-      # TODO: save files against revision (not on db though)
-      # attrs[:files] = frag.attachments.collect do |a|
-      #   {io: a.download, filename: a.filename.to_s, content_type: a.content_type}
-      # end
-      attrs
-    end
-  end
-
   # Method to collect prevous state of blocks for revisions
   def fragments_attributes_was
-    fragments_attributes(:previous_values)
+    fragments_attributes(was: true)
   end
 
   # Grabbing nodes that we need to render form elements in the admin area
@@ -75,7 +74,7 @@ module Comfy::Cms::WithFragmentsConcern
   # duplicate tags on the layout. That's wierd (but still works).
   def fragment_nodes
     nodes
-      .select { |n| n.is_a?(ComfortableMexicanSofa::Content::FragmentTag) }
+      .grep(ComfortableMexicanSofa::Content::FragmentTag)
       .uniq(&:identifier)
   end
 
@@ -122,5 +121,4 @@ protected
     tokens = layout.content_tokens
     renderer.nodes(tokens)
   end
-
 end
