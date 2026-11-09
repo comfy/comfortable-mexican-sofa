@@ -4,10 +4,13 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   self.table_name = "comfy_cms_pages"
 
+  include Comfy::Cms::ActsAsTreeConcern
   include Comfy::Cms::WithFragmentsConcern
   include Comfy::Cms::WithCategories
 
-  cms_acts_as_tree counter_cache: :children_count, order: :position
+  # acts_as_tree # counter_cache: :children_count, order: :position
+
+  # cms_acts_as_tree counter_cache: :children_count, order: :position
   cms_has_revisions_for :fragments_attributes
 
   attr_accessor :content
@@ -115,7 +118,7 @@ protected
   def assign_parent
     return if site.blank? || parent.present? || self == site.pages.root
 
-    self.parent = site.pages.root
+    self.parent = site.pages.roots.first
   end
 
   def assign_full_path
