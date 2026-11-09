@@ -22,9 +22,9 @@ class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
 
   validates :label, presence: true
   validates :identifier,
-            presence:   true,
-            uniqueness: { scope: :site_id },
-            format:     { with: /\A\w[a-z0-9_-]*\z/i }
+    presence:   true,
+    uniqueness: { scope: :site_id },
+    format:     { with: /\A\w[a-z0-9_-]*\z/i }
 
   # -- Class Methods -----------------------------------------------------------
   # Tree-like structure for layouts

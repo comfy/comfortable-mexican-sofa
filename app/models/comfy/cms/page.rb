@@ -32,11 +32,11 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   # -- Validations -------------------------------------------------------------
   validates :label,
-    presence:   true
+    presence: true
   validates :slug,
     presence:   true,
     uniqueness: { scope: :parent_id },
-    unless:     ->(p) {
+    unless:     -> (p) {
       p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
     }
   validate :validate_target_page
@@ -111,9 +111,11 @@ protected
     self.label = label.blank? ? slug.try(:titleize) : label
   end
 
+  # Assigning parent page in case it wasn't explicitly provided
   def assign_parent
-    return unless site
-    self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count.zero?
+    return if site.blank? || parent.present? || self == site.pages.root
+
+    self.parent = site.pages.root
   end
 
   def assign_full_path

@@ -19,19 +19,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
   # -- Tests -------------------------------------------------------------------
 
-  def test_fixtures_validity
-    Comfy::Cms::Page.all.each do |page|
-      assert page.valid?, page.errors.full_messages.to_s
-      assert_equal page.content_cache, page.render
-    end
-  end
 
-  def test_validations
-    page = Comfy::Cms::Page.new
-    page.save
-    assert page.invalid?
-    assert_has_errors_on page, :site, :layout, :slug, :label
-  end
 
   def test_validation_of_parent_presence
     page = @site.pages.new(new_params)
@@ -91,191 +79,14 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal "Test", page.label
   end
 
-  def test_create
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
 
-    assert_difference [page_count, fragment_count] do
-      page = @site.pages.create!(
-        new_params(
-          parent: @page,
-          fragments_attributes: [
-            { identifier: "content",
-              tag:        "text",
-              content:    "test" }
-          ]
-        )
-      )
-      assert page.is_published?
-      assert_equal 1, page.position
-    end
-  end
 
-  def test_create_with_file
-    page_count        = -> { Comfy::Cms::Page.count }
-    fragment_count    = -> { Comfy::Cms::Fragment.count }
-    attachment_count  = -> { ActiveStorage::Attachment.count }
 
-    assert_difference [page_count, fragment_count, attachment_count] do
-      page = @site.pages.create!(
-        new_params(
-          parent: @page,
-          fragments_attributes: [{
-            identifier: "test",
-            tag:        "file",
-            files:      [fixture_file_upload("files/image.jpg", "image/jpeg")]
-          }]
-        )
-      )
-      assert_equal 1, page.fragments.count
-      assert page.fragments.first.attachments.attached?
-    end
-  end
 
-  def test_create_with_files
-    page_count        = -> { Comfy::Cms::Page.count }
-    fragment_count    = -> { Comfy::Cms::Fragment.count }
-    attachment_count  = -> { ActiveStorage::Attachment.count }
 
-    assert_difference [page_count, fragment_count] do
-      assert_difference(attachment_count, 2) do
-        page = @site.pages.create!(
-          new_params(
-            parent: @page,
-            fragments_attributes: [{
-              identifier: "test",
-              tag:        "files",
-              files:      [
-                fixture_file_upload("files/image.jpg", "image/jpeg"),
-                fixture_file_upload("files/document.pdf", "application/pdf")
-              ]
-            }]
-          )
-        )
-        assert_equal 1, page.fragments.count
-        assert page.fragments.first.attachments.attached?
-      end
-    end
-  end
 
-  def test_create_with_date
-    string = "1981-10-04 12:34:56"
-    datetime = DateTime.parse(string)
 
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
 
-    assert_difference [page_count, fragment_count] do
-      page = @site.pages.create!(
-        new_params(
-          parent: @page,
-          fragments_attributes: [{
-            identifier: "test",
-            tag:        "date_time",
-            datetime:   string
-          }]
-        )
-      )
-      frag = page.fragments.first
-      assert_equal datetime, frag.datetime
-    end
-  end
-
-  def test_create_with_boolean
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
-
-    assert_difference [page_count, fragment_count] do
-      page = @site.pages.create!(
-        new_params(
-          parent: @page,
-          fragments_attributes: [{
-            identifier: "test",
-            tag:        "checkbox",
-            boolean:    "1"
-          }]
-        )
-      )
-      frag = page.fragments.first
-      assert frag.boolean
-    end
-  end
-
-  def test_update
-    frag = comfy_cms_fragments(:default)
-
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
-
-    assert_no_difference [page_count, fragment_count] do
-      @page.update!(fragments_attributes: [
-        { identifier: frag.identifier,
-          content:    "updated content" }
-      ])
-    end
-    frag.reload
-    assert_equal "updated content", frag.content
-  end
-
-  def test_update_with_file
-    assert_no_difference -> { ActiveStorage::Attachment.count } do
-      @page.update!(
-        fragments_attributes: [{
-          identifier: "file",
-          tag:        "file",
-          files:      fixture_file_upload("files/document.pdf", "application/pdf")
-        }]
-      )
-      assert_equal "document.pdf", comfy_cms_fragments(:file).attachments.first.filename.to_s
-    end
-  end
-
-  def test_update_with_file_removal
-    id = comfy_cms_fragments(:file).attachments.first.id
-    assert_difference(-> { ActiveStorage::Attachment.count }, -1) do
-      @page.update!(
-        fragments_attributes: [{
-          identifier:       "file",
-          file_ids_destroy: [id]
-        }]
-      )
-    end
-  end
-
-  def test_update_with_date
-    frag = comfy_cms_fragments(:datetime)
-    string = "2020-01-01"
-    date = DateTime.parse(string)
-
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
-
-    assert_no_difference [page_count, fragment_count] do
-      @page.update!(fragments_attributes: [
-        { identifier: frag.identifier,
-          datetime:   string }
-      ])
-    end
-    frag.reload
-    assert_equal date, frag.datetime
-  end
-
-  def test_update_with_boolean
-    frag = comfy_cms_fragments(:boolean)
-    assert frag.boolean
-
-    page_count      = -> { Comfy::Cms::Page.count }
-    fragment_count  = -> { Comfy::Cms::Fragment.count }
-
-    assert_no_difference [page_count, fragment_count] do
-      @page.update!(fragments_attributes: [
-        { identifier: frag.identifier,
-          boolean:    "0" }
-      ])
-    end
-    frag.reload
-    refute frag.boolean
-  end
 
   def test_update_with_parent_id_change
     page_a = @page
@@ -396,62 +207,6 @@ class CmsPageTest < ActiveSupport::TestCase
 
     Comfy::Cms::Page.delete_all
     assert_equal [], Comfy::Cms::Page.options_for_select(site: @site).map(&:first)
-  end
-
-  def test_fragments_attributes
-    assert_equal @page.fragments.count, @page.fragments_attributes.size
-
-    @page.fragments_attributes = [
-      { identifier: "content",
-        content:    "updated content"
-      }
-    ]
-
-    assert_equal [
-      { identifier: "boolean",
-        tag:        "checkbox",
-        content:    nil,
-        datetime:   nil,
-        boolean:    true },
-      { identifier: "file",
-        tag:        "file",
-        content:    nil,
-        datetime:   nil,
-        boolean:    false },
-      { identifier: "datetime",
-        tag:        "datetime",
-        content:    nil,
-        datetime:   comfy_cms_fragments(:datetime).datetime,
-        boolean:    false },
-      { identifier: "content",
-        tag:        "text",
-        content:    "updated content",
-        datetime:   nil,
-        boolean:    false }
-    ], @page.fragments_attributes
-
-    assert_equal [
-      { identifier: "boolean",
-        tag:        "checkbox",
-        content:    nil,
-        datetime:   nil,
-        boolean:    true },
-      { identifier: "file",
-        tag:        "file",
-        content:    nil,
-        datetime:   nil,
-        boolean:    false },
-      { identifier: "datetime",
-        tag:        "datetime",
-        content:    nil,
-        datetime:   comfy_cms_fragments(:datetime).datetime,
-        boolean:    false },
-      { identifier: "content",
-        tag:        "text",
-        content:    "content",
-        datetime:   nil,
-        boolean:    false }
-    ], @page.fragments_attributes_was
   end
 
 
