@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
-
-  self.table_name = "comfy_cms_pages"
-
   include Comfy::Cms::ActsAsTreeConcern
   include Comfy::Cms::WithFragmentsConcern
   include Comfy::Cms::WithCategories
 
-  # acts_as_tree # counter_cache: :children_count, order: :position
+  self.table_name = "comfy_cms_pages"
 
-  # cms_acts_as_tree counter_cache: :children_count, order: :position
   cms_has_revisions_for :fragments_attributes
 
   attr_accessor :content

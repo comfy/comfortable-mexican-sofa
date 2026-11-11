@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Comfy::Cms::Layout < Comfy::Cms::ApplicationRecord
-  self.table_name = "comfy_cms_layouts"
+  include Comfy::Cms::ActsAsTreeConcern
 
-  cms_acts_as_tree
+  self.table_name = "comfy_cms_layouts"
 
   cms_has_revisions_for :content, :css, :js
 
