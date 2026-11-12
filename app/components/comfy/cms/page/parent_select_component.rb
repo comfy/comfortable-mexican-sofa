@@ -19,8 +19,10 @@ class Comfy::Cms::Page::ParentSelectComponent < Comfy::BaseComponent
       items.flat_map do |item|
         next [] if item[:id] == @page.id
 
-        spacer = "\u00A0\u00B7\u00A0" * depth
-        [["#{spacer} #{item[:label]}", item[:id]], *walk_tree.call(item[:children], depth + 1)]
+        [
+          ["#{"\u00A0\u00B7\u00A0" * depth} #{item[:label]}", item[:id]],
+          *walk_tree.call(item[:children], depth + 1)
+        ]
       end
     end
 
