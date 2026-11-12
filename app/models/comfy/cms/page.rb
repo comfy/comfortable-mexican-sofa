@@ -13,6 +13,7 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
+
   belongs_to :target_page,
     class_name: "Comfy::Cms::Page",
     optional:   true
@@ -22,12 +23,15 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assigns_label,
-                    :assign_parent,
-                    :escape_slug,
-                    :assign_full_path
-  before_create     :assign_position
-  after_save        :sync_child_full_paths!
-  after_find        :unescape_slug_and_path
+    :assign_parent,
+    :escape_slug,
+    :assign_full_path
+
+  before_create :assign_position
+
+  after_save :sync_child_full_paths!
+
+  after_find :unescape_slug_and_path
 
   # -- Validations -------------------------------------------------------------
   validates :label,
@@ -43,29 +47,6 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
   # -- Scopes ------------------------------------------------------------------
   scope :published, -> { where(is_published: true) }
-
-  # -- Class Methods -----------------------------------------------------------
-
-
-  # Tree-like structure for pages
-  def self.options_for_select(site:, current_page: nil, exclude_self: false)
-    options = []
-
-    options_for_page = ->(page, depth = 0) do
-      return if page.nil?
-      return if exclude_self && page == current_page
-
-      options << ["#{'. . ' * depth}#{page.label}", page.id]
-
-      page.children.order(:position).each do |child_page|
-        options_for_page.call(child_page, depth + 1)
-      end
-    end
-
-    options_for_page.call(site.pages.root)
-
-    options
-  end
 
   # -- Instance Methods --------------------------------------------------------
   # For previewing purposes sometimes we need to have full_path set. This
