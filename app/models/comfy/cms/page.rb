@@ -22,28 +22,28 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
     dependent: :destroy
 
   # -- Callbacks ---------------------------------------------------------------
-  before_validation :assigns_label,
+  before_validation :assign_label,
     :assign_parent,
-    :escape_slug,
     :assign_full_path
 
   before_create :assign_position
 
   after_save :sync_child_full_paths!
 
-  after_find :unescape_slug_and_path
-
   # -- Validations -------------------------------------------------------------
   validates :label,
     presence: true
+
   validates :slug,
-    presence:   true,
-    uniqueness: { scope: :parent_id },
-    unless:     -> (p) {
-      p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
+    presence:   { unless: :root_page? },
+    absence:    { if: :root_page? },
+    uniqueness: { scope: %i[site_id parent_id] },
+    format:     {
+      with:        /\A[\p{L}\p{N}][\p{L}\p{N}\p{M}]*(?:[._-][\p{L}\p{N}][\p{L}\p{N}\p{M}]*)*\z/,
+      allow_blank: true
     }
+
   validate :validate_target_page
-  validate :validate_format_of_unescaped_slug
 
   # -- Scopes ------------------------------------------------------------------
   scope :published, -> { where(is_published: true) }
@@ -89,24 +89,25 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 
 protected
 
-  def assigns_label
-    self.label = label.blank? ? slug.try(:titleize) : label
+  def root_page?
+    site && (site.pages.empty? || site.pages.root == self)
+  end
+
+  def assign_label
+    return if slug.blank? || label.present?
+
+    self.label = slug.titleize
   end
 
   # Assigning parent page in case it wasn't explicitly provided
   def assign_parent
     return if site.blank? || parent.present? || self == site.pages.root
 
-    self.parent = site.pages.roots.first
+    self.parent = site.pages.root
   end
 
   def assign_full_path
-    self.full_path =
-      if self.parent
-        [CGI.escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
-      else
-        "/"
-      end
+    self.full_path = [parent&.full_path, slug].compact_blank.join("/")
   end
 
   def assign_position
@@ -126,12 +127,6 @@ protected
     end
   end
 
-  def validate_format_of_unescaped_slug
-    return unless slug.present?
-    unescaped_slug = CGI.unescape(slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ %r{^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$}i
-  end
-
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
     return unless full_path_previously_changed?
@@ -139,16 +134,4 @@ protected
       p.update_attribute(:full_path, p.send(:assign_full_path))
     end
   end
-
-  # Escape slug unless it's nonexistent (root)
-  def escape_slug
-    self.slug = CGI.escape(slug) unless slug.nil?
-  end
-
-  # Unescape the slug and full path back into their original forms unless they're nonexistent
-  def unescape_slug_and_path
-    self.slug       = CGI.unescape(slug)      unless slug.nil?
-    self.full_path  = CGI.unescape(full_path) unless full_path.nil?
-  end
-
 end

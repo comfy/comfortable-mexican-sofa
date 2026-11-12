@@ -21,23 +21,7 @@ class CmsPageTest < ActiveSupport::TestCase
 
 
 
-  def test_validation_of_parent_presence
-    page = @site.pages.new(new_params)
-    assert !page.parent
-    assert page.valid?, page.errors.full_messages.to_s
-    assert_equal @page, page.parent
-  end
 
-  def test_validation_of_parent_relationship
-    assert !@page.parent
-    @page.parent = @page
-    assert @page.invalid?
-    assert_has_errors_on @page, :parent_id
-
-    @page.parent = comfy_cms_pages(:child)
-    assert @page.invalid?
-    assert_has_errors_on @page, :parent_id
-  end
 
   def test_validation_of_target_page
     page = comfy_cms_pages(:child)
@@ -69,15 +53,7 @@ class CmsPageTest < ActiveSupport::TestCase
     assert page.valid?
   end
 
-  def test_label_assignment
-    page = @site.pages.new(
-      slug:   "test",
-      parent: @page,
-      layout: @layout
-    )
-    assert page.valid?
-    assert_equal "Test", page.label
-  end
+
 
 
 
@@ -221,10 +197,6 @@ class CmsPageTest < ActiveSupport::TestCase
     assert_equal 1, Comfy::Cms::Page.published.count
   end
 
-  def test_root?
-    assert @page.root?
-    refute comfy_cms_pages(:child).root?
-  end
 
   def test_url
     assert_equal "//www.example.com/", @page.url

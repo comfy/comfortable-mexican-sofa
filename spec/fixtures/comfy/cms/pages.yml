@@ -5,7 +5,7 @@ default:
   layout: default
   label: Default Page
   slug:
-  full_path: '/'
+  full_path: ""
   position: 0
   is_published: true
   content_cache:
@@ -16,8 +16,8 @@ child:
   target_page:
   layout: default
   label: Child Page
-  slug: 'child-page'
-  full_path: '/child-page'
+  slug: child-page
+  full_path: child-page
   position: 0
   is_published: true
   content_cache:
@@ -28,8 +28,8 @@ sibling:
   target_page:
   layout: default
   label: Sibling Page
-  slug: 'sibling-page'
-  full_path: '/sibling-page'
+  slug: sibling-page
+  full_path: sibling-page
   position: 1
   is_published: true
   content_cache:

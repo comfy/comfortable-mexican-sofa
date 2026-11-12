@@ -11,23 +11,117 @@ RSpec.describe Comfy::Cms::Page do
   it_behaves_like "model with presence validations", :label, :layout, :site, :slug
 
   describe "callbacks" do
+    describe "#assign_label" do
+      it "creates label from slug" do
+        page = described_class.new(slug: "test-page")
+        page.validate
+        expect(page.label).to eq("Test Page")
+      end
+
+      it "does nothing if slug is blank" do
+        page = described_class.new
+        page.validate
+        expect(page.label).to be_nil
+      end
+
+      it "does nothing if label is already set" do
+        page = described_class.new(slug: "test-page", label: "Custom Label")
+        page.validate
+        expect(page.label).to eq("Custom Label")
+      end
+    end
+
     describe "#assign_parent" do
       it "assigns parent page if not provided" do
-
+        new_page = site.pages.new
+        new_page.validate
+        expect(new_page.parent).to eq(page)
       end
 
       it "does nothing if page is root" do
-
+        expect(page.parent).to be_nil
+        page.validate
+        expect(page.parent).to be_nil
       end
 
       it "does nothing if parent is already specified" do
+        parent_page = comfy_cms_pages(:sibling)
+        page = site.pages.new(parent: parent_page)
+        page.validate
+        expect(page.parent).to eq(parent_page)
+      end
+    end
 
+    describe "#assign_full_path" do
+      it "assigns full path to the page" do
+        page = site.pages.new(parent: comfy_cms_pages(:child), slug: "test-page")
+        page.validate
+        expect(page.full_path).to eq("child-page/test-page")
+      end
+
+      it "assigns blank for the root page" do
+        described_class.delete_all
+        page = site.pages.new
+        page.validate
+        expect(page.full_path).to eq("")
       end
     end
   end
 
   describe "validations" do
+    describe "#slug" do
+      it "ensures that slug is blank for root page" do
+        expect(page.send(:root_page?)).to be(true)
+        page.slug = "not-allowed"
+        expect(page).not_to be_valid
+        expect(page.errors[:slug]).to include("must be blank")
+      end
 
+      it "ensures that slug is populated for all other pages" do
+        page = comfy_cms_pages(:child)
+        page.slug = ""
+        expect(page).not_to be_valid
+        expect(page.errors[:slug]).to include("can't be blank")
+      end
+
+      it "ensures that slug is unique between siblings" do
+        page = comfy_cms_pages(:sibling)
+        page.slug = comfy_cms_pages(:child).slug
+        expect(page).not_to be_valid
+        expect(page.errors[:slug]).to include("has already been taken")
+      end
+
+      it "ensures that slug is correctly formatted" do
+        page = comfy_cms_pages(:sibling)
+
+        [
+          "ก้",
+          "ไทย-2026",
+          "กรุงเทพฯ",
+          "ดีๆ_มาก",
+          "café-naïve.v2",
+          "東京-タワー"
+        ].each do |valid_slug|
+          page.slug = valid_slug
+          expect(page).to be_valid, valid_slug
+        end
+
+        [
+          "้ก",
+          "ก-้",
+          "-ก้",
+          "ก้-",
+          "ก--ข",
+          "ก/ข",
+          "ก ข",
+          "ก?a=1",
+          "🚀-launch"
+        ].each do |invalid_slug|
+          page.slug = invalid_slug
+          expect(page).not_to be_valid, invalid_slug
+        end
+      end
+    end
   end
 
   describe ".create" do
