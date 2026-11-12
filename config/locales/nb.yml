@@ -53,6 +53,10 @@ nb:
         layout_not_found: Fant ikke layout
         page_not_found: Fant ikke side
 
+      page:
+        redirect_select_component:
+          prompt: Ingen videresending
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ nb:
           edit:
             title: Endrer side
           form:
-            select_target_page: Ingen videresending
             preview: Forhåndsvisning
             create: Opprett side
             cancel: Cancel

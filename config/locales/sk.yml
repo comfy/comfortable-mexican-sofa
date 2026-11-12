@@ -53,6 +53,10 @@ sk:
         layout_not_found: Rozloženie nenájdené
         page_not_found: Stránka nenájdená
 
+      page:
+        redirect_select_component:
+          prompt: Bez presmerovania
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ sk:
           edit:
             title: Úprava stránky
           form:
-            select_target_page: Bez presmerovania
             preview: Náhľad
             create: Vytvoriť stránku
             cancel: Zrušiť

@@ -88,3 +88,7 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/SpecFilePathFormat:
   CustomTransform:
     ComfortableMexicanSofa: lib
+
+RSpec/DescribeClass:
+  Exclude:
+    - "**/spec/locales/**/*"

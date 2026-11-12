@@ -53,6 +53,10 @@ pt-BR:
         layout_not_found: Leiaute Não Encontrado
         page_not_found: Página Não Encontrada
 
+      page:
+        redirect_select_component:
+          prompt: Não Redirecionar
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ pt-BR:
           edit:
             title: Editando Página
           form:
-            select_target_page: Não Redirecionar
             preview: Pré-visualização
             create: Criar Página
             cancel: Cancelar

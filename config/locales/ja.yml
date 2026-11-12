@@ -53,6 +53,10 @@ ja:
         layout_not_found: レイアウトが見つかりません
         page_not_found: ページが見つかりません
 
+      page:
+        redirect_select_component:
+          prompt: リダイレクトなし
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ ja:
           edit:
             title: ページを編集
           form:
-            select_target_page: リダイレクトなし
             preview: プレビュー
             create: ページを作成
             cancel: キャンセル

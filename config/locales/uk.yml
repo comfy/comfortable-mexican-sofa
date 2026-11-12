@@ -53,6 +53,10 @@ uk:
         layout_not_found: Шаблон не знайдено
         page_not_found: Сторінку не знайдено
 
+      page:
+        redirect_select_component:
+          prompt: Без редіректу
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ uk:
           edit:
             title: Редагування сторінки
           form:
-            select_target_page: Без редіректу
             preview: Передперегляд
             create: Створити сторінку
             cancel: Cкасувати

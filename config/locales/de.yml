@@ -53,6 +53,10 @@ de:
         layout_not_found: Vorlage nicht gefunden
         page_not_found: Seite nicht gefunden
 
+      page:
+        redirect_select_component:
+          prompt: Keine Weiterleitung
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ de:
           edit:
             title: Seite bearbeiten
           form:
-            select_target_page: Keine Weiterleitung
             preview: Vorschau
             create: Seite erstellen
             cancel: Abbrechen

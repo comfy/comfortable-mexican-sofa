@@ -53,6 +53,10 @@ hr:
         layout_not_found: Predložak nije pronađen
         page_not_found: Stranica nije pronađena
 
+      page:
+        redirect_select_component:
+          prompt: Nema redirekcije
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ hr:
           edit:
             title: Uređivanje stranice
           form:
-            select_target_page: Nema redirekcije
             preview: Pregled
             create: Kreiraj stranicu
             cancel: Otkaži

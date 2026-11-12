@@ -53,6 +53,10 @@ pl:
         layout_not_found: Szablon nie został znaleziony
         page_not_found: Strona nie została znaleziona
 
+      page:
+        redirect_select_component:
+          prompt: Bez przekierowania
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ pl:
           edit:
             title: Edytuj stronę
           form:
-            select_target_page: Bez przekierowania
             preview: Podgląd
             create: Utwórz stronę
             cancel: Anuluj
