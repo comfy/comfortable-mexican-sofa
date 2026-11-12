@@ -49,20 +49,19 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
   scope :published, -> { where(is_published: true) }
 
   # -- Instance Methods --------------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set. This
-  # full path take care of the pages and its childs but not of the site path
+  # For previewing purposes sometimes we need to have full_path set.
   def full_path
     read_attribute(:full_path) || assign_full_path
   end
 
-  # Somewhat unique method of identifying a page that is not a full_path
-  def identifier
-    parent_id.blank? ? "index" : full_path[1..-1].parameterize
-  end
+  # # Somewhat unique method of identifying a page that is not a full_path
+  # def identifier
+  #   parent_id.blank? ? "index" : full_path[1..-1].parameterize
+  # end
 
   # Full url for a page
   def url(relative: false)
-    [site.url(relative: relative), full_path].compact.join
+    [site.url(relative: relative), full_path].join("/")
   end
 
   # This method will mutate page object by transfering attributes from translation
@@ -90,7 +89,7 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
 protected
 
   def root_page?
-    site && (site.pages.empty? || site.pages.root == self)
+    site && (site.pages.reload.empty? || site.pages.root == self)
   end
 
   def assign_label

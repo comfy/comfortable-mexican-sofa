@@ -60,8 +60,8 @@ protected
   # Attempting to populate @cms_page and @cms_layout instance variables so they
   # can be used in view helpers/partials
   def load_cms_page
-    unless find_cms_page_by_full_path("/#{params[:cms_path]}")
-      if find_cms_page_by_full_path("/404")
+    unless find_cms_page_by_full_path(params[:cms_path])
+      if find_cms_page_by_full_path("404")
         render_page(:not_found)
       else
         message = "Page Not Found at: \"#{params[:cms_path]}\""

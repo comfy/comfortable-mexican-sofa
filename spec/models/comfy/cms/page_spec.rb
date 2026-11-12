@@ -125,6 +125,17 @@ RSpec.describe Comfy::Cms::Page do
   end
 
   describe ".create" do
+    it "creates very first page (capturing gotcha with #root_page? method)" do
+      described_class.delete_all
+
+      page = site.pages.new(
+        label:  "Homepage",
+        layout: layout
+      )
+      expect(page.save).to be(true)
+      expect(page).to be_persisted
+    end
+
     it "creates page with text fragment" do
       new_page = site.pages.create(
         parent:               page,
