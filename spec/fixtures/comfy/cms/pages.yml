@@ -21,3 +21,15 @@ child:
   position: 0
   is_published: true
   content_cache:
+
+sibling:
+  site: default
+  parent: default
+  target_page:
+  layout: default
+  label: Sibling Page
+  slug: 'sibling-page'
+  full_path: '/sibling-page'
+  position: 1
+  is_published: true
+  content_cache:

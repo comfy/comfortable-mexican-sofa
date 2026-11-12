@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe Comfy::Cms::ActsAsTreeConcern do
   let(:root_page)  { comfy_cms_pages(:default) }
   let(:child_page) { comfy_cms_pages(:child) }
+  let(:sibling_page) { comfy_cms_pages(:sibling) }
 
   describe "relationships" do
     it "belongs to parent" do
@@ -12,7 +13,7 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     end
 
     it "has many children" do
-      expect(root_page.children).to contain_exactly(child_page)
+      expect(root_page.children).to contain_exactly(child_page, sibling_page)
     end
   end
 
@@ -50,6 +51,57 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     end
   end
 
+  describe ".tree" do
+    it "returns tree structure of records" do
+      expected = [
+        {
+          id:       root_page.id,
+          label:    root_page.label,
+          children: [
+            {
+              id:       child_page.id,
+              label:    child_page.label,
+              children: []
+            }, {
+              id:       sibling_page.id,
+              label:    sibling_page.label,
+              children: []
+            }
+          ]
+        }
+      ]
+      expect(Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all)).to eq(expected)
+    end
+
+    it "sorts things based on position" do
+      child_page.update_column(:position, 99)
+      expected = [
+        {
+          id:       root_page.id,
+          label:    root_page.label,
+          children: [
+            {
+              id:       sibling_page.id,
+              label:    sibling_page.label,
+              children: []
+            }, {
+              id:       child_page.id,
+              label:    child_page.label,
+              children: []
+            }
+          ]
+        }
+      ]
+      expect(Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all)).to eq(expected)
+    end
+
+    it "doesn't crash if there's a non-persisted object in the list" do
+      expect do
+        Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all.to_a + [Comfy::Cms::Page.new])
+      end.not_to raise_error
+    end
+  end
+
   describe ".root" do
     it "returns first root record it finds" do
       expect(Comfy::Cms::Page.root).to eq(root_page)
@@ -65,7 +117,8 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
 
   describe "#descendants" do
     it "returns an array of descendant records" do
-      expect(root_page.descendants).to contain_exactly(child_page)
+      expect(root_page.descendants).to contain_exactly(child_page, sibling_page)
+      expect(child_page.descendants).to be_blank
     end
   end
 end

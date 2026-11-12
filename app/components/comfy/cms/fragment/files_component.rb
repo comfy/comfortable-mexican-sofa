@@ -2,7 +2,7 @@
 
 # This component is responsible for rendering out attached fragment files
 # and generates checkboxes that allow file removal on page save
-class Comfy::Cms::FormFragmentFilesComponent < Comfy::BaseComponent
+class Comfy::Cms::Fragment::FilesComponent < Comfy::BaseComponent
   MAX_FILENAME_LENGTH = 40
   TOOLTIP_SIZE        = [200, 200]
 

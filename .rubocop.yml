@@ -14,6 +14,11 @@ AllCops:
     - "vendor/bundle/**/*"
     - "spec/fixtures/**/*"
 
+# -- Lint ---------------------------------------------------------------------
+Lint/MissingSuper:
+  AllowedParentClasses:
+    - Comfy::BaseComponent
+
 # -- Rails --------------------------------------------------------------------
 Rails/SkipsModelValidations:
   Enabled: false

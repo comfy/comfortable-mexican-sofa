@@ -17,12 +17,29 @@ module Comfy::Cms::ActsAsTreeConcern
     scope :roots, -> { where(parent_id: nil) }
 
     validate :validate_parent_id,
-             :validate_site_scoping
+      :validate_site_scoping
   end
 
   class_methods do
     def root
       roots.first
+    end
+
+    def tree(records:)
+      records = records.reject(&:new_record?)
+
+      grouped_records =
+        records.group_by(&:parent_id).transform_values do |grouping|
+          grouping.sort_by(&:position)
+        end
+
+      walk_tree = lambda do |parent_id = nil|
+        grouped_records.fetch(parent_id, []).map do |child|
+          { id: child.id, label: child.label, children: walk_tree.call(child.id) }
+        end
+      end
+
+      walk_tree.call
     end
   end
 

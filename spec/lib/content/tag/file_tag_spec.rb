@@ -32,7 +32,7 @@ RSpec.describe ComfortableMexicanSofa::Content::Tag::FileTag do
         name:     "object_name[fragments_attributes][0][files][]",
         id:       "fragment-file"
       )
-      expect(output).to have_css("comfy--cms--form-fragment-files-component .attachment")
+      expect(output).to have_css("comfy--cms--fragment--files-component .attachment")
     end
   end
 end

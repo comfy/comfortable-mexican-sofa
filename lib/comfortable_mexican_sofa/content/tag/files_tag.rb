@@ -21,7 +21,7 @@ class ComfortableMexicanSofa::Content::Tag::FilesTag < ComfortableMexicanSofa::C
     name  = "#{object_name}[fragments_attributes][#{index}][files][]"
     input = view.send(:file_field_tag, name, id: form_field_id, multiple: self.class::MULTIPLE, class: "form-control")
 
-    component = Comfy::Cms::FormFragmentFilesComponent.new(
+    component = Comfy::Cms::Fragment::FilesComponent.new(
       object_name: object_name, index: index, fragment: fragment
     )
     attachments = view.render(component)

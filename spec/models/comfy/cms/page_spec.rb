@@ -45,7 +45,7 @@ RSpec.describe Comfy::Cms::Page do
         ]
       )
       expect(new_page).to be_persisted
-      expect(new_page.position).to eq(1)
+      expect(new_page.position).to eq(2)
       expect(new_page.fragments.count).to eq(1)
       expect(new_page.fragments.first.content).to eq("test-content")
     end

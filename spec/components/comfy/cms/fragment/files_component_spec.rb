@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
+RSpec.describe Comfy::Cms::Fragment::FilesComponent do
   let(:frag)      { comfy_cms_fragments(:file) }
   let(:component) { described_class.new(object_name: "page", index: 0, fragment: frag) }
 
@@ -10,7 +10,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
     it "renders component" do
       render_inline(component)
 
-      container = page.find("comfy--cms--form-fragment-files-component .attachment")
+      container = page.find("comfy--cms--fragment--files-component .attachment")
       expect(container).to have_link("image.jpg", href: %r{/rails/active_storage/blobs})
       expect(container).to have_css(".variant-tooltip img[src*='rails/active_storage/representations']")
       expect(container).to have_field("page[fragments_attributes][0][file_ids_destroy][]", type: "checkbox")
@@ -20,7 +20,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
       frag.attachments.attach(fixture_file_upload("data.zip", "application/zip"))
       render_inline(component)
 
-      container = page.find("comfy--cms--form-fragment-files-component")
+      container = page.find("comfy--cms--fragment--files-component")
       expect(container).to have_css(".attachment", count: 2)
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
       frag.attachments.attach(fixture_file_upload("data.zip", "application/zip"))
       render_inline(component)
 
-      container = page.find("comfy--cms--form-fragment-files-component")
+      container = page.find("comfy--cms--fragment--files-component")
       expect(container).to have_no_css(".variant-tooltip")
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Comfy::Cms::FormFragmentFilesComponent do
       frag.attachments.purge
       render_inline(component)
 
-      expect(page).to have_no_css("comfy--cms--form-fragment-files-component")
+      expect(page).to have_no_css("comfy--cms--fragment--files-component")
     end
 
     it "truncates very long filenames" do
