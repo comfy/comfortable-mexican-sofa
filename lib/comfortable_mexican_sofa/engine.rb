@@ -17,16 +17,17 @@ require "haml-rails"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
+    initializer "comfy.assets" do |app|
+      if app.config.respond_to?(:assets)
+        app.config.assets.paths << root.join("app/javascript")
+      end
+    end
 
-    initializer "comfortable_mexican_sofa.setup_assets" do
-      ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w[
-        comfy/cms/application.css
-
-
-        comfy/admin/cms/application.js
-        comfy/admin/cms/application.css
-        comfy/admin/cms/lib/redactor-font.eot
-      ]
+    initializer "comfy.importmap", before: "importmap" do |app|
+      if app.config.respond_to?(:importmap)
+        app.config.importmap.paths << root.join("config/importmap.rb")
+        app.config.importmap.cache_sweepers << root.join("app/javascript")
+      end
     end
 
     config.to_prepare do
@@ -34,6 +35,5 @@ module ComfortableMexicanSofa
         require_dependency(c)
       end
     end
-
   end
 end

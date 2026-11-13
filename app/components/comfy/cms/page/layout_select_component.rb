@@ -13,7 +13,7 @@ class Comfy::Cms::Page::LayoutSelectComponent < Comfy::BaseComponent
   def component_html_options
     {
       data: {
-        controller: component_identifier
+        controller: "components--layout-select"
       }
     }
   end

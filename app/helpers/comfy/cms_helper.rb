@@ -2,6 +2,12 @@
 
 module Comfy
   module CmsHelper
+    def comfy_stylesheet_link_tags
+      stylesheets = Dir.glob(ComfortableMexicanSofa::Engine.root.join("app/assets/stylesheets/**/*.css")).map do |f|
+        f.sub(%r{.*/app/assets/stylesheets/}, "")
+      end
+      stylesheet_link_tag(*stylesheets.sort, "data-turbo-track": "reload")
+    end
 
     # Raw content of a page fragment. This is how you get content from unrenderable
     # tags like {{cms:fragment meta, render: false}}
