@@ -135,4 +135,12 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
       expect(page_a_child.descendants).to be_blank
     end
   end
+
+  describe "#destroy" do
+    it "destroys entire tree" do
+      expect do
+        root_page.destroy
+      end.to change(Comfy::Cms::Page, :count).by(-4)
+    end
+  end
 end
