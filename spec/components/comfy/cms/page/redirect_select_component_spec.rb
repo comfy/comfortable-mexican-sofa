@@ -11,7 +11,7 @@ RSpec.describe Comfy::Cms::Page::RedirectSelectComponent do
 
       expect(page).to have_css("comfy--cms--page--redirect-select-component")
       expect(page).to have_select(
-        "Redirect to Page", with_options: ["― No Redirect ―"], disabled_options: [" Default Page"]
+        "Redirect to Page", with_options: ["― No Redirect ―"], disabled_options: [" Root Page"]
       )
     end
   end
@@ -38,9 +38,10 @@ RSpec.describe Comfy::Cms::Page::RedirectSelectComponent do
       form = ComfortableMexicanSofa::FormBuilder.new(:page, page, vc_test_view_context, {})
       component = described_class.new(form: form)
       expected = [
-        [" Default Page", comfy_cms_pages(:default).id],
-        [" ·  Child Page", comfy_cms_pages(:child).id],
-        [" ·  Sibling Page", comfy_cms_pages(:sibling).id]
+        [" Root Page", comfy_cms_pages(:default).id],
+        [" ·  Page A", comfy_cms_pages(:page_a).id],
+        [" ·  ·  Page A Child", comfy_cms_pages(:page_a_child).id],
+        [" ·  Page B", comfy_cms_pages(:page_b).id]
       ]
       expect(component.options).to eq(expected)
     end

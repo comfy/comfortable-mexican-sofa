@@ -61,9 +61,9 @@ RSpec.describe Comfy::Cms::Layout do
       let(:layout_a)  { comfy_cms_layouts(:nested) }
       let(:layout_b)  { comfy_cms_layouts(:child) }
 
-      let(:page_a) do
+      let(:page_x) do
         site.pages.create!(
-          slug:                 "page-a",
+          slug:                 "page-x",
           parent:               root_page,
           layout:               layout_a,
           fragments_attributes: [
@@ -73,9 +73,9 @@ RSpec.describe Comfy::Cms::Layout do
         )
       end
 
-      let(:page_b) do
+      let(:page_y) do
         site.pages.create!(
-          slug:                 "page-b",
+          slug:                 "page-y",
           parent:               root_page,
           layout:               layout_b,
           fragments_attributes: [
@@ -87,19 +87,19 @@ RSpec.describe Comfy::Cms::Layout do
       end
 
       it "nukes content_cashes of all pages this layout was used in" do
-        expect(page_a.content_cache).to eq("header-content\ncontent")
-        expect(page_b.content_cache).to eq("header-content\nleft-column-content\nleft-column-content")
+        expect(page_x.content_cache).to eq("header-content\ncontent")
+        expect(page_y.content_cache).to eq("header-content\nleft-column-content\nleft-column-content")
 
         # we changed text and removed {{cms:text header}} fragment
         layout_a.update!(content: "Updated {{cms:text content}}")
 
-        expect(page_a.reload.content_cache).to eq("Updated content")
-        expect(page_b.reload.content_cache).to eq("Updated left-column-content\nleft-column-content")
+        expect(page_x.reload.content_cache).to eq("Updated content")
+        expect(page_y.reload.content_cache).to eq("Updated left-column-content\nleft-column-content")
 
         # Layout is gone and there's no more content tag. All pages should be blank now
         layout_a.destroy
-        expect(page_a.reload.content_cache).to eq("")
-        expect(page_b.reload.content_cache).to eq("")
+        expect(page_x.reload.content_cache).to eq("")
+        expect(page_y.reload.content_cache).to eq("")
       end
     end
   end

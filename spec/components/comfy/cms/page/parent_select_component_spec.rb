@@ -34,19 +34,20 @@ RSpec.describe Comfy::Cms::Page::ParentSelectComponent do
       form = ComfortableMexicanSofa::FormBuilder.new(:page, page, vc_test_view_context, {})
       component = described_class.new(form: form)
       expected = [
-        [" Default Page", comfy_cms_pages(:default).id],
-        [" ·  Child Page", comfy_cms_pages(:child).id],
-        [" ·  Sibling Page", comfy_cms_pages(:sibling).id]
+        [" Root Page", comfy_cms_pages(:default).id],
+        [" ·  Page A", comfy_cms_pages(:page_a).id],
+        [" ·  ·  Page A Child", comfy_cms_pages(:page_a_child).id],
+        [" ·  Page B", comfy_cms_pages(:page_b).id]
       ]
       expect(component.options).to eq(expected)
     end
 
     it "hides options that would be invalid" do
-      form = ComfortableMexicanSofa::FormBuilder.new(:page, comfy_cms_pages(:child), vc_test_view_context, {})
+      form = ComfortableMexicanSofa::FormBuilder.new(:page, comfy_cms_pages(:page_a), vc_test_view_context, {})
       component = described_class.new(form: form)
       expected = [
-        [" Default Page", comfy_cms_pages(:default).id],
-        [" ·  Sibling Page", comfy_cms_pages(:sibling).id]
+        [" Root Page", comfy_cms_pages(:default).id],
+        [" ·  Page B", comfy_cms_pages(:page_b).id]
       ]
       expect(component.options).to eq(expected)
     end

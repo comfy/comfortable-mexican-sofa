@@ -3,30 +3,31 @@
 require "rails_helper"
 
 RSpec.describe Comfy::Cms::ActsAsTreeConcern do
-  let(:root_page)  { comfy_cms_pages(:default) }
-  let(:child_page) { comfy_cms_pages(:child) }
-  let(:sibling_page) { comfy_cms_pages(:sibling) }
+  let(:root_page)    { comfy_cms_pages(:default) }
+  let(:page_a)       { comfy_cms_pages(:page_a) }
+  let(:page_b)       { comfy_cms_pages(:page_b) }
+  let(:page_a_child) { comfy_cms_pages(:page_a_child) }
 
   describe "relationships" do
     it "belongs to parent" do
-      expect(child_page.parent).to eq(root_page)
+      expect(page_a.parent).to eq(root_page)
     end
 
     it "has many children" do
-      expect(root_page.children).to contain_exactly(child_page, sibling_page)
+      expect(root_page.children).to contain_exactly(page_a, page_b)
     end
   end
 
   describe "validations" do
     describe "#validate_parent_id" do
       it "ensures that record cannot be parent of itself" do
-        child_page.parent_id = child_page.id
-        expect(child_page).not_to be_valid
-        expect(child_page.errors[:parent_id]).to include("cannot be its own parent")
+        page_a.parent_id = page_a.id
+        expect(page_a).not_to be_valid
+        expect(page_a.errors[:parent_id]).to include("cannot be its own parent")
       end
 
       it "ensures that record cannot be a child of one of its own descendants" do
-        root_page.parent_id = child_page.id
+        root_page.parent_id = page_a.id
         expect(root_page).not_to be_valid
         expect(root_page.errors[:parent_id]).to include("cannot be a descendant's parent")
       end
@@ -35,8 +36,8 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     describe "#validate_site_scoping" do
       it "cannot link to a record outside site scope" do
         root_page.update_column(:site_id, 9999)
-        expect(child_page).not_to be_valid
-        expect(child_page.errors[:parent_id]).to include("wrong site scope")
+        expect(page_a).not_to be_valid
+        expect(page_a.errors[:parent_id]).to include("wrong site scope")
       end
     end
   end
@@ -45,8 +46,8 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     describe ".roots" do
       it "returns collection of root records" do
         expect(Comfy::Cms::Page.roots).to contain_exactly(root_page)
-        child_page.update_column(:parent_id, nil)
-        expect(Comfy::Cms::Page.roots).to contain_exactly(root_page, child_page)
+        page_a.update_column(:parent_id, nil)
+        expect(Comfy::Cms::Page.roots).to contain_exactly(root_page, page_a)
       end
     end
   end
@@ -59,12 +60,18 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
           label:    root_page.label,
           children: [
             {
-              id:       child_page.id,
-              label:    child_page.label,
-              children: []
+              id:       page_a.id,
+              label:    page_a.label,
+              children: [
+                {
+                  id:       page_a_child.id,
+                  label:    page_a_child.label,
+                  children: []
+                }
+              ]
             }, {
-              id:       sibling_page.id,
-              label:    sibling_page.label,
+              id:       page_b.id,
+              label:    page_b.label,
               children: []
             }
           ]
@@ -74,20 +81,26 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     end
 
     it "sorts things based on position" do
-      child_page.update_column(:position, 99)
+      page_a.update_column(:position, 99)
       expected = [
         {
           id:       root_page.id,
           label:    root_page.label,
           children: [
             {
-              id:       sibling_page.id,
-              label:    sibling_page.label,
+              id:       page_b.id,
+              label:    page_b.label,
               children: []
             }, {
-              id:       child_page.id,
-              label:    child_page.label,
-              children: []
+              id:       page_a.id,
+              label:    page_a.label,
+              children: [
+                {
+                  id:       page_a_child.id,
+                  label:    page_a_child.label,
+                  children: []
+                }
+              ]
             }
           ]
         }
@@ -111,14 +124,15 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
   describe "#root?" do
     it "returns boolean" do
       expect(root_page.root?).to be(true)
-      expect(child_page.root?).to be(false)
+      expect(page_a.root?).to be(false)
     end
   end
 
   describe "#descendants" do
     it "returns an array of descendant records" do
-      expect(root_page.descendants).to contain_exactly(child_page, sibling_page)
-      expect(child_page.descendants).to be_blank
+      expect(root_page.descendants).to contain_exactly(page_a, page_b, page_a_child)
+      expect(page_a.descendants).to contain_exactly(page_a_child)
+      expect(page_a_child.descendants).to be_blank
     end
   end
 end

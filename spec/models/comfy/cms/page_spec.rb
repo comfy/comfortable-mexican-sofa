@@ -45,7 +45,7 @@ RSpec.describe Comfy::Cms::Page do
       end
 
       it "does nothing if parent is already specified" do
-        parent_page = comfy_cms_pages(:sibling)
+        parent_page = comfy_cms_pages(:page_b)
         page = site.pages.new(parent: parent_page)
         page.validate
         expect(page.parent).to eq(parent_page)
@@ -54,9 +54,9 @@ RSpec.describe Comfy::Cms::Page do
 
     describe "#assign_full_path" do
       it "assigns full path to the page" do
-        page = site.pages.new(parent: comfy_cms_pages(:child), slug: "test-page")
+        page = site.pages.new(parent: comfy_cms_pages(:page_a), slug: "test-page")
         page.validate
-        expect(page.full_path).to eq("child-page/test-page")
+        expect(page.full_path).to eq("page-a/test-page")
       end
 
       it "assigns blank for the root page" do
@@ -64,6 +64,25 @@ RSpec.describe Comfy::Cms::Page do
         page = site.pages.new
         page.validate
         expect(page.full_path).to eq("")
+      end
+    end
+
+    describe "#assign_position" do
+      it "sets position" do
+        page = site.pages.create!(layout: layout, slug: "test")
+        expect(page.position).to eq(2)
+      end
+    end
+
+    describe "#sync_child_full_paths!" do
+      it "parent's slug change triggers full_path updates in the tree" do
+        comfy_cms_pages(:page_a).update!(slug: "new-slug")
+        expect(comfy_cms_pages(:page_a_child).full_path).to eq("new-slug/page-a-child")
+      end
+
+      it "changes path when tree structure is changed" do
+        comfy_cms_pages(:page_a).update!(parent: comfy_cms_pages(:page_b))
+        expect(comfy_cms_pages(:page_a_child).full_path).to eq("page-b/page-a/page-a-child")
       end
     end
   end
@@ -78,21 +97,21 @@ RSpec.describe Comfy::Cms::Page do
       end
 
       it "ensures that slug is populated for all other pages" do
-        page = comfy_cms_pages(:child)
+        page = comfy_cms_pages(:page_a)
         page.slug = ""
         expect(page).not_to be_valid
         expect(page.errors[:slug]).to include("can't be blank")
       end
 
       it "ensures that slug is unique between siblings" do
-        page = comfy_cms_pages(:sibling)
-        page.slug = comfy_cms_pages(:child).slug
+        page = comfy_cms_pages(:page_b)
+        page.slug = comfy_cms_pages(:page_a).slug
         expect(page).not_to be_valid
         expect(page.errors[:slug]).to include("has already been taken")
       end
 
       it "ensures that slug is correctly formatted" do
-        page = comfy_cms_pages(:sibling)
+        page = comfy_cms_pages(:page_b)
 
         [
           "ก้",
@@ -120,6 +139,17 @@ RSpec.describe Comfy::Cms::Page do
           page.slug = invalid_slug
           expect(page).not_to be_valid, invalid_slug
         end
+      end
+    end
+
+    describe "#validate_target_page" do
+      it "ensures there's no cyclical dependency" do
+        redirect_to_page = comfy_cms_pages(:page_a_child)
+        page.update_column(:target_page_id, redirect_to_page.id)
+
+        redirect_to_page.target_page = page
+        expect(redirect_to_page).not_to be_valid
+        expect(redirect_to_page.errors[:target_page_id]).to include("invalid redirect")
       end
     end
   end
@@ -294,6 +324,16 @@ RSpec.describe Comfy::Cms::Page do
         ]
       )
       expect(frag.reload.datetime).to eq(date)
+    end
+  end
+
+  describe "#url" do
+    it "returns page url" do
+      expect(comfy_cms_pages(:page_a_child).url).to eq("//www.example.com/page-a/page-a-child")
+    end
+
+    it "returns page relative url" do
+      expect(comfy_cms_pages(:page_a_child).url(relative: true)).to eq("/page-a/page-a-child")
     end
   end
 end

@@ -176,7 +176,7 @@ RSpec.describe Comfy::Cms::Site do
         site.destroy
       end.to change(described_class, :count).by(-1)
         .and change(Comfy::Cms::Layout, :count).by(-3)
-        .and change(Comfy::Cms::Page, :count).by(-3)
+        .and change(Comfy::Cms::Page, :count).by(-4)
         .and change(Comfy::Cms::Snippet, :count).by(-1)
         .and change(Comfy::Cms::Category, :count).by(-1)
     end

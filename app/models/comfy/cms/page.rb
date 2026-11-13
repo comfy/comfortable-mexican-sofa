@@ -49,16 +49,6 @@ class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
   scope :published, -> { where(is_published: true) }
 
   # -- Instance Methods --------------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set.
-  def full_path
-    read_attribute(:full_path) || assign_full_path
-  end
-
-  # # Somewhat unique method of identifying a page that is not a full_path
-  # def identifier
-  #   parent_id.blank? ? "index" : full_path[1..-1].parameterize
-  # end
-
   # Full url for a page
   def url(relative: false)
     [site.url(relative: relative), full_path].join("/")
@@ -110,27 +100,35 @@ protected
   end
 
   def assign_position
-    return unless self.parent
-    return if position.to_i.positive?
-    max = self.parent.children.maximum(:position)
+    return if parent.blank? || position.to_i.positive?
+
+    max = parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end
 
   def validate_target_page
     return unless target_page
-    p = self
-    while p.target_page
-      if (p = p.target_page) == self
-        return errors.add(:target_page_id, "Invalid Redirect")
+
+    visited_pages = [self]
+    current_page  = target_page
+
+    while current_page
+      if visited_pages.include?(current_page)
+        errors.add(:target_page_id, "invalid redirect")
+        break
       end
+      visited_pages << current_page
+      current_page = current_page.target_page
     end
   end
 
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
     return unless full_path_previously_changed?
+
     children.each do |p|
-      p.update_attribute(:full_path, p.send(:assign_full_path))
+      p.send(:assign_full_path)
+      p.save!
     end
   end
 end
