@@ -1,0 +1,36 @@
+body#comfy {
+  /* -- Color swatches -- */
+  --gray-50:  oklch(.985 .002 247.839);
+  --gray-100: oklch(.968 .007 247.896);
+  --gray-200: oklch(.928 .006 264.531);
+  --gray-300: oklch(.869 .022 252.894);
+  --gray-400: oklch(.707 .022 261.325);
+  --gray-500: oklch(.551 .027 264.364);
+  --red-500:  oklch(.637 .237 25.331);
+
+  /* -- Typography -- */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --font-size-sm:   0.875rem;
+  --line-height-sm: 1.25rem;
+  --font-size-xs:   0.75rem;
+  --line-height-xs: 1rem;
+
+  .body-container {
+    display:               grid;
+    grid-template-columns: 240px 1fr 240px;
+    gap:                   1.5rem;
+    min-height:            100vh;
+    > main {
+      min-width: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  body#comfy {
+    .body-container {
+      grid-template-columns: 1fr;
+    }
+  }
+}

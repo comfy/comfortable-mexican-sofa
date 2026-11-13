@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Page < ActiveRecord::Base
+class Comfy::Cms::Page < Comfy::Cms::ApplicationRecord
+  include Comfy::Cms::ActsAsTreeConcern
+  include Comfy::Cms::WithFragmentsConcern
+  include Comfy::Cms::WithCategories
 
   self.table_name = "comfy_cms_pages"
 
-  include Comfy::Cms::WithFragments
-  include Comfy::Cms::WithCategories
-
-  cms_acts_as_tree counter_cache: :children_count, order: :position
   cms_has_revisions_for :fragments_attributes
 
   attr_accessor :content
 
   # -- Relationships -----------------------------------------------------------
   belongs_to :site
+
   belongs_to :target_page,
     class_name: "Comfy::Cms::Page",
     optional:   true
@@ -22,65 +22,36 @@ class Comfy::Cms::Page < ActiveRecord::Base
     dependent: :destroy
 
   # -- Callbacks ---------------------------------------------------------------
-  before_validation :assigns_label,
-                    :assign_parent,
-                    :escape_slug,
-                    :assign_full_path
-  before_create     :assign_position
-  after_save        :sync_child_full_paths!
-  after_find        :unescape_slug_and_path
+  before_validation :assign_label,
+    :assign_parent,
+    :assign_full_path
+
+  before_create :assign_position
+
+  after_save :sync_child_full_paths!
 
   # -- Validations -------------------------------------------------------------
   validates :label,
-    presence:   true
+    presence: true
+
   validates :slug,
-    presence:   true,
-    uniqueness: { scope: :parent_id },
-    unless:     ->(p) {
-      p.site && (p.site.pages.count.zero? || p.site.pages.root == self)
+    presence:   { unless: :root_page? },
+    absence:    { if: :root_page? },
+    uniqueness: { scope: %i[site_id parent_id] },
+    format:     {
+      with:        /\A[\p{L}\p{N}][\p{L}\p{N}\p{M}]*(?:[._-][\p{L}\p{N}][\p{L}\p{N}\p{M}]*)*\z/,
+      allow_blank: true
     }
+
   validate :validate_target_page
-  validate :validate_format_of_unescaped_slug
 
   # -- Scopes ------------------------------------------------------------------
   scope :published, -> { where(is_published: true) }
 
-  # -- Class Methods -----------------------------------------------------------
-  # Tree-like structure for pages
-  def self.options_for_select(site:, current_page: nil, exclude_self: false)
-    options = []
-
-    options_for_page = ->(page, depth = 0) do
-      return if page.nil?
-      return if exclude_self && page == current_page
-
-      options << ["#{'. . ' * depth}#{page.label}", page.id]
-
-      page.children.order(:position).each do |child_page|
-        options_for_page.call(child_page, depth + 1)
-      end
-    end
-
-    options_for_page.call(site.pages.root)
-
-    options
-  end
-
   # -- Instance Methods --------------------------------------------------------
-  # For previewing purposes sometimes we need to have full_path set. This
-  # full path take care of the pages and its childs but not of the site path
-  def full_path
-    read_attribute(:full_path) || assign_full_path
-  end
-
-  # Somewhat unique method of identifying a page that is not a full_path
-  def identifier
-    parent_id.blank? ? "index" : full_path[1..-1].parameterize
-  end
-
   # Full url for a page
   def url(relative: false)
-    [site.url(relative: relative), full_path].compact.join
+    [site.url(relative: relative), full_path].join("/")
   end
 
   # This method will mutate page object by transfering attributes from translation
@@ -107,64 +78,57 @@ class Comfy::Cms::Page < ActiveRecord::Base
 
 protected
 
-  def assigns_label
-    self.label = label.blank? ? slug.try(:titleize) : label
+  def root_page?
+    site && (site.pages.reload.empty? || site.pages.root == self)
   end
 
+  def assign_label
+    return if slug.blank? || label.present?
+
+    self.label = slug.titleize
+  end
+
+  # Assigning parent page in case it wasn't explicitly provided
   def assign_parent
-    return unless site
-    self.parent ||= site.pages.root unless self == site.pages.root || site.pages.count.zero?
+    return if site.blank? || parent.present? || self == site.pages.root
+
+    self.parent = site.pages.root
   end
 
   def assign_full_path
-    self.full_path =
-      if self.parent
-        [CGI.escape(self.parent.full_path).gsub("%2F", "/"), slug].join("/").squeeze("/")
-      else
-        "/"
-      end
+    self.full_path = [parent&.full_path, slug].compact_blank.join("/")
   end
 
   def assign_position
-    return unless self.parent
-    return if position.to_i.positive?
-    max = self.parent.children.maximum(:position)
+    return if parent.blank? || position.to_i.positive?
+
+    max = parent.children.maximum(:position)
     self.position = max ? max + 1 : 0
   end
 
   def validate_target_page
     return unless target_page
-    p = self
-    while p.target_page
-      if (p = p.target_page) == self
-        return errors.add(:target_page_id, "Invalid Redirect")
-      end
-    end
-  end
 
-  def validate_format_of_unescaped_slug
-    return unless slug.present?
-    unescaped_slug = CGI.unescape(slug)
-    errors.add(:slug, :invalid) unless unescaped_slug =~ %r{^\p{Alnum}[\.\p{Alnum}\p{Mark}_-]*$}i
+    visited_pages = [self]
+    current_page  = target_page
+
+    while current_page
+      if visited_pages.include?(current_page)
+        errors.add(:target_page_id, "invalid redirect")
+        break
+      end
+      visited_pages << current_page
+      current_page = current_page.target_page
+    end
   end
 
   # Forcing re-saves for child pages so they can update full_paths
   def sync_child_full_paths!
     return unless full_path_previously_changed?
+
     children.each do |p|
-      p.update_attribute(:full_path, p.send(:assign_full_path))
+      p.send(:assign_full_path)
+      p.save!
     end
   end
-
-  # Escape slug unless it's nonexistent (root)
-  def escape_slug
-    self.slug = CGI.escape(slug) unless slug.nil?
-  end
-
-  # Unescape the slug and full path back into their original forms unless they're nonexistent
-  def unescape_slug_and_path
-    self.slug       = CGI.unescape(slug)      unless slug.nil?
-    self.full_path  = CGI.unescape(full_path) unless full_path.nil?
-  end
-
 end

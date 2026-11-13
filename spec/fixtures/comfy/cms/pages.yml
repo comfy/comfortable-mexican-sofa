@@ -1,0 +1,47 @@
+default:
+  site: default
+  parent:
+  target_page:
+  layout: default
+  label: Root Page
+  slug:
+  full_path: ""
+  position: 0
+  is_published: true
+  content_cache:
+
+page_a:
+  site: default
+  parent: default
+  target_page:
+  layout: default
+  label: Page A
+  slug: page-a
+  full_path: page-a
+  position: 0
+  is_published: true
+  content_cache:
+
+page_b:
+  site: default
+  parent: default
+  target_page:
+  layout: default
+  label: Page B
+  slug: page-b
+  full_path: page-b
+  position: 1
+  is_published: true
+  content_cache:
+
+page_a_child:
+  site: default
+  parent: page_a
+  target_page:
+  layout: default
+  label: Page A Child
+  slug: page-a-child
+  full_path: page-a/page-a-child
+  position: 0
+  is_published: true
+  content_cache:

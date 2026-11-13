@@ -53,6 +53,10 @@ it:
         layout_not_found: Layout non trovato
         page_not_found: Pagina non trovata
 
+      page:
+        redirect_select_component:
+          prompt: Nessun reindirizzamento
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ it:
           edit:
             title: Modifica Pagina
           form:
-            select_target_page: Nessun reindirizzamento
             preview: Anteprima
             create: Crea Pagina
             cancel: Cancellare

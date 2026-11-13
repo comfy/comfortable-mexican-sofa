@@ -53,6 +53,10 @@ zh-TW:
         layout_not_found: 佈局不存在
         page_not_found: 頁面不存在
 
+      page:
+        redirect_select_component:
+          prompt: 沒有跳轉
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ zh-TW:
           edit:
             title: 編輯頁面
           form:
-            select_target_page: 沒有跳轉
             preview: 預覽
             create: 創建頁面
             cancel: 取消

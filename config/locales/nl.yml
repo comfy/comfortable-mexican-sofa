@@ -53,6 +53,10 @@ nl:
         layout_not_found: Lay-out niet gevonden
         page_not_found: Pagina niet gevonden
 
+      page:
+        redirect_select_component:
+          prompt: Geen Omleiding
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ nl:
           edit:
             title: Pagina Bewerken
           form:
-            select_target_page: Geen Omleiding
             preview: Preview
             create: Pagina Aanmaken
             cancel: Annuleren

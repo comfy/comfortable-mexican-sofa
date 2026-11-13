@@ -1,0 +1,36 @@
+name: build
+on:
+  pull_request:
+  push:
+    branches: [master]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+      - run: bin/rubocop
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: "4.0"
+            gemfile: Gemfile
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y libvips-dev
+      - run: bin/rails assets:precompile
+      - run: bin/rails db:prepare
+      - run: bin/rspec

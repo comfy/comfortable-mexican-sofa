@@ -19,7 +19,7 @@ require_relative "../config/environment"
 
 require "rails/test_help"
 require "rails/generators"
-require "mocha/setup"
+# require "mocha/setup"
 
 Rails.backtrace_cleaner.remove_silencers!
 

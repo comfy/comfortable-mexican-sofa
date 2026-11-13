@@ -53,6 +53,10 @@ fi:
         layout_not_found: Ulkoasua ei löydy
         page_not_found: Sivua ei löydy
 
+      page:
+        redirect_select_component:
+          prompt: Ei uudelleenohjausta
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ fi:
           edit:
             title: Sivun muokkaus
           form:
-            select_target_page: Ei uudelleenohjausta
             preview: Esikatselu
             create: Luo sivu
             cancel: Peru

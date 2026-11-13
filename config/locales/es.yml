@@ -53,6 +53,10 @@ es:
         layout_not_found: Diseño no encontrado
         page_not_found: Página no encontrada
 
+      page:
+        redirect_select_component:
+          prompt: No Redirigir
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ es:
           edit:
             title: Editando Página
           form:
-            select_target_page: No Redirigir
             preview: Vista Previa
             create: Crear Página
             cancel: Cancelar

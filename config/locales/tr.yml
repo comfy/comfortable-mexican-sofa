@@ -53,6 +53,10 @@ tr:
         layout_not_found: Şablon Bulunamadı
         page_not_found: Sayfa Bulunamadı
 
+      page:
+        redirect_select_component:
+          prompt: Yönlendirme Yok
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ tr:
           edit:
             title: Sayfa Düzenleniyor
           form:
-            select_target_page: Yönlendirme Yok
             preview: Önizle
             create: Sayfa Oluştur
             cancel: İptal
