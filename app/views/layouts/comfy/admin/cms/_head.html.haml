@@ -12,9 +12,14 @@
     %meta{name: "cms-pages-path",       content: comfy_admin_cms_site_pages_path(@site)}
     %meta{name: "cms-locale",           content: I18n.locale}
 
-  = stylesheet_link_tag "comfy/admin/cms/application", media: "all", "data-turbolinks-track": "reload"
 
-  = stylesheet_link_tag "comfy/cms/application", "data-turbo-track": "reload"
+  - stylesheets = Dir.glob(ComfortableMexicanSofa::Engine.root.join("app/assets/stylesheets/**/*.css")).map { |f| f.sub(%r{.*/app/assets/stylesheets/}, "") }
+  = stylesheet_link_tag(*stylesheets, "data-turbo-track": "reload")
+
+
+
+
+  = javascript_importmap_tags
 
   = yield :head
 

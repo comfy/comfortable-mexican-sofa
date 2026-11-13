@@ -2,7 +2,14 @@
 
 class Comfy::BaseComponent < ViewComponent::Base
   def around_render
-    tag_name = self.class.to_s.underscore.dasherize.gsub("/", "--")
-    content_tag(tag_name, yield)
+    content_tag(component_identifier, yield, component_html_options)
+  end
+
+  def component_html_options
+    {}
+  end
+
+  def component_identifier
+    self.class.to_s.underscore.dasherize.gsub("/", "--")
   end
 end

@@ -16,6 +16,7 @@ comfy--cms--fragment--files-component {
       padding:          0.25rem 0.75rem;
       background-color: var(--gray-50);
       color:            var(--gray-500);
+      text-decoration:  none;
       &:hover, &:focus {
         text-decoration:  none;
         background-color: var(--gray-100);

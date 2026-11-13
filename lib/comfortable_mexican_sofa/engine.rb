@@ -11,9 +11,9 @@ require "active_link_to"
 
 require "rails-i18n"
 require "comfy_bootstrap_form"
-require "jquery-rails"
+# require "jquery-rails"
 require "haml-rails"
-require "sassc-rails"
+# require "sassc-rails"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine

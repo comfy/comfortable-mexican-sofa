@@ -5,7 +5,12 @@ source "http://rubygems.org"
 gemspec
 
 gem "bootsnap", require: false
-# gem "propshaft"
+
+gem "propshaft"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+
 gem "puma",        ">= 5.0"
 gem "sqlite3",     ">= 2.10.1"
 gem "ruby-vips",   "~> 2.2"
@@ -31,7 +36,7 @@ end
 group :development, :test do
 
 
-  gem "autoprefixer-rails"#, "~> 8.1.0"
+  # gem "autoprefixer-rails"#, "~> 8.1.0"
   gem "byebug"#,             "~> 10.0.0", platforms: %i[mri mingw x64_mingw]
   #,           "~> 2.17.0"
   gem "kaminari"#,           "~> 1.1.1"

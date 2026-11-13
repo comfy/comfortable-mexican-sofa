@@ -6,6 +6,7 @@
   = form.text_field :slug, data: { slug: true }, prepend: @page.parent.full_path
 
 = render Comfy::Cms::Page::ParentSelectComponent.new(form: form)
+= render Comfy::Cms::Page::LayoutSelectComponent.new(form: form)
 
 - if (options = ::Comfy::Cms::Layout.options_for_select(@site)).present?
   = form.select :layout_id, options, {bootstrap: {custom_control: true}}, {data: {url: form_fragments_comfy_admin_cms_site_page_path(@site, @page.id.to_i)}, id: "fragments-toggle"}
