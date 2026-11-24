@@ -1,0 +1,11 @@
+comfy--cms--button-component {
+  padding:          0.625rem 1.25rem;
+  display:          inline-block;
+  white-space:      nowrap;
+  font-size:        var(--font-size-sm);
+  line-height:      var(--line-height-sm);
+  font-weight:      500;
+  border-radius:    0.5rem;
+  color:            white;
+  background-color: var(--purple-500);
+}

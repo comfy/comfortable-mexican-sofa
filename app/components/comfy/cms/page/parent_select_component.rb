@@ -26,6 +26,6 @@ class Comfy::Cms::Page::ParentSelectComponent < Comfy::BaseComponent
       end
     end
 
-    walk_tree.call(@page.class.tree(records: @page.site.pages))
+    walk_tree.call(@page.site.pages.tree)
   end
 end

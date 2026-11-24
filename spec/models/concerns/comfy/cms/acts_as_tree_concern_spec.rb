@@ -77,7 +77,7 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
           ]
         }
       ]
-      expect(Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all)).to eq(expected)
+      expect(Comfy::Cms::Page.tree).to eq(expected)
     end
 
     it "sorts things based on position" do
@@ -105,12 +105,14 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
           ]
         }
       ]
-      expect(Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all)).to eq(expected)
+      expect(Comfy::Cms::Page.tree).to eq(expected)
     end
 
     it "doesn't crash if there's a non-persisted object in the list" do
       expect do
-        Comfy::Cms::Page.tree(records: Comfy::Cms::Page.all.to_a + [Comfy::Cms::Page.new])
+        site = comfy_cms_sites(:default)
+        site.pages.new
+        Comfy::Cms::Page.tree
       end.not_to raise_error
     end
   end

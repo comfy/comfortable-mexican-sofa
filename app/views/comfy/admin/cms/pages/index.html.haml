@@ -1,9 +1,10 @@
 - content_for :right_column do
   = render "comfy/admin/cms/categories/index", type: "Comfy::Cms::Page"
 
-.page-header
-  = link_to t('.new_link'), new_comfy_admin_cms_site_page_path(@site), class: "btn btn-secondary float-right"
-  %h2= t('.title')
+%header
+  %h1
+    = t(".title")
+  = render Comfy::Cms::ButtonComponent.new(t(".new_link"), new_comfy_admin_cms_site_page_path(@site))
 
 = comfy_admin_partial "comfy/admin/cms/partials/pages_before"
 

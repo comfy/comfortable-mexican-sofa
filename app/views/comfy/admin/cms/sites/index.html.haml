@@ -1,6 +1,7 @@
-.page-header
-  = link_to t('.new_link'), new_comfy_admin_cms_site_path, class: "btn btn-secondary float-right"
-  %h2= t('.title')
+%header
+  %h1
+    = t(".title")
+  = render Comfy::Cms::ButtonComponent.new(t(".new_link"), new_comfy_admin_cms_site_path)
 
 = comfy_admin_partial "comfy/admin/cms/partials/sites_before"
 

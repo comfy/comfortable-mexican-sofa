@@ -16,8 +16,6 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to action: :new if site_has_no_pages?
 
-    return index_for_redactor if params[:source] == "redactor"
-
     @pages_by_parent = pages_grouped_by_parent
 
     @pages =
@@ -66,9 +64,9 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     @page.layout = @site.layouts.find_by(id: params[:layout_id])
 
     render(
-      partial:  "comfy/admin/cms/fragments/form_fragments",
-      locals:   { record: @page, scope: :page },
-      layout:   false
+      partial: "comfy/admin/cms/fragments/form_fragments",
+      locals:  { record: @page, scope: :page },
+      layout:  false
     )
   end
 

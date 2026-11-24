@@ -1,27 +1,30 @@
 body#comfy-cms {
   /* -- Color swatches -- */
-  --gray-50:   oklch(.985 .002 247.839);
-  --gray-100:  oklch(.968 .007 247.896);
-  --gray-200:  oklch(.928 .006 264.531);
-  --gray-300:  oklch(.869 .022 252.894);
-  --gray-400:  oklch(.707 .022 261.325);
-  --gray-500:  oklch(.551 .027 264.364);
-  --red-500:   oklch(.637 .237 25.331);
-  --slate-800: oklch(.279 .041 260.031);
-  --slate-700: oklch(.372 .044 257.287);
+  --gray-50:    oklch(.985 .002 247.839);
+  --gray-100:   oklch(.968 .007 247.896);
+  --gray-200:   oklch(.928 .006 264.531);
+  --gray-300:   oklch(.869 .022 252.894);
+  --gray-400:   oklch(.707 .022 261.325);
+  --gray-500:   oklch(.551 .027 264.364);
+  --red-500:    oklch(.637 .237 25.331);
+  --slate-50:   oklch(.984 .003 247.858);
+  --slate-800:  oklch(.279 .041 260.031);
+  --slate-700:  oklch(.372 .044 257.287);
+  --purple-500: oklch(.627 .265 303.9);
 
   /* -- Typography -- */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
-  --font-size-sm:   0.875rem;
-  --line-height-sm: 1.25rem;
-  --font-size-xs:   0.75rem;
-  --line-height-xs: 1rem;
+  --font-size-3xl:   1.875rem;
+  --line-height-3xl: calc(2.25 / 1.875)rem;
+  --font-size-sm:    0.875rem;
+  --line-height-sm:  1.25rem;
+  --font-size-xs:    0.75rem;
+  --line-height-xs:  1rem;
 
   .body-container {
     display:               grid;
     grid-template-columns: 16rem 1fr 16rem;
-    gap:                   1.5rem;
     min-height:            100vh;
     > nav {
       background-color: var(--slate-800);
@@ -55,10 +58,24 @@ body#comfy-cms {
       }
     }
     > main {
-      min-width: 0;
+      min-width:        0;
+      padding:          1rem;
+      background-color: var(--slate-50);
+      header {
+        display:         flex;
+        justify-content: space-between;
+        align-items:     center;
+
+        h1 {
+          font-size:   var(--font-size-3xl);
+          line-height: var(--line-height-3xl);
+        }
+        margin-bottom: 1rem;
+      }
     }
   }
 }
+
 
 @media (max-width: 768px) {
   body#comfy-cms {

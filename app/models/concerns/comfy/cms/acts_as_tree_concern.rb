@@ -25,8 +25,8 @@ module Comfy::Cms::ActsAsTreeConcern
       roots.first
     end
 
-    def tree(records:)
-      records = records.reject(&:new_record?)
+    def tree
+      records = all.reject(&:new_record?)
 
       grouped_records =
         records.group_by(&:parent_id).transform_values do |grouping|
