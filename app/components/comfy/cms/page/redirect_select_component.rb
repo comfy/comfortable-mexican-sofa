@@ -15,11 +15,11 @@ class Comfy::Cms::Page::RedirectSelectComponent < Comfy::BaseComponent
   end
 
   def options
-    walk_tree = lambda do |items, depth = 0|
-      items.flat_map do |item|
+    walk_tree = lambda do |tree_nodes, depth = 0|
+      tree_nodes.flat_map do |tree_node|
         [
-          ["#{"\u00A0\u00B7\u00A0" * depth} #{item[:label]}", item[:id]],
-          *walk_tree.call(item[:children], depth + 1)
+          ["#{"\u00A0\u00B7\u00A0" * depth} #{tree_node.item.label}", tree_node.item.id],
+          *walk_tree.call(tree_node.children, depth + 1)
         ]
       end
     end

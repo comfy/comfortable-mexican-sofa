@@ -15,13 +15,13 @@ class Comfy::Cms::Page::ParentSelectComponent < Comfy::BaseComponent
   end
 
   def options
-    walk_tree = lambda do |items, depth = 0|
-      items.flat_map do |item|
-        next [] if item[:id] == @page.id
+    walk_tree = lambda do |tree_nodes, depth = 0|
+      tree_nodes.flat_map do |tree_node|
+        next [] if tree_node.item == @page
 
         [
-          ["#{"\u00A0\u00B7\u00A0" * depth} #{item[:label]}", item[:id]],
-          *walk_tree.call(item[:children], depth + 1)
+          ["#{"\u00A0\u00B7\u00A0" * depth} #{tree_node.item.label}", tree_node.item.id],
+          *walk_tree.call(tree_node.children, depth + 1)
         ]
       end
     end

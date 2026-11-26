@@ -55,27 +55,12 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
   describe ".tree" do
     it "returns tree structure of records" do
       expected = [
-        {
-          id:       root_page.id,
-          label:    root_page.label,
-          children: [
-            {
-              id:       page_a.id,
-              label:    page_a.label,
-              children: [
-                {
-                  id:       page_a_child.id,
-                  label:    page_a_child.label,
-                  children: []
-                }
-              ]
-            }, {
-              id:       page_b.id,
-              label:    page_b.label,
-              children: []
-            }
-          ]
-        }
+        described_class::TreeNode.new(item: root_page, children: [
+          described_class::TreeNode.new(item: page_a, children: [
+            described_class::TreeNode.new(item: page_a_child, children: [])
+          ]),
+          described_class::TreeNode.new(item: page_b, children: [])
+        ])
       ]
       expect(Comfy::Cms::Page.tree).to eq(expected)
     end
@@ -83,27 +68,12 @@ RSpec.describe Comfy::Cms::ActsAsTreeConcern do
     it "sorts things based on position" do
       page_a.update_column(:position, 99)
       expected = [
-        {
-          id:       root_page.id,
-          label:    root_page.label,
-          children: [
-            {
-              id:       page_b.id,
-              label:    page_b.label,
-              children: []
-            }, {
-              id:       page_a.id,
-              label:    page_a.label,
-              children: [
-                {
-                  id:       page_a_child.id,
-                  label:    page_a_child.label,
-                  children: []
-                }
-              ]
-            }
-          ]
-        }
+        described_class::TreeNode.new(item: root_page, children: [
+          described_class::TreeNode.new(item: page_b, children: []),
+          described_class::TreeNode.new(item: page_a, children: [
+            described_class::TreeNode.new(item: page_a_child, children: [])
+          ])
+        ])
       ]
       expect(Comfy::Cms::Page.tree).to eq(expected)
     end

@@ -20,6 +20,8 @@ module Comfy::Cms::ActsAsTreeConcern
       :validate_site_scoping
   end
 
+  TreeNode = Data.define(:item, :children)
+
   class_methods do
     def root
       roots.first
@@ -35,7 +37,7 @@ module Comfy::Cms::ActsAsTreeConcern
 
       walk_tree = lambda do |parent_id = nil|
         grouped_records.fetch(parent_id, []).map do |child|
-          { id: child.id, label: child.label, children: walk_tree.call(child.id) }
+          TreeNode.new(item: child, children: walk_tree.call(child.id))
         end
       end
 

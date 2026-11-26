@@ -16,14 +16,16 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to action: :new if site_has_no_pages?
 
-    @pages_by_parent = pages_grouped_by_parent
+    @pages = @site.pages
 
-    @pages =
-      if params[:categories].present?
-        @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
-      else
-        [@site.pages.root].compact
-      end
+#     @pages_by_parent = pages_grouped_by_parent
+#
+#     @pages =
+#       if params[:categories].present?
+#         @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
+#       else
+#         [@site.pages.root].compact
+#       end
   end
 
   def new

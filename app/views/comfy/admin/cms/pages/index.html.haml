@@ -8,7 +8,6 @@
 
 = comfy_admin_partial "comfy/admin/cms/partials/pages_before"
 
-%ul.list.sortable
-  = render partial: "index_branch", collection: @pages
+= render Comfy::Cms::Page::IndexComponent.new(pages: @pages)
 
 = comfy_admin_partial "comfy/admin/cms/partials/pages_after"

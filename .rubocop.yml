@@ -43,6 +43,9 @@ Layout/AccessModifierIndentation:
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
 # -- Style --------------------------------------------------------------------
 Style/StringLiterals:
   EnforcedStyle: double_quotes
