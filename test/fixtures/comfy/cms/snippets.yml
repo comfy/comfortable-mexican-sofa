@@ -1,6 +1,0 @@
-default:
-  site: default
-  label: Default Snippet
-  identifier: default
-  content: snippet content
-  position: 0

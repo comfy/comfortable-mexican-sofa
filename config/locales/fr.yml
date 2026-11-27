@@ -53,6 +53,10 @@ fr:
         layout_not_found: Mise en page introuvable
         page_not_found: Page introuvable
 
+      page:
+        redirect_select_component:
+          prompt: Pas de redirection
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ fr:
           edit:
             title: Modification de la page
           form:
-            select_target_page: Pas de redirection
             preview: Prévisualiser
             create: Créer la page
             cancel: Annuler

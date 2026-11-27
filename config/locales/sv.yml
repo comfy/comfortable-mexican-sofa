@@ -53,6 +53,10 @@ sv:
         layout_not_found: Kunde inte hitta layout
         page_not_found: Kunde inte hitta sida
 
+      page:
+        redirect_select_component:
+          prompt: Ingen vidarebefodring
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ sv:
           edit:
             title: Ändra sida
           form:
-            select_target_page: Ingen vidarebefodring
             preview: Förhandsgranska
             create: Skapa sida
             cancel: Avbryt

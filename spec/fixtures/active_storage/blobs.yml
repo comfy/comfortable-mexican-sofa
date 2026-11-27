@@ -1,0 +1,5 @@
+fragment_file:
+  <%= ActiveStorage::FixtureSet.blob(filename: "image.jpg", content_type: "image/jpeg") %>
+
+site_file:
+  <%= ActiveStorage::FixtureSet.blob(filename: "image.gif", content_type: "image/gif") %>

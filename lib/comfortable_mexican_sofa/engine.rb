@@ -2,23 +2,32 @@
 
 require "comfortable_mexican_sofa"
 require "rails"
+require "image_processing"
+require "commonmarker"
+require "view_component"
+require "inline_svg"
+require "active_link_to"
+
+
 require "rails-i18n"
 require "comfy_bootstrap_form"
-require "active_link_to"
-require "kramdown"
-require "jquery-rails"
+# require "jquery-rails"
 require "haml-rails"
-require "sassc-rails"
+# require "sassc-rails"
 
 module ComfortableMexicanSofa
   class Engine < ::Rails::Engine
+    initializer "comfy.assets" do |app|
+      if app.config.respond_to?(:assets)
+        app.config.assets.paths << root.join("app/javascript")
+      end
+    end
 
-    initializer "comfortable_mexican_sofa.setup_assets" do
-      ::ComfortableMexicanSofa::Engine.config.assets.precompile += %w[
-        comfy/admin/cms/application.js
-        comfy/admin/cms/application.css
-        comfy/admin/cms/lib/redactor-font.eot
-      ]
+    initializer "comfy.importmap", before: "importmap" do |app|
+      if app.config.respond_to?(:importmap)
+        app.config.importmap.paths << root.join("config/importmap.rb")
+        app.config.importmap.cache_sweepers << root.join("app/javascript")
+      end
     end
 
     config.to_prepare do
@@ -26,6 +35,5 @@ module ComfortableMexicanSofa
         require_dependency(c)
       end
     end
-
   end
 end

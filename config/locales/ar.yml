@@ -53,6 +53,10 @@ ar:
         layout_not_found: تخطيط غير موجود
         page_not_found: الصفحة غير موجودة
 
+      page:
+        redirect_select_component:
+          prompt: لا إعادة توجيه
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ ar:
           edit:
             title: تعديل
           form:
-            select_target_page: لا إعادة توجيه
             preview: معاينة
             create: إنشاء صفحة
             cancel: إلغاء

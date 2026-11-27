@@ -1,0 +1,118 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe Comfy::Cms::ActsAsTreeConcern do
+  let(:root_page)    { comfy_cms_pages(:default) }
+  let(:page_a)       { comfy_cms_pages(:page_a) }
+  let(:page_b)       { comfy_cms_pages(:page_b) }
+  let(:page_a_child) { comfy_cms_pages(:page_a_child) }
+
+  describe "relationships" do
+    it "belongs to parent" do
+      expect(page_a.parent).to eq(root_page)
+    end
+
+    it "has many children" do
+      expect(root_page.children).to contain_exactly(page_a, page_b)
+    end
+  end
+
+  describe "validations" do
+    describe "#validate_parent_id" do
+      it "ensures that record cannot be parent of itself" do
+        page_a.parent_id = page_a.id
+        expect(page_a).not_to be_valid
+        expect(page_a.errors[:parent_id]).to include("cannot be its own parent")
+      end
+
+      it "ensures that record cannot be a child of one of its own descendants" do
+        root_page.parent_id = page_a.id
+        expect(root_page).not_to be_valid
+        expect(root_page.errors[:parent_id]).to include("cannot be a descendant's parent")
+      end
+    end
+
+    describe "#validate_site_scoping" do
+      it "cannot link to a record outside site scope" do
+        root_page.update_column(:site_id, 9999)
+        expect(page_a).not_to be_valid
+        expect(page_a.errors[:parent_id]).to include("wrong site scope")
+      end
+    end
+  end
+
+  describe "scopes" do
+    describe ".roots" do
+      it "returns collection of root records" do
+        expect(Comfy::Cms::Page.roots).to contain_exactly(root_page)
+        page_a.update_column(:parent_id, nil)
+        expect(Comfy::Cms::Page.roots).to contain_exactly(root_page, page_a)
+      end
+    end
+  end
+
+  describe ".tree" do
+    it "returns tree structure of records" do
+      expected = [
+        described_class::TreeNode.new(item: root_page, children: [
+          described_class::TreeNode.new(item: page_a, children: [
+            described_class::TreeNode.new(item: page_a_child, children: [])
+          ]),
+          described_class::TreeNode.new(item: page_b, children: [])
+        ])
+      ]
+      expect(Comfy::Cms::Page.tree).to eq(expected)
+    end
+
+    it "sorts things based on position" do
+      page_a.update_column(:position, 99)
+      expected = [
+        described_class::TreeNode.new(item: root_page, children: [
+          described_class::TreeNode.new(item: page_b, children: []),
+          described_class::TreeNode.new(item: page_a, children: [
+            described_class::TreeNode.new(item: page_a_child, children: [])
+          ])
+        ])
+      ]
+      expect(Comfy::Cms::Page.tree).to eq(expected)
+    end
+
+    it "doesn't crash if there's a non-persisted object in the list" do
+      expect do
+        site = comfy_cms_sites(:default)
+        site.pages.new
+        Comfy::Cms::Page.tree
+      end.not_to raise_error
+    end
+  end
+
+  describe ".root" do
+    it "returns first root record it finds" do
+      expect(Comfy::Cms::Page.root).to eq(root_page)
+    end
+  end
+
+  describe "#root?" do
+    it "returns boolean" do
+      expect(root_page.root?).to be(true)
+      expect(page_a.root?).to be(false)
+    end
+  end
+
+  describe "#descendants" do
+    it "returns an array of descendant records" do
+      expect(root_page.descendants).to contain_exactly(page_a, page_b, page_a_child)
+      expect(page_a.descendants).to contain_exactly(page_a_child)
+      expect(page_a_child.descendants).to be_blank
+    end
+  end
+
+  describe "#destroy" do
+    it "destroys entire tree" do
+      expect do
+        root_page.destroy
+      end.to change(Comfy::Cms::Page, :count).by(-4)
+    end
+  end
+end

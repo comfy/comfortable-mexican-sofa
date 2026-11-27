@@ -1,0 +1,32 @@
+default:
+  record: default (Comfy::Cms::Page)
+  identifier: content
+  tag: text
+  content: >
+    "fragment-content {{cms:snippet default}}"
+
+file:
+  record: default (Comfy::Cms::Page)
+  identifier: file
+  tag: file
+  content:
+
+datetime:
+  record: default (Comfy::Cms::Page)
+  identifier: datetime
+  tag: datetime
+  content:
+  datetime: <%= DateTime.parse("1981-10-04 12:34:56") %>
+
+boolean:
+  record: default (Comfy::Cms::Page)
+  identifier: boolean
+  tag: checkbox
+  content:
+  boolean: true
+
+translation:
+  record: default (Comfy::Cms::Translation)
+  identifier: content
+  tag: text
+  content: translated-content

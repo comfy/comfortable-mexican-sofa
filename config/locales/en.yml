@@ -53,6 +53,16 @@ en:
         layout_not_found: Layout Not Found
         page_not_found: Page Not Found
 
+      page:
+        redirect_select_component:
+          prompt: No Redirect
+        index_item_component:
+          toggle: Toggle
+          add_child_page: Add Child Page
+          edit: Edit
+          delete: Delete
+          are_you_sure: Are you sure?
+
     admin:
       cms:
         base:
@@ -127,18 +137,11 @@ en:
           index:
             title: Pages
             new_link: Create New Page
-          index_branch:
-            toggle: Toggle
-            add_child_page: Add Child Page
-            edit: Edit
-            delete: Delete
-            are_you_sure: Are you sure?
           new:
             title: New Page
           edit:
             title: Editing Page
           form:
-            select_target_page: No Redirect
             preview: Preview
             create: Create Page
             cancel: Cancel

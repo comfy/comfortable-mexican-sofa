@@ -16,16 +16,16 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to action: :new if site_has_no_pages?
 
-    return index_for_redactor if params[:source] == "redactor"
+    @pages = @site.pages.includes(:categories)
 
-    @pages_by_parent = pages_grouped_by_parent
-
-    @pages =
-      if params[:categories].present?
-        @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
-      else
-        [@site.pages.root].compact
-      end
+#     @pages_by_parent = pages_grouped_by_parent
+#
+#     @pages =
+#       if params[:categories].present?
+#         @site.pages.includes(:categories).for_category(params[:categories]).order(:label)
+#       else
+#         [@site.pages.root].compact
+#       end
   end
 
   def new
@@ -37,12 +37,13 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   end
 
   def create
-    @page.save!
-    flash[:success] = I18n.t("comfy.admin.cms.pages.created")
-    redirect_to action: :edit, id: @page
-  rescue ActiveRecord::RecordInvalid
-    flash.now[:danger] = I18n.t("comfy.admin.cms.pages.creation_failure")
-    render action: :new
+    if @page.save!
+      flash[:success] = I18n.t("comfy.admin.cms.pages.created")
+      redirect_to action: :edit, id: @page
+    else
+      flash.now[:danger] = I18n.t("comfy.admin.cms.pages.creation_failure")
+      render action: :new
+    end
   end
 
   def update
@@ -65,9 +66,9 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
     @page.layout = @site.layouts.find_by(id: params[:layout_id])
 
     render(
-      partial:  "comfy/admin/cms/fragments/form_fragments",
-      locals:   { record: @page, scope: :page },
-      layout:   false
+      partial: "comfy/admin/cms/fragments/form_fragments",
+      locals:  { record: @page, scope: :page },
+      layout:  false
     )
   end
 

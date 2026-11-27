@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Comfy::Cms::Snippet < ActiveRecord::Base
-
+class Comfy::Cms::Snippet < Comfy::Cms::ApplicationRecord
   self.table_name = "comfy_cms_snippets"
 
   include Comfy::Cms::WithCategories
@@ -14,32 +13,32 @@ class Comfy::Cms::Snippet < ActiveRecord::Base
   # -- Callbacks ---------------------------------------------------------------
   before_validation :assign_label
   before_create :assign_position
+  after_destroy :clear_page_content_cache, prepend: true
   after_save    :clear_page_content_cache
-  after_destroy :clear_page_content_cache
 
   # -- Validations -------------------------------------------------------------
-  validates :label,
-    presence:   true
+  validates :label, presence: true
   validates :identifier,
-    presence:   true,
-    uniqueness: { scope: :site_id },
-    format:     { with: %r{\A\w[a-z0-9_-]*\z}i }
+            presence:   true,
+            uniqueness: { scope: :site_id },
+            format:     { with: /\A\w[a-z0-9_-]*\z/i }
 
 protected
 
   def assign_label
-    self.label = label.blank? ? identifier.try(:titleize) : label
+    return if label.present? || identifier.blank?
+
+    self.label = identifier.titleize
   end
 
   # When snippet is changed or removed we need to blow away all page caches as
   # we don't know where it was used.
   def clear_page_content_cache
-    Comfy::Cms::Page.where(id: site.pages.pluck(:id)).update_all(content_cache: nil)
+    site.pages.update_all(content_cache: nil)
   end
 
   def assign_position
     max = site.snippets.maximum(:position)
     self.position = max ? max + 1 : 0
   end
-
 end

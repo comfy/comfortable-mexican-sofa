@@ -25,7 +25,6 @@ require_relative "comfortable_mexican_sofa/seeds/snippet/importer"
 require_relative "comfortable_mexican_sofa/seeds/snippet/exporter"
 require_relative "comfortable_mexican_sofa/seeds/file/importer"
 require_relative "comfortable_mexican_sofa/seeds/file/exporter"
-require_relative "comfortable_mexican_sofa/extensions/acts_as_tree"
 require_relative "comfortable_mexican_sofa/extensions/has_revisions"
 
 require_relative "comfortable_mexican_sofa/content"

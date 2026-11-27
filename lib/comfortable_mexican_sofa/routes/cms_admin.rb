@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ActionDispatch::Routing::Mapper
-
   def comfy_route_cms_admin(path: "admin")
     scope module: :comfy, as: :comfy do
       scope module: :admin do
@@ -9,7 +8,7 @@ class ActionDispatch::Routing::Mapper
           get "/", to: "base#jump"
 
           concern :with_revisions do |options|
-            resources :revisions, options.merge(only: %i[index show]) do
+            resources :revisions, **options.merge(only: %i[index show]) do
               patch :revert, on: :member
             end
           end
@@ -54,5 +53,4 @@ class ActionDispatch::Routing::Mapper
       end
     end
   end
-
 end

@@ -1,0 +1,31 @@
+= comfy_admin_partial "comfy/admin/cms/partials/navigation_before"
+
+%ul
+  %li
+    = active_link_to comfy_admin_cms_sites_path, active: ["comfy/admin/cms/sites"] do
+      = t("comfy.admin.cms.base.sites")
+
+    - if @site && @site.persisted?
+      %li
+        = active_link_to comfy_admin_cms_site_layouts_path(@site) do
+          = t("comfy.admin.cms.base.layouts")
+      %li
+        = active_link_to comfy_admin_cms_site_pages_path(@site) do
+          = t("comfy.admin.cms.base.pages")
+      %li
+        = active_link_to comfy_admin_cms_site_snippets_path(@site) do
+          = t("comfy.admin.cms.base.snippets")
+      %li
+        = active_link_to comfy_admin_cms_site_files_path(@site) do
+          = t("comfy.admin.cms.base.files")
+
+      = cms_hook :navigation
+
+      = comfy_admin_partial "comfy/admin/cms/partials/navigation_inner"
+
+= comfy_admin_partial "comfy/admin/cms/partials/navigation_after"
+
+.nav-footer
+  = link_to "ComfortableMexicanSofa", "https://github.com/comfy", target: "_blank"
+  %span.version
+    = ComfortableMexicanSofa::VERSION

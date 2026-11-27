@@ -53,6 +53,10 @@ ru:
         layout_not_found: Шаблон не найден
         page_not_found: Страница не найдена
 
+      page:
+        redirect_select_component:
+          prompt: Без редиректа
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ ru:
           edit:
             title: Редактирование страницы
           form:
-            select_target_page: Без редиректа
             preview: Предпросмотр
             create: Создать страницу
             cancel: Oтменить

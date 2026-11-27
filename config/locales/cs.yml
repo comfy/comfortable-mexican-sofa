@@ -53,6 +53,10 @@ cs:
         layout_not_found: Rozložení nenalezeno
         page_not_found: Stránka nenalezena
 
+      page:
+        redirect_select_component:
+          prompt: Bez přesměrování
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ cs:
           edit:
             title: Úprava stránky
           form:
-            select_target_page: Bez přesměrování
             preview: Náhled
             create: Vytvořit stránku
             cancel: Zrušit

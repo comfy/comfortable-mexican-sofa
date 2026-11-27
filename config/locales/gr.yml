@@ -53,6 +53,10 @@ gr:
         layout_not_found: Η Διάταξη Δεν Βρέθηκε
         page_not_found: Η Σελίδα Δεν Βρέθηκε
 
+      page:
+        redirect_select_component:
+          prompt: Καμία Ανακατεύθυνση
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ gr:
           edit:
             title: Επεξεργασία Σελίδας
           form:
-            select_target_page: Καμία Ανακατεύθυνση
             preview: Προεπισκόπηση
             create: Δημιουργία Σελίδας
             cancel: Ακύρωση

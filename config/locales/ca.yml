@@ -53,6 +53,10 @@ ca:
         layout_not_found: El disseny no s'ha pogut trobar
         page_not_found: La pàgina no s'ha pogut trobar
 
+      page:
+        redirect_select_component:
+          prompt: No redirigir
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ ca:
           edit:
             title: Editant pàgina
           form:
-            select_target_page: No redirigir
             preview: Vista prèvia
             create: Crea la pàgina
             cancel: Cancel·la

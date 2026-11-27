@@ -53,6 +53,10 @@ zh-CN:
         layout_not_found: 布局不存在
         page_not_found: 页面不存在
 
+      page:
+        redirect_select_component:
+          prompt: 没有跳转
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ zh-CN:
           edit:
             title: 编辑页面
           form:
-            select_target_page: 没有跳转
             preview: 预览
             create: 创建页面
             cancel: 取消

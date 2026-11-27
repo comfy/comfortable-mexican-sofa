@@ -53,6 +53,10 @@ da:
         layout_not_found: Layout findes ikke
         page_not_found: Side findes ikke
 
+      page:
+        redirect_select_component:
+          prompt: Ingen viderestilling
+
     admin:
       cms:
         base:
@@ -138,7 +142,6 @@ da:
           edit:
             title: Rediger side
           form:
-            select_target_page: Ingen viderestilling
             preview: Preview
             create: Opret side
             cancel: Annuller
