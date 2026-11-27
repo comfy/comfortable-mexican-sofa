@@ -1,11 +1,36 @@
 comfy--cms--button-component {
-  padding:          0.625rem 1.25rem;
-  display:          inline-block;
-  white-space:      nowrap;
-  font-size:        var(--font-size-sm);
-  line-height:      var(--line-height-sm);
-  font-weight:      500;
-  border-radius:    0.5rem;
-  color:            white;
-  background-color: var(--purple-500);
+  a, button {
+    padding:       0.625rem 1.25rem;
+    display:       inline-flex;
+    white-space:   nowrap;
+    font-size:     var(--font-size-sm);
+    line-height:   var(--line-height-sm);
+    font-weight:   500;
+    border:        1px solid var(--slate-500);
+    border-radius: 0.5rem;
+    color:         white;
+
+    background-color: var(--slate-500);
+    &:hover, &:active {
+      background-color: var(--slate-600);
+    }
+  }
+  &.small {
+    a, button {
+      font-size:     var(--font-size-xs);
+      line-height:   var(--line-height-xs);
+      padding:       0.5rem 1rem;
+      border-radius: 0.5rem;
+    }
+  }
+  &.secondary {
+    a, button {
+      background-color: var(--slate-50);
+      color:            var(--slate-500);
+      border-color:     var(--slate-300);
+      &:hover, &:active {
+        background-color: var(--slate-100);
+      }
+    }
+  }
 }

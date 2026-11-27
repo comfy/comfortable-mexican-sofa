@@ -8,6 +8,6 @@
 
 = comfy_admin_partial "comfy/admin/cms/partials/pages_before"
 
-= render Comfy::Cms::Page::IndexComponent.new(pages: @pages)
+= render Comfy::Cms::Page::IndexItemComponent.with_collection(@pages.tree)
 
 = comfy_admin_partial "comfy/admin/cms/partials/pages_after"

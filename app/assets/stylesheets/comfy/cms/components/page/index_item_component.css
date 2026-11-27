@@ -1,0 +1,30 @@
+comfy--cms--page--index-item-component {
+  .page {
+    background-color: white;
+    border-radius:    0.25rem;
+    display:          flex;
+    align-items:      center;
+    gap:              0.5rem;
+    margin-bottom:    0.5rem;
+    padding:          0.5rem;
+    .toggle svg {
+      height: 1rem;
+    }
+    .icon svg {
+      height: 2rem;
+      color:  var(--gray-500);
+    }
+    .info .url {
+      font-size: var(--font-size-xs);
+    }
+    .links {
+      margin-left: auto;
+      display:     flex;
+      gap:         0.25rem;
+
+    }
+  }
+  .page-children {
+    margin-left: 1.5rem;
+  }
+}

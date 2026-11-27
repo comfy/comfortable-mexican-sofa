@@ -26,6 +26,6 @@ class Comfy::Cms::ButtonComponent < Comfy::BaseComponent
   end
 
   def component_html_options
-    { class: @type.map(&:type) }
+    { class: @type }
   end
 end

@@ -16,7 +16,7 @@ class Comfy::Admin::Cms::PagesController < Comfy::Admin::Cms::BaseController
   def index
     return redirect_to action: :new if site_has_no_pages?
 
-    @pages = @site.pages
+    @pages = @site.pages.includes(:categories)
 
 #     @pages_by_parent = pages_grouped_by_parent
 #

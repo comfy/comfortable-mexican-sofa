@@ -1,19 +1,25 @@
 body#comfy-cms {
   /* -- Color swatches -- */
-  --gray-50:    oklch(.985 .002 247.839);
-  --gray-100:   oklch(.968 .007 247.896);
-  --gray-200:   oklch(.928 .006 264.531);
-  --gray-300:   oklch(.869 .022 252.894);
-  --gray-400:   oklch(.707 .022 261.325);
-  --gray-500:   oklch(.551 .027 264.364);
-  --red-500:    oklch(.637 .237 25.331);
-  --slate-50:   oklch(.984 .003 247.858);
-  --slate-800:  oklch(.279 .041 260.031);
-  --slate-700:  oklch(.372 .044 257.287);
-  --purple-500: oklch(.627 .265 303.9);
+  --gray-50:   oklch(.985 .002 247.839);
+  --gray-100:  oklch(.968 .007 247.896);
+  --gray-200:  oklch(.928 .006 264.531);
+  --gray-300:  oklch(.869 .022 252.894);
+  --gray-400:  oklch(.707 .022 261.325);
+  --gray-500:  oklch(.551 .027 264.364);
+  --gray-700:  oklch(.372 .044 257.287);
+  --red-500:   oklch(.637 .237 25.331);
+  --slate-50:  oklch(.984 .003 247.858);
+  --slate-100: oklch(.968 .007 247.896);
+  --slate-300: oklch(.869 .022 252.894);
+  --slate-500: oklch(.554 .046 257.417);
+  --slate-600: oklch(.446 .043 257.281);
+  --slate-700: oklch(.372 .044 257.287);
+  --slate-800: oklch(.279 .041 260.031);
+
 
   /* -- Typography -- */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  color:       var(--gray-700);
 
   --font-size-3xl:   1.875rem;
   --line-height-3xl: calc(2.25 / 1.875)rem;
